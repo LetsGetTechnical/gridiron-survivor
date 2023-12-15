@@ -35,7 +35,7 @@ export default async function Index() {
         {isSupabaseConnected ? (
           <AuthButton />
         ) : (
-          'Not connected to Supabase. Ensure the NEXT_SUPABASE_URL and NEXT_SUPABAE_ANON_KEY are set in your .local.env file.'
+          'Unable to connect to authentication server. Please try again later.'
         )}
       </nav>
     </div>
