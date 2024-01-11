@@ -2,7 +2,7 @@ name: LGT Docker Build and Push Image
 
 on:
     pull_request:
-        branches: [main]
+        branches: [develop]
 
 jobs:
     build-and-push:
