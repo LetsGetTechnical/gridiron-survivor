@@ -1,0 +1,11 @@
+*.log
+.DS_Store
+CODEOWNERS
+README.md
+*.md
+.git
+.gitignore
+node_modules
+.dockerignore
+.next
+

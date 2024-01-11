@@ -1,0 +1,32 @@
+# Specifies Node Version 18.18.2 & Alpine Linux Version 3.18 OS
+FROM node:18.18.2-alpine3.18
+
+# Application Container Root Directory
+WORKDIR /app
+
+# install pnpm globally inside container only
+RUN npm install -g pnpm
+
+# Copy dependency version files first to utilize dockers layer dependency caching
+COPY package.json pnpm-lock.yaml ./
+
+# install dependencies
+RUN pnpm install
+
+# Copy everything from the current DIR to the container DIR
+COPY . .
+
+# Build the project before starting production mode
+RUN pnpm run build
+
+# Create a non-root user for security purposes
+RUN adduser -D myuser
+
+# Switch to the new user
+USER myuser
+
+# Starts the project
+CMD ["pnpm", "run", "start"]
+
+# Specifies the port the container listens to
+EXPOSE 3000
