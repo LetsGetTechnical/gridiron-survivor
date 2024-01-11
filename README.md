@@ -1,93 +1,91 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# LGT GridIron Project
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+## Table of contents
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+-   [Setup](#setup)
+    -   [Installing Docker](#make-sure-docker-compose-is-installed)
+    -   [Test Docker](#command-to-test-docker-in-your-terminal)
+    -   [Login to Docker Hub](#login-to-docker-hub)
+    -   [Start/Stop Project](#commands-to-start-the-project)
+    -   [Useful Commands](#useful-docker-commands)
 
-## Features
+## Setup
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+### Make sure Docker Compose is installed
 
-## Demo
+For Linux, Mac, and Windows: [Docker Desktop ](https://docs.docker.com/desktop/install/linux-install/)
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+### Command to test Docker in your terminal
 
-## Deploy to Vercel
+Use this command to run Docker hello-world image
 
-Vercel deployment will guide you through creating a Supabase account and project.
+```
+docker run hello-world
+```
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+### Login to github
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This%20starter%20configures%20Supabase%20Auth%20to%20use%20cookies%2C%20making%20the%20user's%20session%20available%20throughout%20the%20entire%20Next.js%20app%20-%20Client%20Components%2C%20Server%20Components%2C%20Route%20Handlers%2C%20Server%20Actions%20and%20Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png&integration-ids=oac_VqOgBHqhEoFTPzGkPd7L0iH6)
+generate a token from github container registry:
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+`github:`
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+-   go to settings
+-   Click on developer settings at the bottom
+-   Click on personal access tokens tab
+-   Click on Tokens (classic)
+-   Click on generate new Token (classic)
+-   Enable the settings: write:packages and delete:packages
+-   Give it a name then generate the token
 
-## Clone and run locally
+Enter your username and token (as a password) using the following flags, either for GitHub Container Registry or Docker
+Hub.
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+```
+echo "YOUR_PERSONAL_ACCESS_TOKEN" | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+```
 
-2. Create a Next.js app using the Supabase Starter template npx command
+## Commands to start the project
 
-   ```bash
-   npx create-next-app -e with-supabase
-   ```
+All the commands you need to start and stop the project are here in this section.
 
-3. Use `cd` to change into the app's directory
+Start the project by using this command to pull the built image and run it in a container:
 
-   ```bash
-   cd name-of-new-app
-   ```
+```
+docker compose up app-dev
+```
 
-4. Rename `.env.local.example` to `.env.local` and update the following:
+Stop the project and remove the container created:
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+```
+docker compose down app-dev
+```
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
+`Note: After running docker compose down the image you pulled will still exist on your local computer`
 
-5. You can now run the Next.js local development server:
+`Note: For production you just replace app-dev with app-prod`
 
-   ```bash
-   npm run dev
-   ```
+## Useful Docker commands
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+See all docker images
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+```
+docker image ls
+```
 
-## Feedback and issues
+See all docker containers
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+```
+docker ps -a
+```
 
-## More Supabase examples
+Remove an image
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+```
+docker rmi image_name_or_ID
+```
+
+Remove a container
+
+```
+docker rm container_name_or_ID
+```
