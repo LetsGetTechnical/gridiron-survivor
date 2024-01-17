@@ -25,18 +25,19 @@ jobs:
                   file: ./Dockerfile.dev
                   push: true
                   tags: ghcr.io/letsgettechnical/image:dev
+  #A workflow is for testing
     tests:
         runs-on: ubuntu-latest
 
         strategy:
-           matrix: 
+          matrix: 
             node-version: [20.x]
 
         steps: 
           - uses: actions/checkout@v2
           - uses: pnpm/action-setup@v2
             with:
-            version: 8
+              version: 8
           - name: Use Node.js ${{ matrix.node-version }}
             uses: actions/setup-node@v3
             with:
