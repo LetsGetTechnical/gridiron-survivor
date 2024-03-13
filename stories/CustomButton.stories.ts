@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from '@storybook/test';
 import { CustomButton } from "../components/CustomButton";
 import { Mail } from "lucide-react";
 import { ChevronRight } from "lucide-react";
@@ -25,7 +26,8 @@ const meta = {
     className: { description: "Optional classname" },
     icon: { description: "Lucide icon" },
     onClick: { description: "Optional click handler" },
-  },
+  }, 
+  args: { onClick: fn() },
 } satisfies Meta<typeof CustomButton>;
 
 export default meta;
