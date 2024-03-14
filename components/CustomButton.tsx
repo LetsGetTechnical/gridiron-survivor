@@ -1,42 +1,45 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { LucideProps } from "lucide-react";
+import { cn } from "../lib/utils";
 
-interface ButtonProps {
-  variant?:
+type ButtonProps = {
+  variant:
     | "default"
     | "secondary"
     | "outline"
     | "ghost"
     | "link"
     | "destructive";
-  size?: "default" | "sm" | "lg" | "icon";
+  size: "default" | "sm" | "lg" | "icon";
   className?: string;
+  onClick?: () => void;
   label?: string;
   icon?: React.ComponentType<LucideProps & { className?: string }>;
-  onClick?: () => void;
-}
+};
 
 export const CustomButton = ({
+  variant,
+  size,
   label,
   icon: IconComponent,
   className,
-  ...props
+  onClick,
 }: ButtonProps) => {
-  let buttonClassName = className || "";
-  let iconClassName = "";
-
-  if (label && IconComponent) {
-    buttonClassName += " mr-2";
-    iconClassName = "mr-2 h-4 w-4";
-  } else if (IconComponent) {
-    iconClassName = "h-4 w-4";
-  }
+  const iconClassName = cn(
+    { "mr-2 h-4 w-4": label && IconComponent },
+    { "h-4 w-4": IconComponent && !label }
+  );
 
   return (
-    <Button {...props} className={buttonClassName}>
+    <Button
+      variant={variant}
+      size={size}
+      onClick={onClick}
+      className={className}
+    >
       {IconComponent && <IconComponent className={iconClassName} />}
-      {label && label}
+      {label}
     </Button>
   );
 };

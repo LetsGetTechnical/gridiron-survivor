@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from '@storybook/test';
+import { fn } from "@storybook/test";
 import { CustomButton } from "../components/CustomButton";
 import { Mail } from "lucide-react";
 import { ChevronRight } from "lucide-react";
@@ -22,11 +22,11 @@ const meta = {
       description: "How large should the button be?",
     },
     variant: { description: "Which type of button?" },
-    label: { description: "Button contents" },
-    className: { description: "Optional classname" },
+    label: { description: "Button text content" },
+    className: { description: "Additional button classname" },
     icon: { description: "Lucide icon" },
-    onClick: { description: "Optional click handler" },
-  }, 
+    onClick: { description: "Click handler" },
+  },
   args: { onClick: fn() },
 } satisfies Meta<typeof CustomButton>;
 
