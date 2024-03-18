@@ -5,7 +5,7 @@ import { Mail } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 
 const meta = {
-  title: "Gridiron Survivor/Button",
+  title: "Components/Button",
   component: CustomButton,
   tags: ["autodocs"],
   parameters: {

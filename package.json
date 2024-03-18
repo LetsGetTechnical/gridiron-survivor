@@ -6,6 +6,7 @@
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watchAll",
+    "storybook-docs": "storybook dev --docs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
