@@ -1,6 +1,7 @@
 import { Meta } from "@storybook/blocks";
 import Image from "next/image";
 
+
 export const RightArrow = () => <svg 
     viewBox="0 0 14 14" 
     width="8px" 
@@ -21,16 +22,45 @@ export const RightArrow = () => <svg
 
 <div className="sb-container">
   <div className='sb-section-title'>
-    <h1>Installation</h1>
+    <h1>Gridiron Survivor Dev Guide</h1>
+    <h2>By: Adam Morsa</h2>
   </div>
 
     <div className="sb-section">
-        <div className="sb-section-item">
-            <h2>How to Play Football Survivor:</h2>
-            <video controls>
-                <source src = "https://www.youtube.com/watch?v=5-1pXrdvZEQ&t=711s&ab_channel=CodingwithShashi" type = "video/mp4"/>
-            </video>
-        </div>
+    <section>
+<h3>Table of Contents</h3>
+      <ol>
+        <li>Getting Started</li>
+        <li>Pushing local branch to remote branch</li>
+        <li>Connecting to Supabase</li>
+        <li>Query Supabase data from Next.js</li>
+      </ol>
+
+<h3>Getting Started</h3>
+<ol>
+  <li>Clone the develop branch to your local machine:</li>
+  <li><code>git clone --single-branch --branch develop https://github.com/LetsGetTechnical/gridiron-survivor.git</code></li>
+  <li>Install the required packages with pnpm (NOT npm or yarn!)</li>
+  <li><code>pnpm install</code></li>
+  <li>Create a new branch for whatever you’re working on in the format firstname/feature-description, then check out your new branch. For example:</li>
+  <li><code>git branch richard/user-picks-page && git checkout richard/user-picks-page</code></li>
+  <li>Code your feature! 🤓</li>
+</ol>
+
+<h3>Pushing local branch to remote branch</h3>
+<ol>
+<li>For the first push from local to remote, use --set-upstream origin along with the name of your local branch, like so:</li>
+<li><code>git push --set-upstream origin richard/user-picks-page</code></li>
+<li>Subsequent pushes will now go to your remote upstream branch.</li>
+</ol>
+
+<h3>Connecting to Supabase</h3>
+
+<ol>
+<li>In the project’s root folder, create an .env.local file:</li>
+<li> </li>
+</ol>
+</section>
     </div>
 </div>
 
