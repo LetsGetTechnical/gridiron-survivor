@@ -1,6 +1,9 @@
 import { Meta } from "@storybook/blocks";
 import Image from "next/image";
 
+import supabase from '../assets/supabase_gridIron.png';
+import server from '../assets/supabase_server.png';
+import client from '../assets/client_component.png';
 
 export const RightArrow = () => <svg 
     viewBox="0 0 14 14" 
@@ -18,25 +21,38 @@ export const RightArrow = () => <svg
   <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z" />
 </svg>
 
-<Meta title="Installation" />
+export const LeftArrow = () => <svg 
+    viewBox="0 0 14 14" 
+    width="8px" 
+    height="14px" 
+    style={{ 
+      marginLeft: '4px',
+      display: 'inline-block',
+      shapeRendering: 'inherit',
+      verticalAlign: 'middle',
+      fill: 'currentColor',
+      'path fill': 'currentColor'
+    }}
+>
+  <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z" />
+</svg>
+
+<Meta title="About/Developer Guide" />
 
 <div className="sb-container">
   <div className='sb-section-title'>
-    <h1>Gridiron Survivor Dev Guide</h1>
-    <h2>By: Adam Morsa</h2>
+    <h1>Developer Guide</h1>
   </div>
-
-    <div className="sb-section">
-    <section>
+ <section>
 <h3>Table of Contents</h3>
       <ol>
-        <li>Getting Started</li>
-        <li>Pushing local branch to remote branch</li>
-        <li>Connecting to Supabase</li>
-        <li>Query Supabase data from Next.js</li>
+        <li><a href = "#started">Getting Started</a></li>
+        <li><a href = "#push">Pushing local branch to remote branch</a></li>
+        <li><a href = "#connect">Connecting to Supabase</a></li>
+        <li><a href = "#query">Query Supabase data from Next.js</a></li>
       </ol>
 
-<h3>Getting Started</h3>
+<h3 id = "started">Getting Started</h3>
 <ol>
   <li>Clone the develop branch to your local machine:</li>
   <li><code>git clone --single-branch --branch develop https://github.com/LetsGetTechnical/gridiron-survivor.git</code></li>
@@ -47,21 +63,39 @@ export const RightArrow = () => <svg
   <li>Code your feature! 🤓</li>
 </ol>
 
-<h3>Pushing local branch to remote branch</h3>
+<h3 id = "push">Pushing local branch to remote branch</h3>
 <ol>
 <li>For the first push from local to remote, use --set-upstream origin along with the name of your local branch, like so:</li>
 <li><code>git push --set-upstream origin richard/user-picks-page</code></li>
 <li>Subsequent pushes will now go to your remote upstream branch.</li>
 </ol>
 
-<h3>Connecting to Supabase</h3>
+<h3 id = "connect">Connecting to Supabase</h3>
 
 <ol>
 <li>In the project’s root folder, create an .env.local file:</li>
-<li> </li>
+<li><Image src = {supabase} alt = {""}/></li>
+<li>Place the following into your .env.local file:</li>
+<li><code>NEXT_PUBLIC_SUPABASE_URL=https://izumnfxsfrtbpyfptbeo.supabase.co</code></li>
+<li><pre><code>NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmF
+zZSIsInJlZiI6Iml6dW1uZnhzZnJ0YnB5ZnB0YmVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzMTA0MjgsImV4cCI6MjAxNjg4N
+jQyOH0.hMNzXxIWrVMJjwwvC0tLuAwHGx8MzBXWIOTlkPTd-N8</code></pre></li>
+
 </ol>
+
+<h3 id = "query">Query Supabase data from Next.js</h3>
+<p>To create a Supabase client and query data from an Async Server Component, create a new page.tsx file like the example below.</p>
+<p>This example queries all entries stored in a hypothetical “notes” table from the database:</p>
+<Image src = {server} alt = {""}/>
+<p>Alternatively, using a Client Component:</p>
+<Image src = {client} alt = {""}/>
 </section>
-    </div>
+
+  <div class = "arw-container">
+    <a href="/?path=/docs/welcome--docs"> &#11164; Welcome</a>
+    <a href="/?path=/docs/about-sponsors--docs">Sponsors &#11166;</a>
+  </div>
+
 </div>
 
 
@@ -69,6 +103,12 @@ export const RightArrow = () => <svg
   {`
   .sb-container {
     margin-bottom: 48px;
+  }
+
+  .arw-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
   }
 
   .sb-section {
