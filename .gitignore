@@ -34,5 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/test-results/
+
+#playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 
 *storybook.log
+

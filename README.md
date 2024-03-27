@@ -103,3 +103,31 @@ Run Storybook in the project root
 ```
 npm run storybook
 ```
+
+## React Testing Library (RTL) && Jest
+
+Install dependencies
+
+```
+pnpm i
+```
+
+Run RTL && Jest in the project root
+
+```
+pnpm test
+```
+
+## Playwright Testing
+
+Install dependencies
+
+```
+pnpm i
+```
+
+Run Playwright in the project root
+
+```
+pnpm playwright test
+```
