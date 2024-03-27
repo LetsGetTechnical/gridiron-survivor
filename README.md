@@ -2,12 +2,12 @@
 
 ## Table of contents
 
--   [Setup](#setup)
-    -   [Installing Docker](#make-sure-docker-compose-is-installed)
-    -   [Test Docker](#command-to-test-docker-in-your-terminal)
-    -   [Login to Docker Hub](#login-to-docker-hub)
-    -   [Start/Stop Project](#commands-to-start-the-project)
-    -   [Useful Commands](#useful-docker-commands)
+- [Setup](#setup)
+  - [Installing Docker](#make-sure-docker-compose-is-installed)
+  - [Test Docker](#command-to-test-docker-in-your-terminal)
+  - [Login to Docker Hub](#login-to-docker-hub)
+  - [Start/Stop Project](#commands-to-start-the-project)
+  - [Useful Commands](#useful-docker-commands)
 
 ## Setup
 
@@ -29,13 +29,13 @@ generate a token from github container registry:
 
 `github:`
 
--   go to settings
--   Click on developer settings at the bottom
--   Click on personal access tokens tab
--   Click on Tokens (classic)
--   Click on generate new Token (classic)
--   Enable the settings: write:packages and delete:packages
--   Give it a name then generate the token
+- go to settings
+- Click on developer settings at the bottom
+- Click on personal access tokens tab
+- Click on Tokens (classic)
+- Click on generate new Token (classic)
+- Enable the settings: write:packages and delete:packages
+- Give it a name then generate the token
 
 Enter your username and token (as a password) using the following flags, either for GitHub Container Registry or Docker
 Hub.
@@ -88,4 +88,18 @@ Remove a container
 
 ```
 docker rm container_name_or_ID
+```
+
+## Storybook
+
+Install dependencies
+
+```
+pmpm i
+```
+
+Run Storybook in the project root
+
+```
+npm run storybook
 ```
