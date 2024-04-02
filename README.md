@@ -126,8 +126,14 @@ Install dependencies
 pnpm i
 ```
 
-Run Playwright in the project root
+Run all Playwright tests
 
 ```
 pnpm playwright test
+```
+
+Run sing Playwright tests
+
+```
+pnpm playwright test (name of file)
 ```
