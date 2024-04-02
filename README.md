@@ -95,7 +95,7 @@ docker rm container_name_or_ID
 Install dependencies
 
 ```
-pmpm i
+pnpm i
 ```
 
 Run Storybook in the project root
