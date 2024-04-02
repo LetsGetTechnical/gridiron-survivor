@@ -27,7 +27,7 @@ jobs:
                   push: true
                   tags: ghcr.io/letsgettechnical/image:dev
   #A workflow is for testing
-    tests:
+    jest-test:
         runs-on: ubuntu-latest
 
         strategy:
@@ -49,17 +49,16 @@ jobs:
           - name: tests
             run: pnpm test   
 #Playwright Testing
-    test:
+    playwright-test:
       timeout-minutes: 60000
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install
       - name: Install Playwright Browsers
         run: pnpm playwright install --with-deps
       - name: Run Playwright tests
