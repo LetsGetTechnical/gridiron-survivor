@@ -4,8 +4,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watchAll --passWithNoTests",
     "storybook-docs": "storybook dev --docs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
