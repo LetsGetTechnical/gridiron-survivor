@@ -13,7 +13,7 @@ jobs:
         node-version: lts/*
     - name: Install dependencies
       run: pnpm install --frozen-lockfile #equivalent to npm ci
-    - name: Install Playwright Browsers
+    - name: Install Playwright Browsers #install browsers
       run: pnpm playwright install --with-deps
     - name: Run Playwright tests
       run: pnpm playwright test
