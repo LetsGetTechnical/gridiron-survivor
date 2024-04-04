@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [ develop]
 jobs:
-  test:
+  playwright-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -12,7 +12,7 @@ jobs:
       with:
         node-version: lts/*
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile #equivalent to npm ci
+      run: npm ci #equivalent to npm ci
     - name: Install Playwright Browsers #install browsers
       run: pnpm playwright install --with-deps
     - name: Run Playwright tests
