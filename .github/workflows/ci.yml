@@ -52,14 +52,14 @@ jobs:
     playwright-test:
       timeout-minutes: 60000
       runs-on: ubuntu-latest
-      
+
       steps:
         - uses: actions/checkout@v4
         - uses: actions/setup-node@v4
           with:
             node-version: ${{ matrix.node-version }}
         - name: Install dependencies
-          run: pnpm ci
+          run: pnpm install --frozen-lockfile #equivalent to npm ci
         - name: Install Playwright Browsers
           run: pnpm playwright install --with-deps
         - name: Run Playwright tests
