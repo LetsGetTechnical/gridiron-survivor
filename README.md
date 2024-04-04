@@ -118,11 +118,11 @@ pnpm test
 Run all Playwright tests
 
 ```
-pnpm playwright test
+pnpm exec playwright test
 ```
 
-Run sing Playwright tests
+Run single Playwright tests
 
 ```
-pnpm playwright test (name of file)
+pnpm exec playwright test (name of file)
 ```
