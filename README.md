@@ -103,3 +103,27 @@ Run Storybook in the project root
 ```
 npm run storybook
 ```
+
+## Prettier
+
+Install dependencies if you have not done so already.
+
+```
+pnpm i
+```
+
+Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+shift+p` on Windows.
+
+> [!IMPORTANT]
+> There may be multiple options, ensure you select the option that says "Open User Settings (JSON)
+
+![Screenshot of VS Code search results for "settings.json" with the User Settings JSON option highlighted.](https://share.cleanshot.com/xzDxnQHp)
+
+Add the following lines to your `settings.json`
+
+```
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+```
+
+Open a file and save it, you should see formatting changes made as soon as you save it!
