@@ -117,7 +117,7 @@ Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+
 > [!IMPORTANT]
 > There may be multiple options, ensure you select the option that says "Open User Settings (JSON)
 
-![Screenshot of VS Code search results for "settings.json" with the User Settings JSON option highlighted.](https://media.cleanshot.cloud/media/29651/cu0AZRDB79fDcMFTlwKi2oflb6xJsE6bz6DDJkV0.png?Expires=1712733698&Signature=K2w6UFCuT4~IgJehpdMyyR~CXwIAG4HzXeNRT1eRVbmpaciBN3vCLG474LyW3o9lheLPVIUW7RhBcMxpXPJr7-uzr6j-~e4E6EGQ4TLyWGwJ2JBoNCf6kdNGF3Oul-YwtE73BO2jFnq3XX3kV9a88vK0FMel4WPVXrP9TjLLPE8VRuloNgxHP1vbFZe6-pi7Wn7t0x7je2hnjIef4FikKoKzJm5aC1JySAH-gnTqD9JrN-R01p3rBN6w92Tb~fQyopC0dqdxSagh88mPIZP9i~SDZD-aNnwSd~Yt85VuB0XbrCJWY6m20MXupLg-fAoeO9sDQ8Eb4ZZHzcv8V4WSVQ__&Key-Pair-Id=K269JMAT9ZF4GZ)
+![Screenshot of VS Code search results for "settings.json" with the User Settings JSON option highlighted.](https://res.cloudinary.com/ryan-furrer/image/upload/v1712793797/Vscode_settings.json_wuoqgc.png)
 
 Add the following lines to your `settings.json`
 
