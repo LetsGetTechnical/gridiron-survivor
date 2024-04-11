@@ -1,0 +1,72 @@
+import Image from "next/image";
+import '../styles.css';
+
+import supabase from '../assets/supabase_gridIron.png';
+import server from '../assets/supabase_server.png';
+import client from '../assets/client_component.png';
+
+## Developer Guide
+
+### Table of Contents
+ - [Getting Started](#getting-started)
+ - [Pushing local branch to remote branch](#pushing-local-branch-to-remote-branch)
+ - [Connecting to Supabase](#connecting-to-supabase)
+ - [Query Supabase data from Next](#query-supabase-data-from-next)
+    
+
+## Getting Started
+
+  <code>git clone --single-branch --branch develop https://github.com/LetsGetTechnical/gridiron-survivor.git</code>
+
+  Install the required packages with pnpm (NOT npm or yarn!)
+
+  <code>pnpm install</code>
+
+  Create a new branch for whatever you’re working on in the format firstname/feature-description, then check out your new branch. For example:
+
+  <code>git branch richard/user-picks-page && git checkout richard/user-picks-page</code>
+  
+  Code your feature! 🤓
+
+## Pushing local branch to remote branch
+
+  For the first push from local to remote, use --set-upstream origin along with the name of your local branch, like so:
+
+  <code>git push --set-upstream origin richard/user-picks-page</code>
+
+  Subsequent pushes will now go to your remote upstream branch.
+
+## Connecting to Supabase
+
+  In the project’s root folder, create an .env.local file:
+
+  <Image src = {supabase} alt = {""}/>
+
+  Place the following into your .env.local file:
+
+  <code>NEXT_PUBLIC_SUPABASE_URL=https://izumnfxsfrtbpyfptbeo.supabase.co</code>
+
+  <code>NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmF
+zZSIsInJlZiI6Iml6dW1uZnhzZnJ0YnB5ZnB0YmVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzMTA0MjgsImV4cCI6MjAxNjg4N
+jQyOH0.hMNzXxIWrVMJjwwvC0tLuAwHGx8MzBXWIOTlkPTd-N8</code>
+
+
+## Query Supabase data from Next
+
+  To create a Supabase client and query data from an Async Server Component, create a new page.tsx file like the example below.
+
+  This example queries all entries stored in a hypothetical “notes” table from the database:
+
+  <Image src = {server} alt = {""}/>
+
+  Alternatively, using a Client Component:
+
+  <Image src = {client} alt = {""}/>
+
+  <ol className = "doc_nav_links">
+    <li>[Welcome](?path=/docs/welcome--docs)</li>
+    <li>[Documents](?path=/docs/documents--docs)</li>
+  </ol>
+
+
+
