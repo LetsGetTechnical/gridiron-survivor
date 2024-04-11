@@ -10,7 +10,7 @@
 		"storybook-docs": "storybook dev --docs",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"lint": "next lint"
+		"lint": "next lint --quiet"
 	},
 	"dependencies": {
 		"@radix-ui/react-slot": "^1.0.2",
@@ -47,6 +47,8 @@
 		"@types/node": "20.3.1",
 		"@types/react": "18.2.8",
 		"@types/react-dom": "18.2.5",
+		"@typescript-eslint/eslint-plugin": "^7.6.0",
+		"@typescript-eslint/parser": "^7.6.0",
 		"encoding": "^0.1.13",
 		"eslint-config-next": "14.1.4",
 		"eslint-plugin-jsx-a11y": "^6.8.0",
