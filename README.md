@@ -128,12 +128,6 @@ pnpm exec playwright test (name of file)
 ```
 ## Prettier
 
-Install dependencies if you have not done so already.
-
-```
-pnpm i
-```
-
 Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+shift+p` on Windows.
 
 > [!IMPORTANT]
