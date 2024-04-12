@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import '../styles.css';
 
 import supabase from '../assets/supabase_gridIron.png';
@@ -57,11 +58,14 @@ jQyOH0.hMNzXxIWrVMJjwwvC0tLuAwHGx8MzBXWIOTlkPTd-N8</code>
 
   This example queries all entries stored in a hypothetical “notes” table from the database:
 
-  <Image src={server} alt={""}/>
-
+  <Link href='https://codepen.io/choir27/pen/zYXaVGY?editors=0010'>
+    <Image src={server} alt={""}/>
+  </Link>
   Alternatively, using a Client Component:
 
+  <Link href = "https://codepen.io/choir27/pen/oNOyrjz?editors=0010">
   <Image src={client} alt={""}/>
+  </Link>
 
   <ol className="doc_nav_links">
     <li>[Welcome](?path=/docs/welcome--docs)</li>
