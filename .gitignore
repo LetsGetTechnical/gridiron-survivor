@@ -35,4 +35,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+#playwright
+/blob-report/
+/playwright/.cache/
+
 *storybook.log
+/blob-report/
+/playwright/.cache/

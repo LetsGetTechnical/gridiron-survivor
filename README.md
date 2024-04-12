@@ -127,3 +127,25 @@ Add the following lines to your `settings.json`
 ```
 
 Open a file and save it, you should see formatting changes made as soon as you save it!
+## React Testing Library (RTL) && Jest
+
+Run RTL && Jest in the project root
+
+```
+pnpm test
+```
+
+## Playwright Testing
+
+
+Run all Playwright tests
+
+```
+pnpm exec playwright test
+```
+
+Run single Playwright tests
+
+```
+pnpm exec playwright test (name of file)
+```
