@@ -9,7 +9,6 @@ export default function Index() {
         {/* <AuthButton /> */}
         <div className="grid gap-4 border rounded border-orange-600 py-10 px-4 w-screen">
           <Button>Custom Default Button</Button>
-          <Button variant={'outline'}>Custom Outline Button</Button>
         </div>
       </nav>
     </div>
