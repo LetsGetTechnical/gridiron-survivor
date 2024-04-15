@@ -42,3 +42,4 @@ next-env.d.ts
 *storybook.log
 /blob-report/
 /playwright/.cache/
+storybook-static/*
