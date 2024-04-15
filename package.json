@@ -8,8 +8,9 @@
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watchAll --passWithNoTests",
     "storybook-docs": "storybook dev --docs",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook": "start-storybook -p 6006 -s public",
+	"build-storybook": "build-storybook -s public",
+	"serve-storybook": "serve storybook-static",
 	"lint": "next lint --quiet"
   },
   "dependencies": {
