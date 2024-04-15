@@ -1,8 +1,8 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
-    "buildCommand": "npm run build-storybook",
-    "devCommand": "npm run storybook",
-    "installCommand": "npm ci",
+    "buildCommand": "pnpm run build-storybook",
+    "devCommand": "pnpm run storybook",
+    "installCommand": "pnpm i",
     "framework": null,
     "outputDirectory": "./storybook-static"
   }
