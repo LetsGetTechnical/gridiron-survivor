@@ -13,7 +13,7 @@ interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
   /**
    * Button contents
    */
@@ -28,8 +28,8 @@ interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const Button = ({
-  primary = false,
-  size = 'medium',
+  primary = true,
+  size = 'default',
   backgroundColor,
   label,
   ...props

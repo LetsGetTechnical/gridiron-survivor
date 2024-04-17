@@ -5,7 +5,7 @@ import { Mail } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 
 const meta = {
-  title: "Components/Button",
+  title: "Components/CustomButton",
   component: CustomButton,
   tags: ["autodocs"],
   parameters: {
