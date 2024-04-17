@@ -1,5 +1,5 @@
 import React from 'react';
-import './button.css';
+import './CustomButton.css';
 
 interface ButtonProps {
   /**
@@ -27,7 +27,7 @@ interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({
+export const CustomButton = ({
   primary = true,
   size = 'default',
   backgroundColor,

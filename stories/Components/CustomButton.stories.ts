@@ -11,7 +11,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "Primary UI component for user interaction",
+        component: `This is deprecated, you should instead look at 'Button'. <del>Primary UI component for user interaction</del>`,
       },
     },
   },
