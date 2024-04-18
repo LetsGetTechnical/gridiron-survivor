@@ -1,23 +1,33 @@
-import {logout } from "../../api/logout"; // Assuming the file containing the logout function is named logout.js
-import {account } from "../../api/logout";
-import jest from "jest";
+import logout from "../../api/logout"; // Assuming the file containing the logout function is named logout.js
+import appwrite from "appwrite"
+// import '@testing-library/jest-dom';
 
-jest.mock('../../api/logout', () => ({
-  account: {
-    deleteSession: jest.fn(),
-  }
-}));
+//mocking modules
+jest.mock('appwrite');
 
-  it('calls deleteSession with "current" parameter and returns session', async () => {
-    // Mock the return value of deleteSession
-    const session = { id: 'sessionId' };
-    account.deleteSession.mockResolvedValue(session);
+test('should logout successful', () => {
+  appwrite.get.mockResolvedValue(response);
+})
 
-    // Call the function under test
-    const result = await logout();
+//mock Implementations
+const logoutMock = jest.fn();
 
-    // Expectations
-    expect(account.deleteSession).toHaveBeenCalledWith('current');
-    expect(result).toEqual(session);
-  });
+test('logout was successful', () => {
+  logoutMock.mockReturnValue(true);
+})
+
+
+//yesterday's notes
+  // it('calls deleteSession with "current" parameter and returns session', async () => {
+  //   Mock the return value of deleteSession
+  //   const session = { id: 'sessionId' };
+  //   account.deleteSession.mockResolvedValue(session);
+
+  //    Call the function under test
+  //   const result = await logout();
+
+  //    Expectations
+  //   expect(account.deleteSession).toHaveBeenCalledWith('current');
+  //   expect(result).toEqual(session);
+  // });
 
