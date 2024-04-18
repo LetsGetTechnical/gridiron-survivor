@@ -2,7 +2,7 @@ import {logout } from "../../api/logout"; // Assuming the file containing the lo
 import {account } from "../../api/logout";
 import jest from "jest";
 
-jest.mock('account', () => ({
+jest.mock('../../api/logout', () => ({
   account: {
     deleteSession: jest.fn(),
   }
