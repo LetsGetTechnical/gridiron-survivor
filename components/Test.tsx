@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { LucideProps } from "lucide-react";
-import { cn } from "../lib/utils";
+import { cn } from "../src/lib/utils";
 
 type ButtonProps = {
   variant:
