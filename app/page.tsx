@@ -1,4 +1,4 @@
-import AuthButton from '../components/AuthButton';
+import AuthButton from "@/components/authbutton/AuthButton";
 
 export default function Index() {
   return (
