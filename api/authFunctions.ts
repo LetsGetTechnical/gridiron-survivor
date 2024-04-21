@@ -1,8 +1,6 @@
 import {account } from "./appwrite"
 import { useRouter } from 'next/navigation';
 
- 
-
    export const logout = async () => {
     try {
       await account.deleteSession('current');
