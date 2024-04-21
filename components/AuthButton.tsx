@@ -1,11 +1,9 @@
-'use client'
-
 import Link from 'next/link';
-
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export default function AuthButton() {
-
+export default async function AuthButton() {
+  const cookieStore = cookies();
   // Assume user is always logged in for demonstration purposes
   const user = { email: 'example@example.com' };
 
