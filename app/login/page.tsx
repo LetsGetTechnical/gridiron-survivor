@@ -1,10 +1,8 @@
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 export default function Login({
-  searchParams,
+  // searchParams,
 }: {
-  searchParams: { message: string };
+  // searchParams: { message: string };
 }) {
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
