@@ -4,7 +4,7 @@ const url = "https://cloud.appwrite.io/v1";
 
 const project = "5df5acd0d48c2";
 
-const client: Client = new Client().setEndpoint(String(url)).setProject(String(project));
+const client: Client = new Client().setEndpoint(url).setProject(project);
 
 const account = new Account(client);
 const database = new Databases(client);
