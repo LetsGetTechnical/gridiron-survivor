@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import { AuthFunctions } from "@/api/AuthFunctions";
+import { AuthFunctions } from "@/api/authFunctions";
 
 export default function Login() {
   const { login } = AuthFunctions(); // Destructure login function from the hook

@@ -1,4 +1,5 @@
-import logout from './AuthFunctions';
+import { logout } from './authFunctions';
+import { useRouter } from 'next/router';
 
 //logout method
 
@@ -6,8 +7,8 @@ describe('Auth Functions', () => {
   // Test the login function
   describe('login', () => {
     test("validate function should pass on correct input", () => {
-      const email = "email@test.com";
-  const password = "password";
+      const email = "testemail@email.com";
+  const password = "test1234";
   
   // Mock the login function
   const mockLogin = jest.fn();
@@ -20,7 +21,8 @@ describe('Auth Functions', () => {
   // Test the logout function
   describe('logout', () => {
     test('should log out successfully', () => {
-      logout()
+      const router = useRouter();
+      logout(router)
     });
    });
 });
