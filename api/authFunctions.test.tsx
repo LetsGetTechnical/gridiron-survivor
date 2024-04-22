@@ -1,4 +1,4 @@
-import { logout} from './AuthFunctions';
+import logout from './AuthFunctions';
 
 //logout method
 

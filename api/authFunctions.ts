@@ -1,16 +1,23 @@
 import { account } from "./config"
 import { useRouter } from 'next/navigation';
+import { useState } from "react";
 
 export const AuthFunctions = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const logout = async () => {
+  const register = async (name: string, email: string, password: string) => {
+    setLoading(true);
     try {
-      await account.deleteSession('current'); 
-      router.push('/');
-    } catch (error) {
-      console.error(error);
-    }
+      const newUser = await account.create(name, email, password);
+      console.log('User registered successfully:', newUser);
+      router.refresh(); // or any other redirection logic
+  } catch (error) {
+      console.error('Error registering user:', error);
+      alert('Failed to register user. Please try again.');
+  } finally {
+      setLoading(false);
+  }
   };
 
   const login = async (email: string, password: string) => {
@@ -22,5 +29,14 @@ export const AuthFunctions = () => {
     }
   };
 
-  return { login, logout };
+  const logout = async () => {
+    try {
+      await account.deleteSession('current'); 
+      router.push('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return { register, login, logout, loading};
 };
