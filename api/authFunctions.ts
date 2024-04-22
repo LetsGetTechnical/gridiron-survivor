@@ -1,5 +1,4 @@
 import { account } from "./config"
-// import { useRouter } from 'next/navigation';
 import { NextRouter } from 'next/router';
 
 
@@ -8,7 +7,7 @@ import { NextRouter } from 'next/router';
       await account.createEmailPasswordSession(email, password);
       router.push('/');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
