@@ -1,7 +1,4 @@
 import { logout } from './authFunctions';
-import { useRouter } from 'next/router';
-
-//logout method
 
 describe('Auth Functions', () => {
   // Test the login function
@@ -21,8 +18,7 @@ describe('Auth Functions', () => {
   // Test the logout function
   describe('logout', () => {
     test('should log out successfully', () => {
-      const router = useRouter();
-      logout(router)
+      logout()
     });
    });
 });
