@@ -1,0 +1,13 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "userAuth.js",
+  "type": "module",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
