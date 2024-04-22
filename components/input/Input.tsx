@@ -5,7 +5,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, value, onChange, ...props }, ref) => {
+  ({ className, ...props }, ref) => {
     return (
       <input
         {...props}
