@@ -1,5 +1,4 @@
-const sdk = require('node-appwrite');
-const { ID } = require("node-appwrite");
+import sdk, { ID } from "node-appwrite";
 
 export default async ({ req, res, log, error }) => {
 
@@ -11,7 +10,7 @@ export default async ({ req, res, log, error }) => {
     client
         .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
         .setProject(process.env.PROJECT_ID) // Your project ID
-        .setKey(process.env.X-Appwrite-Key) // Your secret API key
+        .setKey(process.env.X - Appwrite - Key) // Your secret API key
 
     // get all users
     if (req.method === "GET") {
