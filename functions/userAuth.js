@@ -34,5 +34,4 @@ async ({ req, res, log, error }) => {
     if (req.method === "DELETE") {
 
     }
-    console.log()
 };
