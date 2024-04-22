@@ -1,6 +1,6 @@
 import sdk, { ID } from "appwrite";
 
-export default async ({ req, res, log, error }) => {
+async ({ req, res, log, error }) => {
 
     // Init SDK
     const client = new sdk.Client();
