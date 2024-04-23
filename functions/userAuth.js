@@ -1,5 +1,5 @@
-import sdk, { ID } from "appwrite";
-
+import { ID } from "appwrite";
+import sdk from "node-appwrite"
 async ({ req, res, log, error }) => {
 
     // Init SDK
