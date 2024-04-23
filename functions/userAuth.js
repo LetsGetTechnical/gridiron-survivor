@@ -14,7 +14,7 @@ const user = async ({ req, res, log, error }) => {
         .setKey(process.env.X_Appwrite_Key) // Your secret API key
 
     // create a new user
-    if (req.method === "POST") {
+    if (req.method === "POST" && req.body.email && req.body.email && req.body['$id']) {
         await databases.createDocument(process.env.DATABASE_ID, process.env.COLLECTION_USERS_ID, ID.unique(), {
             "email": req.body.email,
             "name": req.body.name,
