@@ -1,6 +1,7 @@
 import { ID } from "appwrite";
 import sdk from "node-appwrite"
-async ({ req, res, log, error }) => {
+
+const user = async ({ req, res, log, error }) => {
 
     // Init SDK
     const client = new sdk.Client();
@@ -35,3 +36,5 @@ async ({ req, res, log, error }) => {
 
     }
 };
+
+module.exports = user;
