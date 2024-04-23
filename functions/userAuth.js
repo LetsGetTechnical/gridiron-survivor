@@ -20,7 +20,7 @@ const user = async ({ req, res, log, error }) => {
             "name": req.body.name,
             "password": req.body.pasword,
             "labels": req.body.labels,
-            "userId": req.body.userId
+            "userId": req.body.userID
         });
         return res.json({ msg: "User was created successfully!" });
     }
