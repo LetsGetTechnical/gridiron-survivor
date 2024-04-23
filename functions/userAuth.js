@@ -33,7 +33,7 @@ const user = async ({ req, res, log, error }) => {
             "labels": ["user"],
             "userId": ID.unique()
         });
-        res.json({ msg: "User was created successfully!" });
+        return res.json({ msg: "User was created successfully!" });
     }
 
     // delete a user
