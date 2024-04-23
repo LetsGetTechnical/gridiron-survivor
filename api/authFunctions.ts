@@ -1,8 +1,10 @@
 import { account } from "./config"
-import { NextRouter } from 'next/router';
+import { useRouter } from "next/navigation"
+// import { NextRouter } from 'next/router';
 
+const router = useRouter();
 
-  export const login = async (router: NextRouter, email: string, password: string) => {
+  export const login = async (email: string, password: string) => {
     try {
       await account.createEmailPasswordSession(email, password);
       router.push('/');
@@ -11,7 +13,7 @@ import { NextRouter } from 'next/router';
     }
   };
 
- export const logout = async (router: NextRouter) => {
+ export const logout = async () => {
     try {
       await account.deleteSession('current'); 
       router.push('/');
