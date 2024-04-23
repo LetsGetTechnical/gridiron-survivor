@@ -1,24 +1,19 @@
 import { account } from "./config"
-import { useRouter } from "next/navigation"
-// import { NextRouter } from 'next/router';
 
-const router = useRouter();
-
-  export const login = async (email: string, password: string) => {
-    try {
-      await account.createEmailPasswordSession(email, password);
-      router.push('/');
-    } catch (error) {
+export async function loginAccount(user: { email: string; password: string }) {
+  try {
+      const session = await account.createEmailPasswordSession(user.email, user.password);
+      return session;
+  } catch (error) {
       console.error(error);
-    }
-  };
-
- export const logout = async () => {
-    try {
-      await account.deleteSession('current'); 
-      router.push('/');
-    } catch (error) {
+  }
+}
+// Sign out user
+export async function logoutAccount() {
+  try {
+      const result = await account.deleteSession('current');
+      return result;
+  } catch (error) {
       console.error(error);
-    }
-  };
-
+  }
+}
