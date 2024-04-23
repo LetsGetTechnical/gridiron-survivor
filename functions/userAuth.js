@@ -13,17 +13,6 @@ const user = async ({ req, res, log, error }) => {
         .setProject(process.env.PROJECT_ID) // Your project ID
         .setKey(process.env.X_Appwrite_Key) // Your secret API key
 
-    // get all users
-    if (req.method === "GET") {
-
-    }
-
-    // update users <user data>
-
-    if (req.method === "PUT") {
-
-    }
-
     // create a new user
     if (req.method === "POST") {
         await databases.createDocument(process.env.DATABASE_ID, process.env.COLLECTION_USERS_ID, ID.unique(), {
@@ -34,12 +23,6 @@ const user = async ({ req, res, log, error }) => {
             "userId": ID.unique()
         });
         return res.json({ msg: "User was created successfully!" });
-    }
-
-    // delete a user
-
-    if (req.method === "DELETE") {
-
     }
 };
 
