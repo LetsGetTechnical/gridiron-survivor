@@ -16,11 +16,11 @@ const user = async ({ req, res, log, error }) => {
     // create a new user
     if (req.method === "POST") {
         await databases.createDocument(process.env.DATABASE_ID, process.env.COLLECTION_USERS_ID, ID.unique(), {
-            "email": req.query.email,
-            "name": req.query.name,
-            "password": req.query.pasword,
-            "labels": req.query.labels,
-            "userId": req.query.userId
+            "email": req.body.email,
+            "name": req.body.name,
+            "password": req.body.pasword,
+            "labels": req.body.labels,
+            "userId": req.body.userId
         });
         return res.json({ msg: "User was created successfully!" });
     }
