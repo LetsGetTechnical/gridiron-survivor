@@ -1,5 +1,5 @@
-import { ID } from "appwrite";
-import sdk from "node-appwrite"
+const { ID } = require("appwrite");
+const sdk = require("node-appwrite")
 
 const user = async ({ req, res, log, error }) => {
 
