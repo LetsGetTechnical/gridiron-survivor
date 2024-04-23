@@ -1,14 +1,11 @@
-/** @type {import("prettier").Config} */
-const config = {
+module.exports = {
+  printWidth: 80,
   semi: true,
   singleQuote: true,
-  trailingComma: 'all',
-  printWidth: 80,
   tabWidth: 2,
+  trailingComma: 'all',
   plugins: [
-    // Automatically sorts tailwind classes to avoid speceficity issues
+    // Automatically sorts tailwind classes to avoid specificity issues
     'prettier-plugin-tailwindcss', // MUST COME LAST
   ],
 };
-
-export default config;
