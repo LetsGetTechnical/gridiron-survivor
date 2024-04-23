@@ -2,7 +2,7 @@ import { logoutAccount } from './authFunctions';
 
 describe('Auth Functions', () => {
   // Test the login function
-  describe('signInAccount', () => {
+  describe('loginAccount', () => {
     test("validate function should pass on correct input", () => {
       const email = "testemail@email.com";
   const password = "test1234";
