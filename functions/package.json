@@ -1,0 +1,16 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "userAuth.js",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "appwrite": "^14.0.1",
+    "node-appwrite": "^12.0.1"
+  }
+}
