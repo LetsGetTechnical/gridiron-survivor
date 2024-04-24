@@ -24,17 +24,6 @@ const user = async ({ req, res, log, error }) => {
         return res.json({ msg: "User was created successfully!" });
     }
 
-    else if (req.method === "GET") {
-        return res.json({ msg: "GET request was sucessful!" });
-    }
-
-    else if (req.method === "POST") {
-        return res.json({ msg: "POST request was sucessful!" });
-    }
-
-    else if (req.method === "DELETE") {
-        return res.json({ msg: "DELETE request was sucessful!" });
-    }
 };
 
 module.exports = user;
