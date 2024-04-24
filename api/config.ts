@@ -1,10 +1,8 @@
 import { Client, Account} from "appwrite";
 
-const projectID = process.env.PROJECT_ID.toString();
-
 export const appwriteConfig = {
-     url: "https://cloud.appwrite.io/v1",
-     projectId: projectID,
+     url: process.env.PROJECT_URL,
+     projectId: process.env.PROJECT_ID,
    };
    
    export const client = new Client();
