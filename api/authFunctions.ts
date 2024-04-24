@@ -2,8 +2,7 @@ import { account } from "./config"
 
 export async function loginAccount(user: { email: string; password: string }) {
   try {
-      const session = await account.createEmailPasswordSession(user.email, user.password);
-      return session;
+      return await account.createEmailPasswordSession(user.email, user.password);
   } catch (error) {
       console.error(error);
   }
@@ -11,8 +10,7 @@ export async function loginAccount(user: { email: string; password: string }) {
 // Sign out user
 export async function logoutAccount() {
   try {
-      const result = await account.deleteSession('current');
-      return result;
+      return await account.deleteSession('current');
   } catch (error) {
       console.error(error);
   }

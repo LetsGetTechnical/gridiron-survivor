@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
-  const requestUrl = new URL(request.url);
+// export async function GET(request: Request) {
+//   const requestUrl = new URL(request.url);
 
-  return NextResponse.redirect(requestUrl.origin);
-}
+//   return NextResponse.redirect(requestUrl.origin);
+// }

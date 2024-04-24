@@ -5,7 +5,7 @@ describe('Auth Functions', () => {
   describe('loginAccount', () => {
     test("validate function should pass on correct input", () => {
       const email = "testemail@email.com";
-  const password = "test1234";
+      const password = "test1234";
   
   // Mock the login function
   const mockLogin = jest.fn();
