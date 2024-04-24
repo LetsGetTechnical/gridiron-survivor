@@ -1,13 +1,13 @@
-import { Client, Databases, Account, ID, Query, Storage } from "appwrite";
+import { Client, Account} from "appwrite";
 
-const url = "https://cloud.appwrite.io/v1";
+export const appwriteConfig = {
+     url: process.env.PROJECT_URL,
+     projectId: process.env.PROJECT_ID,
+   };
 
-const project = "66246c40e329b9509f71";
+   export const client = new Client();
 
-const client = new Client().setEndpoint(url).setProject(project);
+   client.setEndpoint(appwriteConfig.url);
+   client.setProject(appwriteConfig.projectId);
 
-const account = new Account(client);
-const database = new Databases(client);
-const storage = new Storage(client);
-
-export { client, account, database, storage, Query, ID }
+export const account = new Account(client);
