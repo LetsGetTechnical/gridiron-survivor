@@ -3,12 +3,12 @@ test('get weekly picks mock function', async () => {
     const resp = { data: users };
 
     // Mocking the getWeeklyPicks function
-    jest.mock("./weeklyPicks", () => ({
+    jest.mock("./authFunctions", () => ({
         getWeeklyPicks: jest.fn().mockResolvedValue(resp)
     }));
 
     // Importing the mocked function
-    const { getWeeklyPicks: mockGetWeeklyPicks } = require("./weeklyPicks");
+    const { getWeeklyPicks: mockGetWeeklyPicks } = require("./authFunctions");
 
     // Call the function
     const result = await mockGetWeeklyPicks();

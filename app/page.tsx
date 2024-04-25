@@ -1,8 +1,9 @@
-import AuthButton from '../components/AuthButton';
 import React from "react";
+import { getWeeklyPicks } from "@/api/authFunctions";
 
 export default function Index() {
 
+  getWeeklyPicks()
   return (
     <div className="flex flex-col items-center justify-center flex-1 w-full">
       <nav className="flex flex-col items-center justify-center flex-1 w-full">
