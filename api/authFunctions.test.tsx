@@ -19,19 +19,12 @@ describe('Auth Functions', () => {
 
     //user failed to log in
     it('should send error if user could not log in', async () => {
-      const userDummy = { 
+      const failDummy = { 
           email: "testemil@email.com",
-          password: "tet1234"
+          password: "tet1234679"
       };
-      const error: Error = new Error('User not found');
-  
-      (loginAccount as jest.Mock).mockRejectedValue(error);
-
-      try {
-          await loginAccount(userDummy);
-      } catch (error) {
-          expect((error as Error).message).toEqual('User not found');
-      }
+      await loginAccount(failDummy)
+      expect(loginAccount(failDummy)).rejects.toThrow('error')
   });
   })
 
