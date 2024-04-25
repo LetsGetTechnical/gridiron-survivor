@@ -1,5 +1,4 @@
 .github/
 *.config.js
 .prettierrc.js
-*.json
 *.md
