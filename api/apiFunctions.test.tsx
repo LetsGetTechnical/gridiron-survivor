@@ -11,7 +11,7 @@ describe('Auth Functions', () => {
     it('should show user login successfully', async () => {
       const userDummy = { 
           email: "testemail@email.com",
-          password: "test1234",
+    password: "test1234",
         }
      await loginAccount(userDummy);
       expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
@@ -20,11 +20,11 @@ describe('Auth Functions', () => {
     //user failed to log in
     it('should send error if user could not log in', async () => {
       const failDummy = { 
-          email: "testemil@email.com",
+      email: "testemil@email.com",
           password: "tet1234679"
       };
       await loginAccount(failDummy)
-      expect(loginAccount(failDummy)).rejects.toThrow('error')
+          expect(loginAccount(failDummy)).rejects.toThrow('error')
   });
   })
 
