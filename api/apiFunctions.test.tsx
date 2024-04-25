@@ -1,9 +1,9 @@
- import { loginAccount, logoutAccount } from './authFunctions';
+ import { loginAccount, logoutAccount } from './apiFunctions';
 import { account } from './config';
 
 describe('Auth Functions', () => {
 
-  jest.mock('./authFunctions', () => ({
+  jest.mock('./apiFunctions', () => ({
     loginAccount: jest.fn()
   }))
 
