@@ -7,7 +7,7 @@ export async function loginAccount(user: { email: string; password: string }) {
       console.error(error);
   }
 }
-// Sign out user
+
 export async function logoutAccount() {
   try {
       return await account.deleteSession('current');
