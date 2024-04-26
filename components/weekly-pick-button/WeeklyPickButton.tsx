@@ -2,32 +2,25 @@ import Image from 'next/image';
 import { Label } from './Label';
 import { RadioGroup, RadioGroupItem } from './RadioGroup';
 
-export const WeeklyPickButton = () => {
+type WeeklyPickButtonProps = {
+  team: string;
+  src: string;
+};
+
+const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({ team, src }) => {
   return (
-    <RadioGroup className="grid w-full grid-cols-2 gap-4">
+    <RadioGroup>
       <div className="flex items-center">
-        <RadioGroupItem value="Ravens" id="option-one" />
-        <Label htmlFor="option-one">
-          <Image
-            src="/assets/team-ravens.svg"
-            alt="football"
-            width={48}
-            height={48}
-            priority
-          />
-          Ravens
+        <RadioGroupItem value={team} id="ravens" />
+        <Label htmlFor="ravens">
+          <Image src={src} alt={team} width={48} height={48} priority />
+          {team}
         </Label>
       </div>
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <RadioGroupItem value="option-two" id="option-two" />
         <Label htmlFor="option-two">
-          <Image
-            src="/assets/team-ravens.svg"
-            alt="football"
-            width={48}
-            height={48}
-            priority
-          />
+          <Image src={src} alt={team} width={48} height={48} priority />
           Ravens
         </Label>
       </div>
@@ -43,7 +36,9 @@ export const WeeklyPickButton = () => {
           />
           Three
         </Label>
-      </div>
+      </div> */}
     </RadioGroup>
   );
 };
+
+export { WeeklyPickButton };
