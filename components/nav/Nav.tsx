@@ -1,10 +1,9 @@
 import React from 'react';
 import LogoNav from '../logonav/LogoNav';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '../button/Button';
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
