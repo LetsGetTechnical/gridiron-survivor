@@ -11,7 +11,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '../nav-drawer/drawer';
+} from '../nav-drawer/NavDrawer';
 
 export const Nav = () => {
   return (
@@ -21,22 +21,19 @@ export const Nav = () => {
       </div>
       <ul>
         <li>
-          <Drawer direction="right">
+          <Drawer>
             <DrawerTrigger>
               <Menu />
             </DrawerTrigger>
-            <DrawerContent className="left-auto right-0 top-0 mt-0 h-screen w-4/5 gap-4 rounded-none border-l border-zinc-100 px-4 dark:border-zinc-800">
-              <DrawerHeader className="h-16 items-center px-0">
-                <div className="flex">
-                  <div className="mr-auto">
-                    <p className="font-bold">Gridiron Survivor</p>
-                  </div>
-                  <DrawerTrigger>
-                    <X />
-                  </DrawerTrigger>
-                </div>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
-              <Button label="Sign Out" />
+              <ul className="flex flex-col gap-4">
+                <li>
+                  <Button label="Sign Out" />
+                </li>
+              </ul>
             </DrawerContent>
           </Drawer>
         </li>
