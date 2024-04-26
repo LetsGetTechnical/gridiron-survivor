@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 const withRadioGroup: Decorator = (Story) => (
   <RadioGroup>
     <Story />
+    <WeeklyPickButton team="Cowboys" src="/assets/team-cowboys.svg" />
   </RadioGroup>
 );
 
