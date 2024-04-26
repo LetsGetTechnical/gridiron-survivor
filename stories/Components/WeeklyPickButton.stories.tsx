@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react';
 import { WeeklyPickButton } from '../../components/weekly-pick-button/WeeklyPickButton';
+import { RadioGroup } from '../../components/weekly-pick-button/RadioGroup';
 
 const meta = {
   title: 'Components/WeeklyPickButton',
@@ -21,9 +22,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const withRadioGroup: Decorator = (Story) => (
+  <RadioGroup>
+    <Story />
+  </RadioGroup>
+);
+
 export const Primary: Story = {
   args: {
     team: 'Ravens',
     src: '/assets/team-ravens.svg',
   },
+  decorators: withRadioGroup,
 };
