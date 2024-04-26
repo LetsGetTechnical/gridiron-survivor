@@ -45,7 +45,7 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed inset-x-0 bottom-0 left-auto right-0 top-0 z-50 mt-0 flex h-auto w-4/5 flex-col gap-4 rounded-none border-l border-zinc-100 bg-background px-4 dark:border-zinc-800',
+        'fixed inset-x-0 bottom-0 left-auto right-0 top-0 z-50 mt-0 flex h-auto w-4/5 flex-col gap-4 rounded-none border-l border-zinc-100 bg-background px-4 dark:border-zinc-800 md:w-2/5 lg:w-1/5',
         className,
       )}
       {...props}
@@ -95,9 +95,9 @@ const DrawerTitle = React.forwardRef<
       {...props}
     />
 
-    <DrawerTrigger>
+    <DrawerClose>
       <X />
-    </DrawerTrigger>
+    </DrawerClose>
   </div>
 ));
 DrawerTitle.displayName = DrawerPrimitive.Title.displayName;

@@ -6,8 +6,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -29,9 +27,13 @@ export const Nav = () => {
               <DrawerHeader>
                 <DrawerTitle>Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
-              <ul className="flex flex-col gap-4">
+              <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
-                  <Button label="Sign Out" />
+                  <Button
+                    className="p-0 text-base font-normal text-zinc-600"
+                    variant="link"
+                    label="Sign Out"
+                  />
                 </li>
               </ul>
             </DrawerContent>
