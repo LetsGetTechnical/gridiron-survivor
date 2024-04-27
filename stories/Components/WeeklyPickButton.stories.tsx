@@ -9,7 +9,7 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Displays the Gridiron Survivor logo',
+        component: 'Button for weekly team selection',
       },
     },
   },
