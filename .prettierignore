@@ -1,4 +1,5 @@
-# .github/
-# *.config.js
-# .prettierrc.js
-# *.md
+.github/
+*.config.js
+.prettierrc.js
+*.md
+settings.json
