@@ -4,9 +4,10 @@ export default function Index() {
 
   getWeeklyPicks()
   return (
-    <div className="flex flex-col items-center justify-center flex-1 w-full">
-      <nav className="flex flex-col items-center justify-center flex-1 w-full">
-        <p className='pb-4'>Gridiron Survivor</p>
+    <div className="flex w-full flex-1 flex-col items-center justify-center">
+      <nav className="flex w-full flex-1 flex-col items-center justify-center">
+        <p>Gridiron Survivor</p>
+        <AuthButton />
       </nav>
     </div>
   );

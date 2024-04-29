@@ -1,12 +1,10 @@
-'use client'; //client component since nextjs are automatically serverside components
-
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-
-export default function AuthButton() {
- 
-  //Assume user is always logged in for demonstration purposes
+export default async function AuthButton() {
+  const cookieStore = cookies();
+  // Assume user is always logged in for demonstration purposes
   const user = { email: 'example@example.com' };
 
   const signOut = async () => {
@@ -14,7 +12,6 @@ export default function AuthButton() {
     // For example, clear cookies or session variables
     return redirect('/login');
   };
-
 
   return user ? (
     <div className="flex items-center gap-4">
@@ -29,8 +26,5 @@ export default function AuthButton() {
     <Link href="/login" className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
       Login
     </Link>
-      );
+  );
 }
-
-//  export default AuthButton;
-
