@@ -16,4 +16,4 @@ const meta: Meta<typeof Drawer> = {
 } satisfies Meta<typeof Drawer>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Drawer = StoryObj<typeof meta>;
