@@ -39,18 +39,17 @@ describe('Auth Functions', () => {
   });
 });
 
-
 test('get weekly picks mock function', async () => {
   const users = { userId: '66174f2362ec891167be' };
   const resp = { data: users };
 
   // Mocking the getWeeklyPicks function
-  jest.mock("./apiFunctions", () => ({
-      getWeeklyPicks: jest.fn().mockResolvedValue(resp)
+  jest.mock('./apiFunctions', () => ({
+    getWeeklyPicks: jest.fn().mockResolvedValue(resp),
   }));
 
   // Importing the mocked function
-  const { getWeeklyPicks: mockGetWeeklyPicks } = require("./apiFunctions");
+  const { getWeeklyPicks: mockGetWeeklyPicks } = require('./apiFunctions');
 
   // Call the function
   const result = await mockGetWeeklyPicks();

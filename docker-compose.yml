@@ -4,7 +4,7 @@ services:
   app-dev:
     image: ghcr.io/letsgettechnical/image:dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
     environment:
@@ -13,7 +13,6 @@ services:
   app-prod:
     image: ghcr.io/letsgettechnical/image:prod
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=production
-

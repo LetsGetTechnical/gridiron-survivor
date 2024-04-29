@@ -1,8 +1,7 @@
-import { getWeeklyPicks } from "../api/apiFunctions";
+import { getWeeklyPicks } from '../api/apiFunctions';
 
 export default function Index() {
-
-  getWeeklyPicks()
+  getWeeklyPicks();
   return (
     <div className="flex w-full flex-1 flex-col items-center justify-center">
       <nav className="flex w-full flex-1 flex-col items-center justify-center">
