@@ -1,6 +1,6 @@
 import type { Decorator, Meta, StoryObj } from '@storybook/react';
-import { WeeklyPickButton } from '../../components/weekly-pick-button/WeeklyPickButton';
-import { RadioGroup } from '../../components/weekly-pick-button/RadioGroup';
+import { WeeklyPickButton } from './WeeklyPickButton';
+import { RadioGroup } from '../RadioGroup/RadioGroup';
 
 const meta = {
   title: 'Components/WeeklyPickButton',

@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Label } from './Label';
-import { RadioGroupItem } from './RadioGroup';
+import { Label } from '../Label/Label';
+import { RadioGroupItem } from '../RadioGroup/RadioGroup';
 
 type WeeklyPickButtonProps = {
   team: string;

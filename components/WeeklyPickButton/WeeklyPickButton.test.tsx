@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { WeeklyPickButton } from './WeeklyPickButton';
-import { RadioGroup } from './RadioGroup';
+import { RadioGroup } from '../RadioGroup/RadioGroup';
 
 describe('WeeklyPickButton', () => {
   it('renders correctly', () => {
