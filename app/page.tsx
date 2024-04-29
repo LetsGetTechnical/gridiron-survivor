@@ -1,4 +1,3 @@
-import React from "react";
 import { getWeeklyPicks } from "@/api/authFunctions";
 
 export default function Index() {
