@@ -1,12 +1,13 @@
-import { getWeeklyPicks } from "../api/apiFunctions";
+import AuthButton from '../components/AuthButton';
+import React from "react";
 
 export default function Index() {
-
-  getWeeklyPicks()
+  
   return (
-    <div className="flex w-full flex-1 flex-col items-center justify-center">
-      <nav className="flex w-full flex-1 flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center flex-1 w-full">
+      <nav className="flex flex-col items-center justify-center flex-1 w-full">
         <p>Gridiron Survivor</p>
+        <AuthButton />
       </nav>
     </div>
   );
