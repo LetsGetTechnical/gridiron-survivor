@@ -1,10 +1,10 @@
-'use client'; //client component since nextjs are automatically serverside components
-
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export default function AuthButton() {
-  //Assume user is always logged in for demonstration purposes
+export default async function AuthButton() {
+  const cookieStore = cookies();
+  // Assume user is always logged in for demonstration purposes
   const user = { email: 'example@example.com' };
 
   const signOut = async () => {
@@ -32,5 +32,3 @@ export default function AuthButton() {
     </Link>
   );
 }
-
-//  export default AuthButton;
