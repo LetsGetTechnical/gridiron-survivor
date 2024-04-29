@@ -1,4 +1,4 @@
-import { getWeeklyPicks } from "@/api/authFunctions";
+import { getWeeklyPicks } from "../api/apiFunctions";
 
 export default function Index() {
 
