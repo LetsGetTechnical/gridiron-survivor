@@ -74,7 +74,3 @@
     @apply bg-background text-foreground;
   }
 } */
-
-.debug {
-  outline: 2px solid red;
-}

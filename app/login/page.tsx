@@ -33,7 +33,7 @@ export default function Login({
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       router.push('/weeklyPicks');
     }
   }, [isLoggedIn]);
@@ -78,7 +78,7 @@ export default function Login({
             />
             <Button
               label="Continue"
-              disabled={!email || !password}
+              disabled={!email && !password}
               onClick={handleLogin}
             />
             <Link href="/register">Sign up to get started with a league</Link>
