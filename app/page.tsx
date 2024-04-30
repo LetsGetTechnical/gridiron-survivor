@@ -1,4 +1,3 @@
-import AuthButton from '../components/AuthButton';
 import { getUserWeeklyPick } from "../api/apiFunctions";
 
 export default function Index() {
