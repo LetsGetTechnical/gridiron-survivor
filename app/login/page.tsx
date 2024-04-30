@@ -1,10 +1,10 @@
 'use client';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
 import { redirect, useRouter } from 'next/navigation';
-import Logo from '@/components/logo/Logo';
+import Logo from '@/components/Logo/Logo';
 import logo from '/public/assets/logo-colored-outline.svg';
-import { Input } from '@/components/input/Input';
+import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { loginAccount } from '@/api/apiFunctions';
 
@@ -29,6 +29,14 @@ export default function Login({
     loginAccount({ email, password });
     router.push('/weeklyPicks');
   };
+
+  useEffect(() => {
+    const isLoggedIn = true;
+
+    if (isLoggedIn) {
+      router.push('/weeklyPicks');
+    }
+  }, []);
 
   return (
     <div className="h-screen w-full">
