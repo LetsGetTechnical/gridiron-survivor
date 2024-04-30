@@ -1,5 +1,15 @@
 import { loginAccount, logoutAccount } from './apiFunctions';
 import { account } from './config';
+const apiFunctions = require("./apiFunctions");
+
+jest.mock("./apiFunctions", ()=> {
+  const actualModule = jest.requireActual("./apiFunctions");
+  return {
+    ...actualModule,
+    createWeeklyPicks: jest.fn(),
+    getWeeklyPicks: jest.fn()
+  }
+})
 
 describe('Auth Functions', () => {
   jest.mock('./apiFunctions', () => ({
@@ -40,21 +50,28 @@ describe('Auth Functions', () => {
 });
 
 
-test('get weekly picks mock function', async () => {
-  const users = { userId: '66174f2362ec891167be' };
-  const resp = { data: users };
+describe("Get Weekly Picks Mock function", () => {
+  it('should mock getWeeklyPicks function', async () => {
+    const users = { userId: '66174f2362ec891167be' };
+    const resp = { data: users };  
 
-  // Mocking the getWeeklyPicks function
-  jest.mock("./apiFunctions", () => ({
-      getWeeklyPicks: jest.fn().mockResolvedValue(resp)
-  }));
+    apiFunctions.getWeeklyPicks.mockResolvedValue(resp);
 
-  // Importing the mocked function
-  const { getWeeklyPicks: mockGetWeeklyPicks } = require("./apiFunctions");
+    const result = await apiFunctions.getWeeklyPicks();
 
-  // Call the function
-  const result = await mockGetWeeklyPicks();
-
-  // Assertions
-  expect(result).toEqual(resp); // Check if the result matches the expected response
+    expect(result).toEqual(resp);
+  });
 });
+describe("Create Weekly Picks Mock Function", () => {
+  it("should mock createWeeklyPicks function", async () => {
+    const users = { userId: "662812635f10f3ec3c17", survivor: true};
+    const resp = {data: users};
+
+    apiFunctions.createWeeklyPicks.mockResolvedValue(resp);
+
+    const result = await apiFunctions.createWeeklyPicks({userId: "662812635f10f3ec3c17", survivor: true, documentID: "6621b335c21daa646ab0"})
+
+    expect(result).toEqual(resp);
+
+  })
+})
