@@ -20,7 +20,7 @@ export const Nav = () => {
         <li>
           <Drawer>
             <DrawerTrigger>
-              <Menu />
+              <Menu color="white" />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
