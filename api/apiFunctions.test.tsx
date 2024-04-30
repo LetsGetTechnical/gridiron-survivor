@@ -57,7 +57,7 @@ describe("Get Weekly Picks Mock function", () => {
 
     apiFunctions.getUserWeeklyPick.mockResolvedValue(resp);
 
-    const result = await apiFunctions.getUserWeeklyPick({userId: '66281d5ec5614f76bc91', weekNumber: 1});
+    const result = await apiFunctions.getUserWeeklyPick({userId: '66281d5ec5614f76bc91', weekNumber: "6622c75658b8df4c4612"});
 
     expect(result).toEqual(resp);
   });

@@ -16,7 +16,7 @@ export async function logoutAccount() {
   }
 }
 
-export async function getUserWeeklyPick(data: {userId: string, weekNumber: number}) {
+export async function getUserWeeklyPick(data: {userId: string, weekNumber: string}) {
     try {
         const response = await databases.listDocuments(appwriteConfig.databaseId, "66313025000612a5380e");
         return JSON.parse(response.documents[0].userResults)[data.userId];
