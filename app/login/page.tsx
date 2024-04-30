@@ -16,13 +16,14 @@ export default function Login({
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
 
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
+  const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
   };
 
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
+  const handlePassword = (event: ChangeEvent<HTMLInputElement>): void => {
+    setPassword(event.target.value);
   };
 
   const handleLogin = () => {
@@ -31,8 +32,6 @@ export default function Login({
   };
 
   useEffect(() => {
-    const isLoggedIn = true;
-
     if (isLoggedIn) {
       router.push('/weeklyPicks');
     }
@@ -78,7 +77,7 @@ export default function Login({
             />
             <Button
               label="Continue"
-              disabled={!email || !password}
+              disabled={!email && !password}
               onClick={handleLogin}
             />
             <Link href="/register">Sign up to get started with a league</Link>
