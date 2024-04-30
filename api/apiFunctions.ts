@@ -1,5 +1,4 @@
-import { ID } from 'appwrite';
-import { account, databases } from './config';
+import { account, databases, ID } from './config';
 
 export async function loginAccount(user: { email: string; password: string }) {
   try {
