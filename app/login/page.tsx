@@ -1,23 +1,13 @@
 'use client';
-<<<<<<< HEAD
 import { useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
 import { redirect, useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
-=======
-import { useState, ChangeEvent } from 'react';
-import Link from 'next/link';
-import { redirect, useRouter } from 'next/navigation';
-import Logo from '@/components/logo/Logo';
->>>>>>> 7ace5e5 (added in login functionality)
 import logo from '/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { loginAccount } from '@/api/apiFunctions';
-<<<<<<< HEAD
 import { account } from '@/api/config';
-=======
->>>>>>> 7ace5e5 (added in login functionality)
 
 export default function Login({
   searchParams,
@@ -27,7 +17,6 @@ export default function Login({
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-<<<<<<< HEAD
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -49,22 +38,6 @@ export default function Login({
     }
   }, [isLoggedIn]);
 
-=======
-
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = () => {
-    loginAccount({ email, password });
-    router.push('/weeklyPicks');
-  };
-
->>>>>>> 7ace5e5 (added in login functionality)
   return (
     <div className="h-screen w-full">
       <div className="grid h-screen w-full grid-cols-2 bg-gradient-to-b from-[#4E160E] to-zinc-950">
