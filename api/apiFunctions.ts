@@ -16,10 +16,10 @@ export async function logoutAccount() {
   }
 }
 
-export async function getUserWeeklyPick(userId: string, weekNumber: number) {
+export async function getUserWeeklyPick(data: {userId: string, weekNumber: number}) {
     try {
-        const data = await databases.listDocuments(appwriteConfig.databaseId, "66313025000612a5380e");
-        return JSON.parse(data.documents[0].userResults)[userId];
+        const response = await databases.listDocuments(appwriteConfig.databaseId, "66313025000612a5380e");
+        return JSON.parse(response.documents[0].userResults)[data.userId];
     } catch (err) {
         console.error(err);
     }
