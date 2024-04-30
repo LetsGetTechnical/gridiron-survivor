@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoNav from '../rf-logo-nav/LogoNav';
+import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
 import {
@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '../rf-navdrawer/NavDrawer';
+} from '../NavDrawer/NavDrawer';
 
 export const Nav = () => {
   return (
