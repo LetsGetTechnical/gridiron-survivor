@@ -7,6 +7,12 @@ import logo from '/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { loginAccount } from '@/api/apiFunctions';
+import { account } from '@/api/config';
+
+interface User {
+  email: string;
+  password: string;
+}
 
 export default function Login({
   searchParams,
@@ -16,7 +22,7 @@ export default function Login({
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
@@ -26,16 +32,20 @@ export default function Login({
     setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
-    loginAccount({ email, password });
-    router.push('/weeklyPicks');
+  const handleLogin = async () => {
+    // const user: User = { email, password };
+    // await loginAccount(user);
+    // setIsLoggedIn(true);
+
+    const user = await loginAccount({ email, password });
+    setIsLoggedIn((await account.get()) as any);
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
       router.push('/weeklyPicks');
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className="h-screen w-full">
