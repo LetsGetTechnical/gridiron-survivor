@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
   try {
@@ -6,12 +6,13 @@ export async function middleware(request: NextRequest) {
       request: {
         headers: request.headers,
       },
-    });
+    })
   } catch (e) {
+
     return NextResponse.next({
       request: {
         headers: request.headers,
       },
-    });
+    })
   }
 }
