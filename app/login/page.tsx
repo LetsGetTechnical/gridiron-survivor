@@ -59,29 +59,11 @@ export default function Login({
               Join Gridiron Survivor
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
-              <Link href="/register">
-                Log in to your existing account or sign up to get started with a
-                league
-              </Link>
+              Log in to your existing account or sign up to get started with a
+              league
             </p>
-            <Input
-              type="email"
-              value={email}
-              placeholder="Email"
-              onChange={handleEmail}
-            />
-            <Input
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={handlePassword}
-            />
-            <Button
-              label="Continue"
-              disabled={!email && !password}
-              onClick={handleLogin}
-            />
-            <Link href="/register">Sign up to get started with a league</Link>
+            <Input placeholder="Email" />
+            <Button label="Continue" />
           </div>
         </div>
       </div>
