@@ -1,9 +1,10 @@
-import { loginAccount, logoutAccount } from './apiFunctions';
+import { loginAccount, logoutAccount, registerAccount } from './apiFunctions';
 import { account } from './config';
 
 describe('Auth Functions', () => {
   jest.mock('./apiFunctions', () => ({
     loginAccount: jest.fn(),
+    registerAccount: jest.fn(),
   }));
 
   describe('login account successful', () => {
@@ -37,6 +38,41 @@ describe('Auth Functions', () => {
       expect(account.deleteSession).toHaveBeenCalledTimes(1);
     });
   });
+
+  account.create = jest.fn();
+  describe('register account successful', () => {
+    it('Should allow a user to register an account', async () => {
+      const userDummy = {
+        email: 'testemail0@email.com',
+        password: 'test12345',
+      };
+      const response = await registerAccount(userDummy);
+      expect(account.create).toHaveBeenCalledWith(
+        expect.any(String),
+        userDummy.email,
+        userDummy.password,
+      );
+    });
+  });
+});
+
+test('get weekly picks mock function', async () => {
+  const users = { userId: '66174f2362ec891167be' };
+  const resp = { data: users };
+
+  // Mocking the getWeeklyPicks function
+  jest.mock('./apiFunctions', () => ({
+    getWeeklyPicks: jest.fn().mockResolvedValue(resp),
+  }));
+
+  // Importing the mocked function
+  const { getWeeklyPicks: mockGetWeeklyPicks } = require('./apiFunctions');
+
+  // Call the function
+  const result = await mockGetWeeklyPicks();
+
+  // Assertions
+  expect(result).toEqual(resp); // Check if the result matches the expected response
 });
 
 
