@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from "@storybook/test";
+import { fn } from '@storybook/test';
 import { Button } from './Button';
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<typeof Button> = {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -17,14 +17,14 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     size: {
       options: ['default', 'sm', 'lg', 'icon'],
-      control: {type: 'radio'},
-      description: "How large should the button be?",
+      control: { type: 'radio' },
+      description: 'How large should the button be?',
     },
     variant: {
-      description: 'Which type of button?'
+      description: 'Which type of button?',
     },
-    label: { description: "Button text content" },
-    onClick: { description: "Click handler" },
+    label: { description: 'Button text content' },
+    onClick: { description: 'Click handler' },
   },
   args: { onClick: fn() },
 } satisfies Meta<typeof Button>;
@@ -36,7 +36,6 @@ export const Default: Story = {
   args: {
     variant: 'default',
     size: 'default',
-    label: "Click Me",
+    label: 'Click Me',
   },
-  
 };
