@@ -9,11 +9,6 @@ import { Button } from '@/components/Button/Button';
 import { loginAccount } from '@/api/apiFunctions';
 import { account } from '@/api/config';
 
-interface User {
-  email: string;
-  password: string;
-}
-
 export default function Login({
   searchParams,
 }: {
@@ -33,10 +28,6 @@ export default function Login({
   };
 
   const handleLogin = async () => {
-    // const user: User = { email, password };
-    // await loginAccount(user);
-    // setIsLoggedIn(true);
-
     const user = await loginAccount({ email, password });
     setIsLoggedIn((await account.get()) as any);
   };
