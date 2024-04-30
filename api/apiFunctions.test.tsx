@@ -62,6 +62,7 @@ describe("Get Weekly Picks Mock function", () => {
     expect(result).toEqual(resp);
   });
 });
+
 describe("Create Weekly Picks Mock Function", () => {
   it("should mock createWeeklyPicks function", async () => {
     const users = { team: '66218f22b40deef340f8', correct: false };
@@ -69,7 +70,7 @@ describe("Create Weekly Picks Mock Function", () => {
 
     apiFunctions.createWeeklyPicks.mockResolvedValue(resp);
 
-    const result = await apiFunctions.createWeeklyPicks({gameWeekId: "6622c7596558b090872b",gameId: "66311a210039f0532044", userResults: "{\"66281d5ec5614f76bc91\":{\"team\":\"66218f22b40deef340f8\",\"correct\":false},\"6628077faeeedd272637\":{\"team\":\"6621b30ea57bd075e9d3\",\"correct\":false}, \"66174f2362ec891167be\":{\"team\": \"6621b30ea57bd075e9d3\", \"correct\":true}}"})
+    const result = await apiFunctions.createWeeklyPicks({gameWeekId: "6622c7596558b090872b",gameId: "66311a210039f0532044", userResults: "{\"66281d5ec5614f76bc91\":{\"team\":\"66218f22b40deef340f8\",\"correct\":false},\"6628077faeeedd272637\":{\"team\":\"6621b30ea57bd075e9d3\",\"correct\":false}, \"66174f2362ec891167be\":{\"team\": \"6621b30ea57bd075e9d3\", \"correct\":true}}"});
 
     expect(result).toEqual(resp);
 
