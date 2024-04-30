@@ -40,7 +40,6 @@ describe('Auth Functions', () => {
   });
 
   account.create = jest.fn();
-
   describe('register account successful', () => {
     it('Should allow a user to register an account', async () => {
       const userDummy = {
