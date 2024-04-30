@@ -17,24 +17,15 @@ export async function logoutAccount() {
   }
 }
 
-export async function POST(request: Request): Promise<Response> {
-  const { email, password } = await request.json();
+export async function registerAccount(request: {
+  email: string;
+  password: string;
+}) {
+  const { email, password } = request;
 
   try {
-    const response = await account.create(ID.unique(), email, password);
-
-    return new Response(JSON.stringify(response), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return await account.create(ID.unique(), email, password);
   } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    console.error(error);
   }
 }
