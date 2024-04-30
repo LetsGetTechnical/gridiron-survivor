@@ -7,7 +7,7 @@ jest.mock("./apiFunctions", ()=> {
   return {
     ...actualModule,
     createWeeklyPicks: jest.fn(),
-    getWeeklyPicks: jest.fn()
+    getUserWeeklyPick: jest.fn()
   }
 })
 
@@ -52,24 +52,24 @@ describe('Auth Functions', () => {
 
 describe("Get Weekly Picks Mock function", () => {
   it('should mock getWeeklyPicks function', async () => {
-    const users = { userId: '66174f2362ec891167be' };
+    const users = {$id: '663130a100297f77c3c8' };
     const resp = { data: users };  
 
-    apiFunctions.getWeeklyPicks.mockResolvedValue(resp);
+    apiFunctions.getUserWeeklyPick.mockResolvedValue(resp);
 
-    const result = await apiFunctions.getWeeklyPicks();
+    const result = await apiFunctions.getUserWeeklyPick('66281d5ec5614f76bc91', 1);
 
     expect(result).toEqual(resp);
   });
 });
 describe("Create Weekly Picks Mock Function", () => {
   it("should mock createWeeklyPicks function", async () => {
-    const users = { userId: "662812635f10f3ec3c17", survivor: true};
+    const users = { team: '66218f22b40deef340f8', correct: false };
     const resp = {data: users};
 
     apiFunctions.createWeeklyPicks.mockResolvedValue(resp);
 
-    const result = await apiFunctions.createWeeklyPicks({userId: "662812635f10f3ec3c17", survivor: true, documentID: "6621b335c21daa646ab0"})
+    const result = await apiFunctions.createWeeklyPicks({gameWeekId: "6622c7596558b090872b",gameId: "66311a210039f0532044", userResults: "{\"66281d5ec5614f76bc91\":{\"team\":\"66218f22b40deef340f8\",\"correct\":false},\"6628077faeeedd272637\":{\"team\":\"6621b30ea57bd075e9d3\",\"correct\":false}, \"66174f2362ec891167be\":{\"team\": \"6621b30ea57bd075e9d3\", \"correct\":true}}"})
 
     expect(result).toEqual(resp);
 
