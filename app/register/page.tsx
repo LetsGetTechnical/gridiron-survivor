@@ -7,9 +7,9 @@ import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/Button/Button';
 import { loginAccount, registerAccount } from '@/api/apiFunctions';
+import { account } from '@/api/config';
 
 import logo from '/public/assets/logo-colored-outline.svg';
-import { Models } from 'appwrite';
 
 export default function () {
   const router = useRouter();
@@ -47,21 +47,37 @@ export default function () {
   const handleRegister = async () => {
     try {
       await registerAccount({ email, password });
+
+      await loginAccount({ email, password });
+
+      setIsLoggedIn(true);
+      router.push('/weeklyPicks');
     } catch (error) {
-      if (error) return error;
-    } finally {
-      loginAccount({ email, password });
-      if (isLoggedIn) {
-        router.push('/weeklyPicks');
-      }
+      console.error('Registration Failed');
+      setIsLoggedIn(false);
     }
   };
+
+  useEffect(() => {
+    const getSession = () => {
+      try {
+        const session = localStorage.getItem('cookieFallback');
+        if (session) setIsLoggedIn(true);
+      } catch (error) {
+        console.error(
+          'Why did the fantasy football team go to the bank? To get their quarterback!',
+        );
+      }
+    };
+
+    getSession();
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
       router.push('/weeklyPicks');
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className="h-screen w-full">
@@ -81,9 +97,11 @@ export default function () {
         <div className="grid place-content-center bg-white p-8">
           <div className="mx-auto grid w-80 place-content-center gap-4">
             <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
-              Register a new account
+              Register A New Account
             </h1>
-
+            <p className="pb-4 font-normal leading-7 text-zinc-500">
+              <Link href="/login">If you have an existing account Login!</Link>
+            </p>
             <Input
               type="email"
               value={email}
@@ -107,6 +125,7 @@ export default function () {
               disabled={handleDisabled()}
               onClick={handleRegister}
             />
+            <Link href="/login">Login to get started playing</Link>
           </div>
         </div>
       </div>

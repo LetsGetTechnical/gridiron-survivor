@@ -41,7 +41,6 @@ export async function registerAccount(request: {
   try {
     return await account.create(ID.unique(), email, password);
   } catch (error: any) {
-    console.error(error);
     throw error;
   }
 }
