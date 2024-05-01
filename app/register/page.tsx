@@ -48,7 +48,7 @@ export default function () {
     try {
       await registerAccount({ email, password });
     } catch (error) {
-      console.error(error);
+      if (error) return error;
     } finally {
       loginAccount({ email, password });
       if (isLoggedIn) {
