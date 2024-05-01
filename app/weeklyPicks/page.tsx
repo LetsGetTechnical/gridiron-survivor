@@ -81,13 +81,16 @@ export default function WeeklyPickForm() {
     try {
       const teamSelect = data.type.toLowerCase();
 
-      localStorage.setItem('team', data.type);
       let correct = false;
 
       if (teamSelect === 'vikings') {
         correct = true;
       } else if (teamSelect === 'cowboys') {
         correct = false;
+      }
+
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('team', data.type);
       }
 
       const user = await account.get();
@@ -112,6 +115,12 @@ export default function WeeklyPickForm() {
     }
   }
 
+  const grabCache = () => {
+    if (typeof window !== 'undefined') {
+      return window.localStorage.getItem('team');
+    }
+  };
+
   return (
     <section className="w-full pt-8">
       <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
@@ -130,11 +139,7 @@ export default function WeeklyPickForm() {
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    defaultValue={
-                      weeklyPicks
-                        ? weeklyPicks.teamName
-                        : localStorage.getItem('team')
-                    }
+                    defaultValue={grabCache() || ''}
                   >
                     <FormItem>
                       <FormControl>
