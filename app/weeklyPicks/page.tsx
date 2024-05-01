@@ -9,21 +9,33 @@ import {account} from "../../api/config"
 export default function WeeklyPick(){
 
   // {gameId: string, gameWeekId: string, userResults: string}
-    const [userResults, setUserResults] = useState("");
+  const [userResults, setUserResults] = useState("");
 
     return (
-    <section className="items-center flex flex-col gap-8 pt-8 w-[48rem]">
-      <h1 className="font-bold text-white text-[2rem]">Your pick sheet</h1>
-          <RadioGroup className="max-w-full" aria-checked="true" data-state="checked" tabIndex={0}>
-            <WeeklyPickButton team="Vikings" src="https://cdn.worldvectorlogo.com/logos/minnesota-vikings-2.svg" />
+    <section className="pt-8 w-[48rem]">
+      <h1 className="font-bold text-white text-[2rem] text-center pb-8">Your pick sheet</h1>
 
-            <WeeklyPickButton team="Cowboys" src="https://cdn.worldvectorlogo.com/logos/dallas-cowboys-1.svg"/>
-          </RadioGroup>
-          <Button label="Submit Button" onClick={async()=>{
-            const data = await getUserWeeklyPick({userId: "66281d5ec5614f76bc91", weekNumber: "6622c75658b8df4c4612"});
+      <form id="" name="" className="w-[48rem] items-center flex flex-col gap-8" onSubmit={async()=>{
             const result = await account.get();
-            console.log(result);
-          }}/>
+            const response = await getUserWeeklyPick({userId: result.$id, weekNumber: "6622c75658b8df4c4612"})
+            // createWeeklyPicks();
+            console.log(document.querySelectorAll("[aria-label]"))
+          }}>
+
+          <RadioGroup className="max-w-full">
+            <WeeklyPickButton team="Vikings" src="https://cdn.worldvectorlogo.com/logos/minnesota-vikings-2.svg"
+            onClick={()=>setUserResults("Vikings")}/>
+
+            <WeeklyPickButton team="Cowboys" src="https://cdn.worldvectorlogo.com/logos/dallas-cowboys-1.svg"
+            onClick={()=>setUserResults("Cowboys")}
+
+            />
+          </RadioGroup>
+
+
+          <Button label="Submit Button" typeof="submit"/>
+      </form>
+
       </section>
     );
   };

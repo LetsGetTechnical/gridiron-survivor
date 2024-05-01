@@ -10,6 +10,7 @@ export async function loginAccount(user: { email: string; password: string }) {
 
 export async function logoutAccount() {
   try {
+    localStorage.clear();
     return await account.deleteSession('current');
   } catch (error) {
     console.error(error);

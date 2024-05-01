@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
@@ -9,8 +10,18 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../NavDrawer/NavDrawer';
+import {logoutAccount} from "../../api/apiFunctions"
+import { useRouter } from 'next/navigation';
 
 export const Nav = () => {
+
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logoutAccount();
+    router.push('/login');
+  };
+
   return (
     <nav className="flex h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b">
       <div className="mr-auto">
@@ -32,6 +43,7 @@ export const Nav = () => {
                     className="p-0 text-base font-normal text-zinc-600"
                     variant="link"
                     label="Sign Out"
+                    onClick={()=>{handleLogout()}}
                   />
                 </li>
               </ul>

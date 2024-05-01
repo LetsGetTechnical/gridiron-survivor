@@ -7,7 +7,7 @@ describe('WeeklyPickButton', () => {
   it('renders correctly', () => {
     render(
       <RadioGroup>
-        <WeeklyPickButton team="Test Team" src="/path/to/image.svg" />
+        <WeeklyPickButton team="Test Team" src="/path/to/image.svg"/>
       </RadioGroup>,
     );
 
