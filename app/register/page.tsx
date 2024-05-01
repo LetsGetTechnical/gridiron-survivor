@@ -7,11 +7,10 @@ import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/Button/Button';
 import { loginAccount, registerAccount } from '@/api/apiFunctions';
-import { account } from '@/api/config';
 
 import logo from '/public/assets/logo-colored-outline.svg';
 
-export default function () {
+export default function Register() {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -53,7 +52,7 @@ export default function () {
       setIsLoggedIn(true);
       router.push('/weeklyPicks');
     } catch (error) {
-      console.error('Registration Failed');
+      console.error('Registration Failed', error);
       setIsLoggedIn(false);
     }
   };
@@ -64,9 +63,7 @@ export default function () {
         const session = localStorage.getItem('cookieFallback');
         if (session) setIsLoggedIn(true);
       } catch (error) {
-        console.error(
-          'Why did the fantasy football team go to the bank? To get their quarterback!',
-        );
+        console.error(error);
       }
     };
 
