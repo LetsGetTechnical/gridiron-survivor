@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { Button } from '../../components/Button/Button';
-import { getUserWeeklyPick, createWeeklyPicks } from '@/api/apiFunctions';
+import { getUserWeeklyPick, createWeeklyPicks, getNFLTeams } from '@/api/apiFunctions';
 import { account } from '../../api/config';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -28,20 +28,49 @@ const FormSchema = z.object({
 
 export default function WeeklyPickForm() {
   // {gameId: string, gameWeekId: string, userResults: string}
-  const [userResults, setUserResults] = useState('');
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2));
+    const teamSelect = data.type.toLowerCase();
 
-    const result = await account.get();
+    let correct = false;
+
+    if(teamSelect === "vikings"){
+      correct = true;
+    }else if(teamSelect === "cowboys"){
+      correct = false;
+    }
+
+    const teams = await getNFLTeams();
+
+    if(teams){
+      
+    const user = await account.get();
     const response = await getUserWeeklyPick({
-      userId: result.$id,
+      userId: user.$id,
       weekNumber: '6622c75658b8df4c4612',
     });
+
+    console.log(response[user.$id]);
+
+      const findTeamID = teams.documents.find((ele)=>ele.teamName===teamSelect);
+
+      response[user.$id] = {"team": findTeamID?.$id, "correct": correct};
+
+    const weeklyPick = {
+      gameId: "66311a210039f0532044",
+      gameWeekId: "6622c7596558b090872b",
+      userResults: JSON.stringify(response)
+    };
+
+    createWeeklyPicks(weeklyPick);
+  }
+
+
+
     // createWeeklyPicks();
     // console.log(document.querySelectorAll('[aria-label]'));
   }

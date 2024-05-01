@@ -17,10 +17,20 @@ export async function logoutAccount() {
   }
 }
 
+
+export async function getNFLTeams() {
+  try {
+      return await databases.listDocuments(appwriteConfig.databaseId, "662152bfabacfbda3bb3");
+  } catch (err) {
+      console.error(err);
+  }
+}
+
+
 export async function getUserWeeklyPick(data: {userId: string, weekNumber: string}) {
     try {
         const response = await databases.listDocuments(appwriteConfig.databaseId, "66313025000612a5380e");
-        return JSON.parse(response.documents[0].userResults)[data.userId];
+        return JSON.parse(response.documents[0].userResults);
     } catch (err) {
         console.error(err);
     }
