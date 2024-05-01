@@ -71,7 +71,6 @@ export default function WeeklyPickForm() {
                         <WeeklyPickButton
                           team="Vikings"
                           src="https://cdn.worldvectorlogo.com/logos/minnesota-vikings-2.svg"
-                          onClick={() => setUserResults('Vikings')}
                         />
                       </FormControl>
                     </FormItem>
@@ -80,7 +79,6 @@ export default function WeeklyPickForm() {
                         <WeeklyPickButton
                           team="Cowboys"
                           src="https://cdn.worldvectorlogo.com/logos/dallas-cowboys-1.svg"
-                          onClick={() => setUserResults('Cowboys')}
                         />
                       </FormControl>
                     </FormItem>
