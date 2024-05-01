@@ -17,7 +17,7 @@ export default function Login({
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);

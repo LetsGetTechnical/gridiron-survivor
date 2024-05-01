@@ -5,7 +5,6 @@ export async function loginAccount(user: { email: string; password: string }) {
     return await account.createEmailPasswordSession(user.email, user.password);
   } catch (error) {
     console.error(error);
-    throw error;
   }
 }
 
