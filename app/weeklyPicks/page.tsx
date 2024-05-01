@@ -8,7 +8,7 @@ import {
   getUserWeeklyPick,
   createWeeklyPicks,
   getNFLTeams,
-} from '@/api/apiFunctions';
+} from '../../api/apiFunctions';
 import { account } from '../../api/config';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -21,9 +21,7 @@ import {
   FormMessage,
 } from '../../components/Form/Form';
 
-/////// Edit to include the list of teams or from the API: ///////
 const teams = ['Vikings', 'Cowboys'] as const;
-//////////////////////////////////////////////////////////////////
 
 const FormSchema = z.object({
   type: z.enum(teams, {
@@ -81,14 +79,6 @@ export default function WeeklyPickForm() {
     try {
       const teamSelect = data.type.toLowerCase();
 
-      let correct = false;
-
-      if (teamSelect === 'vikings') {
-        correct = true;
-      } else if (teamSelect === 'cowboys') {
-        correct = false;
-      }
-
       if (typeof window !== 'undefined') {
         window.localStorage.setItem('team', data.type);
       }
@@ -103,15 +93,15 @@ export default function WeeklyPickForm() {
         (ele) => ele.teamName.toLowerCase() === teamSelect,
       );
 
-      response[user.$id] = { team: findTeamID?.$id, correct: correct };
+      response[user.$id] = { team: findTeamID?.$id, correct: true };
 
       createWeeklyPicks({
         gameId: '66311a210039f0532044',
         gameWeekId: '6622c7596558b090872b',
         userResults: JSON.stringify(response),
       });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   }
 

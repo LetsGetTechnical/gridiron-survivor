@@ -30,14 +30,14 @@ export default function Login({
   const handleLogin = async () => {
     await loginAccount({ email, password });
     setIsLoggedIn((await account.get()) as any);
-    const data =  await account.get();
-    localStorage.setItem("id", data.$id);
+    const data = await account.get();
+    localStorage.setItem('id', data.$id);
   };
 
   useEffect(() => {
     if (isLoggedIn) {
       router.push('/weeklyPicks');
-    }else{
+    } else {
       router.push('/login');
     }
   }, [isLoggedIn]);

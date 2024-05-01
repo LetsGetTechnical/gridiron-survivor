@@ -10,21 +10,9 @@ export async function loginAccount(user: { email: string; password: string }) {
 
 export async function logoutAccount() {
   try {
-    localStorage.clear();
     return await account.deleteSession('current');
   } catch (error) {
     console.error(error);
-  }
-}
-
-export async function getNFLTeams() {
-  try {
-    return await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '662152bfabacfbda3bb3',
-    );
-  } catch (err) {
-    console.error(err);
   }
 }
 
@@ -37,9 +25,20 @@ export async function getUserWeeklyPick(data: {
       appwriteConfig.databaseId,
       '66313025000612a5380e',
     );
-    return JSON.parse(response.documents[0].userResults);
-  } catch (err) {
-    console.error(err);
+    return JSON.parse(response.documents[0].userResults)[data.userId];
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getNFLTeams() {
+  try {
+    return await databases.listDocuments(
+      appwriteConfig.databaseId,
+      '662152bfabacfbda3bb3',
+    );
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -68,7 +67,7 @@ export async function createWeeklyPicks(data: {
       '663130a100297f77c3c8',
       data,
     );
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
   }
 }
