@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+/functions/node_modules
 /node_modules
 /.pnp
 .pnp.js
@@ -35,4 +36,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+#playwright
+/blob-report/
+/playwright/.cache/
+
 *storybook.log
+/blob-report/
+/playwright/.cache/
+storybook-static/*
+
+.vscode
