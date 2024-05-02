@@ -87,19 +87,13 @@ export default function WeeklyPickForm() {
       );
 
       let appendNewResult;
-      if (
-        userId &&
-        userPick?.search(userId) &&
-        userPick?.search(userId) != -1
-      ) {
-        console.error('You already picked a team');
+
+      const newObj = `"${userId}":{"team":"${findTeamID?.$id}","correct":true}`;
+
+      if (allPicks === null) {
+        appendNewResult = `{${newObj}}`;
       } else {
-        const newObj = `"${userId}":{"team":"${findTeamID?.$id}","correct":true}`;
-        if (allPicks === null) {
-          appendNewResult = `{${newObj}}`;
-        } else {
-          appendNewResult = `{${allPicks},${newObj}}`;
-        }
+        appendNewResult = `{${allPicks},${newObj}}`;
       }
 
       createWeeklyPicks({
