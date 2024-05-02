@@ -59,8 +59,9 @@ export default function WeeklyPickForm() {
           setUserPick(userPickedTeam);
         }
 
-        if (allPicks?.documents[0].userResults != '')
+        if (allPicks?.documents[0].userResults != '') {
           setAllPicks(allPicks?.documents[0].userResults);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -86,7 +87,11 @@ export default function WeeklyPickForm() {
       );
 
       let appendNewResult;
-      if (userPick?.search(userId!) && userPick?.search(userId!) != -1) {
+      if (
+        userId &&
+        userPick?.search(userId) &&
+        userPick?.search(userId) != -1
+      ) {
         console.error('You already picked a team');
       } else {
         const newObj = `"${userId}":{"team":"${findTeamID?.$id}","correct":true}`;
