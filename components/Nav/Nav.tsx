@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 export const Nav = () => {
   const router = useRouter();
 
+  //grab session storage
   const handleLogout = async () => {
     try {
       await logoutAccount();
