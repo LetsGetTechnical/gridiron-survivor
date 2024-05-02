@@ -12,18 +12,21 @@ import {
 } from '../NavDrawer/NavDrawer';
 import {logoutAccount} from "../../api/apiFunctions"
 import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export const Nav = () => {
-
   const router = useRouter();
+  const pathname = usePathname();
 
+  console.log(pathname)
   const handleLogout = async () => {
     await logoutAccount();
     router.push('/login');
   };
 
   return (
-    <nav className="flex h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b">
+    <nav className={cn("h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b", pathname === '/login' || pathname == '/register' ? 'hidden' : 'flex')}>
       <div className="mr-auto">
         <LogoNav />
       </div>

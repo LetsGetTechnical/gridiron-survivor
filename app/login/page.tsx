@@ -1,13 +1,13 @@
 'use client';
 import { useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
-import { redirect, useRouter } from 'next/navigation';
+import {  useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { loginAccount } from '@/api/apiFunctions';
-import { account } from '@/api/config';
+
 
 export default function Login({
   searchParams,
