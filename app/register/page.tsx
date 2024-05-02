@@ -60,6 +60,7 @@ export default function Register() {
   useEffect(() => {
     const getSession = () => {
       try {
+        setIsLoggedIn(false);
         const session = localStorage.getItem('cookieFallback');
         if (session) setIsLoggedIn(true);
       } catch (error) {
