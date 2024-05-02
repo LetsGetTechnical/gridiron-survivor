@@ -8,6 +8,7 @@ import {
   getUserWeeklyPick,
   createWeeklyPicks,
   getNFLTeams,
+  getAllWeeklyPicks,
 } from '../../api/apiFunctions';
 import { account } from '../../api/config';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -31,41 +32,38 @@ const FormSchema = z.object({
 
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
-  const [weeklyPicks, setWeeklyPicks] = useState<Models.Document>();
-
-  // TODO: Combining both use Effects into one call
-  useEffect(() => {
-    async function fetchNFLTeams() {
-      const data = await getNFLTeams();
-      if (data) {
-        const response = data.documents;
-        setNFLTeams(response);
-      }
-    }
-
-    fetchNFLTeams();
-  }, []);
+  const [userPick, setUserPick] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [allPicks, setAllPicks] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchWeeklyPicks() {
-      const user = await account.get();
+      try {
+        const allPicks = await getAllWeeklyPicks();
 
-      const userPicks = await getUserWeeklyPick({
-        userId: user.$id,
-        weekNumber: '6622c75658b8df4c4612',
-      });
+        const data: any = await getNFLTeams();
 
-      const nflTeams = await getNFLTeams();
+        const response = data.documents;
+        setNFLTeams(response);
 
-      if (nflTeams && userPicks) {
-        const userResponse = userPicks;
-        const nflResponse = nflTeams.documents;
+        const user = await account.get();
 
-        const findTeam = nflResponse.find(
-          (team) => team.$id === userResponse[user.$id].team,
-        );
+        setUserId(user.$id);
 
-        setWeeklyPicks(findTeam);
+        const userPickedTeam = await getUserWeeklyPick({
+          userId: user.$id,
+          weekNumber: '6622c75658b8df4c4612',
+        });
+
+        if (userPickedTeam) {
+          setUserPick(userPickedTeam);
+        }
+
+        if (allPicks?.documents[0].userResults != '') {
+          setAllPicks(allPicks?.documents[0].userResults);
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
 
@@ -84,22 +82,24 @@ export default function WeeklyPickForm() {
         window.localStorage.setItem('team', data.type);
       }
 
-      const user = await account.get();
-      const response = await getUserWeeklyPick({
-        userId: user.$id,
-        weekNumber: '6622c75658b8df4c4612',
-      });
-
       const findTeamID = NFLTeams.find(
         (ele) => ele.teamName.toLowerCase() === teamSelect,
       );
 
-      response[user.$id] = { team: findTeamID?.$id, correct: true };
+      let appendNewResult;
+
+      const newObj = `"${userId}":{"team":"${findTeamID?.$id}","correct":true}`;
+
+      if (allPicks === null) {
+        appendNewResult = `{${newObj}}`;
+      } else {
+        appendNewResult = `{${allPicks},${newObj}}`;
+      }
 
       createWeeklyPicks({
         gameId: '66311a210039f0532044',
         gameWeekId: '6622c7596558b090872b',
-        userResults: JSON.stringify(response),
+        userResults: appendNewResult!,
       });
     } catch (error) {
       console.error(error);
