@@ -98,7 +98,7 @@ export default function Register() {
               Register A New Account
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
-              If you have an existing account
+              If you have an existing account{' '}
               <Link href="/login" className="hover:text-orange-600">
                 Login!
               </Link>
