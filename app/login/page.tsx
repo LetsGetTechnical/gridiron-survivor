@@ -28,13 +28,15 @@ export default function Login({
   };
 
   const handleLogin = async () => {
-    const user = await loginAccount({ email, password });
+    await loginAccount({ email, password });
     setIsLoggedIn((await account.get()) as any);
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       router.push('/weeklyPicks');
+    } else {
+      router.push('/login');
     }
   }, [isLoggedIn]);
 
@@ -59,10 +61,11 @@ export default function Login({
               Join Gridiron Survivor
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
-              <Link href="/register">
-                Log in to your existing account or sign up to get started with a
-                league
-              </Link>
+              Log in to your existing account or{' '}
+              <Link href="/register" className="underline">
+                sign up
+              </Link>{' '}
+              to get started with a league
             </p>
             <Input
               type="email"
@@ -81,7 +84,9 @@ export default function Login({
               disabled={!email && !password}
               onClick={handleLogin}
             />
-            <Link href="/register">Sign up to get started with a league</Link>
+            <Link href="/register" className="underline">
+              Sign up to get started with a league
+            </Link>
           </div>
         </div>
       </div>
