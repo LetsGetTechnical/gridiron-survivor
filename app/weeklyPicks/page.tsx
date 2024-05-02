@@ -31,23 +31,17 @@ const FormSchema = z.object({
 
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
-  const [weeklyPicks, setWeeklyPicks] = useState<Models.Document>();
+  const [weeklyPicks, setWeeklyPicks] = useState<Models.Document | undefined>();
 
-  // TODO: Combining both use Effects into one call
   useEffect(() => {
-    async function fetchNFLTeams() {
+    async function fetchWeeklyPicks() {
       const data = await getNFLTeams();
+
       if (data) {
         const response = data.documents;
         setNFLTeams(response);
       }
-    }
 
-    fetchNFLTeams();
-  }, []);
-
-  useEffect(() => {
-    async function fetchWeeklyPicks() {
       const user = await account.get();
 
       const userPicks = await getUserWeeklyPick({
@@ -55,11 +49,9 @@ export default function WeeklyPickForm() {
         weekNumber: '6622c75658b8df4c4612',
       });
 
-      const nflTeams = await getNFLTeams();
-
-      if (nflTeams && userPicks) {
+      if (data && userPicks) {
         const userResponse = userPicks;
-        const nflResponse = nflTeams.documents;
+        const nflResponse = data.documents;
 
         const findTeam = nflResponse.find(
           (team) => team.$id === userResponse[user.$id].team,
