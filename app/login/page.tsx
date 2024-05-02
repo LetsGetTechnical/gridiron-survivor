@@ -60,10 +60,7 @@ export default function Login({
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               Log in to your existing account or{' '}
-              <Link href="/register" className="underline">
-                sign up
-              </Link>{' '}
-              to get started with a league
+              <Link href="/register">sign up</Link> to get started with a league
             </p>
             <Input
               type="email"
