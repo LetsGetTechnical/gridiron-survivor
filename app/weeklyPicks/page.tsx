@@ -86,7 +86,7 @@ export default function WeeklyPickForm() {
       );
 
       let appendNewResult;
-      if (userPick?.search(userId) && userPick?.search(userId) != -1) {
+      if (userPick?.search(userId!) && userPick?.search(userId!) != -1) {
         console.error('You already picked a team');
       } else {
         const newObj = `"${userId}":{"team":"${findTeamID?.$id}","correct":true}`;
@@ -100,7 +100,7 @@ export default function WeeklyPickForm() {
       createWeeklyPicks({
         gameId: '66311a210039f0532044',
         gameWeekId: '6622c7596558b090872b',
-        userResults: appendNewResult,
+        userResults: appendNewResult!,
       });
     } catch (error) {
       console.error(error);
