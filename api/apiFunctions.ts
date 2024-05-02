@@ -26,8 +26,19 @@ export async function getUserWeeklyPick(data: {
       '66313025000612a5380e',
     );
     return JSON.parse(response.documents[0].userResults)[data.userId];
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getNFLTeams() {
+  try {
+    return await databases.listDocuments(
+      appwriteConfig.databaseId,
+      '662152bfabacfbda3bb3',
+    );
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -56,7 +67,7 @@ export async function createWeeklyPicks(data: {
       '663130a100297f77c3c8',
       data,
     );
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
   }
 }
