@@ -17,7 +17,11 @@ export default function Login({
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  let session: any;
+
+  if (typeof window !== 'undefined') {
+    session = window.localStorage.getItem('cookieFallback');
+  }
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
@@ -28,19 +32,19 @@ export default function Login({
   };
 
   const handleLogin = async () => {
-    await loginAccount({ email, password });
-    setIsLoggedIn((await account.get()) as any);
-    const data = await account.get();
-    localStorage.setItem('id', data.$id);
+    try {
+      await loginAccount({ email, password });
+      router.push('/weeklyPicks');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (session) {
       router.push('/weeklyPicks');
-    } else {
-      router.push('/login');
     }
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <div className="h-screen w-full">
