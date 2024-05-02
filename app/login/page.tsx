@@ -1,13 +1,12 @@
 'use client';
 import { useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
-import {  useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { loginAccount } from '@/api/apiFunctions';
-
 
 export default function Login({
   searchParams,
@@ -41,7 +40,7 @@ export default function Login({
   };
 
   useEffect(() => {
-    if (session) {
+    if (session != '[]') {
       router.push('/weeklyPicks');
     }
   }, []);
