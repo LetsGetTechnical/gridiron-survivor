@@ -98,7 +98,10 @@ export default function Register() {
               Register A New Account
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
-              <Link href="/login">If you have an existing account Login!</Link>
+              If you have an existing account{' '}
+              <Link href="/login" className="hover:text-orange-600">
+                Login!
+              </Link>
             </p>
             <Input
               type="email"
@@ -123,7 +126,9 @@ export default function Register() {
               disabled={handleDisabled()}
               onClick={handleRegister}
             />
-            <Link href="/login">Login to get started playing</Link>
+            <Link href="/login" className="hover:text-orange-600">
+              Login to get started playing
+            </Link>
           </div>
         </div>
       </div>

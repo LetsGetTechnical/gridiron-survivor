@@ -63,10 +63,11 @@ export default function Login({
               Join Gridiron Survivor
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
-              <Link href="/register">
-                Log in to your existing account or sign up to get started with a
-                league
-              </Link>
+              Log in to your existing account or{' '}
+              <Link href="/register" className="hover:text-orange-600">
+                sign up
+              </Link>{' '}
+              to get started with a league
             </p>
             <Input
               type="email"
@@ -85,7 +86,9 @@ export default function Login({
               disabled={!email && !password}
               onClick={handleLogin}
             />
-            <Link href="/register">Sign up to get started with a league</Link>
+            <Link href="/register" className="hover:text-orange-600">
+              Sign up to get started with a league
+            </Link>
           </div>
         </div>
       </div>
