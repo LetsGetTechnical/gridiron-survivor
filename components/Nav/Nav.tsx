@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
@@ -10,16 +10,19 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../NavDrawer/NavDrawer';
-import {logoutAccount} from "../../api/apiFunctions"
+import { logoutAccount } from '../../api/apiFunctions';
 import { useRouter } from 'next/navigation';
 
 export const Nav = () => {
-
   const router = useRouter();
 
   const handleLogout = async () => {
-    await logoutAccount();
-    router.push('/login');
+    try {
+      await logoutAccount();
+      router.push('/login');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -43,7 +46,9 @@ export const Nav = () => {
                     className="p-0 text-base font-normal text-zinc-600"
                     variant="link"
                     label="Sign Out"
-                    onClick={()=>{handleLogout()}}
+                    onClick={() => {
+                      handleLogout();
+                    }}
                   />
                 </li>
               </ul>
