@@ -41,7 +41,7 @@ export default function WeeklyPickForm() {
       try {
         const allPicks = await getAllWeeklyPicks();
 
-        const data = await getNFLTeams();
+        const data: any = await getNFLTeams();
 
         const response = data.documents;
         setNFLTeams(response);
