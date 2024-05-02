@@ -60,7 +60,10 @@ export default function Login({
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               Log in to your existing account or{' '}
-              <Link href="/register">sign up</Link> to get started with a league
+              <Link href="/register" className="hover:text-orange-600">
+                sign up
+              </Link>{' '}
+              to get started with a league
             </p>
             <Input
               type="email"
@@ -79,7 +82,7 @@ export default function Login({
               disabled={!email && !password}
               onClick={handleLogin}
             />
-            <Link href="/register" className="underline">
+            <Link href="/register" className="hover:text-orange-600">
               Sign up to get started with a league
             </Link>
           </div>

@@ -99,7 +99,7 @@ export default function Register() {
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               If you have an existing account
-              <Link href="/login" className="underline">
+              <Link href="/login" className="hover:text-orange-600">
                 Login!
               </Link>
             </p>
@@ -126,7 +126,7 @@ export default function Register() {
               disabled={handleDisabled()}
               onClick={handleRegister}
             />
-            <Link href="/login" className="underline">
+            <Link href="/login" className="hover:text-orange-600">
               Login to get started playing
             </Link>
           </div>
