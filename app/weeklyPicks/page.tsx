@@ -54,8 +54,6 @@ export default function WeeklyPickForm() {
           userId: user.$id,
           weekNumber: '6622c75658b8df4c4612',
         });
-        //6632c52ead510c046b56
-        // console.log(user.$id);
 
         if (userPickedTeam) {
           setUserPick(userPickedTeam);
