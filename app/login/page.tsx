@@ -28,15 +28,13 @@ export default function Login({
   };
 
   const handleLogin = async () => {
-    await loginAccount({ email, password });
+    const user = await loginAccount({ email, password });
     setIsLoggedIn((await account.get()) as any);
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
       router.push('/weeklyPicks');
-    } else {
-      router.push('/login');
     }
   }, [isLoggedIn]);
 
