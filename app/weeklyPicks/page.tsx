@@ -33,6 +33,7 @@ export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
   const [weeklyPicks, setWeeklyPicks] = useState<Models.Document>();
 
+  // TODO: Combining both use Effects into one call
   useEffect(() => {
     async function fetchNFLTeams() {
       const data = await getNFLTeams();
