@@ -25,7 +25,19 @@ export async function getUserWeeklyPick(data: {
       appwriteConfig.databaseId,
       '66313025000612a5380e',
     );
-    return JSON.parse(response.documents[0].userResults)[data.userId];
+    return response.documents[0].userResults;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getAllWeeklyPicks() {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      '66313025000612a5380e',
+    );
+    return response;
   } catch (error) {
     console.error(error);
   }
