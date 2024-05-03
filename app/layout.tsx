@@ -8,8 +8,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: 'Next.js and Appwrite',
-  description: 'The fastest way to build apps with Next.js and Appwrite',
+  title: 'GridIron Survivor',
+  description: 'Fantasy Football Survivor Pool',
 };
 
 export default function RootLayout({
