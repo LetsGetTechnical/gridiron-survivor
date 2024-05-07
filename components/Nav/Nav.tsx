@@ -22,7 +22,7 @@ export const Nav = () => {
 
   const handleLogout = async () => {
     try {
-      logoutAccount();
+      await logoutAccount();
       router.push('/login');
     } catch (error) {
       console.error(error);
