@@ -1,11 +1,11 @@
 .doc_nav_links {
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
+  margin-top: 4rem;
   align-items: center;
   max-width: 100%;
 }
 
-.doc_nav_links li {
+.doc_nav_links li, .doc_nav_links p{
   font-size: 2rem;
 }

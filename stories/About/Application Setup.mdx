@@ -1,147 +1,50 @@
-## Application Setup
+import '../styles.css';
 
-## Table of contents
+## Developer Guide
 
-- [Setup](#setup)
-  - [Installing Docker](#make-sure-docker-compose-is-installed)
-  - [Test Docker](#command-to-test-docker-in-your-terminal)
-  - [Login to Docker Hub](#login-to-docker-hub)
-  - [Start/Stop Project](#commands-to-start-the-project)
-  - [Useful Commands](#useful-docker-commands)
+### Table of Contents
 
-### Make sure Docker Compose is installed
+- [Getting Started](#getting-started)
+- [Pushing local branch to remote branch](#pushing-local-branch-to-remote-branch)
 
-For Linux, Mac, and Windows: [Docker Desktop ](https://docs.docker.com/desktop/install/linux-install/)
-
-### Command to test Docker in your terminal
-
-Use this command to run Docker hello-world image
+## Getting Started
 
 ```
-docker run hello-world
+  git clone --single-branch --branch develop
+  https://github.com/LetsGetTechnical/gridiron-survivor.git
 ```
 
-### Login to github
-
-generate a token from github container registry:
-
-`github:`
-
-- go to settings
-- Click on developer settings at the bottom
-- Click on personal access tokens tab
-- Click on Tokens (classic)
-- Click on generate new Token (classic)
-- Enable the settings: write:packages and delete:packages
-- Give it a name then generate the token
-
-Enter your username and token (as a password) using the following flags, either for GitHub Container Registry or Docker
-Hub.
+Install the required packages with pnpm (NOT npm or yarn!)
 
 ```
-echo "YOUR_PERSONAL_ACCESS_TOKEN" | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+pnpm install
 ```
 
-## Commands to start the project
-
-All the commands you need to start and stop the project are here in this section.
-
-Start the project by using this command to pull the built image and run it in a container:
+Create a new branch for whatever you’re working on in the format firstname/feature-description, then check out your new branch. For example:
 
 ```
-docker compose up app-dev
+  git branch richard/user-picks-page && git checkout richard/user-picks-page
 ```
 
-Stop the project and remove the container created:
+Code your feature! 🤓
+
+## Pushing local branch to remote branch
+
+For the first push from local to remote, use
 
 ```
-docker compose down app-dev
+--set-upstream origin
 ```
 
-`Note: After running docker compose down the image you pulled will still exist on your local computer`
-
-`Note: For production you just replace app-dev with app-prod`
-
-## Useful Docker commands
-
-See all docker images
+along with the name of your local branch, like so:
 
 ```
-docker image ls
+git push --set-upstream origin richard/user-picks-page
 ```
 
-See all docker containers
-
-```
-docker ps -a
-```
-
-Remove an image
-
-```
-docker rmi image_name_or_ID
-```
-
-Remove a container
-
-```
-docker rm container_name_or_ID
-```
-
-## Storybook
-
-Install dependencies
-
-```
-pnpm i
-```
-
-Run Storybook in the project root
-
-```
-npm run storybook
-```
-
-## React Testing Library (RTL) && Jest
-
-Run RTL && Jest in the project root
-
-```
-pnpm test
-```
-
-## Playwright Testing
-
-Run all Playwright tests
-
-```
-pnpm exec playwright test
-```
-
-Run single Playwright tests
-
-```
-pnpm exec playwright test (name of file)
-```
-
-## Prettier
-
-Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+shift+p` on Windows.
-
-> [!IMPORTANT]
-> There may be multiple options, ensure you select the option that says "Open User Settings (JSON)
-> ![Screenshot of VS Code search results for "settings.json" with the User Settings JSON option highlighted.](https://res.cloudinary.com/ryan-furrer/image/upload/v1712793797/Vscode_settings.json_wuoqgc.png)
-
-Add the following lines to your `settings.json`
-
-```
-"editor.defaultFormatter": "esbenp.prettier-vscode",
-"editor.formatOnSave": true,
-```
-
-Open a file and save it, you should see formatting changes made as soon as you save it!
+Subsequent pushes will now go to your remote upstream branch.
 
 <ol className="doc_nav_links">
   <li>[Welcome](?path=/docs/welcome--docs)</li>
-  <li>[Developer Guide](?path=/docs/about-developer-s-manuel--docs)</li>
+  <li>[Onboarding](?path=/docs/about-onboarding--docs)</li>
 </ol>
