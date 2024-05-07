@@ -1,9 +1,17 @@
 import { create } from 'zustand';
 
-const userStore = ( ) => ({
-    example: []
-});
+interface Example {
+    id: number;
+    name: string;
+}
+interface ExampleStore {
+    examples: Example[];
+}
 
-const useUser = create(userStore);
+const dataStore = () => ({
+    examples: [],
+})
 
-export default useUser;
+const useUserStore = create<ExampleStore>(dataStore)
+
+export default useUserStore;
