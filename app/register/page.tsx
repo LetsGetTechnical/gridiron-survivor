@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/Button/Button';
-import { loginAccount, registerAccount } from '@/api/apiFunctions';
+import {  registerAccount } from '@/api/apiFunctions';
 
 import logo from '/public/assets/logo-colored-outline.svg';
 
