@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-const userStore = (set, get) => ({
+const userStore = ( ) => ({
     example: []
 });
 
