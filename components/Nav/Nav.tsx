@@ -10,18 +10,19 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../NavDrawer/NavDrawer';
-import { logoutAccount } from '../../api/apiFunctions';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useAuthContext } from '@/context/AuthContextProvider';
 
 export const Nav = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { logoutAccount } = useAuthContext();
 
   const handleLogout = async () => {
     try {
-      await logoutAccount();
+      logoutAccount();
       router.push('/login');
     } catch (error) {
       console.error(error);
