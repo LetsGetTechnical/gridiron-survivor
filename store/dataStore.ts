@@ -12,6 +12,6 @@ const dataStore = () => ({
     examples: [],
 })
 
-const useUserStore = create<ExampleStore>(dataStore)
+const useDataStore = create<ExampleStore>(dataStore)
 
-export default useUserStore;
+export default useDataStore;
