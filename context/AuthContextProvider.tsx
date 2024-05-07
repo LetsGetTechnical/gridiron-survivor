@@ -1,14 +1,18 @@
 'use client';
-import { createContext, useContext, useMemo, useState } from 'react';
-import { User } from '@/types/AuthContextTypes';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
+import { useRouter } from 'next/navigation';
+
+type UserCredentials = {
+  email: string;
+  password: string;
+};
 
 type AuthContextType = {
-  user: User | null;
-  setUser: (user: User) => void;
   isSignedIn: boolean;
-  loginAccount: (user: { email: string; password: string }) => void;
-  logoutAccount: () => void;
+  setIsSignedIn: (isSignedIn: boolean) => void;
+  loginAccount: (user: UserCredentials) => Promise<void | Error>;
+  logoutAccount: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -18,62 +22,80 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const isSignedIn = user?.sessionId ? true : false;
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const router = useRouter();
 
-  const contextValue = useMemo(
-    () => ({ user, setUser, isSignedIn, loginAccount, logoutAccount }),
-    [user, isSignedIn],
-  );
-
-  async function loginAccount(user: { email: string; password: string }) {
-    try {
-      const data = await account.createEmailPasswordSession(
-        user.email,
-        user.password,
-      );
-
-      console.log({
-        sessionId: data.$id,
-      });
-
-      // get the user information
-      const userAccount = await account.get();
-
-      // if no user account found, throw an error
-      if (!userAccount) {
-        throw new Error('No user account found');
+  // Check for a current session on component mount
+  useEffect(() => {
+    const checkSession = async () => {
+      if (!isSessionInLocalStorage()) {
+        console.log('No session data available');
+        return;
       }
 
-      // log the user information
-      console.log({ userName: userAccount.name, userEmail: userAccount.email });
+      try {
+        await account.getSession('current');
+        console.log('Active session found');
+        setIsSignedIn(true);
+      } catch (error) {
+        console.error('Session validation error:', error);
+        setIsSignedIn(false);
+      }
+    };
+    checkSession();
+  }, []);
 
-      setUser({
-        sessionId: data.$id,
-        id: userAccount.$id,
-        name: userAccount.name,
-        email: userAccount.email,
-      });
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
-  }
-
-  async function logoutAccount() {
+  // Authenticate and set session state
+  const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
-      await account.deleteSession(user?.sessionId || 'current');
-      setUser(null);
+      await account.createEmailPasswordSession(user.email, user.password);
+      setIsSignedIn(true);
     } catch (error) {
-      console.error(error);
+      console.error('Login error:', error);
+      return error as Error;
     }
-  }
+  };
+
+  // Log out and clear session state
+  const logoutAccount = async (): Promise<void> => {
+    try {
+      await account.deleteSession('current');
+      setIsSignedIn(false);
+      await router.push('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  // Helper function to validate session data in local storage
+  const isSessionInLocalStorage = (): boolean => {
+    const loadedDataString = localStorage.getItem('cookieFallback');
+
+    if (!loadedDataString || loadedDataString === '[]') {
+      localStorage.removeItem('cookieFallback');
+      return false;
+    }
+
+    return true;
+  };
+
+  // Memoize context values to avoid unnecessary re-renders
+  const contextValue = useMemo(
+    () => ({
+      isSignedIn,
+      setIsSignedIn,
+      loginAccount,
+      logoutAccount,
+    }),
+    [isSignedIn],
+  );
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
 
+// Custom hook to access the authentication context
 export function useAuthContext() {
   const context = useContext(AuthContext);
   if (!context) {
