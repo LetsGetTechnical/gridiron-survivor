@@ -29,13 +29,11 @@ export const AuthContextProvider = ({
   useEffect(() => {
     const checkSession = async () => {
       if (!isSessionInLocalStorage()) {
-        console.log('No session data available');
         return;
       }
 
       try {
         await account.getSession('current');
-        console.log('Active session found');
         setIsSignedIn(true);
       } catch (error) {
         console.error('Session validation error:', error);
@@ -61,7 +59,7 @@ export const AuthContextProvider = ({
     try {
       await account.deleteSession('current');
       setIsSignedIn(false);
-      await router.push('/login');
+      router.push('/login');
     } catch (error) {
       console.error('Logout error:', error);
     }
