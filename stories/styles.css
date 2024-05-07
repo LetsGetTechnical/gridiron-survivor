@@ -9,3 +9,7 @@
 .doc_nav_links li, .doc_nav_links p{
   font-size: 2rem;
 }
+
+.image{
+  width: 100%;
+}

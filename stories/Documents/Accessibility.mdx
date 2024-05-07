@@ -1,0 +1,97 @@
+import '../styles.css';
+
+    # By Corina Murg
+
+    # A. What is Accessibility?
+
+    In the context of web development, accessibility means that websites and apps are designed and built such
+    that everyone, including people with disabilities, can navigate them and interact with them. The goal of
+    accessibility is for everyone to be able to use the web based on the abilities they have, and not to be
+    excluded due to their disabilities.
+
+    # B. Assistive Technologies
+
+    We expect a user with disabilities to rely on special equipment and software to interact with the web (these
+    are called assistive technologies), but that is not always the case. A person with low vision might just need a
+    good contrast between the text and background colors to be able to see everything on the screen. Some
+    users just need a dark mode setting. A person with good sight but limited hand mobility might just need to
+    use the keyboard instead of the mouse.
+    In most cases, assistive technologies are used by people with more serious impairments.
+    A person who is blind relies on a screen reader, a technology that shares the content on the screen. It can
+    do it two ways:
+
+    - via a speech synthesizer for the user that has good hearing (the user navigates through the UI elements
+    with the keyboard, and the content on the screen is shared with them through synthetic speech)
+    - via a braille display, for users who are deaf or hard of hearing (The screen reader translates the contenton the screen into a format that can be read on a braille display. These displays are fitted with braille cells
+    that change dynamically)
+
+    A person with good sight but limited or no hand mobility could use speech recognition software or an
+    eye-tracking system (a device that allows mouse control through eye movements).
+
+    ## Important to keep in mind as we are building
+
+    The mere presence of an assistive technology to aid a user in interacting with the web is not enough. Our
+    application has to be programmed in a way that takes into account the needs of each group of users, and
+    not just those of the typical user with good sight and good hand mobility. Sometimes, we also have to take
+    into account that assistive technologies are not perfect, and given several choices to program a certain
+    element, use the one that eliminates most barriers or provides a more seamless user experience.
+
+    # C. How Accessibility Works
+
+    As part of the rendering process, the browser builds the accessibility tree, a simplified version of the DOM
+    tree. The accessibility tree contains only elements that need to be exposed to assistive technologies, like
+    links or headings. Any div element with a purely decorative or container role will be ignored.
+    When triggered, assistive technologies use the browser's accessibility APIs to retrieve information from the
+    accessibility tree and present it to users.
+
+    ## DOM Tree vs Accessibility Tree
+
+    While the DOM tree is structured by HTML tags/elements, the accessibility tree is structured by roles. For
+    each object in the accessibility tree, its role matches the function of its corresponding HTML element.
+
+    ```
+    // DOM tree
+    <nav>
+        <ul>
+
+            <li>
+                <a>Home</a>&
+            </li>
+
+            // other list items
+
+        </ul>
+
+    </nav>
+    ```
+
+    ```
+    // Accessibility tree
+    navigation
+        list
+
+
+            listitem
+                link "Home" focusable: true focused: true
+                    StaticText "Home"
+
+            // other list items
+
+    ```
+
+
+    For each object in the Accessible Tree, the browser shares the following:
+
+    - name (if there is one!)
+    - role
+    - properties (like focusable)
+    - state (like focused, checked, collapsed, expanded, etc)
+    Each assistive technology will use the information from the accessibility tree to present the object to the
+    user in the most appropriate way:
+    - a screen reader will announce it as "Home link".
+    - speech recognition software will recognize it as "Home" and allow the user to activate it with the command "click Home".
+
+<ol className="doc_nav_links">
+  <li>[Onboarding](?path=/docs/about-onboarding--docs)</li>
+  <li>[Appwrite](?path=/docs/documents-appwrite--docs)</li>
+</ol>
