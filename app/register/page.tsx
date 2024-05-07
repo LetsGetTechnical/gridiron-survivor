@@ -10,12 +10,14 @@ import { loginAccount, registerAccount } from '@/api/apiFunctions';
 
 import logo from '/public/assets/logo-colored-outline.svg';
 
+import { useAuthContext } from '@/context/AuthContextProvider';
+
 export default function Register() {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { loginAccount, isSignedIn } = useAuthContext();
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
@@ -46,36 +48,18 @@ export default function Register() {
   const handleRegister = async () => {
     try {
       await registerAccount({ email, password });
-
       await loginAccount({ email, password });
-
-      setIsLoggedIn(true);
       router.push('/weeklyPicks');
     } catch (error) {
       console.error('Registration Failed', error);
-      setIsLoggedIn(false);
     }
   };
 
   useEffect(() => {
-    const getSession = () => {
-      try {
-        setIsLoggedIn(false);
-        const session = localStorage.getItem('cookieFallback');
-        if (session) setIsLoggedIn(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getSession();
-  }, []);
-
-  useEffect(() => {
-    if (isLoggedIn) {
+    if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isLoggedIn]);
+  }, [isSignedIn]);
 
   return (
     <div className="h-screen w-full">
