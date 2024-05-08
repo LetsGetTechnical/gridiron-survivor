@@ -3,24 +3,22 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
-import logo from '/public/assets/logo-colored-outline.svg';
+import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
-import { loginAccount } from '@/api/apiFunctions';
+import { useAuthContext } from '@/context/AuthContextProvider';
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  let session: any;
+  const { loginAccount, isSignedIn } = useAuthContext();
 
-  if (typeof window !== 'undefined') {
-    session = window.localStorage.getItem('cookieFallback');
-  }
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push('/weeklyPicks');
+    }
+  }, [isSignedIn]);
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
@@ -29,21 +27,6 @@ export default function Login({
   const handlePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
-
-  const handleLogin = async () => {
-    try {
-      await loginAccount({ email, password });
-      router.push('/weeklyPicks');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (session != '[]') {
-      router.push('/weeklyPicks');
-    }
-  }, []);
 
   return (
     <div className="h-screen w-full">
@@ -87,7 +70,7 @@ export default function Login({
             <Button
               label="Continue"
               disabled={!email && !password}
-              onClick={handleLogin}
+              onClick={() => loginAccount({ email, password })}
             />
             <Link href="/register" className="hover:text-orange-600">
               Sign up to get started with a league
