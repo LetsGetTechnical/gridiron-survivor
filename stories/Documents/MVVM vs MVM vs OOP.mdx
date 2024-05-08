@@ -1,0 +1,34 @@
+import mvvm from '../assets/mvvm.png';
+
+MVVM vs MVM vs OOP
+
+By Mai Vang
+
+Purpose
+
+Finalize project architecture between MVC, MVVC, or OOP
+
+Background Info
+
+As we are in the early phase, we need to conclude on a project architecture which will help smooth our processes as the project scales with users and code.
+
+Requirements
+
+Need a project architecture that is:
+Simple to maintain code
+Good to test
+Faster runtime to load for users
+Easy for future developers to pick up and assist where needed in the code
+Overall, implement separation of concern
+
+I chose MVVM because it uses data directly from the API without manipulating it. In addition, MVVM can update the information on the View automatically from the ViewModel due to data binding, which is establishing a connection between the data and the user interface.
+
+In this example shown here, a User makes an action on the View which sends it to the ViewModel to handle the request. Then the request gets sent to the Model and updates the information in the database. (the light grey arrows)
+
+For example, a user picks a football team (UI action), then the information gets sent to the ViewModel which tells the Model which team they are picking and updates the information in the database.
+
+Then the database updates and sends the information back to the model, which updates in the ViewModel, which make the changes accordingly in the View (the dark grey arrows).
+
+From the football team the user selected, we will keep track in our database which football team they chose and update it on the UI.
+
+![mvvm diagram](mvvm)

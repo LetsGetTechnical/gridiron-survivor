@@ -1,0 +1,70 @@
+Component Library: Shadcn
+Author: Adam Morsa
+Problem:
+We need a component library to build out our application.
+Solution Requirements:
+
+- The solution must provide flexible, accessible components.
+- Ideally, we should be able to use these components as Server Components.
+  Assumptions:
+- Since we are using Next.js to build our app, we should use server components where
+  possible to improve application performance.
+  Solution:
+  I recommend we use Shadcn. It has many benefits which will behoove not only our
+  development process, but the performance of the application.
+  Shadcn is built with TypeScript and styled via Tailwind. Tailwind styles are minified and applied
+  nearly instantly via CSS. This is in contrast to a runtime-styling approach such as CSS-in-JS -
+  which libraries such as ChakraUI use - which rely on the JavaScript bundle being downloaded
+  and parsed before styling is applied.
+  By using a component library which uses Tailwind for styling, such as Shadcn, our JS bundles
+  will be smaller and the time to initial render for our application will be faster than any library
+  which is dependent on JS.
+  This ties into the overall weight of Shadcn- it is incredibly lightweight. It is technically not a full
+  library installed via a package manager, and is instead built with extreme modularity and
+  customizability in mind. Essentially, we only install the components that we actually need - our
+  code bundle will have zero bloat from unused components. This, in addition to its use of
+  Tailwind (which, at build time, only includes utility classes that are actually being used) makes
+  Shadcn an ideal choice for performance reasons.
+  Perhaps the most compelling benefit of Shadcn when compared to other modern component
+  libraries is that Shadcn components can be used directly as Server Components if needed.
+  While many popular component libraries are compatible with modern Next development, nearly
+  all of them require the “use client” directive- in other words, other libraries’ components can only
+  be used Client Components nested within Server Components, and not as Server Components
+  themselves. Shadcn does not have this limitation.
+  Shadcn components are built with accessibility in mind, so we don’t need to spend time coding
+  in our own accessibility features to the components.
+  Shadcn is also unopinionated and flexible- we can use standard Tailwind design tokens for our
+  design system, or CSS variables which Shadcn helps us set up during initial configuration.
+  These variables (or the Tailwind tokens) are entirely customizable, so the UX team will have the
+  power to mold our design to whatever shape the Designer requires.
+  During my research, I also found that the dev experience of using Shadcn has been nothing but
+  positive. I can find only rave reviews from other front end developers, which bodes well for us.
+  There are also several community-built Shadcn Figma templates, which our Designer has
+  already expressed great interest in - a confirmed win for the Designer experience.
+  Security Considerations:
+- Not applicable to this feature.
+  Cost Analysis:
+- As Shadcn is free and open source, there is no cost to implement this solution.
+  Operational Readiness:
+- Adding Shadcn is as simple as running npx shadcn-ui@latest init in our project. A
+  quick CLI setup process will run to help us initialize the Shadcn config within our project.
+- After we set up the config, we can add components to our collection one-by-one using
+  npx shadcnui@latest add COMPONENT_NAME
+  Solutions Considered and Discarded:
+- Initially, we were looking at using ChakraUI as our component library. However, had we
+  gone with that choice, we would need to have two disparate styling systems if we wanted
+  to benefit fully from Next.js’ server components, since ChakraUI components cannot be
+  used directly as server components. Essentially, we’d be using Chakra’s CSS-in-JS in
+  our client components, and then would need to use vanilla CSS or Tailwind to style any
+  server components. The clunkiness of two disparate styling systems, as well as the
+  performance repercussions of Chakra’s CSS-in-JS approach, led us to abandon this
+  option.
+  Work Required:
+- (L) Any team members not familiar with Tailwind will need to become familiar with it.
+- (M) Before adding Shadcn to our project, we should decide whether we want to use CSS
+  variables or Tailwind configuration to set our design tokens.
+  References:
+- Shadcn Docs
+- Article: Seven Reason Why I Love Shadcn
+- Figma Template: Official (missing Dark mode and some components)
+- Figma Template: Unofficial (includes dark mode, more components, and more variants)

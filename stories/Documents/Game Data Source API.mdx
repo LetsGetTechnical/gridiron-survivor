@@ -1,0 +1,73 @@
+# By Adam Morsa
+
+# Game Data Source: API‐Sports’ American Football API
+
+## Problem:
+
+We need a reliable source for grabbing data about scheduled games, and daily game results.
+
+## Solution Requirements:
+
+- Must be inexpensive or free
+- Data source must be updated daily with game results
+
+## Assumptions:
+
+- We will not need to query the data often. A cursory estimation of total queries follows:
+
+* Daily queries to get game results: At most, several per day
+* Weekly queries to get the next week’s schedule
+* Seasonal query to get the initial game/team lineups
+
+## Solution:
+
+We will use API-Sports’ American Football API as our data source- specifically, the Games
+endpoint will be our bread and butter for our application. This endpoint can return all games on
+a given date, the teams in each game, and the scores, and is even live-updated every 15
+minutes.
+We should query the game information by date at most a few times per day from our backend,
+then store those results in our own DB. We can then serve this data to our users. This approach
+will keep our API calls down and provide a single source of truth for all the app’s users to refer
+to- as opposed to API calls being made from the user’s end for updates.
+
+## Security Considerations:
+
+- N/A
+
+## Cost Analysis:
+
+- Freemium plan: 100 hits/day free, $0.0001/hit thereafter
+- $15/mo: 7500 hits/day, hard limit
+
+## Operational Readiness:
+
+- API documentation is clear. Integration would not be difficult.
+
+## Risks:
+
+- There is always the chance of inaccurate data due to bugs or errors on the data source’s
+  end. However, the developers seem to respond to issues quickly.
+
+## Solutions Considered and Discarded:
+
+- SportsDataIO - Prohibitively expensive ($5k/month)
+- <a href="https://rapidapi.com/tank01/api/tank01-nfl-live-in-game-real-time-statistics-nfl/">
+    Tank01 Live NFL API
+  </a>
+- A valid option. Consider as a backup.
+
+## Work Required:
+
+- (S) Create API-sports account. May require credit card to account for potential overage
+  charges
+- (L) Build our API queries and code a system to convert the API data into tables to insert
+  into our SQL database
+
+## References:
+
+<a href="https://rapidapi.com/api-sports/api/api-american-football/details">
+  API-Sports' American Football API Details/Pricing on RapidAPI
+</a>
+<a href="https://api-sports.io/documentation/nfl/v1">
+  API-Sports' American Football API Docs
+</a>

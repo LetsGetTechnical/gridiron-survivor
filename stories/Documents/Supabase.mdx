@@ -1,0 +1,70 @@
+# By Adam Morsa and Eddie Vazquez
+
+# DB/Auth: Supabase
+
+## Problem:
+
+We need a solution for storing our user’s data and handling authentication.
+
+## Solution Requirements:
+
+- Database should support the shape of our data
+- Auth should support SSO/OAuth
+
+## Assumptions:
+
+- Our application’s data is spreadsheet-shaped already- we are, after all, converting a
+  spreadsheet-based process into an application.
+
+## Solution:
+
+We’ve decided on utilizing Supabase to manage both our DB and Auth.
+Supabase’s DB features are built around PostgreSQL, an open-source, powerful
+object-relational database, which is the perfect fit for the type of data we’ll be handling in this
+application. The interface for viewing and managing the database is top-notch, as well.
+Supabase’s Auth features offer a wide range of SSO and OAuth options, and the
+implementation is exceedingly simple. There is no indeed for us to manually manage auth and
+juggle tokens from route to route- Supabase handles it all, and supports unlimited API requests.
+
+## Security Considerations:
+
+- Supabase’s security features are robust. <a target = "_blank" href = "https://supabase.com/security">Read all about them here</a>.
+
+## Cost Analysis:
+
+- The free version provides 500MB DB storage, 1GB file storage, 5GB bandwidth, and up
+  to 50k active users- more than enough to support the application in its early stages.
+- If/when we need to scale up, $25/month offers a significant upgrade to everything above,
+  along with 7 days of daily DB backups, logging, and personal email support.
+
+## Operation Readiness:
+
+- Supabase is notoriously easy to set up.
+- If we encounter issues using Supabase, the robust documentation and a quickly growing
+  community around the product will ensure solutions are never far.
+
+## Risks:
+
+- When docs fail to illuminate a problem, we often fall back on the community around the
+  tech. Since Supabase is a newer platform, the surrounding community is not as large as,
+  say Firebase. However, the community is rapidly growing.
+
+## Solutions Considered and Discarded:
+
+- Firebase uses a NoSQL database, which is not appropriate to the shape of our data.
+
+## Work Required:
+
+- (L) Need to set up tables for user and commissioner data, along with appropriate queries
+- (L) Need to set up a table to store sports data queried from API to serve to users
+- (S) Need to set up the OAuth
+
+## References:
+
+<a href="https://supabase.com/docs" target="_blank">
+  Supabase Docs
+</a>
+
+<a target="_blank" href="https://supabase.com/security">
+  Supabase Security
+</a>

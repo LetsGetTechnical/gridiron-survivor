@@ -1,0 +1,97 @@
+Module Builder: Webpack 5
+Problem:
+
+We need a module builder that will handle the bundling of our JS application and allow us to configure the particular type of build.
+Solution Requirements:
+
+The module builder needs to be compatible with Next.js
+
+The module builder needs to be able to handle the bundling of our JS application
+
+The module builder needs to allow the configuration of the type of build
+
+Solution:
+
+Webpack 5 is included upon installation of Next, and it let you bundle your JavaScript applications, supporting both ESM and CommonJS. They also allow the configuration of the type of build for your application.
+
+Detailed Design:
+
+Upon creating a new Next application using the create-next-app@latest command, the following default configurations for Webpack 5 will be shown in the tsconfig.json file.
+
+```
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.config.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+What each property means for Webpack 5:
+
+Next Create App Features
+
+Target: tells runtime code to generate in a specific environment
+
+Lib: defines the libraries that will be included in the compilation process
+
+AllowJs: enables the compilation of JavaScript files
+
+SkipLibCheck: skips the type checking of declaration files (files with .d.ts extensions)
+
+Strict: enables strict type-checking options mode for TypeScript
+
+Noemit: prevents TypeScript from emitting output files
+
+Esmoduleinterop: enables the compatibility between ESmodules and commonJS
+
+Module: specifies the module code generation
+
+Module resolution: determines how Webpack will resolve modules
+
+ResolveJsonModule: allows TypeScript to import JSON modules directly
+
+Isolated Modules: ensures each file is treated as a separate module. This can improve build performance
+
+JSX: specifies JSX factory function to use.
+
+Incremental: enables incremental compilation, allowing TypeScript to cache compilation results and speed up subsequent builds
+
+Plugins: an array of TypeScript plugins
+
+Paths: defines path mapping for module imports
+
+Include: specifies files to include in TypeScript compilation
+
+Exclude: specifies files to exclude in TypeScript compilation
+
+Resources:
+
+https://nextjs.org/docs/messages/webpack5
+
+https://nextjs.org/docs/app/api-reference/next-config-js/webpack
+
+https://webpack.js.org/
+
+https://chat.openai.com/

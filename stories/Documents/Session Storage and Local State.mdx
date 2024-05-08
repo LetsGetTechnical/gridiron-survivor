@@ -1,0 +1,32 @@
+Caching: Session Storage and Local State
+
+By Richard Choi
+
+Problem:
+
+We need a way to persist our data so that when the user leaves the application tab or refreshes the screen, the data will remain upon returning
+Problem Requirements:
+
+This feature needs to be able to persist data regardless of refresh or exiting the tab
+
+This feature also needs to be able to be timed out after a certain amount of time to ensure the data does not persist forever
+
+Solution:
+
+Session storage only maintains the session/data of the current tab/page. A new one is created every time a new tab is created. Local state only maintains the data when exiting the tab, not the window, and does not maintain the data upon refreshing the screen.
+
+They help us maintain the data on screen/for code despite other circumstances. They also provide convenience to the user, so if they input something, but they accidentally exit out of the program, their “place” is “saved” thanks to cache storage. It gives a kind of safety net for other team members when testing the application, preventing them from “losing” their “saved data” from an accidental click/exit. Context API can be used to re-render the entire application to implement localization and to ensure content is rendered upon successful authentication.
+
+Detailed Design:
+
+https://www.figma.com/file/TijuGcv2Ea5spYUJ3MEHjY/Cache-Detailed-Design?type=whiteboard&node-id=0-1&t=Yezb2KCKQ97O2FpU-0
+
+Have objects to represent all the session storage/local storage we plan to use, using unique names for each object and key name, and store them all in one file called cache. Export those objects, and import them into components that need to access those cache data to implement more clean and organized code.
+
+Testing:
+
+Print to the console for session storage to make sure that the values are being saved properly, or you can also use the inspect tool, and under the application tab under storage, you can visibly see the different properties you have to check the values of them all.
+
+Resources:
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
