@@ -1,14 +1,21 @@
 import React from 'react';
-import { getByTestId, render, screen } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import Logo from '@/components/Logo/Logo';
-import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 
 describe('Login Page', () => {
-  it('renders correctly', () => {
-    const { getByTestId } = render(<Logo src={logo} />);
-    expect(getByTestId('badge-logo')).toBeInTheDocument();
-    expect(Image.src).toBe({ logo });
+  it('Checks that the Logo image rendered has the correct test-id and src', () => {
+    const src = '/assets/logo-colored-outline.svg';
+    const { getByTestId } = render(<Logo src={src} />);
+    const logoElement = getByTestId('badge-logo');
+    expect(logoElement).toBeInTheDocument();
+    expect(logoElement).toHaveAttribute('src', src);
+  });
+  it('Checks that the email input is rendered correctly by checking the placeholder text and type', () => {
+    render(<Input type="email" placeholder="Email" />);
+    const emailInput = screen.getByPlaceholderText('Email');
+    expect(emailInput).toBeInTheDocument();
+    expect(emailInput).toHaveAttribute('type', 'email');
   });
 });
