@@ -1,6 +1,5 @@
 import { GeistSans } from 'geist/font/sans';
-import './globals.css';
-import Nav from '@/components/Nav/Nav';
+import '../globals.css';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
 
 const defaultUrl = process.env.VERCEL_URL
@@ -13,16 +12,15 @@ export const metadata = {
   description: 'Fantasy Football Survivor Pool',
 };
 
-export default function RootLayout({
+export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="dark:dark bg-background px-4 pb-8 text-foreground">
+      <body className="dark:dark bg-background text-foreground dark:bg-zinc-950">
         <AuthContextProvider>
-          <Nav />
           <main>{children}</main>
         </AuthContextProvider>
       </body>

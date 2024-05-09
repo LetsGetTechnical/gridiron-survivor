@@ -12,7 +12,14 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({ team, src }) => {
     <div className="flex items-center">
       <RadioGroupItem value={team} id={team} />
       <Label htmlFor={team}>
-        <Image src={src} alt={team} width={48} height={48} priority />
+        <Image
+          className="weeklyPickImage"
+          src={src}
+          alt={team}
+          width={48}
+          height={48}
+          priority
+        />
         {team}
       </Label>
     </div>
