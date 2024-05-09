@@ -23,7 +23,7 @@ const initialState: State = {
   },
 };
 
-export const useDataStore = create<State & Action>((set) => ({
+export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
   updateUserId: (id) =>
     set(
