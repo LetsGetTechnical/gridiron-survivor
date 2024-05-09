@@ -113,12 +113,9 @@ export default function WeeklyPickForm() {
 
   return (
     <section className="w-full pt-8">
-      <h1 className="pb-2 text-center text-[2rem] font-bold text-white">
-        Hello, {user.email}!
+      <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+        Your pick sheet
       </h1>
-      <h2 className="pb-8 text-center text-[1.5rem] font-bold text-white">
-        Here is your pick sheet
-      </h2>
 
       <Form {...form}>
         <form
