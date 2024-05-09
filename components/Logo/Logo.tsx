@@ -10,6 +10,7 @@ export const Logo = ({ className, src }: LogoProps) => {
   return (
     <div className={cn('relative h-64 w-64', className)}>
       <Image
+        data-testid="badge-logo"
         src={src}
         alt="Gridiron Survivor logo"
         fill
