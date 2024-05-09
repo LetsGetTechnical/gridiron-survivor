@@ -14,11 +14,13 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import { useDataStore } from '@/store/dataStore';
 
 export const Nav = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
+  const { user } = useDataStore((state) => state);
 
   const handleLogout = async () => {
     try {
@@ -49,6 +51,13 @@ export const Nav = () => {
               <DrawerHeader>
                 <DrawerTitle>Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
+              {user && (user.id !== null || user.email !== null) && (
+                <>
+                  <span>Email: {user.email}</span>
+                  <span>userId: {user.id}</span>
+                </>
+              )}
+
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
                   <Button

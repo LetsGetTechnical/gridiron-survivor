@@ -1,17 +1,41 @@
 import { create } from 'zustand';
+import { produce } from 'immer';
 
-interface Example {
-    id: number;
-    name: string;
+interface State {
+  user: {
+    id: string | null;
+    email: string | null;
+  };
 }
-interface ExampleStore {
-    examples: Example[];
+
+interface Action {
+  updateUserId: (id: State['user']['id']) => void;
+  updateUserEmail: (email: State['user']['email']) => void;
+  reset: () => void;
 }
 
-const dataStore = () => ({
-    examples: [],
-})
+export interface DataStore extends State, Action {}
 
-const useDataStore = create<ExampleStore>(dataStore)
+const initialState: State = {
+  user: {
+    id: null,
+    email: null,
+  },
+};
 
-export default useDataStore;
+export const useDataStore = create<State & Action>((set) => ({
+  ...initialState,
+  updateUserId: (id) =>
+    set(
+      produce((state: State) => {
+        state.user.id = id;
+      }),
+    ),
+  updateUserEmail: (email) =>
+    set(
+      produce((state: State) => {
+        state.user.email = email;
+      }),
+    ),
+  reset: () => set(initialState),
+}));

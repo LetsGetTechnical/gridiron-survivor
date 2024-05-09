@@ -10,7 +10,6 @@ import {
   getNFLTeams,
   getAllWeeklyPicks,
 } from '../../api/apiFunctions';
-import { account } from '../../api/config';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -23,6 +22,7 @@ import {
 } from '../../components/Form/Form';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
+import { useDataStore } from '@/store/dataStore';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -35,10 +35,10 @@ const FormSchema = z.object({
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
   const [allPicks, setAllPicks] = useState<string | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
+  const { user } = useDataStore((state) => state);
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -48,14 +48,13 @@ export default function WeeklyPickForm() {
 
     const fetchWeeklyPicks = async () => {
       try {
-        const [allPicksData, nflTeamsData, user] = await Promise.all([
+        const [allPicksData, nflTeamsData] = await Promise.all([
           getAllWeeklyPicks(),
           getNFLTeams(),
-          account.get(),
         ]);
 
         const userPickedTeam = await getUserWeeklyPick({
-          userId: user.$id,
+          userId: user.id || '',
           weekNumber: '6622c75658b8df4c4612',
         });
 
@@ -66,7 +65,6 @@ export default function WeeklyPickForm() {
           setNFLTeams(nflTeamsData.documents);
         }
 
-        setUserId(user.$id);
         setUserPick(userPickedTeam);
         setAllPicks(allPicksData?.documents[0].userResults || null);
       } catch (error) {
@@ -90,7 +88,7 @@ export default function WeeklyPickForm() {
         const teamID = NFLTeams.find(
           (team) => team.teamName.toLowerCase() === teamSelect,
         )?.$id;
-        const resultJSON = `${userId}:{"team":"${teamID}","correct":true}`;
+        const resultJSON = `${user.id}:{"team":"${teamID}","correct":true}`;
         const appendNewResult = allPicks
           ? `{${allPicks},${resultJSON}}`
           : `{${resultJSON}}`;
@@ -104,7 +102,7 @@ export default function WeeklyPickForm() {
         console.error('Submission error:', error);
       }
     },
-    [NFLTeams, userId, allPicks],
+    [NFLTeams, user, allPicks],
   );
 
   const grabCache = () => {
@@ -115,9 +113,13 @@ export default function WeeklyPickForm() {
 
   return (
     <section className="w-full pt-8">
-      <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
-        Your pick sheet
+      <h1 className="pb-2 text-center text-[2rem] font-bold text-white">
+        Hello, {user.email}!
       </h1>
+      <h2 className="pb-8 text-center text-[1.5rem] font-bold text-white">
+        Here is your pick sheet
+      </h2>
+
       <Form {...form}>
         <form
           className="mx-auto flex w-[90%] max-w-3xl flex-col items-center gap-8"
