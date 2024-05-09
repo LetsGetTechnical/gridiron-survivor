@@ -1,6 +1,6 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IWeeklyPicks } from './IapiFunctions';
+import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
 
 /**
  * Get the current session of the user
@@ -40,7 +40,11 @@ export async function logoutAccount(): Promise<{}> {
  *
  * @return {String} - The session object or an error
  */
-export async function getUserWeeklyPick(): Promise<string> {
+export async function getUserWeeklyPick({
+  userId,
+  weekNumber,
+}: IUserWeeklyPick): Promise<string> {
+  // TODO: Use actual userId and weekNumber
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
