@@ -10,6 +10,7 @@ export const client = new Client();
 
 client.setEndpoint(appwriteConfig.url);
 client.setProject(appwriteConfig.projectId);
+client.setJWT('<YOUR_JWT>');
 
 export const account = new Account(client);
 export const databases = new Databases(client);

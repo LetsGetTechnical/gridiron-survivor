@@ -2,9 +2,16 @@ import { account, databases, ID, appwriteConfig } from './config';
 
 export async function loginAccount(user: { email: string; password: string }) {
   try {
-    return await account.createEmailPasswordSession(user.email, user.password);
+    // Authenticate user with email and password and get JWT token
+    const session = await account.createEmailPasswordSession(user.email, user.password);
+    if (session && session.token) {
+      return session.token;
+    } else {
+      throw new Error('JWT token not found in session');
+    }
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 
@@ -19,8 +26,11 @@ export async function logoutAccount() {
 export async function getUserWeeklyPick(data: {
   userId: string;
   weekNumber: string;
+  token: string; // JWT token
 }) {
   try {
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${data.token}`);
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       '66313025000612a5380e',
@@ -33,6 +43,7 @@ export async function getUserWeeklyPick(data: {
 
 export async function getAllWeeklyPicks() {
   try {
+    const headers = new Headers();
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       '66313025000612a5380e',
@@ -45,10 +56,12 @@ export async function getAllWeeklyPicks() {
 
 export async function getNFLTeams() {
   try {
-    return await databases.listDocuments(
+    const headers = new Headers();
+    const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       '662152bfabacfbda3bb3',
     );
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -62,7 +75,8 @@ export async function registerAccount(request: {
 
   try {
     return await account.create(ID.unique(), email, password);
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 }
@@ -71,8 +85,11 @@ export async function createWeeklyPicks(data: {
   gameId: string;
   gameWeekId: string;
   userResults: string;
+  token: string; // JWT token
 }) {
   try {
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${data.token}`);
     return await databases.updateDocument(
       appwriteConfig.databaseId,
       '66313025000612a5380e',

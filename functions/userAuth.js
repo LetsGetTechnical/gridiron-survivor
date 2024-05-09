@@ -13,6 +13,9 @@ const user = async ({ req, res, log, error }) => {
         .setProject(process.env.PROJECT_ID) // Your project ID
         .setKey(process.env.X_Appwrite_Key) // Your secret API key
 
+        const token = await user.createToken('[USER_ID]');
+        const secret = token.secret;
+
     // create a new user
     if (req.method === "POST" && req.body.email && req.body.email && req.body['$id']) {
         await databases.createDocument(process.env.DATABASE_ID, process.env.COLLECTION_USERS_ID, ID.unique(), {
