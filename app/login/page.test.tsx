@@ -18,4 +18,10 @@ describe('Login Page', () => {
     expect(emailInput).toBeInTheDocument();
     expect(emailInput).toHaveAttribute('type', 'email');
   });
+  it('Checks that the password input is rendered correctly by checking the placeholder text and type', () => {
+    render(<Input type="password" placeholder="Password" />);
+    const emailInput = screen.getByPlaceholderText('Password');
+    expect(emailInput).toBeInTheDocument();
+    expect(emailInput).toHaveAttribute('type', 'password');
+  });
 });
