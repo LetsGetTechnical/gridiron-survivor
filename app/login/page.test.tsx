@@ -24,4 +24,10 @@ describe('Login Page', () => {
     expect(emailInput).toBeInTheDocument();
     expect(emailInput).toHaveAttribute('type', 'password');
   });
+  it('Checks that the continue button is rendered correctly by checking the label', () => {
+    render(<Button role="button" label="Continue" />);
+    const continueButton = screen.getByRole('button');
+    expect(continueButton).toBeInTheDocument();
+    expect(continueButton.textContent).toBe('Continue');
+  });
 });
