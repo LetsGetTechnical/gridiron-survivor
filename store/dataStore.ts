@@ -1,16 +1,13 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
+import { IUser } from '@/api/IapiFunctions';
 
 interface State {
-  user: {
-    id: string | null;
-    email: string | null;
-  };
+  user: IUser;
 }
 
 interface Action {
-  updateUserId: (id: State['user']['id']) => void;
-  updateUserEmail: (email: State['user']['email']) => void;
+  updateUser: (id: State['user']['id'], email: State['user']['email']) => void;
   reset: () => void;
 }
 
@@ -18,22 +15,17 @@ export interface DataStore extends State, Action {}
 
 const initialState: State = {
   user: {
-    id: null,
-    email: null,
+    id: '',
+    email: '',
   },
 };
 
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
-  updateUserId: (id) =>
+  updateUser: (id, email) =>
     set(
       produce((state: State) => {
         state.user.id = id;
-      }),
-    ),
-  updateUserEmail: (email) =>
-    set(
-      produce((state: State) => {
         state.user.email = email;
       }),
     ),
