@@ -2,18 +2,18 @@ import { create } from 'zustand';
 import { produce } from 'immer';
 import { IUser } from '@/api/IapiFunctions';
 
-interface State {
+interface IDataStoreState {
   user: IUser;
 }
 
-interface Action {
-  updateUser: (id: State['user']['id'], email: State['user']['email']) => void;
+interface IDataStoreAction {
+  updateUser: (id: IUser['id'], email: IUser['email']) => void;
   reset: () => void;
 }
 
-export interface DataStore extends State, Action {}
+export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
-const initialState: State = {
+const initialState: IDataStoreState = {
   user: {
     id: '',
     email: '',
@@ -24,7 +24,7 @@ export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
   updateUser: (id, email) =>
     set(
-      produce((state: State) => {
+      produce((state: IDataStoreState) => {
         state.user.id = id;
         state.user.email = email;
       }),
