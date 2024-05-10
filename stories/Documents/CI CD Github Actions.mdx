@@ -1,64 +1,97 @@
 import '../styles.css';
 
-# By Adam Morsa
-
 # CI CD: GitHub Actions
 
-Problem:
+# By Adam Morsa and Chris Nowicki
+
+## Problem:
+
 We need a solution to handle the CI/CD process of automating testing, building, and deploying.
 
-Solution Requirements:
-Should support custom workflows
-Ideal solution would be adjacent to our repo (GitHub)
-Assumptions:
-We are using GitHub as our repo
-Solution:
-GitHub Actions is an ideal solution to handle our CI/CD process. It works seamlessly with our repo, aligning with our the philosophy that solutions across the app should be as centralized as possible. It is also simple to create custom workflows, allowing us to set up our CI/CD pipeline to our exact needs.
+## Solution Requirements:
 
-GitHub Actions is a robust CI/CD tool which will enable us to quickly iterate on our code, while automatically catching errors before they go live.
+- Should support custom workflows
+- Ideal solution would be adjacent to our repo (GitHub)
 
-Security Considerations:
-Keeping our CI/CD solution in the same ecosystem as our repo ensures the fewest number of hands handling our application’s data.
-Cost Analysis:
-GitHub Actions is completely free of charge for public repositories.
-For private repositories, GitHub Actions is limited to 500MB of storage and 2,000 minutes/month on the Free plan. Operational Readiness:
-GitHub Actions is already a part of GitHub, where our repo is hosted. It is immediately ready for us to begin writing workflows.
-If we have any problems using GitHub Actions, the documentation and community around the tool is robust. Solutions should never be far.
-Risks:
-We should be cautious of using third-party Actions from the marketplace, as they may contain malicious code.
-We must never to store any plaintext secrets in our actions.
-Credentials should be scoped to the minimum required permissions to execute the job.
-Solutions Considered and Discarded:
-While other solutions for CI/CD exist, it makes the most sense for us to keep it tightly coupled to our repo with GitHub Actions.
-Work Required:
-(XL) As the application begins getting built, the DevOps team will need to build Actions and Workflows to automate our testing, building, and deploying.
-References:
-Screenshot 2024-04-18 144339
+## Assumptions:
 
-Pages 14
-Find a page…
-Home
-Accessibility
-Appwrite as BaaS on Gridiron Survivor project.
-CI CD: GitHub Actions
-Problem:
-Solution Requirements:
-Assumptions:
-Solution:
-Security Considerations:
-Cost Analysis:
-Risks:
-Solutions Considered and Discarded:
-Work Required:
-References:
-DB Auth: Supabase
-Email: Twilio SendGrid
-Game Data Source: API‐Sports’ American Football API
-GridIron meeting 4_11_2024
-Gridiron Survivor App: Backend DevOps
-Hosting: Vercel
-LGT GridIron Design KickOff Presentation 3‐14‐2024
-Repo: GitHub
-Text Messaging: Twilio
-user Stories
-Clone this wiki locally
+- We are using GitHub as our repo
+
+## Solution:
+
+GitHub Actions is an ideal solution to handle our CI/CD process. It works seamlessly with our
+repo, aligning with our the philosophy that solutions across the app should be as centralized as
+possible. It is also simple to create custom workflows, allowing us to set up our CI/CD pipeline to
+our exact needs.
+
+GitHub Actions is a robust CI/CD tool which will enable us to quickly iterate on our code, while
+automatically catching errors before they go live.
+
+## Security Considerations:
+
+- Keeping our CI/CD solution in the same ecosystem as our repo ensures the fewest
+  number of hands handling our application’s data.
+
+## Cost Analysis:
+
+- GitHub Actions is completely free of charge for public repositories.
+- For private repositories, GitHub Actions is limited to 500MB of storage and 2,000
+  minutes/month on the Free plan.
+  Operational Readiness:
+- GitHub Actions is already a part of GitHub, where our repo is hosted. It is immediately
+  ready for us to begin writing workflows.
+- If we have any problems using GitHub Actions, the documentation and community
+  around the tool is robust. Solutions should never be far.
+
+## Risks:
+
+- We should be cautious of using third-party Actions from the marketplace, as they may
+  contain malicious code.
+- We must never to store any plaintext secrets in our actions.
+- Credentials should be scoped to the minimum required permissions to execute the job.
+
+## Solutions Considered and Discarded:
+
+- While other solutions for CI/CD exist, it makes the most sense for us to keep it tightly
+  coupled to our repo with GitHub Actions.
+
+## Work Required:
+
+- (XL) As the application begins getting built, the DevOps team will need to build Actions
+  and Workflows to automate our testing, building, and deploying.
+
+## Github Release Tag:
+
+App is currently in pre-release.
+We need to first identify what PRs are going into the build.
+Once the develop branch is ready to go for the release, we must do the following:
+
+1. We pause any merge into develop
+2. Once that’s done, under Github repository releases section, select create a new release option
+3. Click Choose a tag button, and create a tag named v.#.#.#-alpha in tag. Should only be done when pushing to production
+4. Target should be on main
+5. Name the release title as the applications version (v.#.#.#)
+6. Click the generate release notes button, and it will automatically generate all the commits and issues cataloged along with the code
+7. Create PR called release version x.x.x merged from develop to main - requires 2 reviewers and someone to merge the code
+
+We’re using semantic versioning (meaning provided via ChatGPT):
+
+> "Symantec versioning" in the context of software development might be a typo or confusion with "Semantic versioning," which is a common practice. Semantic versioning, often abbreviated as SemVer, is a version numbering system used to signify the types of changes made between releases of a software product.
+> Semantic versioning is structured as MAJOR.MINOR.PATCH, where:
+
+1. MAJOR version changes indicate incompatible API changes,
+2. MINOR version changes add functionality in a backwards-compatible manner, and
+3. PATCH version changes are made to correct backwards-compatible bugs.
+
+This system helps developers and users understand the impact of a new version of software beyond just the change in number, indicating whether new changes are likely to break existing functionality or interfaces.
+
+Github releases also have automatic pipelines and more that it can do, but for right now this is the approach we want to take.
+
+## References:
+
+![Screenshot 2024-04-18 144339](https://github.com/LetsGetTechnical/gridiron-survivor/assets/66279068/7913df74-77d6-4050-a71d-e1a454a121e0)
+
+<ol className="doc_nav_links">
+  <li>[Accessibility](?path=/docs/documents-appwrite--docs)</li>
+  <li>[Docker](?path=/docs/documents-docker--docs)</li>
+</ol>

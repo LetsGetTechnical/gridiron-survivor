@@ -1,8 +1,11 @@
 import '../styles.css';
+import appwriteMessaging from '../../public/assets/storybook/appwriteMessaging.png';
+
+# Appwrite
 
 # By Jason Torres
 
-# What IS Appwrite
+## What IS Appwrite
 
 Appwrite was launched roughly 5 years ago by Eldad Fux and is an
 open source Backend as a Service for developers. It provides pre-built
@@ -11,13 +14,14 @@ will drastically reduce the amount of server side code we need to
 write. It's going to allow us to focus more resources on the front where
 the user really will be.
 
-# Why and how we are implementing Appwrite
+## Why and how we are implementing Appwrite
 
 Appwrite continues to add features in their updates, making their
 BaaS one of the leaders in the market. There are several features that
 we can lean heavily on and I have summarized a few that I think will
 really make GIS a great experience for the end user.
-Auth signin/signup
+
+## Auth signin/signup
 
 GIS will have multiple users with varying levels of access. With
 Appwrite we are able to configure and manage permissions relatively
@@ -54,7 +58,7 @@ promise.then(function (response) {
 
 ```
 
-# Messaging
+## Messaging
 
 GIS has multiple opportunities to use this new feature from Appwrite.
 As it's not yet available on cloud we can still set up the email or
@@ -67,9 +71,9 @@ the changes (win, lose, set picks etc) is imperative and will increase
 use of the app. Thus making it an overall better experience for the
 user.
 
-![Screenshot 2024-04-18 143112](https://github.com/LetsGetTechnical/gridiron-survivor/assets/66279068/33471420-002f-4677-bfd0-d83f06ddcba7)
+![Screenshot 2024-04-18 143112](static/media/public/assets/storybook/appwriteMessaging.png)
 
-# Databases storage of users and user data, login info etc
+## Databases storage of users and user data, login info etc
 
 With Appwrite, we have several options of how to use the database
 and storage features. The option of server side storage is available
@@ -108,7 +112,7 @@ promise.then(function (response) {
 
 ```
 
-# Realtime will give us the ability to see user changes as they happen.
+## Realtime will give us the ability to see user changes as they happen.
 
 Realtime is one of the most important features to the build. Through
 the use of the subscribe method, we are able to listen to events and
@@ -161,4 +165,7 @@ Appwrite services as more of a turnkey solution for GIS.
 
 <ol className="doc_nav_links">
   <li>[Accessibility](?path=/docs/documents-accessibility--docs)</li>
+  <li>
+    [CI CD Github Actions](?path=/docs/documents-ci-cd-github-actions--docs)
+  </li>
 </ol>

@@ -1,25 +1,31 @@
-import mvvm from '../assets/mvvm.png';
+import '../styles.css';
+import vsExplorer from '../../public/assets/storybook/vsExplorer.png';
 
-MVVM vs MVM vs OOP
+# MVVM vs MVM vs OOP
 
-By Mai Vang
+# By Mai Vang
 
-Purpose
+## Purpose
 
 Finalize project architecture between MVC, MVVC, or OOP
 
-Background Info
+## Background Info
 
 As we are in the early phase, we need to conclude on a project architecture which will help smooth our processes as the project scales with users and code.
 
-Requirements
+## Requirements
 
 Need a project architecture that is:
-Simple to maintain code
-Good to test
-Faster runtime to load for users
-Easy for future developers to pick up and assist where needed in the code
-Overall, implement separation of concern
+
+- Simple to maintain code
+- Good to test
+- Faster runtime to load for users
+- Easy for future developers to pick up and assist where needed in the code
+- Overall, implement separation of concern
+
+## MVVM
+
+![mvvm diagram](static/media/public/assets/storybook/mvvm.png)
 
 I chose MVVM because it uses data directly from the API without manipulating it. In addition, MVVM can update the information on the View automatically from the ViewModel due to data binding, which is establishing a connection between the data and the user interface.
 
@@ -31,4 +37,68 @@ Then the database updates and sends the information back to the model, which upd
 
 From the football team the user selected, we will keep track in our database which football team they chose and update it on the UI.
 
-![mvvm diagram](mvvm)
+# Quick Overview - OOP
+
+```
+const mongoose = require('mongoose);
+
+const Schema = mongoose.Schema;
+
+const footballSchema = new Schema({
+    playerName: {
+        type: String,
+        requierd: true
+    },
+    footballTeam: {
+        type: String,
+        required: true
+    },
+    played: {
+        type: Boolean
+    },
+    winner: {
+        type: Boolean
+    }
+})
+```
+
+Here is a quick glance of OOP that I recommend we should use in our server-side code. OOP will allow us to create instance of class so we can use it repeatedly.
+
+Here is an example using MongoDB’s Schema of creating a footballSchema along with what fields will be included and what data type we anticipate it to have.
+
+## Implementation Plan
+
+Here’s the folder structure of how to implement MVVM into server-side.
+
+![screnshot of visual code file explorer](static/media/public/assets/storybook/vsExplorer.png)
+
+- Set up data models
+- Create VIew Models - the data logic
+- Design the User Interface
+- Establish data binding to branch the ViewModel
+  and the View
+
+## How to Ensure MVVM Works
+
+Implement model tests, view tests, and controller tests to ensure it is supposed to work it is intended
+
+Ensure the View is displaying what we anticipated it to do
+
+From establishing MVVM as our project architecture, this will help the app create separation of concerns, onboard and guide new developers/engineers to assist us where needed, and can write unit tests for the ViewModel and Model without having to reference the View.
+
+Sources:
+
+https://www.guru99.com/mvc-vs-mvvm.html#:~:text=MVC%20Model%20component%20can%20be,relationships%20between%20View%20%26%20View%20Model.
+
+https://softwareengineering.stackexchange.com/questions/293288/where-should-i-put-an-api-request-in-mvc
+
+https://hackernoon.com/mvc-vs-mvvm-how-a-website-communicates-with-its-data-models-18553877bf7d
+
+https://blog.techchee.com/swiftui-mvvm-with-practical-examples/
+
+https://www.techtarget.com/whatis/definition/Model-View-ViewModel
+
+<ol className="doc_nav_links">
+  <li>[Github](?path=/docs/documents-github--docs)</li>
+  <li>[Next Routing](?path=/docs/documents-next-routing--docs)</li>
+</ol>

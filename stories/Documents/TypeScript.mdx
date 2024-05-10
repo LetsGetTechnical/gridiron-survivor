@@ -1,24 +1,26 @@
-# By Richard Choi
+import '../styles.css';
 
 # Frontend: TypeScript
 
-Problem:
+# By Richard Choi
+
+## Problem:
 
 We need to decide what frontend technology stack we want to use alongside Next.
 
-Solution Requirements:
+## Solution Requirements:
 
 The technology stack needs to be compatible with Next
 
 The technology stack needs to offer features that will make development more smooth
 
-Solution:
+## Solution:
 
 TypeScript will be used to check the types of all possible data types within the code without having to write any additional code for conditional statements to check for data types. Also, Typescript provides an easier debugging experience, as it always catches errors in the code without having to run it.
 
 TypeScript is a bit more complex when going in deeper, but on the surface level, it is quite easy to pick up if you already know React; if you know HTML and JS already, you are halfway there.
 
-Detailed Design:
+## Detailed Design:
 
 The intent is to use TypeScript for components and elements of the code that would benefit greatly from the type-checking nature of TypeScript.
 
@@ -41,7 +43,7 @@ export default function Home(){
 
 The Test and Values components have identical arguments passed through them to demonstrate the similarities and differences between React and TypeScript components.
 
-React Component
+## React Component
 
 ```
 export function Test(values){
@@ -56,7 +58,7 @@ export function Test(values){
 }
 ```
 
-TypeScript Component
+## TypeScript Component
 
 ```
 import React from "react"
@@ -82,16 +84,21 @@ export function Test(values: Test){
 
 The Test component here demonstrates what it would look like to use a component in React, and the Values component demonstrates what it would look like to use the same component in TypeScript.
 
-<a href="https://www.figma.com/file/9E18DvAwp3ujhDiMjEkD5T/Typescript-Design?type=whiteboard&node-id=0-1&t=3in7q2Oxl6Xt0AnE-0">
-  Figma
-</a>
+[Figma](https://www.figma.com/file/9E18DvAwp3ujhDiMjEkD5T/Typescript-Design?type=whiteboard&node-id=0-1&t=3in7q2Oxl6Xt0AnE-0)
 
 Here, a simple design has been created to demonstrate a use-case for TypeScript, where the type-checking in TypeScript is used to ensure that all the data values are the appropriate data types.
 
-Tests
+## Tests
 
 TypeScript detects errors in code without running it, otherwise known as static checking. It also checks the types of any data type (obj, string, number, etc), making sure to send warnings when the wrong data type is being used or passed through. There is also the option of printing the code output to the console to ensure that the code is working as intended.
 
-Sources
+## Sources
 
-<a href="https://www.typescriptlang.org/">TypeScript Documentation</a>
+[TypeScript Documentation](https://www.typescriptlang.org/)
+
+<ol className="doc_nav_links">
+  <li>
+    [Twilio Text Messaging](?path=/docs/documents-twilio-text-messaging--docs)
+  </li>
+  <li>[Vercel](?path=/docs/documents-vercel--docs)</li>
+</ol>

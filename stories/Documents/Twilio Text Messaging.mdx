@@ -22,11 +22,26 @@ the commissioner to players via SMS.
 Twilio is by far the most robust solution for app-to-SMS/MMS on the market. It is simple to set
 up and easy to use. No other options compare.
 
-![Screenshot 2024-04-18 145323](https://github.com/LetsGetTechnical/gridiron-survivor/assets/66279068/bb8341d0-9811-47ef-a385-3435f96aefa8)
+```
+//Download the helper library from https://www.twilio.com/docs/node/install
+//Find your Account SID and Auth at twilio.com/console
+//and set the environment variables.  See http://twil.io/secure
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio)(accountSid, authToken);
+
+client.messages
+  .create({
+    from: '+15557771212',
+    body: 'Ahoy! This message was sent from my Twilio phone number!',
+    to: '+15559991111'
+  })
+  .then(message => console.log(message.body));
+```
 
 ## Security Considerations:
 
-- As the industry leader in app-to-SMS services, Twilio boasts respectable security practices. <a href = "https://www.twilio.com/docs/usage/security">Read more here</a>.
+- As the industry leader in app-to-SMS services, Twilio boasts respectable security practices. [Read more here](https://www.twilio.com/docs/usage/security).
 
 ## Cost Analysis:
 
@@ -66,5 +81,12 @@ up and easy to use. No other options compare.
 
 ## References
 
-<a href="https://www.twilio.com/docs">Twilo Docs</a>
-<a href="https://www.twilio.com/docs/usage/security">Twilo Security</a>
+- [Twilio Docs](https://www.twilio.com/docs)
+- [Twilio Security](https://www.twilio.com/docs/usage/security)
+
+<ol className="doc_nav_links">
+  <li>
+    [Twilio SendGrid Email](?path=/docs/documents-twilio-sendgrid-email--docs)
+  </li>
+  <li>[TypeScript](?path=/docs/documents-typescript--docs)</li>
+</ol>

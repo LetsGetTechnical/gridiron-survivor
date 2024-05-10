@@ -1,8 +1,14 @@
-Module Builder: Webpack 5
-Problem:
+import '../styles.css';
+
+# Module Builder: Webpack 5
+
+# By Richard Choi
+
+## Problem:
 
 We need a module builder that will handle the bundling of our JS application and allow us to configure the particular type of build.
-Solution Requirements:
+
+## Solution Requirements:
 
 The module builder needs to be compatible with Next.js
 
@@ -10,11 +16,11 @@ The module builder needs to be able to handle the bundling of our JS application
 
 The module builder needs to allow the configuration of the type of build
 
-Solution:
+## Solution:
 
 Webpack 5 is included upon installation of Next, and it let you bundle your JavaScript applications, supporting both ESM and CommonJS. They also allow the configuration of the type of build for your application.
 
-Detailed Design:
+## Detailed Design:
 
 Upon creating a new Next application using the create-next-app@latest command, the following default configurations for Webpack 5 will be shown in the tsconfig.json file.
 
@@ -50,48 +56,55 @@ Upon creating a new Next application using the create-next-app@latest command, t
 
 What each property means for Webpack 5:
 
-Next Create App Features
+## Next Create App Features
 
-Target: tells runtime code to generate in a specific environment
+- Target: tells runtime code to generate in a specific environment
 
-Lib: defines the libraries that will be included in the compilation process
+- Lib: defines the libraries that will be included in the compilation process
 
-AllowJs: enables the compilation of JavaScript files
+- AllowJs: enables the compilation of JavaScript files
 
-SkipLibCheck: skips the type checking of declaration files (files with .d.ts extensions)
+- SkipLibCheck: skips the type checking of declaration files (files with .d.ts extensions)
 
-Strict: enables strict type-checking options mode for TypeScript
+- Strict: enables strict type-checking options mode for TypeScript
 
-Noemit: prevents TypeScript from emitting output files
+- Noemit: prevents TypeScript from emitting output files
 
-Esmoduleinterop: enables the compatibility between ESmodules and commonJS
+- Esmoduleinterop: enables the compatibility between ESmodules and commonJS
 
-Module: specifies the module code generation
+- Module: specifies the module code generation
 
-Module resolution: determines how Webpack will resolve modules
+- Module resolution: determines how Webpack will resolve modules
 
-ResolveJsonModule: allows TypeScript to import JSON modules directly
+- ResolveJsonModule: allows TypeScript to import JSON modules directly
 
-Isolated Modules: ensures each file is treated as a separate module. This can improve build performance
+- Isolated Modules: ensures each file is treated as a separate module. This can improve build performance
 
-JSX: specifies JSX factory function to use.
+- JSX: specifies JSX factory function to use.
 
-Incremental: enables incremental compilation, allowing TypeScript to cache compilation results and speed up subsequent builds
+- Incremental: enables incremental compilation, allowing TypeScript to cache compilation results and speed up subsequent builds
 
-Plugins: an array of TypeScript plugins
+- Plugins: an array of TypeScript plugins
 
-Paths: defines path mapping for module imports
+- Paths: defines path mapping for module imports
 
-Include: specifies files to include in TypeScript compilation
+- Include: specifies files to include in TypeScript compilation
 
-Exclude: specifies files to exclude in TypeScript compilation
+- Exclude: specifies files to exclude in TypeScript compilation
 
-Resources:
+## Resources:
 
-https://nextjs.org/docs/messages/webpack5
+-[https://nextjs.org/docs/messages/webpack5](https://nextjs.org/docs/messages/webpack5)
 
-https://nextjs.org/docs/app/api-reference/next-config-js/webpack
+-[https://nextjs.org/docs/app/api-reference/next-config-js/webpack](https://nextjs.org/docs/app/api-reference/next-config-js/webpack)
 
-https://webpack.js.org/
+-[https://webpack.js.org/](https://webpack.js.org/)
 
-https://chat.openai.com/
+-[https://chat.openai.com/](https://chat.openai.com/)
+
+<ol className="doc_nav_links">
+  <li>[Vercel](?path=/docs/documents-vercel--docs)</li>
+  <li>
+    [Yarn vs npm vs pnpm](?path=/docs/documents-yarn-vs-npm-vs-pnpm--docs)
+  </li>
+</ol>

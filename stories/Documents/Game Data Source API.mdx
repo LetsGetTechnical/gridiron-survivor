@@ -1,6 +1,8 @@
-# By Adam Morsa
+import '../styles.css';
 
 # Game Data Source: API‐Sports’ American Football API
+
+# By Adam Morsa
 
 ## Problem:
 
@@ -25,6 +27,7 @@ We will use API-Sports’ American Football API as our data source- specifically
 endpoint will be our bread and butter for our application. This endpoint can return all games on
 a given date, the teams in each game, and the scores, and is even live-updated every 15
 minutes.
+
 We should query the game information by date at most a few times per day from our backend,
 then store those results in our own DB. We can then serve this data to our users. This approach
 will keep our API calls down and provide a single source of truth for all the app’s users to refer
@@ -51,10 +54,7 @@ to- as opposed to API calls being made from the user’s end for updates.
 ## Solutions Considered and Discarded:
 
 - SportsDataIO - Prohibitively expensive ($5k/month)
-- <a href="https://rapidapi.com/tank01/api/tank01-nfl-live-in-game-real-time-statistics-nfl/">
-    Tank01 Live NFL API
-  </a>
-- A valid option. Consider as a backup.
+- [Tank01 Live NFL API](https://rapidapi.com/tank01/api/tank01-nfl-live-in-game-real-time-statistics-nfl/) - A valid option. Consider as a backup.
 
 ## Work Required:
 
@@ -65,9 +65,10 @@ to- as opposed to API calls being made from the user’s end for updates.
 
 ## References:
 
-<a href="https://rapidapi.com/api-sports/api/api-american-football/details">
-  API-Sports' American Football API Details/Pricing on RapidAPI
-</a>
-<a href="https://api-sports.io/documentation/nfl/v1">
-  API-Sports' American Football API Docs
-</a>
+1. [API-Sports' American Football API Details/Pricing on RapidAPI](https://rapidapi.com/api-sports/api/api-american-football/details)
+2. [API-Sports' American Football API Docs](https://api-sports.io/documentation/nfl/v1)
+
+<ol className="doc_nav_links">
+  <li>[Docker](?path=/docs/documents-docker--docs)</li>
+  <li>[Github](?path=/docs/documents-github--docs)</li>
+</ol>
