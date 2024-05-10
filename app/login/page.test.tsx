@@ -1,16 +1,9 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { Button } from '@/components/Button/Button';
-import { chromium } from '@playwright/test';
-import { http, HttpResponse } from 'msw';
 import { Input } from '@/components/Input/Input';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { setupServer } from 'msw/node';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import { useRouter } from 'next/navigation';
-import { useState, ChangeEvent, useEffect } from 'react';
 import Logo from '@/components/Logo/Logo';
-import userEvent from '@testing-library/user-event';
 
 describe('Login Page', () => {
   it('Checks that the Logo image rendered has the correct test-id and src', () => {
