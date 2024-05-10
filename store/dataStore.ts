@@ -1,40 +1,32 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-
-interface State {
-  user: {
-    id: string | null;
-    email: string | null;
-  };
-}
+import { Iuser, INFLTeams, IallTeamPicks, IuserPick } from './IdataStore';
 
 interface Action {
-  updateUserId: (id: State['user']['id']) => void;
-  updateUserEmail: (email: State['user']['email']) => void;
+  updateUserId: (id: Iuser['id']) => void;
+  updateUserEmail: (email: Iuser['email']) => void;
   reset: () => void;
 }
 
-export interface DataStore extends State, Action {}
+export interface DataStore extends Iuser, Action {}
 
-const initialState: State = {
-  user: {
+const initialState: Iuser = {
     id: null,
     email: null,
-  },
 };
 
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
   updateUserId: (id) =>
     set(
-      produce((state: State) => {
-        state.user.id = id;
+      produce((state: Iuser) => {
+        state.id = id;
       }),
     ),
   updateUserEmail: (email) =>
     set(
-      produce((state: State) => {
-        state.user.email = email;
+      produce((state: Iuser) => {
+        state.email = email;
       }),
     ),
   reset: () => set(initialState),
