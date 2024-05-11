@@ -10,18 +10,18 @@ import '../styles.css';
 
 [https://www.lambdatest.com/learning-hub/end-to-end-testing](https://www.lambdatest.com/learning-hub/end-to-end-testing)
 
-Test pyramid is a software development framework that helps foster high-quality code by minimizing the time required for developers to determine if changes affect the existing code.
+Test Pyramid is a software development framework that helps foster high-quality code by minimizing the time required for developers to determine if changes affect the existing code.
 
 Three types:  
 Unit testing - test individual blocks (class, functions)
-Integration testing - testing combination of units and ensuring they work together
+Integration testing - testing a combination of units and ensuring they work together
 End to End testing - testing the entire application flow from start to finish (ex: UI to database)
 
-Testing code is important to validate the functions are doing what we intended them to do
+Testing code is important to validate that the functions are doing what we intended them to do
 
 End-to-end testing checks a large chunk of the code. The best approach for end-to-end testing is to think like an end user. Testers consider how users may interact with the app, their aims, and potential issues to create test cases based on these actions.
 
-The technical definition of end to end testing is – a type of testing to ensure that behavioural flow of an application works as expected by performing a complete, thorough testing, from the beginning to end of the product-user interaction in order to realize any dependency or flaw in the workflow of the application.
+The technical definition of end-to-end testing is – a type of testing to ensure that the behavioral flow of an application works as expected by performing a complete, thorough testing, from the beginning to end of the product-user interaction to realize any dependency or flaw in the workflow of the application.
 
 [https://www.lambdatest.com/blog/guide-to-end-to-end-testing-with-examples/](https://www.lambdatest.com/blog/guide-to-end-to-end-testing-with-examples/)
 
@@ -37,34 +37,34 @@ It supports JavaScript and TypeScript which we’ll be using within Next.js.
 Playwright is designed for end-to-end testing and that will allow the team to test the application
 flow from beginning to end.
 
-A free and open source framework used for E2E testing library and automation created and maintained by Microsoft. It has:
-An API that allow developers and testers to write test scripts to automate web applications across different browsers, such as Chromium (Chrome), Firefox (Mozilla), and WebKit (Safari)
+A free and open-source framework used for E2E testing library and automation created and maintained by Microsoft. It has:
+An API that allows developers and testers to write test scripts to automate web applications across different browsers, such as Chromium (Chrome), Firefox (Mozilla), and WebKit (Safari)
 
-Headless (no gui) - everything will be running at the backend and it will save time and memory.; with head = see the physical browsers on your screen.
+Headless (no GUI) - everything will be running at the backend and it will save time and memory.; with head = see the physical browsers on your screen.
 
-Web applications can be tested with Playwright on a variety of browsers, including Gecko-based Mozilla Firefox, WebKit-based Apple Safari, and Chromium-based Google Chrome, and the new Microsoft Edge.
+Web applications can be tested with Playwright on a variety of browsers, including Gecko-based Mozilla Firefox, WebKit-based Apple Safari, Chromium-based Google Chrome, and the new Microsoft Edge.
 
-Free and open source, can be done in multiple languages, you can do functional, api, and accessibility testing.
+Free and open source, can be done in multiple languages, and you can do functional, API, and accessibility testing.
 
 Sources:
 [https://www.lambdatest.com/learning-hub/playwright-javascript](https://www.lambdatest.com/learning-hub/playwright-javascript)
 
 Offer features such as taking screenshots, recording videos, emulating mobile devices, running tests in parallel, and intercepting network requests.
 
-Auto-wait. It waits for elements to be actionable prior to performing actions.
-Types of Testing using Playwright
+Auto-wait. It waits for elements to be actionable before performing actions.
+Types of Testing Using Playwright
 
 ## Types of Testing using Playwright
 
 UI Testing
 
-1. Act as the end user clicking buttons, filling out form - to test out the functionality of web application.
+1. Act as the end user clicking buttons, and filling out forms - to test out the functionality of the web application.
    - API Testing
 2. Validate data input and output; Mocking responses, stubbing responses
    - Visual Testing
-3. Compare expected (screenshot) visual appearance of web page to the actual appearance after changes have been made
+3. Compare the expected (screenshot) visual appearance of the web page to the actual appearance after changes have been made
    - Accessibility Testing
-4. Ensure web applications are usable and accessible to people with disabilities and adheres WCAG standards
+4. Ensure web applications are usable and accessible to people with disabilities and adhere WCAG standards
    - Component Testing
 5. Verify the expected behavior of React components
 
@@ -77,23 +77,23 @@ Here are some examples of what our team will be using Playwright to test:
 There will be a main folder that will hold all of our tests from unit testing to E2E testing.
 
 1. Pnpm playwright test
-   - Pnpm is our package manager we are currently using for our project, which stands for “performant npm”, b/c it runs faster than other package manager.
+   - Pnpm is the package manager we are currently using for our project, which stands for “performant npm”, b/c it runs faster than another package manager.
 2. Can run tests in headless mode (normal pnpm playwright test)
    - Which means it can perform actions in the browser without having to show the browser UI
-   - Tell you if it passed or didn’t and a HTML report will pop up
-   - Pnpm exec playwright show-report and can click on each details
-   - This report show the test outcomes, test cases, which browser it was executed on and how long it took to execute
+   - Tell you if it passed or didn’t and an HTML report will pop up
+   - Pnpm exec playwright show-report and can click on each detail
+   - This report shows the test outcomes, test cases, which browser it was executed on, and how long it took to execute
 3. Pnpm playwright test –ui (trace viewer)
    - In playwright words “time travel experience with watch mode”. This allows you to filter by tests or by browser, run tests individually, see what happens, how long it took, watch and debug each test; see a full trace of your tests and how long it took
-   - Attachments will examine the image diff (the actual vs the expected image) which is done by using toHaveScreentShot() method and it will save the snapshots in a separate folder
+   - Attachments will examine the image diff (the actual vs the expected image) which is done by using the toHaveScreentShot() method and it will save the snapshots in a separate folder
 4. Debug (inspector) -
    - Pnpm playwright test –debug
-     - Playwright inspector populates and show you where the code has paused at and allows you to walk through each individual steps to narrow down a root cause for preventing yourcode to perform
-     - Playwright inspector is a GUI (graphical user interface) tool that comes with the framework by default
-5. VS code extension: (codegen) this can be done via the Playwright inspector tool
+     - Playwright inspector populates and shows you where the code has paused and allows you to walk through each step to narrow down a root cause for preventing your code from perform
+     - Playwright Inspector is a GUI (graphical user interface) tool that comes with the framework by default
+5. VS code extension: (codegen) This can be done via the Playwright Inspector tool
    - Chemical potion bottle should appear on the left of your Visual Studio Code
-     - Can chose to run tests in browsers
-   - It also help you debug
+     - Can choose to run tests in browsers
+   - It also helps you debug
    - It can help “record” tests for you
      - Demo with Habit-sation
 
@@ -105,19 +105,19 @@ Playwright can also be used to test input data and forms.
   - Installation
   - Testing
 - Great features
-  - Record test, assess accessibility, visual testing, etc.
+  - Record tests, assess accessibility, visual testing, etc.
   - Excellent debugging tools provided
 - Great community to answer questions
   - Discord, GitHub repo, and Youtube
 
 ## E2E:
 
-We will implement end to end testing to confirm that the application works as intended in
-user’s environment and the planned user experience is correct. End to end testing can take
+We will implement end-to-end testing to confirm that the application works as intended in
+the user’s environment and the planned user experience is correct. End-to-end testing can take
 longer to run and maintain because it is composed of many parts so identifying key user flows to
 test will be necessary to make it easier for the team to save time and reduce complexity. A
-possible e2e test would be to the user navigates to the app, logins, view the teams they havent
-picked yet, pick a team before the deadline, and submit.
+possible e2e test would be that the user navigates to the app, logins, views the teams they haven't
+picked yet, picks a team before the deadline, and submits.
 
 While it may take time to set up the tests, it is beneficial in the long run. It will save the team
 time from application issues as they will be addressed in the testing phase and also reduce

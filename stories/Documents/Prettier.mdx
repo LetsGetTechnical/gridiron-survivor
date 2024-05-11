@@ -10,21 +10,21 @@ Prettier is an extension for your text editor that reformats your code. This can
 
 Prettier is nearly essential in a group setting as it ensures every contributor’s code looks the same, thus reducing time spent reviewing code as well as ensuring everyone is following the same practices.
 
-[Learn more about Prettier and it’s use cases.](https://docs.google.com/presentation/d/1WMqDnXBXxwrQnfIKike30pgIrz2eYeocfGc0c3UKPHk/edit?usp=sharing)
+[Learn more about Prettier and its use cases.](https://docs.google.com/presentation/d/1WMqDnXBXxwrQnfIKike30pgIrz2eYeocfGc0c3UKPHk/edit?usp=sharing)
 
 # Prerequisites
 
-VS Code is Gridiron Survivor’s text editor of choice. In order to use Prettier, you must have VS Code installed.
+VS Code is Gridiron Survivor’s text editor of choice. To use Prettier, you must have VS Code installed.
 
 [Install VS Code](https://code.visualstudio.com/)
 
 # How Gridiron Uses Prettier
 
-Prettier gives you options on _when_ to format your code, however, we are going to have it format your code every time you save your project. This will likely cause items to move around the scree, and that’s okay! It is all in the sake of increasing legibility and having a coherent coding style.
+Prettier gives you options on _when_ to format your code, however, we are going to have it format your code every time you save your project. This will likely cause items to move around the screen, and that’s okay! It is all for the sake of increasing legibility and having a coherent coding style.
 
 ## Prettier Config File
 
-A crucial part of our setup is ensuring you do not change any settings and have the `prettier.config.cjs` file in the root of your project. This should be there by default when you clone the project repository. If not, be sure to ask for help in the discord before making up your own settings.
+A crucial part of our setup is ensuring you do not change any settings and have the `prettier.config.cjs` file at the root of your project. This should be there by default when you clone the project repository. If not, be sure to ask for help in the discord before making up your settings.
 
 ```
 /** @type {import("prettier").Config} */
@@ -35,7 +35,7 @@ const config = {
   printWidth: 80,
   tabWidth: 2,
   plugins: [
-    // Automatically sorts tailwind classes to avoid speceficity issues
+    // Automatically sorts tailwind classes to avoid specificity issues
     'prettier-plugin-tailwindcss', // MUST COME LAST
   ],
 };
@@ -45,9 +45,9 @@ export default config;
 
 ## Prettier Ignore File
 
-We want to ignore certain file types and we can do so by creating a `.prettierignore` file in the root of our project.
+We want to ignore certain file types and we can do so by creating a `.prettierignore` file at the root of our project.
 
-At the time of writing, it contains the the following:
+At the time of writing, it contains the following:
 
 ```
 .github/
@@ -59,7 +59,7 @@ At the time of writing, it contains the the following:
 
 ## Formatting Files on Save
 
-**This is important as you _must_ follow these steps in order to use Prettier properly within our project.**
+**This is important as you _must_ follow these steps to use Prettier properly within our project.**
 
 We want to format our files every time we save them. To do so, follow the instructions below:
 

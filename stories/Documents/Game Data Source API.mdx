@@ -1,5 +1,3 @@
-import '../styles.css';
-
 # Game Data Source: API‐Sports’ American Football API
 
 # By Adam Morsa
@@ -29,9 +27,9 @@ a given date, the teams in each game, and the scores, and is even live-updated e
 minutes.
 
 We should query the game information by date at most a few times per day from our backend,
-then store those results in our own DB. We can then serve this data to our users. This approach
+then store those results in our DB. We can then serve this data to our users. This approach
 will keep our API calls down and provide a single source of truth for all the app’s users to refer
-to- as opposed to API calls being made from the user’s end for updates.
+to as opposed to API calls being made from the user’s end for updates.
 
 ## Security Considerations:
 
@@ -54,11 +52,11 @@ to- as opposed to API calls being made from the user’s end for updates.
 ## Solutions Considered and Discarded:
 
 - SportsDataIO - Prohibitively expensive ($5k/month)
-- [Tank01 Live NFL API](https://rapidapi.com/tank01/api/tank01-nfl-live-in-game-real-time-statistics-nfl/) - A valid option. Consider as a backup.
+- [Tank01 Live NFL API](https://rapidapi.com/tank01/api/tank01-nfl-live-in-game-real-time-statistics-nfl/) - A valid option. Consider it as a backup.
 
 ## Work Required:
 
-- (S) Create API-sports account. May require credit card to account for potential overage
+- (S) Create an API-sports account. May require a credit card to account for potential overage
   charges
 - (L) Build our API queries and code a system to convert the API data into tables to insert
   into our SQL database
@@ -67,8 +65,3 @@ to- as opposed to API calls being made from the user’s end for updates.
 
 1. [API-Sports' American Football API Details/Pricing on RapidAPI](https://rapidapi.com/api-sports/api/api-american-football/details)
 2. [API-Sports' American Football API Docs](https://api-sports.io/documentation/nfl/v1)
-
-<ol className="doc_nav_links">
-  <li>[Docker](?path=/docs/documents-docker--docs)</li>
-  <li>[Github](?path=/docs/documents-github--docs)</li>
-</ol>

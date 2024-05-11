@@ -1,5 +1,4 @@
 import '../styles.css';
-import vsExplorer from '../../public/assets/storybook/vsExplorer.png';
 
 # MVVM vs MVM vs OOP
 
@@ -11,7 +10,7 @@ Finalize project architecture between MVC, MVVC, or OOP
 
 ## Background Info
 
-As we are in the early phase, we need to conclude on a project architecture which will help smooth our processes as the project scales with users and code.
+As we are in the early phase, we need to conclude on a project architecture that will help smooth our processes as the project scales with users and code.
 
 ## Requirements
 
@@ -27,13 +26,13 @@ Need a project architecture that is:
 
 ![mvvm diagram](static/media/public/assets/storybook/mvvm.png)
 
-I chose MVVM because it uses data directly from the API without manipulating it. In addition, MVVM can update the information on the View automatically from the ViewModel due to data binding, which is establishing a connection between the data and the user interface.
+I chose MVVM because it uses data directly from the API without manipulating it. In addition, MVVM can update the information on the View automatically from the ViewModel due to data binding, which establishes a connection between the data and the user interface.
 
-In this example shown here, a User makes an action on the View which sends it to the ViewModel to handle the request. Then the request gets sent to the Model and updates the information in the database. (the light grey arrows)
+In the example shown here, a User makes an action on the View which sends it to the ViewModel to handle the request. Then the request gets sent to the Model and updates the information in the database. (the light grey arrows)
 
 For example, a user picks a football team (UI action), then the information gets sent to the ViewModel which tells the Model which team they are picking and updates the information in the database.
 
-Then the database updates and sends the information back to the model, which updates in the ViewModel, which make the changes accordingly in the View (the dark grey arrows).
+Then the database updates and sends the information back to the model, which updates in the ViewModel, which makes the changes accordingly in the View (the dark grey arrows).
 
 From the football team the user selected, we will keep track in our database which football team they chose and update it on the UI.
 
@@ -62,18 +61,18 @@ const footballSchema = new Schema({
 })
 ```
 
-Here is a quick glance of OOP that I recommend we should use in our server-side code. OOP will allow us to create instance of class so we can use it repeatedly.
+Here is a glance at OOP that I recommend we should use in our server-side code. OOP will allow us to create instances of class so we can use it repeatedly.
 
 Here is an example using MongoDB’s Schema of creating a footballSchema along with what fields will be included and what data type we anticipate it to have.
 
 ## Implementation Plan
 
-Here’s the folder structure of how to implement MVVM into server-side.
+Here’s the folder structure of how to implement MVVM on the server-side.
 
 ![screnshot of visual code file explorer](static/media/public/assets/storybook/vsExplorer.png)
 
 - Set up data models
-- Create VIew Models - the data logic
+- Create View Models - the data logic
 - Design the User Interface
 - Establish data binding to branch the ViewModel
   and the View
@@ -84,7 +83,7 @@ Implement model tests, view tests, and controller tests to ensure it is supposed
 
 Ensure the View is displaying what we anticipated it to do
 
-From establishing MVVM as our project architecture, this will help the app create separation of concerns, onboard and guide new developers/engineers to assist us where needed, and can write unit tests for the ViewModel and Model without having to reference the View.
+Establishing MVVM as our project architecture, will help the app create a separation of concerns, onboard and guide new developers/engineers to assist us where needed, and write unit tests for the ViewModel and Model without having to reference the View.
 
 Sources:
 

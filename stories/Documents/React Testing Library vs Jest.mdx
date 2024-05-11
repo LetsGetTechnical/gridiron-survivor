@@ -18,7 +18,7 @@ are doing what we intended them to do
 Three types:
 
 1. Unit testing - test individual blocks (class, functions)
-2. Integration testing - testing combination of units and ensuring they work together
+2. Integration testing - testing a combination of units and ensuring they work together
 3. End to End testing - testing the entire application flow from start to finish (ex: UI to database)
 
 ## Requirements
@@ -32,7 +32,7 @@ Need a testing library that is:
 
 Jest is a test runner
 
-React Testing Library is built on top of DOM Testing Library.
+React Testing Library is built on top of the DOM Testing Library.
 
 This is an example showing unit testing using Jest and it is testing to see if ‘Hello’ exists in the variable ‘str’ with the toContain matcher.
 
@@ -42,19 +42,19 @@ This is a unit testing using RTL to test if ‘Hello’ exists in the Greet comp
 
 ![RTL Unit Testing](static/media/public/assets/storybook/RTLUnit.png)
 
-This is an integration testing using Jest. We are importing the function fetchData from the starWars file and anticipating a promise to be resolved. As you may noticed in line 5, it is expecting the promise to be resolved to ‘Data from API’ with the help of the resolves matcher.
+This is an integration test using Jest. We are importing the function fetchData from the starWars file and anticipating a promise to be resolved. As you may noticed in line 5, it is expecting the promise to be resolved to ‘Data from API’ with the help of the resolves matcher.
 
 ![Jest Integration Testing](static/media/public/assets/storybook/JestIntegration.png)
 
-Whereas RTL, it does not have a resolve matcher. It’s looking for specific DOM elements, which in this case it is looking for the text of “Planet data loading…”.
+Whereas RTL does not have a resolve matcher. It’s looking for specific DOM elements, which in this case is looking for the text of “Planet data loading…”.
 
 ![RTL Integration Testing](static/media/public/assets/storybook/RTLIntegration.png)
 
 Overall
 
 Jest and RTL work great together
-RTL allows us to work and test with React components and pick out items to test from the DOM elements (b/c of DOM Testing Library) while Jest provides helpful matchers to test if it is functioning as it should
-This will allow us to pick out and test the React components with the help of RTL and ensure our functions are doing what we anticipated it to do with the help of Jest matchers.
+RTL allows us to work and test with React components and pick out items to test from the DOM elements (b/c of DOM Testing Library) while Jest provides helpful matches to test if it is functioning as it should
+This will allow us to pick out and test the React components with the help of RTL and ensure our functions are doing what we anticipated them to do with the help of Jest matches.
 Please note if working with Class functions, Jest is used to test
 
 Sources:

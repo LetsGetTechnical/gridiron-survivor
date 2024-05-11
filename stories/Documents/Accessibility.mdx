@@ -10,7 +10,7 @@ import '../styles.css';
 - [How Accessibility Works](#c.-how-accessibility-works)
   - [DOM Tree vs Accessibility Tree](#dom-tree-vs-accessibility-tree)
   - [Implicit vs. Explicit Roles](#implicit-vs-explicit-roles)
-  - [The Accessibile Name](#the-accessible-name)
+  - [The Accessible Name](#the-accessible-name)
 
 # A. What is Accessibility?
 
@@ -33,8 +33,8 @@ A person who is blind relies on a **screen reader**, a technology that shares th
 do it two ways:
 
 - via a speech synthesizer for the user that has good hearing (the user navigates through the UI elements
-  with the keyboard, and the content on the screen is shared with them through synthetic speech)
-- via a braille display, for users who are deaf or hard of hearing (The screen reader translates the contenton the screen into a format that can be read on a braille display. These displays are fitted with braille cells
+  with the keyboard and the content on the screen is shared with them through synthetic speech)
+- via a braille display, for users who are deaf or hard of hearing (The screen reader translates the content on the screen into a format that can be read on a braille display. These displays are fitted with braille cells
   that change dynamically)
 
 A person with good sight but limited or no hand mobility could use **speech recognition software** or an
@@ -101,14 +101,14 @@ For each object in the Accessible Tree, the browser shares the following:
 Each assistive technology will use the information from the accessibility tree to present the object to the
 user in the most appropriate way:
 
-- a screen reader will announce it as "Home link".
+- a screen reader will announce it as a "Home link".
 - speech recognition software will recognize it as "Home" and allow the user to activate it with the command "click Home".
 
 ## Implicit vs. Explicit Roles
 
-An **implicit** role is assigned by default, because it’s built in the definition of the semantic HTML tag used to create the element. When the browser builds the accessibility tree, it assigns the role, and all related properties and states, to the corresponding accessible object.
+An **implicit** role is assigned by default because it’s built into the definition of the semantic HTML tag used to create the element. When the browser builds the accessibility tree, it assigns the role, and all related properties and states, to the corresponding accessible object.
 
-As developers, we can also **explicitly** assign a role to an element using a set of special roles and attributes called [Accessible Rich Internet Applications](https://www.w3.org/WAI/standards-guidelines/aria/), often referred to by the acronym **ARIA**. These are added to HTML tags in order to modify or improve the default behavior of an element and make it accessible.
+As developers, we can also **explicitly** assign a role to an element using a set of special roles and attributes called [Accessible Rich Internet Applications](https://www.w3.org/WAI/standards-guidelines/aria/), often referred to by the acronym **ARIA**. These are added to HTML tags to modify or improve the default behavior of an element and make it accessible.
 
 **Warning**: We should not jump to ARIA right away. When we have to implement a certain functionality and the HTML tag for it exists, we should use the tag. The first rule of ARIA is actually: don't use ARIA! Assistive technologies have a better relationship with semantic HTML than with ARIA, and as we’ll see in the next section, using ARIA does not guarantee the same outcome we would achieve with HTML.
 
@@ -122,7 +122,7 @@ To create the accessible name, the browser uses the accessible name and descript
 
 1. **text defined by a visually-hidden class**
 
-This is a CSS class that hides text visually, but makes it available to screen readers.
+This is a CSS class that hides text visually but makes it available to screen readers.
 
 ```
 <button>
@@ -151,17 +151,17 @@ Also, if the CSS class is not implemented correctly, the spaces between words mi
 
 You can use it with interactive images. With buttons or links that contain an image and no visible text or ARIA attributes, the browser will take the alt attribute to compute the accessible name.
 
-Note that this is slightly more verbose. So, a button wrapping an image of **x** can have an alt="Close modal" and it will be announced as "Close modal graphic button". (An image is announced either as graphic or image, depending on the screen reader.)
+Note that this is slightly more verbose. So, a button wrapping an image of **x** can have an alt="Close modal" and it will be announced as a "Close modal graphic button". (An image is announced either as a graphic or image, depending on the screen reader.)
 
-Again, a common concern with accessible names not computed from visible text: in order to activate the element, voice users should be able to tell its name. We have to choose the alt text thoughtfully!
+Again, a common concern with accessible names not computed from visible text: to activate the element, voice users should be able to tell its name. We have to choose the alt text thoughtfully!
 
-We could also use an empty alt attribute to hide the image from the screen reader, and add a visually-hidden span with the accessible name.
+We could also use an empty alt attribute to hide the image from the screen reader and add a visually hidden span with the accessible name.
 
 3. **title**
-   We should avoid it because it's tricky to make it accessible to screen reader users. We can still use it to provide a visual tooltip on mouseover, but not to rely on it for the accessible name.
+   We should avoid it because it's tricky to make it accessible to screen reader users. We can still use it to provide a visual tooltip on mouseover, but not rely on it for the accessible name.
    Please note this is an attribute that is added to the opening HTML tag of an element. We should not confuse it with the `<title>` tag, which is used to provide a title for a web page.
 4. **placeholder**
-   Technically, this is an option if we have an input with the placeholder attribute. It’s not supported by all browser’s though, and it’s not recommended that we use it.
+   Technically, this is an option if we have an input with the placeholder attribute. It’s not supported by all browsers though, and it’s not recommended that we use it.
 5. **aria-labelledby**
    It has the highest priority among all the other options, including the visible text.
    It references the ID of another element that has visual text. The text of that element then becomes the name of the current element.
@@ -178,7 +178,7 @@ We could also use an empty alt attribute to hide the image from the screen reade
 
 6. **aria-label**
 
-It takes a string value that becomes the name of the element. For example, aria-label="Close survey" could be used to provide the name for a button. Its main difference with aria-labelledby? It's not visible, and it's only announced to the screen reader user.
+It takes a string value that becomes the name of the element. For example, aria-label="Close survey" could be used to provide the name of a button. Is the main difference with aria-labelledby? It's not visible, and it's only announced to the screen reader user.
 
 ```
 <button aria-label="Close menu">
@@ -190,12 +190,12 @@ It takes a string value that becomes the name of the element. For example, aria-
 
 The advice from experts is to use it only if nothing else is available. The problem is that it does not take a “lang” attribute nor it's guaranteed to be translated by all browsers. This unfortunately prevents our content from being accessible to a global audience (a process called "internationalization").
 
-Again, this attribute has the usual problem of a name not relying on visible text: voice users will have to guess the name of the element since it's not visible, or go through a series of other commands until they can select the element.
+Again, this attribute has the usual problem of a name not relying on visible text: voice users will have to guess the name of the element since it's not visible or go through a series of other commands until they can select the element.
 
 To summarize the accessible name computation:
 
-- If there's no visible text (or label), or at least text with a visually-hidden class, the algorithm relies on the content of certain HTML (alt, title) and ARIA (aria-labelledby, aria-label) attributes.
-- The ARIA attributes are given priority even when the element has visible text or a label. The idea being that they were added to offer a more descriptive or tailored name for the element. So, if the element has descriptive visible text/label, we should not add aria-labelledby or aria-label since they will override the visible text/label.
+- If there's no visible text (or label), or at least text with a visually hidden class, the algorithm relies on the content of certain HTML (alt, title) and ARIA (aria-labelledby, aria-label) attributes.
+- The ARIA attributes are given priority even when the element has visible text or a label. The idea was that they were added to offer a more descriptive or tailored name for the element. So, if the element has descriptive visible text/label, we should not add aria-labelledby or aria-label since they will override the visible text/label.
 
 ## Resources
 

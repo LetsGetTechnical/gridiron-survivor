@@ -14,7 +14,7 @@ This feature also needs to be able to be timed out after a certain amount of tim
 
 ## Solution:
 
-Session storage only maintains the session/data of the current tab/page. A new one is created every time a new tab is created. Local state only maintains the data when exiting the tab, not the window, and does not maintain the data upon refreshing the screen.
+Session storage only maintains the session/data of the current tab/page. A new one is created every time a new tab is created. The local state only maintains the data when exiting the tab, not the window, and does not maintain the data upon refreshing the screen.
 
 They help us maintain the data on screen/for code despite other circumstances. They also provide convenience to the user, so if they input something, but they accidentally exit out of the program, their “place” is “saved” thanks to cache storage. It gives a kind of safety net for other team members when testing the application, preventing them from “losing” their “saved data” from an accidental click/exit. Context API can be used to re-render the entire application to implement localization and to ensure content is rendered upon successful authentication.
 
