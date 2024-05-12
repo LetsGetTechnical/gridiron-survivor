@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Models } from 'appwrite';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
@@ -21,6 +21,8 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -35,76 +37,75 @@ export default function WeeklyPickForm() {
   const [userPick, setUserPick] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [allPicks, setAllPicks] = useState<string | null>(null);
+  const { isSignedIn } = useAuthContext();
+  const router = useRouter();
 
   useEffect(() => {
-    async function fetchWeeklyPicks() {
+    if (!isSignedIn) {
+      router.push('/login');
+      return;
+    }
+
+    const fetchWeeklyPicks = async () => {
       try {
-        const allPicks = await getAllWeeklyPicks();
-
-        const data: any = await getNFLTeams();
-
-        const response = data.documents;
-        setNFLTeams(response);
-
-        const user = await account.get();
-
-        setUserId(user.$id);
+        const [allPicksData, nflTeamsData, user] = await Promise.all([
+          getAllWeeklyPicks(),
+          getNFLTeams(),
+          account.get(),
+        ]);
 
         const userPickedTeam = await getUserWeeklyPick({
           userId: user.$id,
           weekNumber: '6622c75658b8df4c4612',
         });
 
-        if (userPickedTeam) {
-          setUserPick(userPickedTeam);
+        if (!nflTeamsData) {
+          console.error('NFL teams data is undefined');
+          setNFLTeams([]);
+        } else {
+          setNFLTeams(nflTeamsData.documents);
         }
 
-        if (allPicks?.documents[0].userResults != '') {
-          setAllPicks(allPicks?.documents[0].userResults);
-        }
+        setUserId(user.$id);
+        setUserPick(userPickedTeam);
+        setAllPicks(allPicksData?.documents[0].userResults || null);
       } catch (error) {
-        console.error(error);
+        console.error('Fetching error:', error);
       }
-    }
+    };
 
     fetchWeeklyPicks();
-  }, []);
+  }, [isSignedIn]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    try {
-      const teamSelect = data.type.toLowerCase();
+  const onSubmit = useCallback(
+    async (data: z.infer<typeof FormSchema>) => {
+      try {
+        const teamSelect = data.type.toLowerCase();
+        localStorage.setItem('team', data.type);
 
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem('team', data.type);
+        const teamID = NFLTeams.find(
+          (team) => team.teamName.toLowerCase() === teamSelect,
+        )?.$id;
+        const resultJSON = `${userId}:{"team":"${teamID}","correct":true}`;
+        const appendNewResult = allPicks
+          ? `{${allPicks},${resultJSON}}`
+          : `{${resultJSON}}`;
+
+        await createWeeklyPicks({
+          gameId: '66311a210039f0532044',
+          gameWeekId: '6622c7596558b090872b',
+          userResults: appendNewResult,
+        });
+      } catch (error) {
+        console.error('Submission error:', error);
       }
-
-      const findTeamID = NFLTeams.find(
-        (ele) => ele.teamName.toLowerCase() === teamSelect,
-      );
-
-      let appendNewResult;
-
-      const newObj = `"${userId}":{"team":"${findTeamID?.$id}","correct":true}`;
-
-      if (allPicks === null) {
-        appendNewResult = `{${newObj}}`;
-      } else {
-        appendNewResult = `{${allPicks},${newObj}}`;
-      }
-
-      createWeeklyPicks({
-        gameId: '66311a210039f0532044',
-        gameWeekId: '6622c7596558b090872b',
-        userResults: appendNewResult!,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+    },
+    [NFLTeams, userId, allPicks],
+  );
 
   const grabCache = () => {
     if (typeof window !== 'undefined') {

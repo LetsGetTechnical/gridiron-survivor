@@ -1,25 +1,50 @@
+import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
+import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
 
-export async function loginAccount(user: { email: string; password: string }) {
+/**
+ * Get the current session of the user
+ *
+ * @param email - The email of the user
+ * @param password - The password of the user
+ * @return {Models.Session | Error} - The session object or an error
+ */
+export async function loginAccount({
+  email,
+  password,
+}: IAccountData): Promise<Models.Session> {
   try {
-    return await account.createEmailPasswordSession(user.email, user.password);
+    return await account.createEmailPasswordSession(email, password);
   } catch (error) {
     console.error(error);
+    throw new Error('Error logging in user');
   }
 }
 
-export async function logoutAccount() {
+/**
+ * Logout the current session of the user
+ *
+ * @return {Object | Error} - The session object or an error
+ */
+export async function logoutAccount(): Promise<{}> {
   try {
     return await account.deleteSession('current');
   } catch (error) {
     console.error(error);
+    throw new Error('Error logging out user');
   }
 }
 
-export async function getUserWeeklyPick(data: {
-  userId: string;
-  weekNumber: string;
-}) {
+/**
+ * Get user's weekly pick
+ *
+ * @return {String} - The session object or an error
+ */
+export async function getUserWeeklyPick({
+  userId,
+  weekNumber,
+}: IUserWeeklyPick): Promise<string> {
+  // TODO: Use actual userId and weekNumber
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -28,10 +53,18 @@ export async function getUserWeeklyPick(data: {
     return response.documents[0].userResults;
   } catch (error) {
     console.error(error);
+    throw new Error('Error getting user weekly pick');
   }
 }
 
-export async function getAllWeeklyPicks() {
+/**
+ * Get all weekly picks
+ *
+ * @return {Models.DocumentList<Models.Document>} - The session object or an error
+ */
+export async function getAllWeeklyPicks(): Promise<
+  Models.DocumentList<Models.Document>
+> {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -40,10 +73,18 @@ export async function getAllWeeklyPicks() {
     return response;
   } catch (error) {
     console.error(error);
+    throw new Error('Error getting all weekly picks');
   }
 }
 
-export async function getNFLTeams() {
+/**
+ * Get all NFL teams
+ *
+ * @return {Models.DocumentList<Models.Document>} - The session object or an error
+ */
+export async function getNFLTeams(): Promise<
+  Models.DocumentList<Models.Document>
+> {
   try {
     return await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -51,27 +92,39 @@ export async function getNFLTeams() {
     );
   } catch (error) {
     console.error(error);
+    throw new Error('Error getting NFL teams');
   }
 }
 
-export async function registerAccount(request: {
-  email: string;
-  password: string;
-}) {
-  const { email, password } = request;
-
+/**
+ * Register a new account
+ *
+ * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ */
+export async function registerAccount({
+  email,
+  password,
+}: IAccountData): Promise<Models.User<Models.Preferences>> {
   try {
     return await account.create(ID.unique(), email, password);
-  } catch (error: any) {
-    throw error;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error registering user');
   }
 }
 
-export async function createWeeklyPicks(data: {
-  gameId: string;
-  gameWeekId: string;
-  userResults: string;
-}) {
+/**
+ * Get the current user
+ *
+ * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ */
+export async function createWeeklyPicks({
+  gameId,
+  gameWeekId,
+  userResults,
+}: IWeeklyPicks): Promise<Models.Document> {
+  const data = { gameId, gameWeekId, userResults };
+
   try {
     return await databases.updateDocument(
       appwriteConfig.databaseId,
@@ -81,5 +134,6 @@ export async function createWeeklyPicks(data: {
     );
   } catch (error) {
     console.error(error);
+    throw new Error('Error creating weekly picks');
   }
 }
