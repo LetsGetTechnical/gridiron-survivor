@@ -1,54 +1,79 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
+import {
+  IUser,
+  INFLTeams,
+  IUserWeeklyPick,
+  IWeeklyPicks,
+} from '@/api/IapiFunctions';
 
-import { IWeeklyPicks, INFLTeams, IUserWeeklyPick } from '@/api/IapiFunctions';
-
-interface State {
-  user: {
-    id: string | null;
-    email: string | null;
-  };
-
+interface IDataStoreState {
+  user: IUser;
   NFLTeams: INFLTeams;
+  userWeeklyPick: IUserWeeklyPick;
   weeklyPicks: IWeeklyPicks;
-  userPicks: IUserWeeklyPick;
 }
-
-interface Action {
-  updateUserId: (id: State['user']['id']) => void;
-  updateUserEmail: (email: State['user']['email']) => void;
+interface IDataStoreAction {
+  updateUser: (id: IUser['id'], email: IUser['email']) => void;
   reset: () => void;
-
-
+  updateNFLTeams: (
+    teamName: INFLTeams['teamName'],
+    teamLogo: INFLTeams['teamLogo'],
+  ) => void;
+  updateUserWeeklyPick: (
+    id: IUser['id'],
+    weekNumber: IUserWeeklyPick['weekNumber'],
+  ) => void;
+  updateWeeklyPicks: (
+    gameId: IWeeklyPicks['gameId'],
+    gameWeekId: IWeeklyPicks['gameWeekId'],
+    userResults: IWeeklyPicks['userResults'],
+  ) => void;
 }
 
-export interface DataStore extends State, Action {}
+export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
-const initialState: State = {
+const initialState: IDataStoreState = {
   user: {
-    id: null,
-    email: null,
+    id: '',
+    email: '',
   },
-
   NFLTeams: {
-    teamName: "",
-    teamLogo: ""
-  }
+    teamName: '',
+    teamLogo: '',
+  },
 };
 
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
-  updateUserId: (id) =>
+  updateUser: (id, email) =>
     set(
-      produce((state: State) => {
+      produce((state: IDataStoreState) => {
         state.user.id = id;
-      }),
-    ),
-  updateUserEmail: (email) =>
-    set(
-      produce((state: State) => {
         state.user.email = email;
       }),
     ),
   reset: () => set(initialState),
+  updateNFLTeams: (teamName, teamLogo) =>
+    set(
+      produce((state: IDataStoreState) => {
+        state.NFLTeams.teamName = teamName;
+        state.NFLTeams.teamLogo = teamLogo;
+      }),
+    ),
+    updateUserWeeklyPick: (id, weekNumber) => 
+    set(
+      produce((state: IDataStoreState) => {
+        state.user.id = id;
+        state.userWeeklyPick.weekNumber = weekNumber
+      })
+    ),
+    updateWeeklyPicks: (gameId, gameWeekId, userResults) => 
+    set(
+      produce((state: IDataStoreState) => {
+        state.weeklyPicks.gameId = gameId;
+        state.weeklyPicks.gameWeekId = gameWeekId;
+        state.weeklyPicks.userResults = userResults;
+      })
+    )
 }));

@@ -16,3 +16,7 @@ export interface INFLTeams {
   teamName: string;
   teamLogo: string;
 }
+export interface IUser {
+  id: string;
+  email: string;
+}
