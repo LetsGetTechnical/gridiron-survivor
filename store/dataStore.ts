@@ -42,6 +42,15 @@ const initialState: IDataStoreState = {
     teamName: '',
     teamLogo: '',
   },
+  userWeeklyPick: {
+    userId: '',
+    weekNumber: "",
+  }, 
+  weeklyPicks: {
+    gameId: "",
+    gameWeekId: "",
+    userResults: "",
+  }
 };
 
 export const useDataStore = create<DataStore>((set) => ({
