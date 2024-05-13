@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
+
 import {
   IUser,
   INFLTeams,
@@ -15,7 +16,7 @@ interface IDataStoreState {
 }
 interface IDataStoreAction {
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
-  reset: () => void;
+  resetUser: () => void;
   updateNFLTeams: (
     teamName: INFLTeams['teamName'],
     teamLogo: INFLTeams['teamLogo'],
@@ -29,6 +30,7 @@ interface IDataStoreAction {
     gameWeekId: IWeeklyPicks['gameWeekId'],
     userResults: IWeeklyPicks['userResults'],
   ) => void;
+
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
@@ -38,6 +40,7 @@ const initialState: IDataStoreState = {
     id: '',
     email: '',
   },
+
   NFLTeams: {
     teamName: '',
     teamLogo: '',
@@ -51,6 +54,7 @@ const initialState: IDataStoreState = {
     gameWeekId: "",
     userResults: "",
   }
+
 };
 
 export const useDataStore = create<DataStore>((set) => ({
@@ -62,7 +66,7 @@ export const useDataStore = create<DataStore>((set) => ({
         state.user.email = email;
       }),
     ),
-  reset: () => set(initialState),
+  resetUser: () => set({ user: initialState.user }),
   updateNFLTeams: (teamName, teamLogo) =>
     set(
       produce((state: IDataStoreState) => {
@@ -85,4 +89,5 @@ export const useDataStore = create<DataStore>((set) => ({
         state.weeklyPicks.userResults = userResults;
       })
     )
+
 }));

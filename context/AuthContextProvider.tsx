@@ -25,9 +25,9 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const { updateUserId, updateUserEmail, reset } = useDataStore<DataStore>(
-    (state) => state,
-  );
+
+  const { updateUser, resetUser } = useDataStore<DataStore>((state) => state);
+
   const router = useRouter();
 
   // Check for a current session on component mount
@@ -37,7 +37,8 @@ export const AuthContextProvider = ({
         return;
       }
 
-      return setIsSignedIn(true);
+
+      setIsSignedIn(true);
     };
     checkSession();
   }, []);
@@ -50,12 +51,14 @@ export const AuthContextProvider = ({
 
       try {
         const userData = await account.get();
-        updateUserId(userData.$id);
-        updateUserEmail(userData.email);
+
+        updateUser(userData.$id, userData.email);
       } catch (error) {
-        console.error('Error getting user data:', error);
+        resetUser();
         setIsSignedIn(false);
-        reset();
+        console.log('Error getting user data:', error);
+        throw new Error('Error getting user data');
+
       }
     };
     getUser();
@@ -77,7 +80,9 @@ export const AuthContextProvider = ({
     try {
       await account.deleteSession('current');
       setIsSignedIn(false);
-      reset(); // Reset user data in the store
+
+      resetUser(); // Reset user data in the store
+
       router.push('/login');
     } catch (error) {
       console.error('Logout error:', error);
