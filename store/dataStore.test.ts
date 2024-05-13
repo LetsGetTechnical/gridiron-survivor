@@ -24,11 +24,9 @@ describe('Data Store', () => {
   it('Checks the reset user state matches default', () => {
     const { result } = renderHook(() => useDataStore());
 
-    expect(result.current.user.id).toBe(userId);
-    expect(result.current.user.email).toBe(userEmail);
-
     act(() => {
-      result.current.reset();
+      result.current.updateUser(userId, userEmail);
+      result.current.resetUser();
     });
 
     expect(result.current.user.id).toBe('');

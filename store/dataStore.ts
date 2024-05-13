@@ -8,7 +8,7 @@ interface IDataStoreState {
 
 interface IDataStoreAction {
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
-  reset: () => void;
+  resetUser: () => void;
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
@@ -29,5 +29,5 @@ export const useDataStore = create<DataStore>((set) => ({
         state.user.email = email;
       }),
     ),
-  reset: () => set(initialState),
+  resetUser: () => set({ user: initialState.user }),
 }));
