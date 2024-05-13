@@ -1,5 +1,6 @@
 import '../styles.css';
 import settingsPrettier from '../../public/assets/storybook/settingsPrettier.png';
+import Image from 'next/image';
 
 ## Application Setup
 
@@ -134,7 +135,10 @@ Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+
 > [!IMPORTANT]
 > There may be multiple options, ensure you select the option that says "Open User Settings (JSON)"
 
-![screenshot of VS Code search results for 'settings.json' with the User Settings JSON option highlighted](https://res.cloudinary.com/melt/image/upload/v1715627999/nqmmxr0lv7whgvqmcbdp.png)
+<Image
+  alt="VS Code search results for 'settings.json' with the User Settings JSON option highlighted"
+  src={settingsPrettier}
+/>
 
 Add the following lines to your `settings.json`
 
