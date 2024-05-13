@@ -1,0 +1,50 @@
+import '../styles.css';
+
+## Developer Guide
+
+### Table of Contents
+
+- [Getting Started](#getting-started)
+- [Pushing local branch to remote branch](#pushing-local-branch-to-remote-branch)
+
+## Getting Started
+
+```
+  git clone --single-branch --branch develop
+  https://github.com/LetsGetTechnical/gridiron-survivor.git
+```
+
+Install the required packages with pnpm (NOT npm or yarn!)
+
+```
+pnpm install
+```
+
+Create a new branch for whatever you’re working on in the format firstname/feature-description, then check out your new branch. For example:
+
+```
+  git branch richard/user-picks-page && git checkout richard/user-picks-page
+```
+
+Code your feature! 🤓
+
+## Pushing local branch to remote branch
+
+For the first push from local to remote, use
+
+```
+--set-upstream origin
+```
+
+along with the name of your local branch, like so:
+
+```
+git push --set-upstream origin richard/user-picks-page
+```
+
+Subsequent pushes will now go to your remote upstream branch.
+
+<ol className="doc_nav_links">
+  <li>[Welcome](?path=/docs/welcome--docs)</li>
+  <li>[Onboarding](?path=/docs/about-onboarding--docs)</li>
+</ol>

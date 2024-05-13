@@ -1,0 +1,83 @@
+import '../styles.css';
+
+# React Testing Library vs Jest
+
+# By Mai Vang Github: @vmaineng
+
+## Purpose
+
+Show examples of how this will simplify testing - React Testing Library vs Jest
+
+## Background Info
+
+![Test pyramid](static/media/public/assets/storybook/testPyramid.png)
+
+Testing code is important to validate the functions
+are doing what we intended them to do
+
+Three types:
+
+1. Unit testing - test individual blocks (class, functions)
+2. Integration testing - testing a combination of units and ensuring they work together
+3. End to End testing - testing the entire application flow from start to finish (ex: UI to database)
+
+## Requirements
+
+Need a testing library that is:
+
+- Simple to maintain code
+- Allows us to trust our code is working the way we intended it to
+
+## Quick Overview - Jest & RTL
+
+Jest is a test runner
+
+React Testing Library is built on top of the DOM Testing Library.
+
+This is an example showing unit testing using Jest and it is testing to see if ‘Hello’ exists in the variable ‘str’ with the toContain matcher.
+
+![Jest Unit Testing](static/media/public/assets/storybook/JestUnit.png)
+
+This is a unit testing using RTL to test if ‘Hello’ exists in the Greet components. The difference between this test and the last test is that RTL allows us to test using React components, with the helper of `{ render, screen }` from the RTL. In line 6, I’m testing to see if the DOM lists any ‘Hello’ text as I anticipate it should and it does since the test passed below.
+
+![RTL Unit Testing](static/media/public/assets/storybook/RTLUnit.png)
+
+This is an integration test using Jest. We are importing the function fetchData from the starWars file and anticipating a promise to be resolved. As you may noticed in line 5, it is expecting the promise to be resolved to ‘Data from API’ with the help of the resolves matcher.
+
+![Jest Integration Testing](static/media/public/assets/storybook/JestIntegration.png)
+
+Whereas RTL does not have a resolve matcher. It’s looking for specific DOM elements, which in this case is looking for the text of “Planet data loading…”.
+
+![RTL Integration Testing](static/media/public/assets/storybook/RTLIntegration.png)
+
+Overall
+
+Jest and RTL work great together
+RTL allows us to work and test with React components and pick out items to test from the DOM elements (b/c of DOM Testing Library) while Jest provides helpful matches to test if it is functioning as it should
+This will allow us to pick out and test the React components with the help of RTL and ensure our functions are doing what we anticipated them to do with the help of Jest matches.
+Please note if working with Class functions, Jest is used to test
+
+Sources:
+
+[https://testing-library.com/docs/react-testing-library/api](https://testing-library.com/docs/react-testing-library/api)
+
+[https://jestjs.io/docs/asynchronous](https://jestjs.io/docs/asynchronous)
+
+[https://www.softwaretestinghelp.com/jest-testing-tutorial/](https://www.softwaretestinghelp.com/jest-testing-tutorial/)
+
+[https://stackoverflow.com/questions/64342544/test-input-search-box-with-react-testing-library](https://stackoverflow.com/questions/64342544/test-input-search-box-with-react-testing-library)
+
+[https://www.robinwieruch.de/react-testing-library/](https://www.robinwieruch.de/react-testing-library/)
+
+[https://stackoverflow.com/questions/56547215/react-testing-library-why-is-tobeinthedocument-not-a-function](https://stackoverflow.com/questions/56547215/react-testing-library-why-is-tobeinthedocument-not-a-function)
+
+[https://stackoverflow.com/questions/66341449/testing-library-react-vs-jest](https://stackoverflow.com/questions/66341449/testing-library-react-vs-jest)
+
+[https://www.digitalocean.com/community/tutorials/how-to-test-a-react-app-with-jest-and-react-testing-library](https://www.digitalocean.com/community/tutorials/how-to-test-a-react-app-with-jest-and-react-testing-library)
+
+Testing how the component behaves when a user interacts with it
+
+<ol className="doc_nav_links">
+  <li>[Prettier](?path=/docs/documents-prettier--docs)</li>
+  <li>[React with next](?path=/docs/documents-react-with-next--docs)</li>
+</ol>
