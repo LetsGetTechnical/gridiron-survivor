@@ -52,7 +52,7 @@ describe('Data Store', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-      result.current.updateNFLTeam({teamName, teamLogo});
+      result.current.updateNFLTeam(gameData);
     });
 
     expect(result.current.NFLTeam.teamName).toBe(gameData.teamName);
@@ -83,7 +83,7 @@ describe('Data Store', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-    result.current.updateWeeklyPicks({gameId, gameWeekId, userResults});
+    result.current.updateWeeklyPicks(gameData);
     });
 
     expect(result.current.weeklyPicks.gameId).toBe(gameData.gameId);

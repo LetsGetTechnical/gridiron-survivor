@@ -15,16 +15,16 @@ interface IDataStoreState {
 }
 interface IDataStoreAction {
   resetUser: () => void;
-  updateNFLTeam: (NFLTeam: { teamName: string; teamLogo: string }) => void;
+  updateNFLTeam: (NFLTeam: { teamName: INFLTeam['teamName']; teamLogo: INFLTeam['teamLogo'] }) => void;
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
   updateUserWeeklyPick: (
     id: IUser['id'],
     weekNumber: IUserWeeklyPick['weekNumber'],
   ) => void;
   updateWeeklyPicks: (weeklyPicks: {
-    gameId: string;
-    gameWeekId: string;
-    userResults: string;
+    gameId: IWeeklyPicks['gameId'];
+    gameWeekId: IWeeklyPicks['gameWeekId'];
+    userResults: IWeeklyPicks['userResults'];
   }) => void;
 }
 
@@ -69,7 +69,6 @@ export const useDataStore = create<DataStore>((set) => ({
         state.userWeeklyPick.weekNumber = weekNumber;
       }),
     ),
-  updateWeeklyPicks: ({gameId, gameWeekId, userResults}) =>
-    set( {weeklyPicks: { gameId, gameWeekId, userResults} }
-    ),
+  updateWeeklyPicks: ({ gameId, gameWeekId, userResults }) =>
+    set({ weeklyPicks: { gameId, gameWeekId, userResults } }),
 }));
