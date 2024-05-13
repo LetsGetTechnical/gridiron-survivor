@@ -1,40 +1,37 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
 import {
-  INFLTeams,
+  INFLTeam,
   IUser,
   IUserWeeklyPick,
   IWeeklyPicks,
 } from '@/api/IapiFunctions';
 
 interface IDataStoreState {
-  NFLTeams: INFLTeams;
+  NFLTeam: INFLTeam;
   user: IUser;
   userWeeklyPick: IUserWeeklyPick;
   weeklyPicks: IWeeklyPicks;
 }
 interface IDataStoreAction {
   resetUser: () => void;
-  updateNFLTeams: (
-    teamName: INFLTeams['teamName'],
-    teamLogo: INFLTeams['teamLogo'],
-  ) => void;
+  updateNFLTeam: (NFLTeam: { teamName: string; teamLogo: string }) => void;
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
   updateUserWeeklyPick: (
     id: IUser['id'],
     weekNumber: IUserWeeklyPick['weekNumber'],
   ) => void;
-  updateWeeklyPicks: (
-    gameId: IWeeklyPicks['gameId'],
-    gameWeekId: IWeeklyPicks['gameWeekId'],
-    userResults: IWeeklyPicks['userResults'],
-  ) => void;
+  updateWeeklyPicks: (weeklyPicks: {
+    gameId: string;
+    gameWeekId: string;
+    userResults: string;
+  }) => void;
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
 const initialState: IDataStoreState = {
-  NFLTeams: {
+  NFLTeam: {
     teamName: '',
     teamLogo: '',
   },
@@ -56,13 +53,8 @@ const initialState: IDataStoreState = {
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
   resetUser: () => set({ user: initialState.user }),
-  updateNFLTeams: (teamName, teamLogo) =>
-    set(
-      produce((state: IDataStoreState) => {
-        state.NFLTeams.teamName = teamName;
-        state.NFLTeams.teamLogo = teamLogo;
-      }),
-    ),
+  updateNFLTeam: ({ teamName, teamLogo }) =>
+    set({ NFLTeam: { teamName, teamLogo } }),
   updateUser: (id, email) =>
     set(
       produce((state: IDataStoreState) => {
