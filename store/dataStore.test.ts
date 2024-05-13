@@ -19,24 +19,24 @@ userResults: "Vikings",
 describe('Data Store', () => {
   it('Check the default user state', () => {
     const { result } = renderHook(() => useDataStore());
-    expect(result.current.userData.userId).toBe('');
+    expect(result.current.user.id).toBe('');
     expect(result.current.user.email).toBe('');
   });
   it('Check the updated user state', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-      result.current.updateUser(userId, userEmail);
+      result.current.updateUser(userData.userId, userData.userEmail);
     });
 
-    expect(result.current.user.id).toBe(userId);
-    expect(result.current.user.email).toBe(userEmail);
+    expect(result.current.user.id).toBe(userData.userId);
+    expect(result.current.user.email).toBe(userData.userEmail);
   });
   it('Checks the reset user state matches default', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-      result.current.updateUser(userId, userEmail);
+      result.current.updateUser(userData.userId, userData.userEmail);
       result.current.resetUser();
     });
 
@@ -45,18 +45,18 @@ describe('Data Store', () => {
   });
   it('Check the default NFL Teams state', () => {
     const { result } = renderHook(() => useDataStore());
-    expect(result.current.NFLTeams.teamName).toBe('');
-    expect(result.current.NFLTeams.teamLogo).toBe('');
+    expect(result.current.NFLTeam.teamName).toBe('');
+    expect(result.current.NFLTeam.teamLogo).toBe('');
   });
   it('Check the updated NFL Teams state', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-      result.current.updateNFLTeams(teamName, teamLogo);
+      result.current.updateNFLTeam({teamName, teamLogo});
     });
 
-    expect(result.current.NFLTeams.teamName).toBe(teamName);
-    expect(result.current.NFLTeams.teamLogo).toBe(teamLogo);
+    expect(result.current.NFLTeam.teamName).toBe(gameData.teamName);
+    expect(result.current.NFLTeam.teamLogo).toBe(gameData.teamLogo);
   });
   it('Check the default userWeeklyPick state', () => {
     const { result } = renderHook(() => useDataStore());
@@ -67,11 +67,11 @@ describe('Data Store', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-      result.current.updateUserWeeklyPick(userId, weekNumber);
+      result.current.updateUserWeeklyPick(userData.userId, gameData.weekNumber);
     });
 
-    expect(result.current.user.id).toBe(userId);
-    expect(result.current.userWeeklyPick.weekNumber).toBe(weekNumber);
+    expect(result.current.user.id).toBe(userData.userId);
+    expect(result.current.userWeeklyPick.weekNumber).toBe(gameData.weekNumber);
   });
   it('Check the default updateWeeklyPicks state', () => {
     const { result } = renderHook(() => useDataStore());
@@ -83,11 +83,11 @@ describe('Data Store', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-      result.current.updateWeeklyPicks(gameId, gameWeekId, userResults);
+    result.current.updateWeeklyPicks({gameId, gameWeekId, userResults});
     });
 
-    expect(result.current.weeklyPicks.gameId).toBe(gameId);
-    expect(result.current.weeklyPicks.gameWeekId).toBe(gameWeekId);
-    expect(result.current.weeklyPicks.userResults).toBe(userResults);
+    expect(result.current.weeklyPicks.gameId).toBe(gameData.gameId);
+    expect(result.current.weeklyPicks.gameWeekId).toBe(gameData.gameWeekId);
+    expect(result.current.weeklyPicks.userResults).toBe(gameData.userResults);
   });
 });
