@@ -1,16 +1,30 @@
 import '../styles.css';
+import accessibilityLawsuit from '../../public/assets/storybook/accessibilityLawsuit.png';
+import accessibilityDomTree from '../../public/assets/storybook/accessibilityDomTree.png';
+import accessibilityDomTree2 from '../../public/assets/storybook/accessibilityDomTree2.png';
+import accessibilityDomTree3 from '../../public/assets/storybook/accessibilityDomTree3.png';
+import accessibilityNameDevTools from '../../public/assets/storybook/accessibilityNameDevTools.png';
+import accessibilityGuidelines from '../../public/assets/storybook/accessibilityGuidelines.png';
+import accessibilityGuidelines2 from '../../public/assets/storybook/accessibilityGuidelines2.png';
+
+import Image from 'next/image';
 
 # Accessibility
 
 # By Corina Murg Github: @CorinaMurg
 
-- [What is Accessibility](#a.-what-is-accessibility?)
-- [Assistive Technologies](#b.-assistive=technologies)
+- [What is Accessibility](#a-what-is-accessibility)
+  - [Why Accessibility?](#why-accessibility)
+- [Legal landscape in the US for web accessibility](#legal-landscape-in-the-us-for-web-accessibility)
+- [Assistive Technologies](#b-assistive-technologies)
   - [Important to keep in mind as we are building](#important-to-keep-in-mind-as-we-are-building)
-- [How Accessibility Works](#c.-how-accessibility-works)
+- [How Accessibility Works](#c-how-accessibility-works)
   - [DOM Tree vs Accessibility Tree](#dom-tree-vs-accessibility-tree)
+  - [Find the Accessibility tree in Dev Tools](#find-the-accessibility-tree-in-dev-tools)
   - [Implicit vs. Explicit Roles](#implicit-vs-explicit-roles)
   - [The Accessible Name](#the-accessible-name)
+- [Accessibility guidelines](#accessibility-guidelines)
+- [Testing for Accessibility: First Steps](#testing-for-accessibility-first-steps)
 
 # A. What is Accessibility?
 
@@ -18,6 +32,49 @@ In the context of web development, accessibility means that websites and apps ar
 that everyone, including people with disabilities, can navigate them and interact with them. The goal of
 accessibility is for everyone to be able to use the web based on the abilities they have, and not to be
 excluded due to their disabilities.
+
+## Why Accessibility?
+
+For people with disabilities, an accessible website means
+
+- freedom
+- privacy
+- it can remove challenges associated with their impairments
+
+To improve the business side
+
+- Improved SEO (e.g., when using heading tags)
+- Increased market share
+- Better overall user experience (e.g., clear navigation, easy-to-read
+  fonts)
+
+# Legal landscape in the US for web accessibility
+
+1990 ADA (Americans with Disabilities Act) at the federal level
+
+Title III of the ADA:
+“no individual shall be discriminated against based on disability in
+the full and equal enjoyment of the goods, services, facilities,
+privileges, advantages, or accommodations of any
+
+<Image
+  src={accessibilityLawsuit}
+  alt="Digital Accessibility Lawsuits in the US from 2015 to 2023"
+/>
+
+> Firms with < $25 million revenue: 77% of all lawsuits
+>
+> Cases filed in New York: 75% of all lawsuits
+>
+> Cases with overlay widgets: 933
+
+Accessibility and User Experience
+
+✓ We should not separate usability and accessibility
+
+✓ People interact with the web through different senses
+✓ we should not assume that everyone is a sighted mouse
+user
 
 # B. Assistive Technologies
 
@@ -98,11 +155,51 @@ For each object in the Accessible Tree, the browser shares the following:
 - properties (like focusable)
 - state (like focused, checked, collapsed, expanded, etc)
 
+## Best practice: structure with landmarks and roles
+
+```
+<header role="banner">
+  <p>Put company logo, etc. here.</p>
+</header>
+
+<nav role="navigation">
+  <ul>
+    <li>Put navigation here</li>
+  </ul>
+</nav>
+
+<main role="main">
+  <p>Put main content here.</p>
+</main>
+
+<footer role="contentinfo">
+  <p>Put copyright, etc. here.</p>
+</footer>
+
+```
+
 Each assistive technology will use the information from the accessibility tree to present the object to the
 user in the most appropriate way:
 
 - a screen reader will announce it as a "Home link".
 - speech recognition software will recognize it as "Home" and allow the user to activate it with the command "click Home".
+
+## Find the Accessibility tree in Dev Tools
+
+<Image
+  src={accessibilityDomTree}
+  alt="highlighting Enable full-page accessibility tree under the Accessibility tab in Dev Tools"
+/>
+
+<Image
+  src={accessibilityDomTree2}
+  alt="after selecting enable full-page accessibility tree, highlight the accessibility icon button"
+/>
+
+<Image
+  src={accessibilityDomTree3}
+  alt="after selecting the accessibility icon button, accessibility dom tree is shown"
+/>
 
 ## Implicit vs. Explicit Roles
 
@@ -119,6 +216,13 @@ During the construction of the accessibility tree, the browser evaluates each el
 Certain elements (links, buttons, all form elements, headings) must have a name and it has to be descriptive enough to convey the element's purpose.
 
 To create the accessible name, the browser uses the accessible name and description computation algorithm. The algorithm takes into account **the visible text or label of the element**, but several other attributes are considered as well:
+
+## Find the accessibility name in Dev Tools
+
+<Image
+  src={accessibilityNameDevTools}
+  alt="under dev tools accessibility tab, expanded computed properties to show accessibility name"
+/>
 
 1. **text defined by a visually-hidden class**
 
@@ -192,6 +296,63 @@ The advice from experts is to use it only if nothing else is available. The prob
 
 Again, this attribute has the usual problem of a name not relying on visible text: voice users will have to guess the name of the element since it's not visible or go through a series of other commands until they can select the element.
 
+# Accessibility guidelines
+
+Web Content Accessibility Guidelines (WCAG)
+WCAG 2.2
+
+<Image src={accessibilityGuidelines} alt="" />
+<Image src={accessibilityGuidelines2} alt="" />
+
+## Levels of conformance
+
+A
+
+- they provide only the most basic level of accessibility
+
+AA
+
+- it’s the recommended level; it requires that all level A have also been met
+
+AAA
+
+- the desirable level that will benefit the largest number of users
+
+## WCAG 2.2
+
+1. 1994: W3C (World Wide Web Consortium)
+2. 1997: WAI (Web Accessibility Initiative )
+3. 1999: WCAG 1.0
+4. 2008: WCAG 2.0 with 12 guidelines, 61 success criteria
+5. 2018: WCAG 2.1 with 1 guideline, 17 success criteria
+6. 2023: WCAG 2.2 with 9 success criterion, one success criteria deprecated
+
+# Testing for Accessibility: First Steps
+
+Automated (with browser extensions)
+
+- Google’s Lighthouse
+- Deque’s axe DevTools
+
+Linter
+
+- axe Accessibility Linter
+
+## Testing for Accessibility: Advanced
+
+Continuous Accessibility
+
+- Using e2e testing with a focus on users with disabilities
+
+Manual testing
+
+- navigating with only the keyboard, using different assistive
+  technologies etc
+
+User testing
+
+- involving people with disabilities in the process of evaluating the site
+
 To summarize the accessible name computation:
 
 - If there's no visible text (or label), or at least text with a visually hidden class, the algorithm relies on the content of certain HTML (alt, title) and ARIA (aria-labelledby, aria-label) attributes.
@@ -204,6 +365,10 @@ To summarize the accessible name computation:
 [Accessing the accessibility tree in Dev Tools video from Google:](https://www.youtube.com/watch?v=Th-nv-SCj4Q)
 
 [The accessible name computation:](https://www.w3.org/TR/2024/WD-html-aam-1.0-20240226/#accessible-name-and-description-computation)
+
+[WebAIM Million Study](https://webaim.org/projects/million/#wcag)
+
+[Usable Net](https://usablenet.com/)
 
 <ol className="doc_nav_links">
   <li>[Onboarding](?path=/docs/about-onboarding--docs)</li>
