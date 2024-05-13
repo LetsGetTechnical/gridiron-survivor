@@ -2,19 +2,24 @@ import { renderHook, act } from '@testing-library/react';
 import { useDataStore } from './dataStore';
 
 // test values
-const userId = '123';
-const userEmail = 'test@email.com';
-const teamName = "Philadelphia Eagles";
-const teamLogo = "eagle";
-const weekNumber = '7';
-const gameId = "438";
-const gameWeekId = "7839";
-const userResults = "Vikings";
+const userData = {
+   userId: '123',
+   userEmail: 'test@email.com',
+}
+
+const gameData = { 
+teamName: "Philadelphia Eagles",
+teamLogo: "eagle",
+weekNumber: '7',
+gameId: "438",
+gameWeekId: "7839",
+userResults: "Vikings",
+}
 
 describe('Data Store', () => {
   it('Check the default user state', () => {
     const { result } = renderHook(() => useDataStore());
-    expect(result.current.user.id).toBe('');
+    expect(result.current.userData.userId).toBe('');
     expect(result.current.user.email).toBe('');
   });
   it('Check the updated user state', () => {
