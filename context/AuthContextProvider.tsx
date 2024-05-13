@@ -75,7 +75,6 @@ export const AuthContextProvider = ({
     try {
       await account.deleteSession('current');
       setIsSignedIn(false);
-
       resetUser(); // Reset user data in the store
 
       router.push('/login');
