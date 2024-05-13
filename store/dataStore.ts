@@ -16,6 +16,7 @@ interface IDataStoreState {
 interface IDataStoreAction {
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
   resetUser: () => void;
+  
   updateNFLTeams: (
     teamName: INFLTeams['teamName'],
     teamLogo: INFLTeams['teamLogo'],
