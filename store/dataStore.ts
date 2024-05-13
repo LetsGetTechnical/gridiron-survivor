@@ -15,7 +15,10 @@ interface IDataStoreState {
 }
 interface IDataStoreAction {
   resetUser: () => void;
-  updateNFLTeam: (NFLTeam: { teamName: INFLTeam['teamName']; teamLogo: INFLTeam['teamLogo'] }) => void;
+  updateNFLTeam: (NFLTeam: {
+    teamName: INFLTeam['teamName'];
+    teamLogo: INFLTeam['teamLogo'];
+  }) => void;
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
   updateUserWeeklyPick: (
     id: IUser['id'],
