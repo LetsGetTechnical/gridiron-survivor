@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-
 import {
   IUser,
   INFLTeams,
@@ -40,7 +39,6 @@ const initialState: IDataStoreState = {
     id: '',
     email: '',
   },
-
   NFLTeams: {
     teamName: '',
     teamLogo: '',
@@ -54,7 +52,6 @@ const initialState: IDataStoreState = {
     gameWeekId: "",
     userResults: "",
   }
-
 };
 
 export const useDataStore = create<DataStore>((set) => ({
@@ -89,5 +86,4 @@ export const useDataStore = create<DataStore>((set) => ({
         state.weeklyPicks.userResults = userResults;
       })
     )
-
 }));
