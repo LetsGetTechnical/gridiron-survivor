@@ -92,7 +92,6 @@ export default function WeeklyPickForm() {
         const appendNewResult = allPicks
           ? `{${allPicks},${resultJSON}}`
           : `{${resultJSON}}`;
-        console.log('appendNewResult:', appendNewResult);
 
         await createWeeklyPicks({
           gameId: '66311a210039f0532044',
