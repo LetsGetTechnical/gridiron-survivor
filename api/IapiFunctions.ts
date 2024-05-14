@@ -16,7 +16,7 @@ export interface IWeeklyPicks {
   userResults: string;
 }
 
-export interface INFLTeam { 
+export interface INFLTeam {
   teamName: string;
   teamLogo: string;
 }

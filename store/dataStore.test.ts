@@ -3,18 +3,18 @@ import { useDataStore } from './dataStore';
 
 // test values
 const userData = {
-   userId: '123',
-   userEmail: 'test@email.com',
-}
+  userId: '123',
+  userEmail: 'test@email.com',
+};
 
-const gameData = { 
-teamName: "Philadelphia Eagles",
-teamLogo: "eagle",
-weekNumber: '7',
-gameId: "438",
-gameWeekId: "7839",
-userResults: "Vikings",
-}
+const gameData = {
+  teamName: 'Philadelphia Eagles',
+  teamLogo: 'eagle',
+  weekNumber: '7',
+  gameId: '438', 
+  gameWeekId: '7839',
+  userResults: 'Vikings',
+};
 
 describe('Data Store', () => {
   it('Check the default user state', () => {
@@ -83,7 +83,7 @@ describe('Data Store', () => {
     const { result } = renderHook(() => useDataStore());
 
     act(() => {
-    result.current.updateWeeklyPicks(gameData);
+      result.current.updateWeeklyPicks(gameData);
     });
 
     expect(result.current.weeklyPicks.gameId).toBe(gameData.gameId);
