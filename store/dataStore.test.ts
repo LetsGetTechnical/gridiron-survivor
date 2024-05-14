@@ -65,13 +65,13 @@ describe('Data Store', () => {
   });
   it('Check the updated userWeeklyPick state', () => {
     const { result } = renderHook(() => useDataStore());
-
+    const weekData = { userId: '42', weekNumber: '51' }; 
     act(() => {
-      result.current.updateUserWeeklyPick(userData.userId, gameData.weekNumber);
+      result.current.updateUserWeeklyPick(weekData);
     });
 
-    expect(result.current.user.id).toBe(userData.userId);
-    expect(result.current.userWeeklyPick.weekNumber).toBe(gameData.weekNumber);
+    expect(result.current.user.id).toBe(weekData.userId);
+    expect(result.current.userWeeklyPick.weekNumber).toBe(weekData.weekNumber);
   });
   it('Check the default updateWeeklyPicks state', () => {
     const { result } = renderHook(() => useDataStore());
