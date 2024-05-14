@@ -24,11 +24,11 @@ interface IDataStoreAction {
     id: IUser['id'],
     weekNumber: IUserWeeklyPick['weekNumber'],
   ) => void;
-  updateWeeklyPicks: (weeklyPicks: {
-    gameId: IWeeklyPicks['gameId'];
-    gameWeekId: IWeeklyPicks['gameWeekId'];
-    userResults: IWeeklyPicks['userResults'];
-  }) => void;
+  updateWeeklyPicks: ({
+    gameId,
+    gameWeekId,
+    userResults,
+  }: IWeeklyPicks) => void;
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
