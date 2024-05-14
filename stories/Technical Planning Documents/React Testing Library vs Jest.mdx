@@ -1,8 +1,15 @@
 import '../styles.css';
+import testPyramid from '../../public/assets/storybook/testPyramid.png';
+import RTLUnit from '../../public/assets/storybook/RTLUnit.png';
+import JestUnit from '../../public/assets/storybook/JestUnit.png';
+import RTLIntegration from '../../public/assets/storybook/RTLIntegration.png';
+import JestIntegration from '../../public/assets/storybook/JestIntegration.png';
+
+import Image from 'next/image';
 
 # React Testing Library vs Jest
 
-# By Mai Vang Github: @vmaineng
+# By Mai Vang - github: [@vmaineng](https://github.com/vmaineng)
 
 ## Purpose
 
@@ -10,7 +17,7 @@ Show examples of how this will simplify testing - React Testing Library vs Jest
 
 ## Background Info
 
-![Test pyramid](static/media/public/assets/storybook/testPyramid.png)
+<Image src={testPyramid} alt="Test Pyramid" />
 
 Testing code is important to validate the functions
 are doing what we intended them to do
@@ -36,19 +43,19 @@ React Testing Library is built on top of the DOM Testing Library.
 
 This is an example showing unit testing using Jest and it is testing to see if ‘Hello’ exists in the variable ‘str’ with the toContain matcher.
 
-![Jest Unit Testing](static/media/public/assets/storybook/JestUnit.png)
+<Image src={JestUnit} alt="Code example of Jest Unit Testing" />
 
 This is a unit testing using RTL to test if ‘Hello’ exists in the Greet components. The difference between this test and the last test is that RTL allows us to test using React components, with the helper of `{ render, screen }` from the RTL. In line 6, I’m testing to see if the DOM lists any ‘Hello’ text as I anticipate it should and it does since the test passed below.
 
-![RTL Unit Testing](static/media/public/assets/storybook/RTLUnit.png)
+<Image src={RTLUnit} alt="Code example of RTL Unit Testing" />
 
 This is an integration test using Jest. We are importing the function fetchData from the starWars file and anticipating a promise to be resolved. As you may noticed in line 5, it is expecting the promise to be resolved to ‘Data from API’ with the help of the resolves matcher.
 
-![Jest Integration Testing](static/media/public/assets/storybook/JestIntegration.png)
+<Image src={JestIntegration} alt="Code example of Jest Integration Testing" />
 
 Whereas RTL does not have a resolve matcher. It’s looking for specific DOM elements, which in this case is looking for the text of “Planet data loading…”.
 
-![RTL Integration Testing](static/media/public/assets/storybook/RTLIntegration.png)
+<Image src={RTLIntegration} alt="Code example of RTL Integration Testing" />
 
 Overall
 
@@ -79,5 +86,5 @@ Testing how the component behaves when a user interacts with it
 
 <ol className="doc_nav_links">
   <li>[Prettier](?path=/docs/documents-prettier--docs)</li>
-  <li>[React with next](?path=/docs/documents-react-with-next--docs)</li>
+  <li>[React with Next](?path=/docs/documents-react-with-next--docs)</li>
 </ol>

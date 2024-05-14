@@ -1,8 +1,11 @@
 import '../styles.css';
+import mvvm from '../../public/assets/storybook/mvvm.png';
+import vsExplorer from '../../public/assets/storybook/vsExplorer.png';
+import Image from 'next/image';
 
 # MVVM vs MVM vs OOP
 
-# By Mai Vang Github: @vmaineng
+# By Mai Vang - github: [@vmaineng](https://github.com/vmaineng)
 
 ## Purpose
 
@@ -24,7 +27,7 @@ Need a project architecture that is:
 
 ## MVVM
 
-![mvvm diagram](static/media/public/assets/storybook/mvvm.png)
+<Image src={mvvm} alt="mvvm model and DB diagram" />
 
 I chose MVVM because it uses data directly from the API without manipulating it. In addition, MVVM can update the information on the View automatically from the ViewModel due to data binding, which establishes a connection between the data and the user interface.
 
@@ -69,7 +72,10 @@ Here is an example using MongoDB’s Schema of creating a footballSchema along w
 
 Here’s the folder structure of how to implement MVVM on the server-side.
 
-![screnshot of visual code file explorer](static/media/public/assets/storybook/vsExplorer.png)
+<Image
+  src={vsExplorer}
+  alt="visual code file explorer highlighting server.js"
+/>
 
 - Set up data models
 - Create View Models - the data logic
