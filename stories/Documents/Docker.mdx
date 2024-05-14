@@ -1,0 +1,42 @@
+import '../styles.css';
+
+# Docker
+
+# By Carlos Luevano Github: @Clue355
+
+The entire development environment, including OS, libraries, and dependencies, is
+encapsulated in the container. In a way, a Docker container can be thought of as a lunchbox
+that contains a full meal, or everything you need to run your application.
+
+It can be taken
+anywhere and run on any computer. Everyone will be running the same application when
+building and testing. Dependency versions will be defined, which eliminates version conflicts
+and the need to manually install dependencies, and even computing resources.
+
+When setting up Docker in an application, you would make a file known as an image. You can
+think of an image as a list of ingredients needed to make your meal for your lunchbox.
+
+The
+image contains the specifications you need for the environment. Then, from that file, you would
+run a command to set up a Docker container and build the development environment from that
+image. After that, you would be able to access the running application from a local host.
+
+Multiple instances of your application can be created to handle more load. These instances
+can be created on a single server. Each runs isolated, and limits are dictated by the server's
+hardware resources.
+
+## Without Docker:
+
+- Setups might be inconsistent, meaning different OS, and software versions.
+- We may come across dependency conflicts.
+- Setup can be more time-consuming as you have to install everything and make sure all software versions are the same.
+- It doesn't have the isolation Docker has, meaning the application shares resources with other applications.
+
+<ol className="doc_nav_links">
+  <li>
+    [CI CD Github Actions](?path=/docs/documents-ci-cd-github-actions--docs)
+  </li>
+  <li>
+    [Game Data Source API](?path=/docs/documents-game-data-source-api--docs)
+  </li>
+</ol>

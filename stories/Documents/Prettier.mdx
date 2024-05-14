@@ -1,0 +1,85 @@
+import '../styles.css';
+
+# Prettier
+
+# By Ryan Furrer Github: @ryandotfurrer
+
+# What is Prettier?
+
+Prettier is an extension for your text editor that reformats your code. This can help improve legibility, maintain a consistent code style, and reduce syntax-related issues.
+
+Prettier is nearly essential in a group setting as it ensures every contributor’s code looks the same, thus reducing time spent reviewing code as well as ensuring everyone is following the same practices.
+
+[Learn more about Prettier and its use cases.](https://docs.google.com/presentation/d/1WMqDnXBXxwrQnfIKike30pgIrz2eYeocfGc0c3UKPHk/edit?usp=sharing)
+
+# Prerequisites
+
+VS Code is Gridiron Survivor’s text editor of choice. To use Prettier, you must have VS Code installed.
+
+[Install VS Code](https://code.visualstudio.com/)
+
+# How Gridiron Uses Prettier
+
+Prettier gives you options on _when_ to format your code, however, we are going to have it format your code every time you save your project. This will likely cause items to move around the screen, and that’s okay! It is all for the sake of increasing legibility and having a coherent coding style.
+
+## Prettier Config File
+
+A crucial part of our setup is ensuring you do not change any settings and have the `prettier.config.cjs` file at the root of your project. This should be there by default when you clone the project repository. If not, be sure to ask for help in the discord before making up your settings.
+
+```
+/** @type {import("prettier").Config} */
+const config = {
+  semi: true,
+  singleQuote: true,
+  trailingComma: 'all',
+  printWidth: 80,
+  tabWidth: 2,
+  plugins: [
+    // Automatically sorts tailwind classes to avoid specificity issues
+    'prettier-plugin-tailwindcss', // MUST COME LAST
+  ],
+};
+
+export default config;
+```
+
+## Prettier Ignore File
+
+We want to ignore certain file types and we can do so by creating a `.prettierignore` file at the root of our project.
+
+At the time of writing, it contains the following:
+
+```
+.github/
+*.config.js
+.prettierrc.js
+*.json
+*.md
+```
+
+## Formatting Files on Save
+
+**This is important as you _must_ follow these steps to use Prettier properly within our project.**
+
+We want to format our files every time we save them. To do so, follow the instructions below:
+
+Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+shift+p` on Windows.
+
+**There may be multiple options. Ensure you select the one that says “Open User Settings (JSON) as seen in the image below.**
+
+Add the following lines to your settings.json
+
+```
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+```
+
+Open a file and save it, you should see formatting changes made as soon as you save it!
+
+<ol className="doc_nav_links">
+  <li>[Playwright](?path=/docs/documents-playwright--docs)</li>
+  <li>
+    [React Testing Library vs
+    Jest](?path=/docs/documents-react-testing-library-vs-jest--docs)
+  </li>
+</ol>

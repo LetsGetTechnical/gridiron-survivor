@@ -2,6 +2,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
+import { useDataStore } from '@/store/dataStore';
+import type { DataStore } from '@/store/dataStore';
 
 type UserCredentials = {
   email: string;
@@ -23,6 +25,7 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const { updateUser, resetUser } = useDataStore<DataStore>((state) => state);
   const router = useRouter();
 
   // Check for a current session on component mount
@@ -32,16 +35,29 @@ export const AuthContextProvider = ({
         return;
       }
 
-      try {
-        await account.getSession('current');
-        setIsSignedIn(true);
-      } catch (error) {
-        console.error('Session validation error:', error);
-        setIsSignedIn(false);
-      }
+      setIsSignedIn(true);
     };
     checkSession();
   }, []);
+
+  useMemo(() => {
+    const getUser = async () => {
+      if (!isSignedIn) {
+        return;
+      }
+
+      try {
+        const userData = await account.get();
+        updateUser(userData.$id, userData.email);
+      } catch (error) {
+        resetUser();
+        setIsSignedIn(false);
+        console.log('Error getting user data:', error);
+        throw new Error('Error getting user data');
+      }
+    };
+    getUser();
+  }, [isSignedIn]);
 
   // Authenticate and set session state
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
@@ -59,6 +75,7 @@ export const AuthContextProvider = ({
     try {
       await account.deleteSession('current');
       setIsSignedIn(false);
+      resetUser(); // Reset user data in the store
       router.push('/login');
     } catch (error) {
       console.error('Logout error:', error);

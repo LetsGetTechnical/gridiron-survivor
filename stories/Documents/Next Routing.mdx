@@ -1,0 +1,47 @@
+import '../styles.css';
+
+# Routing: Next App Routing
+
+# By Richard Choi Github: @choir27
+
+## Problem:
+
+We need a way to create different pages so the user can navigate through the application
+
+## Problem Requirements:
+
+The feature needs to be able to allow the creation of new pages, where each new page will represent a new route domain within the application
+
+## Solution:
+
+Next Routing moves to different pages of the application while remaining a single-page application. It is also automatically available upon installing Next, and there is a simple setup available upon creating a new Next application using the create-next-app@latest command.
+
+The goal is to assign different pages to different elements of the application. Not only to be able to organize the code into separate pages but also to find a way to host an API and/or HTTP requests for the application.
+
+## Detailed Design:
+
+Without requiring a separate application to host the backend and receive the HTML requests that will be made, the API Routes will allow us to define our API routes in our application. Not only will this be more convenient, but this will also save time and make collaboration between the backend team and the frontend/functional team more smooth and streamlined.
+
+[Figma](https://www.figma.com/file/6l45QWUG6mVpX1SOs8lJyM/Routing-Detailed-Design?type=whiteboard&node-id=1-104&t=J5p2YNC4Gr22yafw-0)
+
+The idea is to have a separate page for the main component, ie. a page for authentication called pages/authentication, a page for the user profile called pages/userProfile, etc.
+
+[App Router Setup:](https://github.com/choir27/Next-App-Routing)
+
+[Page Router Setup:](https://github.com/choir27/Next-Page-Routing)
+
+## Testing:
+
+For the API routes, print to the console to make sure that each API route is being registered properly and it was set up properly.
+
+## Resources:
+
+[Next Routing Documentation](https://nextjs.org/docs/pages/building-your-application/routing)
+
+<ol className="doc_nav_links">
+  <li>[MVVM vs MVM vs OOP](?path=/docs/documents-mvvm-vs-mvm-vs-oop--docs)</li>
+  <li>
+    [Performance Metrics and
+    KPIs](?path=/docs/documents-performance-metrics-and-kpis--docs)
+  </li>
+</ol>
