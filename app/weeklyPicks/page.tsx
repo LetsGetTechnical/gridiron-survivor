@@ -38,7 +38,9 @@ export default function WeeklyPickForm() {
   const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
-  const { user, updateUserWeeklyPicks } = useDataStore((state) => state);
+  const { user, updateWeeklyPicks, updateUserWeeklyPick } = useDataStore(
+    (state) => state,
+  );
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -82,7 +84,6 @@ export default function WeeklyPickForm() {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const teamSelect = data.type.toLowerCase();
-      localStorage.setItem('team', data.type);
 
       const teamID = NFLTeams.find(
         (team) => team.teamName.toLowerCase() === teamSelect,
@@ -97,21 +98,22 @@ export default function WeeklyPickForm() {
       const updatedWeeklyPicks = { ...allPicks, ...userPick };
 
       // update the weekly picks in the database
-      await createWeeklyPicks({
+      const response = await createWeeklyPicks({
         gameId: '66311a210039f0532044',
         gameWeekId: '6622c7596558b090872b',
         userResults: JSON.stringify(updatedWeeklyPicks),
       });
+      console.log(response);
     } catch (error) {
       console.error('Submission error:', error);
     }
   };
 
-  const grabCache = () => {
-    if (typeof window !== 'undefined') {
-      return window.localStorage.getItem('team');
-    }
-  };
+  // const grabCache = () => {
+  //   if (typeof window !== 'undefined') {
+  //     return window.localStorage.getItem('team');
+  //   }
+  // };
 
   return (
     <section className="w-full pt-8">
@@ -130,10 +132,7 @@ export default function WeeklyPickForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={grabCache() || ''}
-                  >
+                  <RadioGroup onValueChange={field.onChange} defaultValue="">
                     <FormItem>
                       <FormControl>
                         <WeeklyPickButton
