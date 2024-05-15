@@ -70,7 +70,10 @@ export async function getAllWeeklyPicks(): Promise<
       appwriteConfig.databaseId,
       '66313025000612a5380e',
     );
-    return response;
+
+    // parse and return the weekly user picks
+    const data = JSON.parse(response.documents[0].userResults);
+    return data;
   } catch (error) {
     console.error(error);
     throw new Error('Error getting all weekly picks');

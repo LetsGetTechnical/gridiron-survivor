@@ -35,7 +35,7 @@ const FormSchema = z.object({
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const [allPicks, setAllPicks] = useState<string | null>(null);
+  const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
   const { user } = useDataStore((state) => state);
@@ -66,7 +66,7 @@ export default function WeeklyPickForm() {
         }
 
         setUserPick(userPickedTeam);
-        setAllPicks(allPicksData?.documents[0].userResults || null);
+        setAllPicks(allPicksData);
       } catch (error) {
         console.error('Fetching error:', error);
       }
@@ -79,31 +79,33 @@ export default function WeeklyPickForm() {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = useCallback(
-    async (data: z.infer<typeof FormSchema>) => {
-      try {
-        const teamSelect = data.type.toLowerCase();
-        localStorage.setItem('team', data.type);
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      const teamSelect = data.type.toLowerCase();
+      localStorage.setItem('team', data.type);
 
-        const teamID = NFLTeams.find(
-          (team) => team.teamName.toLowerCase() === teamSelect,
-        )?.$id;
-        const resultJSON = `${user.id}:{"team":"${teamID}","correct":true}`;
-        const appendNewResult = allPicks
-          ? `{${allPicks},${resultJSON}}`
-          : `{${resultJSON}}`;
+      const teamID = NFLTeams.find(
+        (team) => team.teamName.toLowerCase() === teamSelect,
+      )?.$id;
 
-        await createWeeklyPicks({
-          gameId: '66311a210039f0532044',
-          gameWeekId: '6622c7596558b090872b',
-          userResults: appendNewResult,
-        });
-      } catch (error) {
-        console.error('Submission error:', error);
-      }
-    },
-    [NFLTeams, user, allPicks],
-  );
+      // parse the user picked result
+      const userPick = JSON.parse(
+        `{"${user.id}":{"team":"${teamID}","correct":true}}`,
+      );
+
+      // spread the current picks and add the user pick
+      const updatedWeeklyPicks = { ...allPicks, ...userPick };
+
+      // update the weekly picks in the database
+      await createWeeklyPicks({
+        gameId: '66311a210039f0532044',
+        gameWeekId: '6622c7596558b090872b',
+        userResults: JSON.stringify(updatedWeeklyPicks),
+      });
+    } catch (error) {
+      console.error('Submission error:', error);
+    }
+  };
 
   const grabCache = () => {
     if (typeof window !== 'undefined') {
