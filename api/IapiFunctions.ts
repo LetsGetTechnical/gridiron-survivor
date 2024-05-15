@@ -15,3 +15,8 @@ export interface IWeeklyPicks {
   gameWeekId: string;
   userResults: string;
 }
+
+export interface INFLTeam {
+  teamName: string;
+  teamLogo: string;
+}
