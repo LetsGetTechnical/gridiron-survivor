@@ -71,7 +71,6 @@ export async function getAllWeeklyPicks(): Promise<
       '66313025000612a5380e',
     );
 
-    // parse and return the weekly user picks
     const data = JSON.parse(response.documents[0].userResults);
     return data;
   } catch (error) {

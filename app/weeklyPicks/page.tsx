@@ -75,6 +75,18 @@ export default function WeeklyPickForm() {
     fetchWeeklyPicks();
   }, [isSignedIn]);
 
+  const parseUserPick = (userId, teamId) => {
+    if (!userId || !teamId) {
+      throw new Error('User ID and Team ID Required');
+    }
+
+    const parsedData = JSON.parse(
+      `{"${userId}":{"team":"${teamId}","correct":true}}`,
+    );
+
+    return parsedData;
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -82,13 +94,11 @@ export default function WeeklyPickForm() {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const teamSelect = data.type.toLowerCase();
-      localStorage.setItem('team', data.type);
 
       const teamID = NFLTeams.find(
         (team) => team.teamName.toLowerCase() === teamSelect,
       )?.$id;
 
-      // parse the user picked result
       const userPick = JSON.parse(
         `{"${user.id}":{"team":"${teamID}","correct":true}}`,
       );
