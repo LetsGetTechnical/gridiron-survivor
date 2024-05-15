@@ -55,18 +55,21 @@ export default function Login() {
         </div>
         <div id="input-container" className="grid gap-4">
           <Input
+            data-testid="email"
             type="email"
             value={email}
             placeholder="Email"
             onChange={handleEmail}
           />
           <Input
+            data-testid="password"
             type="password"
             value={password}
             placeholder="Password"
             onChange={handlePassword}
           />
           <Button
+            data-testid="continue-button"
             label="Continue"
             disabled={!email && !password}
             onClick={() => loginAccount({ email, password })}

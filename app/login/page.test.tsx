@@ -22,7 +22,7 @@ jest.mock('next/navigation', () => ({
   },
 }));
 
-jest.mock('@/context/AuthContextProvider', () => ({
+jest.mock('../../context/AuthContextProvider', () => ({
   useAuthContext() {
     return {
       ...mockUseAuthContext,
