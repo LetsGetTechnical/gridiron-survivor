@@ -1,65 +1,76 @@
 import React from 'react';
-import '@testing-library/jest-dom';
-import { Input } from '@/components/Input/Input';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Logo from '@/components/Logo/Logo';
-import { Button } from '@/components/Button/Button';
+import Login from './page';
 
-describe('Login Page', () => {
-  it('Checks that the Logo image rendered has the correct test-id and src', () => {
-    const src = '/assets/logo-colored-outline.svg';
-    const { getByTestId } = render(<Logo src={src} />);
-    const logoElement = getByTestId('badge-logo');
-    expect(logoElement).toBeInTheDocument();
-    expect(logoElement).toHaveAttribute('src', src);
+const mockLoginAccount = jest.fn();
+const mockPush = jest.fn();
+
+let emailInput: HTMLElement,
+  passwordInput: HTMLElement,
+  continueButton: HTMLElement;
+
+const mockUseAuthContext = {
+  loginAccount: mockLoginAccount,
+  isSignedIn: false,
+};
+
+jest.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      push: mockPush,
+    };
+  },
+}));
+
+jest.mock('@/context/AuthContextProvider', () => ({
+  useAuthContext() {
+    return {
+      ...mockUseAuthContext,
+    };
+  },
+}));
+
+describe('Login', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    render(<Login />);
+    emailInput = screen.getByTestId('email');
+    passwordInput = screen.getByTestId('password');
+    continueButton = screen.getByTestId('continue-button');
   });
-  it('Checks that the email input is rendered correctly by checking the placeholder text and type', () => {
-    render(<Input type="email" placeholder="Email" />);
-    const emailInput = screen.getByPlaceholderText('Email');
+  test('should render the login page', () => {
     expect(emailInput).toBeInTheDocument();
-    expect(emailInput).toHaveAttribute('type', 'email');
-  });
-  it('Checks that the password input is rendered correctly by checking the placeholder text and type', () => {
-    render(<Input type="password" placeholder="Password" />);
-    const passwordInput = screen.getByPlaceholderText('Password');
     expect(passwordInput).toBeInTheDocument();
-    expect(passwordInput).toHaveAttribute('type', 'password');
+    expect(continueButton).toBeInTheDocument();
   });
-  it('Mocks the login process', () => {
-    // Render the input email component and sets it's value
-    render(<Input type="email" placeholder="Email" />);
-    const emailInput = screen.getByPlaceholderText('Email');
-    emailInput.textContent = 'testemail@email.com';
-    // Render the input password component and sets it's value
-    render(<Input type="password" placeholder="Password" />);
-    const passwordInput = screen.getByPlaceholderText('Password');
-    passwordInput.textContent = 'test1234';
 
-    // Establish blank handleClick function
-    const handleClick = jest.fn();
-    // Render and Find the button by it's role
-    const { getByRole } = render(
-      <Button onClick={handleClick} role="button">
-        Continue
-      </Button>,
-    );
-    const button = getByRole('button');
+  test('should update email state when input value changes', () => {
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    expect(emailInput.value).toBe('test@example.com');
+  });
 
-    // Mock the click event
-    fireEvent.click(button);
+  test('should update password state when input value changes', () => {
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    expect(passwordInput.value).toBe('password123');
+  });
 
-    // Checks for various test results
-    // 1. Checks that emailInput rendered and has the expected text content
-    // 2. Checks that passwordInput rendered and has the expected text content
-    // 3. Checks that the Button rendered and has been clicked and has called the handleClick function
+  test('should call loginAccount function with email and password when continue button is clicked', () => {
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.click(continueButton);
+    expect(mockLoginAccount).toHaveBeenCalledWith({
+      email: 'test@example.com',
+      password: 'password123',
+    });
+  });
 
-    expect(emailInput).toBeInTheDocument();
-    expect(emailInput).toHaveTextContent('testemail@email.com');
+  test('redirects to /weeklyPicks when the button is clicked', () => {
+    mockUseAuthContext.isSignedIn = true;
 
-    expect(passwordInput).toBeInTheDocument();
-    expect(passwordInput).toHaveTextContent('test1234');
+    render(<Login />);
+    expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
 
-    expect(button).toBeInTheDocument();
-    expect(handleClick).toHaveBeenCalledTimes(1);
+    mockUseAuthContext.isSignedIn = false;
   });
 });
