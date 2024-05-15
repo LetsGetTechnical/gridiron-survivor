@@ -77,7 +77,7 @@ export default function WeeklyPickForm() {
   }, [isSignedIn]);
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {
-    if (!userId || !teamId) {
+    if (!userId || !teamId || teamId === '') {
       throw new Error('User ID and Team ID Required');
     }
 
@@ -100,9 +100,7 @@ export default function WeeklyPickForm() {
         (team) => team.teamName.toLowerCase() === teamSelect,
       )?.$id;
 
-      const userPick = JSON.parse(
-        `{"${user.id}":{"team":"${teamID}","correct":true}}`,
-      );
+      const userPick = parseUserPick(user.id, teamID || '');
 
       // combine current picks and the user pick into one object
       const updatedWeeklyPicks = { ...allPicks, ...userPick };
