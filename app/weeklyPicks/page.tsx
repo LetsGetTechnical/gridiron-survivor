@@ -38,7 +38,7 @@ export default function WeeklyPickForm() {
   const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
-  const { user } = useDataStore((state) => state);
+  const { user, updateUserWeeklyPicks } = useDataStore((state) => state);
 
   useEffect(() => {
     if (!isSignedIn) {
