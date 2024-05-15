@@ -83,11 +83,11 @@ export const useDataStore = create<DataStore>((set) => ({
     gameWeekId,
     userResults,
   }: IWeeklyPicks): void =>
-    set(
+    set( 
       produce((state: IDataStoreState) => {
         state.weeklyPicks.gameId = gameId;
         state.weeklyPicks.gameWeekId = gameWeekId;
         state.weeklyPicks.userResults = userResults;
-      }),
+      })
     ),
 }));
