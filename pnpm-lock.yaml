@@ -13426,7 +13426,6 @@ packages:
       playwright-core: 1.44.0
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /pnp-webpack-plugin@1.7.0(typescript@5.1.3):
     resolution:
