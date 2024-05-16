@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Models } from 'appwrite';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
