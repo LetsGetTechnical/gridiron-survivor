@@ -107,11 +107,11 @@ export default function WeeklyPickForm() {
     }
   };
 
-  const grabCache = () => {
-    if (typeof window !== 'undefined') {
-      return window.localStorage.getItem('team');
-    }
-  };
+  // const grabCache = () => {
+  //   if (typeof window !== 'undefined') {
+  //     return window.localStorage.getItem('team');
+  //   }
+  // };
 
   return (
     <section className="w-full pt-8">
