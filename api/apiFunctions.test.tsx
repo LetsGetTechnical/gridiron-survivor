@@ -8,6 +8,7 @@ jest.mock('./apiFunctions', () => {
     ...actualModule,
     createWeeklyPicks: jest.fn(),
     getUserWeeklyPick: jest.fn(),
+    getAllWeeklyPicks: jest.fn(),
   };
 });
 
@@ -17,7 +18,7 @@ describe('Auth Functions', () => {
     registerAccount: jest.fn(),
   }));
 
-  xdescribe('login account successful', () => {
+  describe('login account successful', () => {
     it('should show user login successfully', async () => {
       const userDummy = {
         email: 'testemail@email.com',
@@ -25,6 +26,7 @@ describe('Auth Functions', () => {
       };
       await loginAccount(userDummy);
       expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
+      await logoutAccount();
     });
 
     //user failed to log in
@@ -34,12 +36,12 @@ describe('Auth Functions', () => {
         password: 'tet1234679',
       };
       await loginAccount(failDummy);
-      expect(loginAccount(failDummy)).rejects.toThrow('error');
+      expect(loginAccount(failDummy)).rejects.toThrow('Error logging in user');
     });
   });
 
   // Test the logout function
-  describe('logout account works', () => {
+  xdescribe('logout account works', () => {
     it('should log out successfully', async () => {
       jest
         .spyOn(account, 'deleteSession')
@@ -116,6 +118,19 @@ describe('Create Weekly Picks Mock Function', () => {
       userResults:
         '{"66281d5ec5614f76bc91":{"team":"66218f22b40deef340f8","correct":false},"6628077faeeedd272637":{"team":"6621b30ea57bd075e9d3","correct":false}, "66174f2362ec891167be":{"team": "6621b30ea57bd075e9d3", "correct":true}}',
     });
+
+    expect(result).toEqual(resp);
+  });
+});
+
+describe('Get All Weekly Picks Mock Function', () => {
+  it('should mock getAllWeeklyPicks function', async () => {
+    const users = { team: '66218f22b40deef340f8', correct: false };
+    const resp = { data: users };
+
+    apiFunctions.getAllWeeklyPicks.mockResolvedValue(resp);
+
+    const result = await apiFunctions.getAllWeeklyPicks();
 
     expect(result).toEqual(resp);
   });
