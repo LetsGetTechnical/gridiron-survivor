@@ -1,0 +1,22 @@
+name: Enforce Merge Commits
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  enforce-merge-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if code owner or admin
+        id: check-code-owner
+        run: echo "::set-output name=is_code_owner::$(jq '.pull_request.user.login == .pull_request.base.repo.owner.login' $GITHUB_EVENT_PATH)"
+
+      - name: Enforce Merge Commits
+        if: steps.check-code-owner.outputs.is_code_owner == 'false'
+        run: |
+          echo "Only code owners or admins can use merge commits."
+          exit 1
