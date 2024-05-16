@@ -124,13 +124,17 @@ describe('Create Weekly Picks Mock Function', () => {
 
 describe('Get All Weekly Picks Mock Function', () => {
   it('should mock getAllWeeklyPicks function', async () => {
-    const users = { team: '66218f22b40deef340f8', correct: false };
-    const resp = { data: users };
+    const weeklyPicks = {
+      '66281d5ec5614f76bc91': { team: '66218f22b40deef340f8', correct: false },
+      '6628077faeeedd272637': { team: '6621b30ea57bd075e9d3', correct: false },
+      '66174f2362ec891167be': { team: '6621b30ea57bd075e9d3', correct: true },
+    };
+    const response = { data: weeklyPicks };
 
-    apiFunctions.getAllWeeklyPicks.mockResolvedValue(resp);
+    apiFunctions.getAllWeeklyPicks.mockResolvedValue(response);
 
     const result = await apiFunctions.getAllWeeklyPicks();
 
-    expect(result).toEqual(resp);
+    expect(result).toEqual(response);
   });
 });
