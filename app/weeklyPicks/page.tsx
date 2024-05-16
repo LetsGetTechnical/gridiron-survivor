@@ -35,11 +35,12 @@ const FormSchema = z.object({
 
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
-  const [userPick, setUserPick] = useState<string | null>(null);
+  const [userPick, setUserPick] = useState<object | null>(null);
   const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
-  const { user, updateWeeklyPicks } = useDataStore((state) => state);
+  const { user, updateWeeklyPicks, updateUserWeeklyPick, userWeeklyPick } =
+    useDataStore((state) => state);
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -54,7 +55,7 @@ export default function WeeklyPickForm() {
           getNFLTeams(),
         ]);
 
-        const userPickedTeam = await getUserWeeklyPick({
+        const updatedUserPickedTeam = await updateUserWeeklyPick({
           userId: user.id || '',
           weekNumber: '6622c75658b8df4c4612',
         });
@@ -66,7 +67,7 @@ export default function WeeklyPickForm() {
           setNFLTeams(nflTeamsData.documents);
         }
 
-        setUserPick(userPickedTeam);
+        setUserPick(userWeeklyPick);
         setAllPicks(allPicksData);
       } catch (error) {
         console.error('Fetching error:', error);
@@ -112,6 +113,7 @@ export default function WeeklyPickForm() {
         userResults: JSON.stringify(updatedWeeklyPicks),
       });
 
+      // ! all weekly picks are fetched here - but not by userpreference
       // update weekly picks in the data store
       updateWeeklyPicks({
         gameId: '66311a210039f0532044',
@@ -148,7 +150,8 @@ export default function WeeklyPickForm() {
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    defaultValue={grabCache() || ''}
+                    // defaultValue={grabCache() || ''}
+                    defaultValue=""
                   >
                     <FormItem>
                       <FormControl>
