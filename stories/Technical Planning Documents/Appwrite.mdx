@@ -1,0 +1,172 @@
+import '../styles.css';
+import Image from 'next/image';
+import appwriteMessaging from '../../public/assets/storybook/appwriteMessaging.png';
+
+# Appwrite
+
+# By Jason Torres - github: [@jasonetorres](https://github.com/jasonetorres)
+
+## What IS Appwrite
+
+Appwrite was launched roughly 5 years ago by Eldad Fux and is an
+open-source Backend as a Service for developers. It provides pre-built
+features like Auth, database management, and real-time functionality. It
+will drastically reduce the amount of server-side code we need to
+write. It's going to allow us to focus more resources on the front where
+the user really will be.
+
+## Why and how we are implementing Appwrite
+
+Appwrite continues to add features in their updates, making their
+BaaS is one of the leaders in the market. There are several features that
+we can lean heavily on and I have summarized a few that I think will
+make GIS a great experience for the end user.
+
+## Auth signin/signup
+
+GIS will have multiple users with varying levels of access. With
+Appwrite we can configure and manage permissions relatively
+easy in the console. There is a robust set of options when it comes to
+OAuth, if we add that later. For now, we are utilizing basic “email /
+password.”
+
+Giving us Auth in a simple tab in the console, which includes our
+database and storage also optimizes our use of products. with the use of
+the SDK, we can quickly implement the auth to whatever level
+we need. They even go as far as having code samples we can use as
+a base to get started.
+
+# Sign up
+
+You can use the Appwrite Client SDKs to create an account using email and password.
+
+```
+import { Client, Account, ID } from "appwrite";
+
+const client = new Client()
+    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+    .setProject('<PROJECT_ID>');               // Your project ID
+
+const account = new Account(client);
+
+const promise = account.create('[USER_ID]', 'email@example.com', '');
+
+promise.then(function (response) {
+    console.log(response); // Success
+}, function (error) {
+    console.log(error); // Failure
+});
+
+```
+
+## Messaging
+
+GIS has multiple opportunities to use this new feature from Appwrite.
+As it's not yet available on the cloud we can still set up the email or
+message client so when it's available we are ready. This is part of the
+1.5 release. GIS users can be notified upon signup (a welcome
+message with perhaps a little tutorial) using email. Each week perhaps
+an SMS (if the user opts) of weekly results, or that could also be an email.
+With data changing each week, I think that the ability to notify users of
+the changes (win, lose, set picks, etc) is imperative and will increase
+the use of the app. Thus making it an overall better experience for the
+user.
+
+<Image alt="Appwrite messaging SDK console" src={appwriteMessaging} />
+
+## Databases storage of users and user data, login info, etc
+
+With Appwrite, we have several options for how to use the database
+and storage features. The option of server-side storage is available
+using the server SDK. I am not sure of the full extent of the data we will
+be keeping so it's hard to speak to this specifically. I know for the
+storage (which is separate from the database) we will more than likely
+be storing team images, weekly graphics, etc. a few notes about the
+structure. Appwrite uses collections as containers of documents. Each
+collection contains many documents identical in structure. The terms
+collections and documents are used because the Appwrite JSON
+REST API resembles the API of a traditional NoSQL database.
+That said, Appwrite is designed to support both SQL and NoSQL
+database adapters like MariaDB, MySQL, or MongoDB in future versions.
+
+```
+const sdk = require('node-appwrite');
+
+// Init SDK
+const client = new sdk.Client();
+
+const databases = new sdk.Databases(client);
+
+client
+    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+    .setProject('5df5acd0d48c2') // Your project ID
+    .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
+;
+
+const promise = databases.create('<DATABASE_ID>', '[NAME]');
+
+promise.then(function (response) {
+    console.log(response);
+}, function (error) {
+    console.log(error);
+});
+
+```
+
+## Realtime will give us the ability to see user changes as they happen.
+
+Realtime is one of the most important features of the build. Through
+the use of the subscribe method, we can listen to events and
+receive data anytime it changes. For an app that does rely heavily on
+user interaction, being able to show users their picks at the click of a
+button seems imperative to the overall user experience. Via a
+WebSocket connection, we bring this data to them within milliseconds.
+Scores as they update, any user interaction being updated on the fly
+will certainly increase retention. It's worth noting that there is not
+currently a real-time option for server-side SDKs.
+
+```
+import { Client } from "appwrite";
+
+const client = new Client()
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('<PROJECT_ID>');
+
+// Subscribe to files channel
+client.subscribe('files', response => {
+  if(response.events.includes('buckets.*files.*.create')){
+    // Log when a new file is uploaded
+    console.log(response.payload);
+  }
+});
+
+```
+
+Appwrite has a significantly lower learning curve in comparison to
+Express.js due to its pre-built API’s and features. Express would
+require a deeper understanding of Node.js and backend concepts.
+For someone starting, it's a very turnkey solution that gives us full
+function with small code. Here are some other comparisons.
+Appwrite provides SDKs and APIs for interacting with its services. It
+takes away a lot of the complexity of managing the codebase for data
+fetching. Whereas Express.js requires you to write custom routes and
+middleware for the same task. More details, but more control over the
+process Appwrite has built-in DB services (NoSQL) it also provides DB
+management with SDKs and APIs for CRUD.
+
+Storing Cookies is done with SDKs and APIs. Whereas in Express I
+believe we need a cookie-parser.
+JSON web tokens (JWT) are handled in Appwrite with the built-in JWT
+authentication. It handles generation, verification, and management.
+Express.js you have to implement JWT manually or again use
+middleware.
+
+So in summary, for our group, I strongly recommend we use the
+Appwrite services as more of a turnkey solution for GIS.
+
+<ol className="doc_nav_links">
+  <li>[Accessibility](?path=/docs/documents-accessibility--docs)</li>
+  <li>
+    [CI CD Github Actions](?path=/docs/documents-ci-cd-github-actions--docs)
+  </li>
+</ol>

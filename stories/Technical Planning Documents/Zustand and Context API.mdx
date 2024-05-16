@@ -1,0 +1,61 @@
+import '../styles.css';
+
+# State Management: Context API and Zustand
+
+# By Richard Choi - github: [@choir27](https://github.com/choir27)
+
+## Problem:
+
+We need a way to manage all of our states while avoiding the pitfall of prop drilling
+
+We need a way to re-render our entire application upon successful authentication to prepare the authenticated content post-authentication
+
+## Problem Requirements:
+
+It needs to be able to not only store the state and the state values but also make them available on every level of the application to prevent prop drilling
+
+It needs to be able to cause the entire application to re-render for authentication and post-authentication
+
+## Solution:
+
+Context API and Zustand manage your states, making them available at any level of the application. If set up correctly, Context API can cause the entire application to re-render and make the data globally available throughout the application, while Zustand focuses more on the individual level of making the states and state values available in the application.
+
+Both solutions avoid the pitfall of using prop drilling, as they can be made available at any level of the application. They make states more organized, giving the other team members a better understanding of each state's usage, and functionality, and it makes it easier for them to navigate through.
+
+## Detailed Design:
+
+They handle state changes, mostly from input, and they also allow us to access all kinds of data from any level of the application using Zutand and Context API.
+
+Zutand:
+
+- Setup state store in a separate file, and categorize each store object into the respective components, creating nested stores when/if necessary. Access the necessary store(s) from the file path including the Zutand stores, and reinitialize variables to access the necessary states/functions/values from the Zutand store objects.
+
+Context:
+
+- Set up context middleware file/folder, accessing the created context to wrap the context provider around the components that need to access the respective data/states. Implement the states/values/functions using the value property, and access them from your controlled child components using the useContext hook.
+
+[Figma Design Example of using Zustand States and local States in the Gridiron Survivor Application](https://www.figma.com/file/U2iFdSq8BkBfBs0Bm5oyXd/State-Management-Detailed-Design?type=whiteboard&node-id=0-1&t=5t5u3cnQbod40HV4-0)
+
+## Next App Zustand Setup
+
+[Github repository example of using Zustand in a Next application](https://github.com/choir27/Next-Zustand-Setup)
+
+## Tests
+
+Upon creating a state and path for them, we intend to print to the console to test if the states work properly by printing the values that correspond to the state. We will know when these features stop working when the console prints out undefined/null/falsy values.
+
+## Launch
+
+To launch these features, one must change/update the state value that corresponds to the state manager. To monitor the state managers, the React Developer Tools are a good way to determine what is being re-rendered upon a state update.
+
+## Resources
+
+- [Zustand Official Documentation](https://docs.pmnd.rs/zustand/getting-started/introduction)
+
+- [Documentation about the React hook useContext](https://react.dev/reference/react/useContext)
+
+- [React official documentation on Passing Data Deeply with Context](https://react.dev/learn/passing-data-deeply-with-context)
+
+<div className="doc_nav_links">
+  [Yarn vs npm vs pnpm](?path=/docs/documents-yarn-vs-npm-vs-pnpm--docs)
+</div>

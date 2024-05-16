@@ -1,0 +1,71 @@
+import '../styles.css';
+
+# Hosting: Vercel
+
+# By Adam Morsa - github: [@ramblingadam](https://github.com/ramblingadam)
+
+## Problem:
+
+We need a place to host our application.
+
+## Solution Requirements:
+
+- Must support Next.js application
+- Must support logging and alerts
+
+## Assumptions:
+
+- Our app will be built using Next.js
+
+## Solution:
+
+We’ve decided on going with Vercel for hosting for now. With Vercel being the creator of
+Next.js, is the ideal platform to get our app up and running quickly for the MVP. While its
+analytics and logging features are not as robust as Azure, they should suit us well enough in the
+early stages. Read more about [analytics](https://vercel.com/docs/analytics) and [logging](https://vercel.com/docs/observability/runtime-logs).
+
+Regarding alerts, we can configure notifications through the Vercel dashboard, which enables
+us to view and manage alerts about deployments, domains, integrations, accounts, and usage.
+Alerts can be viewed on the dashboard, and sent via email or SMS if needed. [Read more here](https://vercel.com/docs/dashboard-features/notifications).
+As the app and our needs grow, we may migrate to Azure for its advanced features, such as
+Application Insights and advanced monitoring.
+
+## Security Considerations:
+
+- Vercel boasts strong security best practices across the board. [Read more here](https://vercel.com/docs/security/overview).
+
+## Cost Analysis:
+
+- The Free plan is more than enough to support our application in its early stages.
+- If, in the future, we run up against limits in the Free plan, the Pro plan is $20/mo- or, we
+  just switch to Azure using Shashi’s Azure fund.
+
+## Operational Readiness:
+
+- Vercel is the native platform for Next.js apps. Minimal configuration is required.
+
+## Risks:
+
+- None that I can conceive
+
+## Solutions Considered and Discarded:
+
+- Azure DevOps. While features such as advanced monitoring and Application Insights are
+  very tempting, it’s overkill for this stage of the product. As the product takes shape, we
+  may yet transfer the application to Azure.
+
+## Work Required:
+
+- (S) Connect repo to Vercel
+
+## References:
+
+- [Vercel Docs](https://vercel.com/docs)
+- [Vercel Analytics](https://vercel.com/docs/analytics)
+- [Vercel Logging](https://vercel.com/docs/observability/runtime-logs)
+- [Vercel Security](https://vercel.com/docs/security/overview")
+
+<ol className="doc_nav_links">
+  <li>[TypeScript](?path=/docs/documents-typescript--docs)</li>
+  <li>[Webpack 5](?path=/docs/documents-webpack-5--docs)</li>
+</ol>
