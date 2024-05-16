@@ -1,24 +1,23 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('https://gridironsurvivor.com/login');
-  await page.getByPlaceholder('Email').click();
-  await page.getByPlaceholder('Email').fill('testemail@email.com');
-  await page.getByPlaceholder('Password').click();
-  await page.getByPlaceholder('Password').fill('test1234');
-  await page.getByRole('button', { name: 'Continue' }).click();
-});
+  await page.goto('/login');
 
-test.describe('Login Page', () => {
-  test.beforeAll(async ({ page }) => {
-    await page.goto('https://gridironsurvivor.com/login');
-    await expect(page).toHaveURL('https://gridironsurvivor.com/login');
-  });
+  await page.getByTestId('email').click();
+  await page.getByTestId('email').fill('testemail@email.com');
 
-  test('Go to email input and input test email', async ({ page }) => {
-    const locator = page.locator('input[type=email');
-    await page.getByPlaceholder('Email').click();
-    await page.getByPlaceholder('Email').fill('testemail@email.com');
-    await expect(locator).toHaveValue('testemail@.com');
-  });
+  await page.getByTestId('password').click();
+  await page.getByTestId('password').fill('test1234');
+
+  await page.getByTestId('continue-button').click();
+
+  await expect(page).toHaveURL('/weeklyPicks');
+
+  const urlAfterLogin = await page.url();
+  console.log(urlAfterLogin);
+  if (urlAfterLogin === '/weeklyPicks') {
+    console.log('Successful login');
+  } else {
+    console.log('Failed to login');
+  }
 });
