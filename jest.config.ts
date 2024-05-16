@@ -13,6 +13,7 @@ const config: Config = {
   // Add more setup options before each test is run
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   preset: "ts-jest",
+  testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   testPathIgnorePatterns: [
     "<rootDir>/tests/playwright-tests/",
   ]
