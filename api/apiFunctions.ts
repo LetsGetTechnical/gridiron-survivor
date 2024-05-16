@@ -12,7 +12,7 @@ import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
 export async function loginAccount({
   email,
   password,
-}: IAccountData): Promise<Models.Session> {
+}: IAccountData): Promise<Models.Session | Error> {
   try {
     return await account.createEmailPasswordSession(email, password);
   } catch (error) {
