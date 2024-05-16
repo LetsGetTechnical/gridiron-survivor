@@ -18,7 +18,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Playwright will only run tests with .spec.ts at the end of naming */
-  testMatch: ['**/*.test.ts', '**/*.test.tsx'],
+  testMatch: ['**/*.spec.ts', '**/*.spec.tsx'],
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
