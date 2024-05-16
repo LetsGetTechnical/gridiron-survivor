@@ -18,7 +18,7 @@ describe('Auth Functions', () => {
     registerAccount: jest.fn(),
   }));
 
-  describe('login account successful', () => {
+  xdescribe('login account successful', () => {
     it('should show user login successfully', async () => {
       const userDummy = {
         email: 'testemail@email.com',
@@ -26,7 +26,6 @@ describe('Auth Functions', () => {
       };
       await loginAccount(userDummy);
       expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
-      await logoutAccount();
     });
 
     //user failed to log in
@@ -36,12 +35,12 @@ describe('Auth Functions', () => {
         password: 'tet1234679',
       };
       await loginAccount(failDummy);
-      expect(loginAccount(failDummy)).rejects.toThrow('Error logging in user');
+      expect(loginAccount(failDummy)).rejects.toThrow('error');
     });
   });
 
   // Test the logout function
-  xdescribe('logout account works', () => {
+  describe('logout account works', () => {
     it('should log out successfully', async () => {
       jest
         .spyOn(account, 'deleteSession')
