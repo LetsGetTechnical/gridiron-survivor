@@ -60,16 +60,22 @@ export async function getUserWeeklyPick({
 /**
  * Get all weekly picks
  *
- * @return {Models.DocumentList<Models.Document>} - The session object or an error
+ * @return {Models.DocumentList<Models.Document>}} - The session object or an error
  */
-export async function getAllWeeklyPicks(): Promise<
-  Models.DocumentList<Models.Document>
-> {
+export async function getAllWeeklyPicks(): Promise<Models.DocumentList<Models.Document> | null> {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       '66313025000612a5380e',
     );
+
+    // check if any users have selected their pick
+    if (response.documents[0].userResults === '') {
+      console.log('No weekly picks found');
+      return null;
+    }
+    
+    // TODO: need to check for proper data structure or return error
 
     const data = JSON.parse(response.documents[0].userResults);
     return data;

@@ -34,55 +34,66 @@ const FormSchema = z.object({
 
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
-  const [userPick, setUserPick] = useState<string | null>(null);
+  const [userPick, setUserPick] = useState<object | null>(null);
   const [allPicks, setAllPicks] = useState<object | null>(null);
+  const [userData, setUserData] = useState<IUser | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
   const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
     (state) => state,
   );
 
-
   useEffect(() => {
     if (!isSignedIn) {
       router.push('/login');
       return;
     }
+  }, [isSignedIn]);
 
-    const fetchWeeklyPicks = async () => {
-      try {
-        const [allPicksData, nflTeamsData] = await Promise.all([
-          getAllWeeklyPicks(),
-          getNFLTeams(),
-        ]);
 
-        // update weekly picks in the data store
-        //userResults in the store captures allPicksData which is an object
-        updateWeeklyPicks({
-          gameId: '66311a210039f0532044',
-          gameWeekId: '6622c7596558b090872b',
-          userResults: JSON.stringify(allPicksData),
-        });
 
-        if (!nflTeamsData) {
-          console.error('NFL teams data is undefined');
-          setNFLTeams([]);
-        } else {
-          setNFLTeams(nflTeamsData.documents);
-        }
+  const fetchWeeklyPicks = async () => {
+    try {
+      const [allPicksData, nflTeamsData] = await Promise.all([
+        getAllWeeklyPicks(),
+        getNFLTeams(),
+      ]);
 
-        const finalTeam = weeklyPicks.userResults[user.id]?.team;
-        console.log('Team Picked by User:', finalTeam);
-        setUserPick(weeklyPicks.userResults[user.id]?.team || '');
-
-        setAllPicks(allPicksData);
-      } catch (error) {
-        console.error('Fetching error:', error);
+      if (!allPicksData) {
+        setAllPicks({});
       }
-    };
+
+      const currentUserPick = allPicksData[user.id].team;
+      console.log(currentUserPick);
+      console.log(nflTeamsData);
+
+      // update weekly picks in the data store
+      //userResults in the store captures allPicksData which is an object
+      updateWeeklyPicks({
+        gameId: '66311a210039f0532044',
+        gameWeekId: '6622c7596558b090872b',
+        userResults: JSON.stringify(allPicksData),
+      });
+
+      // setUserPick(weeklyPicks.userResults[user.id]?.team || '');
+
+      if (!nflTeamsData) {
+        console.error('NFL teams data is undefined');
+        setNFLTeams([]);
+      } else {
+        setNFLTeams(nflTeamsData.documents);
+      }
+
+      // const currentUserPicks = allPicksData[user.id].team;
+      // setUserPick(weeklyPicks.userResults[user.id]?.team || '');
+
+      setAllPicks(allPicksData);
+    } catch (error) {
+      console.error('Fetching error:', error);
+    }
+  };
 
     fetchWeeklyPicks();
-  }, [isSignedIn]);
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {
     if (!userId || !teamId || teamId === '') {
@@ -132,7 +143,6 @@ export default function WeeklyPickForm() {
       setUserPick(currentUserPick[user.id].team);
     } catch (error) {
       console.error('Submission error:', error);
-
     }
   };
 
