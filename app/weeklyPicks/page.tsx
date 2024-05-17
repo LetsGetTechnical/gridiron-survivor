@@ -35,7 +35,7 @@ const FormSchema = z.object({
 
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
-  const [userPick, setUserPick] = useState<object | null>(null);
+  const [userPick, setUserPick] = useState<string | null>(null);
   const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
