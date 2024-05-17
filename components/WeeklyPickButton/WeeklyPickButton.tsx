@@ -14,11 +14,15 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({ team, src }) => {
       <Label htmlFor={team}>
         <Image
           className="max-h-12"
+      <RadioGroupItem value={team} id={team} data-testid="team-radio" />
+      <Label htmlFor={team} data-testid="team-label">
+        <Image
           src={src}
           alt={team}
           width={48}
           height={48}
           priority
+          data-testid="team-image"
         />
         {team}
       </Label>

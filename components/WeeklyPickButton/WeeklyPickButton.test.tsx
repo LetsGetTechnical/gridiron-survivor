@@ -3,19 +3,32 @@ import { render, screen } from '@testing-library/react';
 import { WeeklyPickButton } from './WeeklyPickButton';
 import { RadioGroup } from '../RadioGroup/RadioGroup';
 
+const weeklyPickData = {
+  team: 'Ravens',
+  src: '/path/to/ravens.svg',
+  height: '48',
+  width: '48',
+  alt: 'Ravens',
+};
+
 describe('WeeklyPickButton', () => {
   it('renders correctly', () => {
     render(
       <RadioGroup>
-        <WeeklyPickButton team="Test Team" src="/path/to/image.svg"/>
+        <WeeklyPickButton team={weeklyPickData.team} src={weeklyPickData.src} />
       </RadioGroup>,
     );
 
-    const image = screen.getByRole('img', { name: /Test Team/i });
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', '/path/to/image.svg');
+    const image = screen.getByTestId('team-image');
 
-    const teamName = screen.getByText(/Test Team/i);
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute('src', weeklyPickData.src);
+
+    const teamName = screen.getByTestId('team-label');
     expect(teamName).toBeInTheDocument();
+
+    expect(image).toHaveAttribute('width', weeklyPickData.width);
+    expect(image).toHaveAttribute('height', weeklyPickData.height);
+    expect(image).toHaveAttribute('alt', weeklyPickData.alt);
   });
 });
