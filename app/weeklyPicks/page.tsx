@@ -42,6 +42,7 @@ export default function WeeklyPickForm() {
     (state) => state,
   );
 
+
   useEffect(() => {
     if (!isSignedIn) {
       router.push('/login');
@@ -69,9 +70,11 @@ export default function WeeklyPickForm() {
         } else {
           setNFLTeams(nflTeamsData.documents);
         }
+
         const finalTeam = weeklyPicks.userResults[user.id]?.team;
         console.log('Team Picked by User:', finalTeam);
         setUserPick(weeklyPicks.userResults[user.id]?.team || '');
+
         setAllPicks(allPicksData);
       } catch (error) {
         console.error('Fetching error:', error);
@@ -118,6 +121,7 @@ export default function WeeklyPickForm() {
       });
 
       // ! all weekly picks are fetched here - but not by userpreference
+
       // update weekly picks in the data store
       updateWeeklyPicks({
         gameId: '66311a210039f0532044',
@@ -128,6 +132,7 @@ export default function WeeklyPickForm() {
       setUserPick(currentUserPick[user.id].team);
     } catch (error) {
       console.error('Submission error:', error);
+
     }
   };
 
