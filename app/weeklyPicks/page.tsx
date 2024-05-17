@@ -35,7 +35,7 @@ const FormSchema = z.object({
 
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
-  const [userPick, setUserPick] = useState<object | null>(null);
+  const [userPick, setUserPick] = useState<string | null>(null);
   const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
@@ -51,14 +51,18 @@ export default function WeeklyPickForm() {
     const fetchWeeklyPicks = async () => {
       try {
         const [allPicksData, nflTeamsData] = await Promise.all([
-          getAllWeeklyPicks(),
+          getAllWeeklyPicks(), // ! allweeklypicks is fetching all of the weeklypicks for all userIds
           getNFLTeams(),
         ]);
 
-        const updatedUserPickedTeam = await updateUserWeeklyPick({
+        const userPickedTeam = await getUserWeeklyPick({
           userId: user.id || '',
           weekNumber: '6622c75658b8df4c4612',
         });
+
+        //to update the user weekly pick
+
+        //iterate through the userResults object
 
         if (!nflTeamsData) {
           console.error('NFL teams data is undefined');
@@ -67,7 +71,7 @@ export default function WeeklyPickForm() {
           setNFLTeams(nflTeamsData.documents);
         }
 
-        setUserPick(userWeeklyPick);
+        setUserPick(userPickedTeam);
         setAllPicks(allPicksData);
       } catch (error) {
         console.error('Fetching error:', error);
@@ -115,21 +119,22 @@ export default function WeeklyPickForm() {
 
       // ! all weekly picks are fetched here - but not by userpreference
       // update weekly picks in the data store
-      updateWeeklyPicks({
+      const response = updateWeeklyPicks({
         gameId: '66311a210039f0532044',
         gameWeekId: '6622c7596558b090872b',
         userResults: JSON.stringify(updatedWeeklyPicks),
       });
+      console.log(response);
     } catch (error) {
       console.error('Submission error:', error);
     }
   };
 
-  // const grabCache = () => {
-  //   if (typeof window !== 'undefined') {
-  //     return window.localStorage.getItem('team');
-  //   }
-  // };
+  const grabCache = () => {
+    if (typeof window !== 'undefined') {
+      return window.localStorage.getItem('team');
+    }
+  };
 
   return (
     <section className="w-full pt-8">
@@ -150,8 +155,8 @@ export default function WeeklyPickForm() {
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    // defaultValue={grabCache() || ''}
-                    defaultValue=""
+                    defaultValue={grabCache() || ''}
+                    // defaultValue={userPick || ''}
                   >
                     <FormItem>
                       <FormControl>
