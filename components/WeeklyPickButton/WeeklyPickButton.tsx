@@ -10,10 +10,6 @@ type WeeklyPickButtonProps = {
 const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({ team, src }) => {
   return (
     <div className="flex items-center">
-      <RadioGroupItem value={team} id={team} />
-      <Label htmlFor={team}>
-        <Image
-          className="max-h-12"
       <RadioGroupItem value={team} id={team} data-testid="team-radio" />
       <Label htmlFor={team} data-testid="team-label">
         <Image
