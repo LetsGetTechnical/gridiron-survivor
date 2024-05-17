@@ -55,7 +55,14 @@ export default function WeeklyPickForm() {
           getNFLTeams(),
         ]);
 
-        const updatedUserPickedTeam = await updateUserWeeklyPick({
+        // update weekly picks in the data store
+        updateWeeklyPicks({
+          gameId: '66311a210039f0532044',
+          gameWeekId: '6622c7596558b090872b',
+          userResults: JSON.stringify(allPicksData),
+        });
+
+        await getUserWeeklyPick({
           userId: user.id || '',
           weekNumber: '6622c75658b8df4c4612',
         });
@@ -67,8 +74,8 @@ export default function WeeklyPickForm() {
           setNFLTeams(nflTeamsData.documents);
         }
 
-        setUserPick(userWeeklyPick);
-        setAllPicks(allPicksData);
+        setUserPick(allPicksData[user.id]?.team || '');
+        // setAllPicks(allPicksData);
       } catch (error) {
         console.error('Fetching error:', error);
       }
@@ -127,12 +134,6 @@ export default function WeeklyPickForm() {
     }
   };
 
-  // const grabCache = () => {
-  //   if (typeof window !== 'undefined') {
-  //     return window.localStorage.getItem('team');
-  //   }
-  // };
-
   return (
     <section className="w-full pt-8">
       <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
@@ -152,8 +153,7 @@ export default function WeeklyPickForm() {
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
-                    // defaultValue={grabCache() || ''}
-                    defaultValue=""
+                    defaultValue={userPick || ''}
                   >
                     <FormItem>
                       <FormControl>
