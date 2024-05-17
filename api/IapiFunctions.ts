@@ -6,10 +6,6 @@ export interface IUser {
   id: string;
   email: string;
 }
-export interface IUserWeeklyPick {
-  userId: string;
-  weekNumber: string;
-}
 export interface IWeeklyPicks {
   gameId: string;
   gameWeekId: string;

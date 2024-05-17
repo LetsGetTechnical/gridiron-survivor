@@ -3,7 +3,6 @@ import { produce } from 'immer';
 import {
   INFLTeam,
   IUser,
-  IUserWeeklyPick,
   IWeeklyPicks,
 } from '@/api/IapiFunctions';
 
@@ -11,7 +10,6 @@ import {
 interface IDataStoreState {
   NFLTeam: INFLTeam;
   user: IUser;
-  userWeeklyPick: IUserWeeklyPick;
   weeklyPicks: IWeeklyPicks;
 }
 
@@ -20,7 +18,6 @@ interface IDataStoreAction {
   resetUser: () => void;
   updateNFLTeam: ({ teamName, teamLogo }: INFLTeam) => void;
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
-  updateUserWeeklyPick: ({ userId, weekNumber }: IUserWeeklyPick) => void;
   updateWeeklyPicks: ({
     gameId,
     gameWeekId,
@@ -39,10 +36,6 @@ const initialState: IDataStoreState = {
   user: {
     id: '',
     email: '',
-  },
-  userWeeklyPick: {
-    userId: '',
-    weekNumber: '',
   },
   weeklyPicks: {
     gameId: '',
@@ -69,13 +62,6 @@ export const useDataStore = create<DataStore>((set) => ({
       produce((state: IDataStoreState) => {
         state.user.id = id;
         state.user.email = email;
-      }),
-    ),
-  updateUserWeeklyPick: ({ userId, weekNumber }: IUserWeeklyPick): void =>
-    set(
-      produce((state: IDataStoreState) => {
-        state.user.id = userId;
-        state.userWeeklyPick.weekNumber = weekNumber;
       }),
     ),
   updateWeeklyPicks: ({

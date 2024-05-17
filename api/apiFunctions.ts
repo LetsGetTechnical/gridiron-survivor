@@ -1,6 +1,6 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
+import { IAccountData, IWeeklyPicks } from './IapiFunctions';
 
 /**
  * Get the current session of the user
@@ -32,28 +32,6 @@ export async function logoutAccount(): Promise<{}> {
   } catch (error) {
     console.error(error);
     throw new Error('Error logging out user');
-  }
-}
-
-/**
- * Get user's weekly pick
- *
- * @return {String} - The session object or an error
- */
-export async function getUserWeeklyPick({
-  userId,
-  weekNumber,
-}: IUserWeeklyPick): Promise<string> {
-  // TODO: Use actual userId and weekNumber
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '66313025000612a5380e',
-    );
-    return response.documents[0].userResults;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting user weekly pick');
   }
 }
 

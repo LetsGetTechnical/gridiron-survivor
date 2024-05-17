@@ -5,7 +5,6 @@ import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickBu
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { Button } from '../../components/Button/Button';
 import {
-  getUserWeeklyPick,
   createWeeklyPicks,
   getNFLTeams,
   getAllWeeklyPicks,
@@ -39,8 +38,9 @@ export default function WeeklyPickForm() {
   const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
-  const { user, updateWeeklyPicks, updateUserWeeklyPick, userWeeklyPick } =
-    useDataStore((state) => state);
+  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
+    (state) => state,
+  );
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -56,15 +56,11 @@ export default function WeeklyPickForm() {
         ]);
 
         // update weekly picks in the data store
+        //userResults in the store captures allPicksData which is an object
         updateWeeklyPicks({
           gameId: '66311a210039f0532044',
           gameWeekId: '6622c7596558b090872b',
           userResults: JSON.stringify(allPicksData),
-        });
-
-        await getUserWeeklyPick({
-          userId: user.id || '',
-          weekNumber: '6622c75658b8df4c4612',
         });
 
         if (!nflTeamsData) {
@@ -73,9 +69,10 @@ export default function WeeklyPickForm() {
         } else {
           setNFLTeams(nflTeamsData.documents);
         }
-
-        setUserPick(allPicksData[user.id]?.team || '');
-        // setAllPicks(allPicksData);
+        const finalTeam = weeklyPicks.userResults[user.id]?.team;
+        console.log('Team Picked by User:', finalTeam);
+        setUserPick(weeklyPicks.userResults[user.id]?.team || '');
+        setAllPicks(allPicksData);
       } catch (error) {
         console.error('Fetching error:', error);
       }
