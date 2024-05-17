@@ -101,10 +101,10 @@ export default function WeeklyPickForm() {
         (team) => team.teamName.toLowerCase() === teamSelect,
       )?.$id;
 
-      const userPick = parseUserPick(user.id, teamID || '');
+      const currentUserPick = parseUserPick(user.id, teamID || '');
 
       // combine current picks and the user pick into one object
-      const updatedWeeklyPicks = { ...allPicks, ...userPick };
+      const updatedWeeklyPicks = { ...allPicks, ...currentUserPick };
 
       // update weekly picks in the database
       await createWeeklyPicks({
@@ -120,6 +120,8 @@ export default function WeeklyPickForm() {
         gameWeekId: '6622c7596558b090872b',
         userResults: JSON.stringify(updatedWeeklyPicks),
       });
+
+      setUserPick(currentUserPick[user.id].team);
     } catch (error) {
       console.error('Submission error:', error);
     }
