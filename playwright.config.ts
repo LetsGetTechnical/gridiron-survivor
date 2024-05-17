@@ -1,4 +1,21 @@
 import { defineConfig, devices } from '@playwright/test';
+import { execSync } from 'child_process';
+
+// Get the current branch
+function getCurrentBranch(): string {
+  try {
+    const branch = execSync('git rev-parse --abbrev-ref HEAD')
+      .toString()
+      .trim();
+    return branch;
+  } catch (error) {
+    console.error('Failed to determine the current git branch:', error);
+    return '';
+  }
+}
+
+// Determine current branch and assign it to a v
+let currentBranch = getCurrentBranch();
 
 /**
  * Read environment variables from file.
@@ -26,7 +43,10 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:3000',
+    baseURL:
+      currentBranch === 'main'
+        ? 'https://www.gridironsurvivor.com'
+        : 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -52,8 +72,11 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
+    command: currentBranch === 'main' ? 'npm run build' : 'npm run dev',
+    url:
+      currentBranch === 'main'
+        ? 'https://www.gridironsurvivor.com'
+        : 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },
 });
