@@ -1,9 +1,7 @@
 name: e2e tests
 on:
   pull_request:
-    branches:
-      - main
-      - develop
+    types: [opened, synchronize, reopened]
 
       jobs:
         test_setup:
