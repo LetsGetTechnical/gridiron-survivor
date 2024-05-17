@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Models } from 'appwrite';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
@@ -23,6 +23,7 @@ import {
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
+import { IUser } from '@/api/IapiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -35,10 +36,10 @@ const FormSchema = z.object({
 export default function WeeklyPickForm() {
   const [NFLTeams, setNFLTeams] = useState<Models.Document[]>([]);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const [allPicks, setAllPicks] = useState<string | null>(null);
+  const [allPicks, setAllPicks] = useState<object | null>(null);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
-  const { user } = useDataStore((state) => state);
+  const { user, updateWeeklyPicks } = useDataStore((state) => state);
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -66,7 +67,7 @@ export default function WeeklyPickForm() {
         }
 
         setUserPick(userPickedTeam);
-        setAllPicks(allPicksData?.documents[0].userResults || null);
+        setAllPicks(allPicksData);
       } catch (error) {
         console.error('Fetching error:', error);
       }
@@ -75,35 +76,54 @@ export default function WeeklyPickForm() {
     fetchWeeklyPicks();
   }, [isSignedIn]);
 
+  const parseUserPick = (userId: IUser['id'], teamId: string) => {
+    if (!userId || !teamId || teamId === '') {
+      throw new Error('User ID and Team ID Required');
+    }
+
+    const parsedData = JSON.parse(
+      `{"${userId}":{"team":"${teamId}","correct":true}}`,
+    );
+
+    return parsedData;
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = useCallback(
-    async (data: z.infer<typeof FormSchema>) => {
-      try {
-        const teamSelect = data.type.toLowerCase();
-        localStorage.setItem('team', data.type);
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      const teamSelect = data.type.toLowerCase();
 
-        const teamID = NFLTeams.find(
-          (team) => team.teamName.toLowerCase() === teamSelect,
-        )?.$id;
-        const resultJSON = `${user.id}:{"team":"${teamID}","correct":true}`;
-        const appendNewResult = allPicks
-          ? `{${allPicks},${resultJSON}}`
-          : `{${resultJSON}}`;
+      const teamID = NFLTeams.find(
+        (team) => team.teamName.toLowerCase() === teamSelect,
+      )?.$id;
 
-        await createWeeklyPicks({
-          gameId: '66311a210039f0532044',
-          gameWeekId: '6622c7596558b090872b',
-          userResults: appendNewResult,
-        });
-      } catch (error) {
-        console.error('Submission error:', error);
-      }
-    },
-    [NFLTeams, user, allPicks],
-  );
+      const currentUserPick = parseUserPick(user.id, teamID || '');
+
+      // combine current picks and the user pick into one object
+      const updatedWeeklyPicks = { ...allPicks, ...currentUserPick };
+
+      // update weekly picks in the database
+      await createWeeklyPicks({
+        gameId: '66311a210039f0532044',
+        gameWeekId: '6622c7596558b090872b',
+        userResults: JSON.stringify(updatedWeeklyPicks),
+      });
+
+      // update weekly picks in the data store
+      updateWeeklyPicks({
+        gameId: '66311a210039f0532044',
+        gameWeekId: '6622c7596558b090872b',
+        userResults: JSON.stringify(updatedWeeklyPicks),
+      });
+
+      setUserPick(currentUserPick[user.id].team);
+    } catch (error) {
+      console.error('Submission error:', error);
+    }
+  };
 
   const grabCache = () => {
     if (typeof window !== 'undefined') {
