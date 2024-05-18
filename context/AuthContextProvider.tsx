@@ -25,30 +25,24 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const { updateUser, resetUser } = useDataStore<DataStore>((state) => state);
+  const { updateUser, resetUser, user } = useDataStore<DataStore>(
+    (state) => state,
+  );
   const router = useRouter();
 
-  // Check for a current session on component mount
   useEffect(() => {
-    const checkSession = async () => {
-      if (!isSessionInLocalStorage()) {
-        return;
-      }
-
-      setIsSignedIn(true);
-    };
-    checkSession();
-  }, []);
-
-  useEffect(() => {
-    getUser();
-  }, [isSignedIn]);
+    if (user.id == '' || user.email === '') {
+      return;
+    }
+    console.log('setting signed in');
+    setIsSignedIn(true);
+  }, [user]);
 
   // Authenticate and set session state
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await account.createEmailPasswordSession(user.email, user.password);
-      setIsSignedIn(true);
+      getUser();
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
@@ -57,10 +51,6 @@ export const AuthContextProvider = ({
 
   // get user
   const getUser = async () => {
-    if (!isSignedIn) {
-      return;
-    }
-
     try {
       const userData = await account.get();
       updateUser(userData.$id, userData.email);

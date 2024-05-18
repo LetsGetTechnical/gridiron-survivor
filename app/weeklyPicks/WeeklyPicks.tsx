@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Models } from 'appwrite';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
@@ -15,8 +15,6 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import { IUser, IWeeklyPicks } from '@/api/IapiFunctions';
 
@@ -29,52 +27,57 @@ const FormSchema = z.object({
 });
 
 interface Props {
-  weeklyPicks: IWeeklyPicks['userResults'] | null;
+  weeklyPicksData: IWeeklyPicks['userResults'] | null;
   NFLTeams: Models.Document[];
 }
 
-export default function WeeklyPicks({ weeklyPicks, NFLTeams }: Props) {
-  const [allPicks, setAllPicks] = useState<IWeeklyPicks['userResults'] | null>(
-    weeklyPicks,
-  );
+export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const { user, updateWeeklyPicks } = useDataStore((state) => state);
-  const { isSignedIn } = useAuthContext();
-  const router = useRouter();
+  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
+    (state) => state,
+  );
 
   useEffect(() => {
-    if (!isSignedIn) {
-      router.push('/login');
+    fetchWeeklyPicks();
+  }, []);
+
+  useEffect(() => {
+    if (weeklyPicks.gameId == '' || weeklyPicks.gameWeekId == '') {
+      return;
     }
+    console.log(weeklyPicks);
     fetchUserPick();
-  }, [isSignedIn]);
+  }, [weeklyPicks]);
 
   useEffect(() => {
     if (!userPick) {
       return;
     }
-    console.log('User Pick:', userPick);
     setIsLoaded(true);
   }, [userPick]);
 
-  const fetchUserPick = async () => {
-    // search to see if user has selected a weekly
-    if (allPicks && allPicks[user.id]) {
-      const userSelectedTeam = NFLTeams.find(
-        (team) => team.$id === allPicks[user.id].team,
-      );
-      setUserPick(userSelectedTeam?.teamName);
-      console.log('User Pick:', userSelectedTeam?.teamName);
-    } else {
-      setUserPick('');
-    }
-
+  const fetchWeeklyPicks = () => {
     updateWeeklyPicks({
       gameId: '66311a210039f0532044',
       gameWeekId: '6622c7596558b090872b',
-      userResults: weeklyPicks,
+      userResults: weeklyPicksData,
     });
+  };
+
+  const fetchUserPick = async () => {
+    console.log('Fetching User Pick');
+    console.log(weeklyPicks);
+    console.log(user)
+    const userTeamId = weeklyPicks.userResults?.[user.id]?.team;
+    if (userTeamId) {
+      const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
+      setUserPick(userSelectedTeam?.teamName);
+      console.log('User Pick:', userSelectedTeam?.teamName);
+    } else {
+      console.log('No User Pick Found');
+      setUserPick('');
+    }
   };
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {
@@ -104,7 +107,10 @@ export default function WeeklyPicks({ weeklyPicks, NFLTeams }: Props) {
       const currentUserPick = parseUserPick(user.id, teamID || '');
 
       // combine current picks and the user pick into one object
-      const updatedWeeklyPicks = { ...allPicks, ...currentUserPick };
+      const updatedWeeklyPicks = {
+        ...weeklyPicks.userResults,
+        ...currentUserPick,
+      };
 
       // update weekly picks in the database
       await createWeeklyPicks({
