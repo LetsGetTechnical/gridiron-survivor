@@ -9,10 +9,17 @@ export interface IUser {
 export interface IWeeklyPicks {
   gameId: string;
   gameWeekId: string;
-  userResults: object;
+  userResults: IUserPicksData | null;
 }
 
 export interface INFLTeam {
   teamName: string;
   teamLogo: string;
+}
+
+export interface IUserPicksData {
+  [key: string]: {
+    team: string;
+    correct: boolean;
+  };
 }

@@ -1,10 +1,6 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import {
-  INFLTeam,
-  IUser,
-  IWeeklyPicks,
-} from '@/api/IapiFunctions';
+import { INFLTeam, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
 
 //Define the shape of the state
 interface IDataStoreState {
@@ -13,7 +9,7 @@ interface IDataStoreState {
   weeklyPicks: IWeeklyPicks;
 }
 
-//Define the actions that can be perfomed on the state
+//Define the actions that can be performed on the state
 interface IDataStoreAction {
   resetUser: () => void;
   updateNFLTeam: ({ teamName, teamLogo }: INFLTeam) => void;
@@ -69,11 +65,11 @@ export const useDataStore = create<DataStore>((set) => ({
     gameWeekId,
     userResults,
   }: IWeeklyPicks): void =>
-    set( 
+    set(
       produce((state: IDataStoreState) => {
         state.weeklyPicks.gameId = gameId;
         state.weeklyPicks.gameWeekId = gameWeekId;
         state.weeklyPicks.userResults = userResults;
-      })
+      }),
     ),
 }));

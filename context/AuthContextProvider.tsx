@@ -40,22 +40,7 @@ export const AuthContextProvider = ({
     checkSession();
   }, []);
 
-  useMemo(() => {
-    const getUser = async () => {
-      if (!isSignedIn) {
-        return;
-      }
-
-      try {
-        const userData = await account.get();
-        updateUser(userData.$id, userData.email);
-      } catch (error) {
-        resetUser();
-        setIsSignedIn(false);
-        console.log('Error getting user data:', error);
-        throw new Error('Error getting user data');
-      }
-    };
+  useEffect(() => {
     getUser();
   }, [isSignedIn]);
 
@@ -67,6 +52,23 @@ export const AuthContextProvider = ({
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
+    }
+  };
+
+  // get user
+  const getUser = async () => {
+    if (!isSignedIn) {
+      return;
+    }
+
+    try {
+      const userData = await account.get();
+      updateUser(userData.$id, userData.email);
+    } catch (error) {
+      resetUser();
+      setIsSignedIn(false);
+      console.log('Error getting user data:', error);
+      throw new Error('Error getting user data');
     }
   };
 

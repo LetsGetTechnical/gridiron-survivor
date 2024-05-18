@@ -1,6 +1,6 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
+import { IAccountData, IWeeklyPicks } from './IapiFunctions';
 
 /**
  * Get the current session of the user
@@ -36,33 +36,13 @@ export async function logoutAccount(): Promise<{}> {
 }
 
 /**
- * Get user's weekly pick
- *
- * @return {String} - The session object or an error
- */
-export async function getUserWeeklyPick({
-  userId,
-  weekNumber,
-}: IUserWeeklyPick): Promise<string> {
-  // TODO: Use actual userId and weekNumber
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '66313025000612a5380e',
-    );
-    return response.documents[0].userResults;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting user weekly pick');
-  }
-}
-
-/**
  * Get all weekly picks
  *
- * @return {Models.DocumentList<Models.Document>}} - The session object or an error
+ *
  */
-export async function getAllWeeklyPicks(): Promise<Models.DocumentList<Models.Document> | null> {
+export async function getAllWeeklyPicks(): Promise<
+  IWeeklyPicks['userResults'] | null
+> {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -71,10 +51,9 @@ export async function getAllWeeklyPicks(): Promise<Models.DocumentList<Models.Do
 
     // check if any users have selected their pick
     if (response.documents[0].userResults === '') {
-      console.log('No weekly picks found');
       return null;
     }
-    
+
     // TODO: need to check for proper data structure or return error
 
     const data = JSON.parse(response.documents[0].userResults);
@@ -131,14 +110,16 @@ export async function createWeeklyPicks({
   gameWeekId,
   userResults,
 }: IWeeklyPicks): Promise<Models.Document> {
-  const data = { gameId, gameWeekId, userResults };
-
   try {
     return await databases.updateDocument(
       appwriteConfig.databaseId,
       '66313025000612a5380e',
       '663130a100297f77c3c8',
-      data,
+      {
+        gameId,
+        gameWeekId,
+        userResults: JSON.stringify(userResults),
+      },
     );
   } catch (error) {
     console.error(error);
