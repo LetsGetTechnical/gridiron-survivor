@@ -9,7 +9,7 @@ export interface IUser {
 export interface IWeeklyPicks {
   gameId: string;
   gameWeekId: string;
-  userResults: string;
+  userResults: object;
 }
 
 export interface INFLTeam {

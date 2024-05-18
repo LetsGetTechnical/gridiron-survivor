@@ -50,8 +50,7 @@ export default function WeeklyPickForm() {
     }
   }, [isSignedIn]);
 
-
-
+  // useEffect(() => {
   const fetchWeeklyPicks = async () => {
     try {
       const [allPicksData, nflTeamsData] = await Promise.all([
@@ -63,7 +62,7 @@ export default function WeeklyPickForm() {
         setAllPicks({});
       }
 
-      const currentUserPick = allPicksData[user.id].team;
+      const currentUserPick = allPicksData[user.id];
       console.log(currentUserPick);
       console.log(nflTeamsData);
 
@@ -93,7 +92,8 @@ export default function WeeklyPickForm() {
     }
   };
 
-    fetchWeeklyPicks();
+  fetchWeeklyPicks();
+  // }, [isSignedIn]);
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {
     if (!userId || !teamId || teamId === '') {

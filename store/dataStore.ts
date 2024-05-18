@@ -40,7 +40,7 @@ const initialState: IDataStoreState = {
   weeklyPicks: {
     gameId: '',
     gameWeekId: '',
-    userResults: '',
+    userResults: {},
   },
 };
 
