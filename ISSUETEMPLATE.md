@@ -28,5 +28,5 @@
 [Specify any labels that apply to this issue, such as "bug", "enhancement", "documentation", etc.]
 
 ### And Remember 
-![Screenshot](https://media.discordapp.net/attachments/1151228003553124373/1241469908508999913/I_have_an_opinion_on_that..png?ex=664a5073&is=6648fef3&hm=84b6d859f2454eff374e985a5064395f41f15a827ae0d9d10a7cb4e33407b965&=&format=webp&quality=lossless&width=858&height=616)
+![Screenshot](/public/assets/storybook/shashi.png)
 
