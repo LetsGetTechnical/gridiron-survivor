@@ -17,7 +17,6 @@ import {
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
 import { IUser, IWeeklyPicks } from '@/api/IapiFunctions';
-import { useAuthContext } from '@/context/AuthContextProvider';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -54,7 +53,7 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
   }, [weeklyPicks]);
 
   useEffect(() => {
-    if (!userPick) {
+    if (userPick === null) {
       return;
     }
     setIsLoaded(true);
