@@ -31,10 +31,11 @@ export const AuthContextProvider = ({
   const router = useRouter();
 
   useEffect(() => {
-    if (user.id == '' || user.email === '') {
+    if (user.id === '' || user.email === '') {
+      getUser();
       return;
     }
-    console.log('setting signed in');
+
     setIsSignedIn(true);
   }, [user]);
 

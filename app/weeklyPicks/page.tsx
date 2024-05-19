@@ -1,6 +1,5 @@
 import { getNFLTeams, getAllWeeklyPicks } from '../../api/apiFunctions';
 import WeeklyPicks from './WeeklyPicks';
-import { account } from '@/api/config';
 
 export default async function Page() {
   const allWeeklyPicks = getAllWeeklyPicks();

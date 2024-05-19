@@ -17,6 +17,7 @@ import {
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
 import { IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+import { useAuthContext } from '@/context/AuthContextProvider';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -39,14 +40,16 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
   );
 
   useEffect(() => {
+    if (user.id === '' || user.email === '') {
+      return;
+    }
     fetchWeeklyPicks();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (weeklyPicks.gameId == '' || weeklyPicks.gameWeekId == '') {
       return;
     }
-    console.log(weeklyPicks);
     fetchUserPick();
   }, [weeklyPicks]);
 
@@ -68,7 +71,7 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
   const fetchUserPick = async () => {
     console.log('Fetching User Pick');
     console.log(weeklyPicks);
-    console.log(user)
+    console.log(user);
     const userTeamId = weeklyPicks.userResults?.[user.id]?.team;
     if (userTeamId) {
       const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
