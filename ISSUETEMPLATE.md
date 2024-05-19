@@ -15,13 +15,15 @@
 ## Actual Behavior:
 [Describe what happens when performing the steps above.]
 
+## Testing Requirements:
+- [ ] Unit testing for code changes and updates.
+- [ ] End-to-end (e2e) testing for code changes and updates.
+
+## Conventional Commits and GitHub Ticket:
+[Check if you used conventional commits and included the GitHub ticket # into the commit. If not, manually link the two.]
+
 ## Screenshots / Logs (if applicable):
 [Attach any relevant screenshots or log files that help illustrate the issue.]
-
-## Environment:
-- Operating System: [e.g., Windows, macOS, Linux]
-- Browser (if applicable): [e.g., Chrome, Firefox, Safari]
-- Version (if applicable): [e.g., 22.0.1]
 
 ## Labels:
 [Specify any labels that apply to this issue, such as "bug", "enhancement", "documentation", etc.]
