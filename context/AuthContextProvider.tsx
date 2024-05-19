@@ -44,6 +44,7 @@ export const AuthContextProvider = ({
     try {
       await account.createEmailPasswordSession(user.email, user.password);
       getUser();
+      router.push('/weeklyPicks');
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
@@ -52,13 +53,16 @@ export const AuthContextProvider = ({
 
   // get user
   const getUser = async () => {
+    if (!isSessionInLocalStorage()) {
+      return;
+    }
+
     try {
       const userData = await account.get();
       updateUser(userData.$id, userData.email);
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
-      console.log('Error getting user data:', error);
       throw new Error('Error getting user data');
     }
   };
