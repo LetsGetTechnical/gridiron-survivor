@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, render } from '@testing-library/dom';
+import { screen, render, fireEvent } from '@testing-library/react';
 import {
   Drawer,
   DrawerTrigger,
@@ -10,17 +10,17 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from './NavDrawer';
+import userEvent from '@testing-library/user-event';
 
 describe('Drawer', () => {
   it('renders correctly', () => {
     render(
       <Drawer>
-        <DrawerTrigger />
-        <DrawerContent data-state="open" />
+        <DrawerTrigger data-testid="nav-trigger" />
+        <DrawerContent data-testid="nav-content" />
       </Drawer>,
     );
-    const element = screen.getByTestId('custom-element');
-
-    console.log(element);
+    const element = screen.getByTestId('nav-trigger');
+    userEvent.click(element);
   });
 });
