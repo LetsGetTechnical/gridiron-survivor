@@ -110,11 +110,12 @@ export async function createWeeklyPicks({
   gameWeekId,
   userResults,
 }: IWeeklyPicks): Promise<Models.Document> {
+  
   try {
     return await databases.updateDocument(
       appwriteConfig.databaseId,
-      '66313025000612a5380e',
-      '663130a100297f77c3c8',
+      '66313025000612a5380e', //collectionID
+      '663130a100297f77c3c8', //documentID
       {
         gameId,
         gameWeekId,

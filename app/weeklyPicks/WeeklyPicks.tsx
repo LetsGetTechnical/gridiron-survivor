@@ -61,10 +61,15 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
 
   const fetchWeeklyPicks = () => {
     updateWeeklyPicks({
-      gameId: '66311a210039f0532044',
-      gameWeekId: '6622c7596558b090872b',
+      gameId: weeklyPicks.gameId,
+      gameWeekId: weeklyPicks.gameWeekId,
+      // gameId: '66311a210039f0532044',
+      // gameWeekId: '6622c7596558b090872b',
       userResults: weeklyPicksData,
     });
+    // ! grabbing dynamic gameId and gameWeekId but it's showing empty right now
+    console.log('Current gameId:', weeklyPicks.gameId);
+    console.log('Current gameWeekId:', weeklyPicks.gameWeekId);
   };
 
   const fetchUserPick = async () => {
