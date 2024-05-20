@@ -39,27 +39,28 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
   );
 
   useEffect(() => {
-    if (user.id === '' || user.email === '') {
-      return;
-    }
-    fetchWeeklyPicks();
+    if (user.id === '' || user.email === '') return;
+    setWeeklyPicks();
   }, [user]);
 
   useEffect(() => {
-    if (weeklyPicks.gameId == '' || weeklyPicks.gameWeekId == '') {
-      return;
-    }
+    if (weeklyPicks.gameId == '' || weeklyPicks.gameWeekId == '') return;
     fetchUserPick();
   }, [weeklyPicks]);
 
   useEffect(() => {
-    if (userPick === null) {
-      return;
-    }
+    if (userPick === null) return;
     setIsLoaded(true);
   }, [userPick]);
 
-  const fetchWeeklyPicks = () => {
+  useEffect(() => {
+    if (user.id === '' || user.email === '') {
+      return;
+    }
+    setWeeklyPicks();
+  }, [user]);
+
+  const setWeeklyPicks = () => {
     updateWeeklyPicks({
       gameId: '66311a210039f0532044',
       gameWeekId: '6622c7596558b090872b',
