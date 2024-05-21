@@ -132,7 +132,7 @@ export default function WeeklyPickForm() {
   };
 
   return (
-    <section className="w-full pt-8">
+    <section className="w-full pt-8" {...form}>
       <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
         Your pick sheet
       </h1>
