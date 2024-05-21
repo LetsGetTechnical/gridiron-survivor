@@ -53,8 +53,8 @@ jobs:
   test_setup:
     name: Test setup
     runs-on: ubuntu-latest
-    # outputs:
-    #   preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
+    outputs:
+      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
     steps:
       - name: Wait for Vercel Preview
         uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
