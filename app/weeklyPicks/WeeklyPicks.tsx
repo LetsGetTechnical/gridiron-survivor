@@ -38,43 +38,41 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
     (state) => state,
   );
 
+  //** Grabbing the weekly picks data if a user is logged in */
   useEffect(() => {
     if (user.id === '' || user.email === '') return;
     setWeeklyPicks();
   }, [user]);
 
+  //** Grabbing the user's weekly picks if there any weeklyPicks data */
   useEffect(() => {
-    if (weeklyPicks.gameId == '' || weeklyPicks.gameWeekId == '') return;
+    if (weeklyPicks.gameId === '' || weeklyPicks.gameWeekId === '') return;
     fetchUserPick();
   }, [weeklyPicks]);
 
+  //** Grabbing the dynamic gameWeekId */
+  useEffect(() => {
+    if (weeklyPicks.gameId === '' || weeklyPicks.gameWeekId === '') return;
+    fetchCurrentWeek();
+  }, [weeklyPicks]);
+
+  //** If user's pick is not empty, show what the user picked  */
   useEffect(() => {
     if (userPick === null) return;
     setIsLoaded(true);
   }, [userPick]);
 
-  useEffect(() => {
-    if (user.id === '' || user.email === '') {
-      return;
-    }
-    setWeeklyPicks();
-  }, [user]);
-
   const setWeeklyPicks = () => {
     updateWeeklyPicks({
-      gameId: weeklyPicks.gameId,
-      gameWeekId: weeklyPicks.gameWeekId,
-      // gameId: '66311a210039f0532044',
-      // gameWeekId: '6622c7596558b090872b',
+      // gameId: weeklyPicks.gameId,
+      // gameWeekId: weeklyPicks.gameWeekId,
+      gameId: '66311a210039f0532044',
+      gameWeekId: '6622c7596558b090872b',
       userResults: weeklyPicksData,
     });
-    // ! grabbing dynamic gameId and gameWeekId but it's showing empty right now
-    console.log('Current gameId:', weeklyPicks.gameId);
-    console.log('Current gameWeekId:', weeklyPicks.gameWeekId);
   };
 
   const fetchUserPick = async () => {
-    console.log('Fetching User Pick');
     console.log(weeklyPicks);
     console.log(user);
     const userTeamId = weeklyPicks.userResults?.[user.id]?.team;
@@ -86,6 +84,10 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
       console.log('No User Pick Found');
       setUserPick('');
     }
+  };
+
+  const fetchCurrentWeek = async () => {
+    console.log('this ran');
   };
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {
