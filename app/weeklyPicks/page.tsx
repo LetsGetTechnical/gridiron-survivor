@@ -10,7 +10,7 @@ export default async function Page() {
   const allNFLTeams = getNFLTeams();
   const allGameGroups = getAllGameGroups();
 
-  const [allPicksData, nflTeamsData, allGameGroups] = await Promise.all([
+  const [allPicksData, nflTeamsData, allGameGroupsData] = await Promise.all([
     allWeeklyPicks,
     allNFLTeams,
     allGameGroups,
@@ -20,7 +20,7 @@ export default async function Page() {
     <WeeklyPicks
       weeklyPicksData={allPicksData}
       NFLTeams={nflTeamsData.documents}
-      allGameGroupsData={allGameGroups}
+      allGameGroupsData={allGameGroupsData}
     />
   );
 }

@@ -129,7 +129,7 @@ export async function createWeeklyPicks({
 }
 
 /**
- * Get all weekly picks
+ * Get all game groups
  *
  *
  */
@@ -139,7 +139,7 @@ export async function getAllGameGroups(): Promise<
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      '66311a210039f0532044',
+      '6626a937b6302f6a4d28',
     );
 
     // check if any users have selected their pick
@@ -150,6 +150,7 @@ export async function getAllGameGroups(): Promise<
     // TODO: need to check for proper data structure or return error
 
     const data = JSON.parse(response.documents[0].participants);
+    console.log(data)
     return data;
   } catch (error) {
     console.error(error);
