@@ -28,6 +28,9 @@ jest.mock('../../context/AuthContextProvider', () => ({
 }));
 
 describe('Nav', () => {
+  beforeAll(() => {
+    jest.clearAllMocks();
+  });
   it('it should be hidden when path is /register', () => {
     mockUsePathname.mockImplementation(() => '/register');
 
