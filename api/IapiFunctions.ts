@@ -24,6 +24,6 @@ export interface IUserPicksData {
   };
 }
 
-export interface IUserGameWeek {
+export interface IGameWeek {
   gameCurrentWeek: string;
 }

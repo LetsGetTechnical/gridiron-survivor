@@ -1,6 +1,6 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IWeeklyPicks, IUserGameWeek } from './IapiFunctions';
+import { IAccountData, IWeeklyPicks, IUserGameWeek, IGameWeek } from './IapiFunctions';
 
 /**
  * Get the current session of the user
@@ -129,25 +129,30 @@ export async function createWeeklyPicks({
 }
 
 /**
- * Get the current game user is playing
+ * Get all weekly picks
  *
- * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ *
  */
-export async function getCurrentGame({
-  gameCurrentWeek
-}: IUserGameWeek): Promise<Models.Document> {
-  
+export async function getAllGameGroups(): Promise<
+  IGameWeek['gameCurrentWeek'] | null
+> {
   try {
-    return await databases.updateDocument(
+    const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      '66313025000612a5380e', //collectionID
-      '663130a100297f77c3c8', //documentID
-      {
-      gameCurrentWeek
-      },
+      '66311a210039f0532044',
     );
+
+    // check if any users have selected their pick
+    if (response.documents[0].participants === '') {
+      return null;
+    }
+
+    // TODO: need to check for proper data structure or return error
+
+    const data = JSON.parse(response.documents[0].participants);
+    return data;
   } catch (error) {
     console.error(error);
-    throw new Error('Error getting the current week picks');
+    throw new Error('Error getting all game groups');
   }
 }

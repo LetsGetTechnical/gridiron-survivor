@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
-import { IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -29,14 +29,19 @@ const FormSchema = z.object({
 interface Props {
   weeklyPicksData: IWeeklyPicks['userResults'] | null;
   NFLTeams: Models.Document[];
+  allGameGroupsData: IGameWeek['participants'] | null;
 }
 
-export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
+export default function WeeklyPicks({
+  weeklyPicksData,
+  NFLTeams,
+  allGameGroupsData,
+}: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
-    (state) => state,
-  );
+  const [currentWeek, setCurrentWeek] = useState<string | null>(null);
+  const { user, updateWeeklyPicks, weeklyPicks, updateCurrentWeek } =
+    useDataStore((state) => state);
 
   //** Grabbing the weekly picks data if a user is logged in */
   useEffect(() => {
@@ -44,16 +49,16 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
     setWeeklyPicks();
   }, [user]);
 
+  //** Grabbing the dynamic gameId */
+  useEffect(() => {
+    if (user.id === '') return;
+    fetchCurrentWeek();
+  }, [weeklyPicks]);
+
   //** Grabbing the user's weekly picks if there any weeklyPicks data */
   useEffect(() => {
     if (weeklyPicks.gameId === '' || weeklyPicks.gameWeekId === '') return;
     fetchUserPick();
-  }, [weeklyPicks]);
-
-  //** Grabbing the dynamic gameWeekId */
-  useEffect(() => {
-    if (weeklyPicks.gameId === '' || weeklyPicks.gameWeekId === '') return;
-    fetchCurrentWeek();
   }, [weeklyPicks]);
 
   //** If user's pick is not empty, show what the user picked  */
@@ -88,6 +93,9 @@ export default function WeeklyPicks({ weeklyPicksData, NFLTeams }: Props) {
 
   const fetchCurrentWeek = async () => {
     console.log('this ran');
+    updateCurrentWeek({
+      gameCurrentWeek: allGameGroupsData,
+    });
   };
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {

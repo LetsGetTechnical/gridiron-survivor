@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { INFLTeam, IUser, IWeeklyPicks, IUserGameWeek } from '@/api/IapiFunctions';
+import { INFLTeam, IUser, IWeeklyPicks, IGameWeek } from '@/api/IapiFunctions';
 
 //Define the shape of the state
 interface IDataStoreState {
   NFLTeam: INFLTeam;
   user: IUser;
   weeklyPicks: IWeeklyPicks;
-  currentWeek: IUserGameWeek;
+  currentWeek: IGameWeek;
 }
 
 //Define the actions that can be performed on the state
@@ -20,7 +20,7 @@ interface IDataStoreAction {
     gameWeekId,
     userResults,
   }: IWeeklyPicks) => void;
-  updateCurrentWeek: ({gameCurrentWeek}: IUserGameWeek) => void;
+  updateCurrentWeek: ({gameCurrentWeek}: IGameWeek) => void;
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
@@ -79,7 +79,7 @@ export const useDataStore = create<DataStore>((set) => ({
     ),
     updateCurrentWeek: ({
       gameCurrentWeek,
-    }: IUserGameWeek): void => 
+    }: IGameWeek): void => 
     set(
       produce((state: IDataStoreState) => {
         state.currentWeek.gameCurrentWeek = gameCurrentWeek;
