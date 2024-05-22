@@ -35,6 +35,7 @@ export const Nav = () => {
         'h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b',
         pathname === '/login' || pathname == '/register' ? 'hidden' : 'flex',
       )}
+      data-testid="nav"
     >
       <div className="mr-auto">
         <LogoNav />
