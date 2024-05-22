@@ -20,12 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="text-foreground">
+      <body className="dark:dark bg-background px-4 pb-8 text-foreground">
         <AuthContextProvider>
           <Nav />
-          <main className="flex min-h-screen flex-col items-center bg-[#09090B]">
-            {children}
-          </main>
+          <main>{children}</main>
         </AuthContextProvider>
       </body>
     </html>
