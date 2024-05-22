@@ -50,5 +50,12 @@ describe('Nav', () => {
     expect(navElement).toHaveClass('hidden');
   });
 
-  it('it should render correctly when logged in', () => {});
+  it('it should be visible when logged in', () => {
+    render(<Nav />);
+
+    const navElement = screen.getByTestId('nav');
+
+    expect(navElement).toBeInTheDocument();
+    expect(navElement).toHaveClass('flex');
+  });
 });
