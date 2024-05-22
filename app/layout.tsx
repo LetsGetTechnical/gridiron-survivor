@@ -21,6 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
+      <body className="dark:dark bg-background px-4 pb-8 text-foreground">
+        <AuthContextProvider>
+          <Nav />
+          <main>{children}</main>
+        </AuthContextProvider>
       <body className="text-foreground">
         <ErrorBoundary>
           <AuthContextProvider>
