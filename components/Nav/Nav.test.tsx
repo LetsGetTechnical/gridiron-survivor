@@ -39,7 +39,16 @@ describe('Nav', () => {
     expect(navElement).toHaveClass('hidden');
   });
 
-  it('it should be hidden when path is /login', () => {});
+  it('it should be hidden when path is /login', () => {
+    mockUsePathname.mockImplementation(() => '/login');
+
+    render(<Nav />);
+
+    const navElement = screen.getByTestId('nav');
+
+    expect(navElement).toBeInTheDocument();
+    expect(navElement).toHaveClass('hidden');
+  });
 
   it('it should render correctly when logged in', () => {});
 });
