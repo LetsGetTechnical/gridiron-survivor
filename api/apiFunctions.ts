@@ -1,6 +1,6 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IWeeklyPicks } from './IapiFunctions';
+import { IAccountData, IWeeklyPicks, IUserGameWeek } from './IapiFunctions';
 
 /**
  * Get the current session of the user
@@ -125,5 +125,29 @@ export async function createWeeklyPicks({
   } catch (error) {
     console.error(error);
     throw new Error('Error creating weekly picks');
+  }
+}
+
+/**
+ * Get the current game user is playing
+ *
+ * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ */
+export async function getCurrentGame({
+  gameCurrentWeek
+}: IUserGameWeek): Promise<Models.Document> {
+  
+  try {
+    return await databases.updateDocument(
+      appwriteConfig.databaseId,
+      '66313025000612a5380e', //collectionID
+      '663130a100297f77c3c8', //documentID
+      {
+      gameCurrentWeek
+      },
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting the current week picks');
   }
 }

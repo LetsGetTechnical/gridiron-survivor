@@ -23,3 +23,7 @@ export interface IUserPicksData {
     correct: boolean;
   };
 }
+
+export interface IUserGameWeek {
+  gameCurrentWeek: string;
+}
