@@ -7,6 +7,7 @@ import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
 export default function Login() {
   const router = useRouter();
@@ -47,10 +48,8 @@ export default function Login() {
           </h1>
           <p className="pb-4 font-normal leading-7 text-zinc-500">
             Log in to your existing account or{' '}
-            <Link href="/register" className="hover:text-orange-600">
-              sign up
-            </Link>{' '}
-            to get started with a league
+            <LinkCustom href="/register">sign up</LinkCustom> to get started
+            with a league
           </p>
         </div>
         <div id="input-container" className="grid gap-4">
@@ -74,9 +73,9 @@ export default function Login() {
             disabled={!email && !password}
             onClick={() => loginAccount({ email, password })}
           />
-          <Link href="/register" className="hover:text-orange-600">
+          <LinkCustom href="/register">
             Sign up to get started with a league
-          </Link>
+          </LinkCustom>
         </div>
       </div>
     </section>
