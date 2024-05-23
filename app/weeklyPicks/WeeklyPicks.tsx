@@ -29,13 +29,13 @@ const FormSchema = z.object({
 interface Props {
   weeklyPicksData: IWeeklyPicks['userResults'] | null;
   NFLTeams: Models.Document[];
-  allGameGroupsData: IGameWeek['gameCurrentWeek'] | null;
+  // allGameGroupsData: IGameWeek['gameCurrentWeek'] | null;
 }
 
 export default function WeeklyPicks({
   weeklyPicksData,
   NFLTeams,
-  allGameGroupsData,
+  // allGameGroupsData,
 }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
@@ -93,9 +93,6 @@ export default function WeeklyPicks({
 
   const fetchCurrentWeek = async () => {
     console.log('this ran');
-    updateCurrentWeek({
-      gameCurrentWeek: allGameGroupsData,
-    });
   };
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {

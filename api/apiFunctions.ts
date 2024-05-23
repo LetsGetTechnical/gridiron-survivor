@@ -133,27 +133,5 @@ export async function createWeeklyPicks({
  *
  *
  */
-export async function getAllGameGroups(): Promise<
-Models.DocumentList<Models.Document> >{
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '6626a937b6302f6a4d28',
-    );
-    console.log(response)
 
-    // check if any users have selected their pick
-    if (response.documents[0].participants === '') {
-      return null;
-    }
 
-    // TODO: need to check for proper data structure or return error
-
-    const data = JSON.parse(response.documents[0].participants);
-    console.log(data)
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting all game groups');
-  }
-}
