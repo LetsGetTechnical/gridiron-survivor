@@ -25,5 +25,5 @@ export interface IUserPicksData {
 }
 
 export interface IGameWeek {
-  gameCurrentWeek: string;
+  participants: string;
 }

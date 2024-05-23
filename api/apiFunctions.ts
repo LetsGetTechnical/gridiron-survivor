@@ -1,6 +1,6 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IWeeklyPicks, IUserGameWeek, IGameWeek } from './IapiFunctions';
+import { IAccountData, IWeeklyPicks, IGameWeek } from './IapiFunctions';
 
 /**
  * Get the current session of the user
@@ -134,13 +134,13 @@ export async function createWeeklyPicks({
  *
  */
 export async function getAllGameGroups(): Promise<
-  IGameWeek['gameCurrentWeek'] | null
-> {
+Models.DocumentList<Models.Document> >{
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       '6626a937b6302f6a4d28',
     );
+    console.log(response)
 
     // check if any users have selected their pick
     if (response.documents[0].participants === '') {
