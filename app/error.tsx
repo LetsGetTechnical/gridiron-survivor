@@ -2,7 +2,7 @@
 import { Button } from '@/components/Button/Button';
 import { useEffect } from 'react';
 
-export default function Error({
+export default function ErrorBoundary({
   error,
   reset,
 }: {
