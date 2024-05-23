@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { INFLTeam, IUser, IWeeklyPicks, IGameWeek } from '@/api/IapiFunctions';
+import { INFLTeam, IUser, IWeeklyPicks, IGameGroup, IGameWeek } from '@/api/IapiFunctions';
 
 //Define the shape of the state
 interface IDataStoreState {
   NFLTeam: INFLTeam;
   user: IUser;
   weeklyPicks: IWeeklyPicks;
+  gameGroup: IGameGroup;
   currentWeek: IGameWeek;
 }
 
@@ -20,6 +21,7 @@ interface IDataStoreAction {
     gameWeekId,
     userResults,
   }: IWeeklyPicks) => void;
+  updateGameGroup: ({currentGameId, participants, survivors}: IGameGroup) => void;
   updateCurrentWeek: ({gameCurrentWeek}: IGameWeek) => void;
 }
 
@@ -39,6 +41,11 @@ const initialState: IDataStoreState = {
     gameId: '',
     gameWeekId: '',
     userResults: {},
+  },
+  gameGroup: {
+    currentGameId: '',
+    participants: [],
+    survivors: [],
   },
   currentWeek: {
     gameCurrentWeek: ''
@@ -75,6 +82,17 @@ export const useDataStore = create<DataStore>((set) => ({
         state.weeklyPicks.gameId = gameId;
         state.weeklyPicks.gameWeekId = gameWeekId;
         state.weeklyPicks.userResults = userResults;
+      }),
+    ),
+    updateGameGroup: ({
+      currentGameId,
+      participants,
+      survivors,    
+    }: IGameGroup): void => set(
+      produce((state: IDataStoreState) => {
+        state.gameGroup.currentGameId = currentGameId;
+        state.gameGroup.participants = participants;
+        state.gameGroup.survivors = survivors;
       }),
     ),
     updateCurrentWeek: ({

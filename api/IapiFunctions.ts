@@ -24,6 +24,12 @@ export interface IUserPicksData {
   };
 }
 
+export interface IGameGroup {
+  currentGameId: string;
+  participants: [];
+  survivors: []
+}
+
 export interface IGameWeek {
-  participants: string;
+  gameCurrentWeek: string;
 }

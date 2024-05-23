@@ -133,5 +133,25 @@ export async function createWeeklyPicks({
  *
  *
  */
+export async function getAllGameGroups(): Promise<Models.Document | null> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId, 
+      '6626a937b6302f6a4d28');
+      console.log(response)
+    
+    const gameGroupDocument = response.documents[0];
+    
+    if (!gameGroupDocument || !gameGroupDocument.participants) {
+      return null;
+    }
 
+    console.log("gameGroupDocument:", gameGroupDocument);
+    
+    return gameGroupDocument;
+  } catch (error) {
+    console.error("Error getting all game groups:", error);
+    throw new Error('Error getting all game groups');
+  }
 
+}

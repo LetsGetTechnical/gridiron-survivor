@@ -29,7 +29,6 @@ const FormSchema = z.object({
 interface Props {
   weeklyPicksData: IWeeklyPicks['userResults'] | null;
   NFLTeams: Models.Document[];
-  // allGameGroupsData: IGameWeek['gameCurrentWeek'] | null;
 }
 
 export default function WeeklyPicks({
