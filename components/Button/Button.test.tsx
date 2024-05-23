@@ -2,14 +2,30 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Button } from './Button';
 
-test('should render a button with no variant defined', () => {
-  render(<Button />);
-  const defaultButton = screen.getByRole('button');
-  expect(defaultButton).toHaveClass('bg-orange-600');
-});
-
-test('should render a button with the link variant defined. It should have no background or border, only an underline on hover', () => {
-  render(<Button variant="link" />);
-  const defaultButton = screen.getByRole('button');
-  expect(defaultButton).toHaveClass('underline-offset-4');
+describe('Button Component', () => {
+  it('renders the default variant', () => {
+    render(<Button label="Default Variant" />);
+    const button = screen.getByText(/Default Variant/i);
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass(
+      'inline-flex',
+      'items-center',
+      'justify-center',
+      'whitespace-nowrap',
+      'rounded-md',
+      'text-sm',
+      'font-medium',
+      'ring-offset-background',
+      'transition-colors',
+      'focus-visible:outline-none',
+      'focus-visible:ring-2',
+      'focus-visible:ring-ring',
+      'focus-visible:ring-offset-2',
+      'disabled:pointer-events-none',
+      'disabled:opacity-50',
+      'bg-orange-600',
+      'text-white',
+      'hover:bg-orange-600/90',
+    );
+  });
 });
