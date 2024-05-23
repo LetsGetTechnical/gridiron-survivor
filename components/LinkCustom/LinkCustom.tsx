@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 
-interface LinkCustomProps {
+interface ILinkCustomProps {
   href: string;
   children: ReactElement;
   className?: string;
@@ -14,7 +14,7 @@ const LinkCustom = ({
   children,
   className,
   newTab = false,
-}: LinkCustomProps) => {
+}: ILinkCustomProps) => {
   // Determine if the target attribute should be added based on the newTab prop
   const targetAttr = newTab ? '_blank' : undefined;
 
