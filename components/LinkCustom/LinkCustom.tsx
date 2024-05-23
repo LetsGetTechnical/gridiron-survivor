@@ -1,10 +1,10 @@
 // Import necessary modules from Next.js and React
 import Link from 'next/link';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 interface LinkCustomProps {
   href: string;
-  children: any;
+  children: ReactElement;
   className?: string;
   newTab?: boolean;
 }
