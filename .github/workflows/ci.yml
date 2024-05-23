@@ -45,6 +45,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+      - name: Load .env variables
+        run: |
+          if [ -f .env ]; then
+            export $(cat .env | grep -v '#' | awk '/=/ {print $1}')
+          fi
       - name: Install dependencies
         run: pnpm install
       - name: tests
