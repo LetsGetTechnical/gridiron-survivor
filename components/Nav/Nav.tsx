@@ -43,7 +43,7 @@ export const Nav = () => {
       <ul>
         <li>
           <Drawer>
-            <DrawerTrigger>
+            <DrawerTrigger data-testid="drawer-trigger">
               <Menu color="white" />
             </DrawerTrigger>
             <DrawerContent>
