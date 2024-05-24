@@ -133,25 +133,52 @@ export async function createWeeklyPicks({
  *
  *
  */
-export async function getAllGameGroups(): Promise<Models.Document | null> {
+export async function getAllGameGroups(): Promise< Models.Document > {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId, 
       '6626a937b6302f6a4d28');
-      console.log(response)
+      // console.log(response)
     
     const gameGroupDocument = response.documents[0];
     
-    if (!gameGroupDocument || !gameGroupDocument.participants) {
-      return null;
-    }
+    // if (!gameGroupDocument || !gameGroupDocument.participants) {
+    //   return null;
+    // }
 
-    console.log("gameGroupDocument:", gameGroupDocument);
+    // console.log("gameGroupDocument:", gameGroupDocument);
     
     return gameGroupDocument;
   } catch (error) {
     console.error("Error getting all game groups:", error);
     throw new Error('Error getting all game groups');
   }
+}
 
+/**
+ * Get the current week's ID
+ *
+ *
+ */
+export async function getCurrentWeek(): Promise<number> {
+  try {
+    const response = await databases.getDocument(
+      appwriteConfig.databaseId,
+      'current_week',
+      '664cfd88003c6cf2ff75');
+
+    console.log("getCurrentWeek response:", response);
+
+    if (!response) {
+      return null;
+    }
+
+    console.log("getCurrentWeek document:", response.documents);
+
+    const documentId = response.documents[0].gameWeek;
+    return documentId;
+  } catch (error) {
+    console.error("Error getting current week:", error);
+    throw new Error('Error getting current week');
+  }
 }

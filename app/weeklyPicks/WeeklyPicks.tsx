@@ -29,17 +29,19 @@ const FormSchema = z.object({
 interface Props {
   weeklyPicksData: IWeeklyPicks['userResults'] | null;
   NFLTeams: Models.Document[];
+  gameGroupsData: Models.Document;
+  gameWeeksData: number;
 }
 
 export default function WeeklyPicks({
   weeklyPicksData,
   NFLTeams,
-  // allGameGroupsData,
+  gameGroupsData,
 }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
   const [currentWeek, setCurrentWeek] = useState<string | null>(null);
-  const { user, updateWeeklyPicks, weeklyPicks, updateCurrentWeek } =
+  const { user, updateWeeklyPicks, weeklyPicks, updateCurrentWeek, gameGroup } =
     useDataStore((state) => state);
 
   //** Grabbing the weekly picks data if a user is logged in */
@@ -51,7 +53,7 @@ export default function WeeklyPicks({
   //** Grabbing the dynamic gameId */
   useEffect(() => {
     if (user.id === '') return;
-    fetchCurrentWeek();
+    fetchCurrentGameId();
   }, [weeklyPicks]);
 
   //** Grabbing the user's weekly picks if there any weeklyPicks data */
@@ -77,8 +79,8 @@ export default function WeeklyPicks({
   };
 
   const fetchUserPick = async () => {
-    console.log(weeklyPicks);
-    console.log(user);
+    // console.log(weeklyPicks);
+    // console.log(user);
     const userTeamId = weeklyPicks.userResults?.[user.id]?.team;
     if (userTeamId) {
       const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
@@ -91,7 +93,11 @@ export default function WeeklyPicks({
   };
 
   const fetchCurrentWeek = async () => {
-    console.log('this ran');
+    // console.log(gameWeeksData);
+  };
+
+  const fetchCurrentGameId = async () => {
+    console.log(gameGroupsData);
   };
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {
