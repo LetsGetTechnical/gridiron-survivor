@@ -23,7 +23,7 @@ import {
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
-import { IUser } from '@/api/IapiFunctions';
+import { IUser, GameWeek } from '@/api/IapiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -108,14 +108,14 @@ export default function WeeklyPickForm() {
       // update weekly picks in the database
       await createWeeklyPicks({
         gameId: '66311a210039f0532044',
-        gameWeekId: '6622c7596558b090872b',
+        gameWeekId: GameWeek.WEEK2,
         userResults: JSON.stringify(updatedWeeklyPicks),
       });
 
       // update weekly picks in the data store
       updateWeeklyPicks({
         gameId: '66311a210039f0532044',
-        gameWeekId: '6622c7596558b090872b',
+        gameWeekId: GameWeek.WEEK2,
         userResults: JSON.stringify(updatedWeeklyPicks),
       });
 

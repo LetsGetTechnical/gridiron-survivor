@@ -1,6 +1,11 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
+import {
+  IAccountData,
+  IUserWeeklyPick,
+  IWeeklyPicks,
+  Collection,
+} from './IapiFunctions';
 
 /**
  * Get the current session of the user
@@ -48,7 +53,7 @@ export async function getUserWeeklyPick({
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      '66313025000612a5380e',
+      Collection.GAME_RESULTS,
     );
     return response.documents[0].userResults;
   } catch (error) {
@@ -68,7 +73,7 @@ export async function getAllWeeklyPicks(): Promise<
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      '66313025000612a5380e',
+      Collection.GAME_RESULTS,
     );
 
     const data = JSON.parse(response.documents[0].userResults);
@@ -90,7 +95,7 @@ export async function getNFLTeams(): Promise<
   try {
     return await databases.listDocuments(
       appwriteConfig.databaseId,
-      '662152bfabacfbda3bb3',
+      Collection.NFL_TEAMS,
     );
   } catch (error) {
     console.error(error);
@@ -130,7 +135,7 @@ export async function createWeeklyPicks({
   try {
     return await databases.updateDocument(
       appwriteConfig.databaseId,
-      '66313025000612a5380e',
+      Collection.GAME_RESULTS,
       '663130a100297f77c3c8',
       data,
     );
