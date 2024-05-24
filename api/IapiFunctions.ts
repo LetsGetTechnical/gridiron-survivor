@@ -56,7 +56,6 @@ export enum GameWeek {
 /**
  * Enum representing important documents with their corresponding unique identifiers.
  */
-
 export enum Document {
   CURRENT_GAME_WEEK = '664cfd88003c6cf2ff75',
 }
