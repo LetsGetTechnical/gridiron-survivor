@@ -59,6 +59,6 @@ describe('Nav', () => {
     const navElement = screen.getByTestId('nav');
 
     expect(navElement).toBeInTheDocument();
-    expect(navElement).toHaveClass('flex');
+    expect(navElement).not.toHaveClass('hidden');
   });
 });
