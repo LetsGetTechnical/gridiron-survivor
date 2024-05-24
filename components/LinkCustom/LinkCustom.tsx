@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 
 interface ILinkCustomProps {
   href: string;
-  children: ReactElement;
+  children: string;
   className?: string;
   newTab?: boolean;
 }

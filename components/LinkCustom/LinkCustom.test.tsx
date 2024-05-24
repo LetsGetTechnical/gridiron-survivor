@@ -1,6 +1,7 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { useState } from 'react';
+import { prettyDOM, render, screen } from '@testing-library/react';
 import LinkCustom from './LinkCustom';
+import userEvent from '@testing-library/user-event';
 
 describe('LinkCustom Component', () => {
   it('renders with default props and does not open in a new tab', () => {
@@ -8,6 +9,7 @@ describe('LinkCustom Component', () => {
     const link = screen.getByTestId('link-custom');
     expect(link).toBeInTheDocument();
     expect(link).not.toHaveAttribute('target', '_blank');
+    expect(link).toHaveClass('hover:text-orange-600', 'hover:underline');
   });
 
   it('opens in a new tab when newTab is true', () => {
@@ -20,5 +22,6 @@ describe('LinkCustom Component', () => {
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(link).toHaveClass('hover:text-orange-600', 'hover:underline');
   });
 });
