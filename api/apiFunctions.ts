@@ -160,12 +160,11 @@ export async function getAllGameGroups(): Promise< Models.Document > {
  *
  *
  */
-export async function getCurrentWeek(): Promise<number> {
+export async function getCurrentWeek(): Promise<number | null> {
   try {
-    const response = await databases.getDocument(
+    const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      'current_week',
-      '664cfd88003c6cf2ff75');
+      'current_week');
 
     console.log("getCurrentWeek response:", response);
 
@@ -173,7 +172,7 @@ export async function getCurrentWeek(): Promise<number> {
       return null;
     }
 
-    console.log("getCurrentWeek document:", response.documents);
+    //console.log("getCurrentWeek document:", response.documents);
 
     const documentId = response.documents[0].gameWeek;
     return documentId;
