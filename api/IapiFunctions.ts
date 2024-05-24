@@ -31,5 +31,5 @@ export interface IGameGroup {
 }
 
 export interface IGameWeek {
-  gameCurrentWeek: string;
+  gameCurrentWeek: number;
 }

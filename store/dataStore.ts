@@ -22,7 +22,7 @@ interface IDataStoreAction {
     userResults,
   }: IWeeklyPicks) => void;
   updateGameGroup: ({currentGameId, participants, survivors}: IGameGroup) => void;
-  updateCurrentWeek: ({gameCurrentWeek}: IGameWeek) => void;
+  updateCurrentWeek: (gameCurrentWeek: IGameWeek) => void;
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
@@ -48,7 +48,7 @@ const initialState: IDataStoreState = {
     survivors: [],
   },
   currentWeek: {
-    gameCurrentWeek: ''
+    gameCurrentWeek: 0,
   }
 };
 

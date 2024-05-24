@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
-import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+import { IUser, IWeeklyPicks } from '@/api/IapiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -37,6 +37,7 @@ export default function WeeklyPicks({
   weeklyPicksData,
   NFLTeams,
   gameGroupsData,
+  gameWeeksData,
 }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
@@ -51,6 +52,12 @@ export default function WeeklyPicks({
   }, [user]);
 
   //** Grabbing the dynamic gameId */
+  useEffect(() => {
+    if (user.id === '') return;
+    fetchCurrentWeek();
+  }, [weeklyPicks]);
+
+  //** Grabbing the dynamic current week's Id */
   useEffect(() => {
     if (user.id === '') return;
     fetchCurrentGameId();
@@ -70,8 +77,6 @@ export default function WeeklyPicks({
 
   const setWeeklyPicks = () => {
     updateWeeklyPicks({
-      // gameId: weeklyPicks.gameId,
-      // gameWeekId: weeklyPicks.gameWeekId,
       gameId: '66311a210039f0532044',
       gameWeekId: '6622c7596558b090872b',
       userResults: weeklyPicksData,
@@ -93,7 +98,7 @@ export default function WeeklyPicks({
   };
 
   const fetchCurrentWeek = async () => {
-    // console.log(gameWeeksData);
+    console.log(gameWeeksData);
   };
 
   const fetchCurrentGameId = async () => {

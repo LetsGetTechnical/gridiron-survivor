@@ -162,19 +162,20 @@ export async function getAllGameGroups(): Promise< Models.Document > {
  */
 export async function getCurrentWeek(): Promise<number | null> {
   try {
-    const response = await databases.listDocuments(
+    const response = await databases.getDocument(
       appwriteConfig.databaseId,
-      'current_week');
+      'current_week',
+      "664cfd88003c6cf2ff75");
+     // console.log("getCurrentWeek response:", response)
 
-    console.log("getCurrentWeek response:", response);
-
-    if (!response) {
+    if (!response.documents) {
       return null;
     }
 
-    //console.log("getCurrentWeek document:", response.documents);
+    console.log("getCurrentWeek document:", response);
 
-    const documentId = response.documents[0].gameWeek;
+    const documentId = response.gameWeek;
+    console.log("documentId:", documentId)
     return documentId;
   } catch (error) {
     console.error("Error getting current week:", error);
