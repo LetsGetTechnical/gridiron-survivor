@@ -10,7 +10,7 @@ describe('LinkCustom Component', () => {
         href="https://example.com"
       ></LinkCustom>,
     );
-    const link = screen.getByTestId('link-custom');
+    const link = screen.getByTestId('linkCustom');
     expect(link).toBeInTheDocument();
     expect(link).toHaveTextContent(
       'Test link that should open in the same tab when clicked',
@@ -27,7 +27,7 @@ describe('LinkCustom Component', () => {
         newTab
       ></LinkCustom>,
     );
-    const link = screen.getByTestId('link-custom');
+    const link = screen.getByTestId('linkCustom');
     expect(link).toBeInTheDocument();
     expect(link).toHaveTextContent(
       'Test link that should open in a new tab when clicked',

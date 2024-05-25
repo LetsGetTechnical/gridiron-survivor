@@ -21,7 +21,7 @@ const LinkCustom = ({
   // Use Next.js Link component wrapped inside an anchor tag
   return (
     <Link
-      data-testid="link-custom"
+      data-testid="linkCustom"
       target={targetAttr}
       rel={newTab ? 'noopener noreferrer' : undefined}
       href={href}
