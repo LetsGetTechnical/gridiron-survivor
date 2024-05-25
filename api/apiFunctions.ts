@@ -63,7 +63,7 @@ export async function logoutAccount(): Promise<{}> {
 /**
  * Get all NFL teams
  *
- * @return {Models.DocumentList<Models.Document>} - The session object or an error
+ * @return {Models.DocumentList<Models.Document> | Error} - The list of NFL teams
  */
 export async function getNFLTeams(): Promise<Models.Document[]> {
   try {
@@ -72,7 +72,7 @@ export async function getNFLTeams(): Promise<Models.Document[]> {
       '662152bfabacfbda3bb3',
     );
 
-    return response.documents;
+    return response.documents as INFLTeam[];
   } catch (error) {
     console.error(error);
     throw new Error('Error getting NFL teams');
@@ -80,7 +80,7 @@ export async function getNFLTeams(): Promise<Models.Document[]> {
 }
 
 /**
- * Get the current week's ID
+ * Get the current week's ID & number
  *
  *
  */

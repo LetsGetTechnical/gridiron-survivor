@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Models } from 'appwrite';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { Button } from '../../components/Button/Button';
@@ -20,7 +19,7 @@ import {
   FormMessage,
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
-import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+import { IGameWeek, IUser, INFLTeam } from '@/api/IapiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -31,7 +30,7 @@ const FormSchema = z.object({
 });
 
 interface Props {
-  NFLTeams: Models.Document[];
+  NFLTeams: INFLTeam[];
   currentGameWeek: IGameWeek;
 }
 
@@ -48,7 +47,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
   useEffect(() => {
     if (weeklyPicks.gameId === '' || weeklyPicks.gameWeekId === '') return;
-    fetchUserPick();
+    getUserPick();
   }, [weeklyPicks]);
 
   useEffect(() => {
@@ -83,11 +82,11 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
     });
   };
 
-  const fetchUserPick = async () => {
+  const getUserPick = async () => {
     const userTeamId = weeklyPicks.userResults?.[user.id]?.team;
     if (userTeamId) {
       const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
-      setUserPick(userSelectedTeam?.teamName);
+      setUserPick(userSelectedTeam?.teamName || '');
     } else {
       console.log('No User Pick Found');
       setUserPick('');
