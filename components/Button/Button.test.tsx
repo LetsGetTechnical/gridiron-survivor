@@ -4,8 +4,8 @@ import { Button } from './Button';
 
 describe('Button Component', () => {
   it('renders the default variant', () => {
-    render(<Button label="Default Variant" />);
-    const button = screen.getByText(/Default Variant/i);
+    render(<Button data-testid="Default Variant" />);
+    const button = screen.getByTestId(/Default Variant/i);
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass(
       'inline-flex',
