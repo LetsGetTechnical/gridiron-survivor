@@ -5,7 +5,6 @@ import {
   IWeeklyPicks,
   IGameWeek,
   IGameGroup,
-  INFLTeam,
   IUser,
 } from './IapiFunctions';
 import { Query } from 'appwrite';
