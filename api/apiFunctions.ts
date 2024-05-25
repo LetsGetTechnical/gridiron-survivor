@@ -72,7 +72,7 @@ export async function getNFLTeams(): Promise<Models.Document[]> {
       '662152bfabacfbda3bb3',
     );
 
-    return response.documents as INFLTeam[];
+    return response.documents;
   } catch (error) {
     console.error(error);
     throw new Error('Error getting NFL teams');

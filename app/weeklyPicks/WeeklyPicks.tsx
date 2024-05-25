@@ -20,6 +20,7 @@ import {
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
 import { IGameWeek, IUser, INFLTeam } from '@/api/IapiFunctions';
+import { Models } from 'appwrite/types/models';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -30,7 +31,7 @@ const FormSchema = z.object({
 });
 
 interface Props {
-  NFLTeams: INFLTeam[];
+  NFLTeams: Models.Document[];
   currentGameWeek: IGameWeek;
 }
 

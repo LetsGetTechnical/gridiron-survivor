@@ -1,5 +1,3 @@
-import { Models } from 'appwrite/types/models';
-
 export interface IAccountData {
   email: string;
   password: string;
@@ -14,7 +12,7 @@ export interface IWeeklyPicks {
   userResults: IUserPicksData | null;
 }
 
-export interface INFLTeam extends Models.Document {
+export interface INFLTeam {
   teamName: string;
   teamLogo: string;
 }
