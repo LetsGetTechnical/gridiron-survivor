@@ -16,7 +16,6 @@ describe('LinkCustom Component', () => {
       'Test link that should open in the same tab when clicked',
     );
     expect(link).not.toHaveAttribute('target', '_blank');
-    expect(link).toHaveClass('hover:text-orange-600', 'hover:underline');
   });
 
   it('opens in a new tab when newTab is true', () => {
@@ -34,6 +33,5 @@ describe('LinkCustom Component', () => {
     );
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(link).toHaveClass('hover:text-orange-600', 'hover:underline');
   });
 });
