@@ -4,7 +4,11 @@ import { Models } from 'appwrite';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { Button } from '../../components/Button/Button';
-import { createWeeklyPicks } from '../../api/apiFunctions';
+import {
+  createWeeklyPicks,
+  getAllWeeklyPicks,
+  getCurrentGame,
+} from '../../api/apiFunctions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -16,7 +20,7 @@ import {
   FormMessage,
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
-import { IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -27,82 +31,67 @@ const FormSchema = z.object({
 });
 
 interface Props {
-  weeklyPicksData: IWeeklyPicks['userResults'] | null;
   NFLTeams: Models.Document[];
-  gameGroupsData: Models.Document;
-  gameWeeksData: number;
+  currentGameWeek: IGameWeek;
 }
 
-export default function WeeklyPicks({
-  weeklyPicksData,
-  NFLTeams,
-  gameGroupsData,
-  gameWeeksData,
-}: Props) {
+export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const [currentWeek, setCurrentWeek] = useState<string | null>(null);
-  const { user, updateWeeklyPicks, weeklyPicks, updateCurrentWeek, gameGroup } =
+  const { user, updateWeeklyPicks, weeklyPicks, updateGameGroup } =
     useDataStore((state) => state);
 
-  //** Grabbing the weekly picks data if a user is logged in */
   useEffect(() => {
     if (user.id === '' || user.email === '') return;
-    setWeeklyPicks();
+    getGameData();
   }, [user]);
 
-  //** Grabbing the dynamic gameId */
-  useEffect(() => {
-    if (user.id === '') return;
-    fetchCurrentWeek();
-  }, [weeklyPicks]);
-
-  //** Grabbing the dynamic current week's Id */
-  useEffect(() => {
-    if (user.id === '') return;
-    fetchCurrentGameId();
-  }, [weeklyPicks]);
-
-  //** Grabbing the user's weekly picks if there any weeklyPicks data */
   useEffect(() => {
     if (weeklyPicks.gameId === '' || weeklyPicks.gameWeekId === '') return;
     fetchUserPick();
   }, [weeklyPicks]);
 
-  //** If user's pick is not empty, show what the user picked  */
   useEffect(() => {
     if (userPick === null) return;
     setIsLoaded(true);
   }, [userPick]);
 
-  const setWeeklyPicks = () => {
+  const getGameData = async () => {
+    // find the game group the user is in
+    const game = await getCurrentGame(user.id);
+
+    if (!game) return;
+
+    // update the game group in the data store
+    updateGameGroup({
+      currentGameId: game.$id,
+      participants: game.participants,
+      survivors: game.survivors,
+    });
+
+    // find all weekly picks for current game week
+    const weeklyPicksData = await getAllWeeklyPicks({
+      gameId: game.$id,
+      weekId: currentGameWeek.id,
+    });
+
+    // update weekly picks in the data store
     updateWeeklyPicks({
-      gameId: '66311a210039f0532044',
-      gameWeekId: '6622c7596558b090872b',
+      gameId: game.$id,
+      gameWeekId: currentGameWeek.id,
       userResults: weeklyPicksData,
     });
   };
 
   const fetchUserPick = async () => {
-    // console.log(weeklyPicks);
-    // console.log(user);
     const userTeamId = weeklyPicks.userResults?.[user.id]?.team;
     if (userTeamId) {
       const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
       setUserPick(userSelectedTeam?.teamName);
-      console.log('User Pick:', userSelectedTeam?.teamName);
     } else {
       console.log('No User Pick Found');
       setUserPick('');
     }
-  };
-
-  const fetchCurrentWeek = async () => {
-    console.log(gameWeeksData);
-  };
-
-  const fetchCurrentGameId = async () => {
-    console.log(gameGroupsData);
   };
 
   const parseUserPick = (userId: IUser['id'], teamId: string) => {

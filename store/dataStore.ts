@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { INFLTeam, IUser, IWeeklyPicks, IGameGroup, IGameWeek } from '@/api/IapiFunctions';
+import {
+  INFLTeam,
+  IUser,
+  IWeeklyPicks,
+  IGameGroup,
+  IGameWeek,
+} from '@/api/IapiFunctions';
 
 //Define the shape of the state
 interface IDataStoreState {
@@ -8,7 +14,7 @@ interface IDataStoreState {
   user: IUser;
   weeklyPicks: IWeeklyPicks;
   gameGroup: IGameGroup;
-  currentWeek: IGameWeek;
+  gameCurrentWeek: IGameWeek;
 }
 
 //Define the actions that can be performed on the state
@@ -21,7 +27,11 @@ interface IDataStoreAction {
     gameWeekId,
     userResults,
   }: IWeeklyPicks) => void;
-  updateGameGroup: ({currentGameId, participants, survivors}: IGameGroup) => void;
+  updateGameGroup: ({
+    currentGameId,
+    participants,
+    survivors,
+  }: IGameGroup) => void;
   updateCurrentWeek: (gameCurrentWeek: IGameWeek) => void;
 }
 
@@ -47,9 +57,10 @@ const initialState: IDataStoreState = {
     participants: [],
     survivors: [],
   },
-  currentWeek: {
-    gameCurrentWeek: 0,
-  }
+  gameCurrentWeek: {
+    id: '',
+    week: 0,
+  },
 };
 
 //create the store
@@ -84,23 +95,23 @@ export const useDataStore = create<DataStore>((set) => ({
         state.weeklyPicks.userResults = userResults;
       }),
     ),
-    updateGameGroup: ({
-      currentGameId,
-      participants,
-      survivors,    
-    }: IGameGroup): void => set(
+  updateGameGroup: ({
+    currentGameId,
+    participants,
+    survivors,
+  }: IGameGroup): void =>
+    set(
       produce((state: IDataStoreState) => {
         state.gameGroup.currentGameId = currentGameId;
         state.gameGroup.participants = participants;
         state.gameGroup.survivors = survivors;
       }),
     ),
-    updateCurrentWeek: ({
-      gameCurrentWeek,
-    }: IGameWeek): void => 
+  updateCurrentWeek: ({ id, week }: IGameWeek): void =>
     set(
       produce((state: IDataStoreState) => {
-        state.currentWeek.gameCurrentWeek = gameCurrentWeek;
-      })
-    )
+        state.gameCurrentWeek.id = id;
+        state.gameCurrentWeek.week = week;
+      }),
+    ),
 }));

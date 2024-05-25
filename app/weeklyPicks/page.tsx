@@ -1,31 +1,19 @@
-import {
-  getNFLTeams,
-  getAllWeeklyPicks,
-  getAllGameGroups,
-  getCurrentWeek,
-} from '../../api/apiFunctions';
+import { getNFLTeams, getCurrentWeek } from '../../api/apiFunctions';
 import WeeklyPicks from './WeeklyPicks';
 
 export default async function Page() {
-  const allWeeklyPicks = getAllWeeklyPicks();
   const allNFLTeams = getNFLTeams();
-  const allGameGroups = getAllGameGroups();
-  const allGameWeeks = getCurrentWeek();
+  const currentGameWeek = getCurrentWeek();
 
-  const [allPicksData, nflTeamsData, allGameGroupsData, allGameWeeksData] =
-    await Promise.all([
-      allWeeklyPicks,
-      allNFLTeams,
-      allGameGroups,
-      allGameWeeks,
-    ]);
+  const [nflTeamsData, currentGameWeekData] = await Promise.all([
+    allNFLTeams,
+    currentGameWeek,
+  ]);
 
   return (
     <WeeklyPicks
-      weeklyPicksData={allPicksData}
-      NFLTeams={nflTeamsData.documents}
-      gameGroupsData={allGameGroupsData}
-      gameWeeksData={allGameWeeksData}
+      NFLTeams={nflTeamsData}
+      currentGameWeek={currentGameWeekData}
     />
   );
 }

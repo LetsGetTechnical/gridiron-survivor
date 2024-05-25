@@ -26,10 +26,12 @@ export interface IUserPicksData {
 
 export interface IGameGroup {
   currentGameId: string;
-  participants: [];
-  survivors: []
+  participants: string[];
+  survivors: string[];
 }
+[];
 
 export interface IGameWeek {
-  gameCurrentWeek: number;
+  id: string;
+  week: number;
 }
