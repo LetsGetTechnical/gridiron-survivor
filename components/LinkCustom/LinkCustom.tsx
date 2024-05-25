@@ -16,7 +16,7 @@ const LinkCustom = ({
   newTab = false,
 }: ILinkCustomProps) => {
   // Determine if the target attribute should be added based on the newTab prop
-  const targetAttr = newTab ? '_blank' : undefined;
+  const targetAttr = newTab ? '_blank' : '_self';
 
   // Use Next.js Link component wrapped inside an anchor tag
   return (
