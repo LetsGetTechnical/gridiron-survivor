@@ -1,6 +1,8 @@
 import { getNFLTeams, getCurrentWeek } from '../../api/apiFunctions';
 import WeeklyPicks from './WeeklyPicks';
 
+export const revalidate = 900; // 15 minutes
+
 export default async function Page() {
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getCurrentWeek();

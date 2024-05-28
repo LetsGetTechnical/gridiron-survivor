@@ -1,13 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { Button } from '../../components/Button/Button';
-import {
-  createWeeklyPicks,
-  getAllWeeklyPicks,
-  getCurrentGame,
-} from '../../api/apiFunctions';
+import { createWeeklyPicks } from '../../api/apiFunctions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -19,8 +15,9 @@ import {
   FormMessage,
 } from '../../components/Form/Form';
 import { useDataStore } from '@/store/dataStore';
-import { IGameWeek, IUser } from '@/api/IapiFunctions';
+import { IGameWeek } from '@/api/IapiFunctions';
 import { Models } from 'appwrite/types/models';
+import { getGameData, getUserPick, parseUserPick } from '@/utils/utils';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -29,6 +26,8 @@ const FormSchema = z.object({
     required_error: 'You need to select a team.',
   }),
 });
+
+export const revalidate = 900; // 15 minutes
 
 interface Props {
   NFLTeams: Models.Document[];
@@ -43,68 +42,42 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
   useEffect(() => {
     if (user.id === '' || user.email === '') return;
-    getGameData();
-  }, [user]);
 
-  useEffect(() => {
-    if (weeklyPicks.gameId === '' || weeklyPicks.gameWeekId === '') return;
-    getUserPick();
-  }, [weeklyPicks]);
-
-  useEffect(() => {
-    if (userPick === null) return;
-    setIsLoaded(true);
-  }, [userPick]);
-
-  const getGameData = async () => {
-    // find the game group the user is in
-    const game = await getCurrentGame(user.id);
-
-    if (!game) return;
-
-    // update the game group in the data store
-    updateGameGroup({
-      currentGameId: game.$id,
-      participants: game.participants,
-      survivors: game.survivors,
-    });
-
-    // find all weekly picks for current game week
-    const weeklyPicksData = await getAllWeeklyPicks({
-      gameId: game.$id,
-      weekId: currentGameWeek.id,
-    });
-
-    // update weekly picks in the data store
-    updateWeeklyPicks({
-      gameId: game.$id,
-      gameWeekId: currentGameWeek.id,
-      userResults: weeklyPicksData,
-    });
-  };
-
-  const getUserPick = async () => {
-    const userTeamId = weeklyPicks.userResults?.[user.id]?.team;
-    if (userTeamId) {
-      const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
-      setUserPick(userSelectedTeam?.teamName || '');
-    } else {
-      console.log('No User Pick Found');
-      setUserPick('');
-    }
-  };
-
-  const parseUserPick = (userId: IUser['id'], teamId: string) => {
-    if (!userId || !teamId || teamId === '') {
-      throw new Error('User ID and Team ID Required');
+    if (userPick) {
+      setIsLoaded(true);
+      return;
     }
 
-    const parsedData = JSON.parse(
-      `{"${userId}":{"team":"${teamId}","correct":true}}`,
+    processGame();
+  }, [user, userPick]);
+
+  const processGame = useCallback(async () => {
+    const { gameGroupData, weeklyPicksData } = await getGameData(
+      user.id,
+      currentGameWeek.id,
     );
 
-    return parsedData;
-  };
+    if (!gameGroupData || !weeklyPicksData) {
+      console.error('Error getting game data');
+      return;
+    }
+
+    updateGameGroup({
+      currentGameId: gameGroupData.currentGameId,
+      participants: gameGroupData.participants,
+      survivors: gameGroupData.survivors,
+    });
+
+    updateWeeklyPicks({
+      gameId: weeklyPicksData.gameId,
+      gameWeekId: currentGameWeek.id,
+      userResults: weeklyPicksData.userResults,
+    });
+
+    setUserPick(
+      await getUserPick(weeklyPicksData.userResults, user.id, NFLTeams),
+    );
+  }, [user.id, currentGameWeek.id, NFLTeams, userPick]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -120,7 +93,8 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
       const currentUserPick = parseUserPick(user.id, teamID || '');
 
-      // combine current picks and the user pick into one object
+      // combines current picks and the user pick into one object.
+      // if the user pick exists then it overrides the pick of the user.
       const updatedWeeklyPicks = {
         ...weeklyPicks.userResults,
         ...currentUserPick,
@@ -151,7 +125,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
   }
 
   return (
-    <section className="w-full pt-8">
+    <section className="w-full pt-8" data-testid="weekly-picks">
       <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
         Your pick sheet
       </h1>

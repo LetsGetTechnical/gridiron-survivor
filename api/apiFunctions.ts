@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
 import {
@@ -64,7 +65,7 @@ export async function logoutAccount(): Promise<{}> {
  *
  * @return {Models.DocumentList<Models.Document> | Error} - The list of NFL teams
  */
-export async function getNFLTeams(): Promise<Models.Document[]> {
+export const getNFLTeams = cache(async (): Promise<Models.Document[]> => {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -76,14 +77,14 @@ export async function getNFLTeams(): Promise<Models.Document[]> {
     console.error(error);
     throw new Error('Error getting NFL teams');
   }
-}
+});
 
 /**
  * Get the current week's ID & number
  *
  *
  */
-export async function getCurrentWeek(): Promise<IGameWeek> {
+export const getCurrentWeek = cache(async (): Promise<IGameWeek> => {
   try {
     const response = await databases.getDocument(
       appwriteConfig.databaseId,
@@ -99,7 +100,7 @@ export async function getCurrentWeek(): Promise<IGameWeek> {
     console.error('Error getting current week:', error);
     throw new Error('Error getting current week');
   }
-}
+});
 
 /**
  * Get game the user is a part of

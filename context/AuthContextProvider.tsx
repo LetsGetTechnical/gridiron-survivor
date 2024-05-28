@@ -1,4 +1,5 @@
 'use client';
+import { cache } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
@@ -52,7 +53,7 @@ export const AuthContextProvider = ({
   };
 
   // get user
-  const getUser = async () => {
+  const getUser = cache(async () => {
     if (!isSessionInLocalStorage()) {
       return;
     }
@@ -65,7 +66,7 @@ export const AuthContextProvider = ({
       setIsSignedIn(false);
       throw new Error('Error getting user data');
     }
-  };
+  });
 
   // Log out and clear session state
   const logoutAccount = async (): Promise<void> => {
