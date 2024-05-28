@@ -1,6 +1,14 @@
 name: LGT Docker Build and Push Image
 
 on:
+  workflow_call:
+    secrets:
+      NEXT_PUBLIC_APPWRITE_API_URL:
+        required: true
+      NEXT_PUBLIC_APPWRITE_PROJECT_IDL:
+        required: true
+      NEXT_PUBLIC_APPWRITE_DATABASE_ID:
+        required: true
   pull_request:
     types: [opened, synchronize, reopened]
 env:
