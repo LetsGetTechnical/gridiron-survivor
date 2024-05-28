@@ -1,38 +1,34 @@
 name: LGT Docker Build and Push Image
-env:
-  NEXT_PUBLIC_APPWRITE_API_URL: ${{ vars.NEXT_PUBLIC_APPWRITE_API_URL }}
-  NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
-  NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build-and-push:
-    permissions:
-      contents: write
-      packages: write
-    runs-on: ubuntu-latest
+  # build-and-push:
+  #   permissions:
+  #     contents: write
+  #     packages: write
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v2
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Log in to GitHub Container Registry
+  #       uses: docker/login-action@v1
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context:
-          file: ./Dockerfile.dev
-          push: true
-          tags: ghcr.io/letsgettechnical/image:dev
+  #     - name: Build and push Docker image
+  #       uses: docker/build-push-action@v2
+  #       with:
+  #         context:
+  #         file: ./Dockerfile.dev
+  #         push: true
+  #         tags: ghcr.io/letsgettechnical/image:dev
 
   jest-test:
     runs-on: ubuntu-latest
@@ -55,6 +51,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: tests
+        env:
+          NEXT_PUBLIC_APPWRITE_API_URL: ${{ vars.NEXT_PUBLIC_APPWRITE_API_URL }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
         run: pnpm test
 
   test_setup:
@@ -81,8 +81,15 @@ jobs:
         with:
           node-version: lts/*
       - run: npm install -g pnpm && pnpm install
-      - run: pnpm exec playwright install --with-deps     
-      - run: pnpm exec playwright test
+      - run: pnpm exec playwright install --with-deps    
+      - name: Run Playwright Tests
+        env:
+          PREVIEW_URL: ${{ needs.test_setup.outputs.preview_url }}
+          NEXT_PUBLIC_APPWRITE_API_URL: ${{ vars.NEXT_PUBLIC_APPWRITE_API_URL }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+
+        run: pnpm exec playwright test
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         if: always()
