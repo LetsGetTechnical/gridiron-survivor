@@ -87,7 +87,6 @@ jobs:
           NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
           NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
         run: pnpm exec playwright test
-      - run: pnpm exec playwright test
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         if: always()
