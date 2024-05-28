@@ -56,9 +56,9 @@ jobs:
         run: pnpm install
       - name: Use Variables
         run: |
-          echo "NEXT_PUBLIC_APPWRITE_API_URL=${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}" 
-          echo "NEXT_PUBLIC_APPWRITE_PROJECT_ID=${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}"
-          echo "NEXT_PUBLIC_APPWRITE_DATABASE_ID=${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}"
+          echo "NEXT_PUBLIC_APPWRITE_API_URL= $NEXT_PUBLIC_APPWRITE_API_URL" 
+          echo "NEXT_PUBLIC_APPWRITE_PROJECT_ID= $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
+          echo "NEXT_PUBLIC_APPWRITE_DATABASE_ID= $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
       - name: tests
         run: pnpm test
 
