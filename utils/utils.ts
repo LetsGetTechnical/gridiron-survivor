@@ -41,20 +41,18 @@ export const getGameData = cache(
   },
 );
 
-export const getUserPick = cache(
-  async (
-    weeklyPicks: IWeeklyPicks['userResults'],
-    userId: IUser['id'],
-    NFLTeams: Models.Document[],
-  ) => {
-    if (!weeklyPicks || !weeklyPicks[userId]) return '';
+export const getUserPick = async (
+  weeklyPicks: IWeeklyPicks['userResults'],
+  userId: IUser['id'],
+  NFLTeams: Models.Document[],
+) => {
+  if (!weeklyPicks || !weeklyPicks[userId]) return '';
 
-    const userTeamId = weeklyPicks[userId].team;
-    const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
+  const userTeamId = weeklyPicks[userId].team;
+  const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
 
-    return userSelectedTeam?.teamName || '';
-  },
-);
+  return userSelectedTeam?.teamName || '';
+};
 
 export const parseUserPick = (userId: IUser['id'], teamId: string) => {
   if (!userId || !teamId || teamId === '') {
