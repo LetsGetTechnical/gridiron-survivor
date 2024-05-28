@@ -1,4 +1,3 @@
-import { cache } from 'react';
 import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
 import { getAllWeeklyPicks, getCurrentGame } from '@/api/apiFunctions';
 import { Models } from 'appwrite/types/models';
