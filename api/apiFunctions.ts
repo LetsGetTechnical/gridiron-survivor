@@ -107,22 +107,22 @@ export const getCurrentWeek = cache(async (): Promise<IGameWeek> => {
  *
  *
  */
-export async function getCurrentGame(
-  userId: IUser['id'],
-): Promise<Models.Document> {
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '6626a937b6302f6a4d28',
-      [Query.contains('participants', userId)],
-    );
+export const getCurrentGame = cache(
+  async (userId: IUser['id']): Promise<Models.Document> => {
+    try {
+      const response = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        '6626a937b6302f6a4d28',
+        [Query.contains('participants', userId)],
+      );
 
-    return response.documents[0];
-  } catch (error) {
-    console.error('Error getting all game groups:', error);
-    throw new Error('Error getting all game groups');
-  }
-}
+      return response.documents[0];
+    } catch (error) {
+      console.error('Error getting all game groups:', error);
+      throw new Error('Error getting all game groups');
+    }
+  },
+);
 
 /**
  * Get all weekly picks

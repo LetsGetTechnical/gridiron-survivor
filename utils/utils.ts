@@ -9,37 +9,38 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getGameData = cache(
-  async (userId: IUser['id'], currentGameWeekId: IGameWeek['id']) => {
-    // find the game group the user is in
-    const game = await getCurrentGame(userId);
+export const getGameData = async (
+  userId: IUser['id'],
+  currentGameWeekId: IGameWeek['id'],
+) => {
+  // find the game group the user is in
+  const game = await getCurrentGame(userId);
 
-    if (!game) {
-      return {
-        gameGroupData: null,
-        weeklyPicksData: '',
-      };
-    }
-
-    const weeklyPicksData = await getAllWeeklyPicks({
-      gameId: game.$id,
-      weekId: currentGameWeekId,
-    });
-
+  if (!game) {
     return {
-      gameGroupData: {
-        currentGameId: game.$id,
-        participants: game.participants,
-        survivors: game.survivors,
-      },
-      weeklyPicksData: {
-        gameId: game.$id,
-        gameWeekId: currentGameWeekId,
-        userResults: weeklyPicksData,
-      },
+      gameGroupData: null,
+      weeklyPicksData: '',
     };
-  },
-);
+  }
+
+  const weeklyPicksData = await getAllWeeklyPicks({
+    gameId: game.$id,
+    weekId: currentGameWeekId,
+  });
+
+  return {
+    gameGroupData: {
+      currentGameId: game.$id,
+      participants: game.participants,
+      survivors: game.survivors,
+    },
+    weeklyPicksData: {
+      gameId: game.$id,
+      gameWeekId: currentGameWeekId,
+      userResults: weeklyPicksData,
+    },
+  };
+};
 
 export const getUserPick = async (
   weeklyPicks: IWeeklyPicks['userResults'],
