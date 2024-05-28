@@ -1,6 +1,8 @@
 name: LGT Docker Build and Push Image
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_call:
     secrets:
       NEXT_PUBLIC_APPWRITE_API_URL:
@@ -9,8 +11,6 @@ on:
         required: true
       NEXT_PUBLIC_APPWRITE_DATABASE_ID:
         required: true
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   # build-and-push:
