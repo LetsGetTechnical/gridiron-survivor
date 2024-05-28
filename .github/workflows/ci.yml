@@ -11,10 +11,6 @@ on:
         required: true
   pull_request:
     types: [opened, synchronize, reopened]
-env:
-  NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
-  NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
-  NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
 
 jobs:
   # build-and-push:
@@ -62,12 +58,11 @@ jobs:
       
       - name: Install dependencies
         run: pnpm install
-      - name: Use Variables
-        run: |
-          echo "NEXT_PUBLIC_APPWRITE_API_URL= $NEXT_PUBLIC_APPWRITE_API_URL" 
-          echo "NEXT_PUBLIC_APPWRITE_PROJECT_ID= $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
-          echo "NEXT_PUBLIC_APPWRITE_DATABASE_ID= $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
       - name: tests
+        env:
+          NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
         run: pnpm test
 
   test_setup:
@@ -94,8 +89,13 @@ jobs:
         with:
           node-version: lts/*
       - run: npm install -g pnpm && pnpm install
-      - run: pnpm exec playwright install --with-deps    
-      - run: pnpm exec playwright test
+      - run: pnpm exec playwright install --with-deps   
+      - name: Run Playwright Tests
+        env:
+          NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+        run: pnpm exec playwright test 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         if: always()
