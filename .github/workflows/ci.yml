@@ -50,6 +50,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: tests
+        env:
+          NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+
         run: pnpm test
 
   test_setup:
