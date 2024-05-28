@@ -50,11 +50,11 @@ jobs:
 
     steps:
       - name: Read API URL variable
-        run: echo "The API URL is ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}"
+        run: echo "The API URL is $NEXT_PUBLIC_APPWRITE_API_URL"
       - name: Read Project ID variable
-        run: echo "The Project ID is ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+        run: echo "The Project ID is $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
       - name: Read Database ID variable
-        run: echo "The Database ID is ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}"
+        run: echo "The Database ID is $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2
         with:
