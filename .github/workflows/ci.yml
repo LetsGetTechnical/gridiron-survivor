@@ -84,10 +84,9 @@ jobs:
       - run: pnpm exec playwright install --with-deps    
       - name: Run Playwright Tests
         env:
-          PREVIEW_URL: ${{ needs.test_setup.outputs.preview_url }}
-          NEXT_PUBLIC_APPWRITE_API_URL: ${{ vars.NEXT_PUBLIC_APPWRITE_API_URL }}
-          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
-          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ vars.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+          NEXT_PUBLIC_APPWRITE_API_URL: 'https://api.gridironsurvivor.com/v1'
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: '6616ea581ef9f5521c7d'
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: '6616ea9dcb86b246a7b0'
 
         run: pnpm exec playwright test
       - name: Upload Artifacts
