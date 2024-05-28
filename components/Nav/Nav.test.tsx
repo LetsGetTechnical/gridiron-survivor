@@ -11,6 +11,8 @@ const mockUseAuthContext = {
   isSignedIn: true,
 };
 
+window.scrollTo = jest.fn();
+
 jest.mock('next/navigation', () => ({
   useRouter() {
     return {
@@ -47,6 +49,28 @@ Object.defineProperty(window, 'matchMedia', {
 describe('Nav', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('it should render the default component state', () => {
+    mockUsePathname.mockImplementation(() => '/weeklyPicks');
+
+    render(<Nav />);
+
+    const navElement = screen.getByTestId('nav');
+    expect(navElement).toBeInTheDocument();
+
+    const drawerTrigger = screen.getByTestId('drawer-trigger');
+    fireEvent.click(drawerTrigger);
+
+    const title = screen.getByText(/gridiron survivor/i);
+    const logo = screen.getByTestId('logo-nav');
+    const signOutButton = screen.getByRole('button', {
+      name: /sign out/i,
+    });
+
+    expect(title).toBeInTheDocument();
+    expect(logo).toBeInTheDocument();
+    expect(signOutButton).toBeInTheDocument();
   });
 
   it('it should be hidden when path is /register', () => {
