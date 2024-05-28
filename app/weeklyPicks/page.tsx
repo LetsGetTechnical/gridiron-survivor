@@ -23,7 +23,8 @@ import {
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
-import { IUser, GameWeek } from '@/api/IapiFunctions';
+import { IUser } from '@/api/IapiFunctions';
+import { GameWeek } from '@/api/EapiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 

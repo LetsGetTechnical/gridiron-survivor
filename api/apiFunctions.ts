@@ -1,11 +1,7 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import {
-  IAccountData,
-  IUserWeeklyPick,
-  IWeeklyPicks,
-  Collection,
-} from './IapiFunctions';
+import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
+import { Collection } from './EapiFunctions';
 
 /**
  * Get the current session of the user
