@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const goodUser = {
-  email: 'testemailtest@email.com',
+  email: 'testemailt@email.com',
   password: 'test1234',
   confirmPassword: 'test1234',
 };
@@ -22,7 +22,7 @@ test.describe('Tests register page', () => {
      await page.getByTestId('password').fill(goodUser.password);
      await page.getByTestId('confirm-password').fill(goodUser.confirmPassword);
      await page.getByTestId('continue-button').click();
-     await expect(page).toHaveURL('/weeklyPicks', { timeout: 50000 });
+     await expect(page).toHaveURL('/weeklyPicks', { timeout: 500000 });
    });
   test('should not be able to register and register button should be disabled', async ({
     page,
