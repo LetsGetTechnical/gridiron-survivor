@@ -1,4 +1,4 @@
-name: LGT Docker Build and Push Image
+name: LGT Jest & Playwright Tests
 
 on:
   pull_request:
