@@ -7,7 +7,7 @@ on:
     secrets:
       NEXT_PUBLIC_APPWRITE_API_URL:
         required: true
-      NEXT_PUBLIC_APPWRITE_PROJECT_ID:
+      NEXT_PUBLIC_APPWRITE_PROJECT_IDL:
         required: true
       NEXT_PUBLIC_APPWRITE_DATABASE_ID:
         required: true
@@ -24,8 +24,18 @@ jobs:
         node-version: ['20.x']
 
     steps:
+      - name: Read API URL variable
+        run: echo "The API URL is $NEXT_PUBLIC_APPWRITE_API_URL"
+      - name: Read Project ID variable
+        run: echo "The Project ID is $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
+      - name: Read Database ID variable
+        run: echo "The Database ID is $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
       - uses: actions/checkout@v2
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
@@ -33,13 +43,7 @@ jobs:
       
       - name: Install dependencies
         run: pnpm install
-      - name: Read API URL variable
-        run: echo "The API URL is $NEXT_PUBLIC_APPWRITE_API_URL"
-      - name: Read Project ID variable
-        run: echo "The Project ID is $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
-      - name: Read Database ID variable
-        run: echo "The Database ID is $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
-      - name: Run tests
+      - name: tests
         run: pnpm test
 
   test_setup:
