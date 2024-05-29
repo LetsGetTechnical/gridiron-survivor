@@ -17,21 +17,22 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Tests register page', () => {
-    test('should successfully register', async ({ page }) => {
-        await page.getByTestId('email').fill(goodUser.email);
-        await page.getByTestId('password').fill(goodUser.password);
-        await page.getByTestId('confirm-password').fill(goodUser.confirmPassword);
-        await page.getByTestId('continue-button').click();
-        await expect(page).toHaveURL('/weeklyPicks', { timeout: 50000 });
-      });
+  test('should successfully register', async ({ page }) => {
+     await page.getByTestId('email').fill(goodUser.email);
+     await page.getByTestId('password').fill(goodUser.password);
+     await page.getByTestId('confirm-password').fill(goodUser.confirmPassword);
+     await page.getByTestId('continue-button').click();
+     await expect(page).toHaveURL('/weeklyPicks', { timeout: 50000 });
+   });
   test('should not be able to register and register button should be disabled', async ({
     page,
   }) => {
     await page.getByTestId('email').fill(badUser.email);
     await page.getByTestId('password').fill(badUser.password);
     await page.getByTestId('confirm-password').fill(badUser.confirmPassword);
-   const isDisabled = await page.getByTestId('continue-button').isDisabled();
+    const isDisabled = await page.getByTestId('continue-button').isDisabled();
     expect(isDisabled).toBe(true);
     await expect(page).toHaveURL('/register');
   });
 });
+
