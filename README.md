@@ -1,17 +1,6 @@
 # LGT GridIron Project
 
-## Table of contents
-- [LGT GridIron Project](#lgt-gridiron-project)
-  - [Table of contents](#table-of-contents)
-  - [Setup](#setup)
-    - [Storybook](#storybook)
-    - [React Testing Library (RTL) \&\& Jest](#react-testing-library-rtl--jest)
-    - [Playwright Testing](#playwright-testing)
-    - [Prettier](#prettier)
-
 ## Setup
-
-### Storybook
 
 Install dependencies
 
@@ -19,13 +8,21 @@ Install dependencies
 pnpm i
 ```
 
+Install playwright browsers
+
+```
+pnpm exec playwright install
+```
+
+## Storybook
+
 Run Storybook in the project root
 
 ```
-npm run storybook
+pnpm run storybook
 ```
 
-### React Testing Library (RTL) && Jest
+## React Testing Library (RTL) && Jest
 
 Run RTL && Jest in the project root
 
@@ -33,7 +30,7 @@ Run RTL && Jest in the project root
 pnpm test
 ```
 
-### Playwright Testing
+## Playwright Testing
 
 
 Run all Playwright tests
@@ -47,7 +44,8 @@ Run single Playwright tests
 ```
 pnpm exec playwright test (name of file)
 ```
-### Prettier
+
+## Prettier
 
 Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+shift+p` on Windows.
 
