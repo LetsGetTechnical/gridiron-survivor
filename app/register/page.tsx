@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/Button/Button';
-import {  registerAccount } from '@/api/apiFunctions';
+import { registerAccount } from '@/api/apiFunctions';
 
 import logo from '/public/assets/logo-colored-outline.svg';
 
@@ -88,24 +88,28 @@ export default function Register() {
               </Link>
             </p>
             <Input
+              data-testid="email"
               type="email"
               value={email}
               placeholder="Email"
               onChange={handleEmail}
             />
             <Input
+              data-testid="password"
               type="password"
               value={password}
               placeholder="Password"
               onChange={handlePassword}
             />
             <Input
+              data-testid="confirm-password"
               type="password"
               value={confirmPassword}
               placeholder="Confirm Password"
               onChange={handleConfirmPassword}
             />
             <Button
+              data-testid="register-button"
               label="Register"
               disabled={handleDisabled()}
               onClick={handleRegister}
