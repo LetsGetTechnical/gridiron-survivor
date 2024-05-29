@@ -17,13 +17,6 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Tests register page', () => {
-    // test('should successfully register part 1', async ({ page }) => {
-    //     await page.getByTestId('email').fill(goodUser.email);
-    //     await page.getByTestId('password').fill(goodUser.password);
-    //     await page.getByTestId('confirm-password').fill(goodUser.confirmPassword);
-    //     await page.getByTestId('continue-button').click();
-    //     await expect(page).toHaveURL('/weeklyPicks', { timeout: 50000 });
-    //   });
     test('should successfully register', async ({ page }) => {
         await page.getByTestId('email').fill(goodUser.email);
         await page.getByTestId('password').fill(goodUser.password);
