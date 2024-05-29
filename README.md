@@ -4,13 +4,13 @@
 
 Install dependencies
 
-```
+```shell
 pnpm i
 ```
 
 Install playwright browsers
 
-```
+```shell
 pnpm exec playwright install
 ```
 
@@ -18,7 +18,7 @@ pnpm exec playwright install
 
 Run Storybook in the project root
 
-```
+```shell
 pnpm run storybook
 ```
 
@@ -26,7 +26,7 @@ pnpm run storybook
 
 Run RTL && Jest in the project root
 
-```
+```shell
 pnpm test
 ```
 
@@ -35,13 +35,13 @@ pnpm test
 
 Run all Playwright tests
 
-```
+```shell
 pnpm exec playwright test
 ```
 
 Run single Playwright tests
 
-```
+```shell
 pnpm exec playwright test (name of file)
 ```
 
@@ -55,7 +55,7 @@ Search for and open `settings.json` by pressing `cmd+shift+p` on MacOS or `ctrl+
 
 Add the following lines to your `settings.json`
 
-```
+```json
 "editor.defaultFormatter": "esbenp.prettier-vscode",
 "editor.formatOnSave": true,
 ```
