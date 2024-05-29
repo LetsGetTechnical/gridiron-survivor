@@ -16,6 +16,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/register');
 });
 
+//happy path
 test.describe('Tests register page', () => {
   test('should successfully register', async ({ page }) => {
     await page.getByTestId('email').fill(goodUser.email);
