@@ -109,7 +109,7 @@ export default function Register() {
               onChange={handleConfirmPassword}
             />
             <Button
-              data-testid="register-button"
+              data-testid="continue-button"
               label="Register"
               disabled={handleDisabled()}
               onClick={handleRegister}

@@ -1,15 +1,15 @@
 import { test, expect } from '@playwright/test';
 
 const goodUser = {
-    email: 'test1234@email.com',
+    email: 'testemail@email.com',
     password: 'test1234',
     confirmPassword: 'test1234',
 };
 
 const badUser = {
-    email: 'wronguser@email.com',
-    password: 'test1234',
-    confirmPassword: 'test12345',
+    email: 'wrongemail@email.com',
+    password: 'wrongpassword',
+    confirmPassword: 'wrongpassword1',
 };
 
 test.beforeEach(async ({ page }) => {
@@ -21,14 +21,14 @@ test.describe('Tests register page', () => {
         await page.getByTestId('email').fill(goodUser.email);
         await page.getByTestId('password').fill(goodUser.password);
         await page.getByTestId('confirm-password').fill(goodUser.confirmPassword);
-        await page.getByTestId('register-button').click();
+        await page.getByTestId('continue-button').click();
         await expect(page).toHaveURL('/weeklyPicks');
     });
-    test('should fail register', async ({ page }) => {
+    test('should not be able to register and register button should be disabled', async ({ page }) => {
         await page.getByTestId('email').fill(badUser.email);
         await page.getByTestId('password').fill(badUser.password);
         await page.getByTestId('confirm-password').fill(badUser.confirmPassword);
-        await page.getByTestId('register-button').click();
+        await page.getByTestId('continue-button').getAttribute('disabled');
         await expect(page).toHaveURL('/register');
     });
 })
