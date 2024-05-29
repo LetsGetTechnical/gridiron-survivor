@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const correctCredentials = {
-  email: 'testemail@email.com',
+  email: 'testemailt@email.com',
   password: 'test1234',
 };
 const incorrectCredentials = {
