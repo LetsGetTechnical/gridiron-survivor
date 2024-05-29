@@ -4,95 +4,84 @@ name: Secret Test
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_call:
+    secrets:
+      NEXT_PUBLIC_APPWRITE_API_URL:
+        required: true
+      NEXT_PUBLIC_APPWRITE_PROJECT_IDL:
+        required: true
+      NEXT_PUBLIC_APPWRITE_DATABASE_ID:
+        required: true
 
 jobs:
-  build:
+  jest-test:
     runs-on: ubuntu-latest
-    
+    env:
+      NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
+      NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+      NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+    strategy:
+      matrix:
+        node-version: ['20.x']
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Read API URL variable
+        run: echo "The API URL is $NEXT_PUBLIC_APPWRITE_API_URL"
+      - name: Read Project ID variable
+        run: echo "The Project ID is $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
+      - name: Read Database ID variable
+        run: echo "The Database ID is $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       
-    - name: Build with secrets
-      env:
-        NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
-        NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
-        NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }} 
-      run: |
-        echo "API URL: $NEXT_PUBLIC_APPWRITE_API_URL"
-        echo "PROJECT ID: $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
-        echo "DATABASE ID: $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
+      - name: Install dependencies
+        run: pnpm install
+      - name: tests
+        run: pnpm test
 
+  test_setup:
+    name: Test setup
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
+    steps:
+      - name: Wait for Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        id: waitForVercelPreviewDeployment
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 600
 
-# jobs:
-#   jest-test:
-#     runs-on: ubuntu-latest
-#     env:
-#       NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
-#       NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
-#       NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
-#     strategy:
-#       matrix:
-#         node-version: ['20.x']
-
-#     steps:
-#       - name: Read API URL variable
-#         run: echo "The API URL is $NEXT_PUBLIC_APPWRITE_API_URL"
-#       - name: Read Project ID variable
-#         run: echo "The Project ID is $NEXT_PUBLIC_APPWRITE_PROJECT_ID"
-#       - name: Read Database ID variable
-#         run: echo "The Database ID is $NEXT_PUBLIC_APPWRITE_DATABASE_ID"
-#       - uses: actions/checkout@v2
-#       - uses: pnpm/action-setup@v2
-#         with:
-#           version: 8
-
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: ${{ matrix.node-version }}
-#           cache: 'pnpm'
-      
-#       - name: Install dependencies
-#         run: pnpm install
-#       - name: tests
-#         run: pnpm test
-
-#   test_setup:
-#     name: Test setup
-#     runs-on: ubuntu-latest
-#     outputs:
-#       preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
-#     steps:
-#       - name: Wait for Vercel Preview
-#         uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
-#         id: waitForVercelPreviewDeployment
-#         with:
-#           token: ${{ secrets.GITHUB_TOKEN }}
-#           max_timeout: 600
-
-#   test_e2e:
-#     needs: test_setup
-#     name: Playwright Tests
-#     timeout-minutes: 5
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v2
-#         with:
-#           node-version: lts/*
-#       - run: npm install -g pnpm && pnpm install
-#       - run: pnpm exec playwright install --with-deps   
-#       - name: Run Playwright Tests
-#         env:
-#           NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
-#           NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
-#           NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
-#         run: pnpm exec playwright test 
-#       - name: Upload Artifacts
-#         uses: actions/upload-artifact@v2
-#         if: always()
-#         with:
-#           name: playwright-report
-#           path: playwright-report/
-#           retention-days: 30
+  test_e2e:
+    needs: test_setup
+    name: Playwright Tests
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+      - run: npm install -g pnpm && pnpm install
+      - run: pnpm exec playwright install --with-deps   
+      - name: Run Playwright Tests
+        env:
+          NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
+          NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+          NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+        run: pnpm exec playwright test 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
