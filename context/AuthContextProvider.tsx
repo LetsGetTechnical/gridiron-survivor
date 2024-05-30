@@ -12,8 +12,6 @@ type UserCredentials = {
 };
 
 type AuthContextType = {
-  isSignedIn: boolean;
-  setIsSignedIn: (isSignedIn: boolean) => void;
   loginAccount: (user: UserCredentials) => Promise<void | Error>;
   logoutAccount: () => Promise<void>;
 };
@@ -25,7 +23,6 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const { updateUser, resetUser, user } = useDataStore<DataStore>(
     (state) => state,
   );
@@ -36,8 +33,6 @@ export const AuthContextProvider = ({
       getUser();
       return;
     }
-
-    setIsSignedIn(true);
   }, [user]);
 
   // Authenticate and set session state
@@ -52,6 +47,17 @@ export const AuthContextProvider = ({
     }
   };
 
+  // Log out and clear session state
+  const logoutAccount = async (): Promise<void> => {
+    try {
+      await account.deleteSession('current');
+      resetUser(); // Reset user data in the store
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   // get user
   const getUser = cache(async () => {
     if (!isSessionInLocalStorage()) {
@@ -63,22 +69,9 @@ export const AuthContextProvider = ({
       updateUser(userData.$id, userData.email);
     } catch (error) {
       resetUser();
-      setIsSignedIn(false);
       throw new Error('Error getting user data');
     }
   });
-
-  // Log out and clear session state
-  const logoutAccount = async (): Promise<void> => {
-    try {
-      await account.deleteSession('current');
-      setIsSignedIn(false);
-      resetUser(); // Reset user data in the store
-      router.push('/login');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
 
   // Helper function to validate session data in local storage
   const isSessionInLocalStorage = (): boolean => {
@@ -95,12 +88,10 @@ export const AuthContextProvider = ({
   // Memoize context values to avoid unnecessary re-renders
   const contextValue = useMemo(
     () => ({
-      isSignedIn,
-      setIsSignedIn,
       loginAccount,
       logoutAccount,
     }),
-    [isSignedIn],
+    [],
   );
 
   return (

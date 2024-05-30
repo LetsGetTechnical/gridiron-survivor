@@ -10,7 +10,7 @@ import {
 
 //Define the shape of the state
 interface IDataStoreState {
-  NFLTeam: INFLTeam;
+  NFLTeam: INFLTeam[];
   user: IUser;
   weeklyPicks: IWeeklyPicks;
   gameGroup: IGameGroup;
@@ -20,7 +20,7 @@ interface IDataStoreState {
 //Define the actions that can be performed on the state
 interface IDataStoreAction {
   resetUser: () => void;
-  updateNFLTeam: ({ teamName, teamLogo }: INFLTeam) => void;
+  updateNFLTeam: (updatedTeam: INFLTeam) => void;
   updateUser: (id: IUser['id'], email: IUser['email']) => void;
   updateWeeklyPicks: ({
     gameId,
@@ -39,10 +39,7 @@ export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
 //creating the initial state
 const initialState: IDataStoreState = {
-  NFLTeam: {
-    teamName: '',
-    teamLogo: '',
-  },
+  NFLTeam: [],
   user: {
     id: '',
     email: '',
@@ -67,14 +64,11 @@ const initialState: IDataStoreState = {
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
   resetUser: () => set({ user: initialState.user }),
-  updateNFLTeam: ({ teamName, teamLogo }: INFLTeam): void =>
+  updateNFLTeam: (updatedTeam: INFLTeam): void =>
     set(
-      produce((state: IDataStoreState) => {
-        {
-          state.NFLTeam.teamName = teamName;
-          state.NFLTeam.teamLogo = teamLogo;
-        }
-      }),
+      produce((state: IDataStoreState) => ({
+        NFLTeam: [...state.NFLTeam, updatedTeam],
+      })),
     ),
   updateUser: (id, email) =>
     set(

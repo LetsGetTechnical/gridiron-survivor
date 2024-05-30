@@ -1,12 +1,14 @@
 'use client';
-import { useState, useEffect, useMemo, useCallback } from 'react';
-import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
-import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
-import { Button } from '../../components/Button/Button';
-import { createWeeklyPicks } from '../../api/apiFunctions';
+import { IGameWeek } from '@/api/IapiFunctions';
+import { useDataStore } from '@/store/dataStore';
+import { getGameData, getUserPick, parseUserPick } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Models } from 'appwrite/types/models';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { createWeeklyPicks } from '../../api/apiFunctions';
+import { Button } from '../../components/Button/Button';
 import {
   Form,
   FormControl,
@@ -14,10 +16,8 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
-import { useDataStore } from '@/store/dataStore';
-import { IGameWeek } from '@/api/IapiFunctions';
-import { Models } from 'appwrite/types/models';
-import { getGameData, getUserPick, parseUserPick } from '@/utils/utils';
+import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
+import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -37,24 +37,51 @@ interface Props {
 export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const { user, updateWeeklyPicks, weeklyPicks, updateGameGroup, gameGroup } =
-    useDataStore((state) => state);
+  const {
+    user,
+    updateWeeklyPicks,
+    weeklyPicks,
+    updateGameGroup,
+    gameGroup,
+    gameCurrentWeek,
+    updateCurrentWeek,
+    updateNFLTeam,
+    NFLTeam,
+  } = useDataStore((state) => state);
 
   useEffect(() => {
-    if (user.id === '' || user.email === '') return;
+    // Update the current week if it has changed
+    if (gameCurrentWeek.week !== currentGameWeek.week) {
+      updateCurrentWeek(currentGameWeek);
+    }
 
+    // Ensure user and game data are valid before proceeding
+    if (user.id === '' || user.email === '' || gameCurrentWeek.id === '')
+      return;
+
+    // If userPick exists, set the loaded state and return
     if (userPick) {
       setIsLoaded(true);
       return;
     }
 
+    // Process the game if all conditions are met
     processGame();
-  }, [user, userPick]);
+  }, [
+    user,
+    userPick,
+    gameCurrentWeek,
+    currentGameWeek,
+    updateCurrentWeek,
+    NFLTeam,
+    NFLTeams,
+    updateNFLTeam,
+  ]);
 
   const processGame = useCallback(async () => {
     const { gameGroupData, weeklyPicksData } = await getGameData(
       user.id,
-      currentGameWeek.id,
+      gameCurrentWeek.id,
     );
 
     if (!gameGroupData || !weeklyPicksData) {
@@ -70,7 +97,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
     updateWeeklyPicks({
       gameId: weeklyPicksData.gameId,
-      gameWeekId: currentGameWeek.id,
+      gameWeekId: gameCurrentWeek.id,
       userResults: weeklyPicksData.userResults,
     });
 
@@ -81,7 +108,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
     );
 
     setUserPick(userPickData);
-  }, [user.id, currentGameWeek.id, NFLTeams, userPick]);
+  }, [user.id, gameCurrentWeek.id, NFLTeams, userPick]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -90,7 +117,6 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const teamSelect = data.type.toLowerCase();
-
       const teamID = NFLTeams.find(
         (team) => team.teamName.toLowerCase() === teamSelect,
       )?.$id;
@@ -107,14 +133,14 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
       // update weekly picks in the database
       await createWeeklyPicks({
         gameId: gameGroup.currentGameId,
-        gameWeekId: currentGameWeek.id,
+        gameWeekId: gameCurrentWeek.id,
         userResults: updatedWeeklyPicks,
       });
 
       // update weekly picks in the data store
       updateWeeklyPicks({
         gameId: gameGroup.currentGameId,
-        gameWeekId: currentGameWeek.id,
+        gameWeekId: gameCurrentWeek.id,
         userResults: updatedWeeklyPicks,
       });
 
