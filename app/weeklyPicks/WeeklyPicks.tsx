@@ -37,7 +37,7 @@ interface Props {
 export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const { user, updateWeeklyPicks, weeklyPicks, updateGameGroup } =
+  const { user, updateWeeklyPicks, weeklyPicks, updateGameGroup, gameGroup } =
     useDataStore((state) => state);
 
   useEffect(() => {
@@ -74,9 +74,13 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
       userResults: weeklyPicksData.userResults,
     });
 
-    setUserPick(
-      await getUserPick(weeklyPicksData.userResults, user.id, NFLTeams),
+    const userPickData = await getUserPick(
+      weeklyPicksData.userResults,
+      user.id,
+      NFLTeams,
     );
+
+    setUserPick(userPickData);
   }, [user.id, currentGameWeek.id, NFLTeams, userPick]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -102,15 +106,15 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
       // update weekly picks in the database
       await createWeeklyPicks({
-        gameId: '66311a210039f0532044',
-        gameWeekId: '6622c7596558b090872b',
+        gameId: gameGroup.currentGameId,
+        gameWeekId: currentGameWeek.id,
         userResults: updatedWeeklyPicks,
       });
 
       // update weekly picks in the data store
       updateWeeklyPicks({
-        gameId: '66311a210039f0532044',
-        gameWeekId: '6622c7596558b090872b',
+        gameId: gameGroup.currentGameId,
+        gameWeekId: currentGameWeek.id,
         userResults: updatedWeeklyPicks,
       });
 

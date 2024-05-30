@@ -1,11 +1,35 @@
 import { cache } from 'react';
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
+import {
+  IAccountData,
+  IGameGroup,
+  IGameWeek,
+  IUser,
+  IWeeklyPicks,
+} from './IapiFunctions';
 import { Collection } from './EapiFunctions';
+import { Query } from 'appwrite';
 
 /**
- * Get the current session of the user
+ * Register a new account
+ *
+ * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ */
+export async function registerAccount({
+  email,
+  password,
+}: IAccountData): Promise<Models.User<Models.Preferences>> {
+  try {
+    return await account.create(ID.unique(), email, password);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error registering user');
+  }
+}
+
+/**
+ * Login to an existing account
  *
  * @param email - The email of the user
  * @param password - The password of the user
@@ -24,7 +48,7 @@ export async function loginAccount({
 }
 
 /**
- * Logout the current session of the user
+ * Logout the current user
  *
  * @return {Object | Error} - The session object or an error
  */
@@ -46,36 +70,13 @@ export const getNFLTeams = cache(async (): Promise<Models.Document[]> => {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      Collection.GAME_RESULTS,
+      Collection.NFL_TEAMS,
     );
 
     return response.documents;
   } catch (error) {
     console.error(error);
     throw new Error('Error getting NFL teams');
-  }
-});
-
-/**
- * Get the current week's ID & number
- *
- *
- */
-export const getCurrentWeek = cache(async (): Promise<IGameWeek> => {
-  try {
-    const response = await databases.getDocument(
-      appwriteConfig.databaseId,
-      'current_week',
-      '664cfd88003c6cf2ff75',
-    );
-
-    return {
-      id: response.gameWeek.$id,
-      week: response.gameWeek.week,
-    };
-  } catch (error) {
-    console.error('Error getting current week:', error);
-    throw new Error('Error getting current week');
   }
 });
 
@@ -102,6 +103,29 @@ export const getCurrentGame = cache(
 );
 
 /**
+ * Get the current week's ID & number
+ *
+ *
+ */
+export const getCurrentWeek = cache(async (): Promise<IGameWeek> => {
+  try {
+    const response = await databases.getDocument(
+      appwriteConfig.databaseId,
+      'current_week',
+      '664cfd88003c6cf2ff75',
+    );
+
+    return {
+      id: response.gameWeek.$id,
+      week: response.gameWeek.week,
+    };
+  } catch (error) {
+    console.error('Error getting current week:', error);
+    throw new Error('Error getting current week');
+  }
+});
+
+/**
  * Get all weekly picks
  *
  *
@@ -117,7 +141,6 @@ export async function getAllWeeklyPicks({
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.GAME_RESULTS,
-      '66313025000612a5380e',
       [Query.equal('gameId', gameId), Query.equal('gameWeekId', weekId)],
     );
 
@@ -135,43 +158,7 @@ export async function getAllWeeklyPicks({
 }
 
 /**
- * Get all NFL teams
- *
- * @return {Models.DocumentList<Models.Document>} - The session object or an error
- */
-export async function getNFLTeams(): Promise<
-  Models.DocumentList<Models.Document>
-> {
-  try {
-    return await databases.listDocuments(
-      appwriteConfig.databaseId,
-      Collection.NFL_TEAMS,
-    );
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting NFL teams');
-  }
-}
-
-/**
- * Register a new account
- *
- * @return {Models.User<Models.Preferences> | Error} - The user object or an error
- */
-export async function registerAccount({
-  email,
-  password,
-}: IAccountData): Promise<Models.User<Models.Preferences>> {
-  try {
-    return await account.create(ID.unique(), email, password);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error registering user');
-  }
-}
-
-/**
- * Get the current user
+ *  Update the weekly picks with the users team pick
  *
  * @return {Models.User<Models.Preferences> | Error} - The user object or an error
  */
@@ -183,7 +170,7 @@ export async function createWeeklyPicks({
   try {
     return await databases.updateDocument(
       appwriteConfig.databaseId,
-      '66313025000612a5380e', //collectionID
+      Collection.GAME_RESULTS, //collectionID
       '663130a100297f77c3c8', //documentID
       {
         gameId,
