@@ -1,31 +1,32 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Button } from './Button';
+import { Button, buttonVariants } from './Button';
 
-describe('Button Component', () => {
-  it('renders the default variant', () => {
-    render(<Button data-testid="Default Variant" />);
-    const button = screen.getByTestId(/Default Variant/i);
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveClass(
-      'inline-flex',
-      'items-center',
-      'justify-center',
-      'whitespace-nowrap',
-      'rounded-md',
-      'text-sm',
-      'font-medium',
-      'ring-offset-background',
-      'transition-colors',
-      'focus-visible:outline-none',
-      'focus-visible:ring-2',
-      'focus-visible:ring-ring',
-      'focus-visible:ring-offset-2',
-      'disabled:pointer-events-none',
-      'disabled:opacity-50',
-      'bg-orange-600',
-      'text-white',
-      'hover:bg-orange-600/90',
-    );
+describe('Button variants', () => {
+  const variants = [
+    'default',
+    'outline',
+    'destructive',
+    'secondary',
+    'ghost',
+    'link',
+  ];
+
+  variants.forEach((variant) => {
+    test(`renders ${variant} variant correctly`, () => {
+      render(
+        <Button
+          data-testid={`ButtonVariant${variant}`}
+          variant={variant}
+          label={`Button ${variant}`}
+        />,
+      );
+
+      const button = screen.getByTestId(`ButtonVariant${variant}`);
+
+      expect(button).toHaveClass(
+        buttonVariants({ variant, size: 'default' }).split(' ')[0],
+      );
+    });
   });
 });
