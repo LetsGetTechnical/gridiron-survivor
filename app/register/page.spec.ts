@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 const goodUser = {
-  email: 'tester@email.com',
-  password: 'test1234',
-  confirmPassword: 'test1234',
+  email: 'test01@email.com',
+  password: 'test12345',
+  confirmPassword: 'test12345',
 };
 
 const badUser = {
