@@ -1,31 +1,8 @@
 import { cache } from 'react';
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import {
-  IAccountData,
-  IWeeklyPicks,
-  IGameWeek,
-  IGameGroup,
-  IUser,
-} from './IapiFunctions';
-import { Query } from 'appwrite';
-
-/**
- * Register a new account
- *
- * @return {Models.User<Models.Preferences> | Error} - The user object or an error
- */
-export async function registerAccount({
-  email,
-  password,
-}: IAccountData): Promise<Models.User<Models.Preferences>> {
-  try {
-    return await account.create(ID.unique(), email, password);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error registering user');
-  }
-}
+import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
+import { Collection } from './EapiFunctions';
 
 /**
  * Get the current session of the user
@@ -69,7 +46,7 @@ export const getNFLTeams = cache(async (): Promise<Models.Document[]> => {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      '662152bfabacfbda3bb3',
+      Collection.GAME_RESULTS,
     );
 
     return response.documents;
@@ -139,6 +116,7 @@ export async function getAllWeeklyPicks({
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
+      Collection.GAME_RESULTS,
       '66313025000612a5380e',
       [Query.equal('gameId', gameId), Query.equal('gameWeekId', weekId)],
     );
@@ -157,7 +135,43 @@ export async function getAllWeeklyPicks({
 }
 
 /**
- * Update weekly pick selection for current game
+ * Get all NFL teams
+ *
+ * @return {Models.DocumentList<Models.Document>} - The session object or an error
+ */
+export async function getNFLTeams(): Promise<
+  Models.DocumentList<Models.Document>
+> {
+  try {
+    return await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.NFL_TEAMS,
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting NFL teams');
+  }
+}
+
+/**
+ * Register a new account
+ *
+ * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ */
+export async function registerAccount({
+  email,
+  password,
+}: IAccountData): Promise<Models.User<Models.Preferences>> {
+  try {
+    return await account.create(ID.unique(), email, password);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error registering user');
+  }
+}
+
+/**
+ * Get the current user
  *
  * @return {Models.User<Models.Preferences> | Error} - The user object or an error
  */
