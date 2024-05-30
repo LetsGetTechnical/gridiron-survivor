@@ -79,10 +79,10 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
   ]);
 
   const processGame = useCallback(async () => {
-    const { gameGroupData, weeklyPicksData } = await getGameData(
-      user.id,
-      gameCurrentWeek.id,
-    );
+    const { gameGroupData, weeklyPicksData } = await getGameData({
+      userId: user.id,
+      currentGameWeekId: gameCurrentWeek.id,
+    });
 
     if (!gameGroupData || !weeklyPicksData) {
       console.error('Error getting game data');
@@ -101,11 +101,11 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
       userResults: weeklyPicksData.userResults,
     });
 
-    const userPickData = await getUserPick(
-      weeklyPicksData.userResults,
-      user.id,
-      NFLTeams,
-    );
+    const userPickData = await getUserPick({
+      weeklyPicks: weeklyPicksData.userResults,
+      userId: user.id,
+      NFLTeams: NFLTeams,
+    });
 
     setUserPick(userPickData);
   }, [user.id, gameCurrentWeek.id, NFLTeams, userPick]);

@@ -8,10 +8,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getGameData = async (
-  userId: IUser['id'],
-  currentGameWeekId: IGameWeek['id'],
-) => {
+export const getGameData = async ({
+  userId,
+  currentGameWeekId,
+}: {
+  userId: IUser['id'];
+  currentGameWeekId: IGameWeek['id'];
+}) => {
   // find the game group the user is in
   const game = await getCurrentGame(userId);
 
@@ -41,11 +44,15 @@ export const getGameData = async (
   };
 };
 
-export const getUserPick = async (
-  weeklyPicks: IWeeklyPicks['userResults'],
-  userId: IUser['id'],
-  NFLTeams: Models.Document[],
-) => {
+export const getUserPick = async ({
+  weeklyPicks,
+  userId,
+  NFLTeams,
+}: {
+  weeklyPicks: IWeeklyPicks['userResults'];
+  userId: IUser['id'];
+  NFLTeams: Models.Document[];
+}) => {
   if (!weeklyPicks || !weeklyPicks[userId]) return '';
 
   const userTeamId = weeklyPicks[userId].team;
