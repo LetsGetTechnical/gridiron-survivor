@@ -61,6 +61,30 @@ export async function logoutAccount(): Promise<{}> {
 }
 
 /**
+ * Get the current user
+ *
+ * @return {Models.DocumentList<Models.Document> | Error} - The user object or an error
+ */
+export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
+  try {
+    const user = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      [Query.equal('userId', userId)],
+    );
+
+    return {
+      id: user.documents[0].userId,
+      email: user.documents[0].email,
+      league: user.documents[0].league,
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting current user');
+  }
+}
+
+/**
  * Get all NFL teams
  *
  * @return {Models.DocumentList<Models.Document> | Error} - The list of NFL teams

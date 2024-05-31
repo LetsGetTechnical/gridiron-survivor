@@ -1,10 +1,18 @@
 'use client';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/IapiFunctions';
+import { getCurrentUser } from '@/api/apiFunctions';
 
 type UserCredentials = {
   email: string;
@@ -33,7 +41,7 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     if (user.id === '' || user.email === '') {
-      // getUser();
+      getUser();
       return;
     }
 
@@ -43,11 +51,10 @@ export const AuthContextProvider = ({
   // Authenticate and set session state
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
-      const session = await account.createEmailPasswordSession(
-        user.email,
-        user.password,
-      );
-      getUser(session.userId);
+      await account.createEmailPasswordSession(user.email, user.password);
+      getUser();
+
+      // get current game week
       router.push('/weeklyPicks');
     } catch (error) {
       console.error('Login error:', error);
@@ -68,23 +75,21 @@ export const AuthContextProvider = ({
   };
 
   // get user
-  const getUser = async (userId: IUser['id']) => {
+  const getUser = useCallback(async () => {
     if (!isSessionInLocalStorage()) {
       return;
     }
 
-    console.log(userId);
-
     try {
-      // TODO: Update User Data Fetch from User Document
-      const userData = await account.get();
-      updateUser(userData.$id, userData.email);
+      const user = await account.get();
+      const userData: IUser = await getCurrentUser(user.$id);
+      updateUser(userData.id, userData.email, userData.league);
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
       throw new Error('Error getting user data');
     }
-  };
+  }, [updateUser, resetUser, setIsSignedIn]);
 
   // Helper function to validate session data in local storage
   const isSessionInLocalStorage = (): boolean => {

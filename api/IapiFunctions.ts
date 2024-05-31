@@ -5,6 +5,7 @@ export interface IAccountData {
 export interface IUser {
   id: string;
   email: string;
+  league: string[];
 }
 export interface IWeeklyPicks {
   gameId: string;
