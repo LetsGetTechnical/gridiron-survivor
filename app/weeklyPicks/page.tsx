@@ -144,6 +144,7 @@ export default function WeeklyPickForm() {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
+            data-testid="form-field"
             control={form.control}
             name="type"
             render={({ field }) => (
