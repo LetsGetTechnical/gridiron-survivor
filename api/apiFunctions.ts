@@ -2,7 +2,7 @@ import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
 import {
   IAccountData,
-  IGameGroup,
+  ILeague,
   IGameWeek,
   IUser,
   IWeeklyPicks,
@@ -111,14 +111,14 @@ export const getNFLTeams = async (): Promise<Models.Document[]> => {
  *
  *
  */
-export const getCurrentGame = async (
-  gameId: IGameGroup['currentGameId'],
+export const getCurrentLeague = async (
+  leagueId: ILeague['leagueId'],
 ): Promise<Models.Document> => {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      Collection.GAMES,
-      [Query.contains('$id', gameId)],
+      Collection.LEAGUE,
+      [Query.contains('$id', leagueId)],
     );
 
     return response.documents[0];
@@ -158,17 +158,17 @@ export const getCurrentWeek = async (): Promise<IGameWeek> => {
  *
  */
 export async function getAllWeeklyPicks({
-  gameId,
+  leagueId,
   weekId,
 }: {
-  gameId: IGameGroup['currentGameId'];
+  leagueId: ILeague['leagueId'];
   weekId: IGameWeek['id'];
 }): Promise<IWeeklyPicks['userResults'] | null> {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.GAME_RESULTS,
-      [Query.equal('gameId', gameId), Query.equal('gameWeekId', weekId)],
+      [Query.equal('gameId', leagueId), Query.equal('gameWeekId', weekId)],
     );
 
     // check if any users have selected their pick

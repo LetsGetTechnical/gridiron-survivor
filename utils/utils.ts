@@ -1,10 +1,5 @@
-import {
-  IGameGroup,
-  IGameWeek,
-  IUser,
-  IWeeklyPicks,
-} from '@/api/IapiFunctions';
-import { getAllWeeklyPicks, getCurrentGame } from '@/api/apiFunctions';
+import { ILeague, IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+import { getAllWeeklyPicks, getCurrentLeague } from '@/api/apiFunctions';
 import { Models } from 'appwrite/types/models';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -14,23 +9,23 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getGameData = async ({
-  gameId,
+  leagueId,
   currentGameWeekId,
 }: {
-  gameId: IGameGroup['currentGameId'];
+  leagueId: ILeague['leagueId'];
   currentGameWeekId: IGameWeek['id'];
 }) => {
-  const game = await getCurrentGame(gameId);
+  const league = await getCurrentLeague(leagueId);
 
   const weeklyPicksData = await getAllWeeklyPicks({
-    gameId: gameId,
+    leagueId: leagueId,
     weekId: currentGameWeekId,
   });
 
   return {
     gameGroupData: {
-      participants: game.participants,
-      survivors: game.survivors,
+      participants: league.participants,
+      survivors: league.survivors,
     },
     weeklyPicksData: {
       gameWeekId: currentGameWeekId,

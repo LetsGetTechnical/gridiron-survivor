@@ -23,8 +23,8 @@ export interface IUserPicksData {
     correct: boolean;
   };
 }
-export interface IGameGroup {
-  currentGameId: string;
+export interface ILeague {
+  leagueId: string;
   participants: string[];
   survivors: string[];
 }

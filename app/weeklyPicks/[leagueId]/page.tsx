@@ -1,12 +1,12 @@
 import React from 'react';
-import { IGameGroup } from '@/api/IapiFunctions';
+import { ILeague } from '@/api/IapiFunctions';
 import WeeklyPicks from './WeeklyPicks';
 import { getCurrentWeek, getNFLTeams } from '@/api/apiFunctions';
 
 export default async function Page({
   params,
 }: {
-  params: { leagueId: IGameGroup['currentGameId'] };
+  params: { leagueId: ILeague['leagueId'] };
 }) {
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getCurrentWeek();
