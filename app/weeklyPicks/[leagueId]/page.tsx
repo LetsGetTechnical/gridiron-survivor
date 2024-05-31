@@ -6,7 +6,7 @@ import { getCurrentWeek, getNFLTeams } from '@/api/apiFunctions';
 export default async function Page({
   params,
 }: {
-  params: { gameId: IGameGroup['currentGameId'] };
+  params: { leagueId: IGameGroup['currentGameId'] };
 }) {
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getCurrentWeek();
@@ -20,7 +20,7 @@ export default async function Page({
     <WeeklyPicks
       NFLTeams={nflTeamsData}
       currentGameWeek={currentGameWeekData}
-      gameId={params.gameId}
+      gameId={params.leagueId}
     />
   );
 }
