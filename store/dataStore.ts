@@ -6,18 +6,13 @@ import {
   IWeeklyPicks,
   IGameGroup,
   IGameWeek,
-  IGameGroup,
-  IGameWeek,
 } from '@/api/IapiFunctions';
 
 //Define the shape of the state
 interface IDataStoreState {
   NFLTeam: INFLTeam[];
-  NFLTeam: INFLTeam[];
   user: IUser;
   weeklyPicks: IWeeklyPicks;
-  gameGroup: IGameGroup;
-  gameCurrentWeek: IGameWeek;
   gameGroup: IGameGroup;
   gameCurrentWeek: IGameWeek;
 }
@@ -43,19 +38,12 @@ interface IDataStoreAction {
     survivors,
   }: IGameGroup) => void;
   updateCurrentWeek: (gameCurrentWeek: IGameWeek) => void;
-  updateGameGroup: ({
-    currentGameId,
-    participants,
-    survivors,
-  }: IGameGroup) => void;
-  updateCurrentWeek: (gameCurrentWeek: IGameWeek) => void;
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
 //creating the initial state
 const initialState: IDataStoreState = {
-  NFLTeam: [],
   NFLTeam: [],
   user: {
     id: '',
@@ -75,16 +63,6 @@ const initialState: IDataStoreState = {
   gameCurrentWeek: {
     id: '',
     week: 0,
-    userResults: {},
-  },
-  gameGroup: {
-    currentGameId: '',
-    participants: [],
-    survivors: [],
-  },
-  gameCurrentWeek: {
-    id: '',
-    week: 0,
   },
 };
 
@@ -92,7 +70,6 @@ const initialState: IDataStoreState = {
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
   resetUser: () => set({ user: initialState.user }),
-  updateNFLTeam: (updatedTeam: INFLTeam): void =>
   updateNFLTeam: (updatedTeam: INFLTeam): void =>
     set(
       produce((state: IDataStoreState) => ({
@@ -116,31 +93,10 @@ export const useDataStore = create<DataStore>((set) => ({
     userResults,
   }: IWeeklyPicks): void =>
     set(
-    set(
       produce((state: IDataStoreState) => {
         state.weeklyPicks.gameId = gameId;
         state.weeklyPicks.gameWeekId = gameWeekId;
         state.weeklyPicks.userResults = userResults;
-      }),
-    ),
-  updateGameGroup: ({
-    currentGameId,
-    participants,
-    survivors,
-  }: IGameGroup): void =>
-    set(
-      produce((state: IDataStoreState) => {
-        state.gameGroup.currentGameId = currentGameId;
-        state.gameGroup.participants = participants;
-        state.gameGroup.survivors = survivors;
-      }),
-    ),
-  updateCurrentWeek: ({ id, week }: IGameWeek): void =>
-    set(
-      produce((state: IDataStoreState) => {
-        state.gameCurrentWeek.id = id;
-        state.gameCurrentWeek.week = week;
-      }),
       }),
     ),
   updateGameGroup: ({
