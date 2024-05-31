@@ -20,7 +20,7 @@ export default async function Page({
     <WeeklyPicks
       NFLTeams={nflTeamsData}
       currentGameWeek={currentGameWeekData}
-      gameId={params.leagueId}
+      leagueId={params.leagueId}
     />
   );
 }
