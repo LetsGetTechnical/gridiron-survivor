@@ -7,7 +7,7 @@ import {
   IUser,
   IWeeklyPicks,
 } from './IapiFunctions';
-import { Collection } from './EapiFunctions';
+import { Collection, Document } from './EapiFunctions';
 import { Query } from 'appwrite';
 
 /**
@@ -90,7 +90,7 @@ export const getCurrentGame = async (
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
-      '6626a937b6302f6a4d28',
+      Collection.GAMES,
       [Query.contains('participants', userId)],
     );
 
@@ -110,8 +110,8 @@ export const getCurrentWeek = async (): Promise<IGameWeek> => {
   try {
     const response = await databases.getDocument(
       appwriteConfig.databaseId,
-      'current_week',
-      '664cfd88003c6cf2ff75',
+      Collection.CURRENT_WEEK,
+      Document.CURRENT_GAME_WEEK,
     );
 
     return {
