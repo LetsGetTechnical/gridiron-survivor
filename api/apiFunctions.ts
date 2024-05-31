@@ -29,6 +29,24 @@ export async function registerAccount({
 
 /**
  * Login to an existing account
+ * Register a new account
+ *
+ * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ */
+export async function registerAccount({
+  email,
+  password,
+}: IAccountData): Promise<Models.User<Models.Preferences>> {
+  try {
+    return await account.create(ID.unique(), email, password);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error registering user');
+  }
+}
+
+/**
+ * Login to an existing account
  *
  * @param email - The email of the user
  * @param password - The password of the user
@@ -47,6 +65,7 @@ export async function loginAccount({
 }
 
 /**
+ * Logout the current user
  * Logout the current user
  *
  * @return {Object | Error} - The session object or an error
@@ -94,7 +113,10 @@ export const getNFLTeams = async (): Promise<Models.Document[]> => {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.NFL_TEAMS,
+      Collection.NFL_TEAMS,
     );
+
+    return response.documents;
 
     return response.documents;
   } catch (error) {
@@ -152,7 +174,15 @@ export const getCurrentWeek = async (): Promise<IGameWeek> => {
  * Get all weekly picks
  *
  *
+ *
  */
+export async function getAllWeeklyPicks({
+  gameId,
+  weekId,
+}: {
+  gameId: IGameGroup['currentGameId'];
+  weekId: IGameWeek['id'];
+}): Promise<IWeeklyPicks['userResults'] | null> {
 export async function getAllWeeklyPicks({
   gameId,
   weekId,
@@ -165,7 +195,13 @@ export async function getAllWeeklyPicks({
       appwriteConfig.databaseId,
       Collection.GAME_RESULTS,
       [Query.equal('gameId', gameId), Query.equal('gameWeekId', weekId)],
+      [Query.equal('gameId', gameId), Query.equal('gameWeekId', weekId)],
     );
+
+    // check if any users have selected their pick
+    if (response.documents[0].userResults === '') {
+      return null;
+    }
 
     // check if any users have selected their pick
     if (response.documents[0].userResults === '') {
@@ -182,6 +218,7 @@ export async function getAllWeeklyPicks({
 
 /**
  *  Update the weekly picks with the users team pick
+ *  Update the weekly picks with the users team pick
  *
  * @return {Models.User<Models.Preferences> | Error} - The user object or an error
  */
@@ -193,6 +230,13 @@ export async function createWeeklyPicks({
   try {
     return await databases.updateDocument(
       appwriteConfig.databaseId,
+      Collection.GAME_RESULTS, //collectionID
+      '663130a100297f77c3c8', //documentID
+      {
+        gameId,
+        gameWeekId,
+        userResults: JSON.stringify(userResults),
+      },
       Collection.GAME_RESULTS, //collectionID
       '663130a100297f77c3c8', //documentID
       {
