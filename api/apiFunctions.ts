@@ -196,7 +196,7 @@ export async function getAllWeeklyPicks({
  * @return {Models.User<Models.Preferences> | Error} - The user object or an error
  */
 export async function createWeeklyPicks({
-  gameId,
+  leagueId,
   gameWeekId,
   userResults,
 }: IWeeklyPicks): Promise<Models.Document> {
@@ -206,7 +206,7 @@ export async function createWeeklyPicks({
       Collection.GAME_RESULTS, //collectionID
       '663130a100297f77c3c8', //documentID
       {
-        gameId,
+        leagueId,
         gameWeekId,
         userResults: JSON.stringify(userResults),
       },

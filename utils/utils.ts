@@ -23,7 +23,7 @@ export const getGameData = async ({
   });
 
   return {
-    gameGroupData: {
+    league: {
       participants: league.participants,
       survivors: league.survivors,
     },

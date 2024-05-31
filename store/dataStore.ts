@@ -4,7 +4,7 @@ import {
   INFLTeam,
   IUser,
   IWeeklyPicks,
-  IGameGroup,
+  ILeague,
   IGameWeek,
 } from '@/api/IapiFunctions';
 
@@ -13,11 +13,10 @@ interface IDataStoreState {
   NFLTeam: INFLTeam[];
   user: IUser;
   weeklyPicks: IWeeklyPicks;
-  gameGroup: IGameGroup;
+  league: ILeague;
   gameCurrentWeek: IGameWeek;
 }
 
-//Define the actions that can be performed on the state
 //Define the actions that can be performed on the state
 interface IDataStoreAction {
   resetUser: () => void;
@@ -28,15 +27,11 @@ interface IDataStoreAction {
     league: IUser['league'],
   ) => void;
   updateWeeklyPicks: ({
-    gameId,
+    leagueId,
     gameWeekId,
     userResults,
   }: IWeeklyPicks) => void;
-  updateGameGroup: ({
-    currentGameId,
-    participants,
-    survivors,
-  }: IGameGroup) => void;
+  updateLeague: ({ leagueId, participants, survivors }: ILeague) => void;
   updateCurrentWeek: (gameCurrentWeek: IGameWeek) => void;
 }
 
@@ -51,12 +46,12 @@ const initialState: IDataStoreState = {
     league: [],
   },
   weeklyPicks: {
-    gameId: '',
+    leagueId: '',
     gameWeekId: '',
     userResults: {},
   },
-  gameGroup: {
-    currentGameId: '',
+  league: {
+    leagueId: '',
     participants: [],
     survivors: [],
   },
@@ -88,27 +83,23 @@ export const useDataStore = create<DataStore>((set) => ({
       }),
     ),
   updateWeeklyPicks: ({
-    gameId,
+    leagueId,
     gameWeekId,
     userResults,
   }: IWeeklyPicks): void =>
     set(
       produce((state: IDataStoreState) => {
-        state.weeklyPicks.gameId = gameId;
+        state.weeklyPicks.leagueId = leagueId;
         state.weeklyPicks.gameWeekId = gameWeekId;
         state.weeklyPicks.userResults = userResults;
       }),
     ),
-  updateGameGroup: ({
-    currentGameId,
-    participants,
-    survivors,
-  }: IGameGroup): void =>
+  updateLeague: ({ leagueId, participants, survivors }: ILeague): void =>
     set(
       produce((state: IDataStoreState) => {
-        state.gameGroup.currentGameId = currentGameId;
-        state.gameGroup.participants = participants;
-        state.gameGroup.survivors = survivors;
+        state.league.leagueId = leagueId;
+        state.league.participants = participants;
+        state.league.survivors = survivors;
       }),
     ),
   updateCurrentWeek: ({ id, week }: IGameWeek): void =>

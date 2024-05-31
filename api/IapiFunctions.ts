@@ -8,7 +8,7 @@ export interface IUser {
   league: string[];
 }
 export interface IWeeklyPicks {
-  gameId: string;
+  leagueId: string;
   gameWeekId: string;
   userResults: IUserPicksData | null;
 }

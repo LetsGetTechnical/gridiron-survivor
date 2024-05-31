@@ -32,13 +32,13 @@ export const revalidate = 900; // 15 minutes
 interface Props {
   NFLTeams: Models.Document[];
   currentGameWeek: IGameWeek;
-  gameId: string;
+  leagueId: string;
 }
 
 export default function WeeklyPicks({
   NFLTeams,
   currentGameWeek,
-  gameId,
+  leagueId,
 }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
@@ -46,8 +46,7 @@ export default function WeeklyPicks({
     user,
     updateWeeklyPicks,
     weeklyPicks,
-    updateGameGroup,
-    gameGroup,
+    updateLeague,
     gameCurrentWeek,
     updateCurrentWeek,
     updateNFLTeam,
@@ -84,24 +83,24 @@ export default function WeeklyPicks({
   ]);
 
   const processGame = useCallback(async () => {
-    const { gameGroupData, weeklyPicksData } = await getGameData({
-      gameId: gameId,
+    const { league, weeklyPicksData } = await getGameData({
+      leagueId: leagueId,
       currentGameWeekId: gameCurrentWeek.id,
     });
 
-    if (!gameGroupData || !weeklyPicksData) {
+    if (!league || !weeklyPicksData) {
       console.error('Error getting game data');
       return;
     }
 
-    updateGameGroup({
-      currentGameId: gameId,
-      participants: gameGroupData.participants,
-      survivors: gameGroupData.survivors,
+    updateLeague({
+      leagueId: leagueId,
+      participants: league.participants,
+      survivors: league.survivors,
     });
 
     updateWeeklyPicks({
-      gameId: gameId,
+      leagueId: leagueId,
       gameWeekId: gameCurrentWeek.id,
       userResults: weeklyPicksData.userResults,
     });
@@ -137,14 +136,14 @@ export default function WeeklyPicks({
 
       // update weekly picks in the database
       await createWeeklyPicks({
-        gameId: gameId,
+        leagueId: leagueId,
         gameWeekId: gameCurrentWeek.id,
         userResults: updatedWeeklyPicks,
       });
 
       // update weekly picks in the data store
       updateWeeklyPicks({
-        gameId: gameId,
+        leagueId: leagueId,
         gameWeekId: gameCurrentWeek.id,
         userResults: updatedWeeklyPicks,
       });
