@@ -4,6 +4,7 @@ import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
+import { IUser } from '@/api/IapiFunctions';
 
 type UserCredentials = {
   email: string;
@@ -32,7 +33,7 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     if (user.id === '' || user.email === '') {
-      getUser();
+      // getUser();
       return;
     }
 
@@ -42,8 +43,11 @@ export const AuthContextProvider = ({
   // Authenticate and set session state
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
-      await account.createEmailPasswordSession(user.email, user.password);
-      getUser();
+      const session = await account.createEmailPasswordSession(
+        user.email,
+        user.password,
+      );
+      getUser(session.userId);
       router.push('/weeklyPicks');
     } catch (error) {
       console.error('Login error:', error);
@@ -64,12 +68,15 @@ export const AuthContextProvider = ({
   };
 
   // get user
-  const getUser = async () => {
+  const getUser = async (userId: IUser['id']) => {
     if (!isSessionInLocalStorage()) {
       return;
     }
 
+    console.log(userId);
+
     try {
+      // TODO: Update User Data Fetch from User Document
       const userData = await account.get();
       updateUser(userData.$id, userData.email);
     } catch (error) {
