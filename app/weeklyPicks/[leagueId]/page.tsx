@@ -1,7 +1,7 @@
 import React from 'react';
 import { ILeague } from '@/api/IapiFunctions';
 import WeeklyPicks from './WeeklyPicks';
-import { getCurrentWeek, getNFLTeams } from '@/api/apiFunctions';
+import { getGameWeek, getNFLTeams } from '@/api/apiFunctions';
 
 export default async function Page({
   params,
@@ -9,7 +9,7 @@ export default async function Page({
   params: { leagueId: ILeague['leagueId'] };
 }) {
   const allNFLTeams = getNFLTeams();
-  const currentGameWeek = getCurrentWeek();
+  const currentGameWeek = getGameWeek();
 
   const [nflTeamsData, currentGameWeekData] = await Promise.all([
     allNFLTeams,

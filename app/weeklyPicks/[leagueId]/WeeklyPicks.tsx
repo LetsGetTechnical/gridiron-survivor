@@ -47,21 +47,20 @@ export default function WeeklyPicks({
     updateWeeklyPicks,
     weeklyPicks,
     updateLeague,
-    gameCurrentWeek,
-    updateCurrentWeek,
+    gameWeek,
+    updateGameWeek,
     updateNFLTeam,
     NFLTeam,
   } = useDataStore((state) => state);
 
   useEffect(() => {
     // Update the current week if it has changed
-    if (gameCurrentWeek.week !== currentGameWeek.week) {
-      updateCurrentWeek(currentGameWeek);
+    if (gameWeek.week !== currentGameWeek.week) {
+      updateGameWeek(currentGameWeek);
     }
 
     // Ensure user and game data are valid before proceeding
-    if (user.id === '' || user.email === '' || gameCurrentWeek.id === '')
-      return;
+    if (user.id === '' || user.email === '' || gameWeek.id === '') return;
 
     // If userPick exists, set the loaded state and return
     if (userPick) {
@@ -74,9 +73,9 @@ export default function WeeklyPicks({
   }, [
     user,
     userPick,
-    gameCurrentWeek,
+    gameWeek,
     currentGameWeek,
-    updateCurrentWeek,
+    updateGameWeek,
     NFLTeam,
     NFLTeams,
     updateNFLTeam,
@@ -85,7 +84,7 @@ export default function WeeklyPicks({
   const processGame = useCallback(async () => {
     const { league, weeklyPicksData } = await getGameData({
       leagueId: leagueId,
-      currentGameWeekId: gameCurrentWeek.id,
+      currentGameWeekId: gameWeek.id,
     });
 
     if (!league || !weeklyPicksData) {
@@ -101,7 +100,7 @@ export default function WeeklyPicks({
 
     updateWeeklyPicks({
       leagueId: leagueId,
-      gameWeekId: gameCurrentWeek.id,
+      gameWeekId: gameWeek.id,
       userResults: weeklyPicksData.userResults,
     });
 
@@ -112,7 +111,7 @@ export default function WeeklyPicks({
     });
 
     setUserPick(userPickData);
-  }, [user.id, gameCurrentWeek.id, NFLTeams, userPick]);
+  }, [user.id, gameWeek.id, NFLTeams, userPick]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -137,14 +136,14 @@ export default function WeeklyPicks({
       // update weekly picks in the database
       await createWeeklyPicks({
         leagueId: leagueId,
-        gameWeekId: gameCurrentWeek.id,
+        gameWeekId: gameWeek.id,
         userResults: updatedWeeklyPicks,
       });
 
       // update weekly picks in the data store
       updateWeeklyPicks({
         leagueId: leagueId,
-        gameWeekId: gameCurrentWeek.id,
+        gameWeekId: gameWeek.id,
         userResults: updatedWeeklyPicks,
       });
 

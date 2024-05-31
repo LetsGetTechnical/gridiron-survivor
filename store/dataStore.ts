@@ -10,17 +10,17 @@ import {
 
 //Define the shape of the state
 interface IDataStoreState {
-  NFLTeam: INFLTeam[];
   user: IUser;
+  NFLTeam: INFLTeam[];
   weeklyPicks: IWeeklyPicks;
   league: ILeague;
-  gameCurrentWeek: IGameWeek;
+  gameWeek: IGameWeek;
 }
 
 //Define the actions that can be performed on the state
 interface IDataStoreAction {
   resetUser: () => void;
-  updateNFLTeam: (updatedTeam: INFLTeam) => void;
+  updateNFLTeam: (updatedTeam: INFLTeam[]) => void;
   updateUser: (
     id: IUser['id'],
     email: IUser['email'],
@@ -32,7 +32,7 @@ interface IDataStoreAction {
     userResults,
   }: IWeeklyPicks) => void;
   updateLeague: ({ leagueId, participants, survivors }: ILeague) => void;
-  updateCurrentWeek: (gameCurrentWeek: IGameWeek) => void;
+  updateGameWeek: (gameWeek: IGameWeek) => void;
 }
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
@@ -55,7 +55,7 @@ const initialState: IDataStoreState = {
     participants: [],
     survivors: [],
   },
-  gameCurrentWeek: {
+  gameWeek: {
     id: '',
     week: 0,
   },
@@ -65,13 +65,10 @@ const initialState: IDataStoreState = {
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
   resetUser: () => set({ user: initialState.user }),
-  updateNFLTeam: (updatedTeam: INFLTeam): void =>
+  updateNFLTeam: (teams: INFLTeam[]): void =>
     set(
       produce((state: IDataStoreState) => ({
-        NFLTeam: [...state.NFLTeam, updatedTeam],
-      })),
-      produce((state: IDataStoreState) => ({
-        NFLTeam: [...state.NFLTeam, updatedTeam],
+        NFLTeam: [...state.NFLTeam, ...teams],
       })),
     ),
   updateUser: (id, email, league) =>
@@ -102,11 +99,11 @@ export const useDataStore = create<DataStore>((set) => ({
         state.league.survivors = survivors;
       }),
     ),
-  updateCurrentWeek: ({ id, week }: IGameWeek): void =>
+  updateGameWeek: ({ id, week }: IGameWeek): void =>
     set(
       produce((state: IDataStoreState) => {
-        state.gameCurrentWeek.id = id;
-        state.gameCurrentWeek.week = week;
+        state.gameWeek.id = id;
+        state.gameWeek.week = week;
       }),
     ),
 }));

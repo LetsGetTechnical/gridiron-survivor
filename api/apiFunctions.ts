@@ -133,7 +133,7 @@ export const getCurrentLeague = async (
  *
  *
  */
-export const getCurrentWeek = async (): Promise<IGameWeek> => {
+export const getGameWeek = async (): Promise<IGameWeek> => {
   try {
     const response = await databases.getDocument(
       appwriteConfig.databaseId,
