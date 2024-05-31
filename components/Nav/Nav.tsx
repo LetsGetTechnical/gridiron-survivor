@@ -48,7 +48,7 @@ export const Nav = () => {
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Gridiron Survivor</DrawerTitle>
+                <DrawerTitle data-testid="title">Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
@@ -59,6 +59,7 @@ export const Nav = () => {
                     onClick={() => {
                       handleLogout();
                     }}
+                    data-testid="sign-out-button"
                   />
                 </li>
               </ul>
