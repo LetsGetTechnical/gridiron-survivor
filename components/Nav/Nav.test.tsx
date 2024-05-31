@@ -62,11 +62,9 @@ describe('Nav', () => {
     const drawerTrigger = screen.getByTestId('drawer-trigger');
     fireEvent.click(drawerTrigger);
 
-    const title = screen.getByText(/gridiron survivor/i);
+    const title = screen.getByTestId('title');
     const logo = screen.getByTestId('logo-nav');
-    const signOutButton = screen.getByRole('button', {
-      name: /sign out/i,
-    });
+    const signOutButton = screen.getByTestId('sign-out-button');
 
     expect(title).toBeInTheDocument();
     expect(logo).toBeInTheDocument();
@@ -114,9 +112,7 @@ describe('Nav', () => {
     const drawerTrigger = screen.getByTestId('drawer-trigger');
     fireEvent.click(drawerTrigger);
 
-    const signOutButton = screen.getByRole('button', {
-      name: /sign out/i,
-    });
+    const signOutButton = screen.getByTestId('sign-out-button');
 
     fireEvent.click(signOutButton);
     await waitFor(() => {
