@@ -44,7 +44,6 @@ export const AuthContextProvider = ({
       getUser();
       return;
     }
-
     setIsSignedIn(true);
   }, [user]);
 
@@ -53,9 +52,6 @@ export const AuthContextProvider = ({
     try {
       await account.createEmailPasswordSession(user.email, user.password);
       getUser();
-
-      // get current game week
-      router.push('/weeklyPicks');
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
@@ -84,6 +80,7 @@ export const AuthContextProvider = ({
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
       updateUser(userData.id, userData.email, userData.league);
+      router.push(`/weeklyPicks/${userData.league[0]}`);
     } catch (error) {
       resetUser();
       setIsSignedIn(false);

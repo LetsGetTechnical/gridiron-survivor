@@ -109,13 +109,13 @@ export const getNFLTeams = async (): Promise<Models.Document[]> => {
  *
  */
 export const getCurrentGame = async (
-  userId: IUser['id'],
+  gameId: IGameGroup['currentGameId'],
 ): Promise<Models.Document> => {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.GAMES,
-      [Query.contains('participants', userId)],
+      [Query.contains('$id', gameId)],
     );
 
     return response.documents[0];

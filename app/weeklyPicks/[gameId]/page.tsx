@@ -1,15 +1,26 @@
 import React from 'react';
 import { IGameGroup } from '@/api/IapiFunctions';
+import WeeklyPicks from './WeeklyPicks';
+import { getCurrentWeek, getNFLTeams } from '@/api/apiFunctions';
 
-export default async function page({
+export default async function Page({
   params,
 }: {
   params: { gameId: IGameGroup['currentGameId'] };
 }) {
+  const allNFLTeams = getNFLTeams();
+  const currentGameWeek = getCurrentWeek();
+
+  const [nflTeamsData, currentGameWeekData] = await Promise.all([
+    allNFLTeams,
+    currentGameWeek,
+  ]);
+
   return (
-    <div>
-      <h1>Weekly Picks</h1>
-      <p>Game ID: {params.gameId}</p>
-    </div>
+    <WeeklyPicks
+      NFLTeams={nflTeamsData}
+      currentGameWeek={currentGameWeekData}
+      gameId={params.gameId}
+    />
   );
 }

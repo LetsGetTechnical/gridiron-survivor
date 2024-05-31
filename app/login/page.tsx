@@ -14,11 +14,11 @@ export default function Login() {
   const [password, setPassword] = useState<string>('');
   const { loginAccount, isSignedIn } = useAuthContext();
 
-  useEffect(() => {
-    if (isSignedIn) {
-      router.push('/weeklyPicks');
-    }
-  }, [isSignedIn]);
+  // useEffect(() => {
+  //   if (isSignedIn) {
+  //     router.push('/weeklyPicks');
+  //   }
+  // }, [isSignedIn]);
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);

@@ -7,17 +7,17 @@ import { Models } from 'appwrite/types/models';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { createWeeklyPicks } from '../../api/apiFunctions';
-import { Button } from '../../components/Button/Button';
+import { createWeeklyPicks } from '../../../api/apiFunctions';
+import { Button } from '../../../components/Button/Button';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '../../components/Form/Form';
-import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
-import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
+} from '../../../components/Form/Form';
+import { RadioGroup } from '../../../components/RadioGroup/RadioGroup';
+import { WeeklyPickButton } from '../../../components/WeeklyPickButton/WeeklyPickButton';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -32,9 +32,14 @@ export const revalidate = 900; // 15 minutes
 interface Props {
   NFLTeams: Models.Document[];
   currentGameWeek: IGameWeek;
+  gameId: string;
 }
 
-export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
+export default function WeeklyPicks({
+  NFLTeams,
+  currentGameWeek,
+  gameId,
+}: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
   const {
@@ -80,7 +85,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
   const processGame = useCallback(async () => {
     const { gameGroupData, weeklyPicksData } = await getGameData({
-      userId: user.id,
+      gameId: gameId,
       currentGameWeekId: gameCurrentWeek.id,
     });
 
@@ -90,13 +95,13 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
     }
 
     updateGameGroup({
-      currentGameId: gameGroupData.currentGameId,
+      currentGameId: gameId,
       participants: gameGroupData.participants,
       survivors: gameGroupData.survivors,
     });
 
     updateWeeklyPicks({
-      gameId: weeklyPicksData.gameId,
+      gameId: gameId,
       gameWeekId: gameCurrentWeek.id,
       userResults: weeklyPicksData.userResults,
     });
@@ -132,14 +137,14 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
       // update weekly picks in the database
       await createWeeklyPicks({
-        gameId: gameGroup.currentGameId,
+        gameId: gameId,
         gameWeekId: gameCurrentWeek.id,
         userResults: updatedWeeklyPicks,
       });
 
       // update weekly picks in the data store
       updateWeeklyPicks({
-        gameId: gameGroup.currentGameId,
+        gameId: gameId,
         gameWeekId: gameCurrentWeek.id,
         userResults: updatedWeeklyPicks,
       });

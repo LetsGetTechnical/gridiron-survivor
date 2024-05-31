@@ -1,4 +1,9 @@
-import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+import {
+  IGameGroup,
+  IGameWeek,
+  IUser,
+  IWeeklyPicks,
+} from '@/api/IapiFunctions';
 import { getAllWeeklyPicks, getCurrentGame } from '@/api/apiFunctions';
 import { Models } from 'appwrite/types/models';
 import { clsx, type ClassValue } from 'clsx';
@@ -9,35 +14,25 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getGameData = async ({
-  userId,
+  gameId,
   currentGameWeekId,
 }: {
-  userId: IUser['id'];
+  gameId: IGameGroup['currentGameId'];
   currentGameWeekId: IGameWeek['id'];
 }) => {
-  // find the game group the user is in
-  const game = await getCurrentGame(userId);
-
-  if (!game) {
-    return {
-      gameGroupData: null,
-      weeklyPicksData: '',
-    };
-  }
+  const game = await getCurrentGame(gameId);
 
   const weeklyPicksData = await getAllWeeklyPicks({
-    gameId: game.$id,
+    gameId: gameId,
     weekId: currentGameWeekId,
   });
 
   return {
     gameGroupData: {
-      currentGameId: game.$id,
       participants: game.participants,
       survivors: game.survivors,
     },
     weeklyPicksData: {
-      gameId: game.$id,
       gameWeekId: currentGameWeekId,
       userResults: weeklyPicksData,
     },
