@@ -10,11 +10,7 @@ interface ILinkCustomProps {
 
 // Be sure to add visuallyHiddenText to your link to add additional context for screen reader users. Read more at https://webforeveryone.us/blog/fixing-the-six-most-common-bugs#links-with-discernable-text
 
-const LinkCustom = ({
-  children,
-  href,
-  visuallyHiddenText,
-}: ILinkCustomProps) => {
+const LinkCustom = ({ children, href }: ILinkCustomProps) => {
   // Use Next.js Link component wrapped inside an anchor tag
   return (
     <Link
@@ -23,7 +19,6 @@ const LinkCustom = ({
       passHref
       className={'hover:text-orange-600 hover:underline'}
     >
-      <span className="sr-only">{visuallyHiddenText}</span>
       {children}
     </Link>
   );
