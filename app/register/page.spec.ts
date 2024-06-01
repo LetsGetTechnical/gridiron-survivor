@@ -22,8 +22,8 @@ test.describe('Tests register page', () => {
     await page.getByTestId('password').fill(goodUser.password);
     await page.getByTestId('confirm-password').fill(goodUser.confirmPassword);
     await page.getByTestId('continue-button').click();
-    await page.goto('http://localhost:3000/weeklyPicks');
-    await expect(page.url()).toBe('http://localhost:3000/weeklyPicks');
+    await page.goto('/weeklyPicks');
+    await expect(page).toHaveURL('/weeklyPicks');
   });
   test('should not be able to register and register button should be disabled', async ({
     page,
