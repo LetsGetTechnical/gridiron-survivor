@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { X } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 
 const Drawer = ({
   shouldScaleBackground = true,
