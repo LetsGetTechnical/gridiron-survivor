@@ -1,7 +1,6 @@
 'use client';
 import { useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
@@ -9,7 +8,6 @@ import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 
 export default function Login() {
-  const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { loginAccount, isSignedIn, getUser } = useAuthContext();
