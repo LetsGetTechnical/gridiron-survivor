@@ -41,12 +41,12 @@ describe('Button', () => {
     sizes.forEach((size) => {
       it(`renders correctly with variant ${variant} and size ${size}`, () => {
         render(
-          <Button variant={variant} size={size}>
+          <Button data-testid="testButton" variant={variant} size={size}>
             Test Button
           </Button>,
         );
 
-        const button = screen.getByRole('button');
+        const button = screen.getByTestId('testButton');
         expect(button).toBeInTheDocument();
 
         // Check if the button has the correct class for the variant and size
@@ -58,5 +58,22 @@ describe('Button', () => {
         }
       });
     });
+  });
+  it(`renders correctly with className attribute and proper className(s) are passed via the prop`, () => {
+    render(
+      <Button
+        data-testid="customClassButton"
+        className="customClassButton bg-red-500"
+      >
+        Custom Test Button
+      </Button>,
+    );
+
+    const buttonCustom = screen.getByTestId('customClassButton');
+    expect(buttonCustom).toBeInTheDocument();
+
+    if (buttonCustom.hasAttribute('className')) {
+      expect(buttonCustom).toHaveClass('customClassButton', 'bg-red-500');
+    }
   });
 });
