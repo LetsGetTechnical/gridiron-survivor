@@ -24,6 +24,7 @@ type AuthContextType = {
   setIsSignedIn: (isSignedIn: boolean) => void;
   loginAccount: (user: UserCredentials) => Promise<void | Error>;
   logoutAccount: () => Promise<void>;
+  getUser: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -80,7 +81,7 @@ export const AuthContextProvider = ({
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
       updateUser(userData.id, userData.email, userData.league);
-      router.push(`/weeklyPicks/${userData.league[0]}`);
+      router.push(`/picks?leagueId=${userData.league[0]}`);
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
@@ -107,6 +108,7 @@ export const AuthContextProvider = ({
       setIsSignedIn,
       loginAccount,
       logoutAccount,
+      getUser,
     }),
     [isSignedIn],
   );

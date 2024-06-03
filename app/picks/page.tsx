@@ -3,11 +3,12 @@ import { ILeague } from '@/api/IapiFunctions';
 import WeeklyPicks from './WeeklyPicks';
 import { getGameWeek, getNFLTeams } from '@/api/apiFunctions';
 
-export default async function Page({
-  params,
-}: {
-  params: { leagueId: ILeague['leagueId'] };
-}) {
+interface Props {
+  searchParams: { leagueId: ILeague['leagueId'] };
+}
+
+export default async function Page({ searchParams }: Props) {
+  const leagueId = searchParams.leagueId;
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getGameWeek();
 
@@ -20,7 +21,7 @@ export default async function Page({
     <WeeklyPicks
       NFLTeams={nflTeamsData}
       currentGameWeek={currentGameWeekData}
-      leagueId={params.leagueId}
+      leagueId={leagueId}
     />
   );
 }

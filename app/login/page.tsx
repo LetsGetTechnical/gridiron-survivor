@@ -12,11 +12,11 @@ export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { loginAccount, isSignedIn } = useAuthContext();
+  const { loginAccount, isSignedIn, getUser } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push('/weeklyPicks');
+      getUser();
     }
   }, [isSignedIn]);
 

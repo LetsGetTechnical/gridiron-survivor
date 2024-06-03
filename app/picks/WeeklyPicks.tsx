@@ -7,17 +7,17 @@ import { Models } from 'appwrite/types/models';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { createWeeklyPicks } from '../../../api/apiFunctions';
-import { Button } from '../../../components/Button/Button';
+import { createWeeklyPicks } from '@/api/apiFunctions';
+import { Button } from '@/components/Button/Button';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '../../../components/Form/Form';
-import { RadioGroup } from '../../../components/RadioGroup/RadioGroup';
-import { WeeklyPickButton } from '../../../components/WeeklyPickButton/WeeklyPickButton';
+} from '../../components/Form/Form';
+import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
+import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -60,7 +60,13 @@ export default function WeeklyPicks({
     }
 
     // Ensure user and game data are valid before proceeding
-    if (user.id === '' || user.email === '' || gameWeek.id === '') return;
+    if (
+      user.id === '' ||
+      user.email === '' ||
+      gameWeek.id === '' ||
+      leagueId === ''
+    )
+      return;
 
     // If userPick exists, set the loaded state and return
     if (userPick) {
