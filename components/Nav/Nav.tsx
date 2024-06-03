@@ -32,9 +32,10 @@ export const Nav = () => {
   return (
     <nav
       className={cn(
-        'h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b',
-        pathname === '/login' || pathname == '/register' ? 'hidden' : 'flex',
+        'flex h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b',
+        pathname === '/login' || pathname == '/register' ? 'hidden' : '',
       )}
+      data-testid="nav"
     >
       <div className="mr-auto">
         <LogoNav />
@@ -42,12 +43,12 @@ export const Nav = () => {
       <ul>
         <li>
           <Drawer>
-            <DrawerTrigger>
+            <DrawerTrigger data-testid="drawer-trigger">
               <Menu color="white" />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Gridiron Survivor</DrawerTitle>
+                <DrawerTitle data-testid="title">Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
@@ -58,6 +59,7 @@ export const Nav = () => {
                     onClick={() => {
                       handleLogout();
                     }}
+                    data-testid="sign-out-button"
                   />
                 </li>
               </ul>
