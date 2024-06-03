@@ -10,5 +10,6 @@ describe('LinkCustom Component', () => {
     const link = screen.getByTestId('linkCustom');
     expect(link).toBeInTheDocument();
     expect(link).toHaveTextContent('Test link');
+    expect(link).toHaveAttribute('href', 'https://example.com');
   });
 });

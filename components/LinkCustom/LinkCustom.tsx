@@ -1,23 +1,21 @@
-// Import necessary modules from Next.js and React
 import Link from 'next/link';
 import React from 'react';
 
 interface ILinkCustomProps {
   children: string;
   href: string;
-  visuallyHiddenText?: string;
 }
 
-// Be sure to add visuallyHiddenText to your link to add additional context for screen reader users. Read more at https://webforeveryone.us/blog/fixing-the-six-most-common-bugs#links-with-discernable-text
-
+// Uses Next.js' Link component. Props include:
+// href = this is the URL you want the link to point to
+// children = any additional items you want inside the link. This could include things like the link text, icons, etc.
 const LinkCustom = ({ children, href }: ILinkCustomProps) => {
-  // Use Next.js Link component wrapped inside an anchor tag
   return (
     <Link
+      className={'hover:text-orange-600 hover:underline'}
       data-testid="linkCustom"
       href={href}
       passHref
-      className={'hover:text-orange-600 hover:underline'}
     >
       {children}
     </Link>
