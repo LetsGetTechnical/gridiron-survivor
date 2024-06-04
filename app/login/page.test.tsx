@@ -6,8 +6,8 @@ const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 const getUser = jest.fn();
 
-let emailInput: HTMLElement,
-  passwordInput: HTMLElement,
+let emailInput: HTMLInputElement,
+  passwordInput: HTMLInputElement,
   continueButton: HTMLElement;
 
 const mockUseAuthContext = {
@@ -38,7 +38,7 @@ describe('Login', () => {
 
     render(<Login />);
     emailInput = screen.getByTestId('email');
-    passwordInput = screen.getByTestId('password');
+    passwordInput = screen.getByTestId('password') as HTMLInputElement;
     continueButton = screen.getByTestId('continue-button');
   });
   test('should render the login page', () => {
