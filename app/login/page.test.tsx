@@ -38,7 +38,7 @@ describe('Login', () => {
 
     render(<Login />);
     emailInput = screen.getByTestId('email');
-    passwordInput = screen.getByTestId('password') as HTMLInputElement;
+    passwordInput = screen.getByTestId('password');
     continueButton = screen.getByTestId('continue-button');
   });
   test('should render the login page', () => {
