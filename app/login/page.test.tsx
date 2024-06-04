@@ -4,6 +4,7 @@ import Login from './page';
 
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
+const getUser = jest.fn();
 
 let emailInput: HTMLElement,
   passwordInput: HTMLElement,
@@ -12,6 +13,7 @@ let emailInput: HTMLElement,
 const mockUseAuthContext = {
   loginAccount: mockLoginAccount,
   isSignedIn: false,
+  getUser,
 };
 
 jest.mock('next/navigation', () => ({
@@ -69,7 +71,7 @@ describe('Login', () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<Login />);
-    expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+    expect(mockUseAuthContext.getUser).toHaveBeenCalled();
 
     mockUseAuthContext.isSignedIn = false;
   });
