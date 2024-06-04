@@ -4,11 +4,11 @@ import WeeklyPicks from './WeeklyPicks';
 import { getGameWeek, getNFLTeams } from '@/api/apiFunctions';
 
 interface Props {
-  searchParams: { leagueId: ILeague['leagueId'] };
+  searchParams?: { leagueId: ILeague['leagueId'] };
 }
 
 export default async function Page({ searchParams }: Props) {
-  const leagueId = searchParams.leagueId;
+  const leagueId = searchParams?.leagueId || '';
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getGameWeek();
 
