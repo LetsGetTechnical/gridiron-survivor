@@ -7,7 +7,7 @@ interface Props {
   searchParams?: { leagueId: ILeague['leagueId'] };
 }
 
-export default async function Page({ searchParams }: Props) {
+export default async function Picks({ searchParams }: Props) {
   const leagueId = searchParams?.leagueId || '';
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getGameWeek();
