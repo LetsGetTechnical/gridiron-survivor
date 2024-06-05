@@ -44,6 +44,7 @@ jobs:
           max_timeout: 600
         with:
           vercel_project_id: 'prj_jhk84MWACbySWbHiYbtTXS3UZrYS'
+          vercel_team_id: 'team_L3yo3uM53cN8XIzRl2HPgSWk'
       - name: Get URL
         run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
 
