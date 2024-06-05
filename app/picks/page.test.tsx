@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { getNFLTeams, getGameWeek } from '@/api/apiFunctions';
 import Picks from './page';
