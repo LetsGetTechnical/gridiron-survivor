@@ -32,21 +32,24 @@ jobs:
       - name: tests
         run: pnpm test
 
-  test_setup:
-    name: Test setup
+  test-e2e-setup:
+    name: Setup E2E Tests
     runs-on: ubuntu-latest
-    outputs:
-      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
     steps:
       - name: Wait for Vercel Preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
-        id: waitForVercelPreviewDeployment
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: zentered/vercel-preview-url@v1.1.9
+        id: vercel_preview_url
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           max_timeout: 600
+        with:
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel_team_id: ${{ secrets.VERCEL_TEAM_ID }}
+      - name: Get URL
+        run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
 
   test_e2e:
-    needs: test_setup
+    needs: test-e2e-setup
     name: Playwright Tests
     timeout-minutes: 5
     runs-on: ubuntu-latest
