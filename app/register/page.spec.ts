@@ -1,15 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-const goodUser = {
-  email: 'test1@email.com',
-  password: 'test12345',
+const user = {
   confirmPassword: 'test12345',
-};
-
-const badUser = {
-  email: 'wrongemail@email.com',
-  password: 'wrongpassword',
-  confirmPassword: 'wrongpassword1',
+  email: 'test1@email.com',
+  incorrectEmail: 'test@email.com',
+  incorrectPassword: 'test',
+  invalidconfirmPassword: 'tester',
+  invalidEmail: 'test',
+  invalidPassword: 'tester',
+  password: 'test12345',
 };
 
 test.beforeEach(async ({ page }) => {
@@ -18,21 +17,38 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Tests register page', () => {
   test('should successfully register', async ({ page }) => {
-    await page.getByTestId('email').fill(goodUser.email);
-    await page.getByTestId('password').fill(goodUser.password);
-    await page.getByTestId('confirm-password').fill(goodUser.confirmPassword);
+    await page.getByTestId('email').fill(user.email);
+    await page.getByTestId('password').fill(user.password);
+    await page.getByTestId('confirm-password').fill(user.confirmPassword);
     await page.getByTestId('continue-button').click();
     await page.goto('/weeklyPicks');
     await expect(page).toHaveURL('/weeklyPicks');
   });
-  test('should not be able to register and register button should be disabled', async ({
+  test('should not be able to register with invalid email and register button should be disabled', async ({
     page,
   }) => {
-    await page.getByTestId('email').fill(badUser.email);
-    await page.getByTestId('password').fill(badUser.password);
-    await page.getByTestId('confirm-password').fill(badUser.confirmPassword);
-    const isDisabled = await page.getByTestId('continue-button').isDisabled();
-    expect(isDisabled).toBe(true);
+    await page.getByTestId('email').fill(user.invalidEmail);
+    await page.getByTestId('password').fill(user.password);
+    await page.getByTestId('confirm-password').fill(user.confirmPassword);
+    await page.getByTestId('continue-button').click();
     await expect(page).toHaveURL('/register');
+  });
+  test('should not be able to register with invalid password and register button should be disabled', async ({
+    page,
+  }) => {
+    await page.getByTestId('email').fill(user.email);
+    await page.getByTestId('password').fill(user.invalidPassword);
+    await page.getByTestId('confirm-password').fill(user.confirmPassword);
+    await expect(page.getByTestId('continue-button')).toBeDisabled();
+  });
+  test('should not be able to register if confirm password recently got updated and register button should be disabled', async ({
+    page,
+  }) => {
+    await page.getByTestId('email').fill(user.email);
+    await page.getByTestId('password').fill(user.password);
+    await page
+      .getByTestId('confirm-password')
+      .fill(user.invalidconfirmPassword);
+    await expect(page.getByTestId('continue-button')).toBeDisabled();
   });
 });
