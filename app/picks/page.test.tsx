@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { getNFLTeams, getGameWeek } from '@/api/apiFunctions';
 import Picks from './page';
@@ -32,13 +32,17 @@ jest.mock('./WeeklyPicks', () => jest.fn(() => null));
 describe('Picks', () => {
   it('calls WeeklyPicks component with correct props', async () => {
     const jsx = await Picks({ searchParams: { leagueId: mockLeagueId } });
+    render(jsx);
 
-    expect(jsx.props.leagueId).toBe(mockLeagueId);
-    expect(getNFLTeams).toHaveBeenCalled();
-    expect(getGameWeek).toHaveBeenCalled();
-    expect(jsx.props.NFLTeams).toEqual(mockNFLTeamsData);
-    expect(jsx.props.currentGameWeek).toEqual(mockCurrentGameWeekData);
-    expect(WeeklyPicks).toHaveBeenCalled();
-    
+    expect(getNFLTeams).toHaveBeenCalledTimes(1);
+    expect(getGameWeek).toHaveBeenCalledTimes(1);
+    expect(WeeklyPicks).toHaveBeenCalledWith(
+      {
+        NFLTeams: mockNFLTeamsData,
+        currentGameWeek: mockCurrentGameWeekData,
+        leagueId: mockLeagueId,
+      },
+      {},
+    );
   });
 });
