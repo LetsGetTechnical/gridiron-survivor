@@ -10,6 +10,7 @@ export const LogoNav = () => {
       height={1}
       priority
       className='w-20'
+      data-testid='logo-nav'
     />
   )
 }
