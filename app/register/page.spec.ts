@@ -16,7 +16,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Tests register page', () => {
-  test('should successfully register', async ({ page }) => {
+  test('should successfully register and direct users to weekly picks', async ({ page }) => {
     await page.getByTestId('email').fill(user.email);
     await page.getByTestId('password').fill(user.password);
     await page.getByTestId('confirm-password').fill(user.confirmPassword);
