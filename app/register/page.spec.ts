@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { deleteCurrentUser } from '../../api/apiFunctions';
 
 const user = {
   confirmPassword: 'test12345',
@@ -11,7 +12,7 @@ const user = {
   password: 'test12345',
 };
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach( async ({ page }) => {
   await page.goto('/register');
 });
 
@@ -28,6 +29,7 @@ test.describe('Tests register page', () => {
     await page.getByTestId('drawer-trigger').click();
     await page.getByTestId('sign-out-button').click();
     await expect(page).toHaveURL('/login');
+    await deleteCurrentUser(user.email);
   });
   test('should not be able to register with invalid email and register button should be disabled', async ({
     page,
