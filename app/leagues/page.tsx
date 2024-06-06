@@ -33,7 +33,7 @@ export default function Leagues() {
             </LeagueCardDescription>
           </LeagueCardHeader>
         </LeagueCard>
-        <LeagueCard>
+        <LeagueCard isEliminated>
           <LeagueCardImage />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>

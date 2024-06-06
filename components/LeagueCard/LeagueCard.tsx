@@ -1,17 +1,23 @@
 import * as React from 'react';
 import { cn } from '@/utils/utils';
+import clsx from 'clsx';
 import Image from 'next/image';
 import placeholderImage from './placeHOlderImage.svg';
 
+interface ILeagueCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  isEliminated?: boolean;
+}
+
 const LeagueCard = React.forwardRef<
-  HTMLDivElement,
+  ILeagueCardProps,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ className, isEliminated = false, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
+    className={clsx(
       'flex h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
       className,
+      { 'LeagueCardEliminated opacity-50 dark:bg-zinc-700': isEliminated },
     )}
     {...props}
   />
@@ -50,7 +56,8 @@ const LeagueCardDescription = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
   <p ref={ref} className={cn('text-sm text-foreground', className)} {...props}>
-    Survivors 11<span className="text-muted-foreground"> / 12</span>
+    Survivors 11
+    <span className="text-muted-foreground dark:text-zinc-50/50"> / 12</span>
   </p>
 ));
 LeagueCardDescription.displayName = 'LeagueCardDescription';
