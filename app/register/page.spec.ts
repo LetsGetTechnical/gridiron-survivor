@@ -16,15 +16,18 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Tests register page', () => {
-  test('should successfully register and direct users to weekly picks', async ({
+  test('should successfully register, direct users to weekly picks, and logout', async ({
     page,
   }) => {
     await page.getByTestId('email').fill(user.email);
     await page.getByTestId('password').fill(user.password);
     await page.getByTestId('confirm-password').fill(user.confirmPassword);
     await page.getByTestId('continue-button').click();
-    await page.goto('/weeklyPicks');
-    await expect(page).toHaveURL('/weeklyPicks');
+    await page.waitForLoadState();
+    await page.getByTestId('nav').click();
+    await page.getByTestId('drawer-trigger').click();
+    await page.getByTestId('sign-out-button').click();
+    await expect(page).toHaveURL('/login');
   });
   test('should not be able to register with invalid email and register button should be disabled', async ({
     page,

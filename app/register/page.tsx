@@ -2,6 +2,7 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Models } from 'appwrite/types/models';
 
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
@@ -47,7 +48,8 @@ export default function Register() {
 
   const handleRegister = async () => {
     try {
-      await registerAccount({ email, password });
+      const accountRegistered = await registerAccount({ email, password });
+      console.log(accountRegistered.$id, accountRegistered.email);
       await loginAccount({ email, password });
       router.push('/weeklyPicks');
     } catch (error) {
