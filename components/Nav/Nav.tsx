@@ -44,7 +44,7 @@ export const Nav = () => {
         <li>
           <Drawer>
             <DrawerTrigger data-testid="drawer-trigger">
-              <Menu color="white" />
+              <Menu className="text-zinc-600 dark:text-white" />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
