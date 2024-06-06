@@ -3,7 +3,7 @@ import { deleteCurrentUser } from '../../api/apiFunctions';
 
 const user = {
   confirmPassword: 'test12345',
-  email: 'test1@email.com',
+  email: 'test2@email.com',
   incorrectEmail: 'test@email.com',
   incorrectPassword: 'test',
   invalidconfirmPassword: 'tester',
