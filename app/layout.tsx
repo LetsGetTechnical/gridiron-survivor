@@ -2,6 +2,7 @@ import { GeistSans } from 'geist/font/sans';
 import './globals.css';
 import Nav from '@/components/Nav/Nav';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
+import { Toaster } from 'react-hot-toast';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -24,6 +25,7 @@ export default function RootLayout({
         <AuthContextProvider>
           <Nav />
           <main>{children}</main>
+          <Toaster />
         </AuthContextProvider>
       </body>
     </html>
