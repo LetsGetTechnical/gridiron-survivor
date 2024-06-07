@@ -1,12 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import {
-  LeagueCard,
-  LeagueCardHeader,
-  LeagueCardTitle,
-  LeagueCardDescription,
-  LeagueCardContent,
-} from './LeagueCard';
+import { LeagueCardContent } from '../LeagueCardContent/LeagueCardContent';
+import { LeagueCardHeader } from '../LeagueCardHeader/LeagueCardHeader';
+import { LeagueCardTitle } from '../LeagueCardTitle/LeagueCardTitle';
+import { LeagueCard } from './LeagueCard';
+import { LeagueCardSurvivors } from '../LeagueCardSurvivors/LeagueCardSurvivors';
 
 describe('LeagueCard', () => {
   it('renders correctly if the user is not eliminated', () => {
@@ -15,7 +13,7 @@ describe('LeagueCard', () => {
         <LeagueCardContent />
         <LeagueCardHeader>
           <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-          <LeagueCardDescription />
+          <LeagueCardSurvivors />
         </LeagueCardHeader>
       </LeagueCard>,
     );
@@ -38,7 +36,7 @@ describe('LeagueCard', () => {
         <LeagueCardContent />
         <LeagueCardHeader>
           <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-          <LeagueCardDescription />
+          <LeagueCardSurvivors />
         </LeagueCardHeader>
       </LeagueCard>,
     );

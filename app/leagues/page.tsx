@@ -1,10 +1,8 @@
-import {
-  LeagueCard,
-  LeagueCardHeader,
-  LeagueCardTitle,
-  LeagueCardSurvivors,
-  LeagueCardContent,
-} from '@/components/LeagueCard/LeagueCard';
+import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
+import { LeagueCardContent } from '@/components/LeagueCardContent/LeagueCardContent';
+import { LeagueCardHeader } from '@/components/LeagueCardHeader/LeagueCardHeader';
+import { LeagueCardSurvivors } from '@/components/LeagueCardSurvivors/LeagueCardSurvivors';
+import { LeagueCardTitle } from '@/components/LeagueCardTitle/LeagueCardTitle';
 
 export default function Leagues() {
   return (

@@ -68,5 +68,5 @@
 
 .LeagueCardEliminated h4,
 .LeagueCardEliminated * {
-  @apply dark:text-zinc-50;
+  @apply dark:text-zinc-50/50;
 }
