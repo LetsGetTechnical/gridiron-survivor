@@ -1,4 +1,5 @@
 'use client';
+import { cache } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
@@ -25,45 +26,26 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const { updateUser, resetUser } = useDataStore<DataStore>((state) => state);
+  const { updateUser, resetUser, user } = useDataStore<DataStore>(
+    (state) => state,
+  );
   const router = useRouter();
 
-  // Check for a current session on component mount
   useEffect(() => {
-    const checkSession = async () => {
-      if (!isSessionInLocalStorage()) {
-        return;
-      }
+    if (user.id === '' || user.email === '') {
+      getUser();
+      return;
+    }
 
-      setIsSignedIn(true);
-    };
-    checkSession();
-  }, []);
-
-  useMemo(() => {
-    const getUser = async () => {
-      if (!isSignedIn) {
-        return;
-      }
-
-      try {
-        const userData = await account.get();
-        updateUser(userData.$id, userData.email);
-      } catch (error) {
-        resetUser();
-        setIsSignedIn(false);
-        console.log('Error getting user data:', error);
-        throw new Error('Error getting user data');
-      }
-    };
-    getUser();
-  }, [isSignedIn]);
+    setIsSignedIn(true);
+  }, [user]);
 
   // Authenticate and set session state
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await account.createEmailPasswordSession(user.email, user.password);
-      setIsSignedIn(true);
+      getUser();
+      router.push('/weeklyPicks');
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
@@ -81,6 +63,22 @@ export const AuthContextProvider = ({
       console.error('Logout error:', error);
     }
   };
+
+  // get user
+  const getUser = cache(async () => {
+    if (!isSessionInLocalStorage()) {
+      return;
+    }
+
+    try {
+      const userData = await account.get();
+      updateUser(userData.$id, userData.email);
+    } catch (error) {
+      resetUser();
+      setIsSignedIn(false);
+      throw new Error('Error getting user data');
+    }
+  });
 
   // Helper function to validate session data in local storage
   const isSessionInLocalStorage = (): boolean => {

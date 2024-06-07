@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { cn } from '../../lib/utils';
+import { cn } from '../../utils/utils';
 
 type LogoProps = {
   className?: string;
