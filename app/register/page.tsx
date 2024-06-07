@@ -17,6 +17,7 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function Register() {
   const router = useRouter();
@@ -67,6 +68,25 @@ export default function Register() {
     }
   }, [isSignedIn]);
 
+  const RegisterUserSchema = z.object({
+    email: z
+      .string()
+      .min(1, { message: 'Please enter an email address' })
+      .email({ message: 'Please enter a valid email address' }),
+    password: z
+      .string()
+      .min(1, { message: 'Please enter a password' })
+      .min(6, { message: 'Password must be at least 6 characters' }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: 'Please enter a password' })
+      .min(6, { message: 'Password must be at least 6 characters' }),
+  });
+
+  const form = useForm<z.infer<typeof RegisterUserSchema>>({
+    resolver: zodResolver(RegisterUserSchema),
+  });
+
   return (
     <div className="h-screen w-full">
       <div className="grid h-screen w-full grid-cols-2 bg-gradient-to-b from-[#4E160E] to-zinc-950">
@@ -91,30 +111,59 @@ export default function Register() {
               If you have an existing account{' '}
               <LinkCustom href="/login">Login!</LinkCustom>
             </p>
-            <Input
-              type="email"
-              value={email}
-              placeholder="Email"
-              onChange={handleEmail}
-            />
-            <Input
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={handlePassword}
-            />
-            <Input
-              type="password"
-              value={confirmPassword}
-              placeholder="Confirm Password"
-              onChange={handleConfirmPassword}
-            />
-            <Button
-              label="Register"
-              disabled={handleDisabled()}
-              onClick={handleRegister}
-            />
-            <LinkCustom href="/login">Login to get started playing</LinkCustom>
+
+            <Form {...form}>
+              <form>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          value={email}
+                          placeholder="Email"
+                          onChange={handleEmail}
+                        />
+                      </FormControl>
+
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            value={password}
+                            placeholder="Password"
+                            onChange={handlePassword}
+                          />
+                        </FormControl>
+                      </FormItem>
+
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            value={confirmPassword}
+                            placeholder="Confirm Password"
+                            onChange={handleConfirmPassword}
+                          />
+                        </FormControl>
+                      </FormItem>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  label="Register"
+                  disabled={handleDisabled()}
+                  onClick={handleRegister}
+                />
+                <LinkCustom href="/login">
+                  Login to get started playing
+                </LinkCustom>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

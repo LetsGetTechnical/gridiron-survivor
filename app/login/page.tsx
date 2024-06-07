@@ -77,7 +77,11 @@ export default function Login() {
           </p>
         </div>
         <Form {...form}>
-          <form id="input-container" className="grid gap-4">
+          <form
+            id="input-container"
+            className="grid gap-4"
+            // onSubmit={form.handleSubmit(handleSubmit)}
+          >
             <FormField
               control={form.control}
               name="email"
