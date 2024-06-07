@@ -8,7 +8,7 @@ import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import {
   Form,
   FormControl,
@@ -53,6 +53,12 @@ export default function Login() {
     resolver: zodResolver(LoginUserSchema),
   });
 
+  const onSubmit: SubmitHandler<z.infer<typeof LoginUserSchema>> = async (
+    data,
+  ) => {
+    await loginAccount(data);
+  };
+
   return (
     <section className="grid grid-rows-3 xl:grid-cols-2 xl:grid-rows-none">
       <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
@@ -80,7 +86,7 @@ export default function Login() {
           <form
             id="input-container"
             className="grid gap-4"
-            // onSubmit={form.handleSubmit(handleSubmit)}
+            // onSubmit={handleSubmit(onSubmit)}
           >
             <FormField
               control={form.control}
@@ -96,19 +102,25 @@ export default function Login() {
                       onChange={handleEmail}
                     />
                   </FormControl>
-
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        data-testid="password"
-                        type="password"
-                        value={password}
-                        placeholder="Password"
-                        onChange={handlePassword}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="password"
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={handlePassword}
+                    />
+                  </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -117,6 +129,7 @@ export default function Login() {
               label="Continue"
               disabled={!email && !password}
               onClick={() => loginAccount({ email, password })}
+              // type="submit"
             />
             <LinkCustom href="/register">
               Sign up to get started with a league
