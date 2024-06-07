@@ -1,16 +1,22 @@
 'use client';
 import { useState, ChangeEvent, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/Button/Button';
-import {  registerAccount } from '@/api/apiFunctions';
-
+import { registerAccount } from '@/api/apiFunctions';
 import logo from '/public/assets/logo-colored-outline.svg';
-
 import { useAuthContext } from '@/context/AuthContextProvider';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '../../components/Form/Form';
 
 export default function Register() {
   const router = useRouter();
@@ -83,9 +89,7 @@ export default function Register() {
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               If you have an existing account{' '}
-              <Link href="/login" className="hover:text-orange-600">
-                Login!
-              </Link>
+              <LinkCustom href="/login">Login!</LinkCustom>
             </p>
             <Input
               type="email"
@@ -110,9 +114,7 @@ export default function Register() {
               disabled={handleDisabled()}
               onClick={handleRegister}
             />
-            <Link href="/login" className="hover:text-orange-600">
-              Login to get started playing
-            </Link>
+            <LinkCustom href="/login">Login to get started playing</LinkCustom>
           </div>
         </div>
       </div>
