@@ -1,7 +1,11 @@
 'use client';
 import { cache } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { account } from '@/api/config';
+import {
+  createSession,
+  getLoggedInUser,
+  deleteSession,
+} from '@/api/serverConfig';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
@@ -43,7 +47,8 @@ export const AuthContextProvider = ({
   // Authenticate and set session state
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
-      await account.createEmailPasswordSession(user.email, user.password);
+      const session = await createSession(user.email, user.password);
+      console.log(session);
       getUser();
       router.push('/weeklyPicks');
     } catch (error) {
@@ -55,7 +60,7 @@ export const AuthContextProvider = ({
   // Log out and clear session state
   const logoutAccount = async (): Promise<void> => {
     try {
-      await account.deleteSession('current');
+      await deleteSession();
       setIsSignedIn(false);
       resetUser(); // Reset user data in the store
       router.push('/login');
@@ -66,12 +71,13 @@ export const AuthContextProvider = ({
 
   // get user
   const getUser = cache(async () => {
-    if (!isSessionInLocalStorage()) {
-      return;
-    }
-
     try {
-      const userData = await account.get();
+      const userData = await getLoggedInUser();
+
+      if (!userData) {
+        return;
+      }
+      console.log(userData);
       updateUser(userData.$id, userData.email);
     } catch (error) {
       resetUser();
