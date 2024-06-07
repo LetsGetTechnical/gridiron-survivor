@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { cn } from '@/utils/utils';
-import clsx from 'clsx';
 import Image from 'next/image';
 import placeholderImage from './placeHOlderImage.svg';
 
@@ -13,8 +12,9 @@ const LeagueCard = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, isEliminated = false, ...props }, ref) => (
   <div
+    data-testid="LeagueCard"
     ref={ref}
-    className={clsx(
+    className={cn(
       'flex h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
       className,
       { 'LeagueCardEliminated opacity-50 dark:bg-zinc-700': isEliminated },
@@ -29,6 +29,7 @@ const LeagueCardHeader = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div
+    data-testid="LeagueCardHeader"
     ref={ref}
     className={cn('flex flex-col space-y-1.5', className)}
     {...props}
@@ -41,6 +42,7 @@ const LeagueCardTitle = React.forwardRef<
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
   <h4
+    data-testid="LeagueCardTitle"
     ref={ref}
     className={cn(
       'text-2xl font-semibold leading-none tracking-tight dark:text-zinc-50',
@@ -55,7 +57,12 @@ const LeagueCardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-sm text-foreground', className)} {...props}>
+  <p
+    data-testid="LeagueCardDescription"
+    ref={ref}
+    className={cn('text-sm text-foreground', className)}
+    {...props}
+  >
     Survivors 11
     <span className="text-muted-foreground dark:text-zinc-50/50"> / 12</span>
   </p>
@@ -66,7 +73,12 @@ const LeagueCardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn(className)} {...props} />
+  <div
+    data-testid="LeagueCardContent"
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  />
 ));
 LeagueCardContent.displayName = 'LeagueCardContent';
 
@@ -76,6 +88,7 @@ const LeagueCardImage = React.forwardRef<
 >(({ className, ...props }) => (
   <LeagueCardContent>
     <Image
+      data-testid="LeagueCardImage"
       src={placeholderImage}
       alt="test"
       className="h-24 w-24 rounded-xl"

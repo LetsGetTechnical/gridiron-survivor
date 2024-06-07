@@ -19,27 +19,21 @@ export default function Leagues() {
           <LeagueCardImage />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-            <LeagueCardDescription>
-              LeagueCard Description
-            </LeagueCardDescription>
+            <LeagueCardDescription />
           </LeagueCardHeader>
         </LeagueCard>
         <LeagueCard>
           <LeagueCardImage />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-            <LeagueCardDescription>
-              LeagueCard Description
-            </LeagueCardDescription>
+            <LeagueCardDescription />
           </LeagueCardHeader>
         </LeagueCard>
         <LeagueCard isEliminated>
           <LeagueCardImage />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-            <LeagueCardDescription>
-              LeagueCard Description
-            </LeagueCardDescription>
+            <LeagueCardDescription />
           </LeagueCardHeader>
         </LeagueCard>
       </section>
