@@ -98,8 +98,6 @@ export const getNFLTeams = async (): Promise<Models.Document[]> => {
     );
 
     return response.documents;
-
-    return response.documents;
   } catch (error) {
     console.error(error);
     throw new Error('Error getting NFL teams');
