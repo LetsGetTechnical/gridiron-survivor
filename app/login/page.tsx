@@ -48,7 +48,6 @@ export default function Login() {
       .min(1, { message: 'Please enter a password' })
       .min(6, { message: 'Password must be at least 6 characters' }),
   });
-
   const form = useForm<z.infer<typeof LoginUserSchema>>({
     resolver: zodResolver(LoginUserSchema),
   });
@@ -98,8 +97,8 @@ export default function Login() {
                       <Input
                         data-testid="password"
                         type="password"
-                        placeholder="Password"
                         value={password}
+                        placeholder="Password"
                         onChange={handlePassword}
                       />
                     </FormControl>
