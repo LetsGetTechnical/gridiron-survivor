@@ -53,12 +53,6 @@ export default function Login() {
     resolver: zodResolver(LoginUserSchema),
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof LoginUserSchema>> = async (
-    data,
-  ) => {
-    await loginAccount(data);
-  };
-
   return (
     <section className="grid grid-rows-3 xl:grid-cols-2 xl:grid-rows-none">
       <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
