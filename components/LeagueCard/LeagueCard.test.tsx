@@ -5,14 +5,14 @@ import {
   LeagueCardHeader,
   LeagueCardTitle,
   LeagueCardDescription,
-  LeagueCardImage,
+  LeagueCardContent,
 } from './LeagueCard';
 
 describe('LeagueCard', () => {
   it('renders correctly if the user is not eliminated', () => {
     render(
       <LeagueCard>
-        <LeagueCardImage />
+        <LeagueCardContent />
         <LeagueCardHeader>
           <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
           <LeagueCardDescription />
@@ -35,7 +35,7 @@ describe('LeagueCard', () => {
   it('renders correctly with less opacity if the user is eliminated', () => {
     render(
       <LeagueCard isEliminated>
-        <LeagueCardImage />
+        <LeagueCardContent />
         <LeagueCardHeader>
           <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
           <LeagueCardDescription />

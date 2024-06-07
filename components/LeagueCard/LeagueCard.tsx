@@ -1,27 +1,26 @@
 import * as React from 'react';
 import { cn } from '@/utils/utils';
 import Image from 'next/image';
-import placeholderImage from './placeHOlderImage.svg';
+import placeholderImage from './placeholderImage.svg';
 
 interface ILeagueCardProps extends React.HTMLAttributes<HTMLDivElement> {
   isEliminated?: boolean;
 }
 
-const LeagueCard = React.forwardRef<
-  ILeagueCardProps,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, isEliminated = false, ...props }, ref) => (
-  <div
-    data-testid="LeagueCard"
-    ref={ref}
-    className={cn(
-      'flex h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
-      className,
-      { 'LeagueCardEliminated opacity-50 dark:bg-zinc-700': isEliminated },
-    )}
-    {...props}
-  />
-));
+const LeagueCard = React.forwardRef<HTMLDivElement, ILeagueCardProps>(
+  ({ className, isEliminated = false, ...props }, ref) => (
+    <div
+      data-testid="LeagueCard"
+      ref={ref}
+      className={cn(
+        'flex h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
+        className,
+        { 'LeagueCardEliminated opacity-50 dark:bg-zinc-700': isEliminated },
+      )}
+      {...props}
+    />
+  ),
+);
 LeagueCard.displayName = 'LeagueCard';
 
 const LeagueCardHeader = React.forwardRef<
@@ -78,25 +77,16 @@ const LeagueCardContent = React.forwardRef<
     ref={ref}
     className={cn(className)}
     {...props}
-  />
-));
-LeagueCardContent.displayName = 'LeagueCardContent';
-
-const LeagueCardImage = React.forwardRef<
-  HTMLImageElement,
-  React.HTMLAttributes<HTMLImageElement>
->(({ className, ...props }) => (
-  <LeagueCardContent>
+  >
     <Image
       data-testid="LeagueCardImage"
       src={placeholderImage}
       alt="test"
       className="h-24 w-24 rounded-xl"
-      {...props}
     />
-  </LeagueCardContent>
+  </div>
 ));
-LeagueCardImage.displayName = 'LeagueCardImage';
+LeagueCardContent.displayName = 'LeagueCardContent';
 
 export {
   LeagueCard,
@@ -104,5 +94,4 @@ export {
   LeagueCardTitle,
   LeagueCardDescription,
   LeagueCardContent,
-  LeagueCardImage,
 };

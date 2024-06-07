@@ -1,11 +1,9 @@
-import Image from 'next/image';
-import placeholderImage from '@/public/assets/team-logo-placeholder.jpg';
 import {
   LeagueCard,
   LeagueCardHeader,
   LeagueCardTitle,
   LeagueCardDescription,
-  LeagueCardImage,
+  LeagueCardContent,
 } from '@/components/LeagueCard/LeagueCard';
 
 export default function Leagues() {
@@ -16,21 +14,21 @@ export default function Leagues() {
       </h1>
       <section className="grid gap-6 md:grid-cols-2">
         <LeagueCard>
-          <LeagueCardImage />
+          <LeagueCardContent />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
             <LeagueCardDescription />
           </LeagueCardHeader>
         </LeagueCard>
         <LeagueCard>
-          <LeagueCardImage />
+          <LeagueCardContent />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
             <LeagueCardDescription />
           </LeagueCardHeader>
         </LeagueCard>
-        <LeagueCard isEliminated>
-          <LeagueCardImage />
+        <LeagueCard isEliminated={true}>
+          <LeagueCardContent />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
             <LeagueCardDescription />
