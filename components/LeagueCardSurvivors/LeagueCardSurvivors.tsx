@@ -16,9 +16,15 @@ const LeagueCardSurvivors = React.forwardRef<
     )}
     {...props}
   >
-    {isEliminated ? 'ELIMINATED' : `Surviors ${survivors} `}
+    {isEliminated ? 'ELIMINATED' : `Survivors ${survivors} `}
     {!isEliminated && (
-      <span className="text-foreground/50"> / {totalPlayers}</span>
+      <span
+        data-testid="LeagueCardSurvivorsTotalPlayers"
+        className="text-foreground/50"
+      >
+        {' '}
+        / {totalPlayers}
+      </span>
     )}
   </p>
 ));
