@@ -8,7 +8,7 @@ import {
 
 export default function Leagues() {
   return (
-    <div>
+    <div className="leagues">
       <h1 className="pb-10 text-center text-3xl font-bold leading-[-3%]">
         Your leagues
       </h1>
