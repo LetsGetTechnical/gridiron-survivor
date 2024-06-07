@@ -78,19 +78,35 @@ export default function Login() {
         </div>
         <Form {...form}>
           <form id="input-container" className="grid gap-4">
-            <FormControl
-              data-testid="email"
-              type="email"
-              value={email}
-              placeholder="Email"
-              onChange={handleEmail}
-            />
-            <FormControl
-              data-testid="password"
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={handlePassword}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="email"
+                      type="email"
+                      value={email}
+                      placeholder="Email"
+                      onChange={handleEmail}
+                    />
+                  </FormControl>
+
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        data-testid="password"
+                        type="password"
+                        value={password}
+                        placeholder="Password"
+                        onChange={handlePassword}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </FormItem>
+              )}
             />
             <Button
               data-testid="continue-button"
