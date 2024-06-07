@@ -6,18 +6,14 @@ import * as React from 'react';
 import Link from 'next/link';
 
 const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
-  ({
-    className,
-    href,
-    isEliminated,
-    survivors,
-    title,
-    totalPlayers,
-    ...props
-  }) => (
+  (
+    { className, href, isEliminated, survivors, title, totalPlayers, ...props },
+    ref,
+  ) => (
     <Link
       data-testid="LeagueCard"
       href={href}
+      ref={ref}
       className={cn(
         'LeagueCard flex h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
         isEliminated ? 'opacity-50 dark:bg-zinc-700' : '',

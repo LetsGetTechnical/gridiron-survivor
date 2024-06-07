@@ -1,21 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { LeagueCardContent } from '../LeagueCardContent/LeagueCardContent';
-import { LeagueCardHeader } from '../LeagueCardHeader/LeagueCardHeader';
-import { LeagueCardTitle } from '../LeagueCardTitle/LeagueCardTitle';
 import { LeagueCard } from './LeagueCard';
-import { LeagueCardSurvivors } from '../LeagueCardSurvivors/LeagueCardSurvivors';
 
 describe('LeagueCard', () => {
   it('renders correctly if the user is not eliminated', () => {
     render(
-      <LeagueCard>
-        <LeagueCardContent />
-        <LeagueCardHeader>
-          <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-          <LeagueCardSurvivors />
-        </LeagueCardHeader>
-      </LeagueCard>,
+      <LeagueCard
+        href="/leagues"
+        survivors={11}
+        title="League 1"
+        totalPlayers={12}
+      />,
     );
 
     const leagueCard = screen.getByTestId('LeagueCard');
@@ -32,13 +27,12 @@ describe('LeagueCard', () => {
   });
   it('renders correctly with less opacity if the user is eliminated', () => {
     render(
-      <LeagueCard isEliminated>
-        <LeagueCardContent />
-        <LeagueCardHeader>
-          <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-          <LeagueCardSurvivors />
-        </LeagueCardHeader>
-      </LeagueCard>,
+      <LeagueCard
+        href="/leagues"
+        survivors={11}
+        title="League 1"
+        totalPlayers={12}
+      />,
     );
 
     const leagueCard = screen.getByTestId('LeagueCard');
