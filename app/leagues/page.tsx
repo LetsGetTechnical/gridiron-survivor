@@ -9,7 +9,7 @@ import {
 export default function Leagues() {
   return (
     <div className="leagues">
-      <h1 className="pb-10 text-center text-3xl font-bold leading-[-3%]">
+      <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
         Your leagues
       </h1>
       <section className="grid gap-6 md:grid-cols-2">
