@@ -65,8 +65,3 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
-
-.LeagueCardEliminated h4,
-.LeagueCardEliminated * {
-  @apply dark:text-zinc-50/50;
-}

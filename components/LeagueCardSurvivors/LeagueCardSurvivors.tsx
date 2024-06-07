@@ -1,18 +1,25 @@
-import * as React from 'react';
 import { cn } from '@/utils/utils';
+import { ILeagueCardSurvivorsProps } from './ILeagueCardSurvivorsProps';
+import * as React from 'react';
 
 const LeagueCardSurvivors = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
+  ILeagueCardSurvivorsProps
+>(({ className, isEliminated, survivors, totalPlayers, ...props }, ref) => (
   <p
     data-testid="LeagueCardSurvivors"
     ref={ref}
-    className={cn('LeagueCardSurvivors text-sm text-foreground', className)}
+    className={cn(
+      'LeagueCardSurvivors text-sm text-foreground',
+      isEliminated ? 'text-foreground/50' : '',
+      className,
+    )}
     {...props}
   >
-    Survivors 11
-    <span className="text-muted-foreground dark:text-zinc-50/50"> / 12</span>
+    {isEliminated ? 'ELIMINATED' : `Surviors ${survivors} `}
+    {!isEliminated && (
+      <span className="text-foreground/50"> / {totalPlayers}</span>
+    )}
   </p>
 ));
 LeagueCardSurvivors.displayName = 'LeagueCardSurvivors';

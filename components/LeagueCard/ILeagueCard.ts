@@ -1,5 +1,8 @@
-export interface ILeagueCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ILeagueCardProps
+  extends React.HTMLAttributes<HTMLAnchorElement> {
+  href: string;
   isEliminated?: boolean;
+  survivors: number;
+  title: string;
+  totalPlayers: number;
 }
-
-// export {ILeagueCardProps};
