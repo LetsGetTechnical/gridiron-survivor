@@ -52,12 +52,12 @@ const LeagueCardTitle = React.forwardRef<
 ));
 LeagueCardTitle.displayName = 'LeagueCardTitle';
 
-const LeagueCardDescription = React.forwardRef<
+const LeagueCardSurvivors = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
   <p
-    data-testid="LeagueCardDescription"
+    data-testid="LeagueCardSurvivors"
     ref={ref}
     className={cn('text-sm text-foreground', className)}
     {...props}
@@ -66,7 +66,7 @@ const LeagueCardDescription = React.forwardRef<
     <span className="text-muted-foreground dark:text-zinc-50/50"> / 12</span>
   </p>
 ));
-LeagueCardDescription.displayName = 'LeagueCardDescription';
+LeagueCardSurvivors.displayName = 'LeagueCardSurvivors';
 
 const LeagueCardContent = React.forwardRef<
   HTMLDivElement,
@@ -92,6 +92,6 @@ export {
   LeagueCard,
   LeagueCardHeader,
   LeagueCardTitle,
-  LeagueCardDescription,
+  LeagueCardSurvivors,
   LeagueCardContent,
 };

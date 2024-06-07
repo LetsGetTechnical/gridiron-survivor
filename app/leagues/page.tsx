@@ -2,7 +2,7 @@ import {
   LeagueCard,
   LeagueCardHeader,
   LeagueCardTitle,
-  LeagueCardDescription,
+  LeagueCardSurvivors,
   LeagueCardContent,
 } from '@/components/LeagueCard/LeagueCard';
 
@@ -17,21 +17,21 @@ export default function Leagues() {
           <LeagueCardContent />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-            <LeagueCardDescription />
+            <LeagueCardSurvivors />
           </LeagueCardHeader>
         </LeagueCard>
         <LeagueCard>
           <LeagueCardContent />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-            <LeagueCardDescription />
+            <LeagueCardSurvivors />
           </LeagueCardHeader>
         </LeagueCard>
         <LeagueCard isEliminated={true}>
           <LeagueCardContent />
           <LeagueCardHeader>
             <LeagueCardTitle>LeagueCard Title</LeagueCardTitle>
-            <LeagueCardDescription />
+            <LeagueCardSurvivors />
           </LeagueCardHeader>
         </LeagueCard>
       </section>
