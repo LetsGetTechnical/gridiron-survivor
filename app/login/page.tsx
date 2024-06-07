@@ -8,7 +8,7 @@ import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { z } from 'zod';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
@@ -77,11 +77,7 @@ export default function Login() {
           </p>
         </div>
         <Form {...form}>
-          <form
-            id="input-container"
-            className="grid gap-4"
-            // onSubmit={handleSubmit(onSubmit)}
-          >
+          <form id="input-container" className="grid gap-4">
             <FormField
               control={form.control}
               name="email"
@@ -96,25 +92,19 @@ export default function Login() {
                       onChange={handleEmail}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      data-testid="password"
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={handlePassword}
-                    />
-                  </FormControl>
-                  <FormMessage />
+
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        data-testid="password"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={handlePassword}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 </FormItem>
               )}
             />
@@ -123,7 +113,6 @@ export default function Login() {
               label="Continue"
               disabled={!email && !password}
               onClick={() => loginAccount({ email, password })}
-              // type="submit"
             />
             <LinkCustom href="/register">
               Sign up to get started with a league
