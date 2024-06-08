@@ -65,13 +65,18 @@ describe('Register', () => {
   });
 
 test('should call registerAccount function with email and password when continue button is clicked', () => {
-  fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-  fireEvent.change(passwordInput, { target: { value: 'password123' } });
-  fireEvent.change(confirmPasswordInput, { target: { value: 'password123' } });
+  const email = 'test@example.com';
+  const password = 'password123';
+  const confirmPassword = 'password123';
+  
+  fireEvent.change(emailInput, { target: { value: email } });
+  fireEvent.change(passwordInput, { target: { value: password } });
+  fireEvent.change(confirmPasswordInput, { target: { value: confirmPassword } });
   fireEvent.click(continueButton);
 
   expect(mockRegisterAccount).toHaveBeenCalledWith(
-    'test@example.com', 'password123', 'password123');
+    email, password, confirmPassword
+  );
 })
 
 test('redirects to /weeklyPicks when the button is clicked', () => {
