@@ -62,6 +62,10 @@ export default function Register() {
     }
   }, [isSignedIn]);
 
+  useEffect(() => {
+    document.title = 'Registration Page | GridIron Survivor';
+  }, []);
+
   return (
     <div className="h-screen w-full">
       <div className="grid h-screen w-full grid-cols-2 bg-gradient-to-b from-[#4E160E] to-zinc-950">
