@@ -26,13 +26,13 @@ jest.mock('../../context/AuthContextProvider', () => ({
 }));
 
 describe('Register', () => {
-  let emailInput: HTMLElement,
-    passwordInput: HTMLElement,
-    confirmPasswordInput: HTMLElement,
-    continueButton: HTMLElement;
-    
+  let emailInput: HTMLElement;
+  let passwordInput: HTMLElement;
+  let confirmPasswordInput: HTMLElement;
+  let continueButton: HTMLElement;
+
   beforeEach(() => {
-    jest.clearAllMocks();    
+    jest.clearAllMocks();
 
     render(<Register />);
 
@@ -41,44 +41,45 @@ describe('Register', () => {
     confirmPasswordInput = screen.getByTestId('confirm-password');
     continueButton = screen.getByTestId('continue-button');
   });
+
   test('should render the register page', () => {
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
     expect(confirmPasswordInput).toBeInTheDocument();
     expect(continueButton).toBeInTheDocument();
   });
-})      
 
-test('should update email state when input value changes', () => {
-  fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-  expect(emailInput).toHaveValue('test@example.com');
-});
+  test('should update email state when input value changes', () => {
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    expect(emailInput).toHaveValue('test@example.com');
+  });
 
-test('should update password state when input value changes', () => {
-  fireEvent.change(passwordInput, { target: { value: 'password123' } });
-  expect(passwordInput).toHaveValue('password123');
-}); 
+  test('should update password state when input value changes', () => {
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    expect(passwordInput).toHaveValue('password123');
+  });
 
-test('should update confirmPassword state when input value changes', () => {
-  fireEvent.change(confirmPasswordInput, { target: { value: 'password123' } });
-  expect(confirmPasswordInput).toHaveValue('password123');
-});
+  test('should update confirmPassword state when input value changes', () => {
+    fireEvent.change(confirmPasswordInput, { target: { value: 'password123' } });
+    expect(confirmPasswordInput).toHaveValue('password123');
+  });
 
 test('should call registerAccount function with email and password when continue button is clicked', () => {
   fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
   fireEvent.change(passwordInput, { target: { value: 'password123' } });
   fireEvent.change(confirmPasswordInput, { target: { value: 'password123' } });
   fireEvent.click(continueButton);
-  
+
   expect(mockRegisterAccount).toHaveBeenCalledWith(
-    'test@example.com', 'password123');
+    'test@example.com', 'password123', 'password123');
 })
 
 test('redirects to /weeklyPicks when the button is clicked', () => {
   mockUseAuthContext.isSignedIn = true;
-  
+
   render(<Register />);
   expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
-  
+
   mockUseAuthContext.isSignedIn = false;
+});
 });
