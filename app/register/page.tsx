@@ -11,6 +11,7 @@ import {  registerAccount } from '@/api/apiFunctions';
 import logo from '/public/assets/logo-colored-outline.svg';
 
 import { useAuthContext } from '@/context/AuthContextProvider';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
 export default function Register() {
   const router = useRouter();
@@ -83,9 +84,9 @@ export default function Register() {
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               If you have an existing account{' '}
-              <Link href="/login" className="hover:text-orange-600">
+              <LinkCustom href="/login">
                 Login!
-              </Link>
+              </LinkCustom>
             </p>
             <Input
               type="email"
@@ -110,9 +111,9 @@ export default function Register() {
               disabled={handleDisabled()}
               onClick={handleRegister}
             />
-            <Link href="/login" className="hover:text-orange-600">
+            <LinkCustom href="/login">
               Login to get started playing
-            </Link>
+            </LinkCustom>
           </div>
         </div>
       </div>
