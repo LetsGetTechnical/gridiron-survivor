@@ -1,12 +1,12 @@
 'use server';
 import { users } from './serverConfig';
 
-export const getUser = async (userId: string) => {
-  const result = await users.get(userId);
+export const deleteUser = async (userId: string) => {
+  const result = await users.delete(userId);
   return result;
 };
 
-export const deleteUser = async (userId: string) => {
-  const result = await users.delete(userId);
+export const updateEmail = async (userId: string, email: string) => {
+  const result = await users.updateEmail(userId, email);
   return result;
 };
