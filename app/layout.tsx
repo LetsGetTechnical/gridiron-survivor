@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className="dark:dark bg-background px-4 pb-8 text-foreground">
         <AuthContextProvider>
           <Nav />
-          <main className="mx-auto max-w-3xl pt-10">{children}</main>
+          <main>{children}</main>
         </AuthContextProvider>
       </body>
     </html>

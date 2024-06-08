@@ -1,5 +1,4 @@
-export interface ILeagueCardSurvivorsProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {
+export interface ILeagueCardSurvivorsProps {
   isEliminated?: boolean;
   survivors: number;
   totalPlayers: number;

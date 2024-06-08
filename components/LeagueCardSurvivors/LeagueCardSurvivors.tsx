@@ -5,19 +5,17 @@ import * as React from 'react';
 const LeagueCardSurvivors = React.forwardRef<
   HTMLParagraphElement,
   ILeagueCardSurvivorsProps
->(({ className, isEliminated, survivors, totalPlayers, ...props }, ref) => (
+>(({ isEliminated, survivors, totalPlayers, ...props }) => (
   <p
     data-testid="LeagueCardSurvivors"
-    ref={ref}
     className={cn(
       'LeagueCardSurvivors text-sm text-foreground',
       isEliminated ? 'text-foreground/50' : '',
-      className,
     )}
     {...props}
   >
     {isEliminated ? 'ELIMINATED' : `Survivors ${survivors} `}
-    {!isEliminated && (
+    {isEliminated === false && (
       <span
         data-testid="LeagueCardSurvivorsTotalPlayers"
         className="text-foreground/50"

@@ -1,5 +1,5 @@
 import { cn } from '@/utils/utils';
-import { ILeagueCardProps } from './ILeagueCard';
+import { ILeagueCardProps } from './ILeagueCardProps';
 import { LeagueCardSurvivors } from '../LeagueCardSurvivors/LeagueCardSurvivors';
 import * as React from 'react';
 import Image from 'next/image';
@@ -7,7 +7,14 @@ import LeagueCardPlaceholderLogo from './LeagueCardPlaceholderLogo.svg';
 import Link from 'next/link';
 
 const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
-  ({ href, isEliminated, leagueCardLogo, survivors, title, totalPlayers }) => (
+  ({
+    href,
+    isEliminated = false,
+    leagueCardLogo = LeagueCardPlaceholderLogo,
+    survivors,
+    title,
+    totalPlayers,
+  }) => (
     <Link
       data-testid="LeagueCard"
       href={href}
@@ -21,7 +28,7 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
         className="LeagueCardLogo aspect-square h-24 w-24 rounded-xl"
         data-testid="LeagueCardLogo"
         height={96}
-        src={!leagueCardLogo ? LeagueCardPlaceholderLogo : leagueCardLogo}
+        src={leagueCardLogo}
         width={96}
       />
       <div
