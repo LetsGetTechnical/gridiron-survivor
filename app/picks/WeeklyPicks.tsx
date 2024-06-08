@@ -1,14 +1,12 @@
 'use client';
-import { IGameWeek } from '@/api/IapiFunctions';
-import { useDataStore } from '@/store/dataStore';
-import { getGameData, getUserPick, parseUserPick } from '@/utils/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Models } from 'appwrite/types/models';
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { useEffect, useState } from 'react';
 import { createWeeklyPicks } from '@/api/apiFunctions';
 import { Button } from '@/components/Button/Button';
+import { useDataStore } from '@/store/dataStore';
+import { parseUserPick } from '@/utils/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import {
   Form,
   FormControl,
@@ -18,6 +16,8 @@ import {
 } from '../../components/Form/Form';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
+import { IWeeklyPicksProps } from './IPicks';
+import useProcessGame from '@/utils/useProcessGame';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -29,17 +29,11 @@ const FormSchema = z.object({
 
 export const revalidate = 900; // 15 minutes
 
-interface Props {
-  NFLTeams: Models.Document[];
-  currentGameWeek: IGameWeek;
-  leagueId: string;
-}
-
 export default function WeeklyPicks({
   NFLTeams,
   currentGameWeek,
   leagueId,
-}: Props) {
+}: IWeeklyPicksProps) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
   const {
@@ -68,7 +62,7 @@ export default function WeeklyPicks({
     )
       return;
 
-    // If userPick exists, set the loaded state and return
+    // If userPick exists, set the loaded state
     if (userPick) {
       setIsLoaded(true);
       return;
@@ -76,48 +70,15 @@ export default function WeeklyPicks({
 
     // Process the game if all conditions are met
     processGame();
-  }, [
-    user,
-    userPick,
+  }, [user, userPick, gameWeek, updateGameWeek, leagueId]);
+
+  const processGame = useProcessGame({
+    leagueId,
     gameWeek,
-    currentGameWeek,
-    updateGameWeek,
-    NFLTeam,
+    user,
     NFLTeams,
-    updateNFLTeam,
-  ]);
-
-  const processGame = useCallback(async () => {
-    const { league, weeklyPicksData } = await getGameData({
-      leagueId: leagueId,
-      currentGameWeekId: gameWeek.id,
-    });
-
-    if (!league || !weeklyPicksData) {
-      console.error('Error getting game data');
-      return;
-    }
-
-    updateLeague({
-      leagueId: leagueId,
-      participants: league.participants,
-      survivors: league.survivors,
-    });
-
-    updateWeeklyPicks({
-      leagueId: leagueId,
-      gameWeekId: gameWeek.id,
-      userResults: weeklyPicksData.userResults,
-    });
-
-    const userPickData = await getUserPick({
-      weeklyPicks: weeklyPicksData.userResults,
-      userId: user.id,
-      NFLTeams: NFLTeams,
-    });
-
-    setUserPick(userPickData);
-  }, [user.id, gameWeek.id, NFLTeams, userPick]);
+    setUserPick,
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
