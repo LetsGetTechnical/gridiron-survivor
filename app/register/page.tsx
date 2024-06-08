@@ -1,5 +1,5 @@
 'use client';
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
@@ -9,7 +9,8 @@ import logo from '/public/assets/logo-colored-outline.svg';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -17,58 +18,9 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-export default function Register() {
-  const router = useRouter();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const { loginAccount, isSignedIn } = useAuthContext();
-
-  const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.target.value);
-  };
-
-  const handlePassword = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value);
-  };
-
-  const comparePasswords = (password: string, confirmPassword: string) => {
-    return password === confirmPassword;
-  };
-
-  const handleConfirmPassword = (
-    event: ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleDisabled = () => {
-    const passwordsMatch = comparePasswords(password, confirmPassword);
-    if (email && passwordsMatch === true && confirmPassword != '') {
-      return false;
-    }
-    return true;
-  };
-
-  const handleRegister = async () => {
-    try {
-      await registerAccount({ email, password });
-      await loginAccount({ email, password });
-      router.push('/weeklyPicks');
-    } catch (error) {
-      console.error('Registration Failed', error);
-    }
-  };
-
-  useEffect(() => {
-    if (isSignedIn) {
-      router.push('/weeklyPicks');
-    }
-  }, [isSignedIn]);
-
-  const RegisterUserSchema = z.object({
+const RegisterUserSchema = z
+  .object({
     email: z
       .string()
       .min(1, { message: 'Please enter an email address' })
@@ -79,13 +31,39 @@ export default function Register() {
       .min(6, { message: 'Password must be at least 6 characters' }),
     confirmPassword: z
       .string()
-      .min(1, { message: 'Please enter a password' })
+      .min(1, { message: 'Please confirm your password' })
       .min(6, { message: 'Password must be at least 6 characters' }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
   });
 
-  const form = useForm<z.infer<typeof RegisterUserSchema>>({
+type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
+
+export default function Register() {
+  const router = useRouter();
+  const { loginAccount, isSignedIn } = useAuthContext();
+
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push('/weeklyPicks');
+    }
+  }, [isSignedIn, router]);
+
+  const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
   });
+
+  const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (data) => {
+    try {
+      await registerAccount({ email: data.email, password: data.password });
+      await loginAccount({ email: data.email, password: data.password });
+      router.push('/weeklyPicks');
+    } catch (error) {
+      console.error('Registration Failed', error);
+    }
+  };
 
   return (
     <div className="h-screen w-full">
@@ -113,52 +91,65 @@ export default function Register() {
             </p>
 
             <Form {...form}>
-              <form>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
+                        <Input type="email" placeholder="Email" {...field} />
+                      </FormControl>
+                      {form.formState.errors.email && (
+                        <FormMessage>
+                          {form.formState.errors.email.message}
+                        </FormMessage>
+                      )}
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
                         <Input
-                          type="email"
-                          value={email}
-                          placeholder="Email"
-                          onChange={handleEmail}
+                          type="password"
+                          placeholder="Password"
+                          {...field}
                         />
                       </FormControl>
-
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            type="password"
-                            value={password}
-                            placeholder="Password"
-                            onChange={handlePassword}
-                          />
-                        </FormControl>
-                      </FormItem>
-
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            type="password"
-                            value={confirmPassword}
-                            placeholder="Confirm Password"
-                            onChange={handleConfirmPassword}
-                          />
-                        </FormControl>
-                      </FormItem>
-                      <FormMessage />
+                      {form.formState.errors.password && (
+                        <FormMessage>
+                          {form.formState.errors.password.message}
+                        </FormMessage>
+                      )}
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="Confirm Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      {form.formState.errors.confirmPassword && (
+                        <FormMessage>
+                          {form.formState.errors.confirmPassword.message}
+                        </FormMessage>
+                      )}
                     </FormItem>
                   )}
                 />
 
-                <Button
-                  label="Register"
-                  disabled={handleDisabled()}
-                  onClick={handleRegister}
-                />
+                <Button label="Register" type="submit" />
                 <LinkCustom href="/login">
                   Login to get started playing
                 </LinkCustom>
