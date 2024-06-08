@@ -16,14 +16,14 @@ describe('LeagueCard', () => {
     const leagueCard = screen.getByTestId('LeagueCard');
     const leagueCardContent = screen.getByTestId('LeagueCardContent');
     const leagueCardHeader = screen.getByTestId('LeagueCardHeader');
-    const leagueCardImage = screen.getByTestId('LeagueCardImage');
+    const leagueCardLogo = screen.getByTestId('LeagueCardLogo');
     const leagueCardSurvivors = screen.getByTestId('LeagueCardSurvivors');
     const leagueCardTitle = screen.getByTestId('LeagueCardTitle');
 
     expect(leagueCard).toBeInTheDocument();
     expect(leagueCardContent).toBeInTheDocument();
     expect(leagueCardHeader).toBeInTheDocument();
-    expect(leagueCardImage).toBeInTheDocument();
+    expect(leagueCardLogo).toBeInTheDocument();
     expect(leagueCardSurvivors).toBeInTheDocument();
     expect(leagueCardSurvivors).toHaveTextContent('Survivors 11 / 12');
     expect(leagueCardTitle).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe('LeagueCard', () => {
     const leagueCard = screen.getByTestId('LeagueCard');
     const leagueCardContent = screen.getByTestId('LeagueCardContent');
     const leagueCardHeader = screen.getByTestId('LeagueCardHeader');
-    const leagueCardImage = screen.getByTestId('LeagueCardImage');
+    const leagueCardLogo = screen.getByTestId('LeagueCardLogo');
     const leagueCardSurvivors = screen.getByTestId('LeagueCardSurvivors');
     const leagueCardTitle = screen.getByTestId('LeagueCardTitle');
 
@@ -51,7 +51,7 @@ describe('LeagueCard', () => {
     expect(leagueCard).toHaveClass('opacity-50', 'dark:bg-zinc-700');
     expect(leagueCardContent).toBeInTheDocument();
     expect(leagueCardHeader).toBeInTheDocument();
-    expect(leagueCardImage).toBeInTheDocument();
+    expect(leagueCardLogo).toBeInTheDocument();
     expect(leagueCardSurvivors).toBeInTheDocument();
     expect(leagueCardSurvivors).toHaveClass('text-foreground/50');
     expect(leagueCardSurvivors).toHaveTextContent('ELIMINATED');
