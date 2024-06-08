@@ -118,7 +118,7 @@ export default function Register() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input type="email" placeholder="Email" {...field} />
+                        <Input data-testid="email" type="email" placeholder="Email" {...field} />
                       </FormControl>
                       {form.formState.errors.email && (
                         <FormMessage>
@@ -135,6 +135,7 @@ export default function Register() {
                     <FormItem>
                       <FormControl>
                         <Input
+                          data-testid="password"
                           type="password"
                           placeholder="Password"
                           {...field}
@@ -155,6 +156,7 @@ export default function Register() {
                     <FormItem>
                       <FormControl>
                         <Input
+                          data-testid="confirm-password"
                           type="password"
                           placeholder="Confirm Password"
                           {...field}

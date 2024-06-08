@@ -4,11 +4,6 @@ import Register from './page';
 const mockRegisterAccount = jest.fn();
 const mockPush = jest.fn();
 
-let emailInput: HTMLElement,
-    passwordInput: HTMLElement,
-    confirmPasswordInput: HTMLElement,
-    continueButton: HTMLElement;
-
 const mockUseAuthContext = {
   registerAccount: mockRegisterAccount,
   isSignedIn: false,
@@ -31,9 +26,16 @@ jest.mock('../../context/AuthContextProvider', () => ({
 }));
 
 describe('Register', () => {
+  let emailInput: HTMLElement,
+    passwordInput: HTMLElement,
+    confirmPasswordInput: HTMLElement,
+    continueButton: HTMLElement;
+    
   beforeEach(() => {
     jest.clearAllMocks();    
+
     render(<Register />);
+
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
     confirmPasswordInput = screen.getByTestId('confirm-password');
