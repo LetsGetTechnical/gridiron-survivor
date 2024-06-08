@@ -18,6 +18,7 @@ import {
 } from '../../components/Form/Form';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
+import { deleteUser } from '@/api/serverApiFunctions';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -201,6 +202,14 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
           <Button label="Submit Button" type="submit" />
         </form>
       </Form>
+
+      <form
+        className="mx-auto mt-10 flex w-64 flex-col gap-2"
+        action={async (formData) => deleteUser(formData)}
+      >
+        <input type="text" name="userId" placeholder="Enter User ID" />
+        <button type="submit">Submit</button>
+      </form>
     </section>
   );
 }
