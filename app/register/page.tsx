@@ -9,7 +9,7 @@ import logo from '/public/assets/logo-colored-outline.svg';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { z } from 'zod';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, useWatch, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -55,15 +55,35 @@ export default function Register() {
     resolver: zodResolver(RegisterUserSchema),
   });
 
+  const email = useWatch({
+    control: form.control,
+    name: 'email',
+    defaultValue: '',
+  });
+  
+  const password = useWatch({
+    control: form.control,
+    name: 'password',
+    defaultValue: '',
+  });
+  
+  const confirmPassword = useWatch({
+    control: form.control,
+    name: 'confirmPassword',
+    defaultValue: '',
+  });
+
   const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (data) => {
     try {
-      await registerAccount({ email: data.email, password: data.password });
-      await loginAccount({ email: data.email, password: data.password });
+      await registerAccount(data);
+      await loginAccount(data);
       router.push('/weeklyPicks');
     } catch (error) {
       console.error('Registration Failed', error);
     }
   };
+
+  const isDisabled = !email || !password || password !== confirmPassword;
 
   return (
     <div className="h-screen w-full">
@@ -149,7 +169,7 @@ export default function Register() {
                   )}
                 />
 
-                <Button label="Register" type="submit" />
+                <Button data-testid="continue-button" label="Register" type="submit" disabled={isDisabled} />
                 <LinkCustom href="/login">
                   Login to get started playing
                 </LinkCustom>
