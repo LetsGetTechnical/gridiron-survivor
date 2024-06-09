@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
 import { loginAccount } from '@/api/apiFunctions';
 
@@ -69,7 +69,7 @@ describe('Register', () => {
     expect(confirmPasswordInput).toHaveValue('password123');
   });
 
-  test('should call registerAccount function with email and password when continue button is clicked', () => {
+  test('should call registerAccount function with email and password when continue button is clicked', async () => {
     const email = 'test@example.com';
     const password = 'password123';
     const confirmPassword = 'password123';
@@ -81,14 +81,17 @@ describe('Register', () => {
     });
     fireEvent.click(continueButton);
 
-    expect(mockRegisterAccount).toHaveBeenCalledWith(
-      email,
-      password,
-      confirmPassword,
-    );
+    await waitFor(() => {
+      expect(mockRegisterAccount).toHaveBeenCalledWith(
+        email,
+        password,
+        confirmPassword,
+      );
+    });
   });
 
   test('redirects to /weeklyPicks when the button is clicked', () => {
+    mockLoginAccount.mockResolvedValue({ emailInput, passwordInput });
     mockUseAuthContext.isSignedIn = true;
 
     render(<Register />);
@@ -97,5 +100,3 @@ describe('Register', () => {
     mockUseAuthContext.isSignedIn = false;
   });
 });
-
-// ! add in loginAccount to test for in register's
