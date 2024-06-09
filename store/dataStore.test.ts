@@ -10,12 +10,12 @@ const userData = {
 
 const NFLTeam = [
   {
-    teamId: '1',
+    $id: '1',
     teamName: 'New England Patriots',
     teamLogo: 'https://www.nfl.com/teams/new-england-patriots/logo',
   },
   {
-    teamId: '2',
+    $id: '2',
     teamName: 'Kansas City Chiefs',
     teamLogo: 'https://www.nfl.com/teams/kansas-city-chiefs/logo',
   },

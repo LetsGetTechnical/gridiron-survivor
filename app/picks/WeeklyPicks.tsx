@@ -40,7 +40,6 @@ export default function WeeklyPicks({
     user,
     updateWeeklyPicks,
     weeklyPicks,
-    updateLeague,
     gameWeek,
     updateGameWeek,
     updateNFLTeam,

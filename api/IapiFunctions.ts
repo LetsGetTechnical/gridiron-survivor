@@ -13,7 +13,7 @@ export interface IWeeklyPicks {
   userResults: IUserPicksData | null;
 }
 export interface INFLTeam {
-  teamId: string;
+  $id: string;
   teamName: string;
   teamLogo: string;
 }
