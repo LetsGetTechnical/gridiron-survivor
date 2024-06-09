@@ -1,6 +1,7 @@
-import { render, renderHook, act } from '@testing-library/react';
-import { useDataStore } from '@/store/dataStore';
-import WeeklyPicks from './WeeklyPicks';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import WeeklyPicks from './WeeklyPicks'; // Adjust the import path accordingly
+import { useDataStore } from '../../store/dataStore';
 
 const mockLeagueId = '123456';
 const mockNFLTeamsData = [
@@ -24,57 +25,84 @@ const defaultGameWeek = {
   week: 0,
 };
 
-jest.mock('./WeeklyPicks', () => jest.fn(() => null));
+// Mock the Zustand store within the jest.mock call
+jest.mock('../../store/dataStore', () => {
+  const actualCreate = jest.requireActual('zustand').create;
+
+  // Create a mock store
+  const useDataStore = actualCreate(() => ({
+    user: { id: '', email: '', league: [] },
+    updateWeeklyPicks: jest.fn(),
+    weeklyPicks: { leagueId: '', gameWeekId: '', userResults: {} },
+    gameWeek: { week: 0, id: '' },
+    updateGameWeek: jest.fn(),
+    updateNFLTeam: jest.fn(),
+    NFLTeam: [],
+  }));
+
+  return { useDataStore };
+});
+
+// Mock the useProcessGame hook
+jest.mock('../../utils/useProcessGame', () => jest.fn());
+
+const useProcessGame = jest.fn();
+jest.mock(`../../utils/useProcessGame`);
 
 describe('WeeklyPicks Component', () => {
-  describe('useEffect Test', () => {
-    it('should update the current week if it has changed', () => {
-      const { result } = renderHook(() => useDataStore());
-      expect(result.current.gameWeek).toEqual(defaultGameWeek);
+  it('calls updateGameWeek when gameWeek changes', () => {
+    const mockUpdateGameWeek = jest.fn();
+    const mockProcessGame = jest.fn();
+    useProcessGame.mockReturnValue(mockProcessGame);
 
-      const mockUpdateGameWeek = jest
-        .spyOn(result.current, 'updateGameWeek')
-        .mockImplementation(() => {});
-
-      render(
-        <WeeklyPicks
-          leagueId={mockLeagueId}
-          NFLTeams={mockNFLTeamsData}
-          currentGameWeek={mockCurrentGameWeekData}
-        />,
-      );
-
-      act(() => {
-        result.current.updateGameWeek(mockCurrentGameWeekData);
-      });
-
-      // Verify the function was called with the correct argument
-      expect(mockUpdateGameWeek).toHaveBeenCalled();
-
-      mockUpdateGameWeek.mockRestore();
+    // Set the initial state
+    useDataStore.setState({
+      user: { id: '', email: '', league: [] },
+      updateWeeklyPicks: jest.fn(),
+      weeklyPicks: { leagueId: '', gameWeekId: '', userResults: {} },
+      gameWeek: defaultGameWeek,
+      updateGameWeek: mockUpdateGameWeek,
+      updateNFLTeam: jest.fn(),
+      NFLTeam: [],
     });
-    it('should not update the current week if it has not changed', () => {
-      const { result } = renderHook(() => useDataStore());
-      expect(result.current.gameWeek).toEqual(defaultGameWeek);
 
-      // act(() => {
-      //   result.current.updateGameWeek(mockCurrentGameWeekData);
-      // });
+    render(
+      <WeeklyPicks
+        NFLTeams={mockNFLTeamsData}
+        currentGameWeek={mockCurrentGameWeekData}
+        leagueId={mockLeagueId}
+      />,
+    );
 
-      // expect(result.current.gameWeek).toEqual(mockCurrentGameWeekData);
+    expect(mockUpdateGameWeek).toHaveBeenCalledWith(mockCurrentGameWeekData);
+    expect(mockProcessGame).not.toHaveBeenCalled();
+  });
 
-      const mockUpdateGameWeek = jest.spyOn(result.current, 'updateGameWeek');
+  it('Does not call updateGameWeek', () => {
+    const mockUpdateGameWeek = jest.fn();
+    const mockProcessGame = jest.fn();
+    useProcessGame.mockReturnValue(mockProcessGame);
 
-      render(
-        <WeeklyPicks
-          leagueId={mockLeagueId}
-          NFLTeams={mockNFLTeamsData}
-          currentGameWeek={mockCurrentGameWeekData}
-        />,
-      );
-
-      // Verify the function was not called
-      expect(mockUpdateGameWeek).not.toHaveBeenCalled();
+    // Set the initial state
+    useDataStore.setState({
+      user: { id: '', email: '', league: [] },
+      updateWeeklyPicks: jest.fn(),
+      weeklyPicks: { leagueId: '', gameWeekId: '', userResults: {} },
+      gameWeek: mockCurrentGameWeekData,
+      updateGameWeek: mockUpdateGameWeek,
+      updateNFLTeam: jest.fn(),
+      NFLTeam: [],
     });
+
+    render(
+      <WeeklyPicks
+        NFLTeams={mockNFLTeamsData}
+        currentGameWeek={mockCurrentGameWeekData}
+        leagueId={mockLeagueId}
+      />,
+    );
+
+    expect(mockUpdateGameWeek).not.toHaveBeenCalled();
+    expect(mockProcessGame).not.toHaveBeenCalled();
   });
 });
