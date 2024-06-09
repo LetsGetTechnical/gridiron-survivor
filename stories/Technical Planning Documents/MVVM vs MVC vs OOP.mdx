@@ -1,0 +1,109 @@
+import '../styles.css';
+import mvvm from '../../public/assets/storybook/mvvm.png';
+import vsExplorer from '../../public/assets/storybook/vsExplorer.png';
+import Image from 'next/image';
+
+# MVVM vs MVM vs OOP
+
+# By Mai Vang - github: [@vmaineng](https://github.com/vmaineng)
+
+## Purpose
+
+Finalize project architecture between MVC, MVVC, or OOP
+
+## Background Info
+
+As we are in the early phase, we need to conclude on a project architecture that will help smooth our processes as the project scales with users and code.
+
+## Requirements
+
+Need a project architecture that is:
+
+- Simple to maintain code
+- Good to test
+- Faster runtime to load for users
+- Easy for future developers to pick up and assist where needed in the code
+- Overall, implement separation of concern
+
+## MVVM
+
+<Image src={mvvm} alt="mvvm model and DB diagram" />
+
+I chose MVVM because it uses data directly from the API without manipulating it. In addition, MVVM can update the information on the View automatically from the ViewModel due to data binding, which establishes a connection between the data and the user interface.
+
+In the example shown here, a User makes an action on the View which sends it to the ViewModel to handle the request. Then the request gets sent to the Model and updates the information in the database. (the light grey arrows)
+
+For example, a user picks a football team (UI action), then the information gets sent to the ViewModel which tells the Model which team they are picking and updates the information in the database.
+
+Then the database updates and sends the information back to the model, which updates in the ViewModel, which makes the changes accordingly in the View (the dark grey arrows).
+
+From the football team the user selected, we will keep track in our database which football team they chose and update it on the UI.
+
+# Quick Overview - OOP
+
+```
+const mongoose = require('mongoose);
+
+const Schema = mongoose.Schema;
+
+const footballSchema = new Schema({
+    playerName: {
+        type: String,
+        requierd: true
+    },
+    footballTeam: {
+        type: String,
+        required: true
+    },
+    played: {
+        type: Boolean
+    },
+    winner: {
+        type: Boolean
+    }
+})
+```
+
+Here is a glance at OOP that I recommend we should use in our server-side code. OOP will allow us to create instances of class so we can use it repeatedly.
+
+Here is an example using MongoDB’s Schema of creating a footballSchema along with what fields will be included and what data type we anticipate it to have.
+
+## Implementation Plan
+
+Here’s the folder structure of how to implement MVVM on the server-side.
+
+<Image
+  src={vsExplorer}
+  alt="visual code file explorer highlighting server.js"
+/>
+
+- Set up data models
+- Create View Models - the data logic
+- Design the User Interface
+- Establish data binding to branch the ViewModel
+  and the View
+
+## How to Ensure MVVM Works
+
+Implement model tests, view tests, and controller tests to ensure it is supposed to work it is intended
+
+Ensure the View is displaying what we anticipated it to do
+
+Establishing MVVM as our project architecture, will help the app create a separation of concerns, onboard and guide new developers/engineers to assist us where needed, and write unit tests for the ViewModel and Model without having to reference the View.
+
+Sources:
+
+[https://www.guru99.com/mvc-vs-mvvm.html#:~:text=MVC%20Model%20component%20can%20be,relationships%20between%20View%20%26%20View%20Model](https://www.guru99.com/mvc-vs-mvvm.html#:~:text=MVC%20Model%20component%20can%20be,relationships%20between%20View%20%26%20View%20Model)
+
+[https://softwareengineering.stackexchange.com/questions/293288/where-should-i-put-an-api-request-in-mvc](https://softwareengineering.stackexchange.com/questions/293288/where-should-i-put-an-api-request-in-mvc)
+
+[https://hackernoon.com/mvc-vs-mvvm-how-a-website-communicates-with-its-data-models-18553877bf7d](https://hackernoon.com/mvc-vs-mvvm-how-a-website-communicates-with-its-data-models-18553877bf7d)
+
+[https://blog.techchee.com/swiftui-mvvm-with-practical-examples/](https://blog.techchee.com/swiftui-mvvm-with-practical-examples)
+
+[https://www.techtarget.com/whatis/definition/Model-View-ViewModel](https://www.techtarget.com/whatis/definition/Model-View-ViewModel)
+
+<ol className="doc_nav_links">
+  <li>[Github](?path=/docs/documents-github--docs)</li>
+  <li>[Next Routing](?path=/docs/documents-next-routing--docs)</li>
+</ol>

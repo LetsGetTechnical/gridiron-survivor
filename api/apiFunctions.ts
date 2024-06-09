@@ -1,100 +1,14 @@
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
-import { IAccountData, IUserWeeklyPick, IWeeklyPicks } from './IapiFunctions';
-
-/**
- * Get the current session of the user
- *
- * @param email - The email of the user
- * @param password - The password of the user
- * @return {Models.Session | Error} - The session object or an error
- */
-export async function loginAccount({
-  email,
-  password,
-}: IAccountData): Promise<Models.Session> {
-  try {
-    return await account.createEmailPasswordSession(email, password);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error logging in user');
-  }
-}
-
-/**
- * Logout the current session of the user
- *
- * @return {Object | Error} - The session object or an error
- */
-export async function logoutAccount(): Promise<{}> {
-  try {
-    return await account.deleteSession('current');
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error logging out user');
-  }
-}
-
-/**
- * Get user's weekly pick
- *
- * @return {String} - The session object or an error
- */
-export async function getUserWeeklyPick({
-  userId,
-  weekNumber,
-}: IUserWeeklyPick): Promise<string> {
-  // TODO: Use actual userId and weekNumber
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '66313025000612a5380e',
-    );
-    return response.documents[0].userResults;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting user weekly pick');
-  }
-}
-
-/**
- * Get all weekly picks
- *
- * @return {Models.DocumentList<Models.Document>} - The session object or an error
- */
-export async function getAllWeeklyPicks(): Promise<
-  Models.DocumentList<Models.Document>
-> {
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '66313025000612a5380e',
-    );
-    return response;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting all weekly picks');
-  }
-}
-
-/**
- * Get all NFL teams
- *
- * @return {Models.DocumentList<Models.Document>} - The session object or an error
- */
-export async function getNFLTeams(): Promise<
-  Models.DocumentList<Models.Document>
-> {
-  try {
-    return await databases.listDocuments(
-      appwriteConfig.databaseId,
-      '662152bfabacfbda3bb3',
-    );
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting NFL teams');
-  }
-}
+import {
+  IAccountData,
+  IGameGroup,
+  IGameWeek,
+  IUser,
+  IWeeklyPicks,
+} from './IapiFunctions';
+import { Collection } from './EapiFunctions';
+import { Query } from 'appwrite';
 
 /**
  * Register a new account
@@ -114,7 +28,136 @@ export async function registerAccount({
 }
 
 /**
- * Get the current user
+ * Login to an existing account
+ *
+ * @param email - The email of the user
+ * @param password - The password of the user
+ * @return {Models.Session | Error} - The session object or an error
+ */
+export async function loginAccount({
+  email,
+  password,
+}: IAccountData): Promise<Models.Session | Error> {
+  try {
+    return await account.createEmailPasswordSession(email, password);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error logging in user');
+  }
+}
+
+/**
+ * Logout the current user
+ *
+ * @return {Object | Error} - The session object or an error
+ */
+export async function logoutAccount(): Promise<{}> {
+  try {
+    return await account.deleteSession('current');
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error logging out user');
+  }
+}
+
+/**
+ * Get all NFL teams
+ *
+ * @return {Models.DocumentList<Models.Document> | Error} - The list of NFL teams
+ */
+export const getNFLTeams = async (): Promise<Models.Document[]> => {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.NFL_TEAMS,
+    );
+
+    return response.documents;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting NFL teams');
+  }
+};
+
+/**
+ * Get game the user is a part of
+ *
+ *
+ */
+export const getCurrentGame = async (
+  userId: IUser['id'],
+): Promise<Models.Document> => {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      '6626a937b6302f6a4d28',
+      [Query.contains('participants', userId)],
+    );
+
+    return response.documents[0];
+  } catch (error) {
+    console.error('Error getting all game groups:', error);
+    throw new Error('Error getting all game groups');
+  }
+};
+
+/**
+ * Get the current week's ID & number
+ *
+ *
+ */
+export const getCurrentWeek = async (): Promise<IGameWeek> => {
+  try {
+    const response = await databases.getDocument(
+      appwriteConfig.databaseId,
+      'current_week',
+      '664cfd88003c6cf2ff75',
+    );
+
+    return {
+      id: response.gameWeek.$id,
+      week: response.gameWeek.week,
+    };
+  } catch (error) {
+    console.error('Error getting current week:', error);
+    throw new Error('Error getting current week');
+  }
+};
+
+/**
+ * Get all weekly picks
+ *
+ *
+ */
+export async function getAllWeeklyPicks({
+  gameId,
+  weekId,
+}: {
+  gameId: IGameGroup['currentGameId'];
+  weekId: IGameWeek['id'];
+}): Promise<IWeeklyPicks['userResults'] | null> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.GAME_RESULTS,
+      [Query.equal('gameId', gameId), Query.equal('gameWeekId', weekId)],
+    );
+
+    // check if any users have selected their pick
+    if (response.documents[0].userResults === '') {
+      return null;
+    }
+
+    const data = JSON.parse(response.documents[0].userResults);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting all weekly picks');
+  }
+}
+
+/**
+ *  Update the weekly picks with the users team pick
  *
  * @return {Models.User<Models.Preferences> | Error} - The user object or an error
  */
@@ -123,14 +166,16 @@ export async function createWeeklyPicks({
   gameWeekId,
   userResults,
 }: IWeeklyPicks): Promise<Models.Document> {
-  const data = { gameId, gameWeekId, userResults };
-
   try {
     return await databases.updateDocument(
       appwriteConfig.databaseId,
-      '66313025000612a5380e',
-      '663130a100297f77c3c8',
-      data,
+      Collection.GAME_RESULTS, //collectionID
+      '663130a100297f77c3c8', //documentID
+      {
+        gameId,
+        gameWeekId,
+        userResults: JSON.stringify(userResults),
+      },
     );
   } catch (error) {
     console.error(error);

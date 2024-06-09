@@ -1,0 +1,92 @@
+# Text Messaging: Twilio
+
+# By Adam Morsa - github: [@ramblingadam](https://github.com/ramblingadam)
+
+## Problem:
+
+We need a way to deliver game results, reminders, weekly eliminations, and/or messages from
+the commissioner to players via SMS.
+
+## Solution Requirements:
+
+- Must be able to send custom messages from the app to phone numbers as SMS or
+  MMS
+- Global number support would be nice
+
+## Assumptions:
+
+- N/A
+
+## Solution:
+
+Twilio is by far the most robust solution for app-to-SMS/MMS on the market. It is simple to set
+up and easy to use. No other options compare.
+
+```
+//Download the helper library from https://www.twilio.com/docs/node/install
+//Find your Account SID and Auth at twilio.com/console
+//and set the environment variables.  See http://twil.io/secure
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio)(accountSid, authToken);
+
+client.messages
+  .create({
+    from: '+15557771212',
+    body: 'Ahoy! This message was sent from my Twilio phone number!',
+    to: '+15559991111'
+  })
+  .then(message => console.log(message.body));
+```
+
+## Security Considerations:
+
+- As the industry leader in app-to-SMS services, Twilio boasts respectable security practices. [Read more here](https://www.twilio.com/docs/usage/security).
+
+## Cost Analysis:
+
+- Each SMS sent costs a total of between $0.0109 and $0.0129/msg:
+  $0.0079/msg+ Carrier Fee (between $0.0030 and $0.0050/msg depending on the recipient
+  carrier)
+- Sender phone numbers cost $1.15/mo for a Twilio-leased phone number, or $0.50/mo to
+  bring our number
+
+## Cross-Region Considerations:
+
+- In many parts of the world outside the US, WhatsApp is the defacto platform for text
+  messaging. Twilio supports WhatsApp as well, should we ever aim to expand beyond the
+  US.
+
+## Operational Readiness:
+
+- Setup is simple and quick.
+
+## Risks:
+
+- We’ll need to be sure our code is not sending an extraneous or excessive number of
+  texts to protect the source number from reports of spam or from incurring
+  larger-than-necessary costs
+- We may want to consider an opt-in for texts sent from the app on a per-user basis
+
+## Solutions Considered and Discarded:
+
+- No other options were considered- everybody and their mother says Twilio is the best.
+
+## Work Required:
+
+- (S) Lease a number from Twilio or set up our own and import it
+- (XL) Set up our API calls for all instances where SMS messages are required/desired to
+  be sent. Pick deadline reminders, weekly game results, elimination notifications, and
+  custom commissioner messages.
+
+## References
+
+- [Twilio Docs](https://www.twilio.com/docs)
+- [Twilio Security](https://www.twilio.com/docs/usage/security)
+
+<ol className="doc_nav_links">
+  <li>
+    [Twilio SendGrid Email](?path=/docs/documents-twilio-sendgrid-email--docs)
+  </li>
+  <li>[TypeScript](?path=/docs/documents-typescript--docs)</li>
+</ol>

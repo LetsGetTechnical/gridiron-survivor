@@ -1,0 +1,54 @@
+# pnpm vs Yarn vs npm
+
+# By Carlos Luevano - github: [@Clue355](https://github.com/Clue355)
+
+## My recommendation is PnPm
+
+## PnPm:
+
+PnPm conserves disk space by storing dependencies on the disk, reusing those files for
+multiple projects, and only updating the new changes. For instance, if one file was added to the
+package, only that file will be saved to disk.
+
+It adds only the installed dependencies to the project in the root of the node_modules directory,
+maintaining strictness by having a separate folder for each dependency.
+
+PnPm supports monorepos through its workspaces feature, allowing multiple projects to exist
+within a single repository. Dependencies can be installed once at the root level and shared
+across all projects.
+
+Installations are faster than with npm or yarn.
+
+It's compatible with npm, using the same package.json format and a compatible config file,
+which specifies settings and configurations that npm should use when executing commands.
+
+## Yarn:
+
+Yarn also duplicates dependencies for each project, though less so than npm.
+
+Yarn workspaces address this issue by installing dependencies once and sharing them across
+multiple projects; this is an optional feature.
+
+It's not as fast as pnpm due to its node_modules structure, as it stores multiple copies of the
+same package, while pnpm uses a shared store.
+
+Yarn is not as strict as pnpm in dependency management. It permits packages to access any
+other dependencies, which can lead to breakages when they are updated or removed. This
+occurs within a single project, through a mechanism called "hoisting," where shared
+dependencies are moved to a common location in the node_modules folder, allowing
+dependencies to access other unrelated dependencies.
+
+## npm:
+
+npm duplicates dependencies for each project, consuming more disk space.
+
+It's less strict on dependency management, which can lead to differences between local
+environments and production builds, potentially causing bugs.
+
+<ol className="doc_nav_links">
+  <li>[Webpack 5](?path=/docs/documents-webpack-5--docs)</li>
+  <li>
+    [Zustand and Context
+    API](?path=/docs/documents-zustand-and-context-api--docs )
+  </li>
+</ol>

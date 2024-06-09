@@ -7,6 +7,7 @@ import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
 export default function Login() {
   const router = useRouter();
@@ -29,55 +30,54 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen w-full">
-      <div className="grid h-screen w-full grid-cols-2 bg-gradient-to-b from-[#4E160E] to-zinc-950">
-        <div className="grid p-8">
-          <div className="grid">
-            <Logo className="mx-auto place-self-end" src={logo} />
-          </div>
-          <div className="mx-auto grid gap-4 place-self-end">
-            <p className="leading-7 text-white">
-              Thank you... fantasy football draft, for letting me know that even
-              in my fantasies, I am bad at sports.
-            </p>
-            <p className="leading-7 text-white">Jimmy Fallon</p>
-          </div>
-        </div>
-        <div className="grid place-content-center bg-white p-8">
-          <div className="mx-auto grid w-80 place-content-center gap-4">
-            <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
-              Join Gridiron Survivor
-            </h1>
-            <p className="pb-4 font-normal leading-7 text-zinc-500">
-              Log in to your existing account or{' '}
-              <Link href="/register" className="hover:text-orange-600">
-                sign up
-              </Link>{' '}
-              to get started with a league
-            </p>
-            <Input
-              type="email"
-              value={email}
-              placeholder="Email"
-              onChange={handleEmail}
-            />
-            <Input
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={handlePassword}
-            />
-            <Button
-              label="Continue"
-              disabled={!email && !password}
-              onClick={() => loginAccount({ email, password })}
-            />
-            <Link href="/register" className="hover:text-orange-600">
-              Sign up to get started with a league
-            </Link>
-          </div>
+    <section className="grid grid-rows-3 xl:grid-cols-2 xl:grid-rows-none">
+      <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
+        <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
+        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground text-white">
+          <p className="hidden leading-7 xl:block">
+            Thank you... fantasy football draft, for letting me know that even
+            in my fantasies, I am bad at sports.
+          </p>
+          <p className="hidden leading-7 xl:block">Jimmy Fallon</p>
         </div>
       </div>
-    </div>
+      <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
+        <div>
+          <h1 className="text-5xl font-extrabold tracking-tight">
+            Join Gridiron Survivor
+          </h1>
+          <p className="pb-4 font-normal leading-7 text-zinc-500">
+            Log in to your existing account or{' '}
+            <LinkCustom href="/register">sign up</LinkCustom> to get started
+            with a league
+          </p>
+        </div>
+        <div id="input-container" className="grid gap-4">
+          <Input
+            data-testid="email"
+            type="email"
+            value={email}
+            placeholder="Email"
+            onChange={handleEmail}
+          />
+          <Input
+            data-testid="password"
+            type="password"
+            value={password}
+            placeholder="Password"
+            onChange={handlePassword}
+          />
+          <Button
+            data-testid="continue-button"
+            label="Continue"
+            disabled={!email && !password}
+            onClick={() => loginAccount({ email, password })}
+          />
+          <LinkCustom href="/register">
+            Sign up to get started with a league
+          </LinkCustom>
+        </div>
+      </div>
+    </section>
   );
 }
