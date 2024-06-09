@@ -5,9 +5,8 @@ import * as React from 'react';
 const LeagueCardSurvivors = React.forwardRef<
   HTMLParagraphElement,
   ILeagueCardSurvivorsProps
->(({ isEliminated, survivors, totalPlayers, ...props }, ref) => (
+>(({ isEliminated, survivors, totalPlayers, ...props }) => (
   <p
-  ref={ref}
     data-testid="LeagueCardSurvivors"
     className={cn(
       'LeagueCardSurvivors text-sm text-foreground',
