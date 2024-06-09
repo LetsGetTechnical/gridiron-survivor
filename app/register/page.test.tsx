@@ -1,6 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
-import { loginAccount } from '@/api/apiFunctions';
 
 const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
@@ -70,7 +69,7 @@ describe('Register', () => {
   });
 
   test('should call registerAccount function with email and password when continue button is clicked', async () => {
-    const email = 'test@example.com';
+    const email = 'test1@example.com';
     const password = 'password123';
     const confirmPassword = 'password123';
 
