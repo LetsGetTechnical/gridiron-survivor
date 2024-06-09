@@ -1,11 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Register from './page';
+import { loginAccount } from '@/api/apiFunctions';
 
 const mockRegisterAccount = jest.fn();
+const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 
 const mockUseAuthContext = {
   registerAccount: mockRegisterAccount,
+  loginAccount: mockLoginAccount,
   isSignedIn: false,
 };
 
@@ -60,31 +63,39 @@ describe('Register', () => {
   });
 
   test('should update confirmPassword state when input value changes', () => {
-    fireEvent.change(confirmPasswordInput, { target: { value: 'password123' } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: 'password123' },
+    });
     expect(confirmPasswordInput).toHaveValue('password123');
   });
 
-test('should call registerAccount function with email and password when continue button is clicked', () => {
-  const email = 'test@example.com';
-  const password = 'password123';
-  const confirmPassword = 'password123';
-  
-  fireEvent.change(emailInput, { target: { value: email } });
-  fireEvent.change(passwordInput, { target: { value: password } });
-  fireEvent.change(confirmPasswordInput, { target: { value: confirmPassword } });
-  fireEvent.click(continueButton);
+  test('should call registerAccount function with email and password when continue button is clicked', () => {
+    const email = 'test@example.com';
+    const password = 'password123';
+    const confirmPassword = 'password123';
 
-  expect(mockRegisterAccount).toHaveBeenCalledWith(
-    email, password, confirmPassword
-  );
-})
+    fireEvent.change(emailInput, { target: { value: email } });
+    fireEvent.change(passwordInput, { target: { value: password } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: confirmPassword },
+    });
+    fireEvent.click(continueButton);
 
-test('redirects to /weeklyPicks when the button is clicked', () => {
-  mockUseAuthContext.isSignedIn = true;
+    expect(mockRegisterAccount).toHaveBeenCalledWith(
+      email,
+      password,
+      confirmPassword,
+    );
+  });
 
-  render(<Register />);
-  expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+  test('redirects to /weeklyPicks when the button is clicked', () => {
+    mockUseAuthContext.isSignedIn = true;
 
-  mockUseAuthContext.isSignedIn = false;
+    render(<Register />);
+    expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+
+    mockUseAuthContext.isSignedIn = false;
+  });
 });
-});
+
+// ! add in loginAccount to test for in register's

@@ -49,7 +49,7 @@ export default function Register() {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn]);
 
   const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
@@ -60,13 +60,13 @@ export default function Register() {
     name: 'email',
     defaultValue: '',
   });
-  
+
   const password = useWatch({
     control: form.control,
     name: 'password',
     defaultValue: '',
   });
-  
+
   const confirmPassword = useWatch({
     control: form.control,
     name: 'confirmPassword',
@@ -118,7 +118,12 @@ export default function Register() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input data-testid="email" type="email" placeholder="Email" {...field} />
+                        <Input
+                          data-testid="email"
+                          type="email"
+                          placeholder="Email"
+                          {...field}
+                        />
                       </FormControl>
                       {form.formState.errors.email && (
                         <FormMessage>
@@ -171,7 +176,12 @@ export default function Register() {
                   )}
                 />
 
-                <Button data-testid="continue-button" label="Register" type="submit" disabled={isDisabled} />
+                <Button
+                  data-testid="continue-button"
+                  label="Register"
+                  type="submit"
+                  disabled={isDisabled}
+                />
                 <LinkCustom href="/login">
                   Login to get started playing
                 </LinkCustom>

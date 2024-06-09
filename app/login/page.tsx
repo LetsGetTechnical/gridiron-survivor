@@ -39,7 +39,7 @@ export default function Login() {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn]);
 
   const form = useForm<LoginUserSchemaType>({
     resolver: zodResolver(LoginUserSchema),
