@@ -49,7 +49,7 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
             <p className="uppercase">eliminated</p>
           ) : (
             <Button
-              label={isPickSet ? 'Change' : 'Pick'}
+              label={isPickSet ? 'Change Pick' : 'Make a Pick'}
               variant={isPickSet ? 'secondary' : 'default'}
             />
           )}

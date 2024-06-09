@@ -8,7 +8,7 @@ export default function Leagues() {
       </h1>
       <section className="grid gap-6 md:grid-cols-2">
         <LeagueCard
-          href="/leagues"
+          href="/league-entries"
           leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
           survivors={69}
           title="69ers"
