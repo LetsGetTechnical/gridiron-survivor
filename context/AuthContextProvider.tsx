@@ -24,7 +24,7 @@ type AuthContextType = {
   setIsSignedIn: (isSignedIn: boolean) => void;
   loginAccount: (user: UserCredentials) => Promise<void | Error>;
   logoutAccount: () => Promise<void>;
-  getUser: () => Promise<void>;
+  getUser: () => Promise<IUser | undefined>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -78,6 +78,7 @@ export const AuthContextProvider = ({
   // get user
   const getUser = useCallback(async () => {
     if (!isSessionInLocalStorage()) {
+      router.push('/login');
       return;
     }
 
