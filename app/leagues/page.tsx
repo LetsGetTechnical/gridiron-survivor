@@ -9,6 +9,11 @@ interface Props {
 
 export default async function Leagues({ searchParams }: Props) {
   const userId = searchParams?.id || '';
+
+  if (!userId || userId === '') {
+    return;
+  }
+
   const userData: IUser = await getCurrentUser(userId);
   const leagueData = await getUserLeagues(userData.league);
 
