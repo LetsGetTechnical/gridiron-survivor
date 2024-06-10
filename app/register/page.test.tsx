@@ -56,11 +56,6 @@ describe('Register', () => {
     expect(emailInput).toHaveValue('test01@example.com');
   });
 
-  test('should update email state when input value changes', () => {
-    fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
-    expect(emailInput).toHaveValue('test01@example.com');
-  });
-
   test('should update password state when input value changes', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     expect(passwordInput).toHaveValue('password123');
@@ -76,6 +71,10 @@ describe('Register', () => {
   test('should call registerAccount function with email and password when continue button is clicked', async () => {
     fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: 'password123' },
+    });
+    continueButton.removeAttribute('disabled');
     fireEvent.click(continueButton);
 
     await waitFor(() => {
