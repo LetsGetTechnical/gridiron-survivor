@@ -5,6 +5,11 @@ const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 
+let emailInput: HTMLElement;
+let passwordInput: HTMLElement;
+let confirmPasswordInput: HTMLElement;
+let continueButton: HTMLElement;
+
 const mockUseAuthContext = {
   registerAccount: mockRegisterAccount,
   loginAccount: mockLoginAccount,
@@ -28,11 +33,6 @@ jest.mock('../../context/AuthContextProvider', () => ({
 }));
 
 describe('Register', () => {
-  let emailInput: HTMLElement;
-  let passwordInput: HTMLElement;
-  let confirmPasswordInput: HTMLElement;
-  let continueButton: HTMLElement;
-
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -74,20 +74,22 @@ describe('Register', () => {
   });
 
   test('should call registerAccount function with email and password when continue button is clicked', async () => {
-    const email = 'test01@example.com';
-    const password = 'password123';
-    const confirmPassword = 'password123';
-
-    fireEvent.change(emailInput, { target: { value: email } });
-    fireEvent.change(passwordInput, { target: { value: password } });
+    fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.change(confirmPasswordInput, {
-      target: { value: confirmPassword },
+      target: { value: 'password123' },
     });
     fireEvent.click(continueButton);
 
     await waitFor(() => {
-      expect(mockRegisterAccount).toHaveBeenCalledWith(email, password);
-      expect(mockLoginAccount).toHaveBeenCalledWith(email, password);
+      expect(mockRegisterAccount).toHaveBeenCalledWith({
+        email: 'test01@example.com',
+        password: 'password123',
+      });
+      expect(mockLoginAccount).toHaveBeenCalledWith({
+        email: 'test01@example.com',
+        password: 'password123',
+      });
     });
   });
 
