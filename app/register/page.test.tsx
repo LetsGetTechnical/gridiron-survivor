@@ -56,6 +56,11 @@ describe('Register', () => {
     expect(emailInput).toHaveValue('test01@example.com');
   });
 
+  test('should update email state when input value changes', () => {
+    fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
+    expect(emailInput).toHaveValue('test01@example.com');
+  });
+
   test('should update password state when input value changes', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     expect(passwordInput).toHaveValue('password123');
@@ -81,11 +86,7 @@ describe('Register', () => {
     fireEvent.click(continueButton);
 
     await waitFor(() => {
-      expect(mockRegisterAccount).toHaveBeenCalledWith(
-        email,
-        password,
-        confirmPassword,
-      );
+      expect(mockRegisterAccount).toHaveBeenCalledWith(email, password);
       expect(mockLoginAccount).toHaveBeenCalledWith(email, password);
     });
   });
