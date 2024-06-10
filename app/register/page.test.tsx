@@ -86,19 +86,18 @@ describe('Register', () => {
         password,
         confirmPassword,
       );
-    });
-
-    await waitFor(() => {
       expect(mockLoginAccount).toHaveBeenCalledWith(email, password);
     });
   });
 
-  test('redirects to /weeklyPicks when the button is clicked', () => {
-    mockUseAuthContext.registerAccount = mockRegisterAccount;
+  test('redirects to /weeklyPicks when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<Register />);
-    expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+    });
 
     mockUseAuthContext.isSignedIn = false;
   });
