@@ -75,6 +75,7 @@ describe('Register', () => {
       target: { value: 'password123' },
     });
     fireEvent.click(continueButton);
+    console.log('continue button clicked');
 
     await waitFor(() => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
