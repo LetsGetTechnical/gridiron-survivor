@@ -74,11 +74,11 @@ describe('Register', () => {
     fireEvent.change(confirmPasswordInput, {
       target: { value: 'password123' },
     });
-    continueButton.removeAttribute('disabled');
     fireEvent.click(continueButton);
 
     await waitFor(() => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
+        confirmPassword: 'password123',
         email: 'test01@example.com',
         password: 'password123',
       });
