@@ -1,6 +1,5 @@
 'use client';
 import { useState, ChangeEvent, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
@@ -9,7 +8,7 @@ import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
-export default function Login() {
+export const Login = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -19,7 +18,7 @@ export default function Login() {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, router]);
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);

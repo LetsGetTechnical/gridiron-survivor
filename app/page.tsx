@@ -1,4 +1,4 @@
-export default function Index() {
+const Index = () => {
 
   return (
     <div className="flex flex-col items-center justify-center flex-1 w-full">
@@ -8,3 +8,5 @@ export default function Index() {
     </div>
   );
 }
+
+export default Index;

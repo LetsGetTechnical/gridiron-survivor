@@ -1,6 +1,6 @@
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 
-export default function Leagues() {
+const Leagues = () => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
@@ -45,3 +45,5 @@ export default function Leagues() {
     </div>
   );
 }
+
+export default Leagues;

@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import { Label } from '../Label/Label';
 import { RadioGroupItem } from '../RadioGroup/RadioGroup';
