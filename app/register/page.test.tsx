@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
+import { userEvent } from '@storybook/test';
 
 const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
@@ -74,11 +75,9 @@ describe('Register', () => {
   });
 
   test('should call registerAccount function with email and password when continue button is clicked', async () => {
-    fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.change(confirmPasswordInput, {
-      target: { value: 'password123' },
-    });
+    userEvent.type(emailInput, 'test01@example.com');
+    userEvent.type(passwordInput, 'password123');
+    userEvent.type(confirmPasswordInput, 'password123');
     fireEvent.click(continueButton);
 
     await waitFor(() => {
