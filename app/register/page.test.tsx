@@ -52,8 +52,8 @@ describe('Register', () => {
   });
 
   test('should update email state when input value changes', () => {
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    expect(emailInput).toHaveValue('test@example.com');
+    fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
+    expect(emailInput).toHaveValue('test01@example.com');
   });
 
   test('should update password state when input value changes', () => {
@@ -68,8 +68,8 @@ describe('Register', () => {
     expect(confirmPasswordInput).toHaveValue('password123');
   });
 
-  xtest('should call registerAccount function with email and password when continue button is clicked', async () => {
-    const email = 'test1@example.com';
+  test('should call registerAccount function with email and password when continue button is clicked', async () => {
+    const email = 'test01@example.com';
     const password = 'password123';
     const confirmPassword = 'password123';
 
@@ -93,7 +93,7 @@ describe('Register', () => {
     });
   });
 
-  xtest('redirects to /weeklyPicks when the button is clicked', () => {
+  test('redirects to /weeklyPicks when the button is clicked', () => {
     mockUseAuthContext.registerAccount = mockRegisterAccount;
     mockUseAuthContext.isSignedIn = true;
 
