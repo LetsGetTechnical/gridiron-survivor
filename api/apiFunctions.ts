@@ -129,6 +129,7 @@ export const getCurrentLeague = async (
     return {
       leagueId: response.documents[0].$id,
       leagueName: response.documents[0].leagueName,
+      logo: response.documents[0].logo,
       participants: response.documents[0].participants,
       survivors: response.documents[0].survivors,
     };
