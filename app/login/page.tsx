@@ -1,4 +1,8 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
+import { JSX } from 'react';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
@@ -8,7 +12,11 @@ import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
-export const Login = () => {
+/**
+ * Renders the login page.
+ * @returns The rendered login page.
+ */
+export const Login = (): JSX.Element => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -20,10 +28,18 @@ export const Login = () => {
     }
   }, [isSignedIn, router]);
 
+  /**
+   * Handles the email input.
+   * @param event - The input event.
+   */
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
   };
 
+  /**
+   * Handles the password input.
+   * @param event - The input event.
+   */
   const handlePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
@@ -79,4 +95,4 @@ export const Login = () => {
       </div>
     </section>
   );
-}
+};

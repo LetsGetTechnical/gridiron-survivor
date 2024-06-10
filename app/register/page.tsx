@@ -1,5 +1,8 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import { useState, ChangeEvent, useEffect } from 'react';
+import React, { JSX, useState, ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -12,32 +15,62 @@ import logo from '/public/assets/logo-colored-outline.svg';
 
 import { useAuthContext } from '@/context/AuthContextProvider';
 
-export const Register = () => {
+/**
+ * Renders the registration page.
+ * @returns {JSX.Element} The rendered registration page.
+ */
+export const Register = (): JSX.Element => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const { loginAccount, isSignedIn } = useAuthContext();
 
+  /**
+   * Handles the email input.
+   * @param event - The input event.
+   */
   const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
   };
 
+  /**
+   * Handles the password input.
+   * @param event - The input event.
+   */
   const handlePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
 
-  const comparePasswords = (password: string, confirmPassword: string) => {
+  /**
+   * Compares the password and confirm password fields.
+   * @param password - The password.
+   * @param confirmPassword - The confirm password.
+   * @returns {boolean} - Whether the passwords match.
+   */
+  const comparePasswords = (
+    password: string,
+    confirmPassword: string,
+  ): boolean => {
     return password === confirmPassword;
   };
 
+  /**
+   * Handles the confirm password input.
+   * @param event - The input event.
+   * @returns {void}
+   */
   const handleConfirmPassword = (
     event: ChangeEvent<HTMLInputElement>,
   ): void => {
     setConfirmPassword(event.target.value);
   };
 
-  const handleDisabled = () => {
+  /**
+   * Handles the disabled state of the register button.
+   * @returns {boolean} - Whether the button is disabled.
+   */
+  const handleDisabled = (): boolean => {
     const passwordsMatch = comparePasswords(password, confirmPassword);
     if (email && passwordsMatch === true && confirmPassword !== '') {
       return false;
@@ -45,7 +78,11 @@ export const Register = () => {
     return true;
   };
 
-  const handleRegister = async () => {
+  /**
+   * Handles the registration of a new account.
+   * @returns {Promise<void>}
+   */
+  const handleRegister = async (): Promise<void> => {
     try {
       await registerAccount({ email, password });
       await loginAccount({ email, password });

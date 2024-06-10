@@ -1,4 +1,7 @@
-import React from 'react';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import React, { JSX } from 'react';
 import { GeistSans } from 'geist/font/sans';
 import './globals.css';
 import Nav from '@/components/Nav/Nav';
@@ -15,11 +18,17 @@ export const metadata = {
   description: 'Fantasy Football Survivor Pool',
 };
 
+/**
+ * The root layout for the application.
+ * @param props - The props
+ * @param props.children - The children
+ * @returns The rendered root layout.
+ */
 const RootLayout = ({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}): JSX.Element => {
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="dark:dark bg-background px-4 pb-8 text-foreground">
@@ -31,6 +40,6 @@ const RootLayout = ({
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;

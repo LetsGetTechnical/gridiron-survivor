@@ -1,4 +1,10 @@
-import * as React from 'react';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import React, { JSX } from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import {
@@ -26,20 +32,27 @@ const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
 );
 
-const FormField = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-    ...props
-  }: ControllerProps<TFieldValues, TName>) => {
+/**
+ * FormField component
+ * @param props - The props
+ * @returns The FormField component
+ */
+const FormField = ({ ...props }: ControllerProps): JSX.Element => {
   return (
-    <FormFieldContext.Provider value={React.useMemo(() => ({ name: props.name }), [props.name])}>
+    <FormFieldContext.Provider
+      value={React.useMemo(() => ({ name: props.name }), [props.name])}
+    >
       <Controller {...props} />
     </FormFieldContext.Provider>
   );
 };
 
-const useFormField = () => {
+/**
+ * useFormField hook
+ * @returns The form field
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const useFormField = (): any => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState } = useFormContext();
@@ -87,8 +100,10 @@ FormItem.displayName = 'FormItem';
 
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & { className?: string }
->(({ className, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
+    className?: string;
+  }
+>(({ className, ...props }, ref): JSX.Element => {
   const { error, formItemId } = useFormField();
 
   return (

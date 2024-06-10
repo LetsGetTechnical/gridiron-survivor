@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { cn } from '@/utils/utils';
 import { ILeagueCardSurvivorsProps } from './ILeagueCardSurvivorsProps';
 import * as React from 'react';
