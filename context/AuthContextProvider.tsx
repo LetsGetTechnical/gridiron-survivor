@@ -82,7 +82,7 @@ export const AuthContextProvider = ({
       const userData: IUser = await getCurrentUser(user.$id);
       updateUser(userData.id, userData.email, userData.league);
       // TODO: Make league ID dynamic once a users list of leagues page is created
-      router.push(`/picks?leagueId=${userData.league[0]}`);
+      router.push(`/leagues?id=${userData.id}`);
     } catch (error) {
       resetUser();
       setIsSignedIn(false);

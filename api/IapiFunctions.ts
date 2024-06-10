@@ -25,6 +25,7 @@ export interface IUserPicksData {
 }
 export interface ILeague {
   leagueId: string;
+  leagueName: string;
   participants: string[];
   survivors: string[];
 }

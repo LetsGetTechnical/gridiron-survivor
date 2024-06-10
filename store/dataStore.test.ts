@@ -23,6 +23,7 @@ const NFLTeam = [
 
 const league = {
   leagueId: '123',
+  leagueName: 'Test League',
   participants: ['123456', '78'],
   survivors: ['123456', '78', '9'],
 };
@@ -129,6 +130,7 @@ describe('Data Store', () => {
     it('Check the default league state', () => {
       const { result } = renderHook(() => useDataStore());
       expect(result.current.league.leagueId).toBe('');
+      expect(result.current.league.leagueName).toBe('');
       expect(result.current.league.participants).toStrictEqual([]);
       expect(result.current.league.survivors).toStrictEqual([]);
     });
@@ -140,6 +142,7 @@ describe('Data Store', () => {
       });
 
       expect(result.current.league.leagueId).toBe(league.leagueId);
+      expect(result.current.league.leagueName).toBe(league.leagueName);
       expect(result.current.league.participants).toBe(league.participants);
       expect(result.current.league.survivors).toBe(league.survivors);
     });

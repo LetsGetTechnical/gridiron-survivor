@@ -62,3 +62,18 @@ export const parseUserPick = (userId: IUser['id'], teamId: string) => {
 
   return parsedData;
 };
+
+/**
+ * Get the list of leagues the user is a part of
+ *
+ * @return {ILeague | Error}
+ */
+export const getUserLeagues = async (
+  leagues: IUser['league'],
+): Promise<ILeague[]> => {
+  const userLeagues = leagues.map((league) => {
+    return getCurrentLeague(league);
+  });
+
+  return Promise.all(userLeagues);
+};

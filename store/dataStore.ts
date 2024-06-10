@@ -31,7 +31,12 @@ interface IDataStoreAction {
     gameWeekId,
     userResults,
   }: IWeeklyPicks) => void;
-  updateLeague: ({ leagueId, participants, survivors }: ILeague) => void;
+  updateLeague: ({
+    leagueId,
+    leagueName,
+    participants,
+    survivors,
+  }: ILeague) => void;
   updateGameWeek: (gameWeek: IGameWeek) => void;
 }
 
@@ -52,6 +57,7 @@ const initialState: IDataStoreState = {
   },
   league: {
     leagueId: '',
+    leagueName: '',
     participants: [],
     survivors: [],
   },
@@ -91,10 +97,16 @@ export const useDataStore = create<DataStore>((set) => ({
         state.weeklyPicks.userResults = userResults;
       }),
     ),
-  updateLeague: ({ leagueId, participants, survivors }: ILeague): void =>
+  updateLeague: ({
+    leagueId,
+    leagueName,
+    participants,
+    survivors,
+  }: ILeague): void =>
     set(
       produce((state: IDataStoreState) => {
         state.league.leagueId = leagueId;
+        state.league.leagueName = leagueName;
         state.league.participants = participants;
         state.league.survivors = survivors;
       }),

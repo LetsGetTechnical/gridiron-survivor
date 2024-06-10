@@ -6,6 +6,7 @@ import {
   IGameWeek,
   IUser,
   IWeeklyPicks,
+  INFLTeam,
 } from './IapiFunctions';
 import { Collection, Document } from './EapiFunctions';
 import { Query } from 'appwrite';
@@ -88,16 +89,22 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
 /**
  * Get all NFL teams
  *
- * @return {Models.DocumentList<Models.Document> | Error} - The list of NFL teams
+ * @return {INFLTeam | Error} - The list of NFL teams
  */
-export const getNFLTeams = async (): Promise<Models.Document[]> => {
+export const getNFLTeams = async (): Promise<INFLTeam[]> => {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.NFL_TEAMS,
     );
 
-    return response.documents;
+    const nflTeams = response.documents.map((team) => ({
+      $id: team.$id,
+      teamName: team.teamName,
+      teamLogo: team.teamLogo,
+    }));
+
+    return nflTeams;
   } catch (error) {
     console.error(error);
     throw new Error('Error getting NFL teams');
@@ -111,7 +118,7 @@ export const getNFLTeams = async (): Promise<Models.Document[]> => {
  */
 export const getCurrentLeague = async (
   leagueId: ILeague['leagueId'],
-): Promise<Models.Document> => {
+): Promise<ILeague> => {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -119,7 +126,12 @@ export const getCurrentLeague = async (
       [Query.contains('$id', leagueId)],
     );
 
-    return response.documents[0];
+    return {
+      leagueId: response.documents[0].$id,
+      leagueName: response.documents[0].leagueName,
+      participants: response.documents[0].participants,
+      survivors: response.documents[0].survivors,
+    };
   } catch (error) {
     console.error('Error getting all game groups:', error);
     throw new Error('Error getting all game groups');
