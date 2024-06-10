@@ -51,9 +51,12 @@ export const AuthContextProvider = ({
   // Authenticate and set session state
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
-      await account.createEmailPasswordSession(user.email, user.password);
-      const userId = await getUser();
-      router.push(`/leagues?id=${userId}`);
+      const session = await account.createEmailPasswordSession(
+        user.email,
+        user.password,
+      );
+      await getUser();
+      router.push(`/leagues?id=${session.userId}`);
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
@@ -82,7 +85,7 @@ export const AuthContextProvider = ({
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
       updateUser(userData.id, userData.email, userData.league);
-      return userData.id;
+      return userData;
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
