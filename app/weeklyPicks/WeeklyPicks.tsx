@@ -18,6 +18,8 @@ import {
 } from '../../components/Form/Form';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
+import { toast } from 'react-hot-toast';
+import Alert from '@/components/Alert/AlertNotification';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -147,9 +149,18 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
       setUserPick(currentUserPick[user.id].team);
 
       //toast notification
+      toast.custom(
+        <Alert variant="success" message="Your pick was successful." />,
+      );
     } catch (error) {
       console.error('Submission error:', error);
       //toast notification
+      toast.custom(
+        <Alert
+          variant="error"
+          message="There was an error processing your request."
+        />,
+      );
     }
   };
 

@@ -9,8 +9,12 @@ const alertVariants = cva(
     variants: {
       variant: {
         default: 'bg-background text-foreground',
-        destructive:
-          'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive',
+        error:
+          'bg-background text-foreground [&>svg]:text-red-500 text-red-500 border-red-500',
+        warning:
+          'bg-background text-foreground [&>svg]:text-yellow-500 text-yellow-500 border-yellow-500',
+        success:
+          'bg-background text-foreground [&>svg]:text-green-500 text-green-500 border-green-500',
       },
     },
     defaultVariants: {
@@ -19,7 +23,7 @@ const alertVariants = cva(
   },
 );
 
-const Body = React.forwardRef<
+const Alert = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
 >(({ className, variant, ...props }, ref) => (
@@ -30,9 +34,9 @@ const Body = React.forwardRef<
     {...props}
   />
 ));
-Body.displayName = 'Alert';
+Alert.displayName = 'Alert';
 
-const Title = React.forwardRef<
+const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -42,9 +46,9 @@ const Title = React.forwardRef<
     {...props}
   />
 ));
-Title.displayName = 'AlertTitle';
+AlertTitle.displayName = 'AlertTitle';
 
-const Description = React.forwardRef<
+const AlertDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
@@ -54,6 +58,6 @@ const Description = React.forwardRef<
     {...props}
   />
 ));
-Description.displayName = 'AlertDescription';
+AlertDescription.displayName = 'AlertDescription';
 
-export { Body, Title, Description };
+export { Alert, AlertTitle, AlertDescription };
