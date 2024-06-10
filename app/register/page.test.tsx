@@ -76,16 +76,12 @@ describe('Register', () => {
   test('should call registerAccount function with email and password when continue button is clicked', async () => {
     fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.change(confirmPasswordInput, {
-      target: { value: 'password123' },
-    });
     fireEvent.click(continueButton);
 
     await waitFor(() => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
         email: 'test01@example.com',
         password: 'password123',
-        confirmPasswordInput: 'password123',
       });
       expect(mockLoginAccount).toHaveBeenCalledWith({
         email: 'test01@example.com',
