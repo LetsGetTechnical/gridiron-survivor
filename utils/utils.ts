@@ -24,6 +24,8 @@ export const getGameData = async ({
 
   return {
     league: {
+      leagueName: league.leagueName,
+      logo: league.logo,
       participants: league.participants,
       survivors: league.survivors,
     },

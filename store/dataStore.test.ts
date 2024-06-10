@@ -24,6 +24,7 @@ const NFLTeam = [
 const league = {
   leagueId: '123',
   leagueName: 'Test League',
+  logo: 'https://findmylogo.com/logo.png',
   participants: ['123456', '78'],
   survivors: ['123456', '78', '9'],
 };
@@ -131,6 +132,7 @@ describe('Data Store', () => {
       const { result } = renderHook(() => useDataStore());
       expect(result.current.league.leagueId).toBe('');
       expect(result.current.league.leagueName).toBe('');
+      expect(result.current.league.logo).toBe('');
       expect(result.current.league.participants).toStrictEqual([]);
       expect(result.current.league.survivors).toStrictEqual([]);
     });
@@ -143,6 +145,7 @@ describe('Data Store', () => {
 
       expect(result.current.league.leagueId).toBe(league.leagueId);
       expect(result.current.league.leagueName).toBe(league.leagueName);
+      expect(result.current.league.logo).toBe(league.logo);
       expect(result.current.league.participants).toBe(league.participants);
       expect(result.current.league.survivors).toBe(league.survivors);
     });

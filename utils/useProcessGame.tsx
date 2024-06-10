@@ -32,6 +32,8 @@ const useProcessGame = ({
 
     updateLeague({
       leagueId: leagueId,
+      leagueName: league.leagueName,
+      logo: league.logo,
       participants: league.participants,
       survivors: league.survivors,
     });
