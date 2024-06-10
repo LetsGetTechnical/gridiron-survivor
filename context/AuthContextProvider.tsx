@@ -52,7 +52,8 @@ export const AuthContextProvider = ({
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await account.createEmailPasswordSession(user.email, user.password);
-      getUser();
+      const userId = await getUser();
+      router.push(`/leagues?id=${userId}`);
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
@@ -81,8 +82,7 @@ export const AuthContextProvider = ({
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
       updateUser(userData.id, userData.email, userData.league);
-      // TODO: Make league ID dynamic once a users list of leagues page is created
-      router.push(`/leagues?id=${userData.id}`);
+      return userData.id;
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
