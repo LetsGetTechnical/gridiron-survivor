@@ -1,10 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
+import { registerAccount } from '@/api/apiFunctions';
 
-// Mock functions
-const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
+
+jest.mock('../../api/apiFunctions', () => ({
+  registerAccount: jest.fn(),
+}));
 
 let emailInput: HTMLElement;
 let passwordInput: HTMLElement;
@@ -12,7 +15,6 @@ let confirmPasswordInput: HTMLElement;
 let continueButton: HTMLElement;
 
 const mockUseAuthContext = {
-  registerAccount: mockRegisterAccount,
   loginAccount: mockLoginAccount,
   isSignedIn: false,
 };
@@ -37,16 +39,6 @@ describe('Register', () => {
     jest.clearAllMocks();
 
     render(<Register />);
-
-    // Initialize user data
-    const userData = {
-      email: 'rt@example.com',
-      password: 'rawr123',
-      confirmPassword: 'rawr123',
-    };
-
-    // Mock resolved value for registerAccount
-    mockRegisterAccount.mockResolvedValueOnce(userData);
 
     // Get form elements
     emailInput = screen.getByTestId('email');
@@ -79,14 +71,14 @@ describe('Register', () => {
     expect(confirmPasswordInput).toHaveValue('password123');
   });
 
-  test('should call registerAccount function with email and password when continue button is clicked', async () => {
+  test('should mock registerAccount function with email and password when continue button is clicked', async () => {
     fireEvent.change(emailInput, { target: { value: 'rt@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'rawr123' } });
     fireEvent.change(confirmPasswordInput, { target: { value: 'rawr123' } });
     fireEvent.click(continueButton);
 
     await waitFor(() => {
-      expect(mockRegisterAccount).toHaveBeenCalledWith({
+      expect(registerAccount).toHaveBeenCalledWith({
         email: 'rt@example.com',
         password: 'rawr123',
         confirmPassword: 'rawr123',
@@ -94,6 +86,7 @@ describe('Register', () => {
       expect(mockLoginAccount).toHaveBeenCalledWith({
         email: 'rt@example.com',
         password: 'rawr123',
+        confirmPassword: 'rawr123',
       });
     });
   });
