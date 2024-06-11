@@ -1,14 +1,16 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
+import { useAuthContext } from '../../context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
 
 const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 
-let emailInput: HTMLElement;
-let passwordInput: HTMLElement;
-let confirmPasswordInput: HTMLElement;
-let continueButton: HTMLElement;
+let emailInput;
+let passwordInput;
+let confirmPasswordInput;
+let continueButton;
 
 const mockUseAuthContext = {
   registerAccount: mockRegisterAccount,
@@ -26,18 +28,14 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('../../context/AuthContextProvider', () => ({
   useAuthContext() {
-    return {
-      ...mockUseAuthContext,
-    };
+    return mockUseAuthContext;
   },
 }));
 
 describe('Register', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-
     render(<Register />);
-
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
     confirmPasswordInput = screen.getByTestId('confirm-password');
@@ -79,9 +77,9 @@ describe('Register', () => {
 
     await waitFor(() => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
-        confirmPassword: 'password123',
         email: 'test01@example.com',
         password: 'password123',
+        confirmPassword: 'password123',
       });
       expect(mockLoginAccount).toHaveBeenCalledWith({
         email: 'test01@example.com',
@@ -92,13 +90,10 @@ describe('Register', () => {
 
   test('redirects to /weeklyPicks when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
-
     render(<Register />);
-
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
     });
-
     mockUseAuthContext.isSignedIn = false;
   });
 });
