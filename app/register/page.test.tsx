@@ -68,7 +68,7 @@ describe('Register', () => {
     expect(confirmPasswordInput).toHaveValue('password123');
   });
 
-  xtest('should call registerAccount function with email and password when continue button is clicked', async () => {
+  test('should call registerAccount function with email and password when continue button is clicked', async () => {
     fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.change(confirmPasswordInput, {
