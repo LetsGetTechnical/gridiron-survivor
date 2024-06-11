@@ -1,7 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
-import { useAuthContext } from '../../context/AuthContextProvider';
-import { useRouter } from 'next/navigation';
 
 const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
