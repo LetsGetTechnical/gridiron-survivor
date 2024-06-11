@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
 import Register from './page';
 
 const mockRegisterAccount = jest.fn();
@@ -82,7 +81,7 @@ describe('Register', () => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
         confirmPassword: 'password123',
         email: 'test01@example.com',
-        passwordInput: 'password123',
+        password: 'password123',
       });
       expect(mockLoginAccount).toHaveBeenCalledWith({
         email: 'test01@example.com',
@@ -90,18 +89,6 @@ describe('Register', () => {
       });
     });
   });
-
-
-+  test('calls the registerAccount function on form submission', async () => {
-  +    render(<Register />);
-
-  +    userEvent.type(emailInput, 'test01@example.com');
-  +    userEvent.type(passwordInput, 'password123');
-  +    userEvent.type(confirmPasswordInput, 'password123');
-  +    userEvent.click(continueButton);
-  +
-  +    expect(mockRegisterAccount).toHaveBeenCalledWith(emailInput, passwordInput, confirmPasswordInput);
-  +  });
 
   test('redirects to /weeklyPicks when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
