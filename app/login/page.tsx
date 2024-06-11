@@ -1,4 +1,5 @@
 'use client';
+import { JSX } from 'react';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
@@ -8,7 +9,7 @@ import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
-export const Login = () => {
+const Login = (): JSX.Element => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -79,4 +80,6 @@ export const Login = () => {
       </div>
     </section>
   );
-}
+};
+
+export default Login;

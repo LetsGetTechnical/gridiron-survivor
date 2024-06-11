@@ -12,7 +12,7 @@ import logo from '/public/assets/logo-colored-outline.svg';
 
 import { useAuthContext } from '@/context/AuthContextProvider';
 
-export const Register = () => {
+const Register = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -119,3 +119,5 @@ export const Register = () => {
     </div>
   );
 };
+
+export default Register;
