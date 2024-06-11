@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
 
+// Mock functions
 const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
@@ -16,6 +17,7 @@ const mockUseAuthContext = {
   isSignedIn: false,
 };
 
+// Mock the useRouter and useAuthContext hooks
 jest.mock('next/navigation', () => ({
   useRouter() {
     return {
@@ -26,9 +28,7 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('../../context/AuthContextProvider', () => ({
   useAuthContext() {
-    return {
-      ...mockUseAuthContext,
-    };
+    return mockUseAuthContext;
   },
 }));
 
@@ -38,6 +38,17 @@ describe('Register', () => {
 
     render(<Register />);
 
+    // Initialize user data
+    const userData = {
+      email: 'rt@example.com',
+      password: 'rawr123',
+      confirmPassword: 'rawr123',
+    };
+
+    // Mock resolved value for registerAccount
+    mockRegisterAccount.mockResolvedValueOnce(userData);
+
+    // Get form elements
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
     confirmPasswordInput = screen.getByTestId('confirm-password');
@@ -52,8 +63,8 @@ describe('Register', () => {
   });
 
   test('should update email state when input value changes', () => {
-    fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
-    expect(emailInput).toHaveValue('test01@example.com');
+    fireEvent.change(emailInput, { target: { value: 'rt@example.com' } });
+    expect(emailInput).toHaveValue('rt@example.com');
   });
 
   test('should update password state when input value changes', () => {
@@ -68,24 +79,20 @@ describe('Register', () => {
     expect(confirmPasswordInput).toHaveValue('password123');
   });
 
-  xtest('should call registerAccount function with email and password when continue button is clicked', async () => {
-    fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.change(confirmPasswordInput, {
-      target: { value: 'password123' },
-    });
+  test('should call registerAccount function with email and password when continue button is clicked', async () => {
+    fireEvent.change(emailInput, { target: { value: 'rt@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'rawr123' } });
+    fireEvent.change(confirmPasswordInput, { target: { value: 'rawr123' } });
     fireEvent.click(continueButton);
-    console.log('continue button clicked');
 
     await waitFor(() => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
-        confirmPassword: 'password123',
-        email: 'test01@example.com',
-        password: 'password123',
+        email: 'rt@example.com',
+        password: 'rawr123',
       });
       expect(mockLoginAccount).toHaveBeenCalledWith({
-        email: 'test01@example.com',
-        password: 'password123',
+        email: 'rt@example.com',
+        password: 'rawr123',
       });
     });
   });
