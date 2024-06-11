@@ -78,7 +78,7 @@ describe('Register', () => {
 
     await waitFor(async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 0)); // Allow microtask queue to flush
+        await new Promise((resolve) => setTimeout(resolve, 0));
         expect(mockRegisterAccount).toHaveBeenCalledWith({
           email: 'test01@example.com',
           password: 'password123',
@@ -89,7 +89,7 @@ describe('Register', () => {
         });
       } catch (error) {
         console.error(error);
-        throw error; // Rethrow error to fail the test
+        throw error;
       }
     });
   });
