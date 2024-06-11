@@ -26,14 +26,18 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('../../context/AuthContextProvider', () => ({
   useAuthContext() {
-    return mockUseAuthContext;
+    return {
+      ...mockUseAuthContext,
+    };
   },
 }));
 
 describe('Register', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+
     render(<Register />);
+
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
     confirmPasswordInput = screen.getByTestId('confirm-password');
@@ -75,6 +79,7 @@ describe('Register', () => {
 
     await waitFor(() => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
+        confirmPassword: 'password123',
         email: 'test01@example.com',
         password: 'password123',
       });
@@ -87,10 +92,13 @@ describe('Register', () => {
 
   test('redirects to /weeklyPicks when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
+
     render(<Register />);
+
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
     });
+
     mockUseAuthContext.isSignedIn = false;
   });
 });

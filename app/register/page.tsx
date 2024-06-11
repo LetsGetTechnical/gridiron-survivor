@@ -1,3 +1,4 @@
+'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
@@ -16,7 +17,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/Form/Form';
+} from '../../components/Form/Form';
 
 const RegisterUserSchema = z
   .object({
@@ -48,32 +49,31 @@ export default function Register() {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn]);
 
   const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
   });
 
-  const email = useWatch<RegisterUserSchemaType>({
+  const email = useWatch({
     control: form.control,
     name: 'email',
     defaultValue: '',
   });
 
-  const password = useWatch<RegisterUserSchemaType>({
+  const password = useWatch({
     control: form.control,
     name: 'password',
     defaultValue: '',
   });
 
-  const confirmPassword = useWatch<RegisterUserSchemaType>({
+  const confirmPassword = useWatch({
     control: form.control,
     name: 'confirmPassword',
     defaultValue: '',
   });
 
   const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (data) => {
-    console.log('Form submitted with data:', data);
     try {
       await registerAccount(data);
       await loginAccount(data);
