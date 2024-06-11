@@ -69,6 +69,9 @@ describe('Register', () => {
   });
 
   test('should call registerAccount function with email and password when continue button is clicked', async () => {
+    // Mocking registerAccount function
+    mockRegisterAccount.mockResolvedValue();
+
     fireEvent.change(emailInput, { target: { value: 'test01@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.change(confirmPasswordInput, {
@@ -76,21 +79,15 @@ describe('Register', () => {
     });
     fireEvent.click(continueButton);
 
-    await waitFor(async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 0));
-        expect(mockRegisterAccount).toHaveBeenCalledWith({
-          email: 'test01@example.com',
-          password: 'password123',
-        });
-        expect(mockLoginAccount).toHaveBeenCalledWith({
-          email: 'test01@example.com',
-          password: 'password123',
-        });
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
+    await waitFor(() => {
+      expect(mockRegisterAccount).toHaveBeenCalledWith({
+        email: 'test01@example.com',
+        password: 'password123',
+      });
+      expect(mockLoginAccount).toHaveBeenCalledWith({
+        email: 'test01@example.com',
+        password: 'password123',
+      });
     });
   });
 
