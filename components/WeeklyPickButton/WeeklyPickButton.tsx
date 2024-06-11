@@ -19,6 +19,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({ team, src }) => {
           height={48}
           priority
           data-testid="team-image"
+          className="h-12 w-12"
         />
         {team}
       </Label>
