@@ -7,10 +7,10 @@ const mockRegisterAccount = jest.fn();
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 
-let emailInput;
-let passwordInput;
-let confirmPasswordInput;
-let continueButton;
+let emailInput: HTMLElement;
+let passwordInput: HTMLElement;
+let confirmPasswordInput: HTMLElement;
+let continueButton: HTMLElement;
 
 const mockUseAuthContext = {
   registerAccount: mockRegisterAccount,
@@ -79,7 +79,6 @@ describe('Register', () => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
         email: 'test01@example.com',
         password: 'password123',
-        confirmPassword: 'password123',
       });
       expect(mockLoginAccount).toHaveBeenCalledWith({
         email: 'test01@example.com',
