@@ -89,6 +89,7 @@ describe('Register', () => {
       expect(mockRegisterAccount).toHaveBeenCalledWith({
         email: 'rt@example.com',
         password: 'rawr123',
+        confirmPassword: 'rawr123',
       });
       expect(mockLoginAccount).toHaveBeenCalledWith({
         email: 'rt@example.com',
