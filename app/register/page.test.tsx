@@ -75,13 +75,11 @@ describe('Register', () => {
       target: { value: 'password123' },
     });
     fireEvent.click(continueButton);
-    console.log('continue button clicked');
 
     await waitFor(async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 0)); // Allow microtask queue to flush
         expect(mockRegisterAccount).toHaveBeenCalledWith({
-          confirmPassword: 'password123',
           email: 'test01@example.com',
           password: 'password123',
         });
