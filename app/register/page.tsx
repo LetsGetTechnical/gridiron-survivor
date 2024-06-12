@@ -13,7 +13,7 @@ import logo from '/public/assets/logo-colored-outline.svg';
 
 import { useAuthContext } from '@/context/AuthContextProvider';
 
-export default function Register() {
+const Register = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -40,7 +40,7 @@ export default function Register() {
 
   const handleDisabled = () => {
     const passwordsMatch = comparePasswords(password, confirmPassword);
-    if (email && passwordsMatch === true && confirmPassword != '') {
+    if (email && passwordsMatch === true && confirmPassword !== '') {
       return false;
     }
     return true;
@@ -61,7 +61,7 @@ export default function Register() {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, router]);
 
   return (
     <div className="h-screen w-full">
@@ -124,4 +124,6 @@ export default function Register() {
       </div>
     </div>
   );
-}
+};
+
+export default Register;

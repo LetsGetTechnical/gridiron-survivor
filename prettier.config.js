@@ -4,8 +4,4 @@ module.exports = {
   singleQuote: true,
   tabWidth: 2,
   trailingComma: 'all',
-  plugins: [
-    // Automatically sorts tailwind classes to avoid specificity issues
-    'prettier-plugin-tailwindcss', // MUST COME LAST
-  ],
 };

@@ -3,7 +3,7 @@ import WeeklyPicks from './WeeklyPicks';
 
 export const revalidate = 900; // 15 minutes
 
-export default async function Page() {
+const Page = async () => {
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getCurrentWeek();
 
@@ -19,3 +19,5 @@ export default async function Page() {
     />
   );
 }
+
+export default Page;
