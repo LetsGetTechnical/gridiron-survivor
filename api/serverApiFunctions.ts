@@ -1,8 +1,8 @@
 'use server';
+import { IUser } from './IapiFunctions';
 import { users } from './serverConfig';
 
-export const deleteUser = async (formData: FormData) => {
-  const userId = formData.get('userId') as string;
+export const deleteUser = async (userId: IUser['id']) => {
   try {
     await users.delete(userId);
     return { success: true };
