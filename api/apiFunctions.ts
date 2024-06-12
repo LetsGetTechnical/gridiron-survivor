@@ -182,18 +182,3 @@ export async function createWeeklyPicks({
     throw new Error('Error creating weekly picks');
   }
 }
-
-export async function deleteCurrentUser(  userId: IUser['id'],
-): Promise<void> {
-  try {
-    await account.listIdentities(
-      [Query.equal('userId', userId)]
-    )
-    await account.deleteSessions(); // Ends all sessions
-    await account.deleteIdentity(userId); // Deletes the current logged-in user
-    console.log(`User deleted successfully.`);
-    // return {};
-  } catch (error) {
-    console.error(`Failed to delete user:`, error);
-  }
-}
