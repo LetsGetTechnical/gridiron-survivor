@@ -1,4 +1,7 @@
-import React from 'react';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import React, { JSX } from 'react';
 import Image from 'next/image';
 import { Label } from '../Label/Label';
 import { RadioGroupItem } from '../RadioGroup/RadioGroup';
@@ -8,7 +11,17 @@ type WeeklyPickButtonProps = {
   src: string;
 };
 
-const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({ team, src }) => {
+/**
+ * Renders the weekly pick button.
+ * @param props - The props
+ * @param props.team - The team name
+ * @param props.src - The image source
+ * @returns The rendered weekly pick button.
+ */
+const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
+  team,
+  src,
+}): JSX.Element => {
   return (
     <div className="flex items-center">
       <RadioGroupItem value={team} id={team} data-testid="team-radio" />

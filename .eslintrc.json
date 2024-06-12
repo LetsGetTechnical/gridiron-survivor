@@ -1,12 +1,13 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "jsdoc", "header"],
   "extends": [
     "plugin:jsx-a11y/recommended",
     "next/core-web-vitals",
     "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsdoc/recommended"
   ],
   "rules": {
     "no-console": ["error", { "allow": ["error"] }],
@@ -73,6 +74,66 @@
     "no-unused-vars": ["error", { "args": "all" }],
     "no-unused-expressions": "off",
     "semi": "off",
-    "import/extensions": 0
-  }
+    "import/extensions": 0,
+    "jsdoc/require-jsdoc": [
+      "error",
+      {
+        "enableFixer": true,
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true,
+          "ArrowFunctionExpression": true,
+          "FunctionExpression": true
+        }
+      }
+    ],
+    "jsdoc/sort-tags": "error",
+    "header/header": [
+      2,
+      "line",
+      [" Copyright (c) Gridiron Survivor.", " Licensed under the MIT License."],
+      2
+    ],
+    "jsdoc/require-param-name": [
+      "error",
+      {
+        "contexts": [
+          "ArrowFunctionExpression",
+          "ClassDeclaration",
+          "ClassExpression",
+          "ClassProperty",
+          "FunctionDeclaration",
+          "FunctionExpression",
+          "MethodDefinition",
+          "TSDeclareFunction",
+          "TSEnumDeclaration",
+          "TSInterfaceDeclaration",
+          "TSModuleDeclaration",
+          "TSTypeAliasDeclaration",
+          "VariableDeclaration"
+        ]
+      }
+    ],
+    "jsdoc/require-param": 2,
+    "jsdoc/require-param-description": 2,
+    "jsdoc/require-param-type": 0,
+    "jsdoc/require-returns": 2,
+    "jsdoc/require-returns-check": 0,
+    "jsdoc/require-returns-description": 0,
+    "jsdoc/require-returns-type": 0,
+    "jsdoc/require-property-name": 2,
+    "jsdoc/require-property-type": 0,
+    "jsdoc/no-types": 0,
+    "jsdoc/valid-types": 2,
+    "@typescript-eslint/explicit-function-return-type": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.enum.*"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ]
 }
