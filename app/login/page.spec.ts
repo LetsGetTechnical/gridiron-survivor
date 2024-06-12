@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { test, expect } from '@playwright/test';
 
 const correctCredentials = {
@@ -9,11 +12,11 @@ const incorrectCredentials = {
   password: 'wrongpassword',
 };
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/login');
-});
-
 test.describe('Tests login page', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/login');
+  });
+
   test('should successfully login', async ({ page }) => {
     await page.getByTestId('email').fill(correctCredentials.email);
     await page.getByTestId('password').fill(correctCredentials.password);

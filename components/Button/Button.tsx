@@ -1,4 +1,7 @@
-import * as React from 'react';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import React, { JSX } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { LucideProps } from 'lucide-react';
@@ -43,9 +46,10 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild, label, icon, ...props }, ref) => {
+  ({ className, variant, size, label, ...props }, ref): JSX.Element => {
     return (
       <button
+        type="button" // Add the type attribute with the value "button"
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
