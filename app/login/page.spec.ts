@@ -12,11 +12,11 @@ const incorrectCredentials = {
   password: 'wrongpassword',
 };
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/login');
-});
-
 test.describe('Tests login page', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/login');
+  });
+
   test('should successfully login', async ({ page }) => {
     await page.getByTestId('email').fill(correctCredentials.email);
     await page.getByTestId('password').fill(correctCredentials.password);

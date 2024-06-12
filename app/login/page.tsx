@@ -16,7 +16,7 @@ import LinkCustom from '@/components/LinkCustom/LinkCustom';
  * Renders the login page.
  * @returns The rendered login page.
  */
-export const Login = (): JSX.Element => {
+const Login = (): JSX.Element => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -96,3 +96,5 @@ export const Login = (): JSX.Element => {
     </section>
   );
 };
+
+export default Login;

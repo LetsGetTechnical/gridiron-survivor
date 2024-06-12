@@ -19,7 +19,7 @@ import { useAuthContext } from '@/context/AuthContextProvider';
  * Renders the registration page.
  * @returns {JSX.Element} The rendered registration page.
  */
-export const Register = (): JSX.Element => {
+const Register = (): JSX.Element => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -156,3 +156,5 @@ export const Register = (): JSX.Element => {
     </div>
   );
 };
+
+export default Register;
