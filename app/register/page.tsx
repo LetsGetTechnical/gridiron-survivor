@@ -41,7 +41,7 @@ const RegisterUserSchema = z
 
 type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 
-export default function Register() {
+const Register = () => {
   const router = useRouter();
   const { loginAccount, isSignedIn } = useAuthContext();
 
@@ -49,7 +49,7 @@ export default function Register() {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, router]);
 
   const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
@@ -193,4 +193,6 @@ export default function Register() {
       </div>
     </div>
   );
-}
+};
+
+export default Register;

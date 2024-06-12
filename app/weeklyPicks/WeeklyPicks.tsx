@@ -34,7 +34,7 @@ interface Props {
   currentGameWeek: IGameWeek;
 }
 
-export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
+const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
   const {
@@ -57,7 +57,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
 
     // Ensure user and game data are valid before proceeding
     if (user.id === '' || user.email === '' || gameCurrentWeek.id === '')
-      return;
+    {return;}
 
     // If userPick exists, set the loaded state and return
     if (userPick) {
@@ -204,3 +204,5 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
     </section>
   );
 }
+
+export default WeeklyPicks;

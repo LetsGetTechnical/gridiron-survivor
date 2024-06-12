@@ -5,8 +5,8 @@ import Login from './page';
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 
-let emailInput: HTMLElement,
-  passwordInput: HTMLElement,
+let emailInput: HTMLInputElement,
+  passwordInput: HTMLInputElement,
   continueButton: HTMLElement;
 
 const mockUseAuthContext = {

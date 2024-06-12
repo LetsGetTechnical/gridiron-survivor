@@ -1,5 +1,6 @@
 'use client';
-import { useEffect } from 'react';
+import { JSX } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
@@ -31,7 +32,7 @@ const LoginUserSchema = z.object({
 
 type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
 
-export default function Login() {
+const Login = (): JSX.Element => {
   const router = useRouter();
   const { loginAccount, isSignedIn } = useAuthContext();
 
@@ -39,7 +40,7 @@ export default function Login() {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, router]);
 
   const form = useForm<LoginUserSchemaType>({
     resolver: zodResolver(LoginUserSchema),
@@ -146,4 +147,6 @@ export default function Login() {
       </div>
     </section>
   );
-}
+};
+
+export default Login;
