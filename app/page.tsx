@@ -8,8 +8,8 @@ import { JSX } from 'react';
  */
 const Index = (): JSX.Element => {
   return (
-    <div className="flex flex-col items-center justify-center flex-1 w-full">
-      <nav className="flex flex-col items-center justify-center flex-1 w-full">
+    <div className="flex w-full flex-1 flex-col items-center justify-center">
+      <nav className="flex w-full flex-1 flex-col items-center justify-center">
         <p>Gridiron Survivor</p>
       </nav>
     </div>
