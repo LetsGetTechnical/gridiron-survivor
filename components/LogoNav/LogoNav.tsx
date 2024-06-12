@@ -3,7 +3,7 @@ import logo from '/public/assets/logo-colored-nav.svg'
 
 export const LogoNav = () => {
   return (
-      <Image 
+    <Image 
       src={logo} 
       alt="Gridiron Survivor logo"
       width={1}
