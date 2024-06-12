@@ -74,7 +74,6 @@ const Register = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (data) => {
-    console.log(data);
     try {
       await registerAccount(data);
       await loginAccount(data);
