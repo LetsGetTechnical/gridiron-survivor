@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 import { cn } from '@/utils/utils';
-import { ILeagueCardProps } from './ILeagueCardProps';
+import { ILeagueCardProps } from './LeagueCard.interface';
 import { LeagueCardSurvivors } from '../LeagueCardSurvivors/LeagueCardSurvivors';
 import * as React from 'react';
 import Image from 'next/image';

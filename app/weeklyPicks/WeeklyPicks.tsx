@@ -3,12 +3,12 @@
 
 'use client';
 import React, { JSX, useCallback, useEffect, useState } from 'react';
-import { IGameWeek } from '@/api/IapiFunctions';
+import { IGameWeek } from '@/api/apiFunctions.interface';
 import { useDataStore } from '@/store/dataStore';
 import { getGameData, getUserPick, parseUserPick } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Models } from 'appwrite/types/models';
-import { useForm } from 'react-hook-form';
+import { Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createWeeklyPicks } from '../../api/apiFunctions';
 import { Button } from '../../components/Button/Button';
@@ -130,7 +130,7 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
    * @param data - The form data.
    * @returns {void}
    */
-  const onSubmit = async (data: z.infer<typeof FormSchema>): void => {
+  const onSubmit = async (data: z.infer<typeof FormSchema>): Promise<void> => {
     try {
       const teamSelect = data.type.toLowerCase();
       const teamID = NFLTeams.find(
@@ -182,7 +182,7 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
-            control={form.control}
+            control={form.control as Control<object>}
             name="type"
             render={({ field }) => (
               <FormItem>

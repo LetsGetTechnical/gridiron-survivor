@@ -9,6 +9,15 @@ export interface IUser {
   id: string;
   email: string;
 }
+export interface IUserPick {
+  [userId: string]: {
+    team: string;
+    correct: boolean;
+  };
+}
+export interface IDeleteUser {
+  success: boolean;
+}
 export interface IWeeklyPicks {
   gameId: string;
   gameWeekId: string;

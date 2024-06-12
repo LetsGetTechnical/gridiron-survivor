@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 import { cn } from '@/utils/utils';
-import { ILeagueCardSurvivorsProps } from './ILeagueCardSurvivorsProps';
+import { ILeagueCardSurvivorsProps } from './LeagueCardSurvivors.interface';
 import * as React from 'react';
 
 const LeagueCardSurvivors = React.forwardRef<
