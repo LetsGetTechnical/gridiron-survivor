@@ -13,7 +13,7 @@ const Leagues = (): JSX.Element => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       <Heading
-        elementType="h6"
+        as="h1"
         className="pb-10 text-center text-3xl font-bold tracking-tight"
       >
         Your leagues
