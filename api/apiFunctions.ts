@@ -88,7 +88,7 @@ export const getNFLTeams = async (): Promise<Models.Document[]> => {
  * @returns {Models.Document | Error} - The game group or an error
  */
 export const getCurrentGame = async (
-  userId: IUser['id'],e
+  userId: IUser['id'],
 ): Promise<Models.Document> => {
   try {
     const response = await databases.listDocuments(
