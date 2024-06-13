@@ -88,7 +88,7 @@ const Login = (): JSX.Element => {
         <Form {...form}>
           <form
             id="input-container"
-            className="grid gap-4"
+            className="grid gap-3"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField

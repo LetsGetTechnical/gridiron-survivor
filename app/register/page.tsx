@@ -111,7 +111,11 @@ const Register = () => {
             </p>
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
+              <form
+                id="input-container"
+                className="grid gap-3"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
                 <FormField
                   control={form.control}
                   name="email"
