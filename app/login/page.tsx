@@ -36,7 +36,7 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
 
 /**
  * Renders the login page.
- * @returns The rendered login page.
+ * @returns {JSX.Element} The rendered login page.
  */
 const Login = (): JSX.Element => {
   const router = useRouter();
@@ -52,23 +52,11 @@ const Login = (): JSX.Element => {
     resolver: zodResolver(LoginUserSchema),
   });
 
-  /**
-   * The current value of the 'email' field in the form.
-   *
-   * @type {string}
-   */
-
   const email = useWatch({
     control: form.control,
     name: 'email',
     defaultValue: '',
   });
-
-  /**
-   * The current value of the 'password' field in the form.
-   *
-   * @type {string}
-   */
 
   const password = useWatch({
     control: form.control,
@@ -77,7 +65,7 @@ const Login = (): JSX.Element => {
   });
 
   /**
-   * Asynchronously handles the form submission event by calling the `loginAccount` function with the provided data.
+   * A function that handles form submission.
    *
    * @param {LoginUserSchemaType} data - The data submitted in the form.
    * @return {Promise<void>} A promise that resolves when the `loginAccount` function completes.
