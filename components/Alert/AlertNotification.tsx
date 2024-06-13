@@ -45,7 +45,7 @@ const Alert = ({
     <AlertDefault variant={variant}>
       <Icon className="h-4 w-4" />
       <AlertTitle title={title} />
-      <AlertDescription>{message}</AlertDescription>
+      <AlertDescription message={message} />
     </AlertDefault>
   );
 };

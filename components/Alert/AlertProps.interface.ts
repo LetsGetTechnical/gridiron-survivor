@@ -16,4 +16,5 @@ export interface IAlertTitleProps {
 
 export interface IAlertDescriptionProps {
   className?: string;
+  message: string;
 }
