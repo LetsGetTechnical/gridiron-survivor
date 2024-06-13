@@ -5,25 +5,20 @@ import * as React from 'react';
 const LeagueCardSurvivors = React.forwardRef<
   HTMLParagraphElement,
   ILeagueCardSurvivorsProps
->(({ isEliminated, survivors, totalPlayers, ...props }) => (
+>(({ survivors, totalPlayers, ...props }) => (
   <p
     data-testid="LeagueCardSurvivors"
-    className={cn(
-      'LeagueCardSurvivors text-sm text-foreground',
-      isEliminated ? 'text-foreground/50' : '',
-    )}
+    className={cn('LeagueCardSurvivors text-sm text-foreground')}
     {...props}
   >
-    {isEliminated ? 'ELIMINATED' : `Survivors ${survivors} `}
-    {isEliminated === false && (
-      <span
-        data-testid="LeagueCardSurvivorsTotalPlayers"
-        className="text-foreground/50"
-      >
-        {' '}
-        / {totalPlayers}
-      </span>
-    )}
+    Survivors {survivors}
+    <span
+      data-testid="LeagueCardSurvivorsTotalPlayers"
+      className="text-foreground/50"
+    >
+      {' '}
+      / {totalPlayers}
+    </span>
   </p>
 ));
 LeagueCardSurvivors.displayName = 'LeagueCardSurvivors';
