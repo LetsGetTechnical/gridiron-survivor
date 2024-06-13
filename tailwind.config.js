@@ -54,14 +54,6 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      fontSize: {
-        'h1': '2.5rem',
-        'h2': '2rem',
-        'h3': '1.75rem',
-        'h4': '1.5rem',
-        'h5': '1.25rem',
-        'h6': '1rem', 
-      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

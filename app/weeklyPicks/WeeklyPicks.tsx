@@ -172,13 +172,9 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
   }
 
   return (
+    //className="pb-8 text-center text-[2rem] font-bold text-white"
     <section className="w-full pt-8" data-testid="weekly-picks">
-      <Heading
-        as="h1"
-        className="pb-8 text-center text-[2rem] font-bold text-white"
-      >
-        Your pick sheet
-      </Heading>
+      <Heading heading="h1">Your pick sheet</Heading>
       <Form {...form}>
         <form
           className="mx-auto flex w-[90%] max-w-3xl flex-col items-center gap-8"
