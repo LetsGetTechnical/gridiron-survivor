@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useState, ChangeEvent, useEffect } from 'react';
+import React, { JSX, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';

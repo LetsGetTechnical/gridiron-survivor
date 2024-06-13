@@ -2,8 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import { JSX } from 'react';
-import { useEffect } from 'react';
+import { JSX, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
