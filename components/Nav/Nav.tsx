@@ -1,5 +1,8 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import React from 'react';
+import React, { JSX } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
@@ -15,12 +18,20 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/utils';
 import { useAuthContext } from '@/context/AuthContextProvider';
 
-export const Nav = () => {
+/**
+ * Renders the navigation.
+ * @returns {JSX.Element} The rendered navigation.
+ */
+export const Nav = (): JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
 
-  const handleLogout = async () => {
+  /**
+   * Handles the logout.
+   * @returns {Promise<void>} The logout promise.
+   */
+  const handleLogout = async (): Promise<void> => {
     try {
       await logoutAccount();
       router.push('/login');

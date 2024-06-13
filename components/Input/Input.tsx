@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import * as React from 'react';
 import { cn } from '../../utils/utils';
 

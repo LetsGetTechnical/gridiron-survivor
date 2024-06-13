@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
 import { JSX } from 'react';
 import { useEffect } from 'react';
@@ -32,6 +35,10 @@ const LoginUserSchema = z.object({
 
 type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
 
+/**
+ * Renders the login page.
+ * @returns The rendered login page.
+ */
 const Login = (): JSX.Element => {
   const router = useRouter();
   const { loginAccount, isSignedIn } = useAuthContext();

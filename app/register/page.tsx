@@ -1,5 +1,9 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import { useEffect } from 'react';
+import React, { JSX, useState, ChangeEvent, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
@@ -41,7 +45,11 @@ const RegisterUserSchema = z
 
 type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 
-const Register = () => {
+/**
+ * Renders the registration page.
+ * @returns {JSX.Element} The rendered registration page.
+ */
+const Register = (): JSX.Element => {
   const router = useRouter();
   const { loginAccount, isSignedIn } = useAuthContext();
 

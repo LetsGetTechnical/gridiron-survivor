@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import type { Decorator, Meta, StoryObj } from '@storybook/react';
 import { WeeklyPickButton } from './WeeklyPickButton';
 import { RadioGroup } from '../RadioGroup/RadioGroup';
@@ -22,6 +25,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/**
+ * Wraps the story in a radio group.
+ * @param Story - The story
+ * @returns The wrapped story.
+ */
 const withRadioGroup: Decorator = (Story) => (
   <RadioGroup>
     <Story />
