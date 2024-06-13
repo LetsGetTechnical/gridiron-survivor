@@ -56,11 +56,17 @@ const Register = (): JSX.Element => {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn]);
 
   const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
   });
+
+  /**
+   * The current value of the 'email' field in the form.
+   *
+   * @type {string}
+   */
 
   const email = useWatch({
     control: form.control,
@@ -68,11 +74,23 @@ const Register = (): JSX.Element => {
     defaultValue: '',
   });
 
+  /**
+   * The current value of the 'password' field in the form.
+   *
+   * @type {string}
+   */
+
   const password = useWatch({
     control: form.control,
     name: 'password',
     defaultValue: '',
   });
+
+  /**
+   * The current value of the 'confirmPassword' field in the form.
+   *
+   * @type {string}
+   */
 
   const confirmPassword = useWatch({
     control: form.control,
@@ -80,6 +98,12 @@ const Register = (): JSX.Element => {
     defaultValue: '',
   });
 
+  /**
+   * A function that handles form submission.
+   *
+   * @param {RegisterUserSchemaType} data - The data submitted in the form.
+   * @return {Promise<void>} Promise that resolves after form submission is processed.
+   */
   const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (data) => {
     try {
       await registerAccount(data);
