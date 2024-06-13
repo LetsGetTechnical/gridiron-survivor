@@ -15,7 +15,7 @@ function getCurrentBranch(): string {
 }
 
 // Determine current branch and assign it to a v
-let currentBranch = getCurrentBranch();
+const currentBranch = getCurrentBranch();
 
 /**
  * Read environment variables from file.
