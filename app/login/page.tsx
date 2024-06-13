@@ -12,7 +12,7 @@ import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { z } from 'zod';
-import { useForm, useWatch, SubmitHandler } from 'react-hook-form';
+import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -99,7 +99,7 @@ const Login = (): JSX.Element => {
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
-              control={form.control}
+              control={form.control as Control<object>}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -120,7 +120,7 @@ const Login = (): JSX.Element => {
               )}
             />
             <FormField
-              control={form.control}
+              control={form.control as Control<object>}
               name="password"
               render={({ field }) => (
                 <FormItem>

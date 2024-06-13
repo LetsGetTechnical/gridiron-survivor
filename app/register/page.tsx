@@ -3,7 +3,6 @@
 
 'use client';
 import React, { JSX, useState, ChangeEvent, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
@@ -13,7 +12,7 @@ import logo from '/public/assets/logo-colored-outline.svg';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { z } from 'zod';
-import { useForm, useWatch, SubmitHandler } from 'react-hook-form';
+import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -125,7 +124,7 @@ const Register = (): JSX.Element => {
                 onSubmit={form.handleSubmit(onSubmit)}
               >
                 <FormField
-                  control={form.control}
+                  control={form.control as Control<object>}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
@@ -146,7 +145,7 @@ const Register = (): JSX.Element => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={form.control as Control<object>}
                   name="password"
                   render={({ field }) => (
                     <FormItem>
@@ -167,7 +166,7 @@ const Register = (): JSX.Element => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={form.control as Control<object>}
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
