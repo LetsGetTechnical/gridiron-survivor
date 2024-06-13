@@ -1,32 +1,22 @@
-import React, { ElementType, HTMLAttributes } from 'react';
-import clsx from 'clsx';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
 
-interface HeadingProps extends HTMLAttributes<HTMLElement> {
-  as?: ElementType;
-  className?: string;
-}
+import React from 'react';
 
-const Heading: React.FC<HeadingProps> = ({
-  as: Tag = 'span',
-  className,
-  children,
-  ...props
-}) => {
-  const baseClass = 'text-gray-900';
-  const tagClasses: { [key: string]: string } = {
-    h1: 'text-4xl font-bold',
-    h2: 'text-3xl font-bold',
-    h3: 'text-2xl font-semibold',
-    h4: 'text-xl font-semibold',
-    h5: 'text-lg font-medium',
-    h6: 'text-base font-medium',
-  };
-
+const Heading = React.forwardRef<
+  React.ElementRef<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>,
+  {
+    elementType: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+    children: string;
+    className?: string;
+  }
+>(({ elementType, children, className }, ref) => {
+  const HeadingElement = elementType;
   return (
-    <Tag className={clsx(baseClass, tagClasses[Tag], className)} {...props}>
+    <HeadingElement ref={ref} className={className}>
       {children}
-    </Tag>
+    </HeadingElement>
   );
-};
+});
 
 export default Heading;

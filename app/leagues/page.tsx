@@ -3,6 +3,7 @@
 
 import React, { JSX } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
+import Heading from '@/components/Heading/Heading';
 
 /**
  * Renders the leagues component.
@@ -11,9 +12,12 @@ import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 const Leagues = (): JSX.Element => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
-      <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
+      <Heading
+        elementType="h6"
+        className="pb-10 text-center text-3xl font-bold tracking-tight"
+      >
         Your leagues
-      </h1>
+      </Heading>
       <section className="grid gap-6 md:grid-cols-2">
         <LeagueCard
           href="/leagues"
