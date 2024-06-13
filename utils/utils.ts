@@ -1,20 +1,33 @@
-import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import { IUser, IUserPick } from '@/api/apiFunctions.interface';
 import { getAllWeeklyPicks, getCurrentGame } from '@/api/apiFunctions';
-import { Models } from 'appwrite/types/models';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { IGetGameData, IGetGameWeekResults, IGetUserPick } from './utils.interface';
 
-export function cn(...inputs: ClassValue[]) {
+/**
+ * Combine class names
+ * @param inputs - The class names to combine
+ * @returns The combined class names
+ */
+export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Get the game data
+ * @param userId.userId - The user id
+ * @param userId - The user id
+ * @param currentGameWeekId - The current game week id
+ * @param userId.currentGameWeekId - The current game week id
+ * @returns The game data
+ */
 export const getGameData = async ({
   userId,
   currentGameWeekId,
-}: {
-  userId: IUser['id'];
-  currentGameWeekId: IGameWeek['id'];
-}) => {
+}: IGetGameData): Promise<IGetGameWeekResults> => {
   // find the game group the user is in
   const game = await getCurrentGame(userId);
 
@@ -44,16 +57,22 @@ export const getGameData = async ({
   };
 };
 
+/**
+ * Get the user pick
+ * @param weeklyPicks.weeklyPicks - The weekly picks
+ * @param weeklyPicks - The weekly picks
+ * @param userId - The user id
+ * @param NFLTeams - The NFL teams
+ * @param weeklyPicks.userId - The user id
+ * @param weeklyPicks.NFLTeams - The NFL teams
+ * @returns The user pick
+ */
 export const getUserPick = async ({
   weeklyPicks,
   userId,
   NFLTeams,
-}: {
-  weeklyPicks: IWeeklyPicks['userResults'];
-  userId: IUser['id'];
-  NFLTeams: Models.Document[];
-}) => {
-  if (!weeklyPicks || !weeklyPicks[userId]) return '';
+}: IGetUserPick): Promise<string> => {
+  if (!weeklyPicks || !weeklyPicks[userId]) {return '';}
 
   const userTeamId = weeklyPicks[userId].team;
   const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
@@ -61,7 +80,13 @@ export const getUserPick = async ({
   return userSelectedTeam?.teamName || '';
 };
 
-export const parseUserPick = (userId: IUser['id'], teamId: string) => {
+/**
+ * Parse the user pick
+ * @param userId - The user id
+ * @param teamId - The team id
+ * @returns {string} The parsed user pick
+ */
+export const parseUserPick = (userId: IUser['id'], teamId: string): IUserPick => {
   if (!userId || !teamId || teamId === '') {
     throw new Error('User ID and Team ID Required');
   }

@@ -1,11 +1,14 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import { IGameWeek } from '@/api/IapiFunctions';
+import React, { JSX, useCallback, useEffect, useState } from 'react';
+import { IGameWeek } from '@/api/apiFunctions.interface';
 import { useDataStore } from '@/store/dataStore';
 import { getGameData, getUserPick, parseUserPick } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Models } from 'appwrite/types/models';
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createWeeklyPicks } from '../../api/apiFunctions';
 import { Button } from '../../components/Button/Button';
@@ -34,7 +37,14 @@ interface Props {
   currentGameWeek: IGameWeek;
 }
 
-export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
+/**
+ * Renders the weekly picks page.
+ * @param props - The page props.
+ * @param props.NFLTeams - The NFL teams.
+ * @param props.currentGameWeek - The current game week.
+ * @returns {JSX.Element} The rendered weekly picks page.
+ */
+const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
   const {
@@ -56,8 +66,9 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
     }
 
     // Ensure user and game data are valid before proceeding
-    if (user.id === '' || user.email === '' || gameCurrentWeek.id === '')
+    if (user.id === '' || user.email === '' || gameCurrentWeek.id === '') {
       return;
+    }
 
     // If userPick exists, set the loaded state and return
     if (userPick) {
@@ -114,7 +125,12 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+  /**
+   * Handles the form submission.
+   * @param data - The form data.
+   * @returns {void}
+   */
+  const onSubmit = async (data: z.infer<typeof FormSchema>): Promise<void> => {
     try {
       const teamSelect = data.type.toLowerCase();
       const teamID = NFLTeams.find(
@@ -151,7 +167,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
   };
 
   if (!isLoaded) {
-    return;
+    return <></>;
   }
 
   return (
@@ -166,7 +182,7 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
-            control={form.control}
+            control={form.control as Control<object>}
             name="type"
             render={({ field }) => (
               <FormItem>
@@ -203,4 +219,6 @@ export default function WeeklyPicks({ NFLTeams, currentGameWeek }: Props) {
       </Form>
     </section>
   );
-}
+};
+
+export default WeeklyPicks;

@@ -1,3 +1,7 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import { JSX } from 'react';
 import Image from 'next/image';
 import { cn } from '../../utils/utils';
 
@@ -6,7 +10,14 @@ type LogoProps = {
   src: string;
 };
 
-export const Logo = ({ className, src }: LogoProps) => {
+/**
+ * Logo component
+ * @param props - The props
+ * @param props.className - The class name
+ * @param props.src - The image source
+ * @returns The Logo component
+ */
+export const Logo = ({ className, src }: LogoProps): JSX.Element => {
   return (
     <div className={cn('relative h-64 w-64', className)}>
       <Image
