@@ -22,8 +22,8 @@ import {
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { toast } from 'react-hot-toast';
-import Alert from '@/components/Alert/AlertNotification';
-import { Variant } from '../../components/Alert/Alerts.enum';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { Variant } from '../../components/AlertNotification/Alerts.enum';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 

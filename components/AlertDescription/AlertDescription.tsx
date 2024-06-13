@@ -3,12 +3,12 @@
 
 import * as React from 'react';
 import { cn } from '@/utils/utils';
-import { IAlertDescriptionProps } from './AlertProps.interface';
+import { IAlertDescription } from './AlertDescription.interface';
 
 const AlertDescription = React.forwardRef<
   HTMLParagraphElement,
-  IAlertDescriptionProps
->(({ className, message, ...props }: IAlertDescriptionProps) => (
+  IAlertDescription
+>(({ className, message, ...props }: IAlertDescription) => (
   <div className={cn('text-sm [&_p]:leading-relaxed', className)} {...props}>
     {message}
   </div>

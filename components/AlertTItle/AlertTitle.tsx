@@ -2,10 +2,10 @@
 // Licensed under the MIT License.
 
 import * as React from 'react';
-import { IAlertTitleProps } from './AlertProps.interface';
+import { IAlertTitle } from './AlertTitle.interface';
 import { cn } from '@/utils/utils';
 
-const AlertTitle = React.forwardRef<HTMLParagraphElement, IAlertTitleProps>(
+const AlertTitle = React.forwardRef<HTMLParagraphElement, IAlertTitle>(
   ({ className, title, ...props }, ref) => (
     <h5
       ref={ref}

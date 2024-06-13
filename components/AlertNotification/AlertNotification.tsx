@@ -1,12 +1,12 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { Alert as AlertDefault } from './Alert';
-import { AlertTitle } from './AlertTitle';
-import { AlertDescription } from './AlertDescription';
+import { Alert as AlertDefault } from '../Alert/Alert';
+import { AlertTitle } from '../AlertTItle/AlertTitle';
+import { AlertDescription } from '../AlertDescription/AlertDescription';
 import { JSX } from 'react';
 import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
-import { IAlertProps } from './AlertProps.interface';
+import { IAlertNotification } from './AlertNotification.interface';
 import { Variant } from './Alerts.enum';
 
 const variantConfig = {
@@ -38,7 +38,7 @@ const variantConfig = {
 const Alert = ({
   message,
   variant = Variant.Default,
-}: IAlertProps): JSX.Element => {
+}: IAlertNotification): JSX.Element => {
   const { title, icon: Icon } = variantConfig[variant];
 
   return (
