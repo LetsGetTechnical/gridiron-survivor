@@ -10,10 +10,11 @@ import Heading from '@/components/Heading/Heading';
  * @returns {JSX.Element} The rendered leagues component.
  */
 const Leagues = (): JSX.Element => {
-  //        className="pb-10 text-center text-3xl font-bold tracking-tight"
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
-      <Heading heading="h1">Your leagues</Heading>
+      <Heading heading="h2" className="pb-10 text-center">
+        Your leagues
+      </Heading>
       <section className="grid gap-6 md:grid-cols-2">
         <LeagueCard
           href="/leagues"
