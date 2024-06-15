@@ -10,7 +10,7 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
       data-testid="LeagueEntryContainerCard"
       className={cn(
         'LeagueEntryContainerCard flex h-[4.5rem] gap-3 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
-        isEliminated || isPickSet ? 'bg-transparent' : 'bg-zinc-800',
+        isEliminated ? 'bg-zinc-100 dark:bg-zinc-800' : 'transparent',
       )}
     >
       <div
@@ -20,7 +20,8 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
         <h4
           data-testid="entryNumber"
           className={cn(
-            'LeagueName text-xl font-semibold leading-none tracking-tight dark:text-zinc-50',
+            'LeagueName text-xl font-semibold leading-none tracking-tight',
+            isEliminated ? 'text-zinc-400' : '',
           )}
         >
           Entry {entryNumber}
