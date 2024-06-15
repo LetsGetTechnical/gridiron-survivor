@@ -14,50 +14,9 @@ export default function Leagues() {
         <h3 className="text-center text-2xl font-semibold tracking-tight">
           Week 2
         </h3>
-        <LeagueEntries
-          entryNumber={1}
-          isPickSet={true}
-          leagueName="Windy City Smackdown"
-          survivors={20}
-          totalPlayers={24}
-          weekNumber={3}
-        />
-        <LeagueEntries
-          entryNumber={2}
-          leagueName="Windy City Smackdown"
-          survivors={20}
-          totalPlayers={24}
-          weekNumber={3}
-        />
-        <LeagueEntries
-          entryNumber={1}
-          leagueName="It's Always Sunny in Minneapolis"
-          survivors={11}
-          totalPlayers={12}
-          weekNumber={3}
-        />
-        <LeagueEntries
-          entryNumber={1}
-          leagueName="Diamond Dogs"
-          survivors={20}
-          totalPlayers={24}
-          weekNumber={3}
-        />
-        <LeagueEntries
-          entryNumber={2}
-          leagueName="Diamond Dogs"
-          survivors={20}
-          totalPlayers={24}
-          weekNumber={3}
-        />
-        <LeagueEntries
-          entryNumber={3}
-          isEliminated={true}
-          leagueName="Diamond Dogs"
-          survivors={20}
-          totalPlayers={24}
-          weekNumber={3}
-        />
+        <LeagueEntries entryNumber={1} />
+        <LeagueEntries entryNumber={2} isPickSet={true} />
+        <LeagueEntries entryNumber={3} isEliminated={true} />
       </section>
     </div>
   );
