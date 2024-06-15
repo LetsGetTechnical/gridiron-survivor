@@ -5,10 +5,10 @@ import * as React from 'react';
 const LeagueSurvivors = React.forwardRef<
   HTMLParagraphElement,
   ILeagueSurvivorsProps
->(({ survivors, totalPlayers, ...props }) => (
+>(({ className, survivors, totalPlayers, ...props }) => (
   <p
     data-testid="LeagueSurvivors"
-    className={cn('LeagueSurvivors text-sm text-foreground')}
+    className={cn(`LeagueSurvivors text-sm text-foreground ${className}`)}
     {...props}
   >
     Survivors {survivors}

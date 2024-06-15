@@ -1,6 +1,6 @@
 import { cn } from '@/utils/utils';
-import * as React from 'react';
 import { IEntryStatusProps } from './EntryStatus.interface';
+import * as React from 'react';
 
 export const EntryStatus = ({
   isEliminated = false,

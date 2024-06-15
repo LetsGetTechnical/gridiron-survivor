@@ -1,5 +1,4 @@
 import { LeagueCard } from './LeagueCard';
-import { LeagueSurvivors } from '../LeagueSurvivors/LeagueSurvivors';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 

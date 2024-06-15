@@ -10,7 +10,7 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
       data-testid="LeagueEntryContainerCard"
       className={cn(
         'LeagueEntryContainerCard flex h-[4.5rem] gap-3 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
-        isEliminated ? 'bg-zinc-100 dark:bg-zinc-800' : 'transparent',
+        isEliminated ? 'bg-zinc-100 dark:bg-zinc-900' : 'transparent',
       )}
     >
       <div
@@ -21,7 +21,7 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
           data-testid="entryNumber"
           className={cn(
             'LeagueName text-xl font-semibold leading-none tracking-tight',
-            isEliminated ? 'text-zinc-400' : '',
+            isEliminated ? 'opacity-50' : '',
           )}
         >
           Entry {entryNumber}
@@ -31,7 +31,10 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
       <div className="flex w-1/3 items-center justify-between gap-3">
         <div>
           {isEliminated || !isPickSet ? null : (
-            <img src="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" />
+            <img
+              className="h-12 w-12"
+              src="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg"
+            />
           )}
         </div>
 
