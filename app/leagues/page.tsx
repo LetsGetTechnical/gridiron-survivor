@@ -1,6 +1,14 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import React, { JSX } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 
-export default function Leagues() {
+/**
+ * Renders the leagues component.
+ * @returns {JSX.Element} The rendered leagues component.
+ */
+const Leagues = (): JSX.Element => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
@@ -44,4 +52,6 @@ export default function Leagues() {
       </section>
     </div>
   );
-}
+};
+
+export default Leagues;

@@ -16,12 +16,8 @@ describe('deleteUser', () => {
     // Set up the mock implementation for the delete method
     (users.delete as jest.Mock).mockResolvedValue(mockResult);
 
-    // Create a mock FormData object
-    const formData = new FormData();
-    formData.append('userId', mockUserId);
-
     // Call the deleteUser function
-    const result = await deleteUser(formData);
+    const result = await deleteUser(mockUserId);
 
     // Assert that the delete method was called with the correct userId
     expect(users.delete).toHaveBeenCalledWith(mockUserId);
@@ -37,12 +33,8 @@ describe('deleteUser', () => {
     // Set up the mock implementation for the delete method to throw an error
     (users.delete as jest.Mock).mockRejectedValue(mockError);
 
-    // Create a mock FormData object
-    const formData = new FormData();
-    formData.append('userId', mockUserId);
-
     // Call the deleteUser function and assert that it throws an error
-    await expect(deleteUser(formData)).rejects.toThrow('Error Deleting User');
+    await expect(deleteUser(mockUserId)).rejects.toThrow('Error Deleting User');
 
     // Assert that the delete method was called with the correct userId
     expect(users.delete).toHaveBeenCalledWith(mockUserId);

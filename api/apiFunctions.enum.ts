@@ -1,6 +1,6 @@
-/**
- * Enum representing database collections with their corresponding unique identifiers
- */
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 export enum Collection {
   USERS = '6626c4fa8f793ae275ee',
   GAMES = '6626a937b6302f6a4d28',

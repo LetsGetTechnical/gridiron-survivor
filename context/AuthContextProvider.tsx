@@ -1,4 +1,8 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
+import React, { JSX } from 'react';
 import { cache } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
@@ -20,11 +24,17 @@ type AuthContextType = {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
+/**
+ * Provider for the authentication context.
+ * @param children.children - The children to render.
+ * @param children - The children to render.
+ * @returns The rendered provider.
+ */
 export const AuthContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}): JSX.Element => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const { updateUser, resetUser, user } = useDataStore<DataStore>(
     (state) => state,
@@ -40,7 +50,11 @@ export const AuthContextProvider = ({
     setIsSignedIn(true);
   }, [user]);
 
-  // Authenticate and set session state
+  /**
+   * Authenticate and set session state
+   * @param user - The user credentials.
+   * @returns The error if there is one.
+   */
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await account.createEmailPasswordSession(user.email, user.password);
@@ -52,7 +66,10 @@ export const AuthContextProvider = ({
     }
   };
 
-  // Log out and clear session state
+  /**
+   * Log out and clear session state
+   * @returns {Promise<void>}
+   */
   const logoutAccount = async (): Promise<void> => {
     try {
       await account.deleteSession('current');
@@ -64,7 +81,10 @@ export const AuthContextProvider = ({
     }
   };
 
-  // get user
+  /**
+   * Get user data from the session
+   * @returns {Promise<void>}
+   */
   const getUser = cache(async () => {
     if (!isSessionInLocalStorage()) {
       return;
@@ -80,7 +100,10 @@ export const AuthContextProvider = ({
     }
   });
 
-  // Helper function to validate session data in local storage
+  /**
+   * Helper function to validate session data in local storage
+   * @returns {boolean} - Whether the session is in local storage.
+   */
   const isSessionInLocalStorage = (): boolean => {
     const loadedDataString = localStorage.getItem('cookieFallback');
 
@@ -108,8 +131,11 @@ export const AuthContextProvider = ({
   );
 };
 
-// Custom hook to access the authentication context
-export function useAuthContext() {
+/**
+ * Custom hook to access the authentication context
+ * @returns The authentication context.
+ */
+const useAuthContext = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error(
@@ -117,4 +143,6 @@ export function useAuthContext() {
     );
   }
   return context;
-}
+};
+
+export { useAuthContext };
