@@ -2,7 +2,7 @@ import { LeagueCard } from '../LeagueCard/LeagueCard';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-describe('LeagueCardSurvivors', () => {
+describe('LeagueSurvivors', () => {
   it('renders correctly if user is not eliminated', () => {
     render(
       <LeagueCard
@@ -13,10 +13,10 @@ describe('LeagueCardSurvivors', () => {
       />,
     );
 
-    const leagueCardSurvivors = screen.getByTestId('LeagueCardSurvivors');
+    const leagueSurvivors = screen.getByTestId('LeagueSurvivors');
 
-    expect(leagueCardSurvivors).toBeInTheDocument();
-    expect(leagueCardSurvivors).toHaveTextContent('Survivors 11 / 12');
+    expect(leagueSurvivors).toBeInTheDocument();
+    expect(leagueSurvivors).toHaveTextContent('Survivors 11 / 12');
   });
   it('renders correctly if user is eliminated', () => {
     render(
@@ -29,10 +29,10 @@ describe('LeagueCardSurvivors', () => {
       />,
     );
 
-    const leagueCardSurvivors = screen.getByTestId('LeagueCardSurvivors');
+    const leagueSurvivors = screen.getByTestId('LeagueSurvivors');
 
-    expect(leagueCardSurvivors).toBeInTheDocument();
-    expect(leagueCardSurvivors).toHaveClass('text-foreground/50');
-    expect(leagueCardSurvivors).toHaveTextContent('ELIMINATED');
+    expect(leagueSurvivors).toBeInTheDocument();
+    expect(leagueSurvivors).toHaveClass('text-foreground/50');
+    expect(leagueSurvivors).toHaveTextContent('ELIMINATED');
   });
 });

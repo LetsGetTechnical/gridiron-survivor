@@ -1,7 +1,7 @@
 import { cn } from '@/utils/utils';
 import { EliminatedStatus } from '../EliminatedStatus/EliminatedStatus';
 import { ILeagueCardProps } from './ILeagueCardProps';
-import { LeagueCardSurvivors } from '../LeagueCardSurvivors/LeagueCardSurvivors';
+import { LeagueSurvivors } from '../LeagueSurvivors/LeagueSurvivors';
 import * as React from 'react';
 import Image from 'next/image';
 import LeagueCardPlaceholderLogo from './LeagueCardPlaceholderLogo.svg';
@@ -44,10 +44,7 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
         >
           {title}
         </h4>
-        <LeagueCardSurvivors
-          survivors={survivors}
-          totalPlayers={totalPlayers}
-        />
+        <LeagueSurvivors survivors={survivors} totalPlayers={totalPlayers} />
         {isEliminated ? <EliminatedStatus /> : null}
       </div>
     </Link>

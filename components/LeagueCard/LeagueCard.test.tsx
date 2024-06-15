@@ -1,4 +1,5 @@
 import { LeagueCard } from './LeagueCard';
+import { LeagueSurvivors } from '../LeagueSurvivors/LeagueSurvivors';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -25,7 +26,7 @@ describe('LeagueCard with custom league logo', () => {
     const leagueCard = screen.getByTestId('LeagueCard');
     const leagueCardHeader = screen.getByTestId('LeagueCardHeader');
     const mockedLeagueCardLogo = screen.getByTestId('MockedLeagueCardLogo');
-    const leagueCardSurvivors = screen.getByTestId('LeagueCardSurvivors');
+    const leagueSurvivors = screen.getByTestId('LeagueSurvivors');
     const leagueCardTitle = screen.getByTestId('LeagueCardTitle');
 
     expect(leagueCard).toBeInTheDocument();
@@ -33,8 +34,8 @@ describe('LeagueCard with custom league logo', () => {
     expect(mockedLeagueCardLogo.src).toContain(
       'https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg',
     );
-    expect(leagueCardSurvivors).toBeInTheDocument();
-    expect(leagueCardSurvivors).toHaveTextContent('Survivors 11 / 12');
+    expect(leagueSurvivors).toBeInTheDocument();
+    expect(leagueSurvivors).toHaveTextContent('Survivors 11 / 12');
     expect(leagueCardTitle).toBeInTheDocument();
     expect(leagueCardTitle).toHaveTextContent('League 1');
   });
@@ -51,13 +52,13 @@ describe('LeagueCard with custom league logo', () => {
 
     const leagueCard = screen.getByTestId('LeagueCard');
     const leagueCardHeader = screen.getByTestId('LeagueCardHeader');
-    const leagueCardSurvivors = screen.getByTestId('LeagueCardSurvivors');
+    const leagueSurvivors = screen.getByTestId('LeagueSurvivors');
     const leagueCardTitle = screen.getByTestId('LeagueCardTitle');
 
     expect(leagueCard).toBeInTheDocument();
     expect(leagueCardHeader).toBeInTheDocument();
-    expect(leagueCardSurvivors).toBeInTheDocument();
-    expect(leagueCardSurvivors).toHaveTextContent('Survivors 11 / 12');
+    expect(leagueSurvivors).toBeInTheDocument();
+    expect(leagueSurvivors).toHaveTextContent('Survivors 11 / 12');
     expect(leagueCardTitle).toBeInTheDocument();
     expect(leagueCardTitle).toHaveTextContent('League 1');
   });

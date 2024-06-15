@@ -1,4 +1,4 @@
-export interface ILeagueCardSurvivorsProps {
+export interface ILeagueSurvivorsProps {
   survivors: number;
   totalPlayers: number;
 }

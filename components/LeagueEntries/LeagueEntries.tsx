@@ -1,9 +1,8 @@
 import { Button } from '../Button/Button';
 import { cn } from '@/utils/utils';
+import { EntryStatus } from '../EntryStatus/EntryStatus';
 import { ILeagueEntriesProps } from './ILeagueEntriesProps';
 import * as React from 'react';
-import { EntryStatus } from '../EntryStatus/EntryStatus';
-import favicon from '@/public/assets/logo-colored-nav.svg';
 
 const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
   ({ entryNumber, isEliminated = false, isPickSet = false }) => (

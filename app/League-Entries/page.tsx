@@ -1,4 +1,4 @@
-import { LeagueCardSurvivors } from '@/components/LeagueCardSurvivors/LeagueCardSurvivors';
+import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 
 export default function Leagues() {
@@ -8,7 +8,7 @@ export default function Leagues() {
         <h1 className=" text-3xl font-bold tracking-tight">
           Windy City Smackdown
         </h1>
-        <LeagueCardSurvivors survivors={12} totalPlayers={12} />
+        <LeagueSurvivors survivors={12} totalPlayers={12} />
       </header>
       <section className="grid gap-3">
         <h3 className="text-center text-2xl font-semibold tracking-tight">
