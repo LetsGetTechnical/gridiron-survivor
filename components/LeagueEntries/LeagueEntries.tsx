@@ -1,7 +1,10 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { Button } from '../Button/Button';
 import { cn } from '@/utils/utils';
 import { EntryStatus } from '../EntryStatus/EntryStatus';
-import { ILeagueEntriesProps } from './ILeagueEntriesProps';
+import { ILeagueEntriesProps } from './LeagueEntries.interface';
 import * as React from 'react';
 
 const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
@@ -38,6 +41,7 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
             className="LeagueEntryLogo h-12 w-12"
             data-testid="LeagueEntryLogo"
             src="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg"
+            alt="League name"
           />
         )}
 

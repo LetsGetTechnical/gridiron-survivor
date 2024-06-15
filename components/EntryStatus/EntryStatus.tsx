@@ -1,10 +1,18 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { cn } from '@/utils/utils';
 import { IEntryStatusProps } from './EntryStatus.interface';
 import * as React from 'react';
 
+/**
+ * @param root0 By default, isEliminated is false
+ * @param root0.isEliminated If true, the user is flagged as eliminated
+ * @returns EntryStatus component
+ */
 export const EntryStatus = ({
   isEliminated = false,
-}: IEntryStatusProps): JSX.Element => {
+}: IEntryStatusProps): React.JSX.Element => {
   return (
     <div
       className={cn(

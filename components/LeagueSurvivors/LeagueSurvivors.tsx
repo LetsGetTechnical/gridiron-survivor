@@ -1,5 +1,8 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { cn } from '@/utils/utils';
-import { ILeagueSurvivorsProps } from './ILeagueSurvivorsProps';
+import { ILeagueSurvivorsProps } from './LeagueSurvivors.interface';
 import * as React from 'react';
 
 const LeagueSurvivors = React.forwardRef<

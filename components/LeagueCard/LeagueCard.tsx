@@ -3,7 +3,7 @@
 
 import { cn } from '@/utils/utils';
 import { EliminatedStatus } from '../EliminatedStatus/EliminatedStatus';
-import { ILeagueCardProps } from './ILeagueCardProps';
+import { ILeagueCardProps } from './LeagueCard.interface';
 import { LeagueSurvivors } from '../LeagueSurvivors/LeagueSurvivors';
 import * as React from 'react';
 import Image from 'next/image';

@@ -1,7 +1,14 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
+import * as React from 'react';
 
-export default function Leagues() {
+/**
+ * @returns Leagues
+ */
+const Leagues: React.FC = (): React.JSX.Element => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       <header className="place-items-center space-y-2 pb-10 text-center">
@@ -20,4 +27,6 @@ export default function Leagues() {
       </section>
     </div>
   );
-}
+};
+
+export default Leagues;

@@ -119,7 +119,13 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
     });
 
     setUserPick(userPickData);
-  }, [user.id, gameCurrentWeek.id, NFLTeams, userPick]);
+  }, [
+    user.id,
+    gameCurrentWeek.id,
+    updateGameGroup,
+    updateWeeklyPicks,
+    NFLTeams,
+  ]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

@@ -66,9 +66,8 @@ const Login = (): JSX.Element => {
 
   /**
    * A function that handles form submission.
-   *
    * @param {LoginUserSchemaType} data - The data submitted in the form.
-   * @return {Promise<void>} A promise that resolves when the `loginAccount` function completes.
+   * @returns {Promise<void>} A promise that resolves when the `loginAccount` function completes.
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
     await loginAccount(data);
