@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 describe('LeagueSurvivors', () => {
-  it('renders correctly if user is not eliminated', () => {
+  it('renders correctly', () => {
     render(<LeagueSurvivors survivors={11} totalPlayers={12} />);
 
     const leagueSurvivors = screen.getByTestId('LeagueSurvivors');
