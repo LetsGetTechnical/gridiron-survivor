@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
 import {
@@ -6,14 +9,16 @@ import {
   IGameWeek,
   IUser,
   IWeeklyPicks,
-} from './IapiFunctions';
-import { Collection } from './EapiFunctions';
+} from './apiFunctions.interface';
+import { Collection } from './apiFunctions.enum';
 import { Query } from 'appwrite';
 
 /**
  * Register a new account
- *
- * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ * @param props - The account data
+ * @param props.email - The email of the user
+ * @param props.password - The password of the user
+ * @returns {Models.User<Models.Preferences> | Error} - The user object or an error
  */
 export async function registerAccount({
   email,
@@ -29,10 +34,10 @@ export async function registerAccount({
 
 /**
  * Login to an existing account
- *
- * @param email - The email of the user
- * @param password - The password of the user
- * @return {Models.Session | Error} - The session object or an error
+ * @param props - The account data
+ * @param props.email - The email of the user
+ * @param props.password - The password of the user
+ * @returns {Models.Session | Error} - The session object or an error
  */
 export async function loginAccount({
   email,
@@ -48,8 +53,7 @@ export async function loginAccount({
 
 /**
  * Logout the current user
- *
- * @return {Object | Error} - The session object or an error
+ * @returns {object | Error} - The session object or an error
  */
 export async function logoutAccount(): Promise<{}> {
   try {
@@ -62,8 +66,7 @@ export async function logoutAccount(): Promise<{}> {
 
 /**
  * Get all NFL teams
- *
- * @return {Models.DocumentList<Models.Document> | Error} - The list of NFL teams
+ * @returns {Models.DocumentList<Models.Document> | Error} - The list of NFL teams
  */
 export const getNFLTeams = async (): Promise<Models.Document[]> => {
   try {
@@ -81,8 +84,8 @@ export const getNFLTeams = async (): Promise<Models.Document[]> => {
 
 /**
  * Get game the user is a part of
- *
- *
+ * @param userId - The user ID
+ * @returns {Models.Document | Error} - The game group or an error
  */
 export const getCurrentGame = async (
   userId: IUser['id'],
@@ -103,8 +106,7 @@ export const getCurrentGame = async (
 
 /**
  * Get the current week's ID & number
- *
- *
+ * @returns {IGameWeek | Error} - The current week or an error
  */
 export const getCurrentWeek = async (): Promise<IGameWeek> => {
   try {
@@ -126,8 +128,10 @@ export const getCurrentWeek = async (): Promise<IGameWeek> => {
 
 /**
  * Get all weekly picks
- *
- *
+ * @param props - The game ID and week ID
+ * @param props.gameId - The game ID
+ * @param props.weekId - The week ID
+ * @returns {IWeeklyPicks['userResults'] | null} - The user results or null
  */
 export async function getAllWeeklyPicks({
   gameId,
@@ -158,8 +162,11 @@ export async function getAllWeeklyPicks({
 
 /**
  *  Update the weekly picks with the users team pick
- *
- * @return {Models.User<Models.Preferences> | Error} - The user object or an error
+ * @param props - The weekly picks data
+ * @param props.gameId - The game ID
+ * @param props.gameWeekId - The game week ID
+ * @param props.userResults - The user results
+ * @returns {Models.User<Models.Preferences> | Error} - The user object or an error
  */
 export async function createWeeklyPicks({
   gameId,
