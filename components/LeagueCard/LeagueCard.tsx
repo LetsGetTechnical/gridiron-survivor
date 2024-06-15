@@ -21,7 +21,6 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
       href={href}
       className={cn(
         'LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
-        isEliminated ? 'opacity-50 dark:bg-zinc-700' : '',
       )}
     >
       <Image
@@ -41,13 +40,11 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
           data-testid="LeagueCardTitle"
           className={cn(
             'LeagueCardTitle text-2xl font-semibold leading-none tracking-tight dark:text-zinc-50',
-            isEliminated ? 'text-foreground/50' : '',
           )}
         >
           {title}
         </h4>
         <LeagueCardSurvivors
-          isEliminated={isEliminated}
           survivors={survivors}
           totalPlayers={totalPlayers}
         />
