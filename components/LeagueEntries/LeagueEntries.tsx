@@ -9,13 +9,13 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
     <div
       data-testid="LeagueEntryContainerCard"
       className={cn(
-        'LeagueEntryContainerCard flex h-[4.5rem] gap-3 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
+        'LeagueEntryContainerCard grid h-20 min-w-fit grid-cols-2 justify-between rounded-lg border bg-card p-4 text-card-foreground shadow-sm outline dark:border-zinc-800',
         isEliminated ? 'bg-zinc-100 dark:bg-zinc-900' : 'transparent',
       )}
       ref={ref}
     >
-      <div
-        className="LeagueEntryHeader flex w-2/3 items-center gap-12"
+      <section
+        className="LeagueEntryHeader flex items-center gap-2 md:gap-12"
         data-testid="LeagueEntryHeader"
       >
         <h4
@@ -28,23 +28,18 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
           Entry {entryNumber}
         </h4>
         <EntryStatus isEliminated={isEliminated} />
-      </div>
-      <div
-        className="LeagueEntryFooter flex w-1/3 items-center justify-between gap-3"
+      </section>
+      <section
+        className="LeagueEntryFooter flex items-center justify-end gap-2 md:gap-12"
         data-testid="LeagueEntryFooter"
       >
-        <div
-          className="LeagueEntryLogoContainer"
-          data-testid="LeagueEntryLogoContainer"
-        >
-          {isEliminated || !isPickSet ? null : (
-            <img
-              className="LeagueEntryLogo h-12 w-12"
-              data-testid="LeagueEntryLogo"
-              src="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg"
-            />
-          )}
-        </div>
+        {isEliminated || !isPickSet ? null : (
+          <img
+            className="LeagueEntryLogo h-12 w-12"
+            data-testid="LeagueEntryLogo"
+            src="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg"
+          />
+        )}
 
         <div
           className="LeagueEntryPickButtonContainer"
@@ -59,7 +54,7 @@ const LeagueEntries = React.forwardRef<HTMLDivElement, ILeagueEntriesProps>(
             />
           )}
         </div>
-      </div>
+      </section>
     </div>
   ),
 );
