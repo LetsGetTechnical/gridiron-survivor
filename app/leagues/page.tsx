@@ -3,12 +3,15 @@
 
 import React, { JSX } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
+import { useDataStore } from '@/store/dataStore';
 
 /**
  * Renders the leagues component.
  * @returns {JSX.Element} The rendered leagues component.
  */
 const Leagues = (): JSX.Element => {
+  const { gameGroup } = useDataStore((state) => state);
+
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
@@ -18,14 +21,14 @@ const Leagues = (): JSX.Element => {
         <LeagueCard
           href="/leagues"
           leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
-          survivors={69}
+          survivors={gameGroup.survivors.length}
           title="69ers"
           totalPlayers={138}
         />
         <LeagueCard
           isEliminated={true}
           href="/leagues"
-          survivors={69}
+          survivors={gameGroup.survivors.length}
           title="69ers"
           totalPlayers={138}
         />
