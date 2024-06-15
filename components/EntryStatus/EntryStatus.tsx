@@ -11,6 +11,7 @@ export const EntryStatus = ({
         'rounded-full px-2 py-1 text-xs uppercase text-zinc-800',
         isEliminated ? 'bg-red-500' : 'bg-green-500',
       )}
+      data-testid="EntryStatus"
     >
       <p>{isEliminated ? 'eliminated' : `alive`}</p>
     </div>
