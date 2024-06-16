@@ -13,6 +13,7 @@ interface Props {
 
 /**
  * Renders the leagues component.
+ * @param {Props} props The props for the leagues component.
  * @returns {JSX.Element | undefined} The rendered leagues component.
  */
 const Leagues = async ({

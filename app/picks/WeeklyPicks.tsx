@@ -37,6 +37,7 @@ export const revalidate = 900; // 15 minutes
  * @param props - The page props.
  * @param props.NFLTeams - The NFL teams.
  * @param props.currentGameWeek - The current game week.
+ * @param props.leagueId - The league ID.
  * @returns {JSX.Element} The rendered weekly picks page.
  */
 const WeeklyPicks = ({
@@ -46,15 +47,16 @@ const WeeklyPicks = ({
 }: IWeeklyPicksProps): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
-  const {
-    user,
-    updateWeeklyPicks,
-    weeklyPicks,
+  const { user, updateWeeklyPicks, weeklyPicks, gameWeek, updateGameWeek } =
+    useDataStore((state) => state);
+
+  const processGame = useProcessGame({
+    leagueId,
     gameWeek,
-    updateGameWeek,
-    updateNFLTeam,
-    NFLTeam,
-  } = useDataStore((state) => state);
+    user,
+    NFLTeams,
+    setUserPick,
+  });
 
   useEffect(() => {
     // Update the current week if it has changed
@@ -80,15 +82,15 @@ const WeeklyPicks = ({
 
     // Process the game if all conditions are met
     processGame();
-  }, [user, userPick, gameWeek, updateGameWeek, leagueId]);
-
-  const processGame = useProcessGame({
-    leagueId,
-    gameWeek,
+  }, [
     user,
-    NFLTeams,
-    setUserPick,
-  });
+    userPick,
+    gameWeek,
+    updateGameWeek,
+    leagueId,
+    currentGameWeek,
+    processGame,
+  ]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
