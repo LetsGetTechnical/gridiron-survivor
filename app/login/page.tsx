@@ -40,7 +40,7 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  */
 const Login = (): JSX.Element => {
   const router = useRouter();
-  const { loginAccount, isSignedIn } = useAuthContext();
+  const { loginAccount, isSignedIn, getUser } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {

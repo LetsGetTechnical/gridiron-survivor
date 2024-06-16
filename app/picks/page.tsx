@@ -1,5 +1,5 @@
 import React from 'react';
-import { ILeague } from '@/api/IapiFunctions';
+import { ILeague } from '@/api/apiFunctions.interface';
 import WeeklyPicks from './WeeklyPicks';
 import { getGameWeek, getNFLTeams } from '@/api/apiFunctions';
 
@@ -7,7 +7,7 @@ interface Props {
   searchParams?: { leagueId: ILeague['leagueId'] };
 }
 
-export default async function Picks({ searchParams }: Props) {
+const Picks = async ({ searchParams }: Props) => {
   const leagueId = searchParams?.leagueId || '';
   const allNFLTeams = getNFLTeams();
   const currentGameWeek = getGameWeek();
@@ -24,4 +24,6 @@ export default async function Picks({ searchParams }: Props) {
       leagueId={leagueId}
     />
   );
-}
+};
+
+export default Picks;

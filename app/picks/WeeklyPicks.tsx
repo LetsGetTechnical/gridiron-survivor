@@ -2,12 +2,10 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useCallback, useEffect, useState } from 'react';
-import { IGameWeek } from '@/api/apiFunctions.interface';
+import React, { JSX, useEffect, useState } from 'react';
 import { useDataStore } from '@/store/dataStore';
 import { parseUserPick } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Models } from 'appwrite/types/models';
 import { Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
@@ -21,6 +19,8 @@ import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { IWeeklyPicksProps } from './IPicks';
 import useProcessGame from '@/utils/useProcessGame';
+import { createWeeklyPicks } from '@/api/apiFunctions';
+import { Button } from '@/components/Button/Button';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
