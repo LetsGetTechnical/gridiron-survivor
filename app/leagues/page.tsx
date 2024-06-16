@@ -1,5 +1,9 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import React, { JSX } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { IUser } from '@/api/IapiFunctions';
+import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { getUserLeagues } from '@/utils/utils';
 
@@ -7,7 +11,13 @@ interface Props {
   searchParams?: { id: IUser['id'] };
 }
 
-export default async function Leagues({ searchParams }: Props) {
+/**
+ * Renders the leagues component.
+ * @returns {JSX.Element | undefined} The rendered leagues component.
+ */
+const Leagues = async ({
+  searchParams,
+}: Props): Promise<JSX.Element | undefined> => {
   const userId = searchParams?.id || '';
 
   if (!userId || userId === '') {
@@ -36,4 +46,6 @@ export default async function Leagues({ searchParams }: Props) {
       </section>
     </div>
   );
-}
+};
+
+export default Leagues;

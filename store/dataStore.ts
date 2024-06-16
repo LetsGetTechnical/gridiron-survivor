@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { create } from 'zustand';
 import { produce } from 'immer';
 import {
@@ -6,7 +9,7 @@ import {
   IWeeklyPicks,
   ILeague,
   IGameWeek,
-} from '@/api/IapiFunctions';
+} from '@/api/apiFunctions.interface';
 
 //Define the shape of the state
 interface IDataStoreState {
@@ -72,14 +75,29 @@ const initialState: IDataStoreState = {
 //create the store
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
-  resetUser: () => set({ user: initialState.user }),
-  updateNFLTeam: (teams: INFLTeam[]): void =>
+  /**
+   * Reset the user state
+   * @returns {void}
+   */
+  resetUser: (): void => set({ user: initialState.user }),
+  /**
+   * Update the NFL team
+   * @param updatedTeam - The updated team
+   * @returns {void}
+   */
+  updateNFLTeam: (updatedTeam: INFLTeam): void =>
     set(
       produce((state: IDataStoreState) => ({
         NFLTeam: [...state.NFLTeam, ...teams],
       })),
     ),
-  updateUser: (id, email, league) =>
+  /**
+   * Update the user
+   * @param id - The user id
+   * @param email - The user email
+   * @returns {void}
+   */
+  updateUser: (id, email, league): void =>
     set(
       produce((state: IDataStoreState) => {
         state.user.id = id;
@@ -87,6 +105,14 @@ export const useDataStore = create<DataStore>((set) => ({
         state.user.league = [...league];
       }),
     ),
+  /**
+   * Update the weekly picks
+   * @param props - props
+   * @param props.gameId - The game id
+   * @param props.gameWeekId - The game week id
+   * @param props.userResults - The user results
+   * @returns {void}
+   */
   updateWeeklyPicks: ({
     leagueId,
     gameWeekId,
@@ -99,6 +125,14 @@ export const useDataStore = create<DataStore>((set) => ({
         state.weeklyPicks.userResults = userResults;
       }),
     ),
+  /**
+   * Update the game group
+   * @param props - props
+   * @param props.currentGameId - The current game id
+   * @param props.participants - The participants
+   * @param props.survivors - The survivors
+   * @returns {void}
+   */
   updateLeague: ({
     leagueId,
     leagueName,
@@ -115,6 +149,13 @@ export const useDataStore = create<DataStore>((set) => ({
         state.league.survivors = survivors;
       }),
     ),
+  /**
+   * Update the current week
+   * @param props - props
+   * @param props.id - The id
+   * @param props.week - The week
+   * @returns {void}
+   */
   updateGameWeek: ({ id, week }: IGameWeek): void =>
     set(
       produce((state: IDataStoreState) => {

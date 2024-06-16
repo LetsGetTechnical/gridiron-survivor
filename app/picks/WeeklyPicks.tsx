@@ -1,11 +1,14 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import { useEffect, useState } from 'react';
-import { createWeeklyPicks } from '@/api/apiFunctions';
-import { Button } from '@/components/Button/Button';
+import React, { JSX, useCallback, useEffect, useState } from 'react';
+import { IGameWeek } from '@/api/apiFunctions.interface';
 import { useDataStore } from '@/store/dataStore';
 import { parseUserPick } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { Models } from 'appwrite/types/models';
+import { Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
   Form,
@@ -29,11 +32,18 @@ const FormSchema = z.object({
 
 export const revalidate = 900; // 15 minutes
 
-export default function WeeklyPicks({
+/**
+ * Renders the weekly picks page.
+ * @param props - The page props.
+ * @param props.NFLTeams - The NFL teams.
+ * @param props.currentGameWeek - The current game week.
+ * @returns {JSX.Element} The rendered weekly picks page.
+ */
+const WeeklyPicks = ({
   NFLTeams,
   currentGameWeek,
   leagueId,
-}: IWeeklyPicksProps) {
+}: IWeeklyPicksProps): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [userPick, setUserPick] = useState<string | null>(null);
   const {
@@ -58,8 +68,9 @@ export default function WeeklyPicks({
       user.email === '' ||
       gameWeek.id === '' ||
       leagueId === ''
-    )
+    ) {
       return;
+    }
 
     // If userPick exists, set the loaded state
     if (userPick) {
@@ -83,7 +94,12 @@ export default function WeeklyPicks({
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+  /**
+   * Handles the form submission.
+   * @param data - The form data.
+   * @returns {void}
+   */
+  const onSubmit = async (data: z.infer<typeof FormSchema>): Promise<void> => {
     try {
       const teamSelect = data.type.toLowerCase();
       const teamID = NFLTeams.find(
@@ -120,7 +136,7 @@ export default function WeeklyPicks({
   };
 
   if (!isLoaded) {
-    return;
+    return <></>;
   }
 
   return (
@@ -135,7 +151,7 @@ export default function WeeklyPicks({
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
-            control={form.control}
+            control={form.control as Control<object>}
             name="type"
             render={({ field }) => (
               <FormItem>
@@ -172,4 +188,6 @@ export default function WeeklyPicks({
       </Form>
     </section>
   );
-}
+};
+
+export default WeeklyPicks;

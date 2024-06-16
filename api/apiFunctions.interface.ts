@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 export interface IAccountData {
   email: string;
   password: string;
@@ -6,6 +9,15 @@ export interface IUser {
   id: string;
   email: string;
   league: string[];
+}
+export interface IUserPick {
+  [userId: string]: {
+    team: string;
+    correct: boolean;
+  };
+}
+export interface IDeleteUser {
+  success: boolean;
 }
 export interface IWeeklyPicks {
   leagueId: string;
