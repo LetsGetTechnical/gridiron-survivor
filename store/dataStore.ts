@@ -85,10 +85,10 @@ export const useDataStore = create<DataStore>((set) => ({
    * @param updatedTeam - The updated team
    * @returns {void}
    */
-  updateNFLTeam: (updatedTeam: INFLTeam): void =>
+  updateNFLTeam: (updatedTeam: INFLTeam[]): void =>
     set(
       produce((state: IDataStoreState) => ({
-        NFLTeam: [...state.NFLTeam, ...teams],
+        NFLTeam: [...state.NFLTeam, ...updatedTeam],
       })),
     ),
   /**
