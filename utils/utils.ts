@@ -1,9 +1,18 @@
-import { IGameWeek, IUser, IWeeklyPicks } from '@/api/IapiFunctions';
-import { getAllWeeklyPicks, getCurrentGame, getCurrentLeague } from '@/api/apiFunctions';
+import {
+  IGameWeek,
+  IUser,
+  IUserPick,
+  IWeeklyPicks,
+} from '@/api/apiFunctions.interface';
+import { getAllWeeklyPicks, getCurrentLeague } from '@/api/apiFunctions';
 import { Models } from 'appwrite/types/models';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { IGetGameData, IGetGameWeekResults, IGetUserPick } from './utils.interface';
+import {
+  IGetGameData,
+  IGetGameWeekResults,
+  IGetUserPick,
+} from './utils.interface';
 import { ILeague } from '@/api/apiFunctions.interface';
 
 /**
@@ -66,7 +75,9 @@ export const getUserPick = async ({
   userId,
   NFLTeams,
 }: IGetUserPick): Promise<string> => {
-  if (!weeklyPicks || !weeklyPicks[userId]) {return '';}
+  if (!weeklyPicks || !weeklyPicks[userId]) {
+    return '';
+  }
 
   const userTeamId = weeklyPicks[userId].team;
   const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
@@ -80,7 +91,10 @@ export const getUserPick = async ({
  * @param teamId - The team id
  * @returns {string} The parsed user pick
  */
-export const parseUserPick = (userId: IUser['id'], teamId: string): IUserPick => {
+export const parseUserPick = (
+  userId: IUser['id'],
+  teamId: string,
+): IUserPick => {
   if (!userId || !teamId || teamId === '') {
     throw new Error('User ID and Team ID Required');
   }

@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 
 import {
-  IGameGroup,
   IGameWeek,
+  ILeague,
   IUser,
   IWeeklyPicks,
 } from '@/api/apiFunctions.interface';
@@ -15,7 +15,7 @@ export interface IGetGameData {
 }
 
 export interface IGetGameWeekResults {
-  gameGroupData: IGameGroup | null;
+  league: ILeague | null;
   weeklyPicksData: IWeeklyPicks | '';
 }
 

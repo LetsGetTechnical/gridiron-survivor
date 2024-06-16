@@ -9,7 +9,7 @@ import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
-import { IUser } from '@/api/IapiFunctions';
+import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 
 type UserCredentials = {
