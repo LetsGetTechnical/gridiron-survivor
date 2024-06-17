@@ -46,4 +46,6 @@ const Heading = forwardRef<HTMLElement, HeadingProps>(
   },
 );
 
+Heading.displayName = 'Heading';
+
 export default Heading;
