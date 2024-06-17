@@ -21,7 +21,6 @@ import {
 } from '../../components/Form/Form';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
-import Heading from '@/components/Heading/Heading';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -172,9 +171,11 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
   }
 
   return (
-    //className="pb-8 text-center text-[2rem] font-bold text-white"
     <section className="w-full pt-8" data-testid="weekly-picks">
-      <Heading heading="h1">Your pick sheet</Heading>
+      <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+        Your pick sheet
+      </h1>
+
       <Form {...form}>
         <form
           className="mx-auto flex w-[90%] max-w-3xl flex-col items-center gap-8"
