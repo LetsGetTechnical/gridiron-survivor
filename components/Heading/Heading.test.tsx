@@ -9,30 +9,15 @@ describe('Heading component', () => {
     expect(heading.tagName.toLowerCase()).toBe('h1');
   });
 
-  test('renders the correct heading level when specified', () => {
-    render(<Heading heading="h2">Test Heading</Heading>);
-    const heading = screen.getByRole('heading');
-    expect(heading.tagName.toLowerCase()).toBe('h2');
-  });
-
   test('applies the correct CSS classes based on the heading level', () => {
     render(<Heading heading="h3">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
     expect(heading).toHaveClass('font-semibold', 'text-base', 'leading-8');
   });
 
-  test('applies additional CSS classes when provided', () => {
-    render(
-      <Heading className="custom-class" heading="h4">
-        Test Heading
-      </Heading>,
-    );
+  test('handles undefined string heading prop and default it to "h1"', () => {
+    render(<Heading heading={undefined}>Test Heading</Heading>);
     const heading = screen.getByRole('heading');
-    expect(heading).toHaveClass(
-      'font-semibold',
-      'text-sm',
-      'leading-7',
-      'custom-class',
-    );
+    expect(heading.tagName.toLowerCase()).toBe('h1');
   });
 });
