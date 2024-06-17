@@ -33,6 +33,8 @@ const ErrorBoundary = ({ children }: IErrorBoundary): JSX.Element => {
       </div>
     );
   }
+  //!should add componentDidCatch - based off of Web Dev Simplified's
+  //it tracks error to the logs, so you can see which component stack caused it
 
   return <div onError={handleError}>{children}</div>;
 };
