@@ -17,7 +17,7 @@ import {
 } from '../../components/Form/Form';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
-import { IWeeklyPicksProps } from './IPicks';
+import { IWeeklyPicksProps } from './Picks.interface';
 import useProcessGame from '@/utils/useProcessGame';
 import { createWeeklyPicks } from '@/api/apiFunctions';
 import { Button } from '@/components/Button/Button';

@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import WeeklyPicks from './WeeklyPicks'; // Adjust the import path accordingly
