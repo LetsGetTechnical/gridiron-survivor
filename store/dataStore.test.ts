@@ -5,17 +5,17 @@ import { useDataStore } from './dataStore';
 const userData = {
   userId: '123',
   userEmail: 'test@email.com',
-  league: ['123456'],
+  leagues: ['123456'],
 };
 
 const NFLTeam = [
   {
-    $id: '1',
+    teamId: '1',
     teamName: 'New England Patriots',
     teamLogo: 'https://www.nfl.com/teams/new-england-patriots/logo',
   },
   {
-    $id: '2',
+    teamId: '2',
     teamName: 'Kansas City Chiefs',
     teamLogo: 'https://www.nfl.com/teams/kansas-city-chiefs/logo',
   },
@@ -40,7 +40,7 @@ describe('Data Store', () => {
       const { result } = renderHook(() => useDataStore());
       expect(result.current.user.id).toBe('');
       expect(result.current.user.email).toBe('');
-      expect(result.current.user.league).toStrictEqual([]);
+      expect(result.current.user.leagues).toStrictEqual([]);
     });
     it('Check the updated user state', () => {
       const { result } = renderHook(() => useDataStore());
@@ -49,7 +49,7 @@ describe('Data Store', () => {
         result.current.updateUser(
           userData.userId,
           userData.userEmail,
-          userData.league,
+          userData.leagues,
         );
       });
 
@@ -63,7 +63,7 @@ describe('Data Store', () => {
         result.current.updateUser(
           userData.userId,
           userData.userEmail,
-          userData.league,
+          userData.leagues,
         );
         result.current.resetUser();
       });
