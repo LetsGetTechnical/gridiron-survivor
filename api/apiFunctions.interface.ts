@@ -8,7 +8,7 @@ export interface IAccountData {
 export interface IUser {
   id: string;
   email: string;
-  league: string[];
+  leagues: string[];
 }
 export interface IUserPick {
   [userId: string]: {
@@ -25,7 +25,7 @@ export interface IWeeklyPicks {
   userResults: IUserPicksData | null;
 }
 export interface INFLTeam {
-  $id: string;
+  teamId: string;
   teamName: string;
   teamLogo: string;
 }

@@ -106,7 +106,7 @@ const WeeklyPicks = ({
       const teamSelect = data.type.toLowerCase();
       const teamID = NFLTeams.find(
         (team) => team.teamName.toLowerCase() === teamSelect,
-      )?.$id;
+      )?.teamId;
 
       const currentUserPick = parseUserPick(user.id, teamID || '');
 

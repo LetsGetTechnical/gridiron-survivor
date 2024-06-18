@@ -56,7 +56,7 @@ export async function loginAccount({
  * Logout the current user
  * @returns {object | Error} - The session object or an error
  */
-export async function logoutAccount(): Promise<{}> {
+export async function logoutAccount(): Promise<object | Error> {
   try {
     return await account.deleteSession('current');
   } catch (error) {
@@ -67,8 +67,8 @@ export async function logoutAccount(): Promise<{}> {
 
 /**
  * Get the current user
- *
- * @return {Models.DocumentList<Models.Document> | Error} - The user object or an error
+ * @param userId - The user ID
+ * @returns {Models.DocumentList<Models.Document> | Error} - The user object or an error
  */
 export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
   try {
@@ -81,7 +81,7 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
     return {
       id: user.documents[0].userId,
       email: user.documents[0].email,
-      league: user.documents[0].league,
+      leagues: user.documents[0].league,
     };
   } catch (error) {
     console.error(error);
@@ -91,8 +91,7 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
 
 /**
  * Get all NFL teams
- *
- * @return {INFLTeam | Error} - The list of NFL teams
+ * @returns {INFLTeam | Error} - The list of NFL teams
  */
 export const getNFLTeams = async (): Promise<INFLTeam[]> => {
   try {
@@ -102,7 +101,7 @@ export const getNFLTeams = async (): Promise<INFLTeam[]> => {
     );
 
     const nflTeams = response.documents.map((team) => ({
-      $id: team.$id,
+      teamId: team.$id,
       teamName: team.teamName,
       teamLogo: team.teamLogo,
     }));
@@ -116,7 +115,7 @@ export const getNFLTeams = async (): Promise<INFLTeam[]> => {
 
 /**
  * Get game the user is a part of
- * @param userId - The user ID
+ * @param leagueId - The league ID
  * @returns {Models.Document | Error} - The game group or an error
  */
 export const getCurrentLeague = async (
@@ -166,9 +165,8 @@ export const getGameWeek = async (): Promise<IGameWeek> => {
 
 /**
  * Get all weekly picks
- *
  * @param props - The game ID and week ID
- * @param props.gameId - The game ID
+ * @param props.leagueId - The league ID
  * @param props.weekId - The week ID
  * @returns {IWeeklyPicks['userResults'] | null} - The user results or null
  */
@@ -207,7 +205,7 @@ export async function getAllWeeklyPicks({
 /**
  *  Update the weekly picks with the users team pick
  * @param props - The weekly picks data
- * @param props.gameId - The game ID
+ * @param props.leagueId - The league ID
  * @param props.gameWeekId - The game week ID
  * @param props.userResults - The user results
  * @returns {Models.User<Models.Preferences> | Error} - The user object or an error

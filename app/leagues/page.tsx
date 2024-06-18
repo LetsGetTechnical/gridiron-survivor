@@ -14,7 +14,7 @@ interface Props {
 /**
  * Renders the leagues component.
  * @param {Props} props The props for the leagues component.
- * @returns {JSX.Element | undefined} The rendered leagues component.
+ * @returns {JSX.Element} The rendered leagues component.
  */
 const Leagues = async ({
   searchParams,
@@ -26,7 +26,7 @@ const Leagues = async ({
   }
 
   const userData: IUser = await getCurrentUser(userId);
-  const leagueData = await getUserLeagues(userData.league);
+  const leagueData = await getUserLeagues(userData.leagues);
 
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
@@ -34,16 +34,24 @@ const Leagues = async ({
         Your leagues
       </h1>
       <section className="grid gap-6 md:grid-cols-2">
-        {leagueData.map((league) => (
-          <LeagueCard
-            key={league.leagueId}
-            href={`/picks?leagueId=${league.leagueId}`}
-            leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
-            survivors={league.survivors.length}
-            title={league.leagueName}
-            totalPlayers={league.participants.length}
-          />
-        ))}
+        {leagueData.length > 0 ? (
+          leagueData.map((league) => (
+            <LeagueCard
+              key={league.leagueId}
+              href={`/picks?leagueId=${league.leagueId}`}
+              leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
+              survivors={league.survivors.length}
+              title={league.leagueName}
+              totalPlayers={league.participants.length}
+            />
+          ))
+        ) : (
+          <div className="text-center">
+            <p className="text-lg font-bold">
+              You are not participating in any leagues.
+            </p>
+          </div>
+        )}
       </section>
     </div>
   );

@@ -4,10 +4,10 @@
 import {
   IGameWeek,
   ILeague,
+  INFLTeam,
   IUser,
   IWeeklyPicks,
 } from '@/api/apiFunctions.interface';
-import { Models } from 'appwrite/types/models';
 
 export interface IGetGameData {
   userId: IUser['id'];
@@ -22,7 +22,7 @@ export interface IGetGameWeekResults {
 export interface IGetUserPick {
   weeklyPicks: IWeeklyPicks['userResults'];
   userId: IUser['id'];
-  NFLTeams: Models.Document[];
+  NFLTeams: INFLTeam[];
 }
 
 export interface IParseUserPick {

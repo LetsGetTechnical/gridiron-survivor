@@ -20,6 +20,8 @@ interface IDataStoreState {
   gameWeek: IGameWeek;
 }
 
+/* eslint-disable */
+// eslint is disabled because the functions are not used in the type interface
 //Define the actions that can be performed on the state
 interface IDataStoreAction {
   resetUser: () => void;
@@ -27,7 +29,7 @@ interface IDataStoreAction {
   updateUser: (
     id: IUser['id'],
     email: IUser['email'],
-    league: IUser['league'],
+    leagues: IUser['leagues'],
   ) => void;
   updateWeeklyPicks: ({
     leagueId,
@@ -43,6 +45,7 @@ interface IDataStoreAction {
   }: ILeague) => void;
   updateGameWeek: (gameWeek: IGameWeek) => void;
 }
+/* eslint-disable */
 
 export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
@@ -52,7 +55,7 @@ const initialState: IDataStoreState = {
   user: {
     id: '',
     email: '',
-    league: [],
+    leagues: [],
   },
   weeklyPicks: {
     leagueId: '',
@@ -95,20 +98,21 @@ export const useDataStore = create<DataStore>((set) => ({
    * Update the user
    * @param id - The user id
    * @param email - The user email
+   * @param leagues - The user league
    * @returns {void}
    */
-  updateUser: (id, email, league): void =>
+  updateUser: (id, email, leagues): void =>
     set(
       produce((state: IDataStoreState) => {
         state.user.id = id;
         state.user.email = email;
-        state.user.league = [...league];
+        state.user.leagues = [...leagues];
       }),
     ),
   /**
    * Update the weekly picks
    * @param props - props
-   * @param props.gameId - The game id
+   * @param props.leagueId - The league id
    * @param props.gameWeekId - The game week id
    * @param props.userResults - The user results
    * @returns {void}
@@ -128,7 +132,9 @@ export const useDataStore = create<DataStore>((set) => ({
   /**
    * Update the game group
    * @param props - props
-   * @param props.currentGameId - The current game id
+   * @param props.leagueId - The league id
+   * @param props.leagueName - The league name
+   * @param props.logo - The logo
    * @param props.participants - The participants
    * @param props.survivors - The survivors
    * @returns {void}

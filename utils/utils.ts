@@ -1,15 +1,15 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import {
   IGameWeek,
   IUser,
   IUserPick,
-  IWeeklyPicks,
 } from '@/api/apiFunctions.interface';
 import { getAllWeeklyPicks, getCurrentLeague } from '@/api/apiFunctions';
-import { Models } from 'appwrite/types/models';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import {
-  IGetGameData,
   IGetGameWeekResults,
   IGetUserPick,
 } from './utils.interface';
@@ -26,10 +26,9 @@ export function cn(...inputs: ClassValue[]): string {
 
 /**
  * Get the game data
- * @param userId.userId - The user id
- * @param userId - The user id
- * @param currentGameWeekId - The current game week id
- * @param userId.currentGameWeekId - The current game week id
+ * @param props - The game data
+ * @param props.leagueId - The league id
+ * @param props.currentGameWeekId - The current game week id
  * @returns The game data
  */
 export const getGameData = async ({
@@ -38,7 +37,7 @@ export const getGameData = async ({
 }: {
   leagueId: ILeague['leagueId'];
   currentGameWeekId: IGameWeek['id'];
-}) => {
+}): Promise<IGetGameWeekResults> => {
   const league = await getCurrentLeague(leagueId);
 
   const weeklyPicksData = await getAllWeeklyPicks({
@@ -48,12 +47,14 @@ export const getGameData = async ({
 
   return {
     league: {
+      leagueId: league.leagueId,
       leagueName: league.leagueName,
       logo: league.logo,
       participants: league.participants,
       survivors: league.survivors,
     },
     weeklyPicksData: {
+      leagueId: leagueId,
       gameWeekId: currentGameWeekId,
       userResults: weeklyPicksData,
     },
@@ -61,13 +62,11 @@ export const getGameData = async ({
 };
 
 /**
- * Get the user pick
- * @param weeklyPicks.weeklyPicks - The weekly picks
- * @param weeklyPicks - The weekly picks
- * @param userId - The user id
- * @param NFLTeams - The NFL teams
- * @param weeklyPicks.userId - The user id
- * @param weeklyPicks.NFLTeams - The NFL teams
+ * Get the user pic
+ * @param props - The user pick
+ * @param props.weeklyPicks - The weekly picks
+ * @param props.userId - The user id
+ * @param props.NFLTeams - The NFL teams
  * @returns The user pick
  */
 export const getUserPick = async ({
@@ -80,7 +79,7 @@ export const getUserPick = async ({
   }
 
   const userTeamId = weeklyPicks[userId].team;
-  const userSelectedTeam = NFLTeams.find((team) => team.$id === userTeamId);
+  const userSelectedTeam = NFLTeams.find((team) => team.teamId === userTeamId);
 
   return userSelectedTeam?.teamName || '';
 };
@@ -108,11 +107,11 @@ export const parseUserPick = (
 
 /**
  * Get the list of leagues the user is a part of
- *
- * @return {ILeague | Error}
+ * @param leagues - The list of leagues
+ * @returns {ILeague | Error}
  */
 export const getUserLeagues = async (
-  leagues: IUser['league'],
+  leagues: IUser['leagues'],
 ): Promise<ILeague[]> => {
   const userLeagues = leagues.map((league) => {
     return getCurrentLeague(league);

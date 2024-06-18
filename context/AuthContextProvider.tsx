@@ -3,7 +3,6 @@
 
 'use client';
 import React, { JSX, useCallback } from 'react';
-import { cache } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
@@ -19,8 +18,8 @@ type UserCredentials = {
 
 type AuthContextType = {
   isSignedIn: boolean;
-  setIsSignedIn: (isSignedIn: boolean) => void;
-  loginAccount: (user: UserCredentials) => Promise<void | Error>;
+  setIsSignedIn: (isSignedIn: boolean) => void; // eslint-disable-line no-unused-vars
+  loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void>;
   getUser: () => Promise<IUser | undefined>;
 };
@@ -29,8 +28,8 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 /**
  * Provider for the authentication context.
- * @param children.children - The children to render.
  * @param children - The children to render.
+ * @param children.children - The children to render.
  * @returns The rendered provider.
  */
 export const AuthContextProvider = ({
@@ -50,7 +49,7 @@ export const AuthContextProvider = ({
       return;
     }
     setIsSignedIn(true);
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Authenticate and set session state
@@ -99,14 +98,14 @@ export const AuthContextProvider = ({
     try {
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
-      updateUser(userData.id, userData.email, userData.league);
+      updateUser(userData.id, userData.email, userData.leagues);
       return userData;
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
       throw new Error('Error getting user data');
     }
-  }, [updateUser, resetUser, setIsSignedIn, user]);
+  }, [updateUser, resetUser, setIsSignedIn, user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Helper function to validate session data in local storage
@@ -132,7 +131,7 @@ export const AuthContextProvider = ({
       logoutAccount,
       getUser,
     }),
-    [isSignedIn],
+    [isSignedIn], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   return (
