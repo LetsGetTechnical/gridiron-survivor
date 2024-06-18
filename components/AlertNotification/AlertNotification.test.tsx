@@ -37,31 +37,35 @@ describe('AlertNotification', () => {
       render(<Alert variant={variant} message={message} />);
 
       if ((variant = Variant.Success)) {
-        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Success!');
-        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+        expect(screen.getByTestId('alert-title')).toHaveTextContent('Success!');
+        expect(screen.getByTestId('alert-message')).toHaveTextContent(
           'This is a success message',
         );
+        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
       }
 
       if ((variant = Variant.Error)) {
-        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Error!');
-        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+        expect(screen.getByTestId('alert-title')).toHaveTextContent('Error!');
+        expect(screen.getByTestId('alert-message')).toHaveTextContent(
           'This is an error message',
         );
+        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
       }
 
       if ((variant = Variant.Default)) {
-        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Info');
-        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+        expect(screen.getByTestId('alert-title')).toHaveTextContent('Info');
+        expect(screen.getByTestId('alert-message')).toHaveTextContent(
           'This is an info message',
         );
+        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
       }
 
       if ((variant = Variant.Warning)) {
-        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Warning!');
-        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+        expect(screen.getByTestId('alert-title')).toHaveTextContent('Warning!');
+        expect(screen.getByTestId('alert-message')).toHaveTextContent(
           'This is a warning message',
         );
+        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
       }
     });
   });

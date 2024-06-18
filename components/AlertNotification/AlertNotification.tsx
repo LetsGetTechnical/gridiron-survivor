@@ -43,9 +43,9 @@ const Alert = ({
 
   return (
     <AlertDefault variant={variant}>
-      <Icon className="h-4 w-4" data-testid="alertIcon" />
-      <AlertTitle title={title} data-testid="alertTitle" />
-      <AlertDescription message={message} data-testid="alertMessage" />
+      <Icon className="h-4 w-4" data-testid="alert-icon" />
+      <AlertTitle title={title} data-testid="alert-title" />
+      <AlertDescription message={message} data-testid="alert-message" />
     </AlertDefault>
   );
 };
