@@ -6,12 +6,12 @@ import { useDataStore } from '../../store/dataStore';
 const mockLeagueId = '123456';
 const mockNFLTeamsData = [
   {
-    $id: '1',
+    teamId: '1',
     teamName: 'New England Patriots',
     teamLogo: 'https://www.nfl.com/teams/new-england-patriots/logo',
   },
   {
-    $id: '2',
+    teamId: '2',
     teamName: 'Kansas City Chiefs',
     teamLogo: 'https://www.nfl.com/teams/kansas-city-chiefs/logo',
   },
@@ -58,7 +58,7 @@ describe('WeeklyPicks Component', () => {
 
       // Set the initial state
       useDataStore.setState({
-        user: { id: '', email: '', league: [] },
+        user: { id: '', email: '', leagues: [] },
         updateWeeklyPicks: jest.fn(),
         weeklyPicks: { leagueId: '', gameWeekId: '', userResults: {} },
         gameWeek: defaultGameWeek,
@@ -86,7 +86,7 @@ describe('WeeklyPicks Component', () => {
 
       // Set the initial state
       useDataStore.setState({
-        user: { id: '', email: '', league: [] },
+        user: { id: '', email: '', leagues: [] },
         updateWeeklyPicks: jest.fn(),
         weeklyPicks: { leagueId: '', gameWeekId: '', userResults: {} },
         gameWeek: mockCurrentGameWeekData,
