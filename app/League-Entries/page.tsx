@@ -3,14 +3,14 @@
 
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
-import * as React from 'react';
+import { JSX } from 'react';
 
 /**
  * @returns {React.JSX.Element} - Returns a JSX.Element with the name LeaguesEntries that displays the user's entries for that specific league.
  */
-const LeaguesEntries: React.FC = (): React.JSX.Element => {
+const LeaguesEntries = (): JSX.Element => {
   return (
-    <div className="Leagues mx-auto max-w-3xl pt-10">
+    <div className="league-entries mx-auto max-w-3xl pt-10">
       <header className="place-items-center space-y-2 pb-10 text-center">
         <h1 className="text-3xl font-bold tracking-tight">
           Windy City Smackdown
