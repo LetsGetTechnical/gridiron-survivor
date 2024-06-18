@@ -56,7 +56,7 @@ const Register = (): JSX.Element => {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn]);
 
   const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
@@ -64,6 +64,7 @@ const Register = (): JSX.Element => {
 
   /**
    * The current value of the 'email' field in the form.
+   * 
    * @type {string}
    */
 
