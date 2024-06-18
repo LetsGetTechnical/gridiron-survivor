@@ -36,36 +36,45 @@ describe('AlertNotification', () => {
     it(`renders the correct variant ${variant}`, () => {
       render(<Alert variant={variant} message={message} />);
 
-      if ((variant = Variant.Success)) {
-        expect(screen.getByTestId('alert-title')).toHaveTextContent('Success!');
-        expect(screen.getByTestId('alert-message')).toHaveTextContent(
-          'This is a success message',
-        );
-        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
-      }
+      switch (variant) {
+        case Variant.Success:
+          expect(screen.getByTestId('alert-title')).toHaveTextContent(
+            'Success!',
+          );
+          expect(screen.getByTestId('alert-message')).toHaveTextContent(
+            'This is a success message',
+          );
+          expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
+          break;
 
-      if ((variant = Variant.Error)) {
-        expect(screen.getByTestId('alert-title')).toHaveTextContent('Error!');
-        expect(screen.getByTestId('alert-message')).toHaveTextContent(
-          'This is an error message',
-        );
-        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
-      }
+        case Variant.Error:
+          expect(screen.getByTestId('alert-title')).toHaveTextContent('Error!');
+          expect(screen.getByTestId('alert-message')).toHaveTextContent(
+            'This is an error message',
+          );
+          expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
+          break;
 
-      if ((variant = Variant.Default)) {
-        expect(screen.getByTestId('alert-title')).toHaveTextContent('Info');
-        expect(screen.getByTestId('alert-message')).toHaveTextContent(
-          'This is an info message',
-        );
-        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
-      }
+        case Variant.Default:
+          expect(screen.getByTestId('alert-title')).toHaveTextContent('Info');
+          expect(screen.getByTestId('alert-message')).toHaveTextContent(
+            'This is an info message',
+          );
+          expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
+          break;
 
-      if ((variant = Variant.Warning)) {
-        expect(screen.getByTestId('alert-title')).toHaveTextContent('Warning!');
-        expect(screen.getByTestId('alert-message')).toHaveTextContent(
-          'This is a warning message',
-        );
-        expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
+        case Variant.Warning:
+          expect(screen.getByTestId('alert-title')).toHaveTextContent(
+            'Warning!',
+          );
+          expect(screen.getByTestId('alert-message')).toHaveTextContent(
+            'This is a warning message',
+          );
+          expect(screen.getByTestId('alert-icon')).toBeInTheDocument();
+          break;
+
+        default:
+          throw new Error('Invalid variant');
       }
     });
   });
