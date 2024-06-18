@@ -32,13 +32,36 @@ const variantTestCases = [
 ];
 
 describe('AlertNotification', () => {
-  variantTestCases.forEach(({ variant, title, message }) => {
+  variantTestCases.forEach(({ variant, message }) => {
     it(`renders the correct variant ${variant}`, () => {
       render(<Alert variant={variant} message={message} />);
 
-      if (variant) {
-        expect(screen.getByText(title)).toBeInTheDocument();
-        expect(screen.getByText(message)).toBeInTheDocument();
+      if ((variant = Variant.Success)) {
+        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Success!');
+        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+          'This is a success message',
+        );
+      }
+
+      if ((variant = Variant.Error)) {
+        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Error!');
+        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+          'This is an error message',
+        );
+      }
+
+      if ((variant = Variant.Default)) {
+        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Info');
+        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+          'This is an info message',
+        );
+      }
+
+      if ((variant = Variant.Warning)) {
+        expect(screen.getByTestId('alertTitle')).toHaveTextContent('Warning!');
+        expect(screen.getByTestId('alertMessage')).toHaveTextContent(
+          'This is a warning message',
+        );
       }
     });
   });

@@ -165,13 +165,11 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
 
       setUserPick(currentUserPick[user.id].team);
 
-      //toast notification
       toast.custom(
         <Alert variant={Variant.Success} message="Your pick was successful." />,
       );
     } catch (error) {
       console.error('Submission error:', error);
-      //toast notification
       toast.custom(
         <Alert
           variant={Variant.Error}
