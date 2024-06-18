@@ -6,7 +6,7 @@ import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import { JSX } from 'react';
 
 /**
- * @returns {React.JSX.Element} - Returns a JSX.Element with the name LeaguesEntries that displays the user's entries for that specific league.
+ * @returns {JSX.Element} - Returns a JSX.Element with the name LeaguesEntries that displays the user's entries for that specific league.
  */
 const LeagueEntriesPage = (): JSX.Element => {
   return (
