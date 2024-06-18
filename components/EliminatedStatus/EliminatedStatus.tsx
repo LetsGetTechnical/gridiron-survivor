@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import * as React from 'react';
+import React from 'react';
 
 /**
  * @returns EliminatedStatus component
