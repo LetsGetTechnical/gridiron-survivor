@@ -6,9 +6,9 @@ import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import * as React from 'react';
 
 /**
- * @returns Leagues
+ * @returns {React.JSX.Element} - Returns a JSX.Element with the name LeaguesEntries that displays the user's entries for that specific league.
  */
-const Leagues: React.FC = (): React.JSX.Element => {
+const LeaguesEntries: React.FC = (): React.JSX.Element => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       <header className="place-items-center space-y-2 pb-10 text-center">
@@ -29,4 +29,4 @@ const Leagues: React.FC = (): React.JSX.Element => {
   );
 };
 
-export default Leagues;
+export default LeaguesEntries;
