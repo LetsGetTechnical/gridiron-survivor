@@ -3,21 +3,47 @@ import { render, screen } from '@testing-library/react';
 import Heading from './Heading';
 
 describe('Heading component', () => {
-  test('renders the correct heading level with default props', () => {
-    render(<Heading>Test Heading</Heading>);
+  test('applies correct CSS classes for h1', () => {
+    render(<Heading as="h1">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
-    expect(heading.tagName.toLowerCase()).toBe('h1');
+    expect(heading).toHaveClass(
+      'font-extrabold',
+      'text-5xl',
+      'leading-none',
+      'tracking-tight',
+    );
   });
 
-  test('applies the correct CSS classes based on the heading level', () => {
-    render(<Heading heading="h3">Test Heading</Heading>);
+  test('rapplies correct CSS classes for h2', () => {
+    render(<Heading as="h2">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
-    expect(heading).toHaveClass('font-semibold', 'text-base', 'leading-8');
+    expect(heading).toHaveClass(
+      'font-bold',
+      'text-[2rem]',
+      'leading-[1.125rem]',
+      'tracking-tighter',
+    );
   });
 
-  test('handles undefined string heading prop and default it to "h1"', () => {
-    render(<Heading heading={undefined}>Test Heading</Heading>);
+  test('applies correct CSS classes for h3', () => {
+    render(<Heading as="h3">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
-    expect(heading.tagName.toLowerCase()).toBe('h1');
+    expect(heading).toHaveClass(
+      'font-semibold',
+      'text-base',
+      'leading-8',
+      'tracking-tighter',
+    );
+  });
+
+  test('applies correct CSS classes for h4', () => {
+    render(<Heading as="h4">Test Heading</Heading>);
+    const heading = screen.getByRole('heading');
+    expect(heading).toHaveClass(
+      'font-semibold',
+      'text-sm',
+      'leading-7',
+      'tracking-tighter',
+    );
   });
 });
