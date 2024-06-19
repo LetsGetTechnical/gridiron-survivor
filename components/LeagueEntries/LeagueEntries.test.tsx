@@ -7,11 +7,11 @@ describe('LeagueEntries', () => {
     render(<LeagueEntries entryNumber={1} />);
 
     const leagueEntryContainerCard = screen.getByTestId(
-      'LeagueEntryContainerCard',
+      'league-entry-container-card',
     );
-    const leagueEntryNumber = screen.getByTestId('LeagueEntryNumber');
-    const entryStatus = screen.getByTestId('EntryStatus');
-    const leagueEntryPickButton = screen.getByTestId('LeagueEntryPickButton');
+    const leagueEntryNumber = screen.getByTestId('league-entry-number');
+    const entryStatus = screen.getByTestId('entry-status');
+    const leagueEntryPickButton = screen.getByTestId('league-entry-pick-button');
 
     expect(entryStatus).toBeInTheDocument();
     expect(entryStatus).toHaveTextContent('alive');
@@ -26,12 +26,12 @@ describe('LeagueEntries', () => {
     render(<LeagueEntries entryNumber={2} isPickSet={true} />);
 
     const leagueEntryContainerCard = screen.getByTestId(
-      'LeagueEntryContainerCard',
+      'league-entry-container-card',
     );
-    const leagueEntryNumber = screen.getByTestId('LeagueEntryNumber');
-    const entryStatus = screen.getByTestId('EntryStatus');
-    const leagueEntryLogo = screen.getByTestId('LeagueEntryLogo');
-    const leagueEntryPickButton = screen.getByTestId('LeagueEntryPickButton');
+    const leagueEntryNumber = screen.getByTestId('league-entry-number');
+    const entryStatus = screen.getByTestId('entry-status');
+    const leagueEntryLogo = screen.getByTestId('league-entry-logo');
+    const leagueEntryPickButton = screen.getByTestId('league-entry-pick-button');
 
     expect(entryStatus).toBeInTheDocument();
     expect(entryStatus).toHaveTextContent('alive');
@@ -47,10 +47,10 @@ describe('LeagueEntries', () => {
     render(<LeagueEntries entryNumber={3} isEliminated isPickSet={false} />);
 
     const leagueEntryContainerCard = screen.getByTestId(
-      'LeagueEntryContainerCard',
+      'league-entry-container-card',
     );
-    const leagueEntryNumber = screen.getByTestId('LeagueEntryNumber');
-    const entryStatus = screen.getByTestId('EntryStatus');
+    const leagueEntryNumber = screen.getByTestId('league-entry-number');
+    const entryStatus = screen.getByTestId('entry-status');
 
     expect(entryStatus).toBeInTheDocument();
     expect(entryStatus).toHaveTextContent('eliminated');
