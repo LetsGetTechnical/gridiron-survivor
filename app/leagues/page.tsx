@@ -11,6 +11,8 @@ interface Props {
   searchParams?: { id: IUser['id'] };
 }
 
+export const revalidate = 60;
+
 /**
  * Renders the leagues component.
  * @param {Props} props The props for the leagues component.

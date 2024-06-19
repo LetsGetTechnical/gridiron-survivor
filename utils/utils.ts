@@ -113,6 +113,9 @@ export const parseUserPick = (
 export const getUserLeagues = async (
   leagues: IUser['leagues'],
 ): Promise<ILeague[]> => {
+  if (!leagues || leagues.length === 0) {
+    return [];
+  }
   const userLeagues = leagues.map((league) => {
     return getCurrentLeague(league);
   });

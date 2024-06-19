@@ -77,11 +77,10 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
       Collection.USERS,
       [Query.equal('userId', userId)],
     );
-
     return {
       id: user.documents[0].userId,
       email: user.documents[0].email,
-      leagues: user.documents[0].league,
+      leagues: user.documents[0].leagues,
     };
   } catch (error) {
     console.error(error);
