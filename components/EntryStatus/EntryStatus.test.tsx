@@ -6,7 +6,7 @@ describe('EntryStatus', () => {
   it('renders correctly if user is not eliminated', () => {
     render(<EntryStatus />);
 
-    const entryStatus = screen.getByTestId('EntryStatus');
+    const entryStatus = screen.getByTestId('entry-status');
 
     expect(entryStatus).toBeInTheDocument();
     expect(entryStatus).toHaveTextContent('alive');
@@ -14,7 +14,7 @@ describe('EntryStatus', () => {
   it('renders correctly if user is eliminated', () => {
     render(<EntryStatus isEliminated={true} />);
 
-    const entryStatus = screen.getByTestId('EntryStatus');
+    const entryStatus = screen.getByTestId('entry-status');
 
     expect(entryStatus).toBeInTheDocument();
     expect(entryStatus).toHaveTextContent('eliminated');
