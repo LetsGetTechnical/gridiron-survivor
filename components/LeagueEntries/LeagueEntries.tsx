@@ -71,6 +71,5 @@ const LeagueEntries = ({
     </section>
   </div>
 );
-LeagueEntries.displayName = 'LeagueEntries';
 
 export { LeagueEntries };
