@@ -6,9 +6,10 @@ import { IEntryStatusProps } from './EntryStatus.interface';
 import * as React from 'react';
 
 /**
- * @param root0 By default, isEliminated is false
- * @param root0.isEliminated If true, the user is flagged as eliminated
- * @returns EntryStatus component
+ * Tells the user if their LeagueEntry is currently alive or eliminated
+ * @param props - The props for EntryStatus
+ * @param props.isEliminated If true, the user is flagged as eliminated
+ * @returns { React.JSX.Element} - the rendered entry status
  */
 export const EntryStatus = ({
   isEliminated = false,
@@ -16,12 +17,12 @@ export const EntryStatus = ({
   return (
     <div
       className={cn(
-        'rounded-full px-2 py-1 text-xs uppercase text-zinc-800',
+        'entry-status rounded-full px-2 py-1 text-xs uppercase text-zinc-800',
         isEliminated ? 'bg-red-500' : 'bg-green-500',
       )}
-      data-testid="EntryStatus"
+      data-testid="entry-status"
     >
-      <p>{isEliminated ? 'eliminated' : `alive`}</p>
+      <p>{isEliminated ? 'eliminated' : 'alive'}</p>
     </div>
   );
 };
