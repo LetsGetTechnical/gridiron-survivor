@@ -2,9 +2,10 @@
 // Licensed under the MIT License.
 
 import { Models } from 'appwrite/types/models';
-import { account, databases, ID, appwriteConfig } from './config';
+import { account, databases, ID, appwriteConfig, urlParams } from './config';
 import {
   IAccountData,
+  IMagicUrlToken,
   IGameGroup,
   IGameWeek,
   IUser,
@@ -48,6 +49,43 @@ export async function loginAccount({
   } catch (error) {
     console.error(error);
     throw new Error('Error logging in user');
+  }
+}
+
+/**
+ * Create a token for Magic URL
+ * @param props - The account data
+ * @param props.email - The email of the user
+ * @returns {Models.Session | Error} - The session object or an error
+ */
+export async function getMagicUrlToken({
+  email,
+}: IMagicUrlToken): Promise<Models.Token | Error> {
+  try {
+    return await account.createMagicURLToken(ID.unique(), email);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creating token');
+  }
+}
+
+/**
+ * Create a token for Magic URL
+ * @returns {Models.Session | Error} - The session object or an error
+ */
+export async function magicUrlLogin(): Promise<Models.Session | Error> {
+  try {
+    const secret = urlParams.get('secret');
+    const userId = urlParams.get('userId');
+
+    if (secret === null || userId === null) {
+      throw new Error('Invalid URL parameters');
+    }
+
+    return await account.createSession(userId, secret);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error logging in with token');
   }
 }
 
