@@ -23,34 +23,34 @@ const Leagues = (): JSX.Element => {
           leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
           survivors={gameGroup.survivors.length}
           title="69ers"
-          totalPlayers={138}
+          totalPlayers={gameGroup.participants.length}
         />
         <LeagueCard
           isEliminated={true}
           href="/leagues"
           survivors={gameGroup.survivors.length}
           title="69ers"
-          totalPlayers={138}
+          totalPlayers={gameGroup.participants.length}
         />
 
         <LeagueCard
           href="/leagues"
-          survivors={11}
+          survivors={gameGroup.survivors.length}
           title="It's Always Sunny in Minneapolis"
-          totalPlayers={12}
+          totalPlayers={gameGroup.participants.length}
         />
         <LeagueCard
           href="/leagues"
-          survivors={20}
+          survivors={gameGroup.survivors.length}
           title="Windy City Smackdown"
-          totalPlayers={24}
+          totalPlayers={gameGroup.participants.length}
         />
         <LeagueCard
           href="/leagues"
           isEliminated={true}
-          survivors={11}
+          survivors={gameGroup.survivors.length}
           title="Diamond Dogs"
-          totalPlayers={12}
+          totalPlayers={gameGroup.participants.length}
         />
       </section>
     </div>
