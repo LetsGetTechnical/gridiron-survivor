@@ -3,7 +3,7 @@
 
 import { cn } from '@/utils/utils';
 import { IEntryStatusProps } from './EntryStatus.interface';
-import * as React from 'react';
+import React from 'react';
 
 /**
  * Tells the user if their LeagueEntry is currently alive or eliminated
