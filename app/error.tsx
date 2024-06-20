@@ -2,38 +2,61 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/Button/Button';
 
-interface IErrorBoundary {
-  children?: React.ReactNode;
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error | null;
 }
 
 /**
- * Renders an error boundary component that displays an error message if an error occurs within its child components.
+ * A React component that handles errors and renders fallback UI when there's an error.
  *
- * @param {IErrorBoundary} props - The props object containing the children to be rendered.
- * @returns {JSX.Element} - The rendered error boundary component.
+ * @param {ErrorBoundaryProps} children - The children components to render
+ * @returns {React.ReactNode} The rendered output based on error handling
  */
-const ErrorBoundary = ({ children }: IErrorBoundary): JSX.Element => {
-  const [hasError, setHasError] = useState(false);
+const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
+  const [errorState, setErrorState] = useState<ErrorBoundaryState>({
+    hasError: false,
+    error: null,
+  });
+
+  useEffect(() => {
+    setErrorState({ hasError: false, error: null });
+  }, [children]);
 
   /**
-   * Sets the `hasError` state to `true`, indicating that an error has occurred.
+   * Resets the error state to try again.
    *
-   * @return {void}
+   * @returns {void} No return value.
    */
-  const handleError = (): void => {
-    setHasError(true);
+  const resetErrorBoundary = (): void => {
+    setErrorState({ hasError: false, error: null });
   };
 
-  if (hasError) {
+  if (errorState.hasError) {
     return (
       <div className="align-center flex flex-col">
-        <h2 className="text-white">Something went wrong!</h2>
+        <h2 className="text-white">
+          {errorState.error
+            ? errorState.error.message
+            : 'Something went wrong!'}
+        </h2>
+        <Button
+          data-testid="reset-button"
+          onClick={resetErrorBoundary}
+          label="Try again"
+        />
       </div>
     );
   }
-  return <div onError={handleError}>{children}</div>;
+
+  return <>{children}</>;
 };
 
 export default ErrorBoundary;
