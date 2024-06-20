@@ -10,7 +10,7 @@ import { JSX } from 'react';
  */
 const LeagueEntriesPage = (): JSX.Element => {
   return (
-    <div className="league-entries mx-auto max-w-3xl pt-10">
+    <div className="league-entries-container mx-auto max-w-3xl pt-10">
       <header className="place-items-center space-y-2 pb-10 text-center">
         <h1 className="text-3xl font-bold tracking-tight">
           Windy City Smackdown
