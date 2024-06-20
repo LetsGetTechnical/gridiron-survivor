@@ -18,6 +18,7 @@ describe('ErrorBoundary', () => {
         }}
       >
         Something went wrong!
+        <button>Reset</button>
       </div>
     );
     render(<ErrorBoundary>{children}</ErrorBoundary>);
@@ -33,6 +34,7 @@ describe('ErrorBoundary', () => {
         }}
       >
         Something went wrong!
+        <button data-testid="reset-button">Reset</button>
       </div>
     );
     render(<ErrorBoundary>{children}</ErrorBoundary>);
