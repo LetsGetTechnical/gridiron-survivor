@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Login from './page';
 
 const mockLoginAccount = jest.fn();
@@ -47,21 +47,24 @@ describe('Login', () => {
 
   test('should update email state when input value changes', () => {
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    expect(emailInput.value).toBe('test@example.com');
+    expect(emailInput).toHaveValue('test@example.com');
   });
 
   test('should update password state when input value changes', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    expect(passwordInput.value).toBe('password123');
+    expect(passwordInput).toHaveValue('password123');
   });
 
-  test('should call loginAccount function with email and password when continue button is clicked', () => {
+  test('should call loginAccount function with email and password when continue button is clicked', async () => {
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(continueButton);
-    expect(mockLoginAccount).toHaveBeenCalledWith({
-      email: 'test@example.com',
-      password: 'password123',
+
+    await waitFor(() => {
+      expect(mockLoginAccount).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123',
+      });
     });
   });
 
