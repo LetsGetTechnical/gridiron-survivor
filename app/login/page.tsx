@@ -20,6 +20,7 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
+import { getMagicUrlToken } from '@/api/apiFunctions';
 
 const LoginUserSchema = z.object({
   email: z
@@ -66,9 +67,8 @@ const Login = (): JSX.Element => {
 
   /**
    * A function that handles form submission.
-   *
    * @param {LoginUserSchemaType} data - The data submitted in the form.
-   * @return {Promise<void>} A promise that resolves when the `loginAccount` function completes.
+   * @returns {Promise<void>} A promise that resolves when the `loginAccount` function completes.
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
     await loginAccount(data);
@@ -97,7 +97,7 @@ const Login = (): JSX.Element => {
             with a league
           </p>
         </div>
-        <Form {...form}>
+        {/* <Form {...form}>
           <form
             id="input-container"
             className="grid gap-3"
@@ -155,7 +155,8 @@ const Login = (): JSX.Element => {
               Sign up to get started with a league
             </LinkCustom>
           </form>
-        </Form>
+        </Form> */}
+        <button onClick={getMagicUrlToken}>Magic URL Test</button>
       </div>
     </section>
   );

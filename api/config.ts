@@ -20,5 +20,4 @@ client.setProject(appwriteConfig.projectId);
 
 export const account = new Account(client);
 export const databases = new Databases(client);
-export const urlParams = new URLSearchParams(window.location.search);
 export { ID };

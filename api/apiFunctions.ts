@@ -2,10 +2,10 @@
 // Licensed under the MIT License.
 
 import { Models } from 'appwrite/types/models';
-import { account, databases, ID, appwriteConfig, urlParams } from './config';
+import { account, databases, ID, appwriteConfig } from './config';
 import {
   IAccountData,
-  IMagicUrlToken,
+  // IMagicUrlToken,
   IGameGroup,
   IGameWeek,
   IUser,
@@ -58,11 +58,13 @@ export async function loginAccount({
  * @param props.email - The email of the user
  * @returns {Models.Session | Error} - The session object or an error
  */
-export async function getMagicUrlToken({
-  email,
-}: IMagicUrlToken): Promise<Models.Token | Error> {
+export async function getMagicUrlToken(): Promise<Models.Token | Error> {
   try {
-    return await account.createMagicURLToken(ID.unique(), email);
+    return await account.createMagicURLToken(
+      ID.unique(),
+      'alexappleget2014@gmail.com',
+      'http://localhost:3000/auth/magicUrl',
+    );
   } catch (error) {
     console.error(error);
     throw new Error('Error creating token');
@@ -71,13 +73,19 @@ export async function getMagicUrlToken({
 
 /**
  * Create a token for Magic URL
+ * @param props - The account data
+ * @param props.userId - asfda
+ * @param props.secret -as dgasg
  * @returns {Models.Session | Error} - The session object or an error
  */
-export async function magicUrlLogin(): Promise<Models.Session | Error> {
+export async function magicUrlLogin({
+  userId,
+  secret,
+}: {
+  userId: string;
+  secret: string;
+}): Promise<Models.Session | Error> {
   try {
-    const secret = urlParams.get('secret');
-    const userId = urlParams.get('userId');
-
     if (secret === null || userId === null) {
       throw new Error('Invalid URL parameters');
     }
