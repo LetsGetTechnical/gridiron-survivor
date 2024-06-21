@@ -23,7 +23,7 @@ import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { WeeklyPickButton } from '../../components/WeeklyPickButton/WeeklyPickButton';
 import { toast } from 'react-hot-toast';
 import Alert from '@/components/AlertNotification/AlertNotification';
-import { Variant } from '../../components/AlertNotification/Alerts.enum';
+import { AlertVariants } from '../../components/AlertNotification/Alerts.enum';
 
 const teams = ['Vikings', 'Cowboys'] as const;
 
@@ -166,13 +166,16 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
       setUserPick(currentUserPick[user.id].team);
 
       toast.custom(
-        <Alert variant={Variant.Success} message="Your pick was successful." />,
+        <Alert
+          variant={AlertVariants.Success}
+          message="Your pick was successful."
+        />,
       );
     } catch (error) {
       console.error('Submission error:', error);
       toast.custom(
         <Alert
-          variant={Variant.Error}
+          variant={AlertVariants.Error}
           message="There was an error processing your request."
         />,
       );

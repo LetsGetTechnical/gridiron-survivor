@@ -7,7 +7,7 @@ import { AlertDescription } from '../AlertDescription/AlertDescription';
 import { JSX } from 'react';
 import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 import { IAlertNotification } from './AlertNotification.interface';
-import { Variant } from './Alerts.enum';
+import { AlertVariants } from './Alerts.enum';
 
 const variantConfig = {
   success: {
@@ -37,7 +37,7 @@ const variantConfig = {
  */
 const Alert = ({
   message,
-  variant = Variant.Default,
+  variant = AlertVariants.Default,
 }: IAlertNotification): JSX.Element => {
   const { title, icon: Icon } = variantConfig[variant];
 
