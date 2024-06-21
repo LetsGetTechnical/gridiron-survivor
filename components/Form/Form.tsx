@@ -92,7 +92,7 @@ const FormItem = React.forwardRef<
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn('w-full', className)} {...props} />
+      <div ref={ref} className={cn('mb-4 w-full', className)} {...props} />
     </FormItemContext.Provider>
   );
 });
