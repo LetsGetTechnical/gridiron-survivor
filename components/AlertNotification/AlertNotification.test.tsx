@@ -29,7 +29,6 @@ const variantTestCases = {
 
 describe('AlertNotification', () => {
   for (const [key, value] of Object.entries(variantTestCases)) {
-    console.log(key, value);
     it(`renders the correct variant ${key}`, () => {
       render(<Alert variant={AlertVariants[key]} message={value.message} />);
     });
