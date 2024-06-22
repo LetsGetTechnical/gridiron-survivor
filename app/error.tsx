@@ -27,7 +27,20 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
   });
 
   useEffect(() => {
+    const handleError = (error: ErrorEvent) => {
+      if (error.error instanceof Error) {
+        setErrorState({
+          hasError: true,
+          error: error.error,
+        });
+      }
+    };
+    window.addEventListener('error', handleError);
+
     setErrorState({ hasError: false, error: null });
+    return () => {
+      window.removeEventListener('error', handleError);
+    };
   }, [children]);
 
   /**
