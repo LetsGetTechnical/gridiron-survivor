@@ -23,16 +23,16 @@ const headingVariants = {
 };
 
 const Heading = forwardRef<HTMLElement, HeadingProps>(
-  ({ as: Component = 'h1', children, className, ...rest }) => {
-    const variantStyles = headingVariants[Component];
+  ({ as: HeadingSize = 'h1', children, className, ...rest }) => {
+    const variantStyles = headingVariants[HeadingSize];
 
     return (
-      <Component
+      <HeadingSize
         className={`${variantStyles.className} ${className}`}
         {...rest}
       >
         {children}
-      </Component>
+      </HeadingSize>
     );
   },
 );
