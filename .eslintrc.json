@@ -115,12 +115,13 @@
         ]
       }
     ],
+    "jsdoc/require-description": 2,
     "jsdoc/require-param": 2,
     "jsdoc/require-param-description": 2,
     "jsdoc/require-param-type": 0,
     "jsdoc/require-returns": 2,
-    "jsdoc/require-returns-check": 0,
-    "jsdoc/require-returns-description": 0,
+    "jsdoc/require-returns-check": 2,
+    "jsdoc/require-returns-description": 2,
     "jsdoc/require-returns-type": 0,
     "jsdoc/require-property-name": 2,
     "jsdoc/require-property-type": 0,
