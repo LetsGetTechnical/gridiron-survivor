@@ -47,8 +47,6 @@ jest.mock('../../store/dataStore', () => {
 });
 
 // Mock the useProcessGame hook
-jest.mock('../../utils/useProcessGame', () => jest.fn());
-
 const useProcessGame = jest.fn();
 jest.mock(`../../utils/useProcessGame`);
 

@@ -18,7 +18,8 @@ type UserCredentials = {
 
 type AuthContextType = {
   isSignedIn: boolean;
-  setIsSignedIn: (isSignedIn: boolean) => void; // eslint-disable-line no-unused-vars
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+
   loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void>;
   getUser: () => Promise<IUser | undefined>;
@@ -49,7 +50,7 @@ export const AuthContextProvider = ({
       return;
     }
     setIsSignedIn(true);
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [user]);
 
   /**
    * Authenticate and set session state
@@ -62,7 +63,7 @@ export const AuthContextProvider = ({
         user.email,
         user.password,
       );
-      await getUser();
+      await getUser(); // Fetch user data and update state
       router.push(`/leagues?id=${session.userId}`);
     } catch (error) {
       console.error('Login error:', error);
@@ -105,7 +106,7 @@ export const AuthContextProvider = ({
       setIsSignedIn(false);
       throw new Error('Error getting user data');
     }
-  }, [updateUser, resetUser, setIsSignedIn, user]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [updateUser, resetUser, setIsSignedIn, user]);
 
   /**
    * Helper function to validate session data in local storage
@@ -131,7 +132,7 @@ export const AuthContextProvider = ({
       logoutAccount,
       getUser,
     }),
-    [isSignedIn], // eslint-disable-line react-hooks/exhaustive-deps
+    [isSignedIn],
   );
 
   return (
