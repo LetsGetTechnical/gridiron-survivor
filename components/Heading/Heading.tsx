@@ -7,7 +7,6 @@ interface HeadingProps {
   as?: keyof typeof headingVariants;
   children?: React.ReactNode;
   className?: string;
-  [key: string]: any; // To allow other props
 }
 
 const headingVariants = {
@@ -16,7 +15,16 @@ const headingVariants = {
   h3: 'font-semibold text-base leading-8 tracking-tighter',
   h4: 'font-semibold text-sm leading-7 tracking-tighter',
 };
-
+/**
+ * Dynamically assigns the HTML element based on HeadingSize, applies the appropriate variant class name,
+ * and renders the children within the component.
+ *
+ * @param {HeadingProps} as - The HTML tag to be rendered as specified by the HeadingSize
+ * @param {React.ReactNode} children - The content to be rendered inside the component
+ * @param {string} className - Additional class names to be applied to the component
+ * @param {...any} rest - Additional props to be spread on the component
+ * @returns {JSX.Element} The JSX element representing the rendered component
+ */
 const Heading = ({
   as: HeadingSize = 'h1',
   children,
@@ -26,12 +34,12 @@ const Heading = ({
   const variantClassName = headingVariants[HeadingSize];
 
   // Dynamically assign the HTML element
-  const Component = HeadingSize as keyof JSX.IntrinsicElements;
+  const Heading = HeadingSize as keyof JSX.IntrinsicElements;
 
   return (
-    <Component className={`${variantClassName} ${className}`} {...rest}>
+    <Heading className={`${variantClassName} ${className}`} {...rest}>
       {children}
-    </Component>
+    </Heading>
   );
 };
 
