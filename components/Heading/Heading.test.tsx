@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Heading from './Heading';
 
 describe('Heading component', () => {
-  test('applies correct CSS classes for h1', () => {
+  test('test correct CSS classes for h1', () => {
     render(<Heading as="h1">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
     expect(heading).toHaveClass(
@@ -14,7 +14,7 @@ describe('Heading component', () => {
     );
   });
 
-  test('rapplies correct CSS classes for h2', () => {
+  test('test correct CSS classes for h2', () => {
     render(<Heading as="h2">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
     expect(heading).toHaveClass(
@@ -25,7 +25,7 @@ describe('Heading component', () => {
     );
   });
 
-  test('applies correct CSS classes for h3', () => {
+  test('test correct CSS classes for h3', () => {
     render(<Heading as="h3">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
     expect(heading).toHaveClass(
@@ -36,7 +36,7 @@ describe('Heading component', () => {
     );
   });
 
-  test('applies correct CSS classes for h4', () => {
+  test('test correct CSS classes for h4', () => {
     render(<Heading as="h4">Test Heading</Heading>);
     const heading = screen.getByRole('heading');
     expect(heading).toHaveClass(
