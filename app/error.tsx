@@ -55,11 +55,7 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
   if (errorState.hasError) {
     return (
       <div className="align-center flex flex-col">
-        <h2 className="text-white">
-          {errorState.error
-            ? errorState.error.message
-            : 'Something went wrong!'}
-        </h2>
+        <h2 className="text-white">Something went wrong!</h2>
         <Button
           data-testid="reset-button"
           onClick={resetErrorBoundary}
