@@ -27,7 +27,13 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
   });
 
   useEffect(() => {
-    const handleError = (error: ErrorEvent) => {
+    /**
+     * Handles errors by updating the state with the error information if the error is an instance of Error.
+     *
+     * @param {ErrorEvent} error - The error event to handle.
+     * @return {void} This function does not return anything.
+     */
+    const handleError = (error: ErrorEvent): void => {
       if (error.error instanceof Error) {
         setErrorState({
           hasError: true,
@@ -38,7 +44,7 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
     window.addEventListener('error', handleError);
 
     setErrorState({ hasError: false, error: null });
-    return () => {
+    return (): void => {
       window.removeEventListener('error', handleError);
     };
   }, [children]);
