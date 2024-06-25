@@ -57,7 +57,7 @@ const useProcessGame = ({
     });
 
     setUserPick(userPickData);
-  }, [leagueId, user.id, gameWeek.id, NFLTeams]); // eslint-disable-line
+  }, [leagueId, user.id, gameWeek.id, NFLTeams]);
 
   return processGame;
 };
