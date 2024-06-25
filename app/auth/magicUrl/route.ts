@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { NextResponse } from 'next/server';
+import { account } from '@/api/config';
 
 /**
  * Redirects the user to the origin URL.
@@ -10,18 +11,17 @@ import { NextResponse } from 'next/server';
  */
 export async function GET(request: Request): Promise<Response> {
   const requestUrl = new URL(request.url);
-  const targetUrl = new URL('/weeklyPicks', requestUrl.origin);
 
   const userId = requestUrl.searchParams.get('userId');
   const secret = requestUrl.searchParams.get('secret');
 
   if (!userId || !secret) {
-    return new NextResponse('Invalid URL parameters', { status: 400 });
+    return NextResponse.redirect(requestUrl.origin);
   }
 
-  if (userId && secret) {
-    return NextResponse.redirect(targetUrl);
-  }
+  const session = await account.updateMagicURLSession(userId, secret);
 
-  return NextResponse.redirect(requestUrl.origin);
+  return NextResponse.redirect(`${requestUrl.origin}/weeklyPicks`);
 }
+
+// ask discord how to store the session

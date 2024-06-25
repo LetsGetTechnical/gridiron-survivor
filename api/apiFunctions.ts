@@ -5,7 +5,6 @@ import { Models } from 'appwrite/types/models';
 import { account, databases, ID, appwriteConfig } from './config';
 import {
   IAccountData,
-  // IMagicUrlToken,
   IGameGroup,
   IGameWeek,
   IUser,
@@ -55,7 +54,7 @@ export async function loginAccount({
 /**
  * Create a token for Magic URL
  * @param props - The account data
- * @param props.email - The email of the user
+ * @param magicEmail - The user's email
  * @returns {Models.Session | Error} - The session object or an error
  */
 export async function getMagicUrlToken(): Promise<Models.Token | Error> {
@@ -68,32 +67,6 @@ export async function getMagicUrlToken(): Promise<Models.Token | Error> {
   } catch (error) {
     console.error(error);
     throw new Error('Error creating token');
-  }
-}
-
-/**
- * Create a token for Magic URL
- * @param props - The account data
- * @param props.userId - asfda
- * @param props.secret -as dgasg
- * @returns {Models.Session | Error} - The session object or an error
- */
-export async function magicUrlLogin({
-  userId,
-  secret,
-}: {
-  userId: string;
-  secret: string;
-}): Promise<Models.Session | Error> {
-  try {
-    if (secret === null || userId === null) {
-      throw new Error('Invalid URL parameters');
-    }
-
-    return await account.createSession(userId, secret);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error logging in with token');
   }
 }
 
