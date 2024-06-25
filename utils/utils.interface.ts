@@ -29,3 +29,18 @@ export interface IParseUserPick {
   userId: IUser['id'];
   teamId: string;
 }
+
+export interface UseProcessGameProps {
+  leagueId: string;
+  gameWeek: { id: string };
+  user: { id: string };
+  NFLTeams: INFLTeam[];
+  setUserPick: (data: string) => void; // eslint-disable-line
+}
+
+export interface UseProcessGameRespError {
+  error: string;
+}
+export interface UseProcessGameRespSuccess {
+  success: boolean;
+}

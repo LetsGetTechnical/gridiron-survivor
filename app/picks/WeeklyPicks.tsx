@@ -82,15 +82,7 @@ const WeeklyPicks = ({
 
     // Process the game if all conditions are met
     processGame();
-  }, [
-    user,
-    userPick,
-    gameWeek,
-    updateGameWeek,
-    leagueId,
-    currentGameWeek,
-    processGame,
-  ]);
+  }, [user, userPick, gameWeek, updateGameWeek, leagueId, currentGameWeek]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

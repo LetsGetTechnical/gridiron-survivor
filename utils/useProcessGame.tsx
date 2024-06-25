@@ -4,15 +4,7 @@
 import { useCallback } from 'react';
 import { getGameData, getUserPick } from './utils';
 import { useDataStore } from '@/store/dataStore';
-import { INFLTeam } from '@/api/apiFunctions.interface';
-
-interface UseProcessGameProps {
-  leagueId: string;
-  gameWeek: { id: string };
-  user: { id: string };
-  NFLTeams: INFLTeam[];
-  setUserPick: (data: string) => void; // eslint-disable-line
-}
+import { UseProcessGameProps } from './utils.interface';
 
 /**
  * Returns a function that processes the game data.
