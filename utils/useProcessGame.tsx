@@ -14,7 +14,7 @@ import { UseProcessGameProps } from './utils.interface';
  * @param props.user - The user.
  * @param props.NFLTeams - The NFL teams.
  * @param props.setUserPick - The user pick.
- * @returns
+ * @returns {void}
  */
 const useProcessGame = ({
   leagueId,
