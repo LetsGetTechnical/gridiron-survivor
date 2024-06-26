@@ -59,7 +59,7 @@ const LeagueEntries = ({
         className="league-entry-pick-button-container"
         data-testid="league-entry-pick-button-container"
       >
-        {isEliminated && (
+        {!isEliminated && (
           <Button
             className="league-entry-pick-button"
             data-testid="league-entry-pick-button"

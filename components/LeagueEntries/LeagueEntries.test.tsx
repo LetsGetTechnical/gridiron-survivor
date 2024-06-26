@@ -27,7 +27,6 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryLogo = screen.getByTestId('league-entry-logo');
     const leagueEntryPickButton = screen.getByTestId('league-entry-pick-button');
 
     expect(entryStatus).toHaveTextContent('alive');
