@@ -5,7 +5,7 @@ import { Button } from '../Button/Button';
 import { cn } from '@/utils/utils';
 import { EntryStatus } from '../EntryStatus/EntryStatus';
 import { ILeagueEntriesProps } from './LeagueEntries.interface';
-import React from 'react';
+import React, { JSX } from 'react';
 
 /**
  * A card that contains information on the user's entry for this league. Contains the entry number, their entry status (alive or eliminated), team logo once a pick is set, and a button to make a pick or change their pick
@@ -19,7 +19,7 @@ const LeagueEntries = ({
   entryNumber,
   isEliminated = false,
   isPickSet = false,
-}: ILeagueEntriesProps): React.JSX.Element => (
+}: ILeagueEntriesProps): JSX.Element => (
   <div
     data-testid="league-entry-container-card"
     className={cn(
@@ -59,7 +59,7 @@ const LeagueEntries = ({
         className="league-entry-pick-button-container"
         data-testid="league-entry-pick-button-container"
       >
-        {isEliminated ? null : (
+        {isEliminated && (
           <Button
             className="league-entry-pick-button"
             data-testid="league-entry-pick-button"
