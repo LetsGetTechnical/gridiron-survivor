@@ -3,6 +3,7 @@
 
 import { NextResponse } from 'next/server';
 import { account } from '@/api/config';
+import { cookies } from 'next/headers';
 
 /**
  * Redirects the user to the origin URL.
@@ -20,6 +21,13 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   const session = await account.updateMagicURLSession(userId, secret);
+
+  cookies().set('my-magicURL-session', session.secret, {
+    path: '/',
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: true,
+  });
 
   return NextResponse.redirect(`${requestUrl.origin}/weeklyPicks`);
 }
