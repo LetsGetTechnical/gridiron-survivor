@@ -11,7 +11,7 @@ const gameData = {
   teamName: 'Philadelphia Eagles',
   teamLogo: 'eagle',
   weekNumber: '7',
-  gameId: '438', 
+  gameId: '438',
   gameWeekId: '7839',
   userResults: 'Vikings',
 };
@@ -65,7 +65,7 @@ describe('Data Store', () => {
   });
   it('Check the updated userWeeklyPick state', () => {
     const { result } = renderHook(() => useDataStore());
-    const weekData = { userId: '42', weekNumber: '51' }; 
+    const weekData = { userId: '42', weekNumber: '51' };
     act(() => {
       result.current.updateUserWeeklyPick(weekData);
     });
