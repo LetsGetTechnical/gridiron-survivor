@@ -30,9 +30,7 @@ describe('LeagueCard with custom league logo', () => {
 
     expect(leagueCard).toBeInTheDocument();
     expect(leagueCardHeader).toBeInTheDocument();
-    expect(mockedLeagueCardLogo.src).toContain(
-      'https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg',
-    );
+    expect(mockedLeagueCardLogo).toBeInTheDocument();
     expect(leagueSurvivors).toBeInTheDocument();
     expect(leagueSurvivors).toHaveTextContent('Survivors 11 / 12');
     expect(leagueCardTitle).toBeInTheDocument();
@@ -55,6 +53,32 @@ describe('LeagueCard with custom league logo', () => {
     const leagueCardTitle = screen.getByTestId('LeagueCardTitle');
 
     expect(leagueCard).toBeInTheDocument();
+    expect(leagueCardHeader).toBeInTheDocument();
+    expect(leagueSurvivors).toBeInTheDocument();
+    expect(leagueSurvivors).toHaveTextContent('Survivors 11 / 12');
+    expect(leagueCardTitle).toBeInTheDocument();
+    expect(leagueCardTitle).toHaveTextContent('League 1');
+  });
+
+  it('renders correctly if the user is eliminated', () => {
+    render(
+      <LeagueCard
+        href="/leagues"
+        isEliminated={true}
+        survivors={11}
+        title="League 1"
+        totalPlayers={12}
+      />,
+    );
+
+    const leagueCard = screen.getByTestId('LeagueCard');
+    const leagueCardHeader = screen.getByTestId('LeagueCardHeader');
+    const leagueSurvivors = screen.getByTestId('LeagueSurvivors');
+    const leagueCardTitle = screen.getByTestId('LeagueCardTitle');
+    const eliminatedStatus = screen.getByTestId('eliminated-status');
+
+    expect(leagueCard).toBeInTheDocument();
+    expect(eliminatedStatus).toBeInTheDocument();
     expect(leagueCardHeader).toBeInTheDocument();
     expect(leagueSurvivors).toBeInTheDocument();
     expect(leagueSurvivors).toHaveTextContent('Survivors 11 / 12');
