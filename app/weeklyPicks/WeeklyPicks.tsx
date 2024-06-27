@@ -100,6 +100,9 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
 
     if (!gameGroupData || !weeklyPicksData) {
       console.error('Error getting game data');
+      toast.custom(
+        <Alert variant={AlertVariants.Error} message="Something went wrong." />,
+      );
       return;
     }
 
