@@ -60,7 +60,7 @@ export const AuthContextProvider = ({
     try {
       await account.createEmailPasswordSession(user.email, user.password);
       await getUser(); // Fetch user data and update state
-      router.push('/leagues');
+      router.push('/league/all');
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
