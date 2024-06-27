@@ -56,7 +56,7 @@ const Register = (): JSX.Element => {
     if (isSignedIn) {
       router.push('/weeklyPicks');
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn]);
 
   const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
@@ -97,7 +97,9 @@ const Register = (): JSX.Element => {
    * @param {RegisterUserSchemaType} data - The data submitted in the form.
    * @returns {Promise<void>} Promise that resolves after form submission is processed.
    */
-  const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (data: RegisterUserSchemaType): Promise<void> => {
+  const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (
+    data: RegisterUserSchemaType,
+  ): Promise<void> => {
     try {
       await registerAccount(data);
       await loginAccount(data);
