@@ -52,6 +52,25 @@ export async function loginAccount({
 }
 
 /**
+ * Create a token for Magic URL
+ * @param props - The account data
+ * @param magicEmail - The user's email
+ * @returns {Models.Session | Error} - The session object or an error
+ */
+export async function getMagicUrlToken(): Promise<Models.Token | Error> {
+  try {
+    return await account.createMagicURLToken(
+      ID.unique(),
+      'alexappleget2014@gmail.com',
+      'http://localhost:3000/auth/magicUrl',
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creating token');
+  }
+}
+
+/**
  * Logout the current user
  * @returns {object | Error} - The session object or an error
  */

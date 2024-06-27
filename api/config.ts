@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { Client, Account, Databases, ID } from 'appwrite';
 
 const URL = process.env.NEXT_PUBLIC_APPWRITE_API_URL as string;

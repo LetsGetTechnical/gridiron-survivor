@@ -20,6 +20,7 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
+import { getMagicUrlToken } from '@/api/apiFunctions';
 
 const LoginUserSchema = z.object({
   email: z
@@ -41,6 +42,7 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
 const Login = (): JSX.Element => {
   const router = useRouter();
   const { loginAccount, isSignedIn } = useAuthContext();
+  // const [magicEmail, setMagicEmail] = useState<string>('');
 
   useEffect(() => {
     if (isSignedIn) {
@@ -155,6 +157,7 @@ const Login = (): JSX.Element => {
             </LinkCustom>
           </form>
         </Form>
+        <button onClick={getMagicUrlToken}>Magic URL Test</button>
       </div>
     </section>
   );
