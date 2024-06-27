@@ -22,10 +22,10 @@ const useProcessGame = ({
   user,
   NFLTeams,
   setUserPick,
-}: UseProcessGameProps): (() => Promise<void>) => {
+}: UseProcessGameProps): void => {
   const { updateLeague, updateWeeklyPicks } = useDataStore((state) => state);
 
-  const processGame = useCallback(async () => {
+  useCallback(async () => {
     const { league, weeklyPicksData } = await getGameData({
       leagueId: leagueId,
       currentGameWeekId: gameWeek.id,
@@ -55,8 +55,6 @@ const useProcessGame = ({
       setUserPick(userPickData);
     }
   }, [leagueId, user.id, gameWeek.id, NFLTeams]);
-
-  return processGame;
 };
 
 export default useProcessGame;
