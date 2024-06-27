@@ -31,32 +31,29 @@ const useProcessGame = ({
       currentGameWeekId: gameWeek.id,
     });
 
-    if (!league || !weeklyPicksData) {
-      console.error('Error getting game data');
-      return;
+    if (league && weeklyPicksData) {
+      updateLeague({
+        leagueId: leagueId,
+        leagueName: league.leagueName,
+        logo: league.logo,
+        participants: league.participants,
+        survivors: league.survivors,
+      });
+
+      updateWeeklyPicks({
+        leagueId: leagueId,
+        gameWeekId: gameWeek.id,
+        userResults: weeklyPicksData.userResults,
+      });
+
+      const userPickData = await getUserPick({
+        weeklyPicks: weeklyPicksData.userResults,
+        userId: user.id,
+        NFLTeams: NFLTeams,
+      });
+
+      setUserPick(userPickData);
     }
-
-    updateLeague({
-      leagueId: leagueId,
-      leagueName: league.leagueName,
-      logo: league.logo,
-      participants: league.participants,
-      survivors: league.survivors,
-    });
-
-    updateWeeklyPicks({
-      leagueId: leagueId,
-      gameWeekId: gameWeek.id,
-      userResults: weeklyPicksData.userResults,
-    });
-
-    const userPickData = await getUserPick({
-      weeklyPicks: weeklyPicksData.userResults,
-      userId: user.id,
-      NFLTeams: NFLTeams,
-    });
-
-    setUserPick(userPickData);
   }, [leagueId, user.id, gameWeek.id, NFLTeams]);
 
   return processGame;
