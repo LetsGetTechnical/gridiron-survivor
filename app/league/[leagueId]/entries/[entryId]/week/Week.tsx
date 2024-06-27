@@ -26,7 +26,7 @@ import { ISchedule } from './WeekTeams.interface';
  * @returns {JSX.Element} The rendered weekly picks page.
  */
 // eslint-disable-next-line no-unused-vars
-const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
+const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [userPick, setUserPick] = useState<string>('');
 
