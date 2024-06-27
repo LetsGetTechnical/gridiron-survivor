@@ -189,3 +189,22 @@ export async function createWeeklyPicks({
     throw new Error('Error creating weekly picks');
   }
 }
+
+/**
+ * Get the number of participants in a league
+ * @param userId - The user ID
+ * @returns {number} - the number of id's
+ */
+export const getParticipants = async (userId: IUser['id']): Promise<number> => {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      '6626a937b6302f6a4d28',
+      [Query.contains('participants', userId)],
+    );
+    return response.documents.length;
+  } catch (error) {
+    console.error('Error getting participants:', error);
+    throw new Error('Error getting participants');
+  }
+};
