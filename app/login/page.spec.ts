@@ -22,7 +22,7 @@ test.describe('Tests login page', () => {
     await page.getByTestId('password').fill(correctCredentials.password);
     await page.getByTestId('continue-button').click();
     await page.waitForLoadState('load');
-    await expect(page).toHaveURL('/leagues?id=66269d85413eff63c89c');
+    await expect(page).toHaveURL('/league/all');
   });
 
   test('should fail login', async ({ page }) => {
