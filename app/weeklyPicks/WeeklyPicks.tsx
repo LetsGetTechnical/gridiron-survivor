@@ -100,6 +100,9 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
 
     if (!gameGroupData || !weeklyPicksData) {
       console.error('Error getting game data');
+      toast.custom(
+        <Alert variant={AlertVariants.Error} message="Something went wrong." />,
+      );
       return;
     }
 
@@ -168,7 +171,7 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
-          message="Your pick was successful."
+          message={`You successfully picked: ${currentUserPick[user.id].team}`}
         />,
       );
     } catch (error) {
