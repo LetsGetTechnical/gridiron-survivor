@@ -1,34 +1,54 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React, { JSX } from 'react';
+'use client';
+
+import React, { JSX, useEffect, useState } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { IUser } from '@/api/apiFunctions.interface';
-import { getCurrentUser } from '@/api/apiFunctions';
+import { IGameWeek, ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
-
-interface Props {
-  searchParams?: { id: IUser['id'] };
-}
-
-export const revalidate = 60;
+import { useDataStore } from '@/store/dataStore';
+import { getGameWeek } from '@/api/apiFunctions';
 
 /**
  * Renders the leagues component.
- * @param {Props} props The props for the leagues component.
  * @returns {JSX.Element} The rendered leagues component.
  */
-const Leagues = async ({
-  searchParams,
-}: Props): Promise<JSX.Element | undefined> => {
-  const userId = searchParams?.id || '';
+const Leagues = (): JSX.Element => {
+  const [leagues, setLeagues] = useState<ILeague[]>([]);
+  const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
+  const { user } = useDataStore((state) => state);
 
-  if (!userId || userId === '') {
-    return;
-  }
+  /**
+   * Fetches the user's leagues.
+   * @returns {Promise<void>}
+   */
+  const getLeagues = async (): Promise<void> => {
+    try {
+      const userLeagues = await getUserLeagues(user.leagues);
+      setLeagues(userLeagues);
+    } catch (error) {}
+  };
 
-  const userData: IUser = await getCurrentUser(userId);
-  const leagueData = await getUserLeagues(userData.leagues);
+  /**
+   * Fetches the current game week.
+   * @returns {Promise<void>}
+   */
+  const getCurrentGameWeek = async (): Promise<void> => {
+    try {
+      const currentWeek = await getGameWeek();
+      setCurrentWeek(currentWeek.week);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (!user.id || user.id === '') {
+      return;
+    }
+
+    getLeagues();
+    getCurrentGameWeek();
+  }, [user]);
 
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
@@ -36,11 +56,11 @@ const Leagues = async ({
         Your leagues
       </h1>
       <section className="grid gap-6 md:grid-cols-2">
-        {leagueData.length > 0 ? (
-          leagueData.map((league) => (
+        {leagues.length > 0 ? (
+          leagues.map((league) => (
             <LeagueCard
               key={league.leagueId}
-              href={`/picks?leagueId=${league.leagueId}`}
+              href={`/league/${league.leagueId}/entries/1/week/${currentWeek}`}
               leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
               survivors={league.survivors.length}
               title={league.leagueName}
@@ -49,9 +69,7 @@ const Leagues = async ({
           ))
         ) : (
           <div className="text-center">
-            <p className="text-lg font-bold">
-              You are not participating in any leagues.
-            </p>
+            <p className="text-lg font-bold">Loading ...</p>
           </div>
         )}
       </section>

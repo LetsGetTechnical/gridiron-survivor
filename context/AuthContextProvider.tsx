@@ -19,7 +19,6 @@ type UserCredentials = {
 type AuthContextType = {
   isSignedIn: boolean;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-
   loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void>;
   getUser: () => Promise<IUser | undefined>;
@@ -59,12 +58,9 @@ export const AuthContextProvider = ({
    */
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
-      const session = await account.createEmailPasswordSession(
-        user.email,
-        user.password,
-      );
+      await account.createEmailPasswordSession(user.email, user.password);
       await getUser(); // Fetch user data and update state
-      router.push(`/leagues?id=${session.userId}`);
+      router.push('/leagues');
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
