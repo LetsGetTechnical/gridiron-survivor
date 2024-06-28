@@ -67,8 +67,7 @@ const Register = (): JSX.Element => {
    * 
    * @type {string}
    */
-
-  const email = useWatch({
+  const email: string = useWatch({
     control: form.control,
     name: 'email',
     defaultValue: '',
@@ -78,8 +77,7 @@ const Register = (): JSX.Element => {
    * The current value of the 'password' field in the form.
    * @type {string}
    */
-
-  const password = useWatch({
+  const password: string = useWatch({
     control: form.control,
     name: 'password',
     defaultValue: '',
@@ -89,8 +87,7 @@ const Register = (): JSX.Element => {
    * The current value of the 'confirmPassword' field in the form.
    * @type {string}
    */
-
-  const confirmPassword = useWatch({
+  const confirmPassword: string = useWatch({
     control: form.control,
     name: 'confirmPassword',
     defaultValue: '',
@@ -101,7 +98,9 @@ const Register = (): JSX.Element => {
    * @param {RegisterUserSchemaType} data - The data submitted in the form.
    * @returns {Promise<void>} Promise that resolves after form submission is processed.
    */
-  const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (
+    data: RegisterUserSchemaType,
+  ): Promise<void> => {
     try {
       await registerAccount(data);
       await loginAccount(data);

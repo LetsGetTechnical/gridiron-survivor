@@ -8,6 +8,7 @@ export interface IAccountData {
 export interface IUser {
   id: string;
   email: string;
+  leagues: string[];
 }
 export interface IUserPick {
   [userId: string]: {
@@ -19,7 +20,7 @@ export interface IDeleteUser {
   success: boolean;
 }
 export interface IWeeklyPicks {
-  gameId: string;
+  leagueId: string;
   gameWeekId: string;
   userResults: IUserPicksData | null;
 }
@@ -34,8 +35,10 @@ export interface IUserPicksData {
     correct: boolean;
   };
 }
-export interface IGameGroup {
-  currentGameId: string;
+export interface ILeague {
+  leagueId: string;
+  leagueName: string;
+  logo: string;
   participants: string[];
   survivors: string[];
 }
