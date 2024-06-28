@@ -24,10 +24,7 @@
           "width": 500,
           "height": 500,
           "alt": "",
-          "rel": [
-            "full",
-            "default"
-          ],
+          "rel": ["full", "default"],
           "lastUpdated": "2018-06-05T12:07Z"
         }
       ],
@@ -364,44 +361,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/sf/san-francisco-49ers",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/sf/san-francisco-49ers",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/sf/san-francisco-49ers",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/sf",
                     "text": "Schedule",
                     "isExternal": false,
@@ -435,44 +416,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/lar/los-angeles-rams",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/lar/los-angeles-rams",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/lar/los-angeles-rams",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/lar",
                     "text": "Schedule",
                     "isExternal": false,
@@ -504,9 +469,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "PRIME VIDEO"
-              ]
+              "names": ["PRIME VIDEO"]
             }
           ],
           "format": {
@@ -551,11 +514,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671818/rams-49ers",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -639,44 +598,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/cle/cleveland-browns",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/cle/cleveland-browns",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/cle/cleveland-browns",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/cle",
                     "text": "Schedule",
                     "isExternal": false,
@@ -710,44 +653,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/kc/kansas-city-chiefs",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/kc/kansas-city-chiefs",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/kc/kansas-city-chiefs",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/kc",
                     "text": "Schedule",
                     "isExternal": false,
@@ -779,9 +706,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "CBS"
-              ]
+              "names": ["CBS"]
             }
           ],
           "format": {
@@ -826,11 +751,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671854/chiefs-browns",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -914,44 +835,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/ten/tennessee-titans",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/ten/tennessee-titans",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/ten/tennessee-titans",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/ten",
                     "text": "Schedule",
                     "isExternal": false,
@@ -985,44 +890,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/cin/cincinnati-bengals",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/cin/cincinnati-bengals",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/cin/cincinnati-bengals",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/cin",
                     "text": "Schedule",
                     "isExternal": false,
@@ -1054,9 +943,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "FOX"
-              ]
+              "names": ["FOX"]
             }
           ],
           "format": {
@@ -1101,11 +988,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671825/bengals-titans",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -1189,44 +1072,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/no/new-orleans-saints",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/no/new-orleans-saints",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/no/new-orleans-saints",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/no",
                     "text": "Schedule",
                     "isExternal": false,
@@ -1260,44 +1127,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/wsh/washington-commanders",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/wsh/washington-commanders",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/wsh/washington-commanders",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/wsh",
                     "text": "Schedule",
                     "isExternal": false,
@@ -1329,9 +1180,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "FOX"
-              ]
+              "names": ["FOX"]
             }
           ],
           "format": {
@@ -1376,11 +1225,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671737/commanders-saints",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -1464,44 +1309,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/nyg/new-york-giants",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/nyg/new-york-giants",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/nyg/new-york-giants",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/nyg",
                     "text": "Schedule",
                     "isExternal": false,
@@ -1535,44 +1364,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/bal/baltimore-ravens",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/bal/baltimore-ravens",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/bal/baltimore-ravens",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/bal",
                     "text": "Schedule",
                     "isExternal": false,
@@ -1604,9 +1417,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "CBS"
-              ]
+              "names": ["CBS"]
             }
           ],
           "format": {
@@ -1651,11 +1462,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671639/ravens-giants",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -1739,44 +1546,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/car/carolina-panthers",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/car/carolina-panthers",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/car/carolina-panthers",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/car",
                     "text": "Schedule",
                     "isExternal": false,
@@ -1810,44 +1601,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/dal/dallas-cowboys",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/dal/dallas-cowboys",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/dal/dallas-cowboys",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/dal",
                     "text": "Schedule",
                     "isExternal": false,
@@ -1879,9 +1654,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "FOX"
-              ]
+              "names": ["FOX"]
             }
           ],
           "format": {
@@ -1926,11 +1699,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671731/cowboys-panthers",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -2014,44 +1783,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/jax/jacksonville-jaguars",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/jax/jacksonville-jaguars",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/jax/jacksonville-jaguars",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/jax",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2085,44 +1838,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/nyj/new-york-jets",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/nyj/new-york-jets",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/nyj/new-york-jets",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/nyj",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2154,9 +1891,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "FOX"
-              ]
+              "names": ["FOX"]
             }
           ],
           "format": {
@@ -2201,11 +1936,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671706/jets-jaguars",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -2289,44 +2020,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/hou/houston-texans",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/hou/houston-texans",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/hou/houston-texans",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/hou",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2360,44 +2075,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/mia/miami-dolphins",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/mia/miami-dolphins",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/mia/miami-dolphins",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/mia",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2429,9 +2128,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "CBS"
-              ]
+              "names": ["CBS"]
             }
           ],
           "format": {
@@ -2476,11 +2173,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671860/dolphins-texans",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -2564,44 +2257,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/den/denver-broncos",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/den/denver-broncos",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/den/denver-broncos",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/den",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2635,44 +2312,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/ind/indianapolis-colts",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/ind/indianapolis-colts",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/ind/indianapolis-colts",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/ind",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2704,9 +2365,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "CBS"
-              ]
+              "names": ["CBS"]
             }
           ],
           "format": {
@@ -2751,11 +2410,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671669/colts-broncos",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -2839,44 +2494,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/det/detroit-lions",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/det/detroit-lions",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/det/detroit-lions",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/det",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2910,44 +2549,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/buf/buffalo-bills",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/buf/buffalo-bills",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/buf/buffalo-bills",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/buf",
                     "text": "Schedule",
                     "isExternal": false,
@@ -2979,9 +2602,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "CBS"
-              ]
+              "names": ["CBS"]
             }
           ],
           "format": {
@@ -3026,11 +2647,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671681/bills-lions",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -3114,44 +2731,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/phi/philadelphia-eagles",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/phi/philadelphia-eagles",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/phi/philadelphia-eagles",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/phi",
                     "text": "Schedule",
                     "isExternal": false,
@@ -3185,44 +2786,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/pit/pittsburgh-steelers",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/pit/pittsburgh-steelers",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/pit/pittsburgh-steelers",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/pit",
                     "text": "Schedule",
                     "isExternal": false,
@@ -3254,9 +2839,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "FOX"
-              ]
+              "names": ["FOX"]
             }
           ],
           "format": {
@@ -3301,11 +2884,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671766/steelers-eagles",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -3389,44 +2968,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/ari/arizona-cardinals",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/ari/arizona-cardinals",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/ari/arizona-cardinals",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/ari",
                     "text": "Schedule",
                     "isExternal": false,
@@ -3460,44 +3023,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/ne/new-england-patriots",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/ne/new-england-patriots",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/ne/new-england-patriots",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/ne",
                     "text": "Schedule",
                     "isExternal": false,
@@ -3529,9 +3076,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "CBS"
-              ]
+              "names": ["CBS"]
             }
           ],
           "format": {
@@ -3576,11 +3121,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671677/patriots-cardinals",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -3664,44 +3205,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/lac/los-angeles-chargers",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/lac/los-angeles-chargers",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/lac/los-angeles-chargers",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/lac",
                     "text": "Schedule",
                     "isExternal": false,
@@ -3735,44 +3260,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/tb/tampa-bay-buccaneers",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/tb/tampa-bay-buccaneers",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/tb/tampa-bay-buccaneers",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/tb",
                     "text": "Schedule",
                     "isExternal": false,
@@ -3804,9 +3313,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "FOX"
-              ]
+              "names": ["FOX"]
             }
           ],
           "format": {
@@ -3851,11 +3358,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671762/buccaneers-chargers",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -3939,44 +3442,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/sea/seattle-seahawks",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/sea/seattle-seahawks",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/sea/seattle-seahawks",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/sea",
                     "text": "Schedule",
                     "isExternal": false,
@@ -4010,44 +3497,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/gb/green-bay-packers",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/gb/green-bay-packers",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/gb/green-bay-packers",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/gb",
                     "text": "Schedule",
                     "isExternal": false,
@@ -4079,9 +3550,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "NBC"
-              ]
+              "names": ["NBC"]
             }
           ],
           "format": {
@@ -4126,11 +3595,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671796/packers-seahawks",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -4214,44 +3679,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/min/minnesota-vikings",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/min/minnesota-vikings",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/min/minnesota-vikings",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/min",
                     "text": "Schedule",
                     "isExternal": false,
@@ -4285,44 +3734,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/chi/chicago-bears",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/chi/chicago-bears",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/chi/chicago-bears",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/chi",
                     "text": "Schedule",
                     "isExternal": false,
@@ -4354,9 +3787,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "ABC"
-              ]
+              "names": ["ABC"]
             }
           ],
           "format": {
@@ -4401,11 +3832,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671489/bears-vikings",
           "text": "Gamecast",
           "shortText": "Gamecast",
@@ -4489,44 +3916,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/lv/las-vegas-raiders",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/lv/las-vegas-raiders",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/lv/las-vegas-raiders",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/lv",
                     "text": "Schedule",
                     "isExternal": false,
@@ -4560,44 +3971,28 @@
                 },
                 "links": [
                   {
-                    "rel": [
-                      "clubhouse",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["clubhouse", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/_/name/atl/atlanta-falcons",
                     "text": "Clubhouse",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "roster",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["roster", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/roster/_/name/atl/atlanta-falcons",
                     "text": "Roster",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "stats",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["stats", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/stats/_/name/atl/atlanta-falcons",
                     "text": "Statistics",
                     "isExternal": false,
                     "isPremium": false
                   },
                   {
-                    "rel": [
-                      "schedule",
-                      "desktop",
-                      "team"
-                    ],
+                    "rel": ["schedule", "desktop", "team"],
                     "href": "https://www.espn.com/nfl/team/schedule/_/name/atl",
                     "text": "Schedule",
                     "isExternal": false,
@@ -4629,9 +4024,7 @@
           "broadcasts": [
             {
               "market": "national",
-              "names": [
-                "ESPN"
-              ]
+              "names": ["ESPN"]
             }
           ],
           "format": {
@@ -4676,11 +4069,7 @@
       "links": [
         {
           "language": "en-US",
-          "rel": [
-            "summary",
-            "desktop",
-            "event"
-          ],
+          "rel": ["summary", "desktop", "event"],
           "href": "https://www.espn.com/nfl/game/_/gameId/401671697/falcons-raiders",
           "text": "Gamecast",
           "shortText": "Gamecast",

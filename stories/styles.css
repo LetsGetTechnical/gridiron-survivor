@@ -6,7 +6,7 @@
   max-width: 100%;
 }
 
-.doc_nav_links li, .doc_nav_links p{
+.doc_nav_links li,
+.doc_nav_links p {
   font-size: 2rem;
 }
-
