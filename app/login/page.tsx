@@ -3,7 +3,6 @@
 
 'use client';
 import { JSX, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
@@ -39,14 +38,13 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  * @returns {JSX.Element} The rendered login page.
  */
 const Login = (): JSX.Element => {
-  const router = useRouter();
-  const { loginAccount, isSignedIn } = useAuthContext();
+  const { loginAccount, isSignedIn, getUser } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push('/weeklyPicks');
+      getUser();
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn, getUser]);
 
   const form = useForm<LoginUserSchemaType>({
     resolver: zodResolver(LoginUserSchema),
@@ -66,9 +64,8 @@ const Login = (): JSX.Element => {
 
   /**
    * A function that handles form submission.
-   *
    * @param {LoginUserSchemaType} data - The data submitted in the form.
-   * @return {Promise<void>} A promise that resolves when the `loginAccount` function completes.
+   * @returns {Promise<void>} A promise that resolves when the `loginAccount` function completes.
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
     await loginAccount(data);

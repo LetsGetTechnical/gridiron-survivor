@@ -2,12 +2,12 @@
 // Licensed under the MIT License.
 
 import {
-  IGameGroup,
   IGameWeek,
+  ILeague,
+  INFLTeam,
   IUser,
   IWeeklyPicks,
 } from '@/api/apiFunctions.interface';
-import { Models } from 'appwrite/types/models';
 
 export interface IGetGameData {
   userId: IUser['id'];
@@ -15,17 +15,32 @@ export interface IGetGameData {
 }
 
 export interface IGetGameWeekResults {
-  gameGroupData: IGameGroup | null;
+  league: ILeague | null;
   weeklyPicksData: IWeeklyPicks | '';
 }
 
 export interface IGetUserPick {
   weeklyPicks: IWeeklyPicks['userResults'];
   userId: IUser['id'];
-  NFLTeams: Models.Document[];
+  NFLTeams: INFLTeam[];
 }
 
 export interface IParseUserPick {
   userId: IUser['id'];
   teamId: string;
+}
+
+export interface UseProcessGameProps {
+  leagueId: string;
+  gameWeek: { id: string };
+  user: { id: string };
+  NFLTeams: INFLTeam[];
+  setUserPick: (data: string) => void; // eslint-disable-line
+}
+
+export interface UseProcessGameRespError {
+  error: string;
+}
+export interface UseProcessGameRespSuccess {
+  success: boolean;
 }
