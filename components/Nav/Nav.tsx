@@ -12,6 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
+  DrawerClose,
 } from '../NavDrawer/NavDrawer';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
@@ -63,15 +64,17 @@ export const Nav = (): JSX.Element => {
               </DrawerHeader>
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
-                  <Button
-                    className="p-0 text-base font-normal text-zinc-600"
-                    variant="link"
-                    label="Sign Out"
-                    onClick={() => {
-                      handleLogout();
-                    }}
-                    data-testid="sign-out-button"
-                  />
+                  <DrawerClose>
+                    <Button
+                      className="p-0 text-base font-normal text-zinc-600"
+                      variant="link"
+                      label="Sign Out"
+                      onClick={() => {
+                        handleLogout();
+                      }}
+                      data-testid="sign-out-button"
+                    />
+                  </DrawerClose>
                 </li>
               </ul>
             </DrawerContent>
