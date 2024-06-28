@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { test, expect } from '@playwright/test';
 
 const correctCredentials = {
@@ -18,7 +21,8 @@ test.describe('Tests login page', () => {
     await page.getByTestId('email').fill(correctCredentials.email);
     await page.getByTestId('password').fill(correctCredentials.password);
     await page.getByTestId('continue-button').click();
-    await expect(page).toHaveURL('/weeklyPicks');
+    await page.waitForLoadState('load');
+    await expect(page).toHaveURL('/league/all');
   });
 
   test('should fail login', async ({ page }) => {

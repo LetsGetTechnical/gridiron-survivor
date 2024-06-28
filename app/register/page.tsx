@@ -1,67 +1,116 @@
-'use client';
-import { useState, ChangeEvent, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Models } from 'appwrite/types/models';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
 
+'use client';
+import React, { JSX, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/Button/Button';
 import { registerAccount } from '@/api/apiFunctions';
-
 import logo from '/public/assets/logo-colored-outline.svg';
-
 import { useAuthContext } from '@/context/AuthContextProvider';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { z } from 'zod';
+import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '../../components/Form/Form';
 
-const Register = () => {
+const RegisterUserSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, { message: 'Please enter an email address' })
+      .email({ message: 'Please enter a valid email address' }),
+    password: z
+      .string()
+      .min(1, { message: 'Please enter a password' })
+      .min(6, { message: 'Password must be at least 6 characters' }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: 'Please confirm your password' })
+      .min(6, { message: 'Password must be at least 6 characters' }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
+
+type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
+
+/**
+ * Renders the registration page.
+ * @returns {JSX.Element} The rendered registration page.
+ */
+const Register = (): JSX.Element => {
   const router = useRouter();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const { loginAccount, isSignedIn } = useAuthContext();
 
-  const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.target.value);
-  };
-
-  const handlePassword = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value);
-  };
-
-  const comparePasswords = (password: string, confirmPassword: string) => {
-    return password === confirmPassword;
-  };
-
-  const handleConfirmPassword = (
-    event: ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleDisabled = () => {
-    const passwordsMatch = comparePasswords(password, confirmPassword);
-    if (email && passwordsMatch === true && confirmPassword !== '') {
-      return false;
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push('/weeklyPicks');
     }
-    return true;
-  };
+  }, [isSignedIn]);
 
-  const handleRegister = async () => {
+  const form = useForm<RegisterUserSchemaType>({
+    resolver: zodResolver(RegisterUserSchema),
+  });
+
+  /**
+   * The current value of the 'email' field in the form.
+   * 
+   * @type {string}
+   */
+  const email: string = useWatch({
+    control: form.control,
+    name: 'email',
+    defaultValue: '',
+  });
+
+  /**
+   * The current value of the 'password' field in the form.
+   * @type {string}
+   */
+  const password: string = useWatch({
+    control: form.control,
+    name: 'password',
+    defaultValue: '',
+  });
+
+  /**
+   * The current value of the 'confirmPassword' field in the form.
+   * @type {string}
+   */
+  const confirmPassword: string = useWatch({
+    control: form.control,
+    name: 'confirmPassword',
+    defaultValue: '',
+  });
+
+  /**
+   * A function that handles form submission.
+   * @param {RegisterUserSchemaType} data - The data submitted in the form.
+   * @returns {Promise<void>} Promise that resolves after form submission is processed.
+   */
+  const onSubmit: SubmitHandler<RegisterUserSchemaType> = async (
+    data: RegisterUserSchemaType,
+  ): Promise<void> => {
     try {
-      const accountRegistered = await registerAccount({ email, password });
-      console.log(accountRegistered.$id, accountRegistered.email);
-      await loginAccount({ email, password });
+      await registerAccount(data);
+      await loginAccount(data);
       router.push('/weeklyPicks');
     } catch (error) {
       console.error('Registration Failed', error);
     }
   };
 
-  useEffect(() => {
-    if (isSignedIn) {
-      router.push('/weeklyPicks');
-    }
-  }, [isSignedIn, router]);
+  const isDisabled = !email || !password || password !== confirmPassword;
 
   return (
     <div className="h-screen w-full">
@@ -85,40 +134,90 @@ const Register = () => {
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               If you have an existing account{' '}
-              <Link href="/login" className="hover:text-orange-600">
-                Login!
-              </Link>
+              <LinkCustom href="/login">Login!</LinkCustom>
             </p>
-            <Input
-              data-testid="email"
-              type="email"
-              value={email}
-              placeholder="Email"
-              onChange={handleEmail}
-            />
-            <Input
-              data-testid="password"
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={handlePassword}
-            />
-            <Input
-              data-testid="confirm-password"
-              type="password"
-              value={confirmPassword}
-              placeholder="Confirm Password"
-              onChange={handleConfirmPassword}
-            />
-            <Button
-              data-testid="continue-button"
-              label="Register"
-              disabled={handleDisabled()}
-              onClick={handleRegister}
-            />
-            <Link href="/login" className="hover:text-orange-600">
-              Login to get started playing
-            </Link>
+
+            <Form {...form}>
+              <form
+                id="input-container"
+                className="grid gap-3"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
+                <FormField
+                  control={form.control as Control<object>}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          data-testid="email"
+                          type="email"
+                          placeholder="Email"
+                          {...field}
+                        />
+                      </FormControl>
+                      {form.formState.errors.email && (
+                        <FormMessage>
+                          {form.formState.errors.email.message}
+                        </FormMessage>
+                      )}
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control as Control<object>}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          data-testid="password"
+                          type="password"
+                          placeholder="Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      {form.formState.errors.password && (
+                        <FormMessage>
+                          {form.formState.errors.password.message}
+                        </FormMessage>
+                      )}
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control as Control<object>}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          data-testid="confirm-password"
+                          type="password"
+                          placeholder="Confirm Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      {form.formState.errors.confirmPassword && (
+                        <FormMessage>
+                          {form.formState.errors.confirmPassword.message}
+                        </FormMessage>
+                      )}
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  data-testid="continue-button"
+                  label="Register"
+                  type="submit"
+                  disabled={isDisabled}
+                />
+                <LinkCustom href="/login">
+                  Login to get started playing
+                </LinkCustom>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

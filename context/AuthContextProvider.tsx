@@ -1,10 +1,15 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import { cache } from 'react';
+import React, { JSX, useCallback } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
+import { IUser } from '@/api/apiFunctions.interface';
+import { getCurrentUser } from '@/api/apiFunctions';
 
 type UserCredentials = {
   email: string;
@@ -13,18 +18,25 @@ type UserCredentials = {
 
 type AuthContextType = {
   isSignedIn: boolean;
-  setIsSignedIn: (isSignedIn: boolean) => void;
-  loginAccount: (user: UserCredentials) => Promise<void | Error>;
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void>;
+  getUser: () => Promise<IUser | undefined>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
+/**
+ * Provider for the authentication context.
+ * @param children - The children to render.
+ * @param children.children - The children to render.
+ * @returns The rendered provider.
+ */
 export const AuthContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}): JSX.Element => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const { updateUser, resetUser, user } = useDataStore<DataStore>(
     (state) => state,
@@ -36,23 +48,29 @@ export const AuthContextProvider = ({
       getUser();
       return;
     }
-
     setIsSignedIn(true);
   }, [user]);
 
-  // Authenticate and set session state
+  /**
+   * Authenticate and set session state
+   * @param user - The user credentials.
+   * @returns The error if there is one.
+   */
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await account.createEmailPasswordSession(user.email, user.password);
-      getUser();
-      router.push('/weeklyPicks');
+      await getUser(); // Fetch user data and update state
+      router.push('/league/all');
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;
     }
   };
 
-  // Log out and clear session state
+  /**
+   * Log out and clear session state
+   * @returns {Promise<void>}
+   */
   const logoutAccount = async (): Promise<void> => {
     try {
       await account.deleteSession('current');
@@ -64,23 +82,32 @@ export const AuthContextProvider = ({
     }
   };
 
-  // get user
-  const getUser = cache(async () => {
+  /**
+   * Get user data from the session
+   * @returns {Promise<void>}
+   */
+  const getUser = useCallback(async () => {
     if (!isSessionInLocalStorage()) {
+      router.push('/login');
       return;
     }
 
     try {
-      const userData = await account.get();
-      updateUser(userData.$id, userData.email);
+      const user = await account.get();
+      const userData: IUser = await getCurrentUser(user.$id);
+      updateUser(userData.id, userData.email, userData.leagues);
+      return userData;
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
       throw new Error('Error getting user data');
     }
-  });
+  }, [updateUser, resetUser, setIsSignedIn, user]);
 
-  // Helper function to validate session data in local storage
+  /**
+   * Helper function to validate session data in local storage
+   * @returns {boolean} - Whether the session is in local storage.
+   */
   const isSessionInLocalStorage = (): boolean => {
     const loadedDataString = localStorage.getItem('cookieFallback');
 
@@ -99,6 +126,7 @@ export const AuthContextProvider = ({
       setIsSignedIn,
       loginAccount,
       logoutAccount,
+      getUser,
     }),
     [isSignedIn],
   );
@@ -108,8 +136,11 @@ export const AuthContextProvider = ({
   );
 };
 
-// Custom hook to access the authentication context
-export function useAuthContext() {
+/**
+ * Custom hook to access the authentication context
+ * @returns The authentication context.
+ */
+const useAuthContext = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error(
@@ -117,4 +148,6 @@ export function useAuthContext() {
     );
   }
   return context;
-}
+};
+
+export { useAuthContext };

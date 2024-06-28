@@ -1,32 +1,74 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import { JSX } from 'react';
-import { useState, ChangeEvent, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { JSX, useEffect } from 'react';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { z } from 'zod';
+import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '../../components/Form/Form';
 
+const LoginUserSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: 'Please enter an email address' })
+    .email({ message: 'Please enter a valid email address' }),
+  password: z
+    .string()
+    .min(1, { message: 'Please enter a password' })
+    .min(6, { message: 'Password must be at least 6 characters' }),
+});
+
+type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
+
+/**
+ * Renders the login page.
+ * @returns {JSX.Element} The rendered login page.
+ */
 const Login = (): JSX.Element => {
-  const router = useRouter();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const { loginAccount, isSignedIn } = useAuthContext();
+  const { loginAccount, isSignedIn, getUser } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push('/weeklyPicks');
+      getUser();
     }
-  }, [isSignedIn, router]);
+  }, [isSignedIn, getUser]);
 
-  const handleEmail = (event: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.target.value);
-  };
+  const form = useForm<LoginUserSchemaType>({
+    resolver: zodResolver(LoginUserSchema),
+  });
 
-  const handlePassword = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value);
+  const email = useWatch({
+    control: form.control,
+    name: 'email',
+    defaultValue: '',
+  });
+
+  const password = useWatch({
+    control: form.control,
+    name: 'password',
+    defaultValue: '',
+  });
+
+  /**
+   * A function that handles form submission.
+   * @param {LoginUserSchemaType} data - The data submitted in the form.
+   * @returns {Promise<void>} A promise that resolves when the `loginAccount` function completes.
+   */
+  const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
+    await loginAccount(data);
   };
 
   return (
@@ -52,31 +94,65 @@ const Login = (): JSX.Element => {
             with a league
           </p>
         </div>
-        <div id="input-container" className="grid gap-4">
-          <Input
-            data-testid="email"
-            type="email"
-            value={email}
-            placeholder="Email"
-            onChange={handleEmail}
-          />
-          <Input
-            data-testid="password"
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={handlePassword}
-          />
-          <Button
-            data-testid="continue-button"
-            label="Continue"
-            disabled={!email && !password}
-            onClick={() => loginAccount({ email, password })}
-          />
-          <LinkCustom href="/register">
-            Sign up to get started with a league
-          </LinkCustom>
-        </div>
+        <Form {...form}>
+          <form
+            id="input-container"
+            className="grid gap-3"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control as Control<object>}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="email"
+                      type="email"
+                      placeholder="Email"
+                      {...field}
+                    />
+                  </FormControl>
+                  {form.formState.errors.email && (
+                    <FormMessage>
+                      {form.formState.errors.email.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control as Control<object>}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="password"
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                    />
+                  </FormControl>
+                  {form.formState.errors.password && (
+                    <FormMessage>
+                      {form.formState.errors.password.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
+            <Button
+              data-testid="continue-button"
+              label="Continue"
+              type="submit"
+              disabled={!email || !password}
+            />
+            <LinkCustom href="/register">
+              Sign up to get started with a league
+            </LinkCustom>
+          </form>
+        </Form>
       </div>
     </section>
   );
