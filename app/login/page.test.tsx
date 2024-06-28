@@ -4,6 +4,8 @@ import Login from './page';
 
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
+const mockCreateEmailPasswordSession = jest.fn();
+const mockGetUser = jest.fn();
 
 let emailInput: HTMLInputElement,
   passwordInput: HTMLInputElement,
@@ -28,6 +30,8 @@ jest.mock('../../context/AuthContextProvider', () => ({
       ...mockUseAuthContext,
     };
   },
+  createEmailPasswordSession: mockCreateEmailPasswordSession,
+  getUser: mockGetUser,
 }));
 
 describe('Login', () => {
@@ -76,4 +80,28 @@ describe('Login', () => {
 
     mockUseAuthContext.isSignedIn = false;
   });
+});
+
+test('should successfully log in and show the success alert notification', async () => {
+  fireEvent.change(emailInput, { target: { value: 'test@example.com'}});
+  fireEvent.change(passwordInput, { target: { value: 'password123'}});
+  fireEvent.click(continueButton);
+
+  mockCreateEmailPasswordSession.mockResolvedValueOnce({});
+
+  await waitFor(() => {
+    expect(mockLoginAccount).toHaveBeenCalledWith({
+      email: 'test@example.com',
+      password: 'password123',
+    });
+  });
+
+  await waitFor(() => {
+    expect(mockCreateEmailPasswordSession).toHaveBeenCalledWith(
+      'test@example.com',
+      'password123'
+    );
+    expect(mockGetUser).toHaveBeenCalled();
+    expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+  })
 });

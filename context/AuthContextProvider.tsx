@@ -9,6 +9,9 @@ import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { toast } from 'react-hot-toast';
 
 type UserCredentials = {
   email: string;
@@ -60,6 +63,12 @@ export const AuthContextProvider = ({
       await account.createEmailPasswordSession(user.email, user.password);
       getUser();
       router.push('/weeklyPicks');
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You've successfully logged in!"
+        />,
+      );
     } catch (error) {
       console.error('Login error:', error);
       return error as Error;

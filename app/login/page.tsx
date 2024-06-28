@@ -20,9 +20,6 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
-import { toast } from 'react-hot-toast';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const LoginUserSchema = z.object({
   email: z
@@ -74,12 +71,6 @@ const Login = (): JSX.Element => {
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
     await loginAccount(data);
-    toast.custom(
-      <Alert
-        variant={AlertVariants.Success}
-        message="You've successfully logged in!"
-      />,
-    );
   };
 
   return (
