@@ -64,7 +64,6 @@ const Register = (): JSX.Element => {
 
   /**
    * The current value of the 'email' field in the form.
-   * 
    * @type {string}
    */
   const email: string = useWatch({
@@ -104,7 +103,7 @@ const Register = (): JSX.Element => {
     try {
       await registerAccount(data);
       await loginAccount(data);
-      router.push('/weeklyPicks');
+      router.push('/league/all');
     } catch (error) {
       console.error('Registration Failed', error);
     }
@@ -208,7 +207,7 @@ const Register = (): JSX.Element => {
                 />
 
                 <Button
-                  data-testid="continue-button"
+                  data-testid="register-button"
                   label="Register"
                   type="submit"
                   disabled={isDisabled}
