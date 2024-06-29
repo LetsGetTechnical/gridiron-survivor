@@ -70,6 +70,9 @@ export const AuthContextProvider = ({
         />,
       );
     } catch (error) {
+      toast.custom(
+        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
+      );
       console.error('Login error:', error);
       return error as Error;
     }

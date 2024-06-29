@@ -28,10 +28,10 @@ jest.mock('../../context/AuthContextProvider', () => ({
   useAuthContext() {
     return {
       ...mockUseAuthContext,
+      createEmailPasswordSession: mockCreateEmailPasswordSession,
+      getUser: mockGetUser,
     };
   },
-  createEmailPasswordSession: mockCreateEmailPasswordSession,
-  getUser: mockGetUser,
 }));
 
 describe('Login', () => {
@@ -98,8 +98,8 @@ describe('Login', () => {
     await waitFor(() => {
       expect(mockCreateEmailPasswordSession).toHaveBeenCalledWith(
         'test@example.com',
-        'password123'
-      );
+        'password123',
+    );
       expect(mockGetUser).toHaveBeenCalled();
       expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
     })
