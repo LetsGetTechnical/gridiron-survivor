@@ -1,12 +1,12 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
-import { registerAccount } from '@/api/apiFunctions';
+import { registerAccount, loginAccount } from '@/api/apiFunctions';
 
-const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 
 jest.mock('../../api/apiFunctions', () => ({
   registerAccount: jest.fn(),
+  loginAccount: jest.fn(),
 }));
 
 let emailInput: HTMLElement;
@@ -15,11 +15,10 @@ let confirmPasswordInput: HTMLElement;
 let continueButton: HTMLElement;
 
 const mockUseAuthContext = {
-  loginAccount: mockLoginAccount,
+  loginAccount: loginAccount,
   isSignedIn: false,
 };
 
-// Mock the useRouter and useAuthContext hooks
 jest.mock('next/navigation', () => ({
   useRouter() {
     return {
@@ -40,7 +39,6 @@ describe('Register', () => {
 
     render(<Register />);
 
-    // Get form elements
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
     confirmPasswordInput = screen.getByTestId('confirm-password');
@@ -83,7 +81,7 @@ describe('Register', () => {
         password: 'rawr123',
         confirmPassword: 'rawr123',
       });
-      expect(mockLoginAccount).toHaveBeenCalledWith({
+      expect(loginAccount).toHaveBeenCalledWith({
         email: 'rt@example.com',
         password: 'rawr123',
         confirmPassword: 'rawr123',
@@ -91,13 +89,13 @@ describe('Register', () => {
     });
   });
 
-  test('redirects to /weeklyPicks when the button is clicked', async () => {
+  test('redirects to /league/all when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<Register />);
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
     });
 
     mockUseAuthContext.isSignedIn = false;

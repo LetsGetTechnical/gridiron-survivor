@@ -54,7 +54,7 @@ const Register = (): JSX.Element => {
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push('/weeklyPicks');
+      router.push('/league/all');
     }
   }, [isSignedIn]);
 
@@ -207,7 +207,7 @@ const Register = (): JSX.Element => {
                 />
 
                 <Button
-                  data-testid="register-button"
+                  data-testid="continue-button"
                   label="Register"
                   type="submit"
                   disabled={isDisabled}

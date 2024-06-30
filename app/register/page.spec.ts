@@ -27,7 +27,7 @@ test.describe('Tests register page', () => {
     await page.getByTestId('email').fill(user.email);
     await page.getByTestId('password').fill(user.password);
     await page.getByTestId('confirm-password').fill(user.confirmPassword);
-    await page.getByTestId('register-button').click();
+    await page.getByTestId('continue-button').click();
     await page.waitForLoadState('load');
     await expect(page).toHaveURL('/league/all');
     await page.getByTestId('drawer-trigger').click();
@@ -41,7 +41,7 @@ test.describe('Tests register page', () => {
     await page.getByTestId('email').fill(user.invalidEmail);
     await page.getByTestId('password').fill(user.password);
     await page.getByTestId('confirm-password').fill(user.confirmPassword);
-    await page.getByTestId('register-button').click();
+    await page.getByTestId('continue-button').click();
     await expect(page).toHaveURL('/register');
   });
   test('should not be able to register with invalid password and register button should be disabled', async ({
@@ -50,7 +50,7 @@ test.describe('Tests register page', () => {
     await page.getByTestId('email').fill(user.email);
     await page.getByTestId('password').fill(user.invalidPassword);
     await page.getByTestId('confirm-password').fill(user.confirmPassword);
-    await expect(page.getByTestId('register-button')).toBeDisabled();
+    await expect(page.getByTestId('continue-button')).toBeDisabled();
   });
   test('should not be able to register if confirm password recently got updated and register button should be disabled', async ({
     page,
@@ -60,6 +60,6 @@ test.describe('Tests register page', () => {
     await page
       .getByTestId('confirm-password')
       .fill(user.invalidconfirmPassword);
-    await expect(page.getByTestId('register-button')).toBeDisabled();
+    await expect(page.getByTestId('continue-button')).toBeDisabled();
   });
 });
