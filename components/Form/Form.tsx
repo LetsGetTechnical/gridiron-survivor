@@ -18,9 +18,6 @@ import {
 
 import { cn } from '@/utils/utils';
 import { Label } from '../Label/Label';
-import { toast } from 'react-hot-toast';
-import Alert from '../AlertNotification/AlertNotification';
-import { AlertVariants } from '../AlertNotification/Alerts.enum';
 
 const Form = FormProvider;
 
@@ -64,12 +61,6 @@ const useFormField = (): any => {
 
   if (!fieldContext) {
     throw new Error('useFormField should be used within <FormField>');
-    toast.custom(
-      <Alert
-        variant={AlertVariants.Error}
-        message="You're missing information."
-      />,
-    );
   }
 
   const { id } = itemContext;

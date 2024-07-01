@@ -88,8 +88,20 @@ export const AuthContextProvider = ({
       setIsSignedIn(false);
       resetUser(); // Reset user data in the store
       router.push('/login');
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You have successfully logged out."
+        />,
+      );
     } catch (error) {
       console.error('Logout error:', error);
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Error}
+          message="We had trouble logging you out."
+        />,
+      );
     }
   };
 

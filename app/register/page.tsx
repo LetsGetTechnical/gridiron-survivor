@@ -21,9 +21,6 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
-import { toast } from 'react-hot-toast';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const RegisterUserSchema = z
   .object({
@@ -67,7 +64,6 @@ const Register = (): JSX.Element => {
 
   /**
    * The current value of the 'email' field in the form.
-   * 
    * @type {string}
    */
 
@@ -111,9 +107,6 @@ const Register = (): JSX.Element => {
       router.push('/weeklyPicks');
     } catch (error) {
       console.error('Registration Failed', error);
-      toast.custom(
-        <Alert variant={AlertVariants.Error} message="Something went wrong." />,
-      );
     }
   };
 

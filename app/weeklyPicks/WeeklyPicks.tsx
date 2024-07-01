@@ -171,7 +171,9 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
-          message={`You successfully picked: ${currentUserPick[user.id].team}`}
+          message={`You have successfully picked: ${
+            currentUserPick[user.id].team
+          }`}
         />,
       );
     } catch (error) {
@@ -179,7 +181,7 @@ const WeeklyPicks = ({ NFLTeams, currentGameWeek }: Props): JSX.Element => {
       toast.custom(
         <Alert
           variant={AlertVariants.Error}
-          message="There was an error processing your request."
+          message="There was an error processing your request!"
         />,
       );
     }
