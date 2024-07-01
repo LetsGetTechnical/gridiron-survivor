@@ -3,7 +3,7 @@
 
 export enum Collection {
   USERS = '6626c4fa8f793ae275ee',
-  GAMES = '6626a937b6302f6a4d28',
+  LEAGUE = '6626a937b6302f6a4d28',
   GAME_RESULTS = '66313025000612a5380e',
   GAME_WEEK = '6622c701cb5a58fcdf06',
   CURRENT_WEEK = 'current_week',
