@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
 
 const user = {
   confirmPassword: 'test12345',
-  email: 'test031@email.com',
+  email: 'test032@email.com',
   id: '1234',
   incorrectEmail: 'test@email.com',
   incorrectPassword: 'test',
@@ -55,7 +55,7 @@ test.describe('Tests register page', () => {
     await page.getByTestId('confirm-password').fill(user.confirmPassword);
     await page.getByTestId('continue-button').click();
     await page.waitForLoadState('load');
-    await page.goto('/league/all');
+    await expect(page).toHaveURL('/league/all');
   });
 
   test('should not be able to register with invalid email and register button should be disabled', async ({
