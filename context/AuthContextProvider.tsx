@@ -104,9 +104,8 @@ export const AuthContextProvider = ({
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
-      throw new Error('Error getting user data');
     }
-  }, [updateUser, resetUser, setIsSignedIn, user]);
+  }, [user]);
 
   /**
    * Helper function to validate session data in local storage
