@@ -3,15 +3,12 @@
 
 import React, { JSX } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { useDataStore } from '@/store/dataStore';
 
 /**
  * Renders the leagues component.
  * @returns {JSX.Element} The rendered leagues component.
  */
 const Leagues = (): JSX.Element => {
-  const { gameGroup } = useDataStore((state) => state);
-
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
@@ -21,36 +18,36 @@ const Leagues = (): JSX.Element => {
         <LeagueCard
           href="/leagues"
           leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
-          survivors={gameGroup.survivors.length}
+          survivors={1}
           title="69ers"
-          totalPlayers={gameGroup.participants.length}
+          totalPlayers={1}
         />
         <LeagueCard
           isEliminated={true}
           href="/leagues"
-          survivors={gameGroup.survivors.length}
+          survivors={1}
           title="69ers"
-          totalPlayers={gameGroup.participants.length}
+          totalPlayers={1}
         />
 
         <LeagueCard
           href="/leagues"
-          survivors={gameGroup.survivors.length}
+          survivors={1}
           title="It's Always Sunny in Minneapolis"
-          totalPlayers={gameGroup.participants.length}
+          totalPlayers={1}
         />
         <LeagueCard
           href="/leagues"
-          survivors={gameGroup.survivors.length}
+          survivors={1}
           title="Windy City Smackdown"
-          totalPlayers={gameGroup.participants.length}
+          totalPlayers={1}
         />
         <LeagueCard
           href="/leagues"
           isEliminated={true}
-          survivors={gameGroup.survivors.length}
+          survivors={1}
           title="Diamond Dogs"
-          totalPlayers={gameGroup.participants.length}
+          totalPlayers={1}
         />
       </section>
     </div>
