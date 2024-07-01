@@ -126,17 +126,15 @@ describe('Nav', () => {
     expect(mockPush).toHaveBeenCalledWith('/login');
   });
 
-  it('it should close the modal when the signout button is clicked', async () => {
+  it('it should close the drawer when the signout button is clicked', async () => {
+    const drawerTrigger = screen.getByTestId('drawer-trigger');
+    const signOutButton = screen.getByTestId('sign-out-button');
+
     mockUsePathname.mockImplementation(() => '/weeklyPicks');
 
     render(<Nav />);
 
-    const drawerTrigger = screen.getByTestId('drawer-trigger');
-
     fireEvent.click(drawerTrigger);
-
-    const signOutButton = screen.getByTestId('sign-out-button');
-
     fireEvent.click(signOutButton);
 
     await waitFor(() => {
