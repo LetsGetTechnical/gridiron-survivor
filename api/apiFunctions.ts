@@ -230,3 +230,41 @@ export async function createWeeklyPicks({
     throw new Error('Error creating weekly picks');
   }
 }
+
+/**
+ * Get number of participants in a league
+ * @param userId - The user ID
+ * @returns {number} - Number of results
+ */
+export const getParticipants = async (userId: IUser['id']): Promise<number> => {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      '6626a937b6302f6a4d28',
+      [Query.contains('participants', userId)],
+    );
+    return response.documents.length;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting participants.');
+  }
+};
+
+/**
+ * Get number of Survivors in a league
+ * @param userId - The User ID
+ * @returns {number} - Number of results
+ */
+export const getSurvivors = async (userId: IUser['id']): Promise<number> => {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      '6626a937b6302f6a4d28',
+      [Query.contains('survivors', userId)],
+    );
+    return response.documents.length;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting survivors');
+  }
+};
