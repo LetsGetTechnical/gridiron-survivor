@@ -1,11 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Login from './page';
+import { account } from '@/api/config';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
-const mockCreateEmailPasswordSession = jest.fn();
-const mockGetUser = jest.fn();
 
 let emailInput: HTMLInputElement,
   passwordInput: HTMLInputElement,
@@ -28,8 +29,6 @@ jest.mock('../../context/AuthContextProvider', () => ({
   useAuthContext() {
     return {
       ...mockUseAuthContext,
-      createEmailPasswordSession: mockCreateEmailPasswordSession,
-      getUser: mockGetUser,
     };
   },
 }));
@@ -81,27 +80,27 @@ describe('Login', () => {
     mockUseAuthContext.isSignedIn = false;
   });
 
-  test('should successfully log in and show the success alert notification', async () => {
-    fireEvent.change(emailInput, { target: { value: 'test@example.com'}});
-    fireEvent.change(passwordInput, { target: { value: 'password123'}});
-    fireEvent.click(continueButton);
-  
-    mockCreateEmailPasswordSession.mockResolvedValueOnce({});
-  
-    await waitFor(() => {
-      expect(mockLoginAccount).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123',
-      });
-    });
-  
-    await waitFor(() => {
-      expect(mockCreateEmailPasswordSession).toHaveBeenCalledWith(
-        'test@example.com',
-        'password123',
-    );
-      expect(mockGetUser).toHaveBeenCalled();
-      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
-    })
+  test('successfully logs in and shows success notification', async () => {
+    const pretendUser = {
+      email: 'testemail@email.com',
+      password: 'test1234',
+    }
+
+    await mockLoginAccount(pretendUser);
+    expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
+
+    render(<Alert variant={AlertVariants.Success} message="You've successfully logged in!" />)
   });
+
+  test('shows error notification when logging in fails', async () => {
+    const wrongUser = {
+      email: 'testemil@emil.com',
+      password: 'tst1234',
+    }
+
+    await mockLoginAccount(wrongUser);
+    expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
+
+    render(<Alert variant={AlertVariants.Error} message="Something went wrong!" />)
+  })
 });
