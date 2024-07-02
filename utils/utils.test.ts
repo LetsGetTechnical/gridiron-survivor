@@ -1,5 +1,10 @@
-import { mock } from 'node:test';
-import { getGameData, getUserPick } from './utils';
+import {
+  cn,
+  getGameData,
+  getUserPick,
+  parseUserPick,
+  getUserLeagues,
+} from './utils';
 import { getCurrentLeague, getAllWeeklyPicks } from '@/api/apiFunctions';
 
 // Mock only the dependencies, not the function under test
@@ -57,6 +62,23 @@ const mockWeeklyPicksData = {
 };
 
 describe('utils', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('cn', () => {
+    it('combines class names', () => {
+      expect(cn('class1', 'class2')).toBe('class1 class2');
+    });
+    it('handles conditional class names', () => {
+      expect(cn('class1', false && 'class2')).toBe('class1');
+      expect(cn('class1', true && 'class2')).toBe('class1 class2');
+    });
+
+    it('filters out falsy values', () => {
+      expect(cn('class1', null, undefined, false, '')).toBe('class1');
+    });
+  });
   describe('getGameData', () => {
     it('should return the league and weekly picks data', async () => {
       (getCurrentLeague as jest.Mock).mockResolvedValue(mockLeague);
@@ -124,6 +146,29 @@ describe('utils', () => {
         NFLTeams: mockNFLTeams,
       });
       expect(result).toBe('');
+    });
+  });
+  describe('parseUserPick', () => {
+    it('should return the parsed user pick', () => {
+      const result = parseUserPick(mockUserData.userId, mockNFLTeams[0].teamId);
+      expect(result).toStrictEqual({
+        [mockUserData.userId]: {
+          team: '66218f22b40deef340f8',
+          correct: true,
+        },
+      });
+    });
+  });
+  describe('getUserLeagues', () => {
+    it('should return the list of leagues the user is a part of', async () => {
+      (getCurrentLeague as jest.Mock).mockResolvedValue(mockLeague);
+      const result = await getUserLeagues(mockUserData.leagues);
+      expect(result).toStrictEqual([mockLeague]);
+    });
+    it('should return an empty array if the user has no leagues', async () => {
+      const result = await getUserLeagues([]);
+      expect(getCurrentLeague).toHaveBeenCalledTimes(0);
+      expect(result).toStrictEqual([]);
     });
   });
 });
