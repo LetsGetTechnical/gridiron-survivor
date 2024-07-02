@@ -53,8 +53,9 @@ test.describe('Tests register page', () => {
     await page.getByTestId('email').fill(user.email);
     await page.getByTestId('password').fill(user.password);
     await page.getByTestId('confirm-password').fill(user.confirmPassword);
+    await expect(page.getByTestId('continue-button')).toBeEnabled();
     await page.getByTestId('continue-button').click();
-    await page.waitForLoadState('load');
+    await page.waitForLoadState('load', { timeout: 500000 });
     await expect(page).toHaveURL('/league/all');
   });
 

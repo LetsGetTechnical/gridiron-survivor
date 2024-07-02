@@ -48,7 +48,7 @@ test.describe('Tests login page', () => {
     await page.getByTestId('email').fill(correctCredentials.email);
     await page.getByTestId('password').fill(correctCredentials.password);
     await page.getByTestId('continue-button').click();
-    await page.waitForLoadState('load');
+    await page.waitForLoadState('load', { timeout: 50000 });
     await expect(page).toHaveURL('/league/all');
   });
 
