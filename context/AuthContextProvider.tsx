@@ -4,6 +4,9 @@
 'use client';
 import React, { JSX, useCallback } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { toast } from 'react-hot-toast';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
@@ -76,6 +79,9 @@ export const AuthContextProvider = ({
       await account.deleteSession('current');
       setIsSignedIn(false);
       resetUser(); // Reset user data in the store
+      toast.custom(
+        <Alert variant={AlertVariants.Default} message="Logged Out" />,
+      );
       router.push('/login');
     } catch (error) {
       console.error('Logout error:', error);
