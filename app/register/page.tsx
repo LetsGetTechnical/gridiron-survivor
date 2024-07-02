@@ -21,6 +21,9 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
+import { toast } from 'react-hot-toast';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const RegisterUserSchema = z
   .object({
@@ -105,8 +108,17 @@ const Register = (): JSX.Element => {
       await registerAccount(data);
       await loginAccount(data);
       router.push('/weeklyPicks');
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You have successfully registered your account."
+        />,
+      );
     } catch (error) {
       console.error('Registration Failed', error);
+      toast.custom(
+        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
+      );
     }
   };
 

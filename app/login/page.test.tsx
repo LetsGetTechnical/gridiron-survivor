@@ -96,11 +96,17 @@ describe('Login', () => {
     const wrongUser = {
       email: 'testemil@emil.com',
       password: 'tst1234',
-    }
+    };
+
+    account.createEmailPasswordSession = jest.fn().mockRejectedValue({
+      error: 'Error',
+    });
 
     await mockLoginAccount(wrongUser);
-    expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
+    expect(account.createEmailPasswordSession).rejects.toEqual({
+      error: 'Error',
+    });
 
-    render(<Alert variant={AlertVariants.Error} message="Something went wrong!" />)
-  })
+    render(<Alert variant={AlertVariants.Error} message="Something went wrong!" />);
+  });
 });
