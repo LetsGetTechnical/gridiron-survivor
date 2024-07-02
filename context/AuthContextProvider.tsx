@@ -5,7 +5,7 @@
 import React, { JSX, useCallback } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
@@ -42,8 +42,12 @@ export const AuthContextProvider = ({
     (state) => state,
   );
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
+    if (pathName === '/register') {
+      return;
+    }
     if (user.id === '' || user.email === '') {
       getUser();
       return;
@@ -87,7 +91,7 @@ export const AuthContextProvider = ({
    * @returns {Promise<void>}
    */
   const getUser = useCallback(async () => {
-    if (!isSessionInLocalStorage()) {
+    if (!isSessionInLocalStorage() && pathName !== '/register') {
       router.push('/login');
       return;
     }

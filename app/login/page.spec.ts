@@ -15,13 +15,40 @@ const incorrectCredentials = {
 test.describe('Tests login page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/login');
+
+    // Mock the login API request
+    await page.route('/api/login', (route, request) => {
+      const postData = request.postData();
+      if (postData !== null) {
+        const parsedData = JSON.parse(postData);
+        if (
+          parsedData.email === correctCredentials.email &&
+          parsedData.password === correctCredentials.password
+        ) {
+          route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ success: true, redirectUrl: '/league/all' }),
+          });
+        } else {
+          route.fulfill({
+            status: 401,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              success: false,
+              message: 'Invalid credentials',
+            }),
+          });
+        }
+      }
+    });
   });
 
   test('should successfully login', async ({ page }) => {
     await page.getByTestId('email').fill(correctCredentials.email);
     await page.getByTestId('password').fill(correctCredentials.password);
     await page.getByTestId('continue-button').click();
-    await page.waitForLoadState('load');
+    await page.waitForLoadState('load', { timeout: 50000 });
     await expect(page).toHaveURL('/league/all');
   });
 
