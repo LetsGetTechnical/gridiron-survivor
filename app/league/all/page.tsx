@@ -69,7 +69,7 @@ const Leagues = (): JSX.Element => {
           ))
         ) : (
           <div className="text-center">
-            <p className="text-lg font-bold">Loading ...</p>
+            <p className="text-lg font-bold">No Leagues</p>
           </div>
         )}
       </section>
