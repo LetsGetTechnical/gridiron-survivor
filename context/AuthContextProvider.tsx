@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useCallback } from 'react';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { JSX } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
@@ -21,7 +21,7 @@ type AuthContextType = {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void>;
-  getUser: () => Promise<IUser | undefined>;
+  getUser: () => Promise<void | IUser>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -38,18 +38,8 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }): JSX.Element => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const { updateUser, resetUser, user } = useDataStore<DataStore>(
-    (state) => state,
-  );
+  const { updateUser, resetUser } = useDataStore<DataStore>((state) => state);
   const router = useRouter();
-
-  useEffect(() => {
-    if (user.id === '' || user.email === '') {
-      getUser();
-      return;
-    }
-    setIsSignedIn(true);
-  }, [user]);
 
   /**
    * Authenticate and set session state
@@ -59,7 +49,6 @@ export const AuthContextProvider = ({
   const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await account.createEmailPasswordSession(user.email, user.password);
-      await getUser(); // Fetch user data and update state
       router.push('/league/all');
     } catch (error) {
       console.error('Login error:', error);
@@ -84,9 +73,9 @@ export const AuthContextProvider = ({
 
   /**
    * Get user data from the session
-   * @returns {Promise<void>}
+   * @returns {Promise<void | IUser>} - The user data or an error.
    */
-  const getUser = useCallback(async () => {
+  const getUser = async (): Promise<void | IUser> => {
     if (!isSessionInLocalStorage()) {
       router.push('/login');
       return;
@@ -101,7 +90,7 @@ export const AuthContextProvider = ({
       resetUser();
       setIsSignedIn(false);
     }
-  }, [user]);
+  };
 
   /**
    * Helper function to validate session data in local storage
