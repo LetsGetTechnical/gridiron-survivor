@@ -19,7 +19,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import WeekTeams from './WeekTeams';
 import { ISchedule } from './WeekTeams.interface';
-
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { ChevronLeft } from 'lucide-react';
+import { ILeague } from '@/api/apiFunctions.interface';
 /**
  * Renders the weekly picks page.
  * @param {IWeekProps} props The parameters for the weekly picks page.
@@ -30,9 +32,19 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [userPick, setUserPick] = useState<string>('');
 
-  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
+  const { leagues, user, updateWeeklyPicks, weeklyPicks } = useDataStore(
     (state) => state,
   );
+
+  // const selectedLeague = leagues.find((league) => league.leagueId == league);
+  // console.log(selectedLeague);
+
+  // console.log(leagues);
+
+  const selectedLeague = leagues.find(
+    (league: ILeague) => league.leagueId === league,
+  );
+  console.log(selectedLeague);
 
   const NFLTeamsList = NFLTeams.map((team) => team.teamName) as [
     string,
@@ -118,36 +130,47 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
   }
 
   return (
-    <section className="w-full pt-8" data-testid="weekly-picks">
-      <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
-        Your pick sheet
-      </h1>
-
-      <FormProvider {...form}>
-        <form
-          className="mx-auto flex w-[90%] max-w-3xl flex-col items-center gap-8"
-          onSubmit={form.handleSubmit(onSubmit)}
+    <div>
+      <nav className="py-6 text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline group ">
+        <ChevronLeft className="group-hover:text-orange-600" size={16} />
+        <LinkCustom
+          className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+          href="/league/all"
         >
-          <FormField
-            control={form.control as Control<object>}
-            name="type"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <WeekTeams
-                    schedule={schedule}
-                    field={field}
-                    userPick={userPick}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button label="Submit Button" type="submit" />
-        </form>
-      </FormProvider>
-    </section>
+          asdf
+        </LinkCustom>
+      </nav>
+      <section className="w-full pt-8" data-testid="weekly-picks">
+        <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+          Week {week} pick
+        </h1>
+
+        <FormProvider {...form}>
+          <form
+            className="mx-auto flex w-[90%] max-w-3xl flex-col items-center gap-8"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control as Control<object>}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <WeekTeams
+                      schedule={schedule}
+                      field={field}
+                      userPick={userPick}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button label="Submit Button" type="submit" />
+          </form>
+        </FormProvider>
+      </section>
+    </div>
   );
 };
 
