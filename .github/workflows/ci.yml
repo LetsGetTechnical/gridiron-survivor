@@ -17,13 +17,13 @@ jobs:
         node-version: ['20.x']
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v2.5
+      - uses: pnpm/action-setup@v2.5
         with:
           version: 9
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2.5
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
@@ -59,15 +59,15 @@ jobs:
       NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
       NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v2.5
+      - uses: actions/setup-node@v2.5
         with:
           node-version: lts/*
       - run: npm install -g pnpm && pnpm install
       - run: pnpm exec playwright install --with-deps   
       - run: pnpm exec playwright test 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.5
         if: always()
         with:
           name: playwright-report
