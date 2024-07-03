@@ -1,5 +1,5 @@
 import { LeagueCard } from './LeagueCard';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 
 // Define the mock outside of describe block so it's available for all tests
@@ -84,5 +84,22 @@ describe('LeagueCard with custom league logo', () => {
     expect(leagueSurvivors).toHaveTextContent('Survivors 11 / 12');
     expect(leagueCardTitle).toBeInTheDocument();
     expect(leagueCardTitle).toHaveTextContent('League 1');
+  });
+
+  it('should apply hover effect on mouse hover', () => {
+    render(
+      <LeagueCard
+        href="/leagues"
+        isEliminated={true}
+        survivors={11}
+        title="League 1"
+        totalPlayers={12}
+      />,
+    );
+    const leagueCard = screen.getByTestId('LeagueCard');
+    fireEvent.mouseOver(leagueCard);
+    expect(leagueCard).toHaveClass(
+      ' LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800 hover:bg-zinc-800 transition',
+    );
   });
 });
