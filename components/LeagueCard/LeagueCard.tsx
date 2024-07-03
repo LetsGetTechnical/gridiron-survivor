@@ -9,6 +9,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import LeagueCardPlaceholderLogo from './LeagueCardPlaceholderLogo.svg';
 import Link from 'next/link';
+import { Label } from '../Label/Label';
 
 const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
   ({
@@ -47,6 +48,7 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
         >
           {title}
         </h4>
+
         <LeagueSurvivors survivors={survivors} totalPlayers={totalPlayers} />
         {isEliminated ? <EliminatedStatus /> : null}
       </div>
