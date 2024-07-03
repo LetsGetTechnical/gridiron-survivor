@@ -5,10 +5,9 @@
 
 import React, { JSX, useEffect, useState } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { IGameWeek, ILeague } from '@/api/apiFunctions.interface';
+import { ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
-import { getGameWeek } from '@/api/apiFunctions';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 
 /**
@@ -17,7 +16,6 @@ import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
  */
 const Leagues = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
-  const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
   const { user } = useDataStore((state) => state);
 
   /**
@@ -31,24 +29,12 @@ const Leagues = (): JSX.Element => {
     } catch (error) {}
   };
 
-  /**
-   * Fetches the current game week.
-   * @returns {Promise<void>}
-   */
-  const getCurrentGameWeek = async (): Promise<void> => {
-    try {
-      const currentWeek = await getGameWeek();
-      setCurrentWeek(currentWeek.week);
-    } catch (error) {}
-  };
-
   useEffect(() => {
     if (!user.id || user.id === '') {
       return;
     }
 
     getLeagues();
-    getCurrentGameWeek();
   }, [user]);
 
   return (

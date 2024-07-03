@@ -34,6 +34,7 @@ export interface IParseUserPick {
 
 export interface UseProcessGameProps {
   leagueId: string;
+  entryId: string;
   gameWeek: { id: string };
   user: { id: string };
   NFLTeams: INFLTeam[];

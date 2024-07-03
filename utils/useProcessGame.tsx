@@ -10,6 +10,7 @@ import { UseProcessGameProps } from './utils.interface';
  * Returns a function that processes the game data.
  * @param props - The component props.
  * @param props.leagueId - The league ID.
+ * @param props.entryId - The entry ID.
  * @param props.gameWeek - The game week.
  * @param props.user - The user.
  * @param props.NFLTeams - The NFL teams.
@@ -18,6 +19,7 @@ import { UseProcessGameProps } from './utils.interface';
  */
 const useProcessGame = ({
   leagueId,
+  entryId,
   gameWeek,
   user,
   NFLTeams,
@@ -28,7 +30,7 @@ const useProcessGame = ({
   useCallback(async () => {
     const { league, weeklyPicksData } = await getGameData({
       leagueId: leagueId,
-      currentGameWeekId: gameWeek.id,
+      gameWeekId: gameWeek.id,
     });
 
     if (league && weeklyPicksData) {
@@ -49,6 +51,7 @@ const useProcessGame = ({
       const userPickData = await getUserPick({
         weeklyPicks: weeklyPicksData.userResults,
         userId: user.id,
+        entryId: entryId,
         NFLTeams: NFLTeams,
       });
 

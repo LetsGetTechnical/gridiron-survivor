@@ -2,12 +2,13 @@
 // Licensed under the MIT License.
 
 'use client';
-import { getCurrentUserEntries } from '@/api/apiFunctions';
+import { getCurrentUserEntries, getGameWeek } from '@/api/apiFunctions';
 import { useDataStore } from '@/store/dataStore';
 import React, { JSX, useEffect, useState } from 'react';
 import { IEntry } from '../Entries.interface';
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { ENTRY_URL, LEAGUE_URL, WEEK_URL } from '@/const/global';
+import { IGameWeek } from '@/api/apiFunctions.interface';
 
 /**
  * Display all entries for a league.
@@ -20,6 +21,7 @@ const Entry = ({
   params: { leagueId: string };
 }): JSX.Element => {
   const [entries, setEntries] = useState<IEntry[]>([]);
+  const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
   const { user } = useDataStore((state) => state);
 
   /**
@@ -31,18 +33,30 @@ const Entry = ({
     setEntries(getEntries);
   };
 
+  /**
+   * Fetches the current game week.
+   * @returns {Promise<void>}
+   */
+  const getCurrentGameWeek = async (): Promise<void> => {
+    try {
+      const currentWeek = await getGameWeek();
+      setCurrentWeek(currentWeek.week);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     if (!user.id || user.id === '') {
       return;
     }
 
+    getCurrentGameWeek();
     getAllEntries();
   }, [user]);
 
   return (
     <>
       {entries.map((entry) => {
-        const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.id}/${WEEK_URL}/1`;
+        const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.id}/${WEEK_URL}/${currentWeek}`;
 
         return (
           <LeagueEntries
