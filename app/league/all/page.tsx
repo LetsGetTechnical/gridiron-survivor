@@ -9,7 +9,6 @@ import { IGameWeek, ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
 import { getGameWeek } from '@/api/apiFunctions';
-import { useAuthContext } from '@/context/AuthContextProvider';
 
 /**
  * Renders the leagues component.
@@ -19,11 +18,6 @@ const Leagues = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
   const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
   const { user } = useDataStore((state) => state);
-  const { getUser } = useAuthContext();
-
-  if (!user.id || user.id === '') {
-    getUser();
-  }
 
   /**
    * Fetches the user's leagues.
@@ -48,10 +42,6 @@ const Leagues = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (!user.id || user.id === '') {
-      return;
-    }
-
     getLeagues();
     getCurrentGameWeek();
   }, [user]);

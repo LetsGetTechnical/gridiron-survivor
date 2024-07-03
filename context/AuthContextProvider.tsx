@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX } from 'react';
+import React, { JSX, useEffect } from 'react';
 import { createContext, useContext, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
@@ -38,7 +38,9 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }): JSX.Element => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const { updateUser, resetUser } = useDataStore<DataStore>((state) => state);
+  const { updateUser, resetUser, user } = useDataStore<DataStore>(
+    (state) => state,
+  );
   const router = useRouter();
 
   /**
@@ -106,6 +108,13 @@ export const AuthContextProvider = ({
 
     return true;
   };
+
+  useEffect(() => {
+    if (!user.id || user.id === '') {
+      getUser();
+      return;
+    }
+  }, [user]);
 
   // Memoize context values to avoid unnecessary re-renders
   const contextValue = useMemo(
