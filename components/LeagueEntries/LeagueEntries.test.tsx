@@ -4,7 +4,7 @@ import React from 'react';
 
 describe('LeagueEntries', () => {
   it(`renders 'default' state without a pick made`, () => {
-    render(<LeagueEntries entryNumber={1} />);
+    render(<LeagueEntries entryName="Entry 1" linkUrl='' />);
 
     const leagueEntryContainerCard = screen.getByTestId(
       'league-entry-container-card',
@@ -20,7 +20,7 @@ describe('LeagueEntries', () => {
   });
 
   it('renders as if the user made a pick', () => {
-    render(<LeagueEntries entryNumber={2} isPickSet={true} />);
+    render(<LeagueEntries entryName="Entry 2" linkUrl='' isPickSet={true} />);
 
     const leagueEntryContainerCard = screen.getByTestId(
       'league-entry-container-card',
@@ -36,7 +36,7 @@ describe('LeagueEntries', () => {
   });
 
   it('renders as if the user is eliminated', () => {
-    render(<LeagueEntries entryNumber={3} isEliminated isPickSet={false} />);
+    render(<LeagueEntries entryName="Entry 3" linkUrl='' isEliminated isPickSet={false} />);
 
     const leagueEntryContainerCard = screen.getByTestId(
       'league-entry-container-card',
