@@ -9,6 +9,7 @@ import { IGameWeek, ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
 import { getGameWeek } from '@/api/apiFunctions';
+import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 
 /**
  * Renders the leagues component.
@@ -60,7 +61,7 @@ const Leagues = (): JSX.Element => {
           leagues.map((league) => (
             <LeagueCard
               key={league.leagueId}
-              href={`/league/${league.leagueId}/entries/1/week/${currentWeek}`}
+              href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
               leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
               survivors={league.survivors.length}
               title={league.leagueName}

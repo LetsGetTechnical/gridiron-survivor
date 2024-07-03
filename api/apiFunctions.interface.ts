@@ -1,6 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+import { IEntry } from '@/app/league/[leagueId]/entry/Entries.interface';
+
 export interface IAccountData {
   email: string;
   password: string;
@@ -12,8 +14,10 @@ export interface IUser {
 }
 export interface IUserPick {
   [userId: string]: {
-    team: string;
-    correct: boolean;
+    [entryId: IEntry['id']]: {
+      teamName: string;
+      correct: boolean;
+    };
   };
 }
 export interface IDeleteUser {
@@ -22,19 +26,13 @@ export interface IDeleteUser {
 export interface IWeeklyPicks {
   leagueId: string;
   gameWeekId: string;
-  userResults: IUserPicksData | null;
+  userResults: IUserPicksData;
 }
 export interface INFLTeam {
   teamId: string;
   teamName: string;
-  teamLogo: string;
 }
-export interface IUserPicksData {
-  [key: string]: {
-    team: string;
-    correct: boolean;
-  };
-}
+export interface IUserPicksData extends IUserPick {}
 export interface ILeague {
   leagueId: string;
   leagueName: string;

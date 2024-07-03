@@ -13,6 +13,7 @@ import {
 } from './apiFunctions.interface';
 import { Collection, Document } from './apiFunctions.enum';
 import { Query } from 'appwrite';
+import { IEntry } from '@/app/league/[leagueId]/entry/Entries.interface';
 
 /**
  * Register a new account
@@ -89,6 +90,38 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
 }
 
 /**
+ * Get all the leagues the user is a part of
+ * @param userId - The user Id
+ * @param leagueId - The league Id
+ * @returns {IEntry[] | Error} - The list of entries or an error
+ */
+export async function getCurrentUserEntries(
+  userId: IUser['id'],
+  leagueId: ILeague['leagueId'],
+): Promise<IEntry[]> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      [Query.equal('user', userId), Query.equal('league', leagueId)],
+    );
+
+    const entries = response.documents.map((entry) => ({
+      id: entry.$id,
+      name: entry.name,
+      user: entry.user,
+      league: entry.league,
+      selectedTeams: entry.selectedTeams,
+    }));
+
+    return entries;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting user entries');
+  }
+}
+
+/**
  * Get all NFL teams
  * @returns {INFLTeam | Error} - The list of NFL teams
  */
@@ -97,12 +130,12 @@ export const getNFLTeams = async (): Promise<INFLTeam[]> => {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.NFL_TEAMS,
+      [Query.limit(32)],
     );
 
     const nflTeams = response.documents.map((team) => ({
       teamId: team.$id,
       teamName: team.teamName,
-      teamLogo: team.teamLogo,
     }));
 
     return nflTeams;
