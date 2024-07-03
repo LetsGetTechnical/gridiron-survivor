@@ -6,7 +6,7 @@ import React, { JSX } from 'react';
 import { cn } from '@/utils/utils';
 
 interface ILinkCustomProps {
-  children: string;
+  children: React.ReactNode;
   className?: string;
   href: string;
 }

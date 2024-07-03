@@ -138,12 +138,14 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
   return (
     <div>
-      <nav className="py-6 text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline group ">
-        <ChevronLeft className="group-hover:text-orange-600" size={16} />
+      <nav className="py-6 text-orange-500  hover:no-underline">
         <LinkCustom
           className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
           href="/league/all"
         >
+          <span aria-hidden="true">
+            <ChevronLeft size={16} />
+          </span>
           {selectedLeague?.leagueName as string}
         </LinkCustom>
       </nav>
