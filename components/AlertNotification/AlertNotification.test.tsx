@@ -6,6 +6,8 @@ import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 
 import Nav from '../Nav/Nav';
 import Login from '@/app/login/page';
+import { toast } from 'react-hot-toast';
+// import RootLayout from '@/app/layout';
 
 const mockPush = jest.fn();
 const mockUsePathname = jest.fn();
@@ -34,6 +36,12 @@ jest.mock('../../context/AuthContextProvider', () => ({
     return {
       ...mockUseAuthContext,
     };
+  },
+}));
+
+jest.mock('react-hot-toast', () => ({
+  toast: {
+    custom: jest.fn(),
   },
 }));
 
@@ -98,12 +106,16 @@ describe('AlertNotification', () => {
       expect(mockLogoutAccount).toHaveBeenCalled();
     });
 
-    mockUseAuthContext.isSignedIn = false;
-
     render(<Login />);
 
-    const navElement = screen.getByTestId('nav');
+    expect(toast.custom).toHaveBeenCalledWith(expect.anything());
 
-    expect(navElement).toBeInTheDocument();
+    // const alertElement = screen.getByTestId('alert-icon');
+
+    // expect(alertElement).toBeInTheDocument();
+
+    // await waitFor(() => {
+    //   expect(alertElement).toBeInTheDocument();
+    // });
   });
 });

@@ -81,6 +81,7 @@ export const AuthContextProvider = ({
       resetUser(); // Reset user data in the store
       toast.custom(
         <Alert variant={AlertVariants.Default} message="Logged Out" />,
+        { duration: 100000 },
       );
       router.push('/login');
     } catch (error) {
