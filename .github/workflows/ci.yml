@@ -18,19 +18,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
+      
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-      
+
+      - name: Install pnpm
+        run: npm install -g pnpm@9
+
       - name: Install dependencies
-        run: pnpm install
-      - name: tests
+        run: |
+          retries=3
+          while [ $retries -gt 0 ]; do
+            pnpm install && break
+            retries=$((retries - 1))
+            echo "Retrying pnpm install..."
+          done
+      
+      - name: Run Jest tests
         run: pnpm test
 
   test-e2e-setup:
@@ -49,7 +56,7 @@ jobs:
       - name: Get URL
         run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
 
-  test_e2e:
+  test-e2e:
     needs: test-e2e-setup
     name: Playwright Tests
     timeout-minutes: 5
@@ -63,7 +70,15 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: lts/*
-      - run: npm install -g pnpm && pnpm install
+      - name: Install pnpm
+        run: npm install -g pnpm@9
+      - run: |
+          retries=3
+          while [ $retries -gt 0 ]; do
+            pnpm install && break
+            retries=$((retries - 1))
+            echo "Retrying pnpm install..."
+          done
       - run: pnpm exec playwright install --with-deps   
       - run: pnpm exec playwright test 
       - name: Upload Artifacts
