@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { INFLTeam } from '@/api/apiFunctions.interface';
+import { INFLTeam, ILeague } from '@/api/apiFunctions.interface';
 
 export interface IWeekParams {
   params: {
@@ -13,7 +13,7 @@ export interface IWeekParams {
 
 export interface IWeekProps {
   entry: string;
-  league: string;
+  league: ILeague['leagueId'];
   NFLTeams: INFLTeam[];
   week: string;
 }

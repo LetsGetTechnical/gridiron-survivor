@@ -21,7 +21,9 @@ import WeekTeams from './WeekTeams';
 import { ISchedule } from './WeekTeams.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
+import { getCurrentLeague } from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
+
 /**
  * Renders the weekly picks page.
  * @param {IWeekProps} props The parameters for the weekly picks page.
@@ -30,21 +32,21 @@ import { ILeague } from '@/api/apiFunctions.interface';
 // eslint-disable-next-line no-unused-vars
 const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
+  const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userPick, setUserPick] = useState<string>('');
-
-  const { leagues, user, updateWeeklyPicks, weeklyPicks } = useDataStore(
+  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
     (state) => state,
   );
 
-  // const selectedLeague = leagues.find((league) => league.leagueId == league);
-  // console.log(selectedLeague);
-
-  // console.log(leagues);
-
-  const selectedLeague = leagues.find(
-    (league: ILeague) => league.leagueId === league,
-  );
-  console.log(selectedLeague);
+  /**
+   * Fetches the selected league.
+   * @returns {Promise<void>}
+   */
+  const getSelectedLeague = async (): Promise<void> => {
+    const res = await getCurrentLeague(league);
+    setSelectedLeague(res);
+  };
 
   const NFLTeamsList = NFLTeams.map((team) => team.teamName) as [
     string,
@@ -122,10 +124,15 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
   };
 
   useEffect(() => {
+    if (!selectedLeague) {
+      getSelectedLeague();
+      return;
+    }
     getSchedule(week);
-  }, [week]);
+    setIsLoading(false);
+  }, [week, selectedLeague]);
 
-  if (schedule.length === 0) {
+  if (schedule.length === 0 || isLoading) {
     return <p>Loading...</p>;
   }
 
@@ -137,7 +144,7 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
           className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
           href="/league/all"
         >
-          asdf
+          {selectedLeague?.leagueName as string}
         </LinkCustom>
       </nav>
       <section className="w-full pt-8" data-testid="weekly-picks">

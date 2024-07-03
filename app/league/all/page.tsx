@@ -17,7 +17,7 @@ import { getGameWeek } from '@/api/apiFunctions';
 const Leagues = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
   const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
-  const { user, updateLeagues } = useDataStore((state) => state);
+  const { user } = useDataStore((state) => state);
 
   /**
    * Fetches the user's leagues.
@@ -27,7 +27,6 @@ const Leagues = (): JSX.Element => {
     try {
       const userLeagues = await getUserLeagues(user.leagues);
       setLeagues(userLeagues);
-      updateLeagues(userLeagues);
     } catch (error) {}
   };
 
