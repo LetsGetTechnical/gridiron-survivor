@@ -156,7 +156,7 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
         <FormProvider {...form}>
           <form
-            className="mx-auto flex w-[90%] max-w-3xl flex-col items-center gap-8"
+            className="mx-auto flex w-[90%] max-w-3xl flex-col items-center"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField

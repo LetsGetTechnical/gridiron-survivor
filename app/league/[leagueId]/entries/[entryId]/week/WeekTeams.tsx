@@ -8,6 +8,21 @@ import { IWeekTeamsProps } from './WeekTeams.interface';
 import { WeeklyPickButton } from '@/components/WeeklyPickButton/WeeklyPickButton';
 
 /**
+ * Formats the date to 'day, mon date' format.
+ * @param dateStr The date string to format
+ * @returns The formatted date string.
+ */
+const formattedGameDate = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  };
+  return date.toLocaleDateString('en-US', options);
+};
+
+/**
  * Renders the weekly picks page.
  * @param props The parameters for the weekly picks page.
  * @param props.field The form field.
@@ -28,6 +43,9 @@ const WeekTeams = ({
         key={scheduledGame.id}
         className="grid w-full grid-cols-2 gap-4"
       >
+        <div className="week-page-game-schedule col-span-2 text-center">
+          <p>{formattedGameDate(scheduledGame.date)} | NEED_FROM_DATA</p>
+        </div>
         {scheduledGame.competitions[0].competitors.map((competition) => (
           <FormItem key={competition.id}>
             <FormControl>
