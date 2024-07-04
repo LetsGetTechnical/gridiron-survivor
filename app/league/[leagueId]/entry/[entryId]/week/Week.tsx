@@ -113,6 +113,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     getSchedule(week);
   }, [week]);
 
+  useEffect(() => {
+    setUserPick(
+      weeklyPicks.userResults[user.id]
+        ? weeklyPicks.userResults[user.id][entry].teamName
+        : '',
+    );
+  }, [user, weeklyPicks, entry]);
+
   if (schedule.length === 0) {
     return <p>Loading...</p>;
   }
