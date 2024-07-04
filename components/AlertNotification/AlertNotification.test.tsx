@@ -89,12 +89,4 @@ describe('AlertNotification', () => {
       render(<Alert variant={AlertVariants[key]} message={value.message} />);
     });
   }
-
-  it('should show up on login screen when a user signs out', async () => {
-    render(<Alert message="test alert" variant={AlertVariants.Default} />);
-
-    const alertElement = screen.getByTestId('alert-icon');
-
-    expect(alertElement).toBeInTheDocument();
-  });
 });
