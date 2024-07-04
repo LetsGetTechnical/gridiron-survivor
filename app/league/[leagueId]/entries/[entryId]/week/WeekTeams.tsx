@@ -51,7 +51,7 @@ const WeekTeams = ({
         onValueChange={field.onChange}
         defaultValue={userPick}
         key={scheduledGame.id}
-        className="grid w-full grid-cols-2 gap-4"
+        className="grid w-full grid-cols-2 gap-4 pb-8"
       >
         <div className="week-page-game-schedule col-span-2 text-center">
           <p>{formatDateTime(scheduledGame.date)}</p>
