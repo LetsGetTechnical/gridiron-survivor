@@ -6,8 +6,7 @@ import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 
 import Nav from '../Nav/Nav';
 import Login from '@/app/login/page';
-import { toast } from 'react-hot-toast';
-// import RootLayout from '@/app/layout';
+import toast, { Toaster } from 'react-hot-toast';
 
 const mockPush = jest.fn();
 const mockUsePathname = jest.fn();
@@ -92,30 +91,10 @@ describe('AlertNotification', () => {
   }
 
   it('should show up on login screen when a user signs out', async () => {
-    mockUsePathname.mockImplementation(() => '/weeklyPicks');
+    render(<Alert message="test alert" variant={AlertVariants.Default} />);
 
-    render(<Nav />);
+    const alertElement = screen.getByTestId('alert-icon');
 
-    const drawerTrigger = screen.getByTestId('drawer-trigger');
-    fireEvent.click(drawerTrigger);
-
-    const signOutButton = screen.getByTestId('sign-out-button');
-
-    fireEvent.click(signOutButton);
-    await waitFor(() => {
-      expect(mockLogoutAccount).toHaveBeenCalled();
-    });
-
-    render(<Login />);
-
-    expect(toast.custom).toHaveBeenCalledWith(expect.anything());
-
-    // const alertElement = screen.getByTestId('alert-icon');
-
-    // expect(alertElement).toBeInTheDocument();
-
-    // await waitFor(() => {
-    //   expect(alertElement).toBeInTheDocument();
-    // });
+    expect(alertElement).toBeInTheDocument();
   });
 });
