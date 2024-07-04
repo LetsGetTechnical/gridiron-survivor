@@ -8,18 +8,28 @@ import { IWeekTeamsProps } from './WeekTeams.interface';
 import { WeeklyPickButton } from '@/components/WeeklyPickButton/WeeklyPickButton';
 
 /**
- * Formats the date to 'day, mon date' format.
- * @param dateStr The date string to format
- * @returns The formatted date string.
+ * Formats the date to 'day, mon date' format and the time to either 12 or 24-hour format based on the user's locale.
+ * @param dateStr The date string to format.
+ * @returns The formatted date and time string.
  */
-const formattedGameDate = (dateStr: string): string => {
+const formatDateTime = (dateStr: string): string => {
   const date = new Date(dateStr);
-  const options: Intl.DateTimeFormatOptions = {
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
   };
-  return date.toLocaleDateString('en-US', options);
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+
+  const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+  const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+
+  return `${formattedDate} ・ ${formattedTime}`;
 };
 
 /**
@@ -44,7 +54,7 @@ const WeekTeams = ({
         className="grid w-full grid-cols-2 gap-4"
       >
         <div className="week-page-game-schedule col-span-2 text-center">
-          <p>{formattedGameDate(scheduledGame.date)} | NEED_FROM_DATA</p>
+          <p>{formatDateTime(scheduledGame.date)}</p>
         </div>
         {scheduledGame.competitions[0].competitors.map((competition) => (
           <FormItem key={competition.id}>

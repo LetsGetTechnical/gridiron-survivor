@@ -9,6 +9,7 @@ export interface ISchedule {
   date: string;
   name: string;
   shortName: string;
+  startDate: string;
   season: {
     year: number;
     type: number;
