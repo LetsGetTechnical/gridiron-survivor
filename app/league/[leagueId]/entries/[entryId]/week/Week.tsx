@@ -3,7 +3,6 @@
 
 'use client';
 import React, { JSX, useEffect, useState } from 'react';
-import { Button } from '@/components/Button/Button';
 import {
   FormField,
   FormItem,
@@ -175,7 +174,6 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
                 </FormItem>
               )}
             />
-            <Button label="Submit Button" type="submit" />
           </form>
         </FormProvider>
       </section>
