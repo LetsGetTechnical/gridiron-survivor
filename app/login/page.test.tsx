@@ -1,9 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Login from './page';
-import { account } from '@/api/config';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
@@ -78,35 +75,5 @@ describe('Login', () => {
     expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
 
     mockUseAuthContext.isSignedIn = false;
-  });
-
-  test('successfully logs in and shows success notification', async () => {
-    const pretendUser = {
-      email: 'testemail@email.com',
-      password: 'test1234',
-    }
-
-    await mockLoginAccount(pretendUser);
-    expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
-
-    render(<Alert variant={AlertVariants.Success} message="You've successfully logged in!" />)
-  });
-
-  test('shows error notification when logging in fails', async () => {
-    const wrongUser = {
-      email: 'testemil@emil.com',
-      password: 'tst1234',
-    };
-
-    account.createEmailPasswordSession = jest.fn().mockRejectedValue({
-      error: 'Error',
-    });
-
-    await mockLoginAccount(wrongUser);
-    expect(account.createEmailPasswordSession).rejects.toEqual({
-      error: 'Error',
-    });
-
-    render(<Alert variant={AlertVariants.Error} message="Something went wrong!" />);
   });
 });

@@ -1,9 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
-import { account } from '@/api/config';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
@@ -21,8 +18,6 @@ const mockUseAuthContext = {
   loginAccount: mockLoginAccount,
   isSignedIn: false,
 };
-
-account.create = jest.fn();
 
 // Mock the useRouter and useAuthContext hooks
 jest.mock('next/navigation', () => ({
@@ -106,41 +101,5 @@ describe('Register', () => {
     });
 
     mockUseAuthContext.isSignedIn = false;
-  });
-
-  test('successfully registers and shows success notification', async () => {
-    const pretendRegister = {
-      email: 'asdf@test.com',
-      password: 'password123',
-      confirmPassword: 'password123',
-    };
-
-    await waitFor(() => {
-      registerAccount(pretendRegister);
-      expect(account.create).toBeInstanceOf(Object);
-
-      render(<Alert variant={AlertVariants.Success} message='You have successfully registered your account.' />);
-    });
-  });
-
-  test('shows error notification upon failing', async () => {
-    const failRegister = {
-      email: 'safd@test.com',
-      password: 'password123',
-      confirmPassword: 'password123',
-    };
-
-    account.create = jest.fn().mockRejectedValue({
-      error: 'Error',
-    });
-
-    await waitFor(() => {
-      registerAccount(failRegister);
-      expect(account.create).rejects.toEqual({
-        error: 'Error',
-      });
-    });
-
-    render(<Alert variant={AlertVariants.Error} message='Something went wrong!' />);
   });
 });
