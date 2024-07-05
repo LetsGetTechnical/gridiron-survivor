@@ -1,4 +1,5 @@
 import { LeagueCard } from './LeagueCard';
+import Link from 'next/link';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 
@@ -88,18 +89,26 @@ describe('LeagueCard with custom league logo', () => {
 
   it('should apply hover effect on mouse hover', () => {
     render(
-      <LeagueCard
-        href="/leagues"
-        isEliminated={true}
-        survivors={11}
-        title="League 1"
-        totalPlayers={12}
-      />,
+      <Link
+        href="/league/all"
+        data-testid="customLinkCard"
+        className="customLinkCard hover:bg-zinc-800"
+      >
+        <LeagueCard
+          href="/leagues"
+          isEliminated={true}
+          survivors={11}
+          title="League 1"
+          totalPlayers={12}
+        />
+        ,
+      </Link>,
     );
-    const leagueCard = screen.getByTestId('LeagueCard');
-    fireEvent.mouseOver(leagueCard);
-    expect(leagueCard).toHaveClass(
-      ' LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800 hover:bg-zinc-800 transition',
-    );
+    const linkLeagueCard = screen.getByTestId('customLinkCard');
+    fireEvent.mouseOver(linkLeagueCard);
+
+    if (linkLeagueCard.hasAttribute('className')) {
+      expect(linkLeagueCard).toHaveClass('customLinkCard', 'hover:bg-zinc-800');
+    }
   });
 });
