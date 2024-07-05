@@ -13,12 +13,14 @@ import React, { JSX } from 'react';
  * @param props.entryNumber - the entry number of the user in that specific league
  * @param props.isEliminated - If true, the user is flagged as eliminat4ed
  * @param props.isPickSet - if true, the team logo of the picked team shows up on the LeagueEntries card and the button changes from "make a pick" to "chagne pick"
+ * @param props.onClick
  * @returns {React.JSX.Element} - A div element that contains the user's entry information
  */
 const LeagueEntries = ({
   entryNumber,
   isEliminated = false,
   isPickSet = false,
+  onClick,
 }: ILeagueEntriesProps): JSX.Element => (
   <div
     data-testid="league-entry-container-card"
@@ -65,11 +67,11 @@ const LeagueEntries = ({
             data-testid="league-entry-pick-button"
             label={isPickSet ? 'Change Pick' : 'Make Pick'}
             variant={isPickSet ? 'secondary' : 'default'}
+            onClick={onClick}
           />
         )}
       </div>
     </section>
   </div>
 );
-
 export { LeagueEntries };
