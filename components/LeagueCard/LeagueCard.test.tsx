@@ -107,8 +107,6 @@ describe('LeagueCard with custom league logo', () => {
     const linkLeagueCard = screen.getByTestId('customLinkCard');
     fireEvent.mouseOver(linkLeagueCard);
 
-    if (linkLeagueCard.hasAttribute('className')) {
-      expect(linkLeagueCard).toHaveClass('customLinkCard', 'hover:bg-zinc-800');
-    }
+    expect(linkLeagueCard).toHaveClass('customLinkCard', 'hover:bg-zinc-800');
   });
 });
