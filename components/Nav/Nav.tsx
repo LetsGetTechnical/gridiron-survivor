@@ -26,6 +26,7 @@ export const Nav = (): JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
+  const [open, setOpen] = React.useState(false);
 
   /**
    * Handles the logout.
@@ -53,7 +54,7 @@ export const Nav = (): JSX.Element => {
       </div>
       <ul>
         <li>
-          <Drawer>
+          <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger data-testid="drawer-trigger">
               <Menu className="text-zinc-600 dark:text-white" />
             </DrawerTrigger>
@@ -68,6 +69,7 @@ export const Nav = (): JSX.Element => {
                     variant="link"
                     label="Sign Out"
                     onClick={() => {
+                      setOpen(false);
                       handleLogout();
                     }}
                     data-testid="sign-out-button"

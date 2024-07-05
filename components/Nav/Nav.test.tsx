@@ -125,4 +125,22 @@ describe('Nav', () => {
 
     expect(mockPush).toHaveBeenCalledWith('/login');
   });
+
+  it('it should close the drawer when the signout button is clicked', async () => {
+    mockUsePathname.mockImplementation(() => '/weeklyPicks');
+
+    render(<Nav />);
+
+    const drawerTrigger = screen.getByTestId('drawer-trigger');
+
+    fireEvent.click(drawerTrigger);
+
+    const signOutButton = screen.getByTestId('sign-out-button');
+
+    fireEvent.click(signOutButton);
+
+    await waitFor(() => {
+      expect(drawerTrigger.getAttribute('data-state')).toBe('closed');
+    });
+  });
 });

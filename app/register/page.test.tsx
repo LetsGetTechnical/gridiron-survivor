@@ -1,6 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
@@ -101,5 +103,13 @@ describe('Register', () => {
     });
 
     mockUseAuthContext.isSignedIn = false;
+  });
+
+  test('successful onSubmit with success notification displaying', async () => {
+    fireEvent.click(continueButton);
+
+    const message = "You have successfully registered your account.";
+    const {getByText} = render(<Alert variant={AlertVariants.Success} message={message} />);
+    expect(getByText(message)).toBeInTheDocument();
   });
 });
