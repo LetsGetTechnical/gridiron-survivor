@@ -9,6 +9,7 @@ import { IGameWeek, ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
 import { getGameWeek } from '@/api/apiFunctions';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 /**
  * Renders the leagues component.
@@ -69,10 +70,12 @@ const Leagues = (): JSX.Element => {
           ))
         ) : (
           <div className="text-center">
-            <p className="text-lg font-bold">Loading ...</p>
+            {/* <p className="text-lg font-bold">Loading ...</p> */}
+            <LoadingSpinner />
           </div>
         )}
       </section>
+      <LoadingSpinner />
     </div>
   );
 };
