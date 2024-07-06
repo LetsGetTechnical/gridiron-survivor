@@ -1,4 +1,10 @@
-import * as React from 'react';
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+import React, { JSX } from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import {
@@ -26,20 +32,27 @@ const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
 );
 
-const FormField = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
+/**
+ * FormField component
+ * @param props - The props
+ * @returns The FormField component
+ */
+const FormField = ({ ...props }: ControllerProps): JSX.Element => {
   return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
+    <FormFieldContext.Provider
+      value={React.useMemo(() => ({ name: props.name }), [props.name])}
+    >
       <Controller {...props} />
     </FormFieldContext.Provider>
   );
 };
 
-const useFormField = () => {
+/**
+ * useFormField hook
+ * @returns The form field
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const useFormField = (): any => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState } = useFormContext();
@@ -72,13 +85,14 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 
 const FormItem = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.HTMLAttributes<HTMLDivElement> & { className?: string }
 >(({ className, ...props }, ref) => {
   const id = React.useId();
 
   return (
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn('w-full', className)} {...props} />
+      <div ref={ref} className={cn('mb-4 w-full', className)} {...props} />
     </FormItemContext.Provider>
   );
 });
@@ -86,8 +100,10 @@ FormItem.displayName = 'FormItem';
 
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
+    className?: string;
+  }
+>(({ className, ...props }, ref): JSX.Element => {
   const { error, formItemId } = useFormField();
 
   return (
@@ -126,7 +142,7 @@ FormControl.displayName = 'FormControl';
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+  React.HTMLAttributes<HTMLParagraphElement> & { className?: string }
 >(({ className, ...props }, ref) => {
   const { formDescriptionId } = useFormField();
 
@@ -143,7 +159,7 @@ FormDescription.displayName = 'FormDescription';
 
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+  React.HTMLAttributes<HTMLParagraphElement> & { className?: string }
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message) : children;

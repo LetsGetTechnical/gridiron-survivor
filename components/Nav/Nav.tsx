@@ -1,5 +1,8 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
-import React from 'react';
+import React, { JSX } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
@@ -15,12 +18,21 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/utils';
 import { useAuthContext } from '@/context/AuthContextProvider';
 
-export const Nav = () => {
+/**
+ * Renders the navigation.
+ * @returns {JSX.Element} The rendered navigation.
+ */
+export const Nav = (): JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
+  const [open, setOpen] = React.useState(false);
 
-  const handleLogout = async () => {
+  /**
+   * Handles the logout.
+   * @returns {Promise<void>} The logout promise.
+   */
+  const handleLogout = async (): Promise<void> => {
     try {
       await logoutAccount();
       router.push('/login');
@@ -33,7 +45,7 @@ export const Nav = () => {
     <nav
       className={cn(
         'flex h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b',
-        pathname === '/login' || pathname == '/register' ? 'hidden' : '',
+        pathname === '/login' || pathname === '/register' ? 'hidden' : '',
       )}
       data-testid="nav"
     >
@@ -42,9 +54,9 @@ export const Nav = () => {
       </div>
       <ul>
         <li>
-          <Drawer>
+          <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger data-testid="drawer-trigger">
-              <Menu color="white" />
+              <Menu className="text-zinc-600 dark:text-white" />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
@@ -57,6 +69,7 @@ export const Nav = () => {
                     variant="link"
                     label="Sign Out"
                     onClick={() => {
+                      setOpen(false);
                       handleLogout();
                     }}
                     data-testid="sign-out-button"
