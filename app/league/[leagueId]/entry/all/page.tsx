@@ -56,11 +56,11 @@ const Entry = ({
   return (
     <>
       {entries.map((entry) => {
-        const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.id}/${WEEK_URL}/${currentWeek}`;
+        const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
 
         return (
           <LeagueEntries
-            key={entry.id}
+            key={entry.$id}
             entryName={entry.name}
             linkUrl={linkUrl}
           />

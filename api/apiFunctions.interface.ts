@@ -14,7 +14,7 @@ export interface IUser {
 }
 export interface IUserPick {
   [userId: string]: {
-    [entryId: IEntry['id']]: {
+    [entryId: IEntry['$id']]: {
       teamName: string;
       correct: boolean;
     };

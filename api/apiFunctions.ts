@@ -107,7 +107,7 @@ export async function getCurrentUserEntries(
     );
 
     const entries = response.documents.map((entry) => ({
-      id: entry.$id,
+      $id: entry.$id,
       name: entry.name,
       user: entry.user,
       league: entry.league,

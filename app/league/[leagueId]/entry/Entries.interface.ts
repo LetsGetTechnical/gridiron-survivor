@@ -4,7 +4,7 @@
 import { ILeague, INFLTeam, IUser } from '@/api/apiFunctions.interface';
 
 export interface IEntry {
-  id: string;
+  $id: string;
   name: string;
   user: IUser;
   league: ILeague;
