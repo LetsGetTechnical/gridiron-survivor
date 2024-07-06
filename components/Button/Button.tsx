@@ -40,13 +40,11 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
   label?: string;
-  icon?: React.ComponentType<LucideProps & { className?: string }>;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, label, ...props }, ref): JSX.Element => {
+  ({ className, children, variant, size, label, ...props }, ref): JSX.Element => {
     return (
       <button
         type="button" // Add the type attribute with the value "button"
@@ -56,6 +54,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <Slot />
         {label}
+        {children}
       </button>
     );
   },
