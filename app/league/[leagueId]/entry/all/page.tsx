@@ -100,6 +100,7 @@ const Entry = ({
 
       <div className="flex justify-center items-center mt-2 mb-2 w-full">
         <Button
+          icon={<PlusCircle className="mr-2" />}
           variant="outline"
           onClick={() =>
             addNewEntry({
@@ -109,7 +110,6 @@ const Entry = ({
             })
           }
         >
-          <PlusCircle className="mr-2" />
           Add New Entry
         </Button>
       </div>
