@@ -12,7 +12,7 @@ interface ILinkCustomProps {
 const LinkCustom = ({ children, href }: ILinkCustomProps) => {
   return (
     <Link
-      className={'hover:text-orange-600 hover:underline'}
+      className={'font-bold text-orange-600 hover:text-orange-600 hover:underline'}
       data-testid="linkCustom"
       href={href}
       passHref
