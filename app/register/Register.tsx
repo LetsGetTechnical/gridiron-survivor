@@ -108,7 +108,10 @@ export default function Register() {
               disabled={handleDisabled()}
               onClick={handleRegister}
             />
-            <LinkCustom href="/login">Login to get started playing</LinkCustom>
+            <p className="pb-4 font-normal leading-7 text-zinc-500">
+              <LinkCustom href="/login">Login</LinkCustom>
+              {' '} to get started playing
+            </p>
           </div>
         </div>
       </div>
