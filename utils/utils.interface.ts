@@ -23,7 +23,7 @@ export interface IGetGameWeekResults {
 export interface IGetUserPick {
   weeklyPicks: IWeeklyPicks['userResults'];
   userId: IUser['id'];
-  entryId: IEntry['id'];
+  entryId: IEntry['$id'];
   NFLTeams: INFLTeam[];
 }
 
