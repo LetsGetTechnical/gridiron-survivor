@@ -13,7 +13,10 @@ import {
 } from './apiFunctions.interface';
 import { Collection, Document } from './apiFunctions.enum';
 import { Query } from 'appwrite';
-import { IEntry } from '@/app/league/[leagueId]/entry/Entries.interface';
+import {
+  IEntry,
+  IEntryProps,
+} from '@/app/league/[leagueId]/entry/Entries.interface';
 
 /**
  * Register a new account
@@ -261,5 +264,38 @@ export async function createWeeklyPicks({
   } catch (error) {
     console.error(error);
     throw new Error('Error creating weekly picks');
+  }
+}
+
+/**
+ * Create a new entry
+ * @param props - The entry data
+ * @param props.name - The name of the entry
+ * @param props.user - The user ID
+ * @param props.league - The league ID
+ * @param props.selectedTeams - The selected teams
+ * @returns {Models.Document | Error} - The entry object or an error
+ */
+export async function createEntry({
+  name,
+  user,
+  league,
+  selectedTeams = [],
+}: IEntryProps): Promise<Models.Document & IEntry> {
+  try {
+    return await databases.createDocument(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      ID.unique(),
+      {
+        name,
+        user,
+        league,
+        selectedTeams,
+      },
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creating entry');
   }
 }

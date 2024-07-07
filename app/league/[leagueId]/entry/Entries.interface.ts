@@ -10,3 +10,10 @@ export interface IEntry {
   league: ILeague;
   selectedTeams: INFLTeam[];
 }
+
+export interface IEntryProps {
+  name: string;
+  user: IUser['id'];
+  league: ILeague['leagueId'];
+  selectedTeams?: INFLTeam[];
+}
