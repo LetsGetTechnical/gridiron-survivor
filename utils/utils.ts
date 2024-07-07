@@ -6,7 +6,7 @@ import {
   IUser,
   IUserPick,
 } from '@/api/apiFunctions.interface';
-import { getAllWeeklyPicks, getCurrentLeague } from '@/api/apiFunctions';
+import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries } from '@/api/apiFunctions';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -14,6 +14,7 @@ import {
   IGetUserPick,
 } from './utils.interface';
 import { ILeague } from '@/api/apiFunctions.interface';
+import { IEntry } from '@/app/league/[leagueId]/entry/Entries.interface';
 
 /**
  * Combine class names
@@ -28,21 +29,21 @@ export function cn(...inputs: ClassValue[]): string {
  * Get the game data
  * @param props - The game data
  * @param props.leagueId - The league id
- * @param props.currentGameWeekId - The current game week id
+ * @param props.gameWeekId - The current game week id
  * @returns The game data
  */
 export const getGameData = async ({
   leagueId,
-  currentGameWeekId,
+  gameWeekId,
 }: {
   leagueId: ILeague['leagueId'];
-  currentGameWeekId: IGameWeek['id'];
+  gameWeekId: IGameWeek['id'];
 }): Promise<IGetGameWeekResults> => {
   const league = await getCurrentLeague(leagueId);
 
   const weeklyPicksData = await getAllWeeklyPicks({
     leagueId: leagueId,
-    weekId: currentGameWeekId,
+    weekId: gameWeekId,
   });
 
   return {
@@ -55,8 +56,8 @@ export const getGameData = async ({
     },
     weeklyPicksData: {
       leagueId: leagueId,
-      gameWeekId: currentGameWeekId,
-      userResults: weeklyPicksData,
+      gameWeekId: gameWeekId,
+      userResults: weeklyPicksData || {},
     },
   };
 };
@@ -66,20 +67,22 @@ export const getGameData = async ({
  * @param props - The user pick
  * @param props.weeklyPicks - The weekly picks
  * @param props.userId - The user id
+ * @param props.entryId - The entry id
  * @param props.NFLTeams - The NFL teams
  * @returns The user pick
  */
 export const getUserPick = async ({
   weeklyPicks,
   userId,
+  entryId,
   NFLTeams,
 }: IGetUserPick): Promise<string> => {
   if (!weeklyPicks || !weeklyPicks[userId]) {
     return '';
   }
 
-  const userTeamId = weeklyPicks[userId].team;
-  const userSelectedTeam = NFLTeams.find((team) => team.teamId === userTeamId);
+  const userTeamId = weeklyPicks[userId][entryId].teamName;
+  const userSelectedTeam = NFLTeams.find((team) => team.teamName === userTeamId);
 
   return userSelectedTeam?.teamName || '';
 };
@@ -87,19 +90,28 @@ export const getUserPick = async ({
 /**
  * Parse the user pick
  * @param userId - The user id
- * @param teamId - The team id
+ * @param entryId - The entry id
+ * @param teamName - The team id
  * @returns {string} The parsed user pick
  */
 export const parseUserPick = (
   userId: IUser['id'],
-  teamId: string,
+  entryId: IEntry['$id'],
+  teamName: string,
 ): IUserPick => {
-  if (!userId || !teamId || teamId === '') {
+  if (!userId || !teamName || !entryId) {
     throw new Error('User ID and Team ID Required');
   }
 
   const parsedData = JSON.parse(
-    `{"${userId}":{"team":"${teamId}","correct":true}}`,
+    `{"${userId}":
+      {"${entryId}":
+        {
+          "teamName": "${teamName}",
+          "correct": null
+        }
+      }
+    }`,
   );
 
   return parsedData;
@@ -122,3 +134,13 @@ export const getUserLeagues = async (
 
   return Promise.all(userLeagues);
 };
+
+/**
+ * Get the user entries
+ * @param userId - The user ID
+ * @param leagueId - The league ID
+ * @returns {IEntry[] | Error} - The list of entries or an error
+ */
+export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['leagueId']): Promise<IEntry[]> => {
+  return await getCurrentUserEntries(userId, leagueId);
+}
