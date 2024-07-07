@@ -89,24 +89,17 @@ describe('LeagueCard with custom league logo', () => {
 
   it('should apply hover effect on mouse hover', () => {
     render(
-      <Link
-        href="/league/all"
-        data-testid="customLinkCard"
-        className="customLinkCard hover:bg-zinc-800"
-      >
-        <LeagueCard
-          href="/leagues"
-          isEliminated={true}
-          survivors={11}
-          title="League 1"
-          totalPlayers={12}
-        />
-        ,
-      </Link>,
+      <LeagueCard
+        href="/leagues"
+        isEliminated={true}
+        survivors={11}
+        title="League 1"
+        totalPlayers={12}
+      />,
     );
-    const linkLeagueCard = screen.getByTestId('customLinkCard');
-    fireEvent.mouseOver(linkLeagueCard);
+    const leagueCard = screen.getByTestId('LeagueCard');
+    fireEvent.mouseOver(leagueCard);
 
-    expect(linkLeagueCard).toHaveClass('customLinkCard', 'hover:bg-zinc-800');
+    expect(leagueCard).toHaveClass('LeagueCard', 'hover:bg-zinc-800');
   });
 });
