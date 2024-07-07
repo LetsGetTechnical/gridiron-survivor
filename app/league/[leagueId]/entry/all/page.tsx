@@ -30,6 +30,7 @@ const Entry = ({
    */
   const getAllEntries = async (): Promise<void> => {
     const getEntries = await getCurrentUserEntries(user.id, leagueId);
+    console.log('Entries', getEntries);
     setEntries(getEntries);
   };
 
@@ -53,6 +54,20 @@ const Entry = ({
     getAllEntries();
   }, [user]);
 
+  /**
+   *
+   * @param entryId
+   */
+  const handlePickSetChange = (entryId: string): void => {
+    setEntries((prevEntries) =>
+      prevEntries.map((entry) =>
+        entry.id === entryId
+          ? { ...entry, isPickSet: !entry.isPickSet }
+          : entry,
+      ),
+    );
+  };
+
   return (
     <>
       {entries.map((entry) => {
@@ -63,7 +78,9 @@ const Entry = ({
             key={entry.id}
             entryName={entry.name}
             linkUrl={linkUrl}
-            isPickSet={entry.selectedTeams.length > 0}
+            onPickSetChange={() => {
+              handlePickSetChange(entry.id);
+            }}
           />
         );
       })}
