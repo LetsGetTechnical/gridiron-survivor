@@ -63,6 +63,7 @@ const Entry = ({
             key={entry.id}
             entryName={entry.name}
             linkUrl={linkUrl}
+            isPickSet={entry.selectedTeams.length > 0}
           />
         );
       })}
