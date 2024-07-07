@@ -15,7 +15,6 @@ import Link from 'next/link';
  * @param props.linkUrl - the url to the user's entry page
  * @param props.isEliminated - If true, the user is flagged as eliminat4ed
  * @param props.isPickSet - if true, the team logo of the picked team shows up on the LeagueEntries card and the button changes from "make a pick" to "chagne pick"
- * @param props.onPickSetChange - The function that is called when the user changes their pick
  * @returns {React.JSX.Element} - A div element that contains the user's entry information
  */
 const LeagueEntries = ({
@@ -23,7 +22,6 @@ const LeagueEntries = ({
   linkUrl,
   isEliminated = false,
   isPickSet = false,
-  onPickSetChange,
 }: ILeagueEntriesProps): JSX.Element => (
   <div
     data-testid="league-entry-container-card"
@@ -71,7 +69,6 @@ const LeagueEntries = ({
               data-testid="league-entry-pick-button"
               label={isPickSet ? 'Change Pick' : 'Make Pick'}
               variant={isPickSet ? 'secondary' : 'default'}
-              onClick={onPickSetChange}
             />
           </Link>
         )}

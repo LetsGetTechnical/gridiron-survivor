@@ -6,5 +6,4 @@ export interface ILeagueEntriesProps {
   linkUrl: string;
   isEliminated?: boolean;
   isPickSet?: boolean;
-  onPickSetChange: () => void;
 }

@@ -30,7 +30,7 @@ const Entry = ({
    */
   const getAllEntries = async (): Promise<void> => {
     const getEntries = await getCurrentUserEntries(user.id, leagueId);
-    console.log('Entries', getEntries);
+    //console.log('Entries', getEntries);
     setEntries(getEntries);
   };
 
@@ -54,33 +54,20 @@ const Entry = ({
     getAllEntries();
   }, [user]);
 
-  /**
-   *
-   * @param entryId
-   */
-  const handlePickSetChange = (entryId: string): void => {
-    setEntries((prevEntries) =>
-      prevEntries.map((entry) =>
-        entry.id === entryId
-          ? { ...entry, isPickSet: !entry.isPickSet }
-          : entry,
-      ),
-    );
-  };
-
   return (
     <>
       {entries.map((entry) => {
         const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.id}/${WEEK_URL}/${currentWeek}`;
+        const isPickSet = entry.selectedTeams.length > 0;
+        const isEliminated = entry.selectedTeams.length === 0;
 
         return (
           <LeagueEntries
             key={entry.id}
             entryName={entry.name}
             linkUrl={linkUrl}
-            onPickSetChange={() => {
-              handlePickSetChange(entry.id);
-            }}
+            isPickSet={isPickSet}
+            isEliminated={isEliminated}
           />
         );
       })}
