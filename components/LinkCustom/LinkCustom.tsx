@@ -16,13 +16,13 @@ interface ILinkCustomProps {
  * @param props.href - this is the URL you want the link to point to
  * @returns The custom link component
  */
-const LinkCustom = ({ children, href }: ILinkCustomProps): JSX.Element => {
+const LinkCustom = ({ children, href, ... props }: ILinkCustomProps): JSX.Element => {
   return (
     <Link
       className={'font-bold text-orange-600 hover:text-orange-600 hover:underline'}
-      data-testid="linkCustom"
       href={href}
       passHref
+      { ...props }
     >
       {children}
     </Link>

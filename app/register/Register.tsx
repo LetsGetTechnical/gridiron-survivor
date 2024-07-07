@@ -134,7 +134,12 @@ const Register = (): JSX.Element => {
             </h1>
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               If you have an existing account{' '}
-              <LinkCustom href="/login">Login!</LinkCustom>
+              <LinkCustom 
+                href="/login"
+                data-testid="login-link"
+              >
+                Login!
+              </LinkCustom>
             </p>
 
             <Form {...form}>
@@ -214,7 +219,12 @@ const Register = (): JSX.Element => {
                   disabled={isDisabled}
                 />
                 <p className="pb-4 font-normal leading-7 text-zinc-500">
-                  <LinkCustom href="/login">Login</LinkCustom>
+                  <LinkCustom 
+                    href="/login"
+                    data-testid="login-link" 
+                  >
+                    Login
+                  </LinkCustom>
                   {' '} to get started playing
                 </p>
 
