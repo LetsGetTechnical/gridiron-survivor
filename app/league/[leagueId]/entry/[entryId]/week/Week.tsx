@@ -17,8 +17,8 @@ import { createWeeklyPicks } from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
-import WeekTeams from './WeekTeams';
 import { ISchedule } from './WeekTeams.interface';
+import WeekTeams from './WeekTeams';
 
 /**
  * Renders the weekly picks page.
@@ -26,7 +26,7 @@ import { ISchedule } from './WeekTeams.interface';
  * @returns {JSX.Element} The rendered weekly picks page.
  */
 // eslint-disable-next-line no-unused-vars
-const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
+const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [userPick, setUserPick] = useState<string>('');
 
@@ -80,7 +80,7 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
         (team) => team.teamName.toLowerCase() === teamSelect,
       )?.teamId;
 
-      const currentUserPick = parseUserPick(user.id, teamID || '');
+      const currentUserPick = parseUserPick(user.id, entry, teamID || '');
 
       // combines current picks and the user pick into one object.
       // if the user pick exists then it overrides the pick of the user.
@@ -103,7 +103,7 @@ const Week = ({ league, NFLTeams, week }: IWeekProps): JSX.Element => {
         userResults: updatedWeeklyPicks,
       });
 
-      setUserPick(currentUserPick[user.id].team);
+      setUserPick(currentUserPick[user.id][entry].teamName);
     } catch (error) {
       console.error('Submission error:', error);
     }
