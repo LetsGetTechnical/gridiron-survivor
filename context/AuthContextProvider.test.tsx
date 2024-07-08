@@ -40,14 +40,14 @@ describe('AuthContextProvider', () => {
   //   );
   // });
 
-  test('mock a successful logout and show default notification', async () => {
+  test('mock a successful logout and create default notification', async () => {
     await mockLogoutAuth();
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert variant={AlertVariants.Default} message="Logged Out" />,
     );
   });
 
-  test('mock an Error when logging out and show default notification', async () => {
+  test('mock an Error when logging out and create default notification', async () => {
     await mockLogoutErrorAuth();
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert
