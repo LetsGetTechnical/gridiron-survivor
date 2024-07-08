@@ -16,10 +16,11 @@ type UserCredentials = {
 };
 
 /**
- *
- * @param user
- * @param router
- * @param getUser
+ * Authenticate and set session state
+ * @param user - the user credentials
+ * @param router - router function
+ * @param getUser - getUser() function
+ * @returns The error if there is one
  */
 export const loginAccount = async (
   user: UserCredentials,
@@ -46,11 +47,12 @@ export const loginAccount = async (
 };
 
 /**
- *
- * @param router
- * @param updateUser
- * @param resetUser
- * @param setIsSignedIn
+ * Get user data from the session
+ * @param router - router to navigate the page
+ * @param updateUser - updateUser() function
+ * @param resetUser - resetUser() function
+ * @param setIsSignedIn - changes to false if errors
+ * @returns {Promise<void>}
  */
 export const getUser = async (
   router: NextRouter,
@@ -75,7 +77,8 @@ export const getUser = async (
 };
 
 /**
- *
+ * Helper function to validate session data in local storage
+ * @returns {boolean} - Whether the session is in local storage.
  */
 const isSessionInLocalStorage = (): boolean => {
   const loadedDataString = localStorage.getItem('cookieFallback');

@@ -1,35 +1,25 @@
 import React from 'react';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { account } from '../api/config';
+import Alert from '../components/AlertNotification/AlertNotification';
+import { AlertVariants } from '../components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { loginAccount } from './AuthHelper';
 import { NextRouter } from 'next/router';
 
-const mockGetUser = jest.fn();
+const mockCreateEmailPasswordSession = jest.fn();
+account.createEmailPasswordSession = mockCreateEmailPasswordSession;
 
-jest.mock('./AuthHelper', () => ({
-  loginAccount: jest.fn(),
-}));
-
-jest.mock('react-hot-toast', () => ({
-  toast: {
-    custom: jest.fn(),
-  },
-}));
+jest.mock('../api/config');
+jest.mock('next/router');
+jest.mock('react-hot-toast');
 
 describe('AuthContextProvider', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test('mock a successful login and show success notification', async () => {
-    (loginAccount as jest.Mock).mockImplementation(async () => {
-      toast.custom(
-        <Alert variant={AlertVariants.Success} message="You've successfully logged in!" />,
-      );
-    });
-
-    const pretendUser = {
+  test('after a successful login it shows success notification', async () => {
+    const mockUser = {
         email: 'testemail@email.com',
         password: 'password1234',
     };
@@ -38,21 +28,26 @@ describe('AuthContextProvider', () => {
         push: jest.fn(),
     } as unknown as NextRouter;
 
-    await loginAccount(pretendUser, mockRouter, mockGetUser);
-    expect(loginAccount).toHaveBeenCalled();
+    const mockGetUser = jest.fn().mockResolvedValue({
+        email: 'testemail@email.com',
+        password: 'password1234',
+    });
+
+    mockCreateEmailPasswordSession.mockResolvedValue({});
+    toast.custom = jest.fn();
+
+    await loginAccount(mockUser, mockRouter, mockGetUser);
+
+    expect(mockCreateEmailPasswordSession).toHaveBeenCalledWith(mockUser.email, mockUser.password);
+    expect(mockGetUser).toHaveBeenCalled();
+    expect(mockRouter.push).toHaveBeenCalledWith('/league/all');
     expect(toast.custom).toHaveBeenCalledWith(
-      <Alert variant={AlertVariants.Success} message="You've successfully logged in!" />,
+        <Alert variant={AlertVariants.Success} message="You've successfully logged in!" />,
     );
   });
 
-  test('mock a failed login and show error notification', async () => {
-    (loginAccount as jest.Mock).mockImplementation(async () => {
-        toast.custom(
-            <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
-        );
-    });
-
-    const pretendUser = {
+  test('after login attempt errors it shows error notification', async () => {
+    const mockUser = {
         email: 'testemail@email.com',
         password: 'password1234',
     };
@@ -61,12 +56,21 @@ describe('AuthContextProvider', () => {
         push: jest.fn(),
     } as unknown as NextRouter;
 
-    try {
-        await loginAccount(pretendUser, mockRouter, mockGetUser);
-    } catch (error) {
-        expect(toast.custom).toHaveBeenCalledWith(
-            <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
-        );
-    }
+    const mockGetUser = jest.fn().mockResolvedValue({
+        email: 'testemail@email.com',
+        password: 'password1234',
+    });
+
+    const mockError = new Error('Test error');
+
+    mockCreateEmailPasswordSession.mockRejectedValue(mockError);
+    toast.custom = jest.fn();
+
+    const error = await loginAccount(mockUser, mockRouter, mockGetUser);
+
+    expect(error).toEqual(mockError);
+    expect(toast.custom).toHaveBeenCalledWith(
+        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
+    );
   });
 });
