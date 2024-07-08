@@ -1,20 +1,16 @@
 import React from 'react';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
-import { render, waitFor, screen } from '@testing-library/react';
+import { account } from '../api/config';
+import Alert from '../components/AlertNotification/AlertNotification';
+import { AlertVariants } from '../components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
-import {
-  mockLogoutAuth,
-  mockLogoutErrorAuth,
-} from './__mocks__/AuthContextProvider';
-import Login from '@/app/login/page';
+import { loginAccount } from './AuthHelper';
+import { NextRouter } from 'next/router';
 
-const mockLoginAccount = jest.fn();
+const mockCreateEmailPasswordSession = jest.fn();
+account.createEmailPasswordSession = mockCreateEmailPasswordSession;
 
-// jest.mock('./__mocks__/AuthContextProvider', () => ({
-//   logoutAccount: jest.fn(),
-// }));
-
+jest.mock('../api/config');
+jest.mock('next/router');
 jest.mock('react-hot-toast', () => ({
   toast: {
     custom: jest.fn(),
@@ -22,49 +18,53 @@ jest.mock('react-hot-toast', () => ({
 }));
 
 describe('AuthContextProvider', () => {
+  const user = {
+    email: 'testemail@email.com',
+    password: 'password1234',
+  };
+
+  const router = {
+    push: jest.fn(),
+  } as unknown as NextRouter;
+
+  const getUser = jest.fn().mockResolvedValue({
+    email: 'testemail@email.com',
+    password: 'password1234',
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  // test('mock a successful logout and show default notification', async () => {
-  //   (logoutAccount as jest.Mock).mockImplementation(async () => {
-  //     toast.custom(
-  //       <Alert variant={AlertVariants.Default} message="Logged Out" />,
-  //     );
-  //   });
+  test('after a successful login it shows success notification', async () => {
+    mockCreateEmailPasswordSession.mockResolvedValue({});
 
-  //   await logoutAccount();
-  //   expect(logoutAccount).toHaveBeenCalled();
-  //   expect(toast.custom).toHaveBeenCalledWith(
-  //     <Alert variant={AlertVariants.Default} message="Logged Out" />,
-  //   );
-  // });
+    await loginAccount({ user, router, getUser });
 
-  test('mock a successful logout and create default notification', async () => {
-    await mockLogoutAuth();
-    expect(toast.custom).toHaveBeenCalledWith(
-      <Alert variant={AlertVariants.Default} message="Logged Out" />,
+    expect(mockCreateEmailPasswordSession).toHaveBeenCalledWith(
+      user.email,
+      user.password,
     );
-  });
-
-  test('mock an Error when logging out and create default notification', async () => {
-    await mockLogoutErrorAuth();
+    expect(getUser).toHaveBeenCalled();
+    expect(router.push).toHaveBeenCalledWith('/league/all');
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert
-        variant={AlertVariants.Error}
-        message="Something went wrong. Try logging out again."
+        variant={AlertVariants.Success}
+        message="You've successfully logged in!"
       />,
     );
   });
 
-  test('mock an alert to show on the screen correctly', async () => {
-    await mockLogoutAuth();
-    render(<Login />);
+  test('after login attempt errors it shows error notification', async () => {
+    const mockError = new Error('Test error');
 
-    const alertElement = screen.getByTestId('alert-icon');
+    mockCreateEmailPasswordSession.mockRejectedValue(mockError);
 
-    await waitFor(() => {
-      expect(alertElement).toBeInTheDocument();
-    });
+    const error = await loginAccount({ user, router, getUser });
+
+    expect(error).toEqual(mockError);
+    expect(toast.custom).toHaveBeenCalledWith(
+      <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
+    );
   });
 });
