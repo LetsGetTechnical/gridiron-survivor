@@ -47,7 +47,7 @@ describe('AuthContextProvider', () => {
     );
   });
 
-  test('mock a Error when logging out and show default notification', async () => {
+  test('mock an Error when logging out and show default notification', async () => {
     await mockLogoutErrorAuth();
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert
