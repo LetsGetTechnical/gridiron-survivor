@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
