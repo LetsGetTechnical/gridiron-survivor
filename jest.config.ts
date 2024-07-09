@@ -1,3 +1,6 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import type { Config } from 'jest';
 import nextJest from 'next/jest.js';
 
@@ -9,6 +12,9 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const config: Config = {
   coverageProvider: 'v8',
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
+  },
   testEnvironment: 'jest-environment-jsdom',
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
