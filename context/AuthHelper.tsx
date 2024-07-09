@@ -17,16 +17,28 @@ type UserCredentials = {
 
 /**
  * Authenticate and set session state
+ * @param user.user
+ * @param user.email
+ * @param user.password
  * @param user - the user credentials
  * @param router - router function
  * @param getUser - getUser() function
+ * @param user.router
+ * @param user.getUser
+ * @param getUser.user
+ * @param getUser.router
+ * @param getUser.getUser
  * @returns The error if there is one
  */
-export const loginAccount = async (
-  user: UserCredentials,
-  router: NextRouter,
-  getUser: () => Promise<IUser | undefined>,
-): Promise<void | Error> => {
+export const loginAccount = async ({
+  user,
+  router,
+  getUser,
+}: {
+  user: UserCredentials;
+  router: NextRouter;
+  getUser: () => Promise<IUser | undefined>;
+}): Promise<void | Error> => {
   try {
     await account.createEmailPasswordSession(user.email, user.password);
     await getUser(); // Fetch user data and update state
