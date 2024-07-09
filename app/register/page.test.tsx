@@ -3,12 +3,19 @@ import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { toast } from 'react-hot-toast';
 
 const mockLoginAccount = jest.fn();
 const mockPush = jest.fn();
 
 jest.mock('../../api/apiFunctions', () => ({
   registerAccount: jest.fn(),
+}));
+
+jest.mock('react-hot-toast', () => ({
+  toast: {
+    custom: jest.fn(),
+  },
 }));
 
 let emailInput: HTMLElement;
@@ -105,11 +112,40 @@ describe('Register', () => {
     mockUseAuthContext.isSignedIn = false;
   });
 
-  test('successful onSubmit with success notification displaying', async () => {
+  test('should show success notification upon successful submission', async () => {
+    fireEvent.change(emailInput, { target: { value: 'test@test.com' }});
+    fireEvent.change(passwordInput, { target: { value: 'pw1234' }});
+    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' }});
     fireEvent.click(continueButton);
 
-    const message = "You have successfully registered your account.";
-    const {getByText} = render(<Alert variant={AlertVariants.Success} message={message} />);
-    expect(getByText(message)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(registerAccount).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+        confirmPassword: 'pw1234',
+      });
+      expect(mockLoginAccount).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+      });
+      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+      expect(toast.custom).toHaveBeenCalledWith(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You have successfully registered your account."
+        />,
+      );
+    });
+  });
+
+  test('should show error notification upon submission failing', () => {
+    fireEvent.change(emailInput, { target: { value: 'test@test.com' }});
+    fireEvent.change(passwordInput, { target: { value: 'pw1234' }});
+    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' }});
+    fireEvent.click(continueButton);
+
+    const error = new Error('Test error');
+
+    expect(registerAccount).toEqual(error);
   });
 });

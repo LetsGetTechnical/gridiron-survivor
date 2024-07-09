@@ -14,7 +14,7 @@ jest.mock('next/router');
 jest.mock('react-hot-toast', () => ({
   toast: {
     custom: jest.fn(),
-  }
+  },
 }));
 
 describe('AuthContextProvider', () => {
@@ -36,7 +36,7 @@ describe('AuthContextProvider', () => {
     jest.clearAllMocks();
   });
 
-  test('after a successful login it shows success notification', async () => {
+  test('should show success notification after a successful login', async () => {
 
     mockCreateEmailPasswordSession.mockResolvedValue({});
 
@@ -50,7 +50,7 @@ describe('AuthContextProvider', () => {
     );
   });
 
-  test('after login attempt errors it shows error notification', async () => {
+  test('should show error notification after a login attempt errors', async () => {
     const mockError = new Error('Test error');
 
     mockCreateEmailPasswordSession.mockRejectedValue(mockError);
