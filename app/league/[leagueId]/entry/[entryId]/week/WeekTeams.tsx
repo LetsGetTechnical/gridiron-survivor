@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React, { JSX, FormEventHandler } from 'react';
+import React, { JSX, ChangeEvent } from 'react';
 import { FormItem, FormControl } from '@/components/Form/Form';
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import { IWeekTeamsProps } from './WeekTeams.interface';
@@ -54,7 +54,9 @@ const WeekTeams = ({
         defaultValue={userPick}
         key={scheduledGame.id}
         className="grid w-full grid-cols-2 gap-4 pb-8"
-        onChange={onWeeklyPickChange}
+        onChange={(event) =>
+          onWeeklyPickChange(event as unknown as ChangeEvent<HTMLInputElement>)
+        }
       >
         <div className="week-page-game-schedule col-span-2 text-center">
           <p>{formatDateTime(scheduledGame.date)}</p>

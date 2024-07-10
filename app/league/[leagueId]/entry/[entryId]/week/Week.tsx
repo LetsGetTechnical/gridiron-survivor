@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useEffect, useState } from 'react';
+import React, { ChangeEvent, JSX, useEffect, useState } from 'react';
 import {
   FormField,
   FormItem,
@@ -87,7 +87,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
    * @returns {void}
    */
   const onWeeklyPickChange = async (
-    data: React.ChangeEvent<HTMLSelectElement>,
+    data: ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
     try {
       const teamSelect = data.target.value;
@@ -101,7 +101,13 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       // if the user pick exists then it overrides the pick of the user.
       const updatedWeeklyPicks = {
         ...weeklyPicks.userResults,
-        ...currentUserPick,
+        [user.id]: {
+          ...weeklyPicks.userResults[user.id],
+          [entry]: {
+            ...weeklyPicks.userResults[user.id]?.[entry],
+            ...currentUserPick[user.id][entry],
+          },
+        },
       };
 
       // update weekly picks in the database
@@ -131,7 +137,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
     getSchedule(week);
     setIsLoading(false);
-  }, [week]);
+  }, [week, selectedLeague]);
 
   if (schedule.length === 0 || isLoading) {
     return <p>Loading...</p>;
@@ -142,7 +148,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       <nav className="py-6 text-orange-500 hover:no-underline">
         <LinkCustom
           className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
-          href="/league/all"
+          href={`/league/${league}/entry/all`}
         >
           <span aria-hidden="true">
             <ChevronLeft size={16} />
