@@ -11,6 +11,7 @@ import { registerAccount } from '@/api/apiFunctions';
 import logo from '/public/assets/logo-colored-outline.svg';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { Label } from '@/components/Label/Label';
 import { z } from 'zod';
 import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -154,12 +155,17 @@ const Register = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          data-testid="email"
-                          type="email"
-                          placeholder="Email"
-                          {...field}
-                        />
+                        <Label htmlFor="email" data-testid="email-label">
+                          Email
+                          <Input
+                            id="email"
+                            data-testid="email"
+                            type="email"
+                            placeholder="Email"
+                            {...field}
+                          />
+                        </Label>
+                        
                       </FormControl>
                       {form.formState.errors.email && (
                         <FormMessage>
