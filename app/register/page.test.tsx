@@ -127,6 +127,7 @@ describe('Register', () => {
       expect(mockLoginAccount).toHaveBeenCalledWith({
         email: 'test@test.com',
         password: 'pw1234',
+        confirmPassword: 'pw1234',
       });
       expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
       expect(toast.custom).toHaveBeenCalledWith(
@@ -138,14 +139,31 @@ describe('Register', () => {
     });
   });
 
-  test('should show error notification upon submission failing', () => {
+  test('should show error notification upon submission failing', async () => {
+    mockLoginAccount.mockImplementationOnce(() => Promise.reject(new Error('Mock error')));
+
     fireEvent.change(emailInput, { target: { value: 'test@test.com' }});
     fireEvent.change(passwordInput, { target: { value: 'pw1234' }});
     fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' }});
     fireEvent.click(continueButton);
 
-    const error = new Error('Test error');
-
-    expect(registerAccount).toEqual(error);
+    await waitFor(() => {
+      expect(registerAccount).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+        confirmPassword: 'pw1234',
+      });
+      expect(mockLoginAccount).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+        confirmPassword: 'pw1234',
+      });
+      expect(toast.custom).toHaveBeenCalledWith(
+        <Alert
+          variant={AlertVariants.Error}
+          message="Something went wrong!"
+        />,
+      );
+    });
   });
 });
