@@ -2,13 +2,13 @@
 // Licensed under the MIT License.
 
 export enum Collection {
+  ENTRIES = 'entries',
   USERS = '6626c4fa8f793ae275ee',
   LEAGUE = '6626a937b6302f6a4d28',
   GAME_RESULTS = '66313025000612a5380e',
   GAME_WEEK = '6622c701cb5a58fcdf06',
   CURRENT_WEEK = 'current_week',
   NFL_TEAMS = '662152bfabacfbda3bb3',
-  NFL_SCHEDULE_2024 = 'nfl_schedule_2024',
 }
 
 /**
