@@ -86,12 +86,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
    * @param data - The form data.
    * @returns {void}
    */
-  const onSubmit = async (data: z.infer<typeof FormSchema>): Promise<void> => {
+  const onWeeklyPickChange = async (
+    data: React.ChangeEvent<HTMLSelectElement>,
+  ): Promise<void> => {
     try {
-      const teamSelect = data.type.toLowerCase();
+      const teamSelect = data.target.value;
       const teamID = NFLTeams.find(
-        (team) => team.teamName.toLowerCase() === teamSelect,
-      )?.teamId;
+        (team) => team.teamName === teamSelect,
+      )?.teamName;
 
       const currentUserPick = parseUserPick(user.id, entry, teamID || '');
 
@@ -154,10 +156,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         </h1>
 
         <FormProvider {...form}>
-          <form
-            className="mx-auto flex w-[90%] max-w-3xl flex-col items-center"
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
             <FormField
               control={form.control as Control<object>}
               name="type"
@@ -168,6 +167,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                       schedule={schedule}
                       field={field}
                       userPick={userPick}
+                      onWeeklyPickChange={onWeeklyPickChange}
                     />
                   </FormControl>
                   <FormMessage />

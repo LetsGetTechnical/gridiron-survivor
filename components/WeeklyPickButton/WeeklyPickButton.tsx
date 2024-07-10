@@ -24,12 +24,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
 }): JSX.Element => {
   return (
     <div className="flex items-center">
-      <RadioGroupItem
-        value={team}
-        id={team}
-        data-testid="team-radio"
-        type="submit"
-      />
+      <RadioGroupItem value={team} id={team} data-testid="team-radio" />
       <Label htmlFor={team} data-testid="team-label">
         <Image
           src={src}

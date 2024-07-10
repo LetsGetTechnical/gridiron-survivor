@@ -27,6 +27,7 @@ export interface IWeekTeamsProps {
   field: ControllerRenderProps<FieldValues, string>;
   schedule: ISchedule[];
   userPick: string;
+  onWeeklyPickChange: object;
 }
 
 interface ICompetition {

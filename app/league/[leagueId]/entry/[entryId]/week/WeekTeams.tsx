@@ -38,12 +38,25 @@ const formatDateTime = (dateStr: string): string => {
  * @param props.field The form field.
  * @param props.schedule The schedule for the week.
  * @param props.userPick The user's pick.
+ * @param props.onWeeklyPickChange The function to call when the user's pick changes.
+ * @returns The rendered weekly picks page.
+ */
+import { FormEventHandler } from 'react';
+
+/**
+ * Renders the weekly picks page.
+ * @param props The parameters for the weekly picks page.
+ * @param props.field The form field.
+ * @param props.schedule The schedule for the week.
+ * @param props.userPick The user's pick.
+ * @param props.onWeeklyPickChange The function to call when the user's pick changes.
  * @returns The rendered weekly picks page.
  */
 const WeekTeams = ({
   field,
   schedule,
   userPick,
+  onWeeklyPickChange,
 }: IWeekTeamsProps): JSX.Element => (
   <>
     {schedule.map((scheduledGame) => (
@@ -52,6 +65,7 @@ const WeekTeams = ({
         defaultValue={userPick}
         key={scheduledGame.id}
         className="grid w-full grid-cols-2 gap-4 pb-8"
+        onChange={onWeeklyPickChange as FormEventHandler<HTMLDivElement>}
       >
         <div className="week-page-game-schedule col-span-2 text-center">
           <p>{formatDateTime(scheduledGame.date)}</p>
@@ -70,5 +84,4 @@ const WeekTeams = ({
     ))}
   </>
 );
-
 export default WeekTeams;
