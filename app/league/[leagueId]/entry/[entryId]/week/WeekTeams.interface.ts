@@ -1,6 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+import { FormEventHandler } from 'react';
 import { ControllerRenderProps, FieldValues } from 'react-hook-form';
 
 export interface ISchedule {
@@ -27,7 +28,7 @@ export interface IWeekTeamsProps {
   field: ControllerRenderProps<FieldValues, string>;
   schedule: ISchedule[];
   userPick: string;
-  onWeeklyPickChange: object;
+  onWeeklyPickChange: FormEventHandler<HTMLDivElement>;
 }
 
 interface ICompetition {

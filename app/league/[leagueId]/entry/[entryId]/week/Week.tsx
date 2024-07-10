@@ -131,15 +131,15 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
     getSchedule(week);
     setIsLoading(false);
-  }, [week, selectedLeague]);
+  }, [week]);
 
   if (schedule.length === 0 || isLoading) {
     return <p>Loading...</p>;
   }
 
   return (
-    <div>
-      <nav className="py-6 text-orange-500  hover:no-underline">
+    <div className="league-entry-week">
+      <nav className="py-6 text-orange-500 hover:no-underline">
         <LinkCustom
           className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
           href="/league/all"
