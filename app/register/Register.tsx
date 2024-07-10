@@ -181,12 +181,16 @@ const Register = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          data-testid="password"
-                          type="password"
-                          placeholder="Password"
-                          {...field}
-                        />
+                        <Label htmlFor="password" data-testid="password-label">
+                          Password
+                          <Input
+                            id="password"
+                            data-testid="password"
+                            type="password"
+                            placeholder="Password"
+                            {...field}
+                          />
+                        </Label>
                       </FormControl>
                       {form.formState.errors.password && (
                         <FormMessage>
@@ -202,12 +206,16 @@ const Register = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          data-testid="confirm-password"
-                          type="password"
-                          placeholder="Confirm Password"
-                          {...field}
-                        />
+                        <Label htmlFor="confirm-password" data-testid="confirm-password-label">
+                          Confirm Password
+                          <Input
+                            id="confirm-password"
+                            data-testid="confirm-password"
+                            type="password"
+                            placeholder="Confirm Password"
+                            {...field}
+                          />
+                        </Label>
                       </FormControl>
                       {form.formState.errors.confirmPassword && (
                         <FormMessage>
