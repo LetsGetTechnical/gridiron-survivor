@@ -120,7 +120,7 @@ export const parseUserPick = (
 /**
  * Get the list of leagues the user is a part of
  * @param leagues - The list of leagues
- * @returns {ILeague | Error} - The list of leagues
+ * @returns {Promise<ILeague[]>} The list of leagues the user is a part of
  */
 export const getUserLeagues = async (
   leagues: IUser['leagues'],
