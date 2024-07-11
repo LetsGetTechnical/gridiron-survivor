@@ -30,10 +30,6 @@ const Leagues = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (!user.id || user.id === '') {
-      return;
-    }
-
     getLeagues();
   }, [user]);
 
