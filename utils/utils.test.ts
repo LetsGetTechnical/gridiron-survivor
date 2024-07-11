@@ -1,3 +1,4 @@
+import { IUserPicksData } from '@/api/apiFunctions.interface';
 import {
   cn,
   getGameData,
@@ -15,6 +16,7 @@ jest.mock('../api/apiFunctions', () => ({
 
 // test data
 const mockUserData = {
+  entryId: '1234',
   userId: '66281d5ec5614f76bc91',
   userEmail: 'test@email.com',
   leagues: ['123'],
@@ -48,16 +50,22 @@ const mockGameCurrentWeek = {
 
 const mockWeeklyPicksData = {
   '66281d5ec5614f76bc91': {
-    team: '66218f22b40deef340f8',
-    correct: false,
+    '1234': {
+      teamName: 'New England Patriots',
+      correct: false,
+    },
   },
   '6628077faeeedd272637': {
-    team: '6621b30ea57bd075e9d3',
-    correct: false,
+    '4321': {
+      teamName: 'New England Patriots',
+      correct: false,
+    }
   },
   '66174f2362ec891167be': {
-    team: '6621b30ea57bd075e9d3',
-    correct: true,
+    '4232': {
+      teamName: 'Kansas City Chiefs',
+      correct: true,
+    }
   },
 };
 
@@ -86,7 +94,7 @@ describe('utils', () => {
 
       const result = await getGameData({
         leagueId: mockLeague.leagueId,
-        currentGameWeekId: mockGameCurrentWeek.id,
+        gameWeekId: mockGameCurrentWeek.id,
       });
 
       expect(getCurrentLeague).toHaveBeenCalledWith(mockLeague.leagueId);
@@ -108,6 +116,7 @@ describe('utils', () => {
     it("should return the user's team name if the user has a pick", async () => {
       const result = await getUserPick({
         weeklyPicks: mockWeeklyPicksData,
+        entryId: mockUserData.entryId,
         userId: mockUserData.userId,
         NFLTeams: mockNFLTeams,
       });
@@ -118,6 +127,7 @@ describe('utils', () => {
     it('should return an empty string if the user has no pick for the given week', async () => {
       const result = await getUserPick({
         weeklyPicks: {},
+        entryId: mockUserData.entryId,
         userId: mockUserData.userId,
         NFLTeams: mockNFLTeams,
       });
@@ -125,14 +135,17 @@ describe('utils', () => {
       expect(result).toBe('');
     });
 
-    it("should return an empty string if the user's team id does not match any team", async () => {
+    it("should return an empty string if the user's team name does not match any team", async () => {
       const result = await getUserPick({
         weeklyPicks: {
           '66281d5ec5614f76bc91': {
-            team: '321',
-            correct: false,
+            '1234': {
+              teamName: 'New Team',
+              correct: false,
+            },
           },
         },
+        entryId: mockUserData.entryId,
         userId: mockUserData.userId,
         NFLTeams: mockNFLTeams,
       });
@@ -141,7 +154,8 @@ describe('utils', () => {
 
     it('should return an empty string if there are no weekly picks', async () => {
       const result = await getUserPick({
-        weeklyPicks: null,
+        weeklyPicks: {} as IUserPicksData,
+        entryId: mockUserData.entryId,
         userId: mockUserData.userId,
         NFLTeams: mockNFLTeams,
       });
@@ -150,11 +164,13 @@ describe('utils', () => {
   });
   describe('parseUserPick', () => {
     it('should return the parsed user pick', () => {
-      const result = parseUserPick(mockUserData.userId, mockNFLTeams[0].teamId);
+      const result = parseUserPick(mockUserData.userId, mockUserData.entryId, mockNFLTeams[0].teamName);
       expect(result).toStrictEqual({
         [mockUserData.userId]: {
-          team: '66218f22b40deef340f8',
-          correct: true,
+          [mockUserData.entryId]: {
+            teamName: 'New England Patriots',
+            correct: null,
+          },
         },
       });
     });

@@ -5,10 +5,10 @@
 
 import React, { JSX, useEffect, useState } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { IGameWeek, ILeague } from '@/api/apiFunctions.interface';
+import { ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
-import { getGameWeek } from '@/api/apiFunctions';
+import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 
 /**
  * Renders the leagues component.
@@ -16,7 +16,6 @@ import { getGameWeek } from '@/api/apiFunctions';
  */
 const Leagues = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
-  const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
   const { user } = useDataStore((state) => state);
 
   /**
@@ -30,20 +29,8 @@ const Leagues = (): JSX.Element => {
     } catch (error) {}
   };
 
-  /**
-   * Fetches the current game week.
-   * @returns {Promise<void>}
-   */
-  const getCurrentGameWeek = async (): Promise<void> => {
-    try {
-      const currentWeek = await getGameWeek();
-      setCurrentWeek(currentWeek.week);
-    } catch (error) {}
-  };
-
   useEffect(() => {
     getLeagues();
-    getCurrentGameWeek();
   }, [user]);
 
   return (
@@ -56,7 +43,7 @@ const Leagues = (): JSX.Element => {
           leagues.map((league) => (
             <LeagueCard
               key={league.leagueId}
-              href={`/league/${league.leagueId}/entries/1/week/${currentWeek}`}
+              href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
               leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
               survivors={league.survivors.length}
               title={league.leagueName}
@@ -65,7 +52,9 @@ const Leagues = (): JSX.Element => {
           ))
         ) : (
           <div className="text-center">
-            <p className="text-lg font-bold">Loading ...</p>
+            <p className="text-lg font-bold">
+              You are not enrolled in any leagues
+            </p>
           </div>
         )}
       </section>
