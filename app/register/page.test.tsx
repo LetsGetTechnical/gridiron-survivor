@@ -100,13 +100,13 @@ describe('Register', () => {
     });
   });
 
-  test('redirects to /weeklyPicks when the button is clicked', async () => {
+  test('redirects to /league/all when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<Register />);
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
     });
 
     mockUseAuthContext.isSignedIn = false;
@@ -129,7 +129,7 @@ describe('Register', () => {
         password: 'pw1234',
         confirmPassword: 'pw1234',
       });
-      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
           variant={AlertVariants.Success}

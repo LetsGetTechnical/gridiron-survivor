@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Login from './page';
 
-const mockLoginAccount = jest.fn();
+const mockLogin = jest.fn();
 const mockPush = jest.fn();
 const getUser = jest.fn();
 
@@ -11,7 +11,7 @@ let emailInput: HTMLInputElement,
   continueButton: HTMLElement;
 
 const mockUseAuthContext = {
-  loginAccount: mockLoginAccount,
+  login: mockLogin,
   isSignedIn: false,
   getUser,
 };
@@ -63,7 +63,7 @@ describe('Login', () => {
     fireEvent.click(continueButton);
 
     await waitFor(() => {
-      expect(mockLoginAccount).toHaveBeenCalledWith({
+      expect(mockLogin).toHaveBeenCalledWith({
         email: 'test@example.com',
         password: 'password123',
       });
