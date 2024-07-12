@@ -23,7 +23,7 @@ type AuthContextType = {
   isSignedIn: boolean;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
-  logoutAccount: () => Promise<void>;
+  logoutAccount: () => Promise<void | Error>;
   getUser: () => Promise<IUser | undefined>;
 };
 
@@ -81,16 +81,23 @@ export const AuthContextProvider = ({
 
   /**
    * Log out and clear session state
-   * @returns {Promise<void>}
+   * @returns {Promise<void | Error>}
    */
-  const logoutAccount = async (): Promise<void> => {
+  const logoutAccount = async (): Promise<void | Error> => {
     try {
       await account.deleteSession('current');
       setIsSignedIn(false);
       resetUser(); // Reset user data in the store
+      toast.custom(
+        <Alert variant={AlertVariants.Success} message="Logged Out" />,
+      );
       router.push('/login');
     } catch (error) {
+      toast.custom(
+        <Alert variant={AlertVariants.Error} message="Logout failed!" />,
+      );
       console.error('Logout error:', error);
+      return error as Error;
     }
   };
 

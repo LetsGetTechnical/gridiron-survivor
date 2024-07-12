@@ -102,3 +102,33 @@ const isSessionInLocalStorage = (): boolean => {
 
   return true;
 };
+
+/**
+ * Log out and clear session state
+ * @returns {Promise<void | Error>}
+ */
+export const logoutAccount = async ({
+  resetUser,
+  setIsSignedIn,
+  router,
+}: {
+  resetUser: () => void;
+  setIsSignedIn: (bool: false) => void;
+  router: NextRouter;
+}): Promise<void | Error> => {
+  try {
+    await account.deleteSession('current');
+    setIsSignedIn(false);
+    resetUser(); // Reset user data in the store
+    toast.custom(
+      <Alert variant={AlertVariants.Success} message="Logged Out" />,
+    );
+    router.push('/login');
+  } catch (error) {
+    toast.custom(
+      <Alert variant={AlertVariants.Error} message="Logout failed!" />,
+    );
+    console.error('Logout error:', error);
+    return error as Error;
+  }
+};
