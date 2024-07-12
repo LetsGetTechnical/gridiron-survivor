@@ -5,7 +5,8 @@
 import React, { JSX, useCallback } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { NextRouter } from 'next/router';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
@@ -55,9 +56,13 @@ export const AuthContextProvider = ({
   /**
    * Authenticate and set session state
    * @param user - The user credentials.
+   * @param router
    * @returns The error if there is one.
    */
-  const login = async (user: UserCredentials): Promise<void | Error> => {
+  const login = async (
+    user: UserCredentials,
+    router: NextRouter,
+  ): Promise<void | Error> => {
     try {
       await loginAccount({ user, router, getUser });
     } catch (error) {

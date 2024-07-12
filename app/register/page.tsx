@@ -3,7 +3,7 @@
 
 'use client';
 import React, { JSX, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Input } from '@/components/Input/Input';
 import Logo from '@/components/Logo/Logo';
 import { Button } from '@/components/Button/Button';
