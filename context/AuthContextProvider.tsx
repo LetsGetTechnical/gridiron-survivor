@@ -21,7 +21,7 @@ type UserCredentials = {
 type AuthContextType = {
   isSignedIn: boolean;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
+  login: (user: UserCredentials, router: NextRouter) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void>;
   getUser: () => Promise<IUser | undefined>;
 };
