@@ -2,9 +2,7 @@
 // Licensed under the MIT License.
 
 import React, { JSX } from 'react';
-import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { LucideProps } from 'lucide-react';
 
 import { cn } from '../../utils/utils';
 
@@ -40,13 +38,12 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
   label?: string;
-  icon?: React.ComponentType<LucideProps & { className?: string }>;
+  icon?: JSX.Element;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, label, ...props }, ref): JSX.Element => {
+  ({ className, children, variant, size, label, icon, ...props }, ref): JSX.Element => {
     return (
       <button
         type="button" // Add the type attribute with the value "button"
@@ -54,8 +51,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <Slot />
+        {React.isValidElement(icon) && icon}
         {label}
+        {children}
       </button>
     );
   },

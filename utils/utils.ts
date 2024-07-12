@@ -96,7 +96,7 @@ export const getUserPick = async ({
  */
 export const parseUserPick = (
   userId: IUser['id'],
-  entryId: IEntry['id'],
+  entryId: IEntry['$id'],
   teamName: string,
 ): IUserPick => {
   if (!userId || !teamName || !entryId) {
@@ -120,7 +120,7 @@ export const parseUserPick = (
 /**
  * Get the list of leagues the user is a part of
  * @param leagues - The list of leagues
- * @returns {ILeague | Error} - The list of leagues
+ * @returns {Promise<ILeague[]>} The list of leagues the user is a part of
  */
 export const getUserLeagues = async (
   leagues: IUser['leagues'],
@@ -142,5 +142,5 @@ export const getUserLeagues = async (
  * @returns {IEntry[] | Error} - The list of entries or an error
  */
 export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['leagueId']): Promise<IEntry[]> => {
-  return getCurrentUserEntries(userId, leagueId);
+  return await getCurrentUserEntries(userId, leagueId);
 }
