@@ -56,7 +56,7 @@ export const AuthContextProvider = ({
   /**
    * Authenticate and set session state
    * @param user - The user credentials.
-   * @param router
+   * @param router - Module for routing
    * @returns The error if there is one.
    */
   const login = async (
