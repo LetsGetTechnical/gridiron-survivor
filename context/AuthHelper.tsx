@@ -17,17 +17,10 @@ type UserCredentials = {
 
 /**
  * Authenticate and set session state
- * @param user.user
- * @param user.email
- * @param user.password
- * @param user - the user credentials
- * @param router - router function
- * @param getUser - getUser() function
- * @param user.router
- * @param user.getUser
- * @param getUser.user
- * @param getUser.router
- * @param getUser.getUser
+ * @param props - User, router, and getUser()
+ * @param props.user - the user credentials
+ * @param props.router - router function
+ * @param props.getUser - getUser() function
  * @returns The error if there is one
  */
 export const loginAccount = async ({
