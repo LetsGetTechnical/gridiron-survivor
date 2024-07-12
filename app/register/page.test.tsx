@@ -5,7 +5,7 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 
-const mockLoginAccount = jest.fn();
+const mockLogin = jest.fn();
 const mockPush = jest.fn();
 
 jest.mock('../../api/apiFunctions', () => ({
@@ -24,7 +24,7 @@ let confirmPasswordInput: HTMLElement;
 let continueButton: HTMLElement;
 
 const mockUseAuthContext = {
-  loginAccount: mockLoginAccount,
+  login: mockLogin,
   isSignedIn: false,
 };
 
@@ -92,7 +92,7 @@ describe('Register', () => {
         password: 'rawr123',
         confirmPassword: 'rawr123',
       });
-      expect(mockLoginAccount).toHaveBeenCalledWith({
+      expect(mockLogin).toHaveBeenCalledWith({
         email: 'rt@example.com',
         password: 'rawr123',
         confirmPassword: 'rawr123',
@@ -100,13 +100,13 @@ describe('Register', () => {
     });
   });
 
-  test('redirects to /weeklyPicks when the button is clicked', async () => {
+  test('redirects to /league/all when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<Register />);
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
     });
 
     mockUseAuthContext.isSignedIn = false;
@@ -124,12 +124,12 @@ describe('Register', () => {
         password: 'pw1234',
         confirmPassword: 'pw1234',
       });
-      expect(mockLoginAccount).toHaveBeenCalledWith({
+      expect(mockLogin).toHaveBeenCalledWith({
         email: 'test@test.com',
         password: 'pw1234',
         confirmPassword: 'pw1234',
       });
-      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
           variant={AlertVariants.Success}
@@ -140,7 +140,7 @@ describe('Register', () => {
   });
 
   test('should show error notification upon submission failing', async () => {
-    mockLoginAccount.mockImplementationOnce(() => Promise.reject(new Error('Mock error')));
+    mockLogin.mockImplementationOnce(() => Promise.reject(new Error('Mock error')));
 
     fireEvent.change(emailInput, { target: { value: 'test@test.com' }});
     fireEvent.change(passwordInput, { target: { value: 'pw1234' }});
@@ -153,7 +153,7 @@ describe('Register', () => {
         password: 'pw1234',
         confirmPassword: 'pw1234',
       });
-      expect(mockLoginAccount).toHaveBeenCalledWith({
+      expect(mockLogin).toHaveBeenCalledWith({
         email: 'test@test.com',
         password: 'pw1234',
         confirmPassword: 'pw1234',

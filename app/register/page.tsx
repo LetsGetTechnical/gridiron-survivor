@@ -53,11 +53,11 @@ type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
  */
 const Register = (): JSX.Element => {
   const router = useRouter();
-  const { loginAccount, isSignedIn } = useAuthContext();
+  const { login, isSignedIn } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push('/weeklyPicks');
+      router.push('/league/all');
     }
   }, [isSignedIn]);
 
@@ -105,8 +105,8 @@ const Register = (): JSX.Element => {
   ): Promise<void> => {
     try {
       await registerAccount(data);
-      await loginAccount(data);
-      router.push('/weeklyPicks');
+      await login(data);
+      router.push('/league/all');
       toast.custom(
         <Alert
           variant={AlertVariants.Success}

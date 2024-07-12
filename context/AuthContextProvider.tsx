@@ -6,13 +6,12 @@ import React, { JSX, useCallback } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
+import { NextRouter } from 'next/router';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
-import { toast } from 'react-hot-toast';
+import { loginAccount } from './AuthHelper';
 
 type UserCredentials = {
   email: string;
@@ -22,7 +21,7 @@ type UserCredentials = {
 type AuthContextType = {
   isSignedIn: boolean;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
+  login: (user: UserCredentials, router: NextRouter) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void | Error>;
   getUser: () => Promise<IUser | undefined>;
 };
@@ -57,25 +56,17 @@ export const AuthContextProvider = ({
   /**
    * Authenticate and set session state
    * @param user - The user credentials.
+   * @param router - Module for routing
    * @returns The error if there is one.
    */
-  const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
+  const login = async (
+    user: UserCredentials,
+    router: NextRouter,
+  ): Promise<void | Error> => {
     try {
-      await account.createEmailPasswordSession(user.email, user.password);
-      await getUser(); // Fetch user data and update state
-      router.push('/league/all');
-      toast.custom(
-        <Alert
-          variant={AlertVariants.Success}
-          message="You've successfully logged in!"
-        />,
-      );
+      await loginAccount({ user, router, getUser });
     } catch (error) {
-      toast.custom(
-        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
-      );
       console.error('Login error:', error);
-      return error as Error;
     }
   };
 
@@ -142,7 +133,7 @@ export const AuthContextProvider = ({
     () => ({
       isSignedIn,
       setIsSignedIn,
-      loginAccount,
+      login,
       logoutAccount,
       getUser,
     }),
