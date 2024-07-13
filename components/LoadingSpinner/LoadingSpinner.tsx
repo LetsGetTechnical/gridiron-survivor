@@ -1,15 +1,35 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React from 'react';
+import React, { JSX } from 'react';
+import { cn } from '@/utils/utils';
 
+export interface ILoadingSpinnerProps {
+  height?: string;
+  width?: string;
+}
 /**
- * asdf
- * @returns asdf
+ * Renders a loading spinner.
+ * @param {ILoadingSpinnerProps} props - The props for the loading spinner component.
+ * @param {string} props.height - The height of the loading spinner. This should be the same tailwind class as the element it is standing in for.
+ * @param {string} props.width - The width of the loading spinner. This should be the same tailwind class as the element it is standing in for.
+ * @returns {JSX.Element} The rendered loading spinner component.
  */
-const LoadingSpinner = () => {
+const LoadingSpinner = ({
+  height,
+  width,
+}: ILoadingSpinnerProps): JSX.Element => {
   return (
-    <div className="loading-spinner-container h-48 place-content-center border">
+    <div
+      aria-hidden="true"
+      role="alert"
+      tabIndex={-1}
+      className={cn(
+        'loading-spinner-container w-full h-full place-content-center',
+        height,
+        width,
+      )}
+    >
       <div
         className="loading-spinner w-12 h-12 mx-auto rounded-full border-4 border-t-muted-foreground border-foreground animate-spin"
         data-testid="loading-spinner"

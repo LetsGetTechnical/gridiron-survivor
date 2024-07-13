@@ -70,12 +70,10 @@ const Leagues = (): JSX.Element => {
           ))
         ) : (
           <div className="text-center">
-            {/* <p className="text-lg font-bold">Loading ...</p> */}
-            <LoadingSpinner />
+            <LoadingSpinner height="max-h-32 h-32" />
           </div>
         )}
       </section>
-      <LoadingSpinner />
     </div>
   );
 };
