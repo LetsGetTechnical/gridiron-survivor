@@ -21,21 +21,19 @@ const LoadingSpinner = ({
 }: ILoadingSpinnerProps): JSX.Element => {
   return (
     <div
-      aria-hidden="true"
       role="alert"
       tabIndex={-1}
       className={cn(
-        'loading-spinner-container w-full h-full place-content-center',
+        'loading-spinner-container w-full h-full place-content-center text-center',
         height,
         width,
       )}
     >
       <div
-        className="loading-spinner w-12 h-12 mx-auto rounded-full border-4 border-t-muted-foreground border-foreground animate-spin"
+        className="loading-spinner w-12 h-12 mx-auto rounded-full border-4 border-t-muted-foreground border-foreground animate-spin motion-reduces:hidden"
         data-testid="loading-spinner"
-      >
-        <span className="sr-only">Loading</span>
-      </div>
+      />
+      <p className="sr-only motion-reduce:not-sr-only">Loading</p>
     </div>
   );
 };
