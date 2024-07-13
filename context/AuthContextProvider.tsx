@@ -6,12 +6,11 @@ import React, { JSX, useCallback } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
-import { NextRouter } from 'next/router';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
-import { loginAccount } from './AuthHelper';
+import { loginAccount, logoutFunction } from './AuthHelper';
 
 type UserCredentials = {
   email: string;
@@ -21,7 +20,7 @@ type UserCredentials = {
 type AuthContextType = {
   isSignedIn: boolean;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  login: (user: UserCredentials, router: NextRouter) => Promise<void | Error>; // eslint-disable-line no-unused-vars
+  login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void | Error>;
   getUser: () => Promise<IUser | undefined>;
 };
@@ -59,10 +58,7 @@ export const AuthContextProvider = ({
    * @param router - Module for routing
    * @returns The error if there is one.
    */
-  const login = async (
-    user: UserCredentials,
-    router: NextRouter,
-  ): Promise<void | Error> => {
+  const login = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await loginAccount({ user, router, getUser });
     } catch (error) {
@@ -76,19 +72,9 @@ export const AuthContextProvider = ({
    */
   const logoutAccount = async (): Promise<void | Error> => {
     try {
-      await account.deleteSession('current');
-      setIsSignedIn(false);
-      resetUser(); // Reset user data in the store
-      toast.custom(
-        <Alert variant={AlertVariants.Success} message="Logged Out" />,
-      );
-      router.push('/login');
+      await logoutFunction({ setIsSignedIn, router, resetUser });
     } catch (error) {
-      toast.custom(
-        <Alert variant={AlertVariants.Error} message="Logout failed!" />,
-      );
       console.error('Logout error:', error);
-      return error as Error;
     }
   };
 

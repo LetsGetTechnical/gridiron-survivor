@@ -1,17 +1,23 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React from 'react';
+import React, { createContext } from 'react';
 import { account } from '@/api/config';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
-import { NextRouter } from 'next/router';
 import { IUser } from '@/api/apiFunctions.interface';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 type UserCredentials = {
   email: string;
   password: string;
+};
+
+type logoutType = {
+  setIsSignedIn: (bool: false) => void;
+  resetUser: React.Dispatch<React.SetStateAction<void>>;
+  router: AppRouterInstance;
 };
 
 /**
@@ -28,7 +34,7 @@ export const loginAccount = async ({
   getUser,
 }: {
   user: UserCredentials;
-  router: NextRouter;
+  router: AppRouterInstance;
   getUser: () => Promise<IUser | undefined>;
 }): Promise<void | Error> => {
   try {
@@ -54,15 +60,11 @@ export const loginAccount = async ({
  * Log out and clear session state
  * @returns {Promise<void | Error>}
  */
-export const logoutAccount = async ({
-  resetUser,
+export const logoutFunction = async ({
   setIsSignedIn,
   router,
-}: {
-  resetUser: () => void;
-  setIsSignedIn: (bool: false) => void;
-  router: NextRouter;
-}): Promise<void | Error> => {
+  resetUser,
+}: logoutType) => {
   try {
     await account.deleteSession('current');
     setIsSignedIn(false);
