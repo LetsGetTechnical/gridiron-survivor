@@ -47,6 +47,7 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
         >
           {title}
         </h4>
+
         <LeagueSurvivors survivors={survivors} totalPlayers={totalPlayers} />
         {isEliminated ? <EliminatedStatus /> : null}
       </div>
