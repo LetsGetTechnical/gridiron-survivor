@@ -6,7 +6,6 @@ import React, { JSX, useCallback } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
-import { NextRouter } from 'next/router';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
@@ -21,7 +20,7 @@ type UserCredentials = {
 type AuthContextType = {
   isSignedIn: boolean;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  login: (user: UserCredentials, router: NextRouter) => Promise<void | Error>; // eslint-disable-line no-unused-vars
+  login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void>;
   getUser: () => Promise<IUser | undefined>;
 };
@@ -59,10 +58,7 @@ export const AuthContextProvider = ({
    * @param router - Module for routing
    * @returns The error if there is one.
    */
-  const login = async (
-    user: UserCredentials,
-    router: NextRouter,
-  ): Promise<void | Error> => {
+  const login = async (user: UserCredentials): Promise<void | Error> => {
     try {
       await loginAccount({ user, router, getUser });
     } catch (error) {

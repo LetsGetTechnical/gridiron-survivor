@@ -6,8 +6,8 @@ import { account } from '@/api/config';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
-import { NextRouter } from 'next/router';
 import { IUser } from '@/api/apiFunctions.interface';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 type UserCredentials = {
   email: string;
@@ -28,7 +28,7 @@ export const loginAccount = async ({
   getUser,
 }: {
   user: UserCredentials;
-  router: NextRouter;
+  router: AppRouterInstance;
   getUser: () => Promise<IUser | undefined>;
 }): Promise<void | Error> => {
   try {

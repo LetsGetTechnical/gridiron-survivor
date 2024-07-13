@@ -4,7 +4,7 @@ import Alert from '../components/AlertNotification/AlertNotification';
 import { AlertVariants } from '../components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { loginAccount } from './AuthHelper';
-import { NextRouter } from 'next/router';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const mockCreateEmailPasswordSession = jest.fn();
 account.createEmailPasswordSession = mockCreateEmailPasswordSession;
@@ -25,7 +25,7 @@ describe('AuthContextProvider', () => {
 
   const router = {
     push: jest.fn(),
-  } as unknown as NextRouter;
+  } as unknown as AppRouterInstance;
 
   const getUser = jest.fn().mockResolvedValue({
     email: 'testemail@email.com',
