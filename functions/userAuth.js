@@ -3,7 +3,6 @@
 
 const { ID } = require('appwrite');
 const sdk = require('node-appwrite');
-import { Collection } from '@/api/apiFunctions.enum';
 
 /**
  * creates a new user record in the User collection
@@ -46,7 +45,7 @@ const user = async ({ req, res }) => {
     // get the list of participants and survivors from the league
     const league = await databases.getDocument(
       process.env.DATABASE_ID,
-      Collection.LEAGUE,
+      '6626a937b6302f6a4d28',
       '66311a210039f0532044',
     );
 
@@ -55,7 +54,7 @@ const user = async ({ req, res }) => {
 
     await databases.updateDocument(
       process.env.DATABASE_ID,
-      Collection.LEAGUE,
+      '6626a937b6302f6a4d28',
       '66311a210039f0532044',
       {
         participants: updatedParticipants,
