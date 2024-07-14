@@ -38,7 +38,7 @@ const user = async ({ req, res }) => {
         name: req.body.name,
         labels: req.body.labels,
         userId: req.body['$id'],
-        leagues: '66311a210039f0532044',
+        leagues: ['66311a210039f0532044'],
       },
     );
 
@@ -52,7 +52,7 @@ const user = async ({ req, res }) => {
     const updatedParticipants = [...league.participants, req.body['$id']];
     const updatedSurvivors = [...league.survivors, req.body['$id']];
 
-    await databases.updateDocument(
+    const updateLeague = await databases.updateDocument(
       process.env.DATABASE_ID,
       '6626a937b6302f6a4d28',
       '66311a210039f0532044',
@@ -62,7 +62,8 @@ const user = async ({ req, res }) => {
       },
     );
 
-    return res.json({ msg: 'User was created successfully!' });
+    // return res.json({ msg: 'User was created successfully!' });
+    return res.json(league, updateLeague);
   }
 };
 
