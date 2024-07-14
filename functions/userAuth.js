@@ -39,17 +39,27 @@ const user = async ({ req, res }) => {
         name: req.body.name,
         labels: req.body.labels,
         userId: req.body['$id'],
-        leagues: ['66311a210039f0532044'],
+        leagues: '66311a210039f0532044',
       },
     );
+
+    // get the list of participants and survivors from the league
+    const league = await databases.getDocument(
+      process.env.DATABASE_ID,
+      Collection.LEAGUE,
+      '66311a210039f0532044',
+    );
+
+    const updatedParticipants = [...league.participants, req.body['$id']];
+    const updatedSurvivors = [...league.survivors, req.body['$id']];
 
     await databases.updateDocument(
       process.env.DATABASE_ID,
       Collection.LEAGUE,
       '66311a210039f0532044',
       {
-        participants: [req.body['$id']],
-        survivors: [req.body['$id']],
+        participants: updatedParticipants,
+        survivors: updatedSurvivors,
       },
     );
 
