@@ -1,8 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { ID } from 'appwrite';
-import sdk from 'node-appwrite';
+const { ID } = require('appwrite');
+const sdk = require('node-appwrite');
 import { Collection } from '@/api/apiFunctions.enum';
 
 /**
