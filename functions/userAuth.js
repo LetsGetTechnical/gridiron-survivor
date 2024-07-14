@@ -49,10 +49,12 @@ const user = async ({ req, res }) => {
       '66311a210039f0532044',
     );
 
+    // add the new user id to the list of participants and survivors
     const updatedParticipants = [...league.participants, req.body['$id']];
     const updatedSurvivors = [...league.survivors, req.body['$id']];
 
-    const updateLeague = await databases.updateDocument(
+    // update the league with the new users id into the list of participants and survivors
+    await databases.updateDocument(
       process.env.DATABASE_ID,
       '6626a937b6302f6a4d28',
       '66311a210039f0532044',
@@ -62,8 +64,7 @@ const user = async ({ req, res }) => {
       },
     );
 
-    // return res.json({ msg: 'User was created successfully!' });
-    return res.json(league, updateLeague);
+    return res.json({ msg: 'User was created successfully!' });
   }
 };
 
