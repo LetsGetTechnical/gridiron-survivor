@@ -30,6 +30,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.ts"
-, "functions/userAuth.js"  ],
+  ],
   "exclude": ["node_modules"]
 }
