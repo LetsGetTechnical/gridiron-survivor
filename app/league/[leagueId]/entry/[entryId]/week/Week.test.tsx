@@ -30,11 +30,6 @@ describe('Week', () => {
   const NFLTeams = [{ teamName: 'mockTeam', teamId: 'mockId' }];
   const user = { id: 'mockUserId', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
-  const weeklyPicks = {
-    leagueId: 'mockId',
-    gameWeekId: 'mockGameId',
-    userResults: {},
-  };
   const league = 'mockLeague';
   const week = 'mockWeek';
   const updateWeeklyPicks = jest.fn();
@@ -45,6 +40,35 @@ describe('Week', () => {
 
   test('should show success notification after changing your team pick', async () => {
     mockCreateWeeklyPicks.mockResolvedValue({});
+
+    interface IUserResults {
+      [key: string]: any; // Adjust the 'any' to match the structure of your user results
+    }
+
+    interface IWeeklyPicks {
+      leagueId: string;
+      gameWeekId: string;
+      userResults: IUserResults;
+    }
+
+    const weeklyPicks: IWeeklyPicks = {
+      leagueId: 'mockId',
+      gameWeekId: 'mockGameId',
+      userResults: {},
+    };
+
+    const teamID = NFLTeams[0].teamName;
+
+    const updatedWeeklyPicks = {
+      ...weeklyPicks.userResults,
+      [user.id]: {
+        ...weeklyPicks.userResults[user.id],
+        [entry]: {
+          ...weeklyPicks.userResults[user.id]?.[entry],
+          ...mockParseUserPick(user.id, entry, teamID || '')[user.id][entry],
+        },
+      },
+    };
 
     await onWeeklyPickChange({
       data,
