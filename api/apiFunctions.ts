@@ -71,9 +71,6 @@ export const createSessionFromMagicURLToken = async ({
   userId: IUser['id'];
   secret: string;
 }): Promise<void> => {
-  console.log('userId', userId);
-  console.log('secret', secret);
-
   try {
     await account.createSession(userId, secret);
   } catch (error) {
