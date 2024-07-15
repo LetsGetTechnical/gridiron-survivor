@@ -18,7 +18,7 @@ type UserCredentials = {
 };
 
 type AuthContextType = {
-  isSignedIn: boolean;
+  getUser: () => Promise<IUser | undefined>;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void | Error>;
@@ -117,11 +117,11 @@ export const AuthContextProvider = ({
   // Memoize context values to avoid unnecessary re-renders
   const contextValue = useMemo(
     () => ({
-      isSignedIn,
+      getUser,
       setIsSignedIn,
       login,
       logoutAccount,
-      getUser,
+      setIsSignedIn,
     }),
     [isSignedIn],
   );

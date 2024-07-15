@@ -34,7 +34,7 @@ describe('AuthContextProvider', () => {
 
   const setIsSignedIn = jest.fn();
   const resetUser = jest.fn();
-
+        
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -58,7 +58,7 @@ describe('AuthContextProvider', () => {
     );
   });
 
-  test('should show error notification after a login attempt errors', async () => {
+  test('should show error notification after a login attempt fails', async () => {
     const mockError = new Error('Test error');
 
     mockCreateEmailPasswordSession.mockRejectedValue(mockError);
