@@ -12,7 +12,7 @@ import {
 import { FormProvider, Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { IWeekProps } from './Week.interface';
-import { createWeeklyPicks } from '@/api/apiFunctions';
+import { createWeeklyPicks, getAllWeeklyPicks } from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
@@ -57,6 +57,27 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       required_error: 'You need to select a team.',
     }),
   });
+
+  /**
+   * Fetches the league's weekly pick results for the user.
+   * @returns {Promise<void>}
+   */
+  const getUserWeeklyPick = async (): Promise<void> => {
+    try {
+      const userWeeklyPickResults = await getAllWeeklyPicks({
+        leagueId: league,
+        weekId: week,
+      });
+
+      updateWeeklyPicks({
+        leagueId: league,
+        gameWeekId: week,
+        userResults: userWeeklyPickResults || {},
+      });
+    } catch (error) {
+      console.error('Error getting weekly pick:', error);
+    }
+  };
 
   /**
    * Loads the week data.
@@ -136,16 +157,16 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
+    getUserWeeklyPick();
     setIsLoading(false);
   }, [week, selectedLeague]);
 
   useEffect(() => {
-    setUserPick(
-      weeklyPicks.userResults[user.id]
-        ? weeklyPicks.userResults[user.id][entry].teamName
-        : '',
-    );
-  }, [user, weeklyPicks, entry]);
+    if (weeklyPicks.userResults[user.id]) {
+      const userPick = weeklyPicks.userResults[user.id][entry].teamName;
+      setUserPick(userPick);
+    }
+  }, [weeklyPicks, user, entry]);
 
   if (schedule.length === 0) {
     return <p>Loading...</p>;
