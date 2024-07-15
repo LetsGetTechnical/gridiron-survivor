@@ -14,9 +14,6 @@ const mockUseAuthContext = {
   getUser,
   isSignedIn: false,
   login: mockLogin,
-  getUser,
-  isSignedIn: false,
-  login: mockLogin,
 };
 
 jest.mock('next/navigation', () => ({
