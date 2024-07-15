@@ -18,14 +18,14 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
-let emailInput: HTMLElement;
-let passwordInput: HTMLElement;
 let confirmPasswordInput: HTMLElement;
 let continueButton: HTMLElement;
+let emailInput: HTMLElement;
+let passwordInput: HTMLElement;
 
 const mockUseAuthContext = {
-  login: mockLogin,
   isSignedIn: false,
+  login: mockLogin,
 };
 
 // Mock the useRouter and useAuthContext hooks
@@ -113,9 +113,9 @@ describe('Register', () => {
   });
 
   test('should show success notification upon successful submission', async () => {
-    fireEvent.change(emailInput, { target: { value: 'test@test.com' }});
-    fireEvent.change(passwordInput, { target: { value: 'pw1234' }});
-    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' }});
+    fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
+    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
     fireEvent.click(continueButton);
 
     await waitFor(() => {
@@ -140,11 +140,13 @@ describe('Register', () => {
   });
 
   test('should show error notification upon submission failing', async () => {
-    mockLogin.mockImplementationOnce(() => Promise.reject(new Error('Mock error')));
+    mockLogin.mockImplementationOnce(() =>
+      Promise.reject(new Error('Mock error')),
+    );
 
-    fireEvent.change(emailInput, { target: { value: 'test@test.com' }});
-    fireEvent.change(passwordInput, { target: { value: 'pw1234' }});
-    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' }});
+    fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
+    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
     fireEvent.click(continueButton);
 
     await waitFor(() => {
@@ -159,10 +161,7 @@ describe('Register', () => {
         confirmPassword: 'pw1234',
       });
       expect(toast.custom).toHaveBeenCalledWith(
-        <Alert
-          variant={AlertVariants.Error}
-          message="Something went wrong!"
-        />,
+        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
       );
     });
   });

@@ -37,29 +37,34 @@ describe('AuthContextProvider', () => {
   });
 
   test('should show success notification after a successful login', async () => {
-
     mockCreateEmailPasswordSession.mockResolvedValue({});
 
-    await loginAccount({user, router, getUser});
+    await loginAccount({ user, router, getUser });
 
-    expect(mockCreateEmailPasswordSession).toHaveBeenCalledWith(user.email, user.password);
+    expect(mockCreateEmailPasswordSession).toHaveBeenCalledWith(
+      user.email,
+      user.password,
+    );
     expect(getUser).toHaveBeenCalled();
     expect(router.push).toHaveBeenCalledWith('/league/all');
     expect(toast.custom).toHaveBeenCalledWith(
-        <Alert variant={AlertVariants.Success} message="You've successfully logged in!" />,
+      <Alert
+        variant={AlertVariants.Success}
+        message="You've successfully logged in!"
+      />,
     );
   });
 
-  test('should show error notification after a login attempt errors', async () => {
+  test('should show error notification after a login attempt fails', async () => {
     const mockError = new Error('Test error');
 
     mockCreateEmailPasswordSession.mockRejectedValue(mockError);
 
-    const error = await loginAccount({user, router, getUser});
+    const error = await loginAccount({ user, router, getUser });
 
     expect(error).toEqual(mockError);
     expect(toast.custom).toHaveBeenCalledWith(
-        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
+      <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
     );
   });
 });
