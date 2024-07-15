@@ -22,7 +22,6 @@ type AuthContextType = {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void | Error>;
-  getUser: () => Promise<IUser | undefined>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -121,7 +120,6 @@ export const AuthContextProvider = ({
       setIsSignedIn,
       login,
       logoutAccount,
-      setIsSignedIn,
     }),
     [isSignedIn],
   );
