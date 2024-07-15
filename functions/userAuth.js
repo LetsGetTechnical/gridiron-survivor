@@ -1,8 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-const { ID } = require('appwrite');
-const sdk = require('node-appwrite');
+const { ID, Query } = require('appwrite');
+const sdk, = require('node-appwrite');
 
 /**
  * creates a new user record in the User collection
@@ -21,6 +21,17 @@ const user = async ({ req, res }) => {
     .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
     .setProject(process.env.PROJECT_ID) // Your project ID
     .setKey(process.env.X_Appwrite_Key); // Your secret API key
+
+  // check if user exists
+  const user = await databases.listDocuments(
+    process.env.DATABASE_ID,
+    process.env.COLLECTION_USERS_ID,
+    [Query.equal('$id', req.body['$id'])],
+  );
+
+  if (user.documents.length > 0) {
+    return res.json({ msg: 'User already exists!' });
+  }
 
   // create a new user
   if (req.method === 'POST' && req.body.email && req.body['$id']) {
