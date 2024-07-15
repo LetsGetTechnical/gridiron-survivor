@@ -90,7 +90,9 @@ export const onWeeklyPickChange = async ({
     toast.custom(
       <Alert
         variant={AlertVariants.Success}
-        message="You've successfully picked your team!"
+        message={`You have successfully pick the ${
+          currentUserPick[user.id][entry].teamName
+        } for your team!`}
       />,
     );
   } catch (error) {

@@ -16,21 +16,13 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
-jest.mock('../../../../../../utils/utils', () => ({
-  parseUserPick: jest.fn().mockReturnValue({
-    mockUserId: {
-      mockEntry: {},
-    },
-  }),
-}));
-
 describe('Week', () => {
   const data = {
-    target: { value: 'mockTeam' },
+    target: { value: 'Browns' },
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   } as any;
-  const NFLTeams = [{ teamName: 'mockTeam', teamId: 'mockId' }];
+  const NFLTeams = [{ teamName: 'Browns', teamId: 'mockId' }];
   const user = { id: 'mockUserId', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
@@ -72,6 +64,20 @@ describe('Week', () => {
   test('should show success notification after changing your team pick', async () => {
     (createWeeklyPicks as jest.Mock).mockResolvedValue({});
 
+    const mockParseUserPick = jest.fn().mockReturnValue({
+      [user.id]: {
+        [entry]: {
+          teamName: 'Browns',
+        },
+      },
+    });
+
+    jest.mock('../../../../../../utils/utils', () => ({
+      parseUserPick: mockParseUserPick,
+    }));
+
+    const currentUserPick = mockParseUserPick(user.id, entry, teamID || '');
+
     await onWeeklyPickChange({
       data,
       NFLTeams,
@@ -90,12 +96,18 @@ describe('Week', () => {
       userResults: updatedWeeklyPicks,
     });
 
-    expect(parseUserPick).toHaveBeenCalledWith(user.id, entry, teamID || '');
+    expect(mockParseUserPick).toHaveBeenCalledWith(
+      user.id,
+      entry,
+      teamID || '',
+    );
 
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert
         variant={AlertVariants.Success}
-        message="You've successfully picked your team!"
+        message={`You have successfully pick the ${
+          currentUserPick[user.id][entry].teamName
+        } for your team!`}
       />,
     );
   });
