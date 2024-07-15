@@ -38,6 +38,51 @@ export async function registerAccount({
 }
 
 /**
+ * Create a magic URL token that is sent to the user's email
+ * @param email - The email of the user
+ * @returns {void} - The magic URL token
+ */
+export const createMagicURLToken = async (
+  email: IUser['email'],
+): Promise<void> => {
+  try {
+    await account.createMagicURLToken(
+      ID.unique(),
+      email,
+      'http://localhost:3000/auth/magicURL',
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creating magic URL token');
+  }
+};
+
+/**
+ * Create a session from a magic URL token
+ * @param props - The account data
+ * @param props.userId - The user ID
+ * @param props.secret - The secret
+ * @returns {void} - The session
+ */
+export const createSessionFromMagicURLToken = async ({
+  userId,
+  secret,
+}: {
+  userId: IUser['id'];
+  secret: string;
+}): Promise<void> => {
+  console.log('userId', userId);
+  console.log('secret', secret);
+
+  try {
+    await account.createSession(userId, secret);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creating session from magic URL token');
+  }
+};
+
+/**
  * Login to an existing account
  * @param props - The account data
  * @param props.email - The email of the user
