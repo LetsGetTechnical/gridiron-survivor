@@ -2,22 +2,53 @@
 // Licensed under the MIT License.
 
 import React, { ChangeEvent } from 'react';
-import { IWeekProps } from './Week.interface';
 import { createWeeklyPicks } from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
+import { INFLTeam } from '@/api/apiFunctions.interface';
+import { IUser } from '@/api/apiFunctions.interface';
+import { IWeeklyPicks } from '@/api/apiFunctions.interface';
 
 /**
  * Handles the form submission.
- * @param data - The form data.
+ * @param props - data, NFLTeams, user, entry, weeklyPicks, league, week, updateWeeklyPicks, setUserPick
+ * @param props.data - The form data.
+ * @param props.NFLTeams - Props for NFL teams
+ * @param props.user - Props for user
+ * @param props.entry - Prop for the entry string
+ * @param props.weeklyPicks - Props for the weeklyPicks
+ * @param props.league - Prop value for the leagueId in createWeeklyPicks
+ * @param props.week - Prop value for gameWeekId in updateWeeklyPicks
+ * @param props.updateWeeklyPicks - Prop for the updateWeeklyPicks function
+ * @param props.setUserPick - Prop for the setUserPick function
  * @returns {void}
  */
-const onWeeklyPickChange = async ({
+export const onWeeklyPickChange = async ({
   data,
+  NFLTeams,
+  user,
+  entry,
+  weeklyPicks,
+  league,
+  week,
+  updateWeeklyPicks,
+  setUserPick,
 }: {
   data: ChangeEvent<HTMLInputElement>;
+  NFLTeams: INFLTeam[];
+  user: IUser;
+  entry: string;
+  weeklyPicks: IWeeklyPicks;
+  league: string;
+  week: string;
+  updateWeeklyPicks: ({
+    leagueId,
+    gameWeekId,
+    userResults,
+  }: IWeeklyPicks) => void;
+  setUserPick: (value: React.SetStateAction<string>) => void;
 }): Promise<void> => {
   try {
     const teamSelect = data.target.value;
