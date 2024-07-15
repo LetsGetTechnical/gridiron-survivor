@@ -38,7 +38,7 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  * @returns {JSX.Element} The rendered login page.
  */
 const Login = (): JSX.Element => {
-  const { loginAccount, isSignedIn, getUser } = useAuthContext();
+  const { login, isSignedIn, getUser } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
@@ -65,10 +65,10 @@ const Login = (): JSX.Element => {
   /**
    * A function that handles form submission.
    * @param {LoginUserSchemaType} data - The data submitted in the form.
-   * @returns {Promise<void>} A promise that resolves when the `loginAccount` function completes.
+   * @returns {Promise<void>} A promise that resolves when the `login` function completes.
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
-    await loginAccount(data);
+    await login(data);
   };
 
   return (
