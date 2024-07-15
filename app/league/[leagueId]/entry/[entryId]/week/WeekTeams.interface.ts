@@ -29,7 +29,9 @@ export interface IWeekTeamsProps {
   schedule: ISchedule[];
   userPick: string;
   // eslint-disable-next-line no-unused-vars
-  onWeeklyPickChange: (data: ChangeEvent<HTMLInputElement>) => Promise<void>;
+  handleWeeklyPickChange: (
+    data: ChangeEvent<HTMLInputElement>,
+  ) => Promise<void>;
 }
 
 interface ICompetition {
