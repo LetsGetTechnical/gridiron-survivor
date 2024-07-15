@@ -69,5 +69,12 @@ describe('Week', () => {
       entry,
       teamID || '',
     );
+
+    expect(toast.custom).toHaveBeenCalledWith(
+      <Alert
+        variant={AlertVariants.Success}
+        message="You've successfully picked your team!"
+      />,
+    );
   });
 });
