@@ -21,6 +21,9 @@ import {
   FormItem,
   FormMessage,
 } from '../../components/Form/Form';
+import { toast } from 'react-hot-toast';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const RegisterUserSchema = z
   .object({
@@ -50,11 +53,11 @@ type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
  */
 const Register = (): JSX.Element => {
   const router = useRouter();
-  const { loginAccount, isSignedIn } = useAuthContext();
+  const { login, isSignedIn } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push('/weeklyPicks');
+      router.push('/league/all');
     }
   }, [isSignedIn]);
 
@@ -64,7 +67,6 @@ const Register = (): JSX.Element => {
 
   /**
    * The current value of the 'email' field in the form.
-   * 
    * @type {string}
    */
   const email: string = useWatch({
@@ -103,10 +105,19 @@ const Register = (): JSX.Element => {
   ): Promise<void> => {
     try {
       await registerAccount(data);
-      await loginAccount(data);
-      router.push('/weeklyPicks');
+      await login(data);
+      router.push('/league/all');
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You have successfully registered your account."
+        />,
+      );
     } catch (error) {
       console.error('Registration Failed', error);
+      toast.custom(
+        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
+      );
     }
   };
 
