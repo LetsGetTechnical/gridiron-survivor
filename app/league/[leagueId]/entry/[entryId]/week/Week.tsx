@@ -22,6 +22,9 @@ import { ChevronLeft } from 'lucide-react';
 import { getCurrentLeague } from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { toast } from 'react-hot-toast';
 
 /**
  * Renders the weekly picks page.
@@ -125,8 +128,21 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       });
 
       setUserPick(currentUserPick[user.id][entry].teamName);
+
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You've successfully picked your team!"
+        />,
+      );
     } catch (error) {
       console.error('Submission error:', error);
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Error}
+          message="There was an error processing your request."
+        />,
+      );
     }
   };
 
