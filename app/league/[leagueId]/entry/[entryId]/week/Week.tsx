@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { ChangeEvent, JSX, useEffect, useState } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import {
   FormField,
   FormItem,
