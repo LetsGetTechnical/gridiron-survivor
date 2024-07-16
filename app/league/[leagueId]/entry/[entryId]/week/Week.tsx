@@ -145,7 +145,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                       schedule={schedule}
                       field={field}
                       userPick={userPick}
-                      handleWeeklyPickChange={handleWeeklyPickChange}
+                      onWeeklyPickChange={handleWeeklyPickChange}
                     />
                   </FormControl>
                   <FormMessage />

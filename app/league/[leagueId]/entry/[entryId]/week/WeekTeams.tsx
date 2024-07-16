@@ -38,14 +38,14 @@ const formatDateTime = (dateString: string): string => {
  * @param props.field The form field.
  * @param props.schedule The schedule for the week.
  * @param props.userPick The user's pick.
- * @param props.handleWeeklyPickChange The function to call when the user's pick changes.
+ * @param props.onWeeklyPickChange The function to call when the user's pick changes.
  * @returns The rendered weekly picks page.
  */
 const WeekTeams = ({
   field,
   schedule,
   userPick,
-  handleWeeklyPickChange,
+  onWeeklyPickChange,
 }: IWeekTeamsProps): JSX.Element => (
   <>
     {schedule.map((scheduledGame) => (
@@ -55,9 +55,7 @@ const WeekTeams = ({
         key={scheduledGame.id}
         className="grid w-full grid-cols-2 gap-4 pb-8"
         onChange={(event) =>
-          handleWeeklyPickChange(
-            event as unknown as ChangeEvent<HTMLInputElement>,
-          )
+          onWeeklyPickChange(event as unknown as ChangeEvent<HTMLInputElement>)
         }
       >
         <div className="week-page-game-schedule col-span-2 text-center">
