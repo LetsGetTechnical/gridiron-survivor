@@ -8,6 +8,7 @@ import {
   IUser,
   IWeeklyPicks,
 } from '@/api/apiFunctions.interface';
+import { IEntry } from '@/app/league/[leagueId]/entry/Entries.interface';
 
 export interface IGetGameData {
   userId: IUser['id'];
@@ -16,12 +17,13 @@ export interface IGetGameData {
 
 export interface IGetGameWeekResults {
   league: ILeague | null;
-  weeklyPicksData: IWeeklyPicks | '';
+  weeklyPicksData: IWeeklyPicks;
 }
 
 export interface IGetUserPick {
   weeklyPicks: IWeeklyPicks['userResults'];
   userId: IUser['id'];
+  entryId: IEntry['$id'];
   NFLTeams: INFLTeam[];
 }
 
@@ -32,6 +34,7 @@ export interface IParseUserPick {
 
 export interface UseProcessGameProps {
   leagueId: string;
+  entryId: string;
   gameWeek: { id: string };
   user: { id: string };
   NFLTeams: INFLTeam[];

@@ -1,22 +1,31 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { toast } from 'react-hot-toast';
 
-const mockLoginAccount = jest.fn();
+const mockLogin = jest.fn();
 const mockPush = jest.fn();
 
 jest.mock('../../api/apiFunctions', () => ({
   registerAccount: jest.fn(),
 }));
 
-let emailInput: HTMLElement;
-let passwordInput: HTMLElement;
+jest.mock('react-hot-toast', () => ({
+  toast: {
+    custom: jest.fn(),
+  },
+}));
+
 let confirmPasswordInput: HTMLElement;
 let continueButton: HTMLElement;
+let emailInput: HTMLElement;
+let passwordInput: HTMLElement;
 
 const mockUseAuthContext = {
-  loginAccount: mockLoginAccount,
   isSignedIn: false,
+  login: mockLogin,
 };
 
 // Mock the useRouter and useAuthContext hooks
@@ -83,7 +92,7 @@ describe('Register', () => {
         password: 'rawr123',
         confirmPassword: 'rawr123',
       });
-      expect(mockLoginAccount).toHaveBeenCalledWith({
+      expect(mockLogin).toHaveBeenCalledWith({
         email: 'rt@example.com',
         password: 'rawr123',
         confirmPassword: 'rawr123',
@@ -91,15 +100,69 @@ describe('Register', () => {
     });
   });
 
-  test('redirects to /weeklyPicks when the button is clicked', async () => {
+  test('redirects to /league/all when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<Register />);
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/weeklyPicks');
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
     });
 
     mockUseAuthContext.isSignedIn = false;
+  });
+
+  test('should show success notification upon successful submission', async () => {
+    fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
+    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
+    fireEvent.click(continueButton);
+
+    await waitFor(() => {
+      expect(registerAccount).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+        confirmPassword: 'pw1234',
+      });
+      expect(mockLogin).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+        confirmPassword: 'pw1234',
+      });
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
+      expect(toast.custom).toHaveBeenCalledWith(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You have successfully registered your account."
+        />,
+      );
+    });
+  });
+
+  test('should show error notification upon submission failing', async () => {
+    mockLogin.mockImplementationOnce(() =>
+      Promise.reject(new Error('Mock error')),
+    );
+
+    fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
+    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
+    fireEvent.click(continueButton);
+
+    await waitFor(() => {
+      expect(registerAccount).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+        confirmPassword: 'pw1234',
+      });
+      expect(mockLogin).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'pw1234',
+        confirmPassword: 'pw1234',
+      });
+      expect(toast.custom).toHaveBeenCalledWith(
+        <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
+      );
+    });
   });
 });

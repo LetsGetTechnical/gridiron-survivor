@@ -2,7 +2,8 @@
 // Licensed under the MIT License.
 
 export interface ILeagueEntriesProps {
-  entryNumber: number;
+  entryName: string;
+  linkUrl: string;
   isEliminated?: boolean;
   isPickSet?: boolean;
 }
