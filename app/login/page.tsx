@@ -86,7 +86,7 @@ const Login = (): JSX.Element => {
       <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
         <div>
           <h1 className="text-5xl font-extrabold tracking-tight">
-            Join Gridiron Survivor
+            Join Gridiron Survivor poop
           </h1>
           <p className="pb-4 font-normal leading-7 text-zinc-500">
             Log in to your existing account or{' '}
