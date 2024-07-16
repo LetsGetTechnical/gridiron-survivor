@@ -32,7 +32,7 @@ const RootLayout = ({
 }): JSX.Element => {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="dark:dark bg-background px-4 pb-8 text-foreground">
+      <body className="dark:dark bg-background pb-8 px-4 text-foreground xl:pb-0">
         <ErrorBoundary>
           <AuthContextProvider>
             <Nav />
