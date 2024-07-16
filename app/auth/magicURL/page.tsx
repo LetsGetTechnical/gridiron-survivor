@@ -4,9 +4,8 @@
 'use client';
 
 import { JSX, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { createSessionFromMagicURLToken } from '@/api/apiFunctions';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 /**
  * Renders the Magic URL page.
@@ -16,7 +15,7 @@ const Page = (): JSX.Element => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // 
+  //
   const userId = searchParams.get('userId') as string;
   const secret = searchParams.get('secret') as string;
 

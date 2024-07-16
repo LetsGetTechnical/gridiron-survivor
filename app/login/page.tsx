@@ -42,6 +42,7 @@ const Login = (): JSX.Element => {
           <h1 className="text-5xl font-extrabold tracking-tight">
             Join Gridiron Survivor
           </h1>
+
           {loginMethod === 'emailPassword' ? (
             <p className="pb-4 font-normal leading-7 text-zinc-500">
               Log in to your existing account or{' '}
@@ -50,8 +51,7 @@ const Login = (): JSX.Element => {
             </p>
           ) : (
             <p className="pb-4 font-normal leading-7 text-zinc-500">
-              Enter your email to login and get
-              started with a league
+              Enter your email to login and get started with a league
             </p>
           )}
         </div>
@@ -75,6 +75,7 @@ const Login = (): JSX.Element => {
             setLoginMethod(loginMethod === 'email' ? 'emailPassword' : 'email')
           }
         />
+
         {loginMethod === 'emailPassword' && (
           <LinkCustom href="/register">
             Sign up to get started with a league
