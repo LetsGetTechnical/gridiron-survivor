@@ -46,10 +46,55 @@ export const createMagicURLToken = async (
   email: IUser['email'],
 ): Promise<void> => {
   try {
-    await account.createMagicURLToken(
+    // create a magic URL token and send it to the user's email
+    const token = await account.createMagicURLToken(
       ID.unique(),
       email,
       'http://localhost:3000/auth/magicURL',
+    );
+
+    // check if the user has a document in the Users collection
+    const user = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      [Query.equal('userId', token.userId)],
+    );
+
+    // if the user does not exist, create a new document in the Users collection
+    if (user.documents.length === 0) {
+      await databases.createDocument(
+        appwriteConfig.databaseId,
+        Collection.USERS,
+        ID.unique(),
+        {
+          email,
+          name: '',
+          labels: [],
+          userId: token.userId,
+          leagues: [Document.GIS_LEAGUE],
+        },
+      );
+    }
+
+    // fetch the league document
+    const league = await databases.getDocument(
+      appwriteConfig.databaseId,
+      Collection.LEAGUE,
+      Document.GIS_LEAGUE,
+    );
+
+    // update the league participants and survivors with the user's id
+    const updatedParticipants = [...league.participants, token.userId];
+    const updatedSurvivors = [...league.survivors, token.userId];
+
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.LEAGUE,
+      Document.GIS_LEAGUE,
+      {
+        participants: updatedParticipants,
+        survivors: updatedSurvivors,
+      },
     );
   } catch (error) {
     console.error(error);

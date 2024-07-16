@@ -35,4 +35,5 @@ export enum GameWeek {
  */
 export enum Document {
   CURRENT_GAME_WEEK = '664cfd88003c6cf2ff75',
+  GIS_LEAGUE = '66311a210039f0532044',
 }
