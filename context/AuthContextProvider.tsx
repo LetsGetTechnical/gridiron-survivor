@@ -10,6 +10,7 @@ import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
+import { loginAccount } from './AuthHelper';
 import { usePathname } from 'next/navigation';
 
 type UserCredentials = {
@@ -18,11 +19,11 @@ type UserCredentials = {
 };
 
 type AuthContextType = {
-  isSignedIn: boolean;
-  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  loginAccount: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
-  logoutAccount: () => Promise<void>;
   getUser: () => Promise<IUser | undefined>;
+  isSignedIn: boolean;
+  login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
+  logoutAccount: () => Promise<void>;
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -56,16 +57,14 @@ export const AuthContextProvider = ({
   /**
    * Authenticate and set session state
    * @param user - The user credentials.
+   * @param router - Module for routing
    * @returns The error if there is one.
    */
-  const loginAccount = async (user: UserCredentials): Promise<void | Error> => {
+  const login = async (user: UserCredentials): Promise<void | Error> => {
     try {
-      await account.createEmailPasswordSession(user.email, user.password);
-      await getUser(); // Fetch user data and update state
-      router.push('/league/all');
+      await loginAccount({ user, router, getUser });
     } catch (error) {
       console.error('Login error:', error);
-      return error as Error;
     }
   };
 
@@ -125,11 +124,11 @@ export const AuthContextProvider = ({
   // Memoize context values to avoid unnecessary re-renders
   const contextValue = useMemo(
     () => ({
-      isSignedIn,
-      setIsSignedIn,
-      loginAccount,
-      logoutAccount,
       getUser,
+      isSignedIn,
+      login,
+      logoutAccount,
+      setIsSignedIn,
     }),
     [isSignedIn],
   );
