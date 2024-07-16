@@ -88,7 +88,7 @@ const Entry = ({
       {entries.map((entry) => {
         const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
         const isPickSet = entry.selectedTeams.length > 0;
-        const isEliminated = entry.selectedTeams.length === 0;
+        const teamLogo = isPickSet ? entry.selectedTeams[0].teamLogo : '';
 
         return (
           <section key={entry.$id}>
@@ -97,7 +97,7 @@ const Entry = ({
               entryName={entry.name}
               linkUrl={linkUrl}
               isPickSet={isPickSet}
-              isEliminated={isEliminated}
+              teamLogo={teamLogo}
             />
           </section>
         );
