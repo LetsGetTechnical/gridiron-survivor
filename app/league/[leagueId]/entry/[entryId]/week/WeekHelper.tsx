@@ -43,11 +43,7 @@ export const onWeeklyPickChange = async ({
   weeklyPicks: IWeeklyPicks;
   league: string;
   week: string;
-  updateWeeklyPicks: ({
-    leagueId,
-    gameWeekId,
-    userResults,
-  }: IWeeklyPicks) => void;
+  updateWeeklyPicks: ({}: IWeeklyPicks) => void;
   setUserPick: (value: React.SetStateAction<string>) => void;
 }): Promise<void> => {
   try {
