@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { Client, Account, Databases, ID, Functions } from 'appwrite';
+import { Client, Account, Databases, ID } from 'appwrite';
 
 const URL = process.env.NEXT_PUBLIC_APPWRITE_API_URL as string;
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string;
@@ -20,5 +20,4 @@ client.setProject(appwriteConfig.projectId);
 
 export const account = new Account(client);
 export const databases = new Databases(client);
-export const functions = new Functions(client);
 export { ID };
