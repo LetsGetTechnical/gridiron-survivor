@@ -103,15 +103,12 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
-   * Handles the form submission.
-   * @param data - The form data.
+   * Handles the weekly pick team change
+   * @param teamSelect - the selected team name.
    * @returns {void}
    */
-  const onWeeklyPickChange = async (
-    data: ChangeEvent<HTMLInputElement>,
-  ): Promise<void> => {
+  const onWeeklyPickChange = async (teamSelect: string): Promise<void> => {
     try {
-      const teamSelect = data.target.value;
       const teamID = NFLTeams.find(
         (team) => team.teamName === teamSelect,
       )?.teamName;
