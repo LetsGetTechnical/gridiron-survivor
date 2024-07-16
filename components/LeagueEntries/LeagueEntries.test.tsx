@@ -4,14 +4,16 @@ import React from 'react';
 
 describe('LeagueEntries', () => {
   it(`renders 'default' state without a pick made`, () => {
-    render(<LeagueEntries entryName="Entry 1" linkUrl='' />);
+    render(<LeagueEntries entryName="Entry 1" linkUrl="" />);
 
     const leagueEntryContainerCard = screen.getByTestId(
       'league-entry-container-card',
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId('league-entry-pick-button');
+    const leagueEntryPickButton = screen.getByTestId(
+      'league-entry-pick-button',
+    );
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
@@ -20,14 +22,16 @@ describe('LeagueEntries', () => {
   });
 
   it('renders as if the user made a pick', () => {
-    render(<LeagueEntries entryName="Entry 2" linkUrl='' isPickSet={true} />);
+    render(<LeagueEntries entryName="Entry 2" linkUrl="" isPickSet={true} />);
 
     const leagueEntryContainerCard = screen.getByTestId(
       'league-entry-container-card',
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId('league-entry-pick-button');
+    const leagueEntryPickButton = screen.getByTestId(
+      'league-entry-pick-button',
+    );
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
@@ -36,7 +40,14 @@ describe('LeagueEntries', () => {
   });
 
   it('renders as if the user is eliminated', () => {
-    render(<LeagueEntries entryName="Entry 3" linkUrl='' isEliminated isPickSet={false} />);
+    render(
+      <LeagueEntries
+        entryName="Entry 3"
+        linkUrl=""
+        isEliminated
+        isPickSet={false}
+      />,
+    );
 
     const leagueEntryContainerCard = screen.getByTestId(
       'league-entry-container-card',
@@ -49,5 +60,35 @@ describe('LeagueEntries', () => {
       'bg-zinc-100 dark:bg-zinc-900',
     );
     expect(leagueEntryNumber).toHaveTextContent('Entry 3');
+  });
+
+  it('renders teamLogo when user makes a pick', () => {
+    const teamLogoUrl = 'https://example.com/logo.png';
+
+    render(
+      <LeagueEntries
+        entryName="Entry 2"
+        linkUrl=""
+        isPickSet={true}
+        teamLogo={teamLogoUrl}
+      />,
+    );
+
+    const leagueEntryContainerCard = screen.getByTestId(
+      'league-entry-container-card',
+    );
+    const leagueEntryNumber = screen.getByTestId('league-entry-number');
+    const entryStatus = screen.getByTestId('entry-status');
+    const leagueEntryPickButton = screen.getByTestId(
+      'league-entry-pick-button',
+    );
+    const leagueEntryLogo = screen.getByTestId('league-entry-logo');
+
+    expect(entryStatus).toHaveTextContent('alive');
+    expect(leagueEntryContainerCard).toBeInTheDocument();
+    expect(leagueEntryNumber).toHaveTextContent('Entry 2');
+    expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
+    expect(leagueEntryLogo).toBeInTheDocument();
+    expect(leagueEntryLogo).toHaveAttribute('src', teamLogoUrl);
   });
 });
