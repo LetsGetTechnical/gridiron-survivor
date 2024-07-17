@@ -9,6 +9,7 @@ jest.mock('./apiFunctions', () => {
     createWeeklyPicks: jest.fn(),
     getUserWeeklyPick: jest.fn(),
     getAllWeeklyPicks: jest.fn(),
+    getCurrentUserEntries: jest.fn(),
   };
 });
 
@@ -136,5 +137,30 @@ describe('Get All Weekly Picks Mock Function', () => {
     const result = await apiFunctions.getAllWeeklyPicks();
 
     expect(result).toEqual(response);
+  });
+});
+
+describe('Get User Entries And Test', () => {
+  it('should all user entries and check if eliminated is included', async () => {
+    const userEntries = [
+      {
+        $id: '000',
+        name: 'name',
+        user: '000',
+        league: {},
+        selectedTeams: [],
+        eliminated: true,
+      },
+    ];
+
+    const resp = { documents: userEntries };
+
+    apiFunctions.getCurrentUserEntries.mockResolvedValue(resp.documents[0]);
+
+    const result = await apiFunctions.getCurrentUserEntries();
+
+    console.log(result);
+
+    expect(result.eliminated).toEqual(resp.documents[0].eliminated);
   });
 });

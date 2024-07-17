@@ -94,6 +94,7 @@ const Entry = ({
               key={entry.$id}
               entryName={entry.name}
               linkUrl={linkUrl}
+              isEliminated={entry.eliminated}
             />
           </section>
         );

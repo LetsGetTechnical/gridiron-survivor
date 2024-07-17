@@ -109,14 +109,16 @@ export async function getCurrentUserEntries(
       [Query.equal('user', userId), Query.equal('league', leagueId)],
     );
 
+    console.log(response);
     const entries = response.documents.map((entry) => ({
       $id: entry.$id,
       name: entry.name,
       user: entry.user,
       league: entry.league,
       selectedTeams: entry.selectedTeams,
+      eliminated: entry.eliminated,
     }));
-
+    console.log(entries);
     return entries;
   } catch (error) {
     console.error(error);
