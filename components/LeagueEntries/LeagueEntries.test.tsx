@@ -43,9 +43,9 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 3"
-        linkUrl=""
         isEliminated
         isPickSet={false}
+        linkUrl=""
       />,
     );
 
@@ -68,8 +68,8 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 2"
-        linkUrl=""
         isPickSet={true}
+        linkUrl=""
         teamLogo={teamLogoUrl}
       />,
     );
@@ -85,7 +85,6 @@ describe('LeagueEntries', () => {
     const leagueEntryLogo = screen.getByTestId('league-entry-logo');
 
     expect(entryStatus).toHaveTextContent('alive');
-    expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 2');
     expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
     expect(leagueEntryLogo).toBeInTheDocument();

@@ -36,7 +36,6 @@ const Entry = ({
    */
   const getAllEntries = async (): Promise<void> => {
     const getEntries = await getCurrentUserEntries(user.id, leagueId);
-    //console.log('Entries', getEntries);
     setEntries(getEntries);
   };
 
@@ -95,8 +94,8 @@ const Entry = ({
             <LeagueEntries
               key={entry.$id}
               entryName={entry.name}
-              linkUrl={linkUrl}
               isPickSet={isPickSet}
+              linkUrl={linkUrl}
               teamLogo={teamLogo}
             />
           </section>
