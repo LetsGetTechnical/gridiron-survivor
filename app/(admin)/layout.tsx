@@ -5,7 +5,7 @@ import React, { JSX } from 'react';
 import { GeistSans } from 'geist/font/sans';
 import '../globals.css';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
-// import ErrorBoundary from '../error';
+import ErrorBoundary from '../error';
 import { Toaster } from 'react-hot-toast';
 
 const defaultUrl = process.env.VERCEL_URL
@@ -32,12 +32,12 @@ const RootLayout = ({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="dark:dark bg-background pb-8 px-4 text-foreground xl:pb-0">
-        {/* <ErrorBoundary> */}
-        <AuthContextProvider>
-          <main>{children}</main>
-          <Toaster />
-        </AuthContextProvider>
-        {/* </ErrorBoundary> */}
+        <ErrorBoundary>
+          <AuthContextProvider>
+            <main>{children}</main>
+            <Toaster />
+          </AuthContextProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );
