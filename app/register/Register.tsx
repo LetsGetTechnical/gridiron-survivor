@@ -172,7 +172,7 @@ const Register = (): JSX.Element => {
                             id="email"
                             data-testid="email"
                             type="email"
-                            placeholder="Email"
+                            placeholder="Your email"
                             {...field}
                           />
                         </Label>
@@ -198,7 +198,7 @@ const Register = (): JSX.Element => {
                             id="password"
                             data-testid="password"
                             type="password"
-                            placeholder="Password"
+                            placeholder="Your password"
                             {...field}
                           />
                         </Label>
@@ -223,7 +223,7 @@ const Register = (): JSX.Element => {
                             id="confirm-password"
                             data-testid="confirm-password"
                             type="password"
-                            placeholder="Confirm Password"
+                            placeholder="Confirm your password"
                             {...field}
                           />
                         </Label>
