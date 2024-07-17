@@ -18,13 +18,14 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
     survivors,
     title,
     totalPlayers,
-  }) => (
+  }, ref) => (
     <Link
       data-testid="LeagueCard"
       href={href}
       className={cn(
         'LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800 hover:bg-zinc-800 transition',
       )}
+      ref={ref}
     >
       <Image
         alt="League Logo"
