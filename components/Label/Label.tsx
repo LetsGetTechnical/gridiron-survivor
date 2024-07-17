@@ -9,12 +9,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../utils/utils';
 
 const labelVariants = cva(
-  'text-base font-normal leading-none gap-2 w-full transition',
+  'font-normal leading-none gap-2 w-full transition',
   {
     variants: {
       variant: {
-        weeklyPickButtonLabel: 'text-zinc-50 cursor-pointer rounded-xl items-center py-4 px-3 border-2 border-zinc-800 peer-aria-checked:border-orange-600 peer-hover:bg-zinc-800 flex',
-        inputLabel: 'text-zinc-900 cursor-text flex-col'
+        weeklyPickButtonLabel: 'text-base text-zinc-50 cursor-pointer rounded-xl items-center py-4 px-3 border-2 border-zinc-800 peer-aria-checked:border-orange-600 peer-hover:bg-zinc-800 flex',
+        inputLabel: 'text-sm text-zinc-900 cursor-text flex-col'
       }
     },
     defaultVariants: {
