@@ -14,11 +14,11 @@ type UserCredentials = {
   password: string;
 };
 
-type logoutType = {
+interface logoutType {
   setIsSignedIn: (bool: false) => void;
   resetUser: React.Dispatch<React.SetStateAction<void>>;
   router: AppRouterInstance;
-};
+}
 
 /**
  * Authenticate and set session state
@@ -66,9 +66,10 @@ export const logoutFunction = async ({
   resetUser,
 }: logoutType) => {
   try {
+    throw Error('new error');
     await account.deleteSession('current');
     setIsSignedIn(false);
-    resetUser(); // Reset user data in the store
+    resetUser();
     toast.custom(
       <Alert variant={AlertVariants.Success} message="Logged Out" />,
     );
