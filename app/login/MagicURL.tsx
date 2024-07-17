@@ -15,6 +15,9 @@ import {
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { createMagicURLToken } from '@/api/apiFunctions';
+import { toast } from 'react-hot-toast';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 const LoginUserSchema = z.object({
   email: z
@@ -46,8 +49,15 @@ const MagicURLForm = (): JSX.Element => {
    * @returns {Promise<void>} A promise that resolves when the `login` function completes.
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
-    createMagicURLToken(data.email);
-    
+    await createMagicURLToken(data.email);
+
+    // notify user that they should check their email
+    toast.custom(
+      <Alert
+        variant={AlertVariants.Success}
+        message="You should receive an email with a magic link to log in.  Please check your email inbox."
+      />,
+    );
   };
 
   return (

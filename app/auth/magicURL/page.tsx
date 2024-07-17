@@ -15,7 +15,7 @@ const Page = (): JSX.Element => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  //
+  // get the user id and secret from the search params
   const userId = searchParams.get('userId') as string;
   const secret = searchParams.get('secret') as string;
 

@@ -53,6 +53,8 @@ export const createMagicURLToken = async (
       'http://localhost:3000/auth/magicURL',
     );
 
+    // ! THIS FOLLOWING IS A TEMPORARY SOLUTION FOR ADDING THE USER TO THE LEAGUE AUTOMATICALLY WHEN USING MAGIC URL
+    // ! AS A LOGIN METHOD. IT WILL BE REMOVED WHEN THE SEARCH FOR LEAGUE IS IMPLEMENTED.
     // check if the user has a document in the Users collection
     const user = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -67,35 +69,36 @@ export const createMagicURLToken = async (
         Collection.USERS,
         ID.unique(),
         {
-          email,
+          email: email,
           name: '',
           labels: [],
           userId: token.userId,
           leagues: [Document.GIS_LEAGUE],
         },
       );
+
+      // fetch the league document to get the participants and survivors
+      const league = await databases.getDocument(
+        appwriteConfig.databaseId,
+        Collection.LEAGUE,
+        Document.GIS_LEAGUE,
+      );
+
+      // update the league participants and survivors with the new user's id
+      const updatedParticipants = [...league.participants, token.userId];
+      const updatedSurvivors = [...league.survivors, token.userId];
+
+      // update the league with the new user's id into the list of participants and survivors
+      await databases.updateDocument(
+        appwriteConfig.databaseId,
+        Collection.LEAGUE,
+        Document.GIS_LEAGUE,
+        {
+          participants: updatedParticipants,
+          survivors: updatedSurvivors,
+        },
+      );
     }
-
-    // fetch the league document
-    const league = await databases.getDocument(
-      appwriteConfig.databaseId,
-      Collection.LEAGUE,
-      Document.GIS_LEAGUE,
-    );
-
-    // update the league participants and survivors with the user's id
-    const updatedParticipants = [...league.participants, token.userId];
-    const updatedSurvivors = [...league.survivors, token.userId];
-
-    await databases.updateDocument(
-      appwriteConfig.databaseId,
-      Collection.LEAGUE,
-      Document.GIS_LEAGUE,
-      {
-        participants: updatedParticipants,
-        survivors: updatedSurvivors,
-      },
-    );
   } catch (error) {
     console.error(error);
     throw new Error('Error creating magic URL token');
