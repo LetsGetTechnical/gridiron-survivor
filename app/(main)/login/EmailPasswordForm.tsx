@@ -10,7 +10,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '../../components/Form/Form';
+} from '../../../components/Form/Form';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { useAuthContext } from '@/context/AuthContextProvider';
