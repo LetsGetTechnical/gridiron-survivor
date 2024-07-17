@@ -1,38 +1,10 @@
-name: LGT Jest & Playwright Tests
+name: E2E Tests
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
-  jest-test:
-    runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
-      NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
-      NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
-      APPWRITE_API_KEY: ${{ secrets.APPWRITE_API_KEY }}
-    strategy:
-      matrix:
-        node-version: ['20.x']
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-      
-      - name: Install dependencies
-        run: pnpm install
-      - name: tests
-        run: pnpm test
-
   test-e2e-setup:
     name: Setup E2E Tests
     runs-on: ubuntu-latest
@@ -49,9 +21,9 @@ jobs:
       - name: Get URL
         run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
 
-  test_e2e:
+  test-e2e:
     needs: test-e2e-setup
-    name: Playwright Tests
+    name: E2E Tests
     timeout-minutes: 5
     runs-on: ubuntu-latest
     env:
@@ -64,8 +36,8 @@ jobs:
         with:
           node-version: lts/*
       - run: npm install -g pnpm && pnpm install
-      - run: pnpm exec playwright install --with-deps   
-      - run: pnpm exec playwright test 
+      - run: pnpm exec playwright install --with-deps
+      - run: pnpm exec playwright test
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         if: always()
