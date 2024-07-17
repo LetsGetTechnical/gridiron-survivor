@@ -27,24 +27,24 @@ import { IWeeklyPicks } from '@/api/apiFunctions.interface';
  */
 export const onWeeklyPickChange = async ({
   data,
-  NFLTeams,
-  user,
   entry,
-  weeklyPicks,
   league,
-  week,
-  updateWeeklyPicks,
+  NFLTeams,
   setUserPick,
+  updateWeeklyPicks,
+  user,
+  weeklyPicks,
+  week,
 }: {
   data: ChangeEvent<HTMLInputElement>;
-  NFLTeams: INFLTeam[];
-  user: IUser;
   entry: string;
-  weeklyPicks: IWeeklyPicks;
   league: string;
-  week: string;
-  updateWeeklyPicks: ({}: IWeeklyPicks) => void;
+  NFLTeams: INFLTeam[];
   setUserPick: React.Dispatch<React.SetStateAction<string>>;
+  updateWeeklyPicks: ({}: IWeeklyPicks) => void;
+  user: IUser;
+  weeklyPicks: IWeeklyPicks;
+  week: string;
 }): Promise<void> => {
   try {
     const teamSelect = data.target.value;

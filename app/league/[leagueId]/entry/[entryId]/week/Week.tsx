@@ -90,14 +90,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   ): Promise<void> => {
     const params = {
       data,
-      NFLTeams,
-      user,
       entry,
-      weeklyPicks,
       league,
-      week,
-      updateWeeklyPicks,
+      NFLTeams,
       setUserPick,
+      updateWeeklyPicks,
+      user,
+      weeklyPicks,
+      week,
     };
     await onWeeklyPickChange(params);
   };
