@@ -16,7 +16,7 @@ import { Query } from 'appwrite';
 import {
   IEntry,
   IEntryProps,
-} from '@/app/league/[leagueId]/entry/Entries.interface';
+} from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
 
 /**
  * Register a new account
