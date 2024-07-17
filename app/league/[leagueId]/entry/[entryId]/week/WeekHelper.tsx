@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { createWeeklyPicks } from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import Alert from '@/components/AlertNotification/AlertNotification';
@@ -10,6 +10,12 @@ import { toast } from 'react-hot-toast';
 import { INFLTeam } from '@/api/apiFunctions.interface';
 import { IUser } from '@/api/apiFunctions.interface';
 import { IWeeklyPicks } from '@/api/apiFunctions.interface';
+
+interface IData {
+  target: {
+    value: string;
+  };
+}
 
 /**
  * Handles the form submission.
@@ -36,7 +42,7 @@ export const onWeeklyPickChange = async ({
   weeklyPicks,
   week,
 }: {
-  data: ChangeEvent<HTMLInputElement>;
+  data: IData;
   entry: string;
   league: string;
   NFLTeams: INFLTeam[];

@@ -3,10 +3,11 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { onWeeklyPickChange } from './WeekHelper';
-import { createWeeklyPicks } from '../../../../../../api/apiFunctions';
-import { parseUserPick } from '../../../../../../utils/utils';
+import { createWeeklyPicks } from '@/api/apiFunctions';
+import { parseUserPick } from '@/utils/utils';
+import { IWeeklyPicks } from '@/api/apiFunctions.interface';
 
-jest.mock('../../../../../../api/apiFunctions', () => ({
+jest.mock('@/api/apiFunctions', () => ({
   createWeeklyPicks: jest.fn(),
 }));
 
@@ -22,26 +23,17 @@ describe('Week', () => {
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   } as any;
-  const NFLTeams = [{ teamName: 'Browns', teamId: 'mockId' }];
-  const user = { id: 'mockUserId', email: 'email@example.com', leagues: [] };
+  const NFLTeams = [{ teamName: 'Browns', teamId: '1234' }];
+  const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
   const week = 'mockWeek';
   const updateWeeklyPicks = jest.fn();
   const setUserPick = jest.fn();
-  interface IUserResults {
-    [key: string]: any; // Adjust the 'any' to match the structure of your user results
-  }
-
-  interface IWeeklyPicks {
-    leagueId: string;
-    gameWeekId: string;
-    userResults: IUserResults;
-  }
 
   const weeklyPicks: IWeeklyPicks = {
-    leagueId: 'mockId',
-    gameWeekId: 'mockGameId',
+    leagueId: '123',
+    gameWeekId: '123456',
     userResults: {},
   };
 
@@ -57,6 +49,19 @@ describe('Week', () => {
       },
     },
   };
+
+  const mockParseUserPick = jest.fn().mockReturnValue({
+    [user.id]: {
+      [entry]: {
+        teamName: 'Browns',
+      },
+    },
+  });
+
+  jest.mock('@/utils/utils', () => ({
+    parseUserPick: mockParseUserPick,
+  }));
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -64,19 +69,7 @@ describe('Week', () => {
   test('should show success notification after changing your team pick', async () => {
     (createWeeklyPicks as jest.Mock).mockResolvedValue({});
 
-    const mockParseUserPick = jest.fn().mockReturnValue({
-      [user.id]: {
-        [entry]: {
-          teamName: 'Browns',
-        },
-      },
-    });
-
-    jest.mock('../../../../../../utils/utils', () => ({
-      parseUserPick: mockParseUserPick,
-    }));
-
-    const currentUserPick = mockParseUserPick(user.id, entry, teamID || '');
+    const currentUserPick = mockParseUserPick(user.id, entry, teamID);
 
     await onWeeklyPickChange({
       data,
@@ -96,11 +89,7 @@ describe('Week', () => {
       userResults: updatedWeeklyPicks,
     });
 
-    expect(mockParseUserPick).toHaveBeenCalledWith(
-      user.id,
-      entry,
-      teamID || '',
-    );
+    expect(mockParseUserPick).toHaveBeenCalledWith(user.id, entry, teamID);
 
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert
