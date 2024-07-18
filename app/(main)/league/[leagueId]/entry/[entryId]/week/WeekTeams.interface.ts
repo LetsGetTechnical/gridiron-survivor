@@ -1,7 +1,6 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { ChangeEvent } from 'react';
 import { ControllerRenderProps, FieldValues } from 'react-hook-form';
 
 export interface ISchedule {
