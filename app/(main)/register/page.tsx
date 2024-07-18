@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Renders the registartion page.
+ * Renders the registration page.
  * @returns {JSX.Element} The rendered registration page.
  */
 const RegisterPage = (): JSX.Element => {
