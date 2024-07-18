@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { IEntry } from '@/app/league/[leagueId]/entry/Entries.interface';
+import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
 
 export interface IAccountData {
   email: string;

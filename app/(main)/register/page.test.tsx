@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
 
-jest.mock('../../api/apiFunctions', () => ({
+jest.mock('../../../api/apiFunctions', () => ({
   registerAccount: jest.fn(),
 }));
 
@@ -37,7 +37,7 @@ jest.mock('next/navigation', () => ({
   },
 }));
 
-jest.mock('../../context/AuthContextProvider', () => ({
+jest.mock('../../../context/AuthContextProvider', () => ({
   useAuthContext() {
     return mockUseAuthContext;
   },

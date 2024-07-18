@@ -20,7 +20,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '../../components/Form/Form';
+} from '../../../components/Form/Form';
 import { toast } from 'react-hot-toast';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';

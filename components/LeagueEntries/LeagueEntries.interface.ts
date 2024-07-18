@@ -6,5 +6,5 @@ export interface ILeagueEntriesProps {
   linkUrl: string;
   isEliminated?: boolean;
   isPickSet?: boolean;
-  teamLogo?: string;
+  teamLogo: string;
 }
