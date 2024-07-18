@@ -222,6 +222,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                   <FormControl>
                     <WeekTeams
                       schedule={schedule}
+                      selectedTeams={selectedTeams}
                       field={field}
                       userPick={userPick}
                       onWeeklyPickChange={onWeeklyPickChange}

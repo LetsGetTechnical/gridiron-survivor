@@ -37,6 +37,7 @@ const formatDateTime = (dateString: string): string => {
  * @param props The parameters for the weekly picks page.
  * @param props.field The form field.
  * @param props.schedule The schedule for the week.
+ * @param props.selectedTeams The user's selected teams.
  * @param props.userPick The user's pick.
  * @param props.onWeeklyPickChange The function to call when the user's pick changes.
  * @returns The rendered weekly picks page.
@@ -44,6 +45,7 @@ const formatDateTime = (dateString: string): string => {
 const WeekTeams = ({
   field,
   schedule,
+  selectedTeams,
   userPick,
   onWeeklyPickChange,
 }: IWeekTeamsProps): JSX.Element => (

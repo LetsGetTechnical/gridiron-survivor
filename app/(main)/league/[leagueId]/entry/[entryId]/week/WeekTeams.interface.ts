@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { ControllerRenderProps, FieldValues } from 'react-hook-form';
+import { INFLTeam } from '@/api/apiFunctions.interface';
 
 export interface ISchedule {
   id: string;
@@ -26,6 +27,7 @@ export interface ISchedule {
 export interface IWeekTeamsProps {
   field: ControllerRenderProps<FieldValues, string>;
   schedule: ISchedule[];
+  selectedTeams: INFLTeam[];
   userPick: string;
   // eslint-disable-next-line no-unused-vars
   onWeeklyPickChange: (teamSelect: string) => Promise<void>;
