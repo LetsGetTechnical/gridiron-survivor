@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useCallback } from 'react';
+import React, { JSX } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
@@ -85,9 +85,9 @@ export const AuthContextProvider = ({
 
   /**
    * Get user data from the session
-   * @returns {Promise<void>}
+   * @returns {Promise<IUser | undefined>} - The user data or undefined if the user is not signed in
    */
-  const getUser = useCallback(async () => {
+  const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
       if (pathname !== '/register') {
         router.push('/login');
@@ -104,7 +104,7 @@ export const AuthContextProvider = ({
       resetUser();
       setIsSignedIn(false);
     }
-  }, [user, pathname]);
+  };
 
   /**
    * Helper function to validate session data in local storage
