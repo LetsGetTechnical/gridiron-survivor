@@ -3,10 +3,10 @@
 
 import React, { JSX } from 'react';
 import { GeistSans } from 'geist/font/sans';
-import './globals.css';
+import '../globals.css';
 import Nav from '@/components/Nav/Nav';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
-import ErrorBoundary from './error';
+import ErrorBoundary from '../error';
 import { Toaster } from 'react-hot-toast';
 
 const defaultUrl = process.env.VERCEL_URL
@@ -32,7 +32,7 @@ const RootLayout = ({
 }): JSX.Element => {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="dark:dark bg-background px-4 pb-8 text-foreground">
+      <body className="dark:dark bg-background pb-8 px-4 text-foreground xl:pb-0">
         <ErrorBoundary>
           <AuthContextProvider>
             <Nav />

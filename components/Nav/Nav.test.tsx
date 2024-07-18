@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Nav from './Nav';
-import Login from '@/app/login/page';
+import Login from '@/app/(main)/login/page';
 
 const mockPush = jest.fn();
 const mockUsePathname = jest.fn();

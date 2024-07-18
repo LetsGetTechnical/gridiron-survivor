@@ -18,7 +18,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '../../components/Form/Form';
+} from '../../../components/Form/Form';
 
 const LoginUserSchema = z.object({
   email: z
@@ -38,7 +38,7 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  * @returns {JSX.Element} The rendered login page.
  */
 const Login = (): JSX.Element => {
-  const { loginAccount, isSignedIn, getUser } = useAuthContext();
+  const { login, isSignedIn, getUser } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
@@ -65,14 +65,14 @@ const Login = (): JSX.Element => {
   /**
    * A function that handles form submission.
    * @param {LoginUserSchemaType} data - The data submitted in the form.
-   * @returns {Promise<void>} A promise that resolves when the `loginAccount` function completes.
+   * @returns {Promise<void>} A promise that resolves when the `login` function completes.
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
-    await loginAccount(data);
+    await login(data);
   };
 
   return (
-    <section className="grid grid-rows-3 xl:grid-cols-2 xl:grid-rows-none">
+    <section className="grid xl:grid-cols-2 xl:grid-rows-none">
       <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
         <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
         <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground text-white">
