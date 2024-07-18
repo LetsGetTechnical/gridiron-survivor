@@ -3,10 +3,10 @@
 
 import React, { JSX } from 'react';
 import { GeistSans } from 'geist/font/sans';
-import './globals.css';
+import '../globals.css';
 import Nav from '@/components/Nav/Nav';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
-import ErrorBoundary from './error';
+import ErrorBoundary from '../error';
 import { Toaster } from 'react-hot-toast';
 
 const defaultUrl = process.env.VERCEL_URL
