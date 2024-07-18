@@ -3,7 +3,12 @@
 
 import Link from 'next/link';
 import React, { JSX } from 'react';
-import { ILinkCustomProps } from './LinkCustom.interface';
+
+interface ILinkCustomProps {
+  children: React.ReactNode;
+  className?: string;
+  href: string;
+}
 
 /**
  * Custom link component
