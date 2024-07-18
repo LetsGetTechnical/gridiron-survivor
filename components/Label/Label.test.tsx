@@ -18,12 +18,12 @@ describe('Label', () => {
   variants.forEach((variant) => {
     it(`renders correctly with variant ${variant}`, () => {
       render(
-        <Label data-testid="testLabel" variant={variant}>
+        <Label data-testid="test-label" variant={variant}>
           Test Label
         </Label>
       );
 
-      const label = screen.getByTestId('testLabel');
+      const label = screen.getByTestId('test-label');
       expect(label).toBeInTheDocument();
       if (variant) {
         expect(label).toHaveClass(variantClasses[variant]);
@@ -34,17 +34,17 @@ describe('Label', () => {
   it(`applies additional custom classes correctly`, () => {
     render(
       <Label
-        data-testid="customClassLabel"
-        className="customClassLabel extra-custom-class"
+        data-testid="custom-class-label"
+        className="custom-class-label extra-custom-class"
       >
         Custom Test Label
       </Label>
     );
 
-    const labelCustom = screen.getByTestId('customClassLabel');
+    const labelCustom = screen.getByTestId('custom-class-label');
     expect(labelCustom).toBeInTheDocument();
     if (labelCustom.hasAttribute('className')) {
-        expect(labelCustom).toHaveClass('customClassLabel extra-custom-class');
+        expect(labelCustom).toHaveClass('custom-class-label extra-custom-class');
     }
   });
 });
