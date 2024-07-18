@@ -78,4 +78,16 @@ describe('Login', () => {
 
     mockUseAuthContext.isSignedIn = false;
   });
+
+  test('redirects to /league/all when user navigates to /login', async () => {
+    mockUseAuthContext.isSignedIn = true;
+
+    render(<Login />);
+
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
+    });
+
+    mockUseAuthContext.isSignedIn = false;
+  });
 });
