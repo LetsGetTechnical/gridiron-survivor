@@ -70,7 +70,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
 
     try {
-      const scheduleData = await import(`@/app/schedule/2024/week${week}.json`);
+      const scheduleData = await import(
+        `@/app/(main)/schedule/2024/week${week}.json`
+      );
       setSchedule(scheduleData.events);
     } catch (error) {
       console.error('Could not load week data:', error);
