@@ -14,7 +14,7 @@ import {
   IGetUserPick,
 } from './utils.interface';
 import { ILeague } from '@/api/apiFunctions.interface';
-import { IEntry } from '@/app/league/[leagueId]/entry/Entries.interface';
+import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
 
 /**
  * Combine class names

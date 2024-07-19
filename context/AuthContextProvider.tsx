@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useCallback } from 'react';
+import React, { JSX } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
@@ -11,6 +11,7 @@ import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { loginAccount, logoutFunction } from './AuthHelper';
+import { usePathname } from 'next/navigation';
 
 type UserCredentials = {
   email: string;
@@ -42,6 +43,7 @@ export const AuthContextProvider = ({
     (state) => state,
   );
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (user.id === '' || user.email === '') {
@@ -79,11 +81,13 @@ export const AuthContextProvider = ({
 
   /**
    * Get user data from the session
-   * @returns {Promise<void>}
+   * @returns {Promise<IUser | undefined>} - The user data or undefined if the user is not signed in
    */
-  const getUser = useCallback(async () => {
+  const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
-      router.push('/login');
+      if (pathname !== '/register') {
+        router.push('/login');
+      }
       return;
     }
 
@@ -96,7 +100,7 @@ export const AuthContextProvider = ({
       resetUser();
       setIsSignedIn(false);
     }
-  }, [user]);
+  };
 
   /**
    * Helper function to validate session data in local storage
