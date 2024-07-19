@@ -135,6 +135,19 @@
       "rules": {
         "no-unused-vars": "off"
       }
+    },
+    {
+      "files": ["playwright.config.ts"],
+      "rules": {
+        "no-undefined": "off"
+      }
+    },
+    {
+      "files": ["functions/userAuth.js"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
     }
   ]
 }
