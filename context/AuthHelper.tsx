@@ -66,7 +66,6 @@ export const logoutFunction = async ({
   resetUser,
 }: logoutType) => {
   try {
-    throw Error('new error');
     await account.deleteSession('current');
     setIsSignedIn(false);
     resetUser();
@@ -79,6 +78,5 @@ export const logoutFunction = async ({
       <Alert variant={AlertVariants.Error} message="Logout failed!" />,
     );
     console.error('Logout error:', error);
-    return error as Error;
   }
 };
