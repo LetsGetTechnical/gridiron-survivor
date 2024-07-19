@@ -7,8 +7,7 @@ import { parseUserPick } from '@/utils/utils';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
-import { IWeeklyPicks, INFLTeam, IUser } from '@/api/apiFunctions.interface';
-import { IData } from './Week.interface';
+import { IWeeklyPickChange } from './Week.interface';
 
 /**
  * Handles the form submission.
@@ -34,17 +33,7 @@ export const onWeeklyPickChange = async ({
   user,
   weeklyPicks,
   week,
-}: {
-  data: IData;
-  entry: string;
-  league: string;
-  NFLTeams: INFLTeam[];
-  setUserPick: React.Dispatch<React.SetStateAction<string>>;
-  updateWeeklyPicks: ({}: IWeeklyPicks) => void;
-  user: IUser;
-  weeklyPicks: IWeeklyPicks;
-  week: string;
-}): Promise<void> => {
+}: IWeeklyPickChange): Promise<void> => {
   try {
     const teamSelect = data.target.value;
     const teamID = NFLTeams.find(
