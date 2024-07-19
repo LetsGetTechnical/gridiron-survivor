@@ -1,7 +1,13 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { defineConfig, devices } from '@playwright/test';
 import { execSync } from 'child_process';
 
-// Get the current branch
+/**
+ * Get the current branch
+ * @returns {void}
+ */
 function getCurrentBranch(): string {
   try {
     const branch = execSync('git rev-parse --abbrev-ref HEAD')
