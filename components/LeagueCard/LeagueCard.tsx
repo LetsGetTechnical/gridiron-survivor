@@ -11,19 +11,22 @@ import LeagueCardPlaceholderLogo from './LeagueCardPlaceholderLogo.svg';
 import Link from 'next/link';
 
 const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
-  ({
-    href,
-    isEliminated = false,
-    leagueCardLogo = LeagueCardPlaceholderLogo,
-    survivors,
-    title,
-    totalPlayers,
-  }, ref) => (
+  (
+    {
+      href,
+      isEliminated = false,
+      leagueCardLogo = LeagueCardPlaceholderLogo,
+      survivors,
+      title,
+      totalPlayers,
+    },
+    ref,
+  ) => (
     <Link
       data-testid="LeagueCard"
       href={href}
       className={cn(
-        'LeagueCard flex max-h-32 h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
+        'LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
       )}
       ref={ref}
     >
