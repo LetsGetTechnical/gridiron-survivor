@@ -10,6 +10,7 @@ jest.mock('./apiFunctions', () => {
     getUserWeeklyPick: jest.fn(),
     getAllWeeklyPicks: jest.fn(),
     getCurrentUserEntries: jest.fn(),
+    getCurrentUserEntries: jest.fn(),
   };
 });
 
@@ -165,7 +166,7 @@ describe('Get User Entries And Test', () => {
   it('should get all user entries and check if eliminated is equal to false', async () => {
     const userEntries = [
       {
-        eliminated: true,
+        eliminated: false,
         league: {},
         name: 'name',
         selectedTeams: [],
