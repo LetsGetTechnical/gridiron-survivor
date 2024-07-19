@@ -109,7 +109,6 @@ export async function getCurrentUserEntries(
       [Query.equal('user', userId), Query.equal('league', leagueId)],
     );
 
-    console.log(response);
     const entries = response.documents.map((entry) => ({
       $id: entry.$id,
       name: entry.name,
@@ -118,7 +117,7 @@ export async function getCurrentUserEntries(
       selectedTeams: entry.selectedTeams,
       eliminated: entry.eliminated,
     }));
-    console.log(entries);
+
     return entries;
   } catch (error) {
     console.error(error);
