@@ -65,7 +65,7 @@ const LeagueEntries = ({
         data-testid="league-entry-pick-button-container"
       >
         {!isEliminated && (
-          <Link href={linkUrl}>
+          <Link href={linkUrl} data-testid="league-entry-pick-button-link">
             <Button
               className="league-entry-pick-button"
               data-testid="league-entry-pick-button"
