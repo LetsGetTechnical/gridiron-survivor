@@ -84,10 +84,6 @@ describe('Login', () => {
 
     render(<Login />);
 
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/league/all');
-    });
-
-    mockUseAuthContext.isSignedIn = false;
+    expect(mockPush).toHaveBeenCalledWith('/league/all');
   });
 });
