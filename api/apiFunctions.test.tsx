@@ -10,7 +10,6 @@ jest.mock('./apiFunctions', () => {
     getUserWeeklyPick: jest.fn(),
     getAllWeeklyPicks: jest.fn(),
     getCurrentUserEntries: jest.fn(),
-    getCurrentUserEntries: jest.fn(),
   };
 });
 
