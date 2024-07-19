@@ -23,7 +23,7 @@ const LeagueEntries = ({
   linkUrl,
   isEliminated = false,
   isPickSet = false,
-  teamLogo = '',
+  teamLogo,
 }: ILeagueEntriesProps): JSX.Element => (
   <div
     data-testid="league-entry-container-card"
