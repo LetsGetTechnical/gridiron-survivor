@@ -3,6 +3,12 @@
 
 import { INFLTeam, ILeague } from '@/api/apiFunctions.interface';
 
+export interface IData {
+  target: {
+    value: string;
+  };
+}
+
 export interface IWeekParams {
   params: {
     entryId: string;

@@ -7,15 +7,8 @@ import { parseUserPick } from '@/utils/utils';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
-import { INFLTeam } from '@/api/apiFunctions.interface';
-import { IUser } from '@/api/apiFunctions.interface';
-import { IWeeklyPicks } from '@/api/apiFunctions.interface';
-
-interface IData {
-  target: {
-    value: string;
-  };
-}
+import { IWeeklyPicks, INFLTeam, IUser } from '@/api/apiFunctions.interface';
+import { IData } from './Week.interface';
 
 /**
  * Handles the form submission.
