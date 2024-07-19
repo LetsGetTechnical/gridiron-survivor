@@ -144,22 +144,20 @@ describe('Get User Entries And Test', () => {
   it('should get all user entries and check if eliminated is equal to true', async () => {
     const userEntries = [
       {
-        $id: '000',
-        name: 'name',
-        user: '000',
-        league: {},
-        selectedTeams: [],
         eliminated: true,
+        league: {},
+        name: 'name',
+        selectedTeams: [],
+        user: '000',
+        $id: '000',
       },
     ];
 
-    const resp = { documents: userEntries };
+    const response = { documents: userEntries };
 
-    apiFunctions.getCurrentUserEntries.mockResolvedValue(resp.documents[0]);
+    apiFunctions.getCurrentUserEntries.mockResolvedValue(response.documents[0]);
 
     const result = await apiFunctions.getCurrentUserEntries();
-
-    console.log(result);
 
     expect(result.eliminated).toEqual(true);
   });
@@ -167,22 +165,20 @@ describe('Get User Entries And Test', () => {
   it('should get all user entries and check if eliminated is equal to false', async () => {
     const userEntries = [
       {
-        $id: '000',
-        name: 'name',
-        user: '000',
+        eliminated: true,
         league: {},
+        name: 'name',
         selectedTeams: [],
-        eliminated: false,
+        user: '000',
+        $id: '000',
       },
     ];
 
-    const resp = { documents: userEntries };
+    const response = { documents: userEntries };
 
-    apiFunctions.getCurrentUserEntries.mockResolvedValue(resp.documents[0]);
+    apiFunctions.getCurrentUserEntries.mockResolvedValue(response.documents[0]);
 
     const result = await apiFunctions.getCurrentUserEntries();
-
-    console.log(result);
 
     expect(result.eliminated).toEqual(false);
   });
