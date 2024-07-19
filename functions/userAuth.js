@@ -1,8 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { ID } from 'appwrite';
-import { Client, Databases } from 'node-appwrite';
+const { ID } = require('appwrite');
+const sdk = require('node-appwrite');
 
 /**
  * creates a new user record in the User collection
@@ -13,8 +13,8 @@ import { Client, Databases } from 'node-appwrite';
  */
 const user = async ({ req, res }) => {
   // Init SDK
-  const client = new Client();
-  const databases = new Databases(client);
+  const client = new sdk.Client();
+  const databases = new sdk.Databases(client);
 
   client
     .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
@@ -62,4 +62,4 @@ const user = async ({ req, res }) => {
   }
 };
 
-export default user;
+module.exports = user;
