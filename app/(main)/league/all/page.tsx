@@ -8,8 +8,6 @@ import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
-import { getGameWeek } from '@/api/apiFunctions';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 
 /**
@@ -58,7 +56,7 @@ const Leagues = (): JSX.Element => {
           ))
         ) : (
           <div className="text-center">
-            <LoadingSpinner height="max-h-32 h-32" />
+            <p>Loading...</p>
           </div>
         )}
       </section>
