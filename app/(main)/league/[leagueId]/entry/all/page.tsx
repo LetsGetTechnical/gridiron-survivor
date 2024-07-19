@@ -94,7 +94,7 @@ const Entry = ({
             <LeagueEntries
               key={entry.$id}
               entryName={entry.name}
-              isPickSet
+              isPickSet={isPickSet}
               linkUrl={linkUrl}
               teamLogo={teamLogo}
             />
