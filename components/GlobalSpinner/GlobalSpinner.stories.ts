@@ -4,8 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import GlobalSpinner from './GlobalSpinner';
 
-//👇 This default export determines where your story goes in the story list
-const meta: Meta<typeof GlobalSpinner> = {
+const globalspinner: Meta<typeof GlobalSpinner> = {
   title: 'Components/GlobalSpinner',
   component: GlobalSpinner,
   tags: ['autodocs'],
@@ -18,7 +17,7 @@ const meta: Meta<typeof GlobalSpinner> = {
   },
 };
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default globalspinner;
+type Story = StoryObj<typeof globalspinner>;
 
 export const Default: Story = {};
