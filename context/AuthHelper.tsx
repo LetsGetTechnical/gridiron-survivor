@@ -8,17 +8,12 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { IUser } from '@/api/apiFunctions.interface';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { ILogoutType } from './AuthHelper.interface';
 
 type UserCredentials = {
   email: string;
   password: string;
 };
-
-interface logoutType {
-  setIsSignedIn: (bool: false) => void;
-  resetUser: React.Dispatch<React.SetStateAction<void>>;
-  router: AppRouterInstance;
-}
 
 /**
  * Authenticate and set session state
@@ -64,7 +59,7 @@ export const logoutFunction = async ({
   setIsSignedIn,
   router,
   resetUser,
-}: logoutType) => {
+}: ILogoutType) => {
   try {
     await account.deleteSession('current');
     setIsSignedIn(false);
