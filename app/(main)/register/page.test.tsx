@@ -47,7 +47,11 @@ describe('Register', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    render(<Register />);
+    render(
+      <div className="dark">
+        <Register />
+      </div>,
+    );
 
     // Get form elements
     emailInput = screen.getByTestId('email');
@@ -164,5 +168,10 @@ describe('Register', () => {
         <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
       );
     });
+  });
+  test('renders Register component in dark mode using global css styles for background and foreground', () => {
+    const darkModeSection = screen.getByTestId('dark-mode-section');
+
+    expect(darkModeSection).toHaveClass('dark:bg-gradient-to-b');
   });
 });
