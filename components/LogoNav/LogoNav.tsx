@@ -3,6 +3,7 @@
 
 import { JSX } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import logo from '/public/assets/logo-colored-nav.svg';
 
 /**
@@ -11,15 +12,17 @@ import logo from '/public/assets/logo-colored-nav.svg';
  */
 export const LogoNav = (): JSX.Element => {
   return (
-    <Image
-      src={logo}
-      alt="Gridiron Survivor logo"
-      width={1}
-      height={1}
-      priority
-      className="w-20"
-      data-testid="logo-nav"
-    />
+    <Link href="/league/all" passHref>
+      <Image
+        src={logo}
+        alt="Gridiron Survivor logo"
+        width={1}
+        height={1}
+        priority
+        className="w-20"
+        data-testid="logo-nav"
+      />
+    </Link>
   );
 };
 
