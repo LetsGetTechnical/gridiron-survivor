@@ -11,6 +11,7 @@ import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { loginAccount } from './AuthHelper';
+import { usePathname } from 'next/navigation';
 
 type UserCredentials = {
   email: string;
@@ -43,6 +44,7 @@ export const AuthContextProvider = ({
     (state) => state,
   );
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (user.id === '' || user.email === '') {
@@ -87,7 +89,9 @@ export const AuthContextProvider = ({
    */
   const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
-      router.push('/login');
+      if (pathname !== '/register') {
+        router.push('/login');
+      }
       return;
     }
 
