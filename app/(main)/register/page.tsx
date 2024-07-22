@@ -67,6 +67,7 @@ const Register = (): JSX.Element => {
 
   /**
    * The current value of the 'email' field in the form.
+   *
    * @type {string}
    */
   const email: string = useWatch({
