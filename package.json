@@ -10,7 +10,7 @@
     "storybook-docs": "storybook dev --docs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lint": "next lint --quiet"
+    "lint": "npx next lint --dir ."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
