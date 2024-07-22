@@ -68,6 +68,13 @@ const WeekTeams = ({
               <WeeklyPickButton
                 team={competition.team.name}
                 src={competition.team.logo}
+                isDisabled={
+                  selectedTeams.find(
+                    (team) => team.teamName === competition.team.name,
+                  )
+                    ? true
+                    : false
+                }
               />
             </FormControl>
           </FormItem>
