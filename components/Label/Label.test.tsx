@@ -3,15 +3,15 @@ import { render, screen } from '@testing-library/react';
 import { Label } from './Label'; 
 
 const variants:Array<
-| 'weeklyPickButtonLabel'
-| 'inputLabel'
+| 'default'
+| 'secondary'
 | null
 | undefined
-> = ['weeklyPickButtonLabel', 'inputLabel'];
+> = ['default', 'secondary'];
 
 const variantClasses = {
-  weeklyPickButtonLabel: 'text-zinc-50 cursor-pointer rounded-xl items-center py-4 px-3 border-2 border-zinc-800 peer-aria-checked:border-orange-600 peer-hover:bg-zinc-800 flex',
-  inputLabel: 'text-zinc-900 cursor-text flex-col',
+  secondary: 'text-zinc-50 cursor-pointer rounded-xl items-center py-4 px-3 border-2 border-zinc-800 peer-aria-checked:border-orange-600 peer-hover:bg-zinc-800 flex',
+  default: 'text-zinc-900 cursor-text flex-col',
 };
 
 describe('Label', () => {
