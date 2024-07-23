@@ -12,16 +12,8 @@ import logo from '/public/assets/logo-colored-nav.svg';
  */
 export const LogoNav = (): JSX.Element => {
   return (
-    <Link href="/league/all" passHref>
-      <Image
-        src={logo}
-        alt="Gridiron Survivor logo"
-        width={1}
-        height={1}
-        priority
-        className="w-20"
-        data-testid="logo-nav"
-      />
+    <Link href="/league/all">
+      <Image src={logo} alt="Gridiron Survivor logo" data-testid="logo-nav" />
     </Link>
   );
 };

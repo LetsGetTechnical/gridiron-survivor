@@ -5,7 +5,7 @@ describe('LogoNav Component', () => {
   it('renders the logo and links to the /league/all page', () => {
     render(<LogoNav />);
 
-    const logoImage = screen.getByAltText('Gridiron Survivor logo');
+    const logoImage = screen.getByTestId('logo-nav');
     expect(logoImage).toBeInTheDocument();
 
     const linkElement = screen.getByRole('link', {
