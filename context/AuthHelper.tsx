@@ -65,7 +65,7 @@ export const logoutFunction = async ({
 }: ILogoutType): Promise<void> => {
   try {
     await account.deleteSession('current');
-    setIsSignedIn;
+    setIsSignedIn(false);
     resetUser();
     toast.custom(
       <Alert variant={AlertVariants.Success} message="Logged Out" />,
