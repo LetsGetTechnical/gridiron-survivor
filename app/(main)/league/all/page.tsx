@@ -56,7 +56,7 @@ const Leagues = (): JSX.Element => {
           ))
         ) : (
           <div className="text-center">
-            <p>Loading...</p>
+            <p>You are not enrolled in any leagues</p>
           </div>
         )}
       </section>
