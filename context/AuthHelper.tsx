@@ -52,17 +52,20 @@ export const loginAccount = async ({
 };
 
 /**
- * Log out and clear session state
- * @returns {Promise<void | Error>}
+ * Logout the user and reset state
+ * @param props - setIsSignedIn, router, and resetUser()
+ * @param props.setIsSignedIn - set isSignedIn state
+ * @param props.router - router function
+ * @param props.resetUser - reset user state
  */
 export const logoutFunction = async ({
   setIsSignedIn,
   router,
   resetUser,
-}: ILogoutType) => {
+}: ILogoutType): Promise<void> => {
   try {
     await account.deleteSession('current');
-    setIsSignedIn(false);
+    setIsSignedIn;
     resetUser();
     toast.custom(
       <Alert variant={AlertVariants.Success} message="Logged Out" />,

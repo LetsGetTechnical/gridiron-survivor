@@ -69,7 +69,7 @@ export const AuthContextProvider = ({
 
   /**
    * Log out and clear session state
-   * @returns {Promise<void | Error>}
+   * @returns {Promise<void | Error>} - The error if there is one.
    */
   const logoutAccount = async (): Promise<void | Error> => {
     try {
