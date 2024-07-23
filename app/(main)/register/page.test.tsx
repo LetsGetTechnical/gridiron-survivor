@@ -47,11 +47,7 @@ describe('Register', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    render(
-      <div className="dark">
-        <Register />
-      </div>,
-    );
+    render(<Register />);
 
     // Get form elements
     emailInput = screen.getByTestId('email');
