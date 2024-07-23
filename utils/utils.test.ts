@@ -59,13 +59,13 @@ const mockWeeklyPicksData = {
     '4321': {
       teamName: 'New England Patriots',
       correct: false,
-    }
+    },
   },
   '66174f2362ec891167be': {
     '4232': {
       teamName: 'Kansas City Chiefs',
       correct: true,
-    }
+    },
   },
 };
 
@@ -164,7 +164,11 @@ describe('utils', () => {
   });
   describe('parseUserPick', () => {
     it('should return the parsed user pick', () => {
-      const result = parseUserPick(mockUserData.userId, mockUserData.entryId, mockNFLTeams[0].teamName);
+      const result = parseUserPick(
+        mockUserData.userId,
+        mockUserData.entryId,
+        mockNFLTeams[0].teamName,
+      );
       expect(result).toStrictEqual({
         [mockUserData.userId]: {
           [mockUserData.entryId]: {
