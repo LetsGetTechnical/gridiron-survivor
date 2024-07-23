@@ -157,8 +157,8 @@ describe('getCurrentUserEntries()', () => {
 
     const result = await apiFunctions.getCurrentUserEntries();
 
-    for (const entry in result) {
-      expect(result[entry].eliminated).toEqual(true);
+    for (const entry of result) {
+      expect(entry.eliminated).toEqual(true);
     }
   });
 
@@ -178,8 +178,8 @@ describe('getCurrentUserEntries()', () => {
 
     const result = await apiFunctions.getCurrentUserEntries();
 
-    for (const entry in result) {
-      expect(result[entry].eliminated).toEqual(false);
+    for (const entry of result) {
+      expect(entry.eliminated).toEqual(false);
     }
   });
 
@@ -199,8 +199,8 @@ describe('getCurrentUserEntries()', () => {
 
     const result = await apiFunctions.getCurrentUserEntries();
 
-    for (const entry in result) {
-      expect(result[entry].eliminated).toEqual(null);
+    for (const entry of result) {
+      expect(entry.eliminated).toEqual(null);
     }
   });
 });
