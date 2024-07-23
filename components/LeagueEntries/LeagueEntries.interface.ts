@@ -7,4 +7,4 @@ export interface ILeagueEntriesProps {
   isEliminated?: boolean;
   isPickSet?: boolean;
   teamLogo?: string;
-
+}
