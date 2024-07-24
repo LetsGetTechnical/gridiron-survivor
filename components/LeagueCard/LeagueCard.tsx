@@ -11,14 +11,17 @@ import LeagueCardPlaceholderLogo from './LeagueCardPlaceholderLogo.svg';
 import Link from 'next/link';
 
 const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
-  ({
-    href,
-    isEliminated = false,
-    leagueCardLogo = LeagueCardPlaceholderLogo,
-    survivors,
-    title,
-    totalPlayers,
-  }, ref) => (
+  (
+    {
+      href,
+      isEliminated = false,
+      leagueCardLogo = LeagueCardPlaceholderLogo,
+      survivors,
+      title,
+      totalPlayers,
+    },
+    ref,
+  ) => (
     <Link
       data-testid="LeagueCard"
       href={href}

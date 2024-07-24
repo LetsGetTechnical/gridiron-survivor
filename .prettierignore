@@ -3,3 +3,6 @@
 .prettierrc.js
 *.md
 settings.json
+package.json
+pnpm-lock.yaml
+.test-results/
