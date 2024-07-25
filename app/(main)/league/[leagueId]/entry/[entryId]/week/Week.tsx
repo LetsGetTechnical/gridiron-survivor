@@ -190,7 +190,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
   }, [weeklyPicks, user, entry]);
 
-  if (schedule.length === 0) {
+  if (schedule.length === 0 || isLoading) {
     return <p>Loading...</p>;
   }
 
