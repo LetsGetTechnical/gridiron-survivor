@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import React, { JSX } from 'react';
+import { cn } from '@/utils/utils';
 
 interface ILinkCustomProps {
   children: React.ReactNode;
@@ -18,13 +19,17 @@ interface ILinkCustomProps {
  * @param props.className - any additional classes you want to add to that instance of the LinkCustom component.
  * @returns The custom link component
  */
-const LinkCustom = ({ children, href, ... props }: ILinkCustomProps): JSX.Element => {
+const LinkCustom = ({
+  children,
+  className,
+  href,
+}: ILinkCustomProps): JSX.Element => {
   return (
     <Link
-      className={'font-bold text-orange-600 hover:text-orange-600 hover:underline'}
+      className={cn('font-bold text-orange-600 hover:text-orange-600 hover:underline', className)}
+      data-testid="linkCustom"
       href={href}
       passHref
-      { ...props }
     >
       {children}
     </Link>
