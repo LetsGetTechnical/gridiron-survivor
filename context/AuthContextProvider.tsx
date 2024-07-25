@@ -10,7 +10,7 @@ import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
-import { loginAccount, logoutFunction } from './AuthHelper';
+import { loginAccount, logoutHandler } from './AuthHelper';
 import { usePathname } from 'next/navigation';
 
 type UserCredentials = {
@@ -72,11 +72,7 @@ export const AuthContextProvider = ({
    * @returns {Promise<void | Error>} - The error if there is one.
    */
   const logoutAccount = async (): Promise<void | Error> => {
-    try {
-      await logoutFunction({ setIsSignedIn, router, resetUser });
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+    await logoutHandler({ setIsSignedIn, router, resetUser });
   };
 
   /**

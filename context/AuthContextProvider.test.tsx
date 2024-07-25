@@ -3,7 +3,7 @@ import { account } from '../api/config';
 import Alert from '../components/AlertNotification/AlertNotification';
 import { AlertVariants } from '../components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
-import { loginAccount, logoutFunction } from './AuthHelper';
+import { loginAccount, logoutHandler } from './AuthHelper';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const mockCreateEmailPasswordSession = jest.fn();
@@ -73,7 +73,7 @@ describe('AuthContextProvider', () => {
 
   //logout tests
   test('after a successful logout it shows success notification', async () => {
-    await logoutFunction({ resetUser, setIsSignedIn, router });
+    await logoutHandler({ resetUser, setIsSignedIn, router });
 
     expect(setIsSignedIn).toHaveBeenCalledWith(false);
     expect(resetUser).toHaveBeenCalled();
@@ -86,7 +86,7 @@ describe('AuthContextProvider', () => {
   test('after logout attempt errors it shows error notification', async () => {
     account.deleteSession = jest.fn().mockRejectedValue('test error');
 
-    const error = await logoutFunction({ resetUser, setIsSignedIn, router });
+    const error = await logoutHandler({ resetUser, setIsSignedIn, router });
 
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert variant={AlertVariants.Error} message="Logout failed!" />,
