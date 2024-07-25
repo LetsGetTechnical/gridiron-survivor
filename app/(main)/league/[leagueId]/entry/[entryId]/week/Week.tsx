@@ -22,6 +22,7 @@ import { ChevronLeft } from 'lucide-react';
 import { getCurrentLeague } from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
+import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 
 /**
  * Renders the weekly picks page.
@@ -32,7 +33,7 @@ import WeekTeams from './WeekTeams';
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [loadingData, setLoadingData] = useState<boolean>(true);
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
     (state) => state,
@@ -76,6 +77,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       setSchedule(scheduleData.events);
     } catch (error) {
       console.error('Could not load week data:', error);
+    } finally {
+      setLoadingData(false);
     }
   };
 
@@ -138,53 +141,59 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
-    setIsLoading(false);
+    setLoadingData(false);
   }, [week, selectedLeague]);
 
-  if (schedule.length === 0 || isLoading) {
-    return <p>Loading...</p>;
+  if (schedule.length === 0 || loadingData) {
+    return <GlobalSpinner />;
   }
 
   return (
     <div className="league-entry-week">
-      <nav className="py-6 text-orange-500 hover:no-underline">
-        <LinkCustom
-          className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
-          href={`/league/${league}/entry/all`}
-        >
-          <span aria-hidden="true">
-            <ChevronLeft size={16} />
-          </span>
-          {selectedLeague?.leagueName as string}
-        </LinkCustom>
-      </nav>
-      <section className="w-full pt-8" data-testid="weekly-picks">
-        <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
-          Week {week} pick
-        </h1>
+      {loadingData ? (
+        <GlobalSpinner />
+      ) : (
+        <>
+          <nav className="py-6 text-orange-500 hover:no-underline">
+            <LinkCustom
+              className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+              href={`/league/${league}/entry/all`}
+            >
+              <span aria-hidden="true">
+                <ChevronLeft size={16} />
+              </span>
+              {selectedLeague?.leagueName as string}
+            </LinkCustom>
+          </nav>
+          <section className="w-full pt-8" data-testid="weekly-picks">
+            <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+              Week {week} pick
+            </h1>
 
-        <FormProvider {...form}>
-          <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
-            <FormField
-              control={form.control as Control<object>}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <WeekTeams
-                      schedule={schedule}
-                      field={field}
-                      userPick={userPick}
-                      onWeeklyPickChange={onWeeklyPickChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </FormProvider>
-      </section>
+            <FormProvider {...form}>
+              <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
+                <FormField
+                  control={form.control as Control<object>}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <WeekTeams
+                          schedule={schedule}
+                          field={field}
+                          userPick={userPick}
+                          onWeeklyPickChange={onWeeklyPickChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
+          </section>
+        </>
+      )}
     </div>
   );
 };

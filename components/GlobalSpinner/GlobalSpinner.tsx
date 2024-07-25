@@ -9,10 +9,13 @@ import Image from 'next/image';
  * @returns {React.JSX.Element} GlobalSpinner component
  */
 const GlobalSpinner = (): React.JSX.Element => (
-  <div className="global-spinner w-full h-full grid place-content-center">
+  <div
+    data-testid="global-spinner"
+    className="global-spinner w-full h-full grid place-content-center"
+  >
     <Image
       alt="Gridiron Survivor logo fading in and out"
-      src="../../assets/global-spinner.svg"
+      src="/assets/global-spinner.svg"
       className="animate-pulse h-64 w-64"
       width={100}
       height={100}

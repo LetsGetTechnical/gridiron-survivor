@@ -41,4 +41,15 @@ describe('Leagues Component', () => {
       ).toBeInTheDocument();
     });
   });
+
+  test('should display GlobalSpinner while loading data', async () => {
+    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
+    mockGetUserLeagues.mockResolvedValueOnce([]);
+    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
+    render(<Leagues />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
+    });
+  });
 });

@@ -9,6 +9,7 @@ import { ILeague } from '@/api/apiFunctions.interface';
 import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
+import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 
 /**
  * Renders the leagues component.
@@ -16,6 +17,7 @@ import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
  */
 const Leagues = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
+  const [loadingData, setLoadingData] = useState<boolean>(true);
   const { user } = useDataStore((state) => state);
 
   /**
@@ -26,7 +28,11 @@ const Leagues = (): JSX.Element => {
     try {
       const userLeagues = await getUserLeagues(user.leagues);
       setLeagues(userLeagues);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingData(false);
+    }
   };
 
   useEffect(() => {
@@ -39,29 +45,35 @@ const Leagues = (): JSX.Element => {
 
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
-      <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
-        Your leagues
-      </h1>
-      <section className="grid gap-6 md:grid-cols-2">
-        {leagues.length > 0 ? (
-          leagues.map((league) => (
-            <LeagueCard
-              key={league.leagueId}
-              href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
-              leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
-              survivors={league.survivors.length}
-              title={league.leagueName}
-              totalPlayers={league.participants.length}
-            />
-          ))
-        ) : (
-          <div className="text-center">
-            <p className="text-lg font-bold">
-              You are not enrolled in any leagues
-            </p>
-          </div>
-        )}
-      </section>
+      {loadingData ? (
+        <GlobalSpinner />
+      ) : (
+        <>
+          <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
+            Your leagues
+          </h1>
+          <section className="grid gap-6 md:grid-cols-2">
+            {leagues.length > 0 ? (
+              leagues.map((league) => (
+                <LeagueCard
+                  key={league.leagueId}
+                  href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
+                  leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
+                  survivors={league.survivors.length}
+                  title={league.leagueName}
+                  totalPlayers={league.participants.length}
+                />
+              ))
+            ) : (
+              <div className="text-center">
+                <p className="text-lg font-bold">
+                  You are not enrolled in any leagues
+                </p>
+              </div>
+            )}
+          </section>
+        </>
+      )}
     </div>
   );
 };
