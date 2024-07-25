@@ -14,11 +14,11 @@ export const LogoNav = (): JSX.Element => {
   return (
     <Link href="/league/all">
       <Image
-        src={logo}
-        width={80}
-        height={36}
         alt="Gridiron Survivor logo"
         data-testid="logo-nav"
+        height={36}
+        src={logo}
+        width={80}
       />
     </Link>
   );
