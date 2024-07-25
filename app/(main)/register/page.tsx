@@ -54,6 +54,7 @@ type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 const Register = (): JSX.Element => {
   const router = useRouter();
   const { login, isSignedIn } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -105,8 +106,10 @@ const Register = (): JSX.Element => {
     data: RegisterUserSchemaType,
   ): Promise<void> => {
     try {
+      setIsLoading(true);
       await registerAccount(data);
       await login(data);
+      setIsLoading(false);
       router.push('/league/all');
       toast.custom(
         <Alert
