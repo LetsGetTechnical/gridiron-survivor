@@ -3,6 +3,7 @@
 
 'use client';
 import { JSX, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import { Input } from '@/components/Input/Input';
@@ -38,11 +39,13 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  * @returns {JSX.Element} The rendered login page.
  */
 const Login = (): JSX.Element => {
+  const router = useRouter();
   const { login, isSignedIn, getUser } = useAuthContext();
 
   useEffect(() => {
     if (isSignedIn) {
       getUser();
+      router.push('/league/all');
     }
   }, [isSignedIn, getUser]);
 
