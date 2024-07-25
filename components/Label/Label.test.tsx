@@ -1,13 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Label } from './Label'; 
-
-const variants:Array<
-| 'default'
-| 'secondary'
-| null
-| undefined
-> = ['default', 'secondary'];
+import { labelVariants } from './labelVariants';
 
 const variantClasses = {
   secondary: 'text-zinc-50 cursor-pointer rounded-xl items-center py-4 px-3 border-2 border-zinc-800 peer-aria-checked:border-orange-600 peer-hover:bg-zinc-800 flex',
@@ -15,7 +9,7 @@ const variantClasses = {
 };
 
 describe('Label', () => {
-  variants.forEach((variant) => {
+  labelVariants.forEach((variant) => {
     it(`renders correctly with variant ${variant}`, () => {
       render(
         <Label data-testid="test-label" variant={variant}>
