@@ -55,6 +55,7 @@ const Login = (): React.JSX.Element => {
   useEffect(() => {
     if (isSignedIn) {
       getUser();
+      router.push('/league/all');
     }
   }, [isSignedIn, getUser]);
 
