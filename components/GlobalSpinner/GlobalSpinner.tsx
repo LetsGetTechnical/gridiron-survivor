@@ -18,7 +18,7 @@ const GlobalSpinner = (): React.JSX.Element => (
       className="animate-pulse h-64 w-64"
       data-testId="global-spinner-image"
       height={100}
-      src="../../assets/global-spinner.svg"
+      src="/assets/global-spinner.svg"
       width={100}
     />
   </div>
