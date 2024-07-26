@@ -2,8 +2,17 @@
 // Licensed under the MIT License.
 
 'use client';
+import { JSX, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Logo from '@/components/Logo/Logo';
+import logo from '@/public/assets/logo-colored-outline.svg';
+import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { z } from 'zod';
 import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -47,12 +56,11 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
 
 /**
  * Renders the login page.
- * @returns {React.JSX.Element} The rendered login page.
+ * @returns {JSX.Element} The rendered login page.
  */
 const Login = (): React.JSX.Element => {
   const router = useRouter();
   const { login, isSignedIn, getUser } = useAuthContext();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -79,13 +87,12 @@ const Login = (): React.JSX.Element => {
   });
 
   /**
-   * Handles the form submission.
-   * @param {LoginUserSchemaType} data - The data from the form.
+   * A function that handles form submission.
+   * @param {LoginUserSchemaType} data - The data submitted in the form.
+   * @returns {Promise<void>} A promise that resolves when the `login` function completes.
    */
   const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
-    setIsLoading(true);
     await login(data);
-    setIsLoading(false);
   };
 
   return (
@@ -161,9 +168,9 @@ const Login = (): React.JSX.Element => {
             />
             <Button
               data-testid="continue-button"
-              label={isLoading ? <LoadingSpinner /> : 'Continue'}
+              label="Continue"
               type="submit"
-              disabled={!email || !password || isLoading}
+              disabled={!email || !password}
             />
             <LinkCustom href="/register">
               Sign up to get started with a league
