@@ -9,7 +9,7 @@ import {
   IUser,
 } from '@/api/apiFunctions.interface';
 
-export interface IData {
+export interface IWeekData {
   target: {
     value: string;
   };
@@ -24,7 +24,7 @@ export interface IWeekParams {
 }
 
 export interface IWeeklyPickChange {
-  data: IData;
+  data: IWeekData;
   entry: string;
   league: string;
   NFLTeams: INFLTeam[];

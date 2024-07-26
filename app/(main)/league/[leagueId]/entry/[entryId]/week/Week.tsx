@@ -101,7 +101,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       weeklyPicks,
       week,
     };
-    await onWeeklyPickChange(params);
+    try {
+      await onWeeklyPickChange(params);
+    } catch (error) {
+      console.error('Error while changing pick:', error);
+    }
   };
 
   useEffect(() => {
