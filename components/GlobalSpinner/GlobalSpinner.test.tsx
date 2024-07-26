@@ -14,6 +14,6 @@ describe('GlobalSpinner', () => {
   it('should have the correct file path', () => {
     const spinnerImage = screen.getByTestId('global-spinner-image');
     const filePath = spinnerImage.getAttribute('src');
-    expect(filePath).toMatch('../../assets/global-spinner.svg');
+    expect(filePath).toMatch('/assets/global-spinner.svg');
   });
 });
