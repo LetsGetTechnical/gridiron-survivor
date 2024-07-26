@@ -225,7 +225,7 @@ const Register = (): JSX.Element => {
 
             <Button
               data-testid="continue-button"
-              label="Register"
+              label={isLoading ? <LoadingSpinner /> : 'Continue'}
               type="submit"
               disabled={isDisabled}
             />
