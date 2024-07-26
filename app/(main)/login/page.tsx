@@ -20,6 +20,7 @@ import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
+import router from 'next/router';
 
 /**
  * The schema for the login form.
