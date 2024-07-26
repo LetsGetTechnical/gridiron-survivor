@@ -1,32 +1,29 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import Entry from './page';
+import Week from './Week';
+import { getCurrentLeague, createWeeklyPicks } from '@/api/apiFunctions';
 import { useDataStore } from '@/store/dataStore';
-import { getGameWeek, getCurrentUserEntries } from '@/api/apiFunctions';
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
 }));
 
 jest.mock('@/api/apiFunctions', () => ({
-  getGameWeek: jest.fn(() =>
+  getCurrentLeague: jest.fn(() =>
     Promise.resolve({
       week: 1,
     }),
   ),
-  getCurrentUserEntries: jest.fn(() =>
-    Promise.resolve([
-      {
-        id: '123',
-        week: 1,
-      },
-    ]),
+  createWeeklyPicks: jest.fn(() =>
+    Promise.resolve({
+      week: 1,
+    }),
   ),
 }));
 
-describe('Entry Component', () => {
+describe('Week Component', () => {
   const mockUseDataStore = useDataStore as jest.Mock;
-  const mockGetGameWeek = getGameWeek as jest.Mock;
-  const mockGetCurrentUserEntries = getCurrentUserEntries as jest.Mock;
+  const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
+  const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -34,14 +31,9 @@ describe('Entry Component', () => {
 
   test('should display GlobalSpinner while loading data', async () => {
     mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
-    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
-    mockGetCurrentUserEntries.mockResolvedValueOnce([
-      {
-        id: '123',
-        week: 1,
-      },
-    ]);
-    render(<Entry params={{ leagueId: '123' }} />);
+    mockGetCurrentLeague.mockResolvedValueOnce({ week: 1 });
+    mockCreateWeeklyPicks.mockResolvedValueOnce({ week: 1 });
+    render(<Week entry="entry-id" league="league-id" NFLTeams={[]} week="1" />);
 
     await waitFor(() => {
       expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
