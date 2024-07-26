@@ -1,6 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+import GlobalSpinnerImage from '@/public/assets/global-spinner.svg';
 import React from 'react';
 import Image from 'next/image';
 
@@ -10,7 +11,7 @@ import Image from 'next/image';
  */
 const GlobalSpinner = (): React.JSX.Element => (
   <div
-    className="global-spinner w-full h-full grid place-content-center"
+    className="global-spinner grid h-screen place-content-center"
     data-testId="global-spinner"
   >
     <Image
@@ -18,7 +19,7 @@ const GlobalSpinner = (): React.JSX.Element => (
       className="animate-pulse h-64 w-64"
       data-testId="global-spinner-image"
       height={100}
-      src="../../assets/global-spinner.svg"
+      src={GlobalSpinnerImage}
       width={100}
     />
   </div>
