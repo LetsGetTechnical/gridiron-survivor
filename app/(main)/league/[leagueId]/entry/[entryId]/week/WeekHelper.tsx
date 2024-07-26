@@ -80,12 +80,12 @@ export const onWeeklyPickChange = async ({
       />,
     );
   } catch (error) {
+    console.error('There was an error handling your request:', error);
     toast.custom(
       <Alert
         variant={AlertVariants.Error}
         message="There was an error processing your request."
       />,
     );
-    throw new Error(`Error running onWeeklyPickChange: ${error}`);
   }
 };
