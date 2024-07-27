@@ -12,7 +12,6 @@ import {
   FormMessage,
 } from '../../../components/Form/Form';
 import { Input } from '@/components/Input/Input';
-import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +19,7 @@ import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
+import React, { useEffect, useState } from 'react';
 import router from 'next/router';
 
 /**
