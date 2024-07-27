@@ -20,7 +20,7 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import React, { useEffect, useState } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 
 /**
  * The schema for the login form.
@@ -50,6 +50,7 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  * @returns {React.JSX.Element} The rendered login page.
  */
 const Login = (): React.JSX.Element => {
+  const router = useRouter();
   const { login, isSignedIn, getUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,6 +59,7 @@ const Login = (): React.JSX.Element => {
       getUser();
       router.push('/league/all');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn, getUser]);
 
   const form = useForm<LoginUserSchemaType>({
