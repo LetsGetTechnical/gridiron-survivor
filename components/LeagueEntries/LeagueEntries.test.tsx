@@ -43,15 +43,9 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 3"
-<<<<<<< HEAD
         isEliminated
         isPickSet={false}
         linkUrl=""
-=======
-        linkUrl=""
-        isEliminated
-        isPickSet={false}
->>>>>>> a21dfbdb2ce065ee1defd0b5f4b829c7247729f8
       />,
     );
 

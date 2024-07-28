@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React, { JSX, ChangeEvent } from 'react';
+import React, { JSX } from 'react';
 import { FormItem, FormControl } from '@/components/Form/Form';
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import { IWeekTeamsProps } from './WeekTeams.interface';
@@ -37,6 +37,7 @@ const formatDateTime = (dateString: string): string => {
  * @param props The parameters for the weekly picks page.
  * @param props.field The form field.
  * @param props.schedule The schedule for the week.
+ * @param props.selectedTeams The user's selected teams.
  * @param props.userPick The user's pick.
  * @param props.onWeeklyPickChange The function to call when the user's pick changes.
  * @returns The rendered weekly picks page.
@@ -44,19 +45,19 @@ const formatDateTime = (dateString: string): string => {
 const WeekTeams = ({
   field,
   schedule,
+  selectedTeams,
   userPick,
   onWeeklyPickChange,
 }: IWeekTeamsProps): JSX.Element => (
   <>
     {schedule.map((scheduledGame) => (
       <RadioGroup
-        onValueChange={field.onChange}
+        onValueChange={(value: string) => onWeeklyPickChange(value)}
         defaultValue={userPick}
+        value={userPick}
         key={scheduledGame.id}
         className="grid w-full grid-cols-2 gap-4 pb-8"
-        onChange={(event) =>
-          onWeeklyPickChange(event as unknown as ChangeEvent<HTMLInputElement>)
-        }
+        onChange={field.onChange}
       >
         <div className="week-page-game-schedule col-span-2 text-center">
           <p>{formatDateTime(scheduledGame.date)}</p>
@@ -67,6 +68,13 @@ const WeekTeams = ({
               <WeeklyPickButton
                 team={competition.team.name}
                 src={competition.team.logo}
+                isDisabled={
+                  selectedTeams.find(
+                    (team) => team.teamName === competition.team.name,
+                  )
+                    ? true
+                    : false
+                }
               />
             </FormControl>
           </FormItem>
