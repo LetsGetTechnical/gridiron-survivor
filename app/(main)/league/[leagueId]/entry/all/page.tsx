@@ -6,13 +6,18 @@ import {
   createEntry,
   getCurrentUserEntries,
   getGameWeek,
+  // getAllWeeklyPicks,
 } from '@/api/apiFunctions';
 import { useDataStore } from '@/store/dataStore';
 import React, { JSX, useEffect, useState } from 'react';
 import { IEntry, IEntryProps } from '../Entries.interface';
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { ENTRY_URL, LEAGUE_URL, WEEK_URL } from '@/const/global';
-import { IGameWeek } from '@/api/apiFunctions.interface';
+import {
+  IGameWeek,
+  // IUserPicksData,
+  // IWeeklyPicks,
+} from '@/api/apiFunctions.interface';
 import { Button } from '@/components/Button/Button';
 import { PlusCircle } from 'lucide-react';
 
@@ -28,6 +33,7 @@ const Entry = ({
 }): JSX.Element => {
   const [entries, setEntries] = useState<IEntry[]>([]);
   const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
+  // const [weeklyPicks, setWeeklyPicks] = useState<IUserPicksData>({});
   const { user } = useDataStore((state) => state);
 
   /**
@@ -35,8 +41,15 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getAllEntries = async (): Promise<void> => {
-    const getEntries = await getCurrentUserEntries(user.id, leagueId);
-    setEntries(getEntries);
+    if (!user.id || user.id === '') {
+      return;
+    }
+    try {
+      const getEntries = await getCurrentUserEntries(user.id, leagueId);
+      setEntries(getEntries);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   /**
@@ -53,6 +66,22 @@ const Entry = ({
   };
 
   /**
+   * Fetches the weekly picks for the current week and updates the state with the results.
+   * @returns {Promise<void>} - A promise that resolves when the weekly picks have been fetched and the state has been updated.
+   */
+  // const getWeeklyPicks = async (): Promise<void> => {
+  //   try {
+  //     const picks = await getAllWeeklyPicks({
+  //       leagueId,
+  //       weekId: currentWeek.toString(),
+  //     });
+  //     setWeeklyPicks(picks.userResults);
+  //   } catch (error) {
+  //     console.error('Error fetching weekly picks:', error);
+  //   }
+  // };
+
+  /**
    * Adds a new entry to the league.
    * @param {IEntryProps} props - The entry properties.
    * @param {string} props.name - The name of the entry.
@@ -67,7 +96,7 @@ const Entry = ({
   }: IEntryProps): Promise<void> => {
     try {
       const createdEntry = await createEntry({ name, user, league });
-      setEntries([...entries, createdEntry]);
+      setEntries((prevEntries) => [...prevEntries, createdEntry]);
     } catch (error) {
       console.error(error);
     }
@@ -77,10 +106,10 @@ const Entry = ({
     if (!user.id || user.id === '') {
       return;
     }
-
     getCurrentGameWeek();
     getAllEntries();
-  }, [user]);
+    // getWeeklyPicks();
+  }, [user]); // Ensure this effect runs when `user.id` or `leagueId` changes
 
   return (
     <>
@@ -92,7 +121,6 @@ const Entry = ({
         return (
           <section key={entry.$id}>
             <LeagueEntries
-              key={entry.$id}
               entryName={entry.name}
               isPickSet={isPickSet}
               linkUrl={linkUrl}
