@@ -69,6 +69,7 @@ const Entry = ({
     try {
       const createdEntry = await createEntry({ name, user, league });
       setEntries([...entries, createdEntry]);
+      console.log('Entry created:', createdEntry);
     } catch (error) {
       console.error(error);
     }
