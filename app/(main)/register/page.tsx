@@ -125,115 +125,112 @@ const Register = (): JSX.Element => {
   const isDisabled = !email || !password || password !== confirmPassword;
 
   return (
-    <div className="h-screen w-full">
-      <div className="grid h-screen w-full grid-cols-2 bg-gradient-to-b from-[#4E160E] to-zinc-950">
-        <div className="grid p-8">
-          <div className="grid">
-            <Logo className="mx-auto place-self-end" src={logo} />
-          </div>
-          <div className="mx-auto grid gap-4 place-self-end">
-            <p className="leading-7 text-white">
-              Thank you... fantasy football draft, for letting me know that even
-              in my fantasies, I am bad at sports.
-            </p>
-            <p className="leading-7 text-white">Jimmy Fallon</p>
-          </div>
-        </div>
-        <div className="grid place-content-center bg-white p-8">
-          <div className="mx-auto grid w-80 place-content-center gap-4">
-            <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
-              Register A New Account
-            </h1>
-            <p className="pb-4 font-normal leading-7 text-zinc-500">
-              If you have an existing account{' '}
-              <LinkCustom href="/login">Login!</LinkCustom>
-            </p>
-
-            <Form {...form}>
-              <form
-                id="input-container"
-                className="grid gap-3"
-                onSubmit={form.handleSubmit(onSubmit)}
-              >
-                <FormField
-                  control={form.control as Control<object>}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          data-testid="email"
-                          type="email"
-                          placeholder="Email"
-                          {...field}
-                        />
-                      </FormControl>
-                      {form.formState.errors.email && (
-                        <FormMessage>
-                          {form.formState.errors.email.message}
-                        </FormMessage>
-                      )}
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control as Control<object>}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          data-testid="password"
-                          type="password"
-                          placeholder="Password"
-                          {...field}
-                        />
-                      </FormControl>
-                      {form.formState.errors.password && (
-                        <FormMessage>
-                          {form.formState.errors.password.message}
-                        </FormMessage>
-                      )}
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control as Control<object>}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          data-testid="confirm-password"
-                          type="password"
-                          placeholder="Confirm Password"
-                          {...field}
-                        />
-                      </FormControl>
-                      {form.formState.errors.confirmPassword && (
-                        <FormMessage>
-                          {form.formState.errors.confirmPassword.message}
-                        </FormMessage>
-                      )}
-                    </FormItem>
-                  )}
-                />
-
-                <Button
-                  data-testid="continue-button"
-                  label="Register"
-                  type="submit"
-                  disabled={isDisabled}
-                />
-                <LinkCustom href="/login">
-                  Login to get started playing
-                </LinkCustom>
-              </form>
-            </Form>
-          </div>
+    <section className="grid xl:grid-cols-2 xl:grid-rows-none">
+      <div
+        data-testid="dark-mode-section"
+        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
+      >
+        <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
+        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground text-white">
+          <p className="hidden leading-7 xl:block">
+            Thank you... fantasy football draft, for letting me know that even
+            in my fantasies, I am bad at sports.
+          </p>
+          <p className="hidden leading-7 xl:block">Jimmy Fallon</p>
         </div>
       </div>
-    </div>
+      <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
+        <div>
+          <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
+            Register A New Account
+          </h1>
+          <p className="pb-4 font-normal leading-7 text-zinc-500">
+            If you have an existing account{' '}
+            <LinkCustom href="/login">Login!</LinkCustom>
+          </p>
+        </div>
+
+        <Form {...form}>
+          <form
+            id="input-container"
+            className="grid gap-3"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control as Control<object>}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="email"
+                      type="email"
+                      placeholder="Email"
+                      {...field}
+                    />
+                  </FormControl>
+                  {form.formState.errors.email && (
+                    <FormMessage>
+                      {form.formState.errors.email.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control as Control<object>}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="password"
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                    />
+                  </FormControl>
+                  {form.formState.errors.password && (
+                    <FormMessage>
+                      {form.formState.errors.password.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control as Control<object>}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="confirm-password"
+                      type="password"
+                      placeholder="Confirm Password"
+                      {...field}
+                    />
+                  </FormControl>
+                  {form.formState.errors.confirmPassword && (
+                    <FormMessage>
+                      {form.formState.errors.confirmPassword.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
+
+            <Button
+              data-testid="continue-button"
+              label="Register"
+              type="submit"
+              disabled={isDisabled}
+            />
+            <LinkCustom href="/login">Login to get started playing</LinkCustom>
+          </form>
+        </Form>
+      </div>
+    </section>
   );
 };
 
