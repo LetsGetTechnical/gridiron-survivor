@@ -139,6 +139,7 @@ export const getNFLTeams = async (): Promise<INFLTeam[]> => {
 
     const nflTeams = response.documents.map((team) => ({
       teamId: team.$id,
+      teamLogo: team.teamLogo,
       teamName: team.teamName,
     }));
 
