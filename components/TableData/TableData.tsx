@@ -28,10 +28,7 @@ import { ITableData } from './TableData.interface';
  * @param props.data - Data that goes inside the table.
  * @returns {JSX.Element} The rendered weekly picks page.
  */
-const TableData = <TData, TValue>({
-  columns,
-  data,
-}: ITableData<TData, TValue>): JSX.Element => {
+const TableData = ({ columns, data }: ITableData): JSX.Element => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
