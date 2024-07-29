@@ -6,6 +6,14 @@ const columns = [
     {
         header: 'Test Header',
         cell: 'Test Cell',
+    },
+    {
+        header: 'Test Header 2',
+        cell: 'Test Cell 2',
+    },
+    {
+        header: 'Test Header 3',
+        cell: 'Test Cell 3',
     }
 ];
 const data = [
@@ -19,5 +27,13 @@ const data = [
 describe('Table Component', () => {
     it('should render the table component with the columns and data when called', () => {
         render(<TableData columns={columns} data={data} />);
+
+        columns.forEach((column) => {
+            const header = screen.getByText(column.header);
+            const cell = screen.getByText(column.cell);
+
+            expect(header).toBeInTheDocument();
+            expect(cell).toBeInTheDocument();
+        });
     })
 });

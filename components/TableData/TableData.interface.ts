@@ -1,9 +1,9 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { ColumnDef, RowData } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 
-export interface ITableData {
-  columns: ColumnDef<RowData, unknown>[];
-  data: RowData[];
+export interface ITableData<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
