@@ -59,9 +59,9 @@ export const loginAccount = async ({
  * @param props.resetUser - reset user state
  */
 export const logoutHandler = async ({
-  setIsSignedIn,
   router,
   resetUser,
+  setIsSignedIn,
 }: ILogoutType): Promise<void> => {
   try {
     await account.deleteSession('current');

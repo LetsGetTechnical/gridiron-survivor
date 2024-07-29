@@ -72,7 +72,7 @@ export const AuthContextProvider = ({
    * @returns {Promise<void | Error>} - The error if there is one.
    */
   const logoutAccount = async (): Promise<void | Error> => {
-    await logoutHandler({ setIsSignedIn, router, resetUser });
+    await logoutHandler({ router, resetUser, setIsSignedIn });
   };
 
   /**

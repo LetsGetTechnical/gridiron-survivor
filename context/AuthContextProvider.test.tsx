@@ -75,9 +75,9 @@ describe('AuthContextProvider', () => {
   test('after a successful logout it shows success notification', async () => {
     await logoutHandler({ resetUser, setIsSignedIn, router });
 
-    expect(setIsSignedIn).toHaveBeenCalledWith(false);
     expect(resetUser).toHaveBeenCalled();
     expect(router.push).toHaveBeenCalledWith('/login');
+    expect(setIsSignedIn).toHaveBeenCalledWith(false);
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert variant={AlertVariants.Success} message="Logged Out" />,
     );
@@ -90,6 +90,17 @@ describe('AuthContextProvider', () => {
 
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert variant={AlertVariants.Error} message="Logout failed!" />,
+    );
+  });
+
+  test('Should logout the user sucessfully', async () => {
+    await logoutHandler({ resetUser, setIsSignedIn, router });
+
+    expect(resetUser).toHaveBeenCalled();
+    expect(router.push).toHaveBeenCalledWith('/login');
+    expect(setIsSignedIn).toHaveBeenCalledWith(false);
+    expect(toast.custom).toHaveBeenCalledWith(
+      <Alert variant={AlertVariants.Success} message="Logged Out" />,
     );
   });
 });
