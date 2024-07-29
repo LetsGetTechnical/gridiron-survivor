@@ -14,7 +14,13 @@ import {
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
 
-export const columns: ColumnDef[] = [
+export type Header = {
+  text: string;
+  text2: string;
+  text3: string;
+};
+
+export const columns: ColumnDef<Header>[] = [
   {
     accessorKey: 'text',
     header: 'League Name',
