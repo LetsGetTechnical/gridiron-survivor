@@ -1,9 +1,12 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
 import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { Button } from '@/components/Button/Button';
 import { toast } from 'react-hot-toast';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
@@ -42,6 +45,28 @@ jest.mock('../../../context/AuthContextProvider', () => ({
     return mockUseAuthContext;
   },
 }));
+
+const TestButton = () => {
+  let setLoading = false;
+  function mockSendingData() {
+    return new Promise((resolve) => {
+      setLoading = true;
+      setTimeout(() => {
+        resolve((setLoading = false));
+      }, 3000);
+    });
+  }
+
+  return (
+    <Button
+      data-testid="continue-button"
+      disabled={setLoading}
+      label={setLoading ? <LoadingSpinner /> : 'Continue'}
+      onClick={mockSendingData}
+      type="submit"
+    />
+  );
+};
 
 describe('Register', () => {
   beforeEach(() => {
@@ -169,5 +194,12 @@ describe('Register', () => {
     const darkModeSection = screen.getByTestId('dark-mode-section');
 
     expect(darkModeSection).toHaveClass('dark:bg-gradient-to-b');
+  });
+
+  test('Register submission button is set to loading state when clicked', async () => {
+    render(<TestButton />);
+
+    const loadingSpinner = screen.getByTestId('loading-spinner');
+    expect(loadingSpinner).toBeInTheDocument();
   });
 });
