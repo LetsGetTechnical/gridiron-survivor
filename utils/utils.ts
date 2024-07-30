@@ -5,6 +5,7 @@ import {
   IGameWeek,
   IUser,
   IUserPick,
+  INFLTeam
 } from '@/api/apiFunctions.interface';
 import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries } from '@/api/apiFunctions';
 import { clsx, type ClassValue } from 'clsx';
@@ -143,4 +144,14 @@ export const getUserLeagues = async (
  */
 export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['leagueId']): Promise<IEntry[]> => {
   return await getCurrentUserEntries(userId, leagueId);
+}
+
+/**
+ * Returns if the team has already been picked by the user
+ * @param teamName - The team name
+ * @param selectedTeams - the user's selected teams
+ * @returns {boolean} - Whether the team has already been picked
+ */
+export const hasTeamBeenPicked = (teamName: string, selectedTeams: INFLTeam[]): boolean => {
+  return selectedTeams.find((team) => team.teamName === teamName) ? true : false;
 }

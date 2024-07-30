@@ -6,6 +6,7 @@ import { FormItem, FormControl } from '@/components/Form/Form';
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import { IWeekTeamsProps } from './WeekTeams.interface';
 import { WeeklyPickButton } from '@/components/WeeklyPickButton/WeeklyPickButton';
+import { hasTeamBeenPicked } from '@/utils/utils';
 
 /**
  * Formats the date to 'day, mon date' format and the time to either 12 or 24-hour format based on the user's locale.
@@ -68,13 +69,10 @@ const WeekTeams = ({
               <WeeklyPickButton
                 team={competition.team.name}
                 src={competition.team.logo}
-                isDisabled={
-                  selectedTeams.find(
-                    (team) => team.teamName === competition.team.name,
-                  )
-                    ? true
-                    : false
-                }
+                isDisabled={hasTeamBeenPicked(
+                  competition.team.name,
+                  selectedTeams,
+                )}
               />
             </FormControl>
           </FormItem>
