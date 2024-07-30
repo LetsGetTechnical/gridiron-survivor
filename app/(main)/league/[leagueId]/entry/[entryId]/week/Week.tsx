@@ -179,7 +179,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
     getSchedule(week);
     getUserWeeklyPick();
-    getUserSelectedTeams();
     setIsLoading(false);
   }, [week, selectedLeague]);
 
@@ -188,6 +187,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       const userPick = weeklyPicks.userResults[user.id][entry].teamName;
       setUserPick(userPick);
     }
+    getUserSelectedTeams();
   }, [weeklyPicks, user, entry]);
 
   if (schedule.length === 0 || isLoading) {
