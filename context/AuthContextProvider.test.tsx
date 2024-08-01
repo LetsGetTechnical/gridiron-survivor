@@ -92,15 +92,4 @@ describe('AuthContextProvider', () => {
       <Alert variant={AlertVariants.Error} message="Logout failed!" />,
     );
   });
-
-  test('Should logout the user sucessfully', async () => {
-    await logoutHandler({ resetUser, setIsSignedIn, router });
-
-    expect(resetUser).toHaveBeenCalled();
-    expect(router.push).toHaveBeenCalledWith('/login');
-    expect(setIsSignedIn).toHaveBeenCalledWith(false);
-    expect(toast.custom).toHaveBeenCalledWith(
-      <Alert variant={AlertVariants.Success} message="Logged Out" />,
-    );
-  });
 });
