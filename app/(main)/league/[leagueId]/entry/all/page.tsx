@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 'use client';
-
 import {
   createEntry,
   getCurrentUserEntries,
@@ -101,13 +100,17 @@ const Entry = ({
         <>
           {entries.map((entry) => {
             const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
+            const isPickSet = entry.selectedTeams.length > 0;
+            const teamLogo = isPickSet ? entry.selectedTeams[0].teamLogo : '';
 
             return (
               <section key={entry.$id}>
                 <LeagueEntries
                   key={entry.$id}
                   entryName={entry.name}
+                  isPickSet={isPickSet}
                   linkUrl={linkUrl}
+                  teamLogo={teamLogo}
                 />
               </section>
             );
