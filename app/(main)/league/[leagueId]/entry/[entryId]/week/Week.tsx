@@ -23,6 +23,7 @@ import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
 
+
 /**
  * Renders the weekly picks page.
  * @param {IWeekProps} props The parameters for the weekly picks page.
@@ -126,25 +127,27 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
   return (
     <div className="league-entry-week">
+
       {loadingData ? (
         <GlobalSpinner />
       ) : (
         <>
-          <nav className="py-6 text-orange-500 hover:no-underline">
-            <LinkCustom
-              className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
-              href={`/league/${league}/entry/all`}
-            >
-              <span aria-hidden="true">
-                <ChevronLeft size={16} />
-              </span>
-              {selectedLeague?.leagueName as string}
-            </LinkCustom>
-          </nav>
-          <section className="w-full pt-8" data-testid="weekly-picks">
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
-              Week {week} pick
-            </h1>
+  
+      <nav className="py-6 text-orange-500 hover:no-underline">
+        <LinkCustom
+          className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+          href={`/league/${league}/entry/all`}
+        >
+          <span aria-hidden="true">
+            <ChevronLeft size={16} />
+          </span>
+          {selectedLeague?.leagueName as string}
+        </LinkCustom>
+      </nav>
+      <section className="w-full pt-8" data-testid="weekly-picks">
+        <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+          Week {week} pick
+        </h1>
 
         <FormProvider {...form}>
           <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
@@ -168,6 +171,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
           </form>
         </FormProvider>
       </section>
+      
     </div>
   );
 };

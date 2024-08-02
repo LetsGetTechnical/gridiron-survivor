@@ -1,18 +1,8 @@
+<<<<<<<<< Temporary merge branch 1
 import { render, screen, waitFor } from '@testing-library/react';
 import Week from './Week';
 import { getCurrentLeague, createWeeklyPicks } from '@/api/apiFunctions';
 import { useDataStore } from '@/store/dataStore';
-import React from 'react';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
-import { toast } from 'react-hot-toast';
-import { onWeeklyPickChange } from './WeekHelper';
-import { parseUserPick } from '@/utils/utils';
-import { IWeeklyPicks } from '@/api/apiFunctions.interface';
-
-const mockUseDataStore = useDataStore as jest.Mock;
-const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
-const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
@@ -30,6 +20,20 @@ jest.mock('@/api/apiFunctions', () => ({
     }),
   ),
 }));
+
+describe('Week Component', () => {
+  const mockUseDataStore = useDataStore as jest.Mock;
+  const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
+  const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
+=========
+import React from 'react';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { toast } from 'react-hot-toast';
+import { onWeeklyPickChange } from './WeekHelper';
+import { createWeeklyPicks } from '@/api/apiFunctions';
+import { parseUserPick } from '@/utils/utils';
+import { IWeeklyPicks } from '@/api/apiFunctions.interface';
 
 jest.mock('@/api/apiFunctions', () => ({
   createWeeklyPicks: jest.fn(),
@@ -85,6 +89,7 @@ describe('Week', () => {
   jest.mock('@/utils/utils', () => ({
     parseUserPick: mockParseUserPick,
   }));
+>>>>>>>>> Temporary merge branch 2
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -99,8 +104,7 @@ describe('Week', () => {
     await waitFor(() => {
       expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
     });
-  });
-
+=========
   test('should show success notification after changing your team pick', async () => {
     (createWeeklyPicks as jest.Mock).mockResolvedValue({});
 
@@ -157,5 +161,6 @@ describe('Week', () => {
         message="There was an error processing your request."
       />,
     );
+>>>>>>>>> Temporary merge branch 2
   });
 });
