@@ -22,6 +22,8 @@ import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 /**
  * Renders the weekly picks page.
@@ -30,6 +32,7 @@ import { onWeeklyPickChange } from './WeekHelper';
  */
 // eslint-disable-next-line no-unused-vars
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
+  const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
   const [loadingData, setLoadingData] = useState<boolean>(true);
@@ -73,9 +76,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       const scheduleData = await import(
         `@/app/(main)/schedule/2024/week${week}.json`
       );
-      setSchedule(scheduleData.events);
+      if (scheduleData.events.length === 0) {
+        setError('No events found for the selected week.');
+      } else {
+        setSchedule(scheduleData.events);
+      }
     } catch (error) {
       console.error('Could not load week data:', error);
+      setError('Could not load week data.');
     } finally {
       setLoadingData(false);
     }
@@ -117,11 +125,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
-    setLoadingData(false);
   }, [week, selectedLeague]);
 
-  if (schedule.length === 0 || loadingData) {
+  if (loadingData) {
     return <GlobalSpinner />;
+  }
+
+  if (error) {
+    return <Alert variant={AlertVariants.Error} message={error} />;
   }
 
   return (
