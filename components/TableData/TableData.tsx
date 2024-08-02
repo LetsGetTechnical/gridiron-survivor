@@ -5,11 +5,11 @@
 
 import { JSX, useState } from 'react';
 import {
-  flexRender,
   getCoreRowModel,
+  getSortedRowModel,
+  flexRender,
   useReactTable,
   SortingState,
-  getSortedRowModel,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -35,11 +35,11 @@ const TableData = <TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
-    data,
     columns,
+    data,
     getCoreRowModel: getCoreRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
     state: {
       sorting,
     },

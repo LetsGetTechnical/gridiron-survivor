@@ -1,8 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import * as React from 'react';
-
+import React from 'react';
 import { cn } from '@/utils/utils';
 
 const Table = React.forwardRef<
@@ -110,11 +109,11 @@ TableCaption.displayName = 'TableCaption';
 
 export {
   Table,
-  TableHeader,
   TableBody,
+  TableCaption,
+  TableCell,
   TableFooter,
+  TableHeader,
   TableHead,
   TableRow,
-  TableCell,
-  TableCaption,
 };

@@ -4,9 +4,9 @@
 'use client';
 
 import React, { JSX } from 'react';
-import { ChevronsUpDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '../Button/Button';
 import { ColumnDef } from '@tanstack/react-table';
+import { ChevronsUpDown, MoreHorizontal } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
