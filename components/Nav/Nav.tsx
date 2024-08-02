@@ -64,6 +64,18 @@ export const Nav = (): JSX.Element => {
               </DrawerHeader>
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
+                  {/* Find an alternative to Button -> need to display leagues/all as list and sublist if more than one leauge */}
+                  <Button
+                    className="p-0 text-base font-normal text-zinc-600"
+                    variant={'link'}
+                    label="Leagues"
+                    onClick={() => {
+                      setOpen(false);
+                      router.push('/leagues');
+                    }}
+                  />
+                </li>
+                <li>
                   <Button
                     className="p-0 text-base font-normal text-zinc-600"
                     variant="link"
