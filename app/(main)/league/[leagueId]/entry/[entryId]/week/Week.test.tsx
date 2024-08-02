@@ -72,6 +72,19 @@ describe('Week', () => {
     });
   });
 
+  test('should not display GlobalSpinner after loading data', async () => {
+    jest.mocked(getCurrentLeague).mockResolvedValue({ week: 1 });
+    jest.mocked(createWeeklyPicks).mockResolvedValue({});
+
+    render(
+      <Week entry="entry-id" league="league-id" NFLTeams={NFLTeams} week="1" />,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
+    });
+  });
+
   test('should show success notification after changing your team pick', async () => {
     (createWeeklyPicks as jest.Mock).mockResolvedValue({});
     const currentUserPick = parseUserPick(user.id, entry, teamID);
