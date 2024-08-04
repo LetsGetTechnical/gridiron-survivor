@@ -73,8 +73,8 @@ describe('Week', () => {
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
-    jest.mocked(getCurrentLeague).mockResolvedValue({ week: 1 });
-    jest.mocked(createWeeklyPicks).mockResolvedValue({});
+    getCurrentLeague.mockResolvedValue({ week: 1 });
+    createWeeklyPicks.mockResolvedValue({});
 
     render(
       <Week entry="entry-id" league="league-id" NFLTeams={NFLTeams} week="1" />,
