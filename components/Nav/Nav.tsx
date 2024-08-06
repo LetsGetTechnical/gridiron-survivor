@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
@@ -17,6 +17,11 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/utils';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import { getUserLeagues } from '@/utils/utils';
+import { useDataStore } from '@/store/dataStore';
+import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
+import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
+import { ILeague } from '@/api/apiFunctions.interface';
 
 /**
  * Renders the navigation.
@@ -27,6 +32,24 @@ export const Nav = (): JSX.Element => {
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
   const [open, setOpen] = React.useState(false);
+
+  const [leagues, setLeagues] = useState<ILeague[]>([]);
+  const { user } = useDataStore((state) => state);
+
+  const getLeagues = async (): Promise<void> => {
+    try {
+      const userLeagues = await getUserLeagues(user.leagues);
+      setLeagues(userLeagues);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (!user.id || user.id === '') {
+      return;
+    }
+
+    getLeagues();
+  }, [user]);
 
   /**
    * Handles the logout.
@@ -65,15 +88,31 @@ export const Nav = (): JSX.Element => {
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
                   {/* Find an alternative to Button -> need to display leagues/all as list and sublist if more than one leauge */}
-                  <Button
-                    className="p-0 text-base font-normal text-zinc-600"
-                    variant={'link'}
-                    label="Leagues"
-                    onClick={() => {
-                      setOpen(false);
-                      router.push('/leagues');
-                    }}
-                  />
+                  <div className="Leagues mx-auto max-w-3xl pt-10">
+                    <h1 className="pb-10 text-center text-l font-bold tracking-tight">
+                      Your leagues
+                    </h1>
+                    <section>
+                      {leagues.length > 0 ? (
+                        leagues.map((league) => (
+                          <LeagueCard
+                            key={league.leagueId}
+                            href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
+                            leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
+                            survivors={league.survivors.length}
+                            title={league.leagueName}
+                            totalPlayers={league.participants.length}
+                          />
+                        ))
+                      ) : (
+                        <div className="text-center">
+                          <p className="text-lg font-bold">
+                            You are not enrolled in any leagues
+                          </p>
+                        </div>
+                      )}
+                    </section>
+                  </div>
                 </li>
                 <li>
                   <Button
