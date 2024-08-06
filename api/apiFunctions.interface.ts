@@ -30,6 +30,7 @@ export interface IWeeklyPicks {
 }
 export interface INFLTeam {
   teamId: string;
+  teamLogo: string;
   teamName: string;
 }
 export interface IUserPicksData extends IUserPick {}
