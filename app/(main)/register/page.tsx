@@ -23,7 +23,8 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import Logo from '@/components/Logo/Logo';
 import logo from '/public/assets/logo-colored-outline.svg';
-import React, { JSX, useEffect } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 const RegisterUserSchema = z
   .object({
