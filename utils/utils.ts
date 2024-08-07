@@ -15,6 +15,7 @@ import {
 } from './utils.interface';
 import { ILeague } from '@/api/apiFunctions.interface';
 import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
+import { account } from '@/api/config';
 
 /**
  * Combine class names
@@ -143,4 +144,13 @@ export const getUserLeagues = async (
  */
 export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['leagueId']): Promise<IEntry[]> => {
   return await getCurrentUserEntries(userId, leagueId);
+}
+
+/**
+ * Check if the user is an admin
+ * @returns {boolean} - Whether the user is an admin or not based on their labels
+ */
+export const isUserAdmin = async (): Promise<boolean> => {
+  const user = await account.get();
+  return user.labels.includes('admin');
 }
