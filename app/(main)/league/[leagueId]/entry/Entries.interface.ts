@@ -9,6 +9,7 @@ export interface IEntry {
   user: IUser;
   league: ILeague;
   selectedTeams: INFLTeam[];
+  eliminated: boolean;
 }
 
 export interface IEntryProps {
