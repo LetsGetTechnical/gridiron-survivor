@@ -23,7 +23,7 @@ describe('Week', () => {
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   };
-  const NFLTeams = [{ teamName: 'Browns', teamId: '1234' }];
+  const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: '' }];
   const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
