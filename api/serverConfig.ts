@@ -13,4 +13,3 @@ const client = new sdk.Client()
   .setKey(API_KEY);
 
 export const users = new sdk.Users(client);
-export const account = new sdk.Account(client);
