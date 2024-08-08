@@ -9,6 +9,7 @@ jest.mock('./apiFunctions', () => {
     createWeeklyPicks: jest.fn(),
     getUserWeeklyPick: jest.fn(),
     getAllWeeklyPicks: jest.fn(),
+    getCurrentUserEntries: jest.fn(),
   };
 });
 
@@ -136,5 +137,70 @@ describe('Get All Weekly Picks Mock Function', () => {
     const result = await apiFunctions.getAllWeeklyPicks();
 
     expect(result).toEqual(response);
+  });
+});
+
+describe('getCurrentUserEntries()', () => {
+  it('should get all user entries and check if eliminated is equal to true', async () => {
+    const userEntries = [
+      {
+        eliminated: true,
+        league: {},
+        name: 'name',
+        selectedTeams: [],
+        user: '000',
+        $id: '000',
+      },
+    ];
+
+    apiFunctions.getCurrentUserEntries.mockResolvedValue(userEntries);
+
+    const result = await apiFunctions.getCurrentUserEntries();
+
+    for (const entry of result) {
+      expect(entry.eliminated).toEqual(true);
+    }
+  });
+
+  it('should get all user entries and check if eliminated is equal to false', async () => {
+    const userEntries = [
+      {
+        eliminated: false,
+        league: {},
+        name: 'name',
+        selectedTeams: [],
+        user: '000',
+        $id: '000',
+      },
+    ];
+
+    apiFunctions.getCurrentUserEntries.mockResolvedValue(userEntries);
+
+    const result = await apiFunctions.getCurrentUserEntries();
+
+    for (const entry of result) {
+      expect(entry.eliminated).toEqual(false);
+    }
+  });
+
+  it('should get all user entries and check if eliminated is equal to null', async () => {
+    const userEntries = [
+      {
+        eliminated: null,
+        league: {},
+        name: 'name',
+        selectedTeams: [],
+        user: '000',
+        $id: '000',
+      },
+    ];
+
+    apiFunctions.getCurrentUserEntries.mockResolvedValue(userEntries);
+
+    const result = await apiFunctions.getCurrentUserEntries();
+
+    for (const entry of result) {
+      expect(entry.eliminated).toEqual(null);
+    }
   });
 });
