@@ -108,6 +108,7 @@ const Entry = ({
                 <LeagueEntries
                   key={entry.$id}
                   entryName={entry.name}
+              isEliminated={entry.eliminated}
                   isPickSet={isPickSet}
                   linkUrl={linkUrl}
                   teamLogo={teamLogo}
@@ -115,6 +116,7 @@ const Entry = ({
               </section>
             );
           })}
+
 
           <div className="flex justify-center items-center mt-2 mb-2 w-full">
             <Button

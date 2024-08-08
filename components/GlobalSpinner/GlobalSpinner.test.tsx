@@ -41,6 +41,5 @@ describe('GlobalSpinner', () => {
       'global-spinner-image',
     ) as HTMLImageElement;
     expect(image.src).toContain('global-spinner');
-
   });
 });
