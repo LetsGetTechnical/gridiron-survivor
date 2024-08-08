@@ -115,6 +115,7 @@ export async function getCurrentUserEntries(
       user: entry.user,
       league: entry.league,
       selectedTeams: entry.selectedTeams,
+      eliminated: entry.eliminated,
     }));
 
     return entries;

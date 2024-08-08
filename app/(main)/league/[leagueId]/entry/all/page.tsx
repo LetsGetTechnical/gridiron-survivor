@@ -96,6 +96,7 @@ const Entry = ({
               entryName={entry.name}
               isPickSet={isPickSet}
               linkUrl={linkUrl}
+              isEliminated={entry.eliminated}
               teamLogo={teamLogo}
             />
           </section>
