@@ -23,7 +23,7 @@ export type Header = {
 export const columns: ColumnDef<Header>[] = [
   {
     accessorKey: 'text',
-    header: 'League Name',
+    header: 'HEADING',
     /**
      * Value of row.
      * @param {object} row - The row data.
@@ -47,7 +47,7 @@ export const columns: ColumnDef<Header>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Header2
+          HEADING
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -76,7 +76,7 @@ export const columns: ColumnDef<Header>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Header3
+          HEADING
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

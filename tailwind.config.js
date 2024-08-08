@@ -17,6 +17,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        datatableborder: '#27272A',
+        datatableheader: '#A1A1AA',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
