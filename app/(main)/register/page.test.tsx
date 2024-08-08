@@ -175,6 +175,14 @@ describe('Register', () => {
   });
 
   test('Should show loadingspinner in submit button when clicked', async () => {
+    jest.mock('../../../api/apiFunctions', () => ({
+      registerAccount: jest.fn(() => {
+        setTimeout(() => {
+          console.log('register account done running...');
+        }, 100000);
+      }),
+    }));
+
     fireEvent.change(screen.getByTestId('email'), {
       target: { value: 'test5@test.com' },
     });
