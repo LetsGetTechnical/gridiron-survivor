@@ -46,28 +46,6 @@ jest.mock('../../../context/AuthContextProvider', () => ({
   },
 }));
 
-const TestButton = () => {
-  let setLoading = false;
-  function mockSendingData() {
-    return new Promise((resolve) => {
-      setLoading = true;
-      setTimeout(() => {
-        resolve((setLoading = false));
-      }, 3000);
-    });
-  }
-
-  return (
-    <Button
-      data-testid="continue-button"
-      disabled={setLoading}
-      label={setLoading ? <LoadingSpinner /> : 'Continue'}
-      onClick={mockSendingData}
-      type="submit"
-    />
-  );
-};
-
 describe('Register', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -196,10 +174,22 @@ describe('Register', () => {
     expect(darkModeSection).toHaveClass('dark:bg-gradient-to-b');
   });
 
-  test('Register submission button is set to loading state when clicked', async () => {
-    render(<TestButton />);
+  test('Should show loadingspinner in submit button when clicked', async () => {
+    fireEvent.change(screen.getByTestId('email'), {
+      target: { value: 'test5@test.com' },
+    });
+    fireEvent.change(screen.getByTestId('password'), {
+      target: { value: 'password12345' },
+    });
+    fireEvent.change(screen.getByTestId('confirm-password'), {
+      target: { value: 'password12345' },
+    });
 
-    const loadingSpinner = screen.getByTestId('loading-spinner');
-    expect(loadingSpinner).toBeInTheDocument();
+    fireEvent.click(continueButton);
+
+    waitFor(async () => {
+      const loadingSpinner = await screen.findByTestId('loading-spinner');
+      expect(loadingSpinner).toBeInTheDocument();
+    });
   });
 });

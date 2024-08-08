@@ -119,6 +119,7 @@ const Register = (): JSX.Element => {
         />,
       );
     } catch (error) {
+      setIsLoading(false);
       console.error('Registration Failed', error);
       toast.custom(
         <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
