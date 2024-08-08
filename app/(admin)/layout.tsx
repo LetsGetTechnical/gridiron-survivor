@@ -4,20 +4,20 @@
 import '../globals.css';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
 import { GeistSans } from 'geist/font/sans';
-import { Toaster } from 'react-hot-toast';
-import ErrorBoundary from '../error';
-import React, { JSX } from 'react';
-import Link from 'next/link';
-import LogoNav from '@/components/LogoNav/LogoNav';
-import Heading from '@/components/Heading/Heading';
 import {
+  LucideBell,
   LucideChevronsUpDown,
+  LucideCog,
   LucideHome,
   LucideLayoutGrid,
   LucideUsers,
-  LucideBell,
-  LucideCog,
 } from 'lucide-react';
+import { Toaster } from 'react-hot-toast';
+import ErrorBoundary from '../error';
+import Heading from '@/components/Heading/Heading';
+import Link from 'next/link';
+import LogoNav from '@/components/LogoNav/LogoNav';
+import React, { JSX } from 'react';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -47,12 +47,12 @@ const RootLayout = ({
           <AuthContextProvider>
             <main className="grid grid-cols-adminLayout h-screen">
               <section className="left-column grid grid-rows-adminLayout h-full border-r-2 border-border">
-                <section className="flex items-center border-b-2 border-border px-3">
+                <section className="admin-logo flex items-center border-b-2 border-border px-3">
                   <LogoNav />
                 </section>
-                <section className="nav-sidebar">
+                <section className="admin-nav-sidebar">
                   <nav className="flex flex-col justify-between h-full pt-2 pb-3 px-3 text-sm text-zinc-400">
-                    <ul className="flex flex-col gap-y-2">
+                    <ul className="admin-nav-main flex flex-col gap-y-2">
                       <li>
                         <Link
                           href="#"
@@ -90,7 +90,7 @@ const RootLayout = ({
                         </Link>
                       </li>
                     </ul>
-                    <div className="flex gap-2 px-2 py-2 items-center outline outline-border rounded text-zinc-50">
+                    <div className="admin-user-settings flex gap-2 px-2 py-2 items-center outline outline-border rounded text-zinc-50">
                       <span className="bg-cyan-500 w-8 h-8 rounded-full" />
                       <p>Users Name</p>
                       <LucideChevronsUpDown
@@ -103,7 +103,7 @@ const RootLayout = ({
               </section>
               <section className="right-column grid grid-rows-adminLayout">
                 <section className="flex items-center border-b-2 border-border px-6">
-                  <div className="flex gap-2 px-2 py-2 items-center outline outline-border rounded w-80">
+                  <div className="admin-quick-menu flex gap-2 px-2 py-2 items-center outline outline-border rounded w-80">
                     <LucideCog className="w-8 h-8 p-1 bg-zinc-700" />
                     <p>Admin</p>
                     <LucideChevronsUpDown
@@ -113,7 +113,7 @@ const RootLayout = ({
                   </div>
                 </section>
                 <section>
-                  <header className="pt-6 px-6 pb-8 space-y-2">
+                  <header className="admin-header pt-6 px-6 pb-8 space-y-2">
                     <Heading as="h2">Admin Home</Heading>
                     <p className="text-zinc-400 max-w-prose">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
