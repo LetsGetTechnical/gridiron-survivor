@@ -30,6 +30,7 @@ const Leagues = (): JSX.Element => {
       setLeagues(userLeagues);
     } catch (error) {
       console.error(error);
+      throw new Error('Error fetching user leagues');
     } finally {
       setLoadingData(false);
     }

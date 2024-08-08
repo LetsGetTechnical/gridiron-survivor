@@ -42,6 +42,7 @@ const Entry = ({
       setEntries(getEntries);
     } catch (error) {
       console.error(error);
+      throw new Error("Error fetching user's entries");
     } finally {
       setLoadingData(false);
     }
@@ -108,7 +109,7 @@ const Entry = ({
                 <LeagueEntries
                   key={entry.$id}
                   entryName={entry.name}
-              isEliminated={entry.eliminated}
+                  isEliminated={entry.eliminated}
                   isPickSet={isPickSet}
                   linkUrl={linkUrl}
                   teamLogo={teamLogo}
@@ -116,7 +117,6 @@ const Entry = ({
               </section>
             );
           })}
-
 
           <div className="flex justify-center items-center mt-2 mb-2 w-full">
             <Button

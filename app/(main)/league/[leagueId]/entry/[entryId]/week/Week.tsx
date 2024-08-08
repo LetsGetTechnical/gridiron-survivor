@@ -138,7 +138,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   return (
     <div className="league-entry-week">
       {loadingData ? (
-        <GlobalSpinner />
+        <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
           <nav className="py-6 text-orange-500 hover:no-underline">
