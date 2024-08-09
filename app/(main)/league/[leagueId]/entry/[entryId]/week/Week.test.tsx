@@ -43,8 +43,10 @@ describe('Week', () => {
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   };
+  const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
+  const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
   const NFLTeams: INFLTeam[] = [
-    { teamName: 'Browns', teamId: '1234', teamLogo: '' },
+    { teamName: 'Browns', teamId: '1234', teamLogo: 'browns' },
   ];
   const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
@@ -75,8 +77,8 @@ describe('Week', () => {
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
-    getCurrentLeague.mockResolvedValue({ week: 1 });
-    createWeeklyPicks.mockResolvedValue({});
+    mockGetCurrentLeague.mockResolvedValue({ week: 1 });
+    mockCreateWeeklyPicks.mockResolvedValue({});
 
     render(
       <Week entry="entry-id" league="league-id" NFLTeams={NFLTeams} week="1" />,

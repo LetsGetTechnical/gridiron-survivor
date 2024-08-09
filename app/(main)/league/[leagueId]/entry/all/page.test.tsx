@@ -47,4 +47,20 @@ describe('Entry Component', () => {
       expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
     });
   });
+
+  test('should not display GlobalSpinner and load data', async () => {
+    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
+    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        id: '123',
+        week: 1,
+      },
+    ]);
+    render(<Entry params={{ leagueId: '123' }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('global-spinner')).not.toBeInTheDocument();
+    });
+  });
 });

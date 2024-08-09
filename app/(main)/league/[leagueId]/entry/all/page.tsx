@@ -99,40 +99,62 @@ const Entry = ({
         <GlobalSpinner />
       ) : (
         <>
-          {entries.map((entry) => {
-            const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
-            const isPickSet = entry.selectedTeams.length > 0;
-            const teamLogo = isPickSet ? entry.selectedTeams[0].teamLogo : '';
+          {entries.length > 0 ? (
+            <>
+              {entries.map((entry) => {
+                const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
+                const isPickSet = entry.selectedTeams.length > 0;
+                const teamLogo = isPickSet
+                  ? entry.selectedTeams[0].teamLogo
+                  : '';
 
-            return (
-              <section key={entry.$id}>
-                <LeagueEntries
-                  key={entry.$id}
-                  entryName={entry.name}
-                  isEliminated={entry.eliminated}
-                  isPickSet={isPickSet}
-                  linkUrl={linkUrl}
-                  teamLogo={teamLogo}
-                />
-              </section>
-            );
-          })}
+                return (
+                  <section key={entry.$id}>
+                    <LeagueEntries
+                      key={entry.$id}
+                      entryName={entry.name}
+                      isEliminated={entry.eliminated}
+                      isPickSet={isPickSet}
+                      linkUrl={linkUrl}
+                      teamLogo={teamLogo}
+                    />
+                  </section>
+                );
+              })}
 
-          <div className="flex justify-center items-center mt-2 mb-2 w-full">
-            <Button
-              icon={<PlusCircle className="mr-2" />}
-              variant="outline"
-              onClick={() =>
-                addNewEntry({
-                  name: `Entry ${entries.length + 1}`,
-                  user: user.id,
-                  league: leagueId,
-                })
-              }
-            >
-              Add New Entry
-            </Button>
-          </div>
+              <div className="flex justify-center items-center mt-2 mb-2 w-full">
+                <Button
+                  icon={<PlusCircle className="mr-2" />}
+                  variant="outline"
+                  onClick={() =>
+                    addNewEntry({
+                      name: `Entry ${entries.length + 1}`,
+                      user: user.id,
+                      league: leagueId,
+                    })
+                  }
+                >
+                  Add New Entry
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="flex justify-center items-center mt-2 mb-2 w-full">
+              <Button
+                icon={<PlusCircle className="mr-2" />}
+                variant="outline"
+                onClick={() =>
+                  addNewEntry({
+                    name: `Entry ${entries.length + 1}`,
+                    user: user.id,
+                    league: leagueId,
+                  })
+                }
+              >
+                Add New Entry
+              </Button>
+            </div>
+          )}
         </>
       )}
     </>
