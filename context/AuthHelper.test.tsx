@@ -7,6 +7,14 @@ import { logoutHandler } from './AuthHelper';
 
 import { toast } from 'react-hot-toast';
 
+jest.mock('../api/config');
+jest.mock('next/router');
+jest.mock('react-hot-toast', () => ({
+  toast: {
+    custom: jest.fn(),
+  },
+}));
+
 describe('LogoutHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -32,10 +40,13 @@ describe('LogoutHandler', () => {
   });
 
   test('after logout attempt errors it shows error notification', async () => {
+    // Mock the `deleteSession` method to simulate an error
     account.deleteSession = jest.fn().mockRejectedValue('test error');
 
-    const error = await logoutHandler({ resetUser, setIsSignedIn, router });
+    // Call the `logoutHandler` with the necessary arguments
+    await logoutHandler({ resetUser, setIsSignedIn, router });
 
+    // Assert that the error notification is shown
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert variant={AlertVariants.Error} message="Logout failed!" />,
     );
