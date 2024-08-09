@@ -10,9 +10,9 @@ import { toast } from 'react-hot-toast';
 import { IWeeklyPickChange } from './Week.interface';
 
 /**
- * Handles the form submission.
- * @param props - data, NFLTeams, user, entry, weeklyPicks, league, week, updateWeeklyPicks, setUserPick
- * @param props.data - The form data.
+ * Handles the weekly pick team change.
+ * @param props - teamSelect, NFLTeams, user, entry, weeklyPicks, league, week, updateWeeklyPicks, setUserPick
+ * @param props.teamSelect - The selected team name
  * @param props.NFLTeams - Props for NFL teams
  * @param props.user - Props for user
  * @param props.entry - Prop for the entry string
@@ -24,7 +24,7 @@ import { IWeeklyPickChange } from './Week.interface';
  * @returns {void}
  */
 export const onWeeklyPickChange = async ({
-  data,
+  teamSelect,
   entry,
   league,
   NFLTeams,
@@ -35,7 +35,6 @@ export const onWeeklyPickChange = async ({
   week,
 }: IWeeklyPickChange): Promise<void> => {
   try {
-    const teamSelect = data.target.value;
     const teamID = NFLTeams.find(
       (team) => team.teamName === teamSelect,
     )?.teamName;

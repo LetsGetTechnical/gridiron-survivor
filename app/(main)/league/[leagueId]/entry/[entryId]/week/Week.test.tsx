@@ -18,12 +18,8 @@ jest.mock('react-hot-toast', () => ({
 }));
 
 describe('Week', () => {
-  const data = {
-    target: { value: 'Browns' },
-    preventDefault: jest.fn(),
-    stopPropagation: jest.fn(),
-  };
-  const NFLTeams = [{ teamName: 'Browns', teamId: '1234' }];
+  const teamSelect = 'Browns';
+  const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: '' }];
   const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
@@ -72,7 +68,7 @@ describe('Week', () => {
     const currentUserPick = mockParseUserPick(user.id, entry, teamID);
 
     await onWeeklyPickChange({
-      data,
+      teamSelect,
       NFLTeams,
       user,
       entry,
@@ -105,7 +101,7 @@ describe('Week', () => {
     (createWeeklyPicks as jest.Mock).mockRejectedValue(new Error('error'));
 
     await onWeeklyPickChange({
-      data,
+      teamSelect,
       NFLTeams,
       user,
       entry,

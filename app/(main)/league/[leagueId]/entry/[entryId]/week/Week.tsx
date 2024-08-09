@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { ChangeEvent, JSX, useEffect, useState } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import {
   FormField,
   FormItem,
@@ -12,13 +12,14 @@ import {
 import { FormProvider, Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { IWeekProps } from './Week.interface';
+import { getAllWeeklyPicks, getCurrentUserEntries } from '@/api/apiFunctions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
 import { getCurrentLeague } from '@/api/apiFunctions';
-import { ILeague } from '@/api/apiFunctions.interface';
+import { ILeague, INFLTeam } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import { onWeeklyPickChange } from './WeekHelper';
 
@@ -31,6 +32,7 @@ import { onWeeklyPickChange } from './WeekHelper';
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
+  const [selectedTeams, setSelectedTeams] = useState<INFLTeam[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
@@ -58,6 +60,27 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
+   * Fetches the league's weekly pick results for the user.
+   * @returns {Promise<void>}
+   */
+  const getUserWeeklyPick = async (): Promise<void> => {
+    try {
+      const userWeeklyPickResults = await getAllWeeklyPicks({
+        leagueId: league,
+        weekId: week,
+      });
+
+      updateWeeklyPicks({
+        leagueId: league,
+        gameWeekId: week,
+        userResults: userWeeklyPickResults || {},
+      });
+    } catch (error) {
+      console.error('Error getting weekly pick:', error);
+    }
+  };
+
+  /**
    * Loads the week data.
    * @param {string} week The week ID.
    * @returns {Promise<void>} A promise that resolves when the week data is loaded.
@@ -83,15 +106,30 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
-   * Handles the weekly picks
-   * @param data - data of the pick
+   * Get selected teams for the current user entry.
+   * @returns {Promise<void>} The selected teams
+   */
+  const getUserSelectedTeams = async (): Promise<void> => {
+    try {
+      const getEntries = await getCurrentUserEntries(user.id, league);
+      const currentEntry = getEntries.find(
+        (userEntry) => userEntry.$id === entry,
+      );
+      const selectedTeams = currentEntry?.selectedTeams || [];
+      setSelectedTeams(selectedTeams);
+    } catch (error) {
+      console.error('Error getting user selected teams:', error);
+    }
+  };
+
+  /**
+   * Handles the weekly pick team change
+   * @param teamSelect - the selected team name.
    * @returns {void}
    */
-  const handleWeeklyPickChange = async (
-    data: ChangeEvent<HTMLInputElement>,
-  ): Promise<void> => {
+  const handleWeeklyPickChange = async (teamSelect: string): Promise<void> => {
     const params = {
-      data,
+      teamSelect,
       entry,
       league,
       NFLTeams,
@@ -114,8 +152,17 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
+    getUserWeeklyPick();
     setIsLoading(false);
   }, [week, selectedLeague]);
+
+  useEffect(() => {
+    if (weeklyPicks.userResults[user.id][entry]) {
+      const userPick = weeklyPicks.userResults[user.id][entry].teamName;
+      setUserPick(userPick);
+    }
+    getUserSelectedTeams();
+  }, [weeklyPicks, user, entry]);
 
   if (schedule.length === 0 || isLoading) {
     return <p>Loading...</p>;
@@ -149,6 +196,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                   <FormControl>
                     <WeekTeams
                       schedule={schedule}
+                      selectedTeams={selectedTeams}
                       field={field}
                       userPick={userPick}
                       onWeeklyPickChange={handleWeeklyPickChange}

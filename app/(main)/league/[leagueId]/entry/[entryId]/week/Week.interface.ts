@@ -9,12 +9,6 @@ import {
   IUser,
 } from '@/api/apiFunctions.interface';
 
-export interface IWeekData {
-  target: {
-    value: string;
-  };
-}
-
 export interface IWeekParams {
   params: {
     entryId: string;
@@ -24,7 +18,7 @@ export interface IWeekParams {
 }
 
 export interface IWeeklyPickChange {
-  data: IWeekData;
+  teamSelect: string;
   entry: string;
   league: string;
   NFLTeams: INFLTeam[];
