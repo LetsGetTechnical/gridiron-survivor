@@ -77,7 +77,7 @@ describe('Week', () => {
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
-    mockGetCurrentLeague.mockResolvedValue({ week: 1 });
+    mockGetCurrentLeague.mockResolvedValue({ leagueName: 'Test League' });
     mockCreateWeeklyPicks.mockResolvedValue({});
 
     render(

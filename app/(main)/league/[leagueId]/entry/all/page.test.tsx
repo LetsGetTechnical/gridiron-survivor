@@ -18,6 +18,7 @@ jest.mock('@/api/apiFunctions', () => ({
       {
         id: '123',
         week: 1,
+        selectedTeams: [],
       },
     ]),
   ),
@@ -48,7 +49,7 @@ describe('Entry Component', () => {
     });
   });
 
-  test('should not display GlobalSpinner and load data', async () => {
+  test('should not display GlobalSpinner after data is loaded', async () => {
     mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
     mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
     mockGetCurrentUserEntries.mockResolvedValueOnce([
@@ -57,10 +58,11 @@ describe('Entry Component', () => {
         week: 1,
       },
     ]);
+
     render(<Entry params={{ leagueId: '123' }} />);
 
     await waitFor(() => {
-      expect(screen.getByTestId('global-spinner')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
     });
   });
 });

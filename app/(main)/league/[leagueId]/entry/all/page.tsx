@@ -103,7 +103,9 @@ const Entry = ({
             <>
               {entries.map((entry) => {
                 const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
-                const isPickSet = entry.selectedTeams.length > 0;
+                const isPickSet =
+                  entry.selectedTeams && entry.selectedTeams.length > 0;
+
                 const teamLogo = isPickSet
                   ? entry.selectedTeams[0].teamLogo
                   : '';
