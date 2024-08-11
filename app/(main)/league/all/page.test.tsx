@@ -21,7 +21,7 @@ jest.mock('@/api/apiFunctions', () => ({
 }));
 
 describe('Leagues Component', () => {
-  const mockUseDataStore = useDataStore as jest.Mock;
+  const mockUseDataStore = useDataStore as unknown as jest.Mock;
   const mockGetUserLeagues = getUserLeagues as jest.Mock;
   const mockGetGameWeek = getGameWeek as jest.Mock;
 

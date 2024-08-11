@@ -1,5 +1,4 @@
 import { LeagueCard } from './LeagueCard';
-import Link from 'next/link';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 

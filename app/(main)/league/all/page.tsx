@@ -3,13 +3,15 @@
 
 'use client';
 
-import React, { JSX, useEffect, useState } from 'react';
-import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { ILeague } from '@/api/apiFunctions.interface';
+import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { getUserLeagues } from '@/utils/utils';
+import { ILeague } from '@/api/apiFunctions.interface';
+import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { useDataStore } from '@/store/dataStore';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
+import React, { JSX, useEffect, useState } from 'react';
+
 
 /**
  * Renders the leagues component.
