@@ -11,7 +11,10 @@ import { parseUserPick } from '@/utils/utils';
 import { IWeeklyPicks, INFLTeam } from '@/api/apiFunctions.interface';
 
 jest.mock('@/store/dataStore', () => ({
-  useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
+  useDataStore: jest.fn(() => ({
+    user: { id: '123', leagues: [] },
+    weeklyPicks: {},
+  })),
 }));
 
 jest.mock('@/api/apiFunctions', () => ({
@@ -45,9 +48,7 @@ describe('Week', () => {
   };
   const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
   const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
-  const NFLTeams: INFLTeam[] = [
-    { teamName: 'Browns', teamId: '1234', teamLogo: 'browns' },
-  ];
+  const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: 'browns' }];
   const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
@@ -69,7 +70,7 @@ describe('Week', () => {
 
   test('should display GlobalSpinner while loading data', async () => {
     render(
-      <Week entry="entry-id" league="league-id" NFLTeams={NFLTeams} week="1" />,
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
     await waitFor(() => {
       expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
@@ -77,11 +78,8 @@ describe('Week', () => {
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
-    mockGetCurrentLeague.mockResolvedValue({ leagueName: 'Test League' });
-    mockCreateWeeklyPicks.mockResolvedValue({});
-
     render(
-      <Week entry="entry-id" league="league-id" NFLTeams={NFLTeams} week="1" />,
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
 
     await waitFor(() => {
