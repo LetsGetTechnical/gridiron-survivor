@@ -8,9 +8,21 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { onWeeklyPickChange } from './WeekHelper';
 import { parseUserPick } from '@/utils/utils';
-import { IWeeklyPicks, INFLTeam } from '@/api/apiFunctions.interface';
+import { IWeeklyPicks } from '@/api/apiFunctions.interface';
+
+jest.mock('@/store/dataStore', () => ({
+  useDataStore: jest.fn(() => ({
+    user: { id: '123', leagues: [] },
+    weeklyPicks: {},
+  })),
+}));
 
 jest.mock('@/api/apiFunctions', () => ({
+  getCurrentLeague: jest.fn(() =>
+    Promise.resolve({
+      week: 1,
+    }),
+  ),
   createWeeklyPicks: jest.fn(),
 }));
 
@@ -33,6 +45,8 @@ describe('Week', () => {
   const week = 'mockWeek';
   const updateWeeklyPicks = jest.fn();
   const setUserPick = jest.fn();
+  const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
+  const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
 
   const weeklyPicks: IWeeklyPicks = {
     leagueId: '123',
@@ -79,10 +93,14 @@ describe('Week', () => {
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
+    mockGetCurrentLeague.mockResolvedValue({
+      week: 1,
+    });
+    mockCreateWeeklyPicks.mockResolvedValue({});
+
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
-
     await waitFor(() => {
       expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
     });
