@@ -5,11 +5,11 @@
 
 import { JSX, useState } from 'react';
 import {
+  flexRender,
   getCoreRowModel,
   getSortedRowModel,
-  flexRender,
-  useReactTable,
   SortingState,
+  useReactTable,
 } from '@tanstack/react-table';
 import {
   Table,
