@@ -157,7 +157,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   }, [week, selectedLeague]);
 
   useEffect(() => {
-    if (weeklyPicks.userResults[user.id][entry]) {
+    if (weeklyPicks?.userResults[user.id]?.[entry]) {
       const userPick = weeklyPicks.userResults[user.id][entry].teamName;
       setUserPick(userPick);
     }
