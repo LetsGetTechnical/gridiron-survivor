@@ -43,9 +43,9 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 3"
-        linkUrl=""
         isEliminated
         isPickSet={false}
+        linkUrl=""
       />,
     );
 
@@ -60,5 +60,37 @@ describe('LeagueEntries', () => {
       'bg-zinc-100 dark:bg-zinc-900',
     );
     expect(leagueEntryNumber).toHaveTextContent('Entry 3');
+  });
+
+  it('renders teamLogo when user makes a pick', () => {
+    const teamLogoUrl = 'https://example.com/logo.png';
+    const linkUrl = '/change-pick';
+
+    render(
+      <LeagueEntries
+        entryName="Entry 2"
+        isPickSet={true}
+        linkUrl={linkUrl}
+        teamLogo={teamLogoUrl}
+      />,
+    );
+
+    const leagueEntryContainerCard = screen.getByTestId(
+      'league-entry-container-card',
+    );
+    const leagueEntryNumber = screen.getByTestId('league-entry-number');
+    const entryStatus = screen.getByTestId('entry-status');
+    const leagueEntryPickButton = screen.getByTestId(
+      'league-entry-pick-button',
+    );
+    const leagueLink = screen.getByTestId('league-entry-pick-button-link');
+    const leagueEntryLogo = screen.getByTestId('league-entry-logo');
+
+    expect(entryStatus).toHaveTextContent('alive');
+    expect(leagueEntryNumber).toHaveTextContent('Entry 2');
+    expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
+    expect(leagueLink).toHaveAttribute('href', linkUrl);
+    expect(leagueEntryLogo).toBeInTheDocument();
+    expect(leagueEntryLogo).toHaveAttribute('src', teamLogoUrl);
   });
 });
