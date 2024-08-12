@@ -13,7 +13,7 @@ import {
   LucideUsers,
 } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
-import ErrorBoundary from '../error';
+import ErrorBoundary from '@/app/error';
 import Heading from '@/components/Heading/Heading';
 import Link from 'next/link';
 import LogoNav from '@/components/LogoNav/LogoNav';
