@@ -27,7 +27,6 @@ describe('LogoutHandler', () => {
   const resetUser = jest.fn();
   const setIsSignedIn = jest.fn();
 
-  //logout tests
   test('after a successful logout it shows success notification', async () => {
     await logoutHandler({ resetUser, setIsSignedIn, router });
 
@@ -40,13 +39,10 @@ describe('LogoutHandler', () => {
   });
 
   test('after logout attempt errors it shows error notification', async () => {
-    // Mock the `deleteSession` method to simulate an error
     account.deleteSession = jest.fn().mockRejectedValue('test error');
 
-    // Call the `logoutHandler` with the necessary arguments
     await logoutHandler({ resetUser, setIsSignedIn, router });
 
-    // Assert that the error notification is shown
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert variant={AlertVariants.Error} message="Logout failed!" />,
     );
