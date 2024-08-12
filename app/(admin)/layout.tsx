@@ -2,21 +2,14 @@
 // Licensed under the MIT License.
 
 import '../globals.css';
+import { AdminHeader } from '@/components/AdminHeader/AdminHeader';
+import { AdminLogo } from '@/components/AdminLogo/AdminLogo';
+import { AdminNav } from '@/components/AdminNav/AdminNav';
+import { AdminQuickMenu } from '@/components/AdminQuickMenu/AdminQuickMenu';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
 import { GeistSans } from 'geist/font/sans';
-import {
-  LucideBell,
-  LucideChevronsUpDown,
-  LucideCog,
-  LucideHome,
-  LucideLayoutGrid,
-  LucideUsers,
-} from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from '@/app/error';
-import Heading from '@/components/Heading/Heading';
-import Link from 'next/link';
-import LogoNav from '@/components/LogoNav/LogoNav';
 import React, { JSX } from 'react';
 
 const defaultUrl = process.env.VERCEL_URL
@@ -46,81 +39,21 @@ const RootLayout = ({
         <ErrorBoundary>
           <AuthContextProvider>
             <main className="grid grid-cols-adminLayout h-screen">
-              <section className="left-column grid grid-rows-adminLayout h-full border-r-2 border-border">
-                <section className="admin-logo flex items-center border-b-2 border-border px-3">
-                  <LogoNav />
-                </section>
-                <section className="admin-nav-sidebar">
-                  <nav className="flex flex-col justify-between h-full pt-2 pb-3 px-3 text-sm text-zinc-400">
-                    <ul className="admin-nav-main flex flex-col gap-y-2">
-                      <li>
-                        <Link
-                          href="#"
-                          className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
-                        >
-                          <LucideHome className="w-4 h-4" />
-                          Home
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
-                        >
-                          <LucideLayoutGrid className="w-4 h-4" />
-                          Leauges
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
-                        >
-                          <LucideUsers className="w-4 h-4" />
-                          Players
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
-                        >
-                          <LucideBell className="w-4 h-4" />
-                          Notifications
-                        </Link>
-                      </li>
-                    </ul>
-                    <div className="admin-user-settings flex gap-2 px-2 py-2 items-center outline outline-border rounded text-zinc-50">
-                      <span className="bg-cyan-500 w-8 h-8 rounded-full" />
-                      <p>Users Name</p>
-                      <LucideChevronsUpDown
-                        className="ml-auto text-zinc-300"
-                        size={16}
-                      />
-                    </div>
-                  </nav>
-                </section>
+              <section className="left-column grid grid-rows-adminLayout border-r-2 border-border">
+                <div className="flex items-center border-b-2 border-border">
+                  <AdminLogo />
+                </div>
+                <div>
+                  <AdminNav />
+                </div>
               </section>
               <section className="right-column grid grid-rows-adminLayout">
-                <section className="flex items-center border-b-2 border-border px-6">
-                  <div className="admin-quick-menu flex gap-2 px-2 py-2 items-center outline outline-border rounded w-80">
-                    <LucideCog className="w-8 h-8 p-1 bg-zinc-700" />
-                    <p>Admin</p>
-                    <LucideChevronsUpDown
-                      className="ml-auto text-zinc-300"
-                      size={16}
-                    />
-                  </div>
-                </section>
+                <div className="flex items-center border-b-2 border-border px-6">
+                  <AdminQuickMenu />
+                </div>
                 <section>
-                  <header className="admin-header pt-6 px-6 pb-8 space-y-2">
-                    <Heading as="h2">Admin Home</Heading>
-                    <p className="text-zinc-400 max-w-prose">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Labore cumque tempora laborum velit perferendis tenetur.
-                    </p>
-                  </header>
-                  <section className="px-6">{children}</section>
+                  <AdminHeader />
+                  <section className="mx-6">{children}</section>
                 </section>
               </section>
             </main>

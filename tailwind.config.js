@@ -71,10 +71,10 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       gridTemplateColumns: {
-        'adminLayout': '16% auto',
+        'adminLayout': '16rem auto',
       },
       gridTemplateRows: {
-        'adminLayout': '8% auto',
+        'adminLayout': '5rem auto',
       },
     },
   },
