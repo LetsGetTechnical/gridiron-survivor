@@ -4,18 +4,28 @@
 import React from 'react';
 import Heading from '@/components/Heading/Heading';
 
+export interface IAdminHeaderProps {
+  pageTitle: string;
+  pageDescription?: string;
+}
+
 /**
- * The admin header component.
- * @returns The rendered admin header.
+ * The header for the admin pages.
+ * @param props - The props
+ * @param props.pageTitle - The title of the page
+ * @param props.pageDescription - The description of the page
+ * @returns The rendered AdminHeader component.
  */
-export const AdminHeader = (): React.JSX.Element => {
+export const AdminHeader = ({
+  pageTitle,
+  pageDescription,
+}: IAdminHeaderProps): React.JSX.Element => {
   return (
     <header className="admin-header pt-6 px-6 pb-8 space-y-2">
-      <Heading as="h2">Admin Home</Heading>
-      <p className="text-zinc-400 max-w-prose">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore cumque
-        tempora laborum velit perferendis tenetur.
-      </p>
+      <Heading as="h2" className="leading-9">
+        {pageTitle}
+      </Heading>
+      <p className="text-zinc-400 max-w-prose leading-6">{pageDescription}</p>
     </header>
   );
 };

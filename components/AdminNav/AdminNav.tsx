@@ -21,7 +21,7 @@ export const AdminNav = (): React.JSX.Element => {
       <ul className="admin-nav-main flex flex-col gap-y-2">
         <li>
           <Link
-            href="#"
+            href="/admin"
             className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
           >
             <LucideHome className="w-4 h-4" />
@@ -30,7 +30,7 @@ export const AdminNav = (): React.JSX.Element => {
         </li>
         <li>
           <Link
-            href="#"
+            href="/admin/leagues"
             className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
           >
             <LucideLayoutGrid className="w-4 h-4" />
@@ -39,7 +39,7 @@ export const AdminNav = (): React.JSX.Element => {
         </li>
         <li>
           <Link
-            href="#"
+            href="/admin/players"
             className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
           >
             <LucideUsers className="w-4 h-4" />
@@ -48,7 +48,7 @@ export const AdminNav = (): React.JSX.Element => {
         </li>
         <li>
           <Link
-            href="#"
+            href="/admin/notifications"
             className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
           >
             <LucideBell className="w-4 h-4" />

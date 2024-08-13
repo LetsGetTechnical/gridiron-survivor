@@ -22,17 +22,25 @@ export const metadata = {
   description: 'Fantasy Football Survivor Pool',
 };
 
+export interface IAdminRootLayoutProps {
+  children?: React.ReactNode;
+  pageTitle: string;
+  pageDescription?: string;
+}
+
 /**
- * The root layout for the application.
+ * The root layout for the admin pages.
  * @param props - The props
  * @param props.children - The children
- * @returns The rendered root layout.
+ * @param props.pageTitle - The title of the page
+ * @param props.pageDescription - The description of the page
+ * @returns The rendered AdminRootLayout component.
  */
-const RootLayout = ({
+const AdminRootLayout = ({
   children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element => {
+  pageTitle,
+  pageDescription,
+}: IAdminRootLayoutProps): JSX.Element => {
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="dark:dark bg-background text-foreground">
@@ -52,7 +60,10 @@ const RootLayout = ({
                   <AdminQuickMenu />
                 </div>
                 <section>
-                  <AdminHeader />
+                  <AdminHeader
+                    pageTitle={pageTitle}
+                    pageDescription={pageDescription}
+                  />
                   <section className="mx-6">{children}</section>
                 </section>
               </section>
@@ -65,4 +76,4 @@ const RootLayout = ({
   );
 };
 
-export default RootLayout;
+export default AdminRootLayout;
