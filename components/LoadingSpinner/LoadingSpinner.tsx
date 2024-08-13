@@ -1,13 +1,13 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React from 'react';
+import { JSX } from 'react';
 
 /**
  * Renders a loading spinner.
- * @returns {React.JSX.Element} The rendered loading spinner component.
+ * @returns {JSX.Element} The rendered loading spinner component.
  */
-const LoadingSpinner = (): React.JSX.Element => {
+const LoadingSpinner = (): JSX.Element => {
   return (
     <div
       className="loading-spinner-container grid place-content-center text-center"
