@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 import { Models } from 'appwrite/types/models';
-import { account, databases, ID, appwriteConfig } from './config';
+import { account, databases, ID, appwriteConfig, messaging } from './config';
 import {
   IAccountData,
   ILeague,
@@ -299,5 +299,17 @@ export async function createEntry({
   } catch (error) {
     console.error(error);
     throw new Error('Error creating entry');
+  }
+}
+
+/**
+ *
+ */
+export async function sendEmailNotification(): Promise<Models.Document> {
+  try {
+    return await messaging.createEmail();
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error sending email');
   }
 }
