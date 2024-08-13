@@ -41,7 +41,6 @@ const Entry = ({
       const getEntries = await getCurrentUserEntries(user.id, leagueId);
       setEntries(getEntries);
     } catch (error) {
-      console.error(error);
       throw new Error("Error fetching user's entries");
     } finally {
       setLoadingData(false);

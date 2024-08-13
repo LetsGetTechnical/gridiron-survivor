@@ -29,7 +29,6 @@ const Leagues = (): JSX.Element => {
       const userLeagues = await getUserLeagues(user.leagues);
       setLeagues(userLeagues);
     } catch (error) {
-      console.error(error);
       throw new Error('Error fetching user leagues');
     } finally {
       setLoadingData(false);
