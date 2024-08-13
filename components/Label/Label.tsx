@@ -13,7 +13,7 @@ const labelVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-sm text-zinc-900 cursor-text flex-col gap-1.5',
+        default: 'text-sm text-zinc-300 cursor-text flex-col gap-1.5',
         secondary: 'text-base text-zinc-50 cursor-pointer rounded-xl items-center py-4 px-3 border-2 border-zinc-800 peer-aria-checked:border-orange-600 peer-hover:bg-zinc-800 flex gap-2',
       }
     },
