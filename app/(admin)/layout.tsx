@@ -10,7 +10,7 @@ import { AuthContextProvider } from '@/context/AuthContextProvider';
 import { GeistSans } from 'geist/font/sans';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from '@/app/error';
-import React, { JSX } from 'react';
+import React from 'react';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -21,9 +21,8 @@ export const metadata = {
   title: 'GridIron Survivor',
   description: 'Fantasy Football Survivor Pool',
 };
-
-export interface IAdminRootLayoutProps {
-  children?: React.ReactNode;
+interface IAdminRootLayoutProps {
+  children: React.ReactNode;
   pageTitle: string;
   pageDescription?: string;
 }
@@ -34,40 +33,32 @@ export interface IAdminRootLayoutProps {
  * @param props.children - The children
  * @param props.pageTitle - The title of the page
  * @param props.pageDescription - The description of the page
- * @returns The rendered AdminRootLayout component.
+ * @returns The rendered root layout.
  */
 const AdminRootLayout = ({
   children,
   pageTitle,
   pageDescription,
-}: IAdminRootLayoutProps): JSX.Element => {
+}: IAdminRootLayoutProps): React.JSX.Element => {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="dark:dark bg-background text-foreground">
+      <body className="dark:dark bg-background text-foreground h-screen">
         <ErrorBoundary>
           <AuthContextProvider>
-            <main className="grid grid-cols-adminLayout h-screen">
+            <div className="admin-body-inner-container grid grid-cols-adminLayout h-full">
               <section className="left-column grid grid-rows-adminLayout border-r-2 border-border">
-                <div className="flex items-center border-b-2 border-border">
-                  <AdminLogo />
-                </div>
-                <div>
-                  <AdminNav />
-                </div>
+                <AdminLogo />
+                <AdminNav />
               </section>
-              <section className="right-column grid grid-rows-adminLayout">
-                <div className="flex items-center border-b-2 border-border px-6">
-                  <AdminQuickMenu />
-                </div>
-                <section>
-                  <AdminHeader
-                    pageTitle={pageTitle}
-                    pageDescription={pageDescription}
-                  />
-                  <section className="mx-6">{children}</section>
-                </section>
+              <section className="right-column grid grid-rows-adminLayout content-start">
+                <AdminQuickMenu />
+                <AdminHeader
+                  pageTitle={pageTitle}
+                  pageDescription={pageDescription}
+                />
+                <main className="mx-6 max-w-screen-xl">{children}</main>
               </section>
-            </main>
+            </div>
             <Toaster />
           </AuthContextProvider>
         </ErrorBoundary>

@@ -21,11 +21,9 @@ export const AdminHeader = ({
   pageDescription,
 }: IAdminHeaderProps): React.JSX.Element => {
   return (
-    <header className="admin-header pt-6 px-6 pb-8 space-y-2">
-      <Heading as="h2" className="leading-9">
-        {pageTitle}
-      </Heading>
-      <p className="text-zinc-400 max-w-prose leading-6">{pageDescription}</p>
+    <header className="admin-header pt-6 px-6 pb-8 space-y-2 h-1/2">
+      <Heading as="h2">{pageTitle}</Heading>
+      <p className="text-zinc-400 max-w-prose">{pageDescription}</p>
     </header>
   );
 };
