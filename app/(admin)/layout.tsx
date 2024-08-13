@@ -21,25 +21,18 @@ export const metadata = {
   title: 'GridIron Survivor',
   description: 'Fantasy Football Survivor Pool',
 };
-interface IAdminRootLayoutProps {
-  children: React.ReactNode;
-  pageTitle: string;
-  pageDescription?: string;
-}
 
 /**
  * The root layout for the admin pages.
  * @param props - The props
  * @param props.children - The children
- * @param props.pageTitle - The title of the page
- * @param props.pageDescription - The description of the page
  * @returns The rendered root layout.
  */
 const AdminRootLayout = ({
   children,
-  pageTitle,
-  pageDescription,
-}: IAdminRootLayoutProps): React.JSX.Element => {
+}: {
+  children: React.ReactNode;
+}): React.JSX.Element => {
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="dark:dark bg-background text-foreground h-screen">
@@ -52,10 +45,7 @@ const AdminRootLayout = ({
               </section>
               <section className="right-column grid grid-rows-adminLayout content-start">
                 <AdminQuickMenu />
-                <AdminHeader
-                  pageTitle={pageTitle}
-                  pageDescription={pageDescription}
-                />
+                <AdminHeader />
                 <main className="mx-6 max-w-screen-xl">{children}</main>
               </section>
             </div>
