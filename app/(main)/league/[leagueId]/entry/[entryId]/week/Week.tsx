@@ -75,6 +75,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         gameWeekId: week,
         userResults: userWeeklyPickResults || {},
       });
+
+      if (userWeeklyPickResults?.[user.id]?.[entry]) {
+        const userPick = userWeeklyPickResults[user.id][entry].teamName;
+        setUserPick(userPick);
+      }
     } catch (error) {
       console.error('Error getting weekly pick:', error);
     }
@@ -152,17 +157,13 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
-    getUserWeeklyPick();
     setIsLoading(false);
   }, [week, selectedLeague]);
 
   useEffect(() => {
-    if (weeklyPicks?.userResults[user.id]?.[entry]) {
-      const userPick = weeklyPicks.userResults[user.id][entry].teamName;
-      setUserPick(userPick);
-    }
     getUserSelectedTeams();
-  }, [weeklyPicks, user, entry]);
+    getUserWeeklyPick();
+  }, [user]);
 
   if (schedule.length === 0 || isLoading) {
     return <p>Loading...</p>;
