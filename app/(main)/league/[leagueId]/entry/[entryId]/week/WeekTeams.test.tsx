@@ -40,6 +40,27 @@ const TestWeekTeamsComponent = () => {
 };
 
 describe('WeekTeams', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('the team should render active and the user currently has them selected', () => {
+    mockHasTeamBeenPicked.mockReturnValue(false);
+
+    render(<TestWeekTeamsComponent />);
+
+    const weekTeamsRadioItems: HTMLButtonElement[] =
+      screen.getAllByTestId('team-radio');
+    const ravensRadioButton = weekTeamsRadioItems.filter(
+      (radioItem) => radioItem.value === mockDefaultUserPick,
+    )[0];
+
+    expect(ravensRadioButton).toBeInTheDocument();
+    expect(ravensRadioButton).not.toBeDisabled();
+
+    expect(ravensRadioButton?.getAttribute('data-state')).toBe('checked');
+  });
+
   it('the team should render active and the user should be able to select the team', () => {
     mockHasTeamBeenPicked.mockReturnValue(false);
     render(<TestWeekTeamsComponent />);
