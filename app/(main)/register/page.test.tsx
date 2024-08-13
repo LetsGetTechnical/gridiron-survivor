@@ -174,7 +174,7 @@ describe('Register', () => {
     expect(darkModeSection).toHaveClass('dark:bg-gradient-to-b');
   });
 
-  test('Should show loadingspinner in submit button when clicked', async () => {
+  it('Should show loadingspinner in submit button when clicked', async () => {
     jest.mock('../../../api/apiFunctions', () => ({
       registerAccount: jest.fn(() => {
         setTimeout(() => {
@@ -193,11 +193,21 @@ describe('Register', () => {
       target: { value: 'password12345' },
     });
 
+    expect(continueButton).not.toBeDisabled();
+
     fireEvent.click(continueButton);
 
-    waitFor(async () => {
-      const loadingSpinner = await screen.findByTestId('loading-spinner');
+    await waitFor(() => {
+      expect(registerAccount).toHaveBeenCalled();
+    });
+
+    const loadingSpinner = screen.findByTestId('loading-spinner');
+
+    await waitFor(() => {
+      console.log(loadingSpinner);
       expect(loadingSpinner).toBeInTheDocument();
     });
+
+    expect(loadingSpinner).not.toBeInTheDocument();
   });
 });
