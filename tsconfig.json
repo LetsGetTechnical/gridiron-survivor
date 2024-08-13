@@ -29,7 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "jest.config.ts"
-, "functions/userAuth.ts"  ],
+    "jest.config.ts",
+    "functions/userAuth.ts"
+  ],
   "exclude": ["node_modules"]
 }
