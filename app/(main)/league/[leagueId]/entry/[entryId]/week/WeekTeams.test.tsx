@@ -14,8 +14,8 @@ const mockField = {
 const mockSelectedTeams = [
   {
     teamId: '1234',
-    teamName: 'Ravens',
-    teamLogo: 'https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png',
+    teamName: 'Packers',
+    teamLogo: 'https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png',
   },
 ];
 
