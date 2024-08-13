@@ -150,8 +150,9 @@ const Register = (): JSX.Element => {
               href="/login"
               data-testid="login-link"
             >
-              Login!
+              Login
             </LinkCustom>
+            !
           </p>
         </div>
 
