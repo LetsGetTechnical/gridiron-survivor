@@ -17,10 +17,7 @@ const client = new sdk.Client()
 const messaging = new sdk.Messaging(client);
 
 /**
- *
- * @param root0
- * @param root0.subject
- * @param root0.content
+ * Sends an email to the user who's userID is added in.
  */
 export const sendEmailNotification = async (): Promise<void> => {
   try {
