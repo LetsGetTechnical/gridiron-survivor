@@ -6,18 +6,14 @@ import {
   createEntry,
   getCurrentUserEntries,
   getGameWeek,
-  // getAllWeeklyPicks,
+  getAllWeeklyPicks,
 } from '@/api/apiFunctions';
 import { useDataStore } from '@/store/dataStore';
 import React, { JSX, useEffect, useState } from 'react';
 import { IEntry, IEntryProps } from '../Entries.interface';
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { ENTRY_URL, LEAGUE_URL, WEEK_URL } from '@/const/global';
-import {
-  IGameWeek,
-  // IUserPicksData,
-  // IWeeklyPicks,
-} from '@/api/apiFunctions.interface';
+import { IGameWeek } from '@/api/apiFunctions.interface';
 import { Button } from '@/components/Button/Button';
 import { PlusCircle } from 'lucide-react';
 
@@ -65,10 +61,10 @@ const Entry = ({
     }
   };
 
-  /**
-   * Fetches the weekly picks for the current week and updates the state with the results.
-   * @returns {Promise<void>} - A promise that resolves when the weekly picks have been fetched and the state has been updated.
-   */
+  // /**
+  //  * Fetches the weekly picks for the current week and updates the state with the results.
+  //  * @returns {Promise<void>} - A promise that resolves when the weekly picks have been fetched and the state has been updated.
+  //  */
   // const getWeeklyPicks = async (): Promise<void> => {
   //   try {
   //     const picks = await getAllWeeklyPicks({
@@ -108,8 +104,7 @@ const Entry = ({
     }
     getCurrentGameWeek();
     getAllEntries();
-    // getWeeklyPicks();
-  }, [user]); // Ensure this effect runs when `user.id` or `leagueId` changes
+  }, [user]);
 
   return (
     <>
