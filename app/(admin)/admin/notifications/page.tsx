@@ -1,7 +1,9 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+'use client';
 import { JSX } from 'react';
+import { sendEmailNotification } from './actions/adminEmail';
 
 /**
  * The admin home page.
@@ -10,7 +12,13 @@ import { JSX } from 'react';
 const AdminHome = (): JSX.Element => {
   return (
     <section>
-      <p>{`This is where I'd put my notifation dashboard, IF I HAD ONE!`}</p>
+      <form
+        action={async () => {
+          await sendEmailNotification();
+        }}
+      >
+        <button type="submit">Send</button>
+      </form>
     </section>
   );
 };
