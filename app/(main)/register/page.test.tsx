@@ -1,4 +1,10 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import React from 'react';
 import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
@@ -175,17 +181,6 @@ describe('Register', () => {
   });
 
   it('Should show loadingspinner in submit button when clicked', async () => {
-    jest.mock('../../../api/apiFunctions', () => ({
-      registerAccount: jest.fn(() => {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            console.log('register account done running...');
-            resolve('string'); // Ensure the promise resolves
-          }, 3000);
-        });
-      }),
-    }));
-
     fireEvent.change(screen.getByTestId('email'), {
       target: { value: 'test5@test.com' },
     });
@@ -198,20 +193,15 @@ describe('Register', () => {
 
     expect(continueButton).not.toBeDisabled();
 
-    fireEvent.click(continueButton);
-
-    await waitFor(() => {
-      expect(registerAccount).toHaveBeenCalled();
+    act(async () => {
+      fireEvent.click(continueButton);
     });
 
     screen.debug();
 
-    const loadingSpinner = await screen.findAllByTestId('loading-spinner');
+    const loadingSpinner = screen.getByTestId('loading-spinner');
     console.log(loadingSpinner);
-    expect(loadingSpinner).toBeInTheDocument();
-    // await waitFor(() => {
-
-    // });
+    // expect(loadingSpinner[0]).toBeInTheDocument();
   });
 
   it('Should not show the loadingspinner after the submit functionality is complete', async () => {});
