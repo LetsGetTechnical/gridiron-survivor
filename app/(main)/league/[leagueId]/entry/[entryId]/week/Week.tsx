@@ -121,7 +121,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         (userEntry) => userEntry.$id === entry,
       );
       const selectedTeams = currentEntry?.selectedTeams || [];
-      console.log('Fetched user selected teams:', selectedTeams);
       setSelectedTeams(selectedTeams);
     } catch (error) {
       console.error('Error getting user selected teams:', error);
@@ -166,18 +165,12 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     getUserWeeklyPick();
   }, [user]);
 
-
-  useEffect(() => {
-    console.log('Selected Teams Updated:', selectedTeams);
-  }, [selectedTeams]);
-
   if (schedule.length === 0 || isLoading) {
     return <p>Loading...</p>;
   }
 
   return (
     <div className="league-entry-week">
-      {console.log('Selected Teams during render:', selectedTeams)}
       <nav className="py-6 text-orange-500 hover:no-underline">
         <LinkCustom
           className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
