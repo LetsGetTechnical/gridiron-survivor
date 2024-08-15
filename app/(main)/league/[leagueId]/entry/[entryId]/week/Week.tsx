@@ -12,12 +12,7 @@ import {
 import { FormProvider, Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { IWeekProps } from './Week.interface';
-import {
-  createWeeklyPicks,
-  getAllWeeklyPicks,
-  getCurrentUserEntries,
-} from '@/api/apiFunctions';
-import { parseUserPick } from '@/utils/utils';
+import { getAllWeeklyPicks, getCurrentUserEntries } from '@/api/apiFunctions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
@@ -26,6 +21,7 @@ import { ChevronLeft } from 'lucide-react';
 import { getCurrentLeague } from '@/api/apiFunctions';
 import { ILeague, INFLTeam } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
+import { onWeeklyPickChange } from './WeekHelper';
 
 /**
  * Renders the weekly picks page.
@@ -79,6 +75,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         gameWeekId: week,
         userResults: userWeeklyPickResults || {},
       });
+
+      if (userWeeklyPickResults?.[user.id]?.[entry]) {
+        const userPick = userWeeklyPickResults[user.id][entry].teamName;
+        setUserPick(userPick);
+      }
     } catch (error) {
       console.error('Error getting weekly pick:', error);
     }
@@ -132,42 +133,20 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
    * @param teamSelect - the selected team name.
    * @returns {void}
    */
-  const onWeeklyPickChange = async (teamSelect: string): Promise<void> => {
+  const handleWeeklyPickChange = async (teamSelect: string): Promise<void> => {
+    const params = {
+      teamSelect,
+      entry,
+      league,
+      NFLTeams,
+      setUserPick,
+      updateWeeklyPicks,
+      user,
+      weeklyPicks,
+      week,
+    };
     try {
-      const teamID = NFLTeams.find(
-        (team) => team.teamName === teamSelect,
-      )?.teamName;
-
-      const currentUserPick = parseUserPick(user.id, entry, teamID || '');
-
-      // combines current picks and the user pick into one object.
-      // if the user pick exists then it overrides the pick of the user.
-      const updatedWeeklyPicks = {
-        ...weeklyPicks.userResults,
-        [user.id]: {
-          ...weeklyPicks.userResults[user.id],
-          [entry]: {
-            ...weeklyPicks.userResults[user.id]?.[entry],
-            ...currentUserPick[user.id][entry],
-          },
-        },
-      };
-
-      // update weekly picks in the database
-      await createWeeklyPicks({
-        leagueId: league,
-        gameWeekId: week,
-        userResults: updatedWeeklyPicks,
-      });
-
-      // update weekly picks in the data store
-      updateWeeklyPicks({
-        leagueId: league,
-        gameWeekId: week,
-        userResults: updatedWeeklyPicks,
-      });
-
-      setUserPick(currentUserPick[user.id][entry].teamName);
+      await onWeeklyPickChange(params);
     } catch (error) {
       console.error('Submission error:', error);
     }
@@ -179,17 +158,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
-    getUserWeeklyPick();
-    getUserSelectedTeams();
     setIsLoading(false);
   }, [week, selectedLeague]);
 
   useEffect(() => {
-    if (weeklyPicks?.userResults?.[user.id]?.[entry]) {
-      const userPick = weeklyPicks.userResults[user.id][entry].teamName;
-      setUserPick(userPick);
-    }
-  }, [weeklyPicks, user, entry]);
+    getUserSelectedTeams();
+    getUserWeeklyPick();
+  }, [user]);
+
 
   useEffect(() => {
     console.log('Selected Teams Updated:', selectedTeams);
@@ -231,7 +207,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                       selectedTeams={selectedTeams}
                       field={field}
                       userPick={userPick}
-                      onWeeklyPickChange={onWeeklyPickChange}
+                      onWeeklyPickChange={handleWeeklyPickChange}
                     />
                   </FormControl>
                   <FormMessage />

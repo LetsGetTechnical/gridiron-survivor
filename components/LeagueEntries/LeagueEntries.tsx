@@ -15,7 +15,7 @@ import Link from 'next/link';
  * @param props.linkUrl - the url to the user's entry page
  * @param props.isEliminated - If true, the user is flagged as eliminat4ed
  * @param props.isPickSet - if true, the team logo of the picked team shows up on the LeagueEntries card and the button changes from "make a pick" to "chagne pick"
- * @param props.teamLogo - the url to the team logo
+ * @param props.teamLogo - the team logo
  * @returns {React.JSX.Element} - A div element that contains the user's entry information
  */
 const LeagueEntries = ({
@@ -23,7 +23,7 @@ const LeagueEntries = ({
   linkUrl,
   isEliminated = false,
   isPickSet = false,
-  teamLogo,
+  teamLogo = '',
 }: ILeagueEntriesProps): JSX.Element => (
   <div
     data-testid="league-entry-container-card"
