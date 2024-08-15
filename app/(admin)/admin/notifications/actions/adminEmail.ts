@@ -29,7 +29,7 @@ export const sendEmailNotification = async (): Promise<void> => {
       'Test', // subject
       'Testing', // content
       [], // topics (optional)
-      ['66bd072b001f6b1f6ac0', '6632eaa0a65cd59045ed'], // users (optional)
+      [], // users (optional)
     );
   } catch (error) {
     console.error(error);
