@@ -108,10 +108,12 @@ const Register = (): JSX.Element => {
   ): Promise<void> => {
     try {
       setIsLoading(true);
-      await registerAccount(data);
-      await login(data);
+      console.log(isLoading, 'before register account');
+      // await registerAccount(data);
+      // await login(data);
       setIsLoading(false);
-      router.push('/league/all');
+      console.log(isLoading, 'after register account');
+      // router.push('/league/all');
       toast.custom(
         <Alert
           variant={AlertVariants.Success}

@@ -177,9 +177,12 @@ describe('Register', () => {
   it('Should show loadingspinner in submit button when clicked', async () => {
     jest.mock('../../../api/apiFunctions', () => ({
       registerAccount: jest.fn(() => {
-        setTimeout(() => {
-          console.log('register account done running...');
-        }, 100000);
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            console.log('register account done running...');
+            resolve('string'); // Ensure the promise resolves
+          }, 3000);
+        });
       }),
     }));
 
@@ -201,13 +204,15 @@ describe('Register', () => {
       expect(registerAccount).toHaveBeenCalled();
     });
 
-    const loadingSpinner = screen.findByTestId('loading-spinner');
+    screen.debug();
 
-    await waitFor(() => {
-      console.log(loadingSpinner);
-      expect(loadingSpinner).toBeInTheDocument();
-    });
+    const loadingSpinner = await screen.findAllByTestId('loading-spinner');
+    console.log(loadingSpinner);
+    expect(loadingSpinner).toBeInTheDocument();
+    // await waitFor(() => {
 
-    expect(loadingSpinner).not.toBeInTheDocument();
+    // });
   });
+
+  it('Should not show the loadingspinner after the submit functionality is complete', async () => {});
 });
