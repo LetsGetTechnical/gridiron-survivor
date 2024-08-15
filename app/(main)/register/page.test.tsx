@@ -31,6 +31,7 @@ let confirmPasswordInput: HTMLElement;
 let continueButton: HTMLElement;
 let emailInput: HTMLElement;
 let passwordInput: HTMLElement;
+let loadingSpinner: HTMLElement;
 
 const mockUseAuthContext = {
   isSignedIn: false,
@@ -63,6 +64,7 @@ describe('Register', () => {
     passwordInput = screen.getByTestId('password');
     confirmPasswordInput = screen.getByTestId('confirm-password');
     continueButton = screen.getByTestId('continue-button');
+    loadingSpinner = screen.getByTestId('loading-spinner');
   });
 
   test('should render the register page', () => {
@@ -182,7 +184,7 @@ describe('Register', () => {
 
   it('Should show loadingspinner in submit button when clicked', async () => {
     fireEvent.change(screen.getByTestId('email'), {
-      target: { value: 'test5@test.com' },
+      target: { value: 'test6@test.com' },
     });
     fireEvent.change(screen.getByTestId('password'), {
       target: { value: 'password12345' },
@@ -193,15 +195,14 @@ describe('Register', () => {
 
     expect(continueButton).not.toBeDisabled();
 
-    act(async () => {
+    await act(async () => {
       fireEvent.click(continueButton);
     });
 
     screen.debug();
 
-    const loadingSpinner = screen.getByTestId('loading-spinner');
     console.log(loadingSpinner);
-    // expect(loadingSpinner[0]).toBeInTheDocument();
+    expect(loadingSpinner).toBeInTheDocument();
   });
 
   it('Should not show the loadingspinner after the submit functionality is complete', async () => {});
