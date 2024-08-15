@@ -13,6 +13,7 @@ import {
 } from '../../../components/Form/Form';
 import { Input } from '@/components/Input/Input';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
@@ -20,7 +21,6 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 /**
  * The schema for the login form.
