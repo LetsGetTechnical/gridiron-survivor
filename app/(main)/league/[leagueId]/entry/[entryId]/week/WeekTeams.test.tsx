@@ -83,4 +83,20 @@ describe('WeekTeams', () => {
 
     expect(mockOnWeeklyPickChange).toHaveBeenCalledWith(mockNewUserPick);
   });
+
+  it('the team should render disabled if the team has already been used and the user should not be able to select the team', () => {
+    mockHasTeamBeenPicked.mockReturnValue(true);
+
+    render(<TestWeekTeamsComponent />);
+
+    const weeklyPickButtons: HTMLButtonElement[] =
+      screen.getAllByTestId('team-radio');
+
+    const packersButton = weeklyPickButtons.filter(
+      (button) => button.value === 'Packers',
+    )[0];
+
+    expect(packersButton).toBeInTheDocument();
+    expect(packersButton).toBeDisabled();
+  });
 });
