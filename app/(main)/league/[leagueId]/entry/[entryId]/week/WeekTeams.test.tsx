@@ -2,6 +2,12 @@ import WeekTeams from './WeekTeams';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { mockSchedule } from './__mocks__/mockSchedule';
 import { FormProvider, useForm } from 'react-hook-form';
+import { hasTeamBeenPicked, cn } from '@/utils/utils';
+
+jest.mock('@/utils/utils', () => ({
+  hasTeamBeenPicked: jest.fn(),
+  cn: jest.fn(),
+}));
 
 const mockField = {
   name: 'value',
@@ -22,7 +28,7 @@ const mockSelectedTeams = [
 const mockDefaultUserPick = 'Ravens';
 const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
-const mockHasTeamBeenPicked = jest.fn();
+const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
 
 const TestWeekTeamsComponent = () => {
   const formMethods = useForm();
