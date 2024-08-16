@@ -67,7 +67,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
-   * Fetches the league's weekly pick results for the user.
+   * Fetches the league's weekly pick results for the user and set the user pick.
    * @returns {Promise<void>}
    */
   const getUserWeeklyPick = async (): Promise<void> => {
