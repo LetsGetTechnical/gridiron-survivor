@@ -206,30 +206,31 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               Week {week} pick
             </h1>
 
-        <FormProvider {...form}>
-          <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
-            <FormField
-              control={form.control as Control<object>}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <WeekTeams
-                      schedule={schedule}
-                      selectedTeams={selectedTeams}
-                      field={field}
-                      userPick={userPick}
-                      onWeeklyPickChange={handleWeeklyPickChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </FormProvider>
-      </section>
-
+            <FormProvider {...form}>
+              <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
+                <FormField
+                  control={form.control as Control<object>}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <WeekTeams
+                          schedule={schedule}
+                          selectedTeams={selectedTeams}
+                          field={field}
+                          userPick={userPick}
+                          onWeeklyPickChange={handleWeeklyPickChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </FormProvider>
+          </section>
+        </>
+      )}
     </div>
   );
 };
