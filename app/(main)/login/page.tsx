@@ -137,7 +137,7 @@ const Login = (): React.JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.email && (
+                  {form.formState.errors?.email && (
                     <FormMessage>
                       {form.formState.errors.email.message}
                     </FormMessage>
@@ -158,9 +158,9 @@ const Login = (): React.JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.password && (
+                  {form.formState.errors?.password && (
                     <FormMessage>
-                      {form.formState.errors.password.message}
+                      {form.formState.errors?.password.message}
                     </FormMessage>
                   )}
                 </FormItem>
