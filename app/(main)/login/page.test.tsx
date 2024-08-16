@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import Login from './page';
 
 const mockLogin = jest.fn();
@@ -85,5 +91,21 @@ describe('Login', () => {
     render(<Login />);
 
     expect(mockPush).toHaveBeenCalledWith('/league/all');
+  });
+
+  test('should show the loading spinner when the form is submitted', async () => {
+    await act(async () => {
+      fireEvent.change(emailInput, {
+        target: { value: 'ryandotfurrer@gmail.com' },
+      });
+      fireEvent.change(passwordInput, { target: { value: 'test1234' } });
+      fireEvent.click(continueButton);
+    });
+
+    screen.debug();
+
+    await waitFor(() => {
+      expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
+    });
   });
 });
