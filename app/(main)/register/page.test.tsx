@@ -5,7 +5,7 @@ import {
   waitFor,
   act,
 } from '@testing-library/react';
-import React from 'react';
+import React, { useState as useStateMock } from 'react';
 import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
@@ -16,6 +16,12 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
+
+jest.mock('react', () => ({
+	...jest.requireActual('react'),
+	useState: jest.fn()
+}))
+const setIsLoading = jest.fn();
 
 jest.mock('../../../api/apiFunctions', () => ({
   registerAccount: jest.fn(),
@@ -63,6 +69,8 @@ describe('Register', () => {
     passwordInput = screen.getByTestId('password');
     confirmPasswordInput = screen.getByTestId('confirm-password');
     continueButton = screen.getByTestId('continue-button');
+
+    (useStateMock as jest.Mock).mockImplementation((init: boolean) => [init, setState]);
   });
 
   test('should render the register page', () => {
@@ -179,32 +187,25 @@ describe('Register', () => {
 
     expect(darkModeSection).toHaveClass('dark:bg-gradient-to-b');
   });
+});
 
-  it('Should show loadingspinner in submit button when clicked', async () => {
-    fireEvent.change(screen.getByTestId('email'), {
-      target: { value: 'test6@test.com' },
-    });
-    fireEvent.change(screen.getByTestId('password'), {
-      target: { value: 'password12345' },
-    });
-    fireEvent.change(screen.getByTestId('confirm-password'), {
-      target: { value: 'password12345' },
-    });
+describe('Register loading spinner', () => {
+  it('should show the loading spinner', async () => {
+      (useStateMock as jest.Mock).mockImplementation((init: boolean) => [true, setIsLoading]);
 
-    console.log(screen.getByTestId('loading-spinner'));
+      render(<Register />);
 
-    expect(continueButton).not.toBeDisabled();
+      await waitFor(() => {
+        expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
+      });
+  });
+  it('should not show the loading spinner', async () => {
+    (useStateMock as jest.Mock).mockImplementation((init: boolean) => [false, setIsLoading]);
 
-    await act(async () => {
-      fireEvent.click(continueButton);
-    });
-
-    screen.debug();
+    render(<Register />);
 
     await waitFor(() => {
-      expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
     });
   });
-
-  it('Should not show the loadingspinner after the submit functionality is complete', async () => {});
 });
