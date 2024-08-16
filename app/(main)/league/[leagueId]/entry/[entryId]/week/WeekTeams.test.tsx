@@ -69,6 +69,7 @@ describe('WeekTeams', () => {
 
   it('the team should render active and the user should be able to select the team', () => {
     mockHasTeamBeenPicked.mockReturnValue(false);
+
     render(<TestWeekTeamsComponent />);
     const weeklyPickButtons = screen.getAllByTestId('team-label');
 
