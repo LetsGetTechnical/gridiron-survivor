@@ -49,18 +49,14 @@ jest.mock('react-hot-toast', () => ({
 }));
 
 describe('Week', () => {
-  const data = {
-    target: { value: 'Browns' },
-    preventDefault: jest.fn(),
-    stopPropagation: jest.fn(),
-  };
+  const teamSelect = 'Browns';
   const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: 'browns' }];
   const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
-  const week = 'mockWeek';
-  const updateWeeklyPicks = jest.fn();
+  const week = '1';
   const setUserPick = jest.fn();
+  const updateWeeklyPicks = jest.fn();
   const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
   const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
 
