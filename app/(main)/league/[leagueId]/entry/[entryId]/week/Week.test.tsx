@@ -48,6 +48,12 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
+
 describe('Week', () => {
   const teamSelect = 'Browns';
   const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: 'browns' }];
