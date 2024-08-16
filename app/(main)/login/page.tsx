@@ -82,10 +82,17 @@ const Login = (): React.JSX.Element => {
    * Handles the form submission.
    * @param {LoginUserSchemaType} data - The data from the form.
    */
-  const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
-    setIsLoading(true);
-    await login(data);
-    setIsLoading(false);
+  const onSubmit: SubmitHandler<LoginUserSchemaType> = async (
+    data: LoginUserSchemaType,
+  ): Promise<void> => {
+    try {
+      setIsLoading(true);
+      await login(data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Login Failed', error);
+    }
   };
 
   return (
