@@ -6,7 +6,6 @@ import {
   createEntry,
   getCurrentUserEntries,
   getGameWeek,
-  getAllWeeklyPicks,
 } from '@/api/apiFunctions';
 import { useDataStore } from '@/store/dataStore';
 import React, { JSX, useEffect, useState } from 'react';
@@ -38,11 +37,10 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getAllEntries = async (): Promise<void> => {
-
     if (!user.id || user.id === '') {
       return;
     }
-        
+
     try {
       const getEntries = await getCurrentUserEntries(user.id, leagueId);
       setEntries(getEntries);
@@ -50,7 +48,6 @@ const Entry = ({
       throw new Error("Error fetching user's entries");
     } finally {
       setLoadingData(false);
-
     }
   };
 
@@ -68,22 +65,6 @@ const Entry = ({
       setLoadingData(false);
     }
   };
-
-  // /**
-  //  * Fetches the weekly picks for the current week and updates the state with the results.
-  //  * @returns {Promise<void>} - A promise that resolves when the weekly picks have been fetched and the state has been updated.
-  //  */
-  // const getWeeklyPicks = async (): Promise<void> => {
-  //   try {
-  //     const picks = await getAllWeeklyPicks({
-  //       leagueId,
-  //       weekId: currentWeek.toString(),
-  //     });
-  //     setWeeklyPicks(picks.userResults);
-  //   } catch (error) {
-  //     console.error('Error fetching weekly picks:', error);
-  //   }
-  // };
 
   /**
    * Adds a new entry to the league.
