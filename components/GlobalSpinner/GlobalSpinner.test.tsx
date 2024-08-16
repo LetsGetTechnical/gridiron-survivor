@@ -17,7 +17,7 @@ jest.mock('next/image', () => ({
     return (
       <img
         alt={alt}
-        data-testId="global-spinner-image"
+        data-testid="global-spinner-image"
         height={100}
         src="@/public/assets/global-spinner.svg"
         width={100}

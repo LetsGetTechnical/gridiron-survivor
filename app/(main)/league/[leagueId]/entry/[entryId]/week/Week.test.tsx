@@ -1,7 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Week from './Week';
-import { getCurrentLeague, createWeeklyPicks } from '@/api/apiFunctions';
+import {
+  getCurrentLeague,
+  getCurrentUserEntries,
+  createWeeklyPicks,
+  getAllWeeklyPicks,
+} from '@/api/apiFunctions';
 import { useDataStore } from '@/store/dataStore';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
@@ -14,6 +19,7 @@ jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
     user: { id: '123', leagues: [] },
     weeklyPicks: {},
+    updateWeeklyPicks: jest.fn(),
   })),
 }));
 
@@ -23,7 +29,17 @@ jest.mock('@/api/apiFunctions', () => ({
       week: 1,
     }),
   ),
+  getCurrentUserEntries: jest.fn(() =>
+    Promise.resolve([
+      {
+        id: '123',
+        week: 1,
+        selectedTeams: [],
+      },
+    ]),
+  ),
   createWeeklyPicks: jest.fn(),
+  getAllWeeklyPicks: jest.fn(),
 }));
 
 jest.mock('react-hot-toast', () => ({
@@ -32,19 +48,21 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
+
 describe('Week', () => {
-  const data = {
-    target: { value: 'Browns' },
-    preventDefault: jest.fn(),
-    stopPropagation: jest.fn(),
-  };
+  const teamSelect = 'Browns';
   const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: 'browns' }];
   const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
-  const week = 'mockWeek';
-  const updateWeeklyPicks = jest.fn();
+  const week = '1';
   const setUserPick = jest.fn();
+  const updateWeeklyPicks = jest.fn();
   const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
   const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
 

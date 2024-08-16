@@ -12,13 +12,16 @@ import {
 import { FormProvider, Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { IWeekProps } from './Week.interface';
-import { getAllWeeklyPicks, getCurrentUserEntries } from '@/api/apiFunctions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
-import { getCurrentLeague } from '@/api/apiFunctions';
+import {
+  getAllWeeklyPicks,
+  getCurrentUserEntries,
+  getCurrentLeague,
+} from '@/api/apiFunctions';
 import { ILeague, INFLTeam } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
@@ -64,7 +67,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
-   * Fetches the league's weekly pick results for the user.
+   * Fetches the league's weekly pick results for the user and set the user pick.
    * @returns {Promise<void>}
    */
   const getUserWeeklyPick = async (): Promise<void> => {
