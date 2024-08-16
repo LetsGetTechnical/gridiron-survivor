@@ -8,6 +8,7 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { IUser } from '@/api/apiFunctions.interface';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { ILogoutType } from './AuthHelper.interface';
 
 type UserCredentials = {
   email: string;
@@ -47,5 +48,33 @@ export const loginAccount = async ({
     );
     console.error('Login error:', error);
     return error as Error;
+  }
+};
+
+/**
+ * Logout the user and reset state
+ * @param props - setIsSignedIn, router, and resetUser()
+ * @param props.setIsSignedIn - set isSignedIn state
+ * @param props.router - router function
+ * @param props.resetUser - reset user state
+ */
+export const logoutHandler = async ({
+  router,
+  resetUser,
+  setIsSignedIn,
+}: ILogoutType): Promise<void> => {
+  try {
+    await account.deleteSession('current');
+    resetUser();
+    setIsSignedIn(false);
+    toast.custom(
+      <Alert variant={AlertVariants.Success} message="Logged Out" />,
+    );
+    router.push('/login');
+  } catch (error) {
+    toast.custom(
+      <Alert variant={AlertVariants.Error} message="Logout failed!" />,
+    );
+    console.error('Logout error:', error);
   }
 };
