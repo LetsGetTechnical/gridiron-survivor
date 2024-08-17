@@ -10,8 +10,11 @@ import LogoNav from '@/components/LogoNav/LogoNav';
  */
 export const AdminLogo = (): React.JSX.Element => {
   return (
-    <div className="flex items-center border-b-2 border-border">
-      <div className="admin-logo flex gap-2 px-3 py-2 items-center">
+    <div
+      className="admin-logo flex items-center border-b-2 border-border"
+      data-testid="admin-logo"
+    >
+      <div className="flex gap-2 px-3 py-2 items-center">
         <LogoNav />
       </div>
     </div>

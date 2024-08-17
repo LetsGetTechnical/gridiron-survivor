@@ -10,8 +10,11 @@ import React from 'react';
  */
 export const AdminQuickMenu = (): React.JSX.Element => {
   return (
-    <div className="flex items-center border-b-2 border-border px-6">
-      <div className="admin-quick-menu flex gap-2 px-2 py-2 items-center outline outline-border rounded w-80">
+    <div
+      className="admin-quick-menu flex items-center border-b-2 border-border px-6"
+      data-testid="admin-quick-menu"
+    >
+      <div className="flex gap-2 px-2 py-2 items-center outline outline-border rounded w-80">
         <LucideCog className="w-8 h-8 p-1 bg-zinc-700" />
         <p>Admin</p>
         <LucideChevronsUpDown className="ml-auto text-zinc-300" size={16} />

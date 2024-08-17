@@ -7,9 +7,12 @@ import { JSX } from 'react';
  * The admin home page.
  * @returns The rendered AdminHome page.
  */
-const AdminHome = (): JSX.Element => {
+const AdminHomepage = (): JSX.Element => {
   return (
-    <section className="space-y-4 px-6 py-6 outline outline-border rounded">
+    <section
+      className="admin-homepage-content space-y-4 px-6 py-6 outline outline-border rounded"
+      data-testid="admin-homepage-content"
+    >
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minus
         sunt culpa alias itaque. Praesentium expedita facere architecto at atque
@@ -67,4 +70,4 @@ const AdminHome = (): JSX.Element => {
   );
 };
 
-export default AdminHome;
+export default AdminHomepage;
