@@ -9,7 +9,10 @@ import { JSX } from 'react';
  */
 const AdminPlayers = (): JSX.Element => {
   return (
-    <section className="p-4 max-w-screen-lg">
+    <section
+      className="p-4 max-w-screen-lg"
+      data-testid="admin-players-content"
+    >
       <table className="w-full border border-border">
         <thead>
           <tr className="text-left text-muted-foreground">
