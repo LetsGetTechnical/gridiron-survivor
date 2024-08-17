@@ -12,7 +12,6 @@ import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { loginAccount, logoutHandler } from './AuthHelper';
 import { usePathname } from 'next/navigation';
-import { adminRoutes } from '@/lib/adminRoutes';
 
 type UserCredentials = {
   email: string;
@@ -40,7 +39,6 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }): JSX.Element => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const [isSuperAdmin, setIsSuperAdmin] = useState<boolean>(false);
   const { updateUser, resetUser, user } = useDataStore<DataStore>(
     (state) => state,
   );
@@ -56,10 +54,8 @@ export const AuthContextProvider = ({
   }, [user]);
 
   useMemo(() => {
-    if (isSignedIn) {
-      if (adminRoutes.includes(pathname)) {
-        !isSuperAdmin && router.push('/league/all');
-      }
+    if (pathname.startsWith('/admin')) {
+      !user.labels.includes('admin') && router.push('/league/all');
     }
   }, [pathname]);
 
@@ -103,7 +99,12 @@ export const AuthContextProvider = ({
         setIsSuperAdmin(true);
       }
       const userData: IUser = await getCurrentUser(user.$id);
-      updateUser(userData.id, userData.email, userData.leagues);
+      updateUser(
+        userData.id,
+        userData.email,
+        userData.leagues,
+        userData.labels,
+      );
       return userData;
     } catch (error) {
       resetUser();

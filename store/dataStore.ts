@@ -30,6 +30,7 @@ interface IDataStoreAction {
     id: IUser['id'],
     email: IUser['email'],
     leagues: IUser['leagues'],
+    labels: IUser['labels'],
   ) => void;
   updateWeeklyPicks: ({
     leagueId,
@@ -56,6 +57,7 @@ const initialState: IDataStoreState = {
     id: '',
     email: '',
     leagues: [],
+    labels: [],
   },
   weeklyPicks: {
     leagueId: '',
@@ -101,12 +103,13 @@ export const useDataStore = create<DataStore>((set) => ({
    * @param leagues - The user league
    * @returns {void}
    */
-  updateUser: (id, email, leagues): void =>
+  updateUser: (id, email, leagues, labels): void =>
     set(
       produce((state: IDataStoreState) => {
         state.user.id = id;
         state.user.email = email;
         state.user.leagues = [...leagues];
+        state.user.labels = [...labels];
       }),
     ),
   /**

@@ -11,6 +11,7 @@ export interface IUser {
   id: string;
   email: string;
   leagues: string[];
+  labels: string[];
 }
 export interface IUserPick {
   [userId: string]: {
