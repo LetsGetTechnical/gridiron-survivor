@@ -95,9 +95,6 @@ export const AuthContextProvider = ({
 
     try {
       const user = await account.get();
-      if (user.labels.includes('admin')) {
-        setIsSuperAdmin(true);
-      }
       const userData: IUser = await getCurrentUser(user.$id);
       updateUser(
         userData.id,
