@@ -8,10 +8,18 @@ export interface IAccountData {
   password: string;
 }
 export interface IUser {
+  // for the appwrite auth collection
   id: string;
   email: string;
   leagues: string[];
   labels: string[];
+}
+
+export interface ICollectionuser {
+  // for the custom user collection
+  id: string;
+  email: string;
+  leagues: string[];
 }
 export interface IUserPick {
   [userId: string]: {

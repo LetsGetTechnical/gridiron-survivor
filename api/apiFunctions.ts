@@ -8,6 +8,7 @@ import {
   ILeague,
   IGameWeek,
   IUser,
+  ICollectionuser,
   IWeeklyPicks,
   INFLTeam,
 } from './apiFunctions.interface';
@@ -74,7 +75,9 @@ export async function logoutAccount(): Promise<object | Error> {
  * @param userId - The user ID
  * @returns {Models.DocumentList<Models.Document> | Error} - The user object or an error
  */
-export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
+export async function getCurrentUser(
+  userId: IUser['id'],
+): Promise<ICollectionuser> {
   try {
     const user = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -85,7 +88,6 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
       id: user.documents[0].userId,
       email: user.documents[0].email,
       leagues: user.documents[0].leagues,
-      labels: user.documents[0].labels,
     };
   } catch (error) {
     console.error(error);

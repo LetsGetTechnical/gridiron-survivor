@@ -8,7 +8,7 @@ import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
-import { IUser } from '@/api/apiFunctions.interface';
+import { ICollectionuser, IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { loginAccount, logoutHandler } from './AuthHelper';
 import { usePathname } from 'next/navigation';
@@ -52,9 +52,8 @@ export const AuthContextProvider = ({
     }
 
     setIsSignedIn(true);
-
     if (pathname.startsWith('/admin')) {
-      !user.labels.includes('admin') && router.push('/league/all');
+      !user.labels.includes('admin') && router.push('/');
     }
   }, [user, pathname]);
 
@@ -94,9 +93,8 @@ export const AuthContextProvider = ({
 
     try {
       const user = await account.get();
-      const userData: IUser = await getCurrentUser(user.$id);
+      const userData: ICollectionuser = await getCurrentUser(user.$id);
       updateUser(userData.id, userData.email, userData.leagues, user.labels);
-      return userData;
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
