@@ -85,6 +85,7 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
       id: user.documents[0].userId,
       email: user.documents[0].email,
       leagues: user.documents[0].leagues,
+      labels: user.documents[0].labels,
     };
   } catch (error) {
     console.error(error);
