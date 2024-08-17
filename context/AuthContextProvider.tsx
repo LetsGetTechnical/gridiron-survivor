@@ -50,14 +50,13 @@ export const AuthContextProvider = ({
       getUser();
       return;
     }
-    setIsSignedIn(true);
-  }, [user]);
 
-  useMemo(() => {
+    setIsSignedIn(true);
+
     if (pathname.startsWith('/admin')) {
       !user.labels.includes('admin') && router.push('/league/all');
     }
-  }, [pathname]);
+  }, [user, pathname]);
 
   /**
    * Authenticate and set session state
@@ -96,12 +95,7 @@ export const AuthContextProvider = ({
     try {
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
-      updateUser(
-        userData.id,
-        userData.email,
-        userData.leagues,
-        userData.labels,
-      );
+      updateUser(userData.id, userData.email, userData.leagues, user.labels);
       return userData;
     } catch (error) {
       resetUser();
