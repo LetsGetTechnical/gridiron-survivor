@@ -7,12 +7,12 @@ import { JSX } from 'react';
  * The admin home page.
  * @returns The rendered AdminHome page.
  */
-const AdminHome = (): JSX.Element => {
+const AdminNotifications = (): JSX.Element => {
   return (
-    <section>
+    <section data-testid="admin-notifications-content">
       <p>{`This is where I'd put my notifation dashboard, IF I HAD ONE!`}</p>
     </section>
   );
 };
 
-export default AdminHome;
+export default AdminNotifications;
