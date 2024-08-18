@@ -14,8 +14,15 @@ export const AdminHeader = (): React.JSX.Element => {
       className="admin-header pt-6 px-6 pb-8 space-y-2 h-1/2"
       data-testid="admin-header"
     >
-      <Heading as="h2">Page Title</Heading>
-      <p className="text-zinc-400 max-w-prose">Page Description</p>
+      <Heading as="h2" data-testid="admin-header-heading">
+        Page Title
+      </Heading>
+      <p
+        className="text-zinc-400 max-w-prose"
+        data-testid="admin-header-description"
+      >
+        Page Description
+      </p>
     </header>
   );
 };
