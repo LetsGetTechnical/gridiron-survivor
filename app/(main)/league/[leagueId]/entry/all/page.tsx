@@ -79,7 +79,7 @@ const Entry = ({
       const createdEntry = await createEntry({ name, user, league });
       setEntries((prevEntries) => [...prevEntries, createdEntry]);
     } catch (error) {
-      console.error(error);
+      throw new Error('Error adding new entry');
     }
   };
 
