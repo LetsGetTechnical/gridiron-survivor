@@ -1,10 +1,17 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React, { useState as useStateMock } from 'react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Login from './page';
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
 const getUser = jest.fn();
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
+
+const setIsLoading = jest.fn();
 
 let continueButton: HTMLElement,
   emailInput: HTMLInputElement,
@@ -37,6 +44,7 @@ describe('Login', () => {
     jest.clearAllMocks();
 
     render(<Login />);
+
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
     continueButton = screen.getByTestId('continue-button');
@@ -85,5 +93,36 @@ describe('Login', () => {
     render(<Login />);
 
     expect(mockPush).toHaveBeenCalledWith('/league/all');
+  });
+});
+
+describe('Login loading spinner', () => {
+  (useStateMock as jest.Mock).mockImplementation((init: boolean) => [
+    init,
+    setIsLoading,
+  ]);
+  it('should show the loading spinner', async () => {
+    (useStateMock as jest.Mock).mockImplementation((init: boolean) => [
+      true,
+      setIsLoading,
+    ]);
+
+    // render(<Login />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
+    });
+  });
+  it('should not show the loading spinner', async () => {
+    (useStateMock as jest.Mock).mockImplementation((init: boolean) => [
+      false,
+      setIsLoading,
+    ]);
+
+    // render(<Login />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
   });
 });

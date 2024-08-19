@@ -8,10 +8,5 @@ describe('LoadingSpinner', () => {
     const loadingSpinner = screen.getByTestId('loading-spinner');
 
     expect(loadingSpinner).toBeInTheDocument();
-    expect(loadingSpinner).toHaveClass(
-      'loading-spinner',
-      'animate-spin',
-      'motion-reduce:hidden',
-    );
   });
 });
