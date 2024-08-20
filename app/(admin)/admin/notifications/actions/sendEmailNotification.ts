@@ -14,7 +14,7 @@ const client = new sdk.Client()
   .setProject(PROJECT_ID)
   .setEndpoint(URL);
 
-const messaging = new sdk.Messaging(client);
+export const messaging = new sdk.Messaging(client);
 
 /**
  * Function to send email.
