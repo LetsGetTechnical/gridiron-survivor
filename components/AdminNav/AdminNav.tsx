@@ -17,7 +17,10 @@ import { AdminUserSettings } from '../AdminUserSettings/AdminUserSettings';
  */
 export const AdminNav = (): React.JSX.Element => {
   return (
-    <nav className="admin-nav-main flex flex-col justify-between h-full pt-2 pb-3 px-3 text-sm text-zinc-400">
+    <nav
+      className="admin-nav flex flex-col justify-between h-full pt-2 pb-3 px-3 text-sm text-zinc-400"
+      data-testid="admin-nav"
+    >
       <ul className="flex flex-col gap-y-2">
         <li>
           <Link

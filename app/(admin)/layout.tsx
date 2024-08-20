@@ -7,7 +7,6 @@ import { AdminLogo } from '@/components/AdminLogo/AdminLogo';
 import { AdminNav } from '@/components/AdminNav/AdminNav';
 import { AdminQuickMenu } from '@/components/AdminQuickMenu/AdminQuickMenu';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
-import { GeistSans } from 'geist/font/sans';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from '@/app/error';
 import React from 'react';
@@ -34,7 +33,7 @@ const AdminRootLayout = ({
   children: React.ReactNode;
 }): React.JSX.Element => {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en">
       <body className="dark:dark bg-background text-foreground h-screen">
         <ErrorBoundary>
           <AuthContextProvider>
