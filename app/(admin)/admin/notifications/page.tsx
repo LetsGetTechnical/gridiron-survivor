@@ -27,19 +27,17 @@ const AdminNotifications = (): JSX.Element => {
   return (
     <section data-testid="admin-notifications-content">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Subject:</label>
+        <label htmlFor="subject">Subject:</label>
         <input
           type="text"
-          placeholder="Enter title for email.."
-          id="title"
+          id="subject"
           onChange={(e) => setSubject(e.target.value)}
           data-testid="subject-text"
         />
-        <label htmlFor="message">Content:</label>
+        <label htmlFor="content">Content:</label>
         <textarea
-          name="message"
-          id="message"
-          placeholder="Hey John,..."
+          name="content"
+          id="content"
           onChange={(e) => setContent(e.target.value)}
           data-testid="content-text"
         />
