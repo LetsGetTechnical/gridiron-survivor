@@ -1,17 +1,17 @@
-import React, { useState as useStateMock } from 'react';
+import React, { Dispatch, useState as useStateMock } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Login from './page';
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
 const getUser = jest.fn();
+const setIsLoading = jest.fn();
+const setState = jest.fn();
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
-
-const setIsLoading = jest.fn();
 
 let continueButton: HTMLElement,
   emailInput: HTMLInputElement,
@@ -40,8 +40,14 @@ jest.mock('../../../context/AuthContextProvider', () => ({
 }));
 
 describe('Login', () => {
+  const setIsLoading = jest.fn();
+  const useStateMock = (init: any): [unknown, Dispatch<unknown>] => [
+    init,
+    setState,
+  ];
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(React, 'useState').mockImplementation(useStateMock);
 
     render(<Login />);
 
@@ -70,7 +76,7 @@ describe('Login', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(continueButton);
 
-    await waitFor(() => {
+    waitFor(() => {
       expect(mockLogin).toHaveBeenCalledWith({
         email: 'test@example.com',
         password: 'password123',
@@ -97,17 +103,13 @@ describe('Login', () => {
 });
 
 describe('Login loading spinner', () => {
-  (useStateMock as jest.Mock).mockImplementation((init: boolean) => [
-    init,
-    setIsLoading,
-  ]);
   it('should show the loading spinner', async () => {
     (useStateMock as jest.Mock).mockImplementation((init: boolean) => [
       true,
       setIsLoading,
     ]);
 
-    // render(<Login />);
+    render(<Login />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
@@ -119,7 +121,7 @@ describe('Login loading spinner', () => {
       setIsLoading,
     ]);
 
-    // render(<Login />);
+    render(<Login />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
