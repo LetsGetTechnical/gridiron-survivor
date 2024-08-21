@@ -1,15 +1,15 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+import { AdminUserSettings } from '../AdminUserSettings/AdminUserSettings';
+import Link from 'next/link';
 import {
   LucideBell,
   LucideHome,
   LucideLayoutGrid,
   LucideUsers,
 } from 'lucide-react';
-import Link from 'next/link';
 import React from 'react';
-import { AdminUserSettings } from '../AdminUserSettings/AdminUserSettings';
 
 /**
  * The admin nav component.
@@ -37,7 +37,7 @@ export const AdminNav = (): React.JSX.Element => {
             className="p-3 hover:bg-zinc-800 focus:bg-zinc-800 rounded-md flex gap-2 items-center hover:text-zinc-50 transition duration-300"
           >
             <LucideLayoutGrid className="w-4 h-4" />
-            Leauges
+            Leagues
           </Link>
         </li>
         <li>
