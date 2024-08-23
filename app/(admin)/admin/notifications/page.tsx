@@ -2,13 +2,13 @@
 // Licensed under the MIT License.
 
 'use client';
+import { Button } from '@/components/Button/Button';
 import { getCurrentLeague } from '@/api/apiFunctions';
 import { Input } from '@/components/Input/Input';
 import { JSX, useState } from 'react';
+import { Label } from '@/components/Label/Label';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
 import React from 'react';
-import { Button } from '@/components/Button/Button';
-import { Label } from '@/components/Label/Label';
 
 /**
  * The admin home page.
