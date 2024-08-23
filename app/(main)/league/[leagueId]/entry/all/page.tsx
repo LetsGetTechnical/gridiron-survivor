@@ -118,6 +118,7 @@ const Entry = ({
     }
     getCurrentGameWeek();
     getAllEntries();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
