@@ -4,7 +4,7 @@
 import { JSX } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '/public/assets/logo-colored-nav.svg';
+import logo from '@/public/assets/logo-colored-nav.svg';
 
 /**
  * Renders the logo for the navigation bar.
