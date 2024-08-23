@@ -2,13 +2,35 @@
 // Licensed under the MIT License.
 
 import { JSX } from 'react';
+import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 
 /**
  * Renders the admin page.
- * @returns {JSX.Element} - The rendered login page.
+ * @returns {JSX.Element} - The rendered Admin Leagues page.
  */
 const AdminLeagues = (): JSX.Element => {
-  return <div>Admin Leagues</div>;
+  return (
+    <section className="grid grid-cols-2 gap-6">
+      <LeagueCard
+        href={'#'}
+        survivors={20}
+        title={'Demo League 1'}
+        totalPlayers={30}
+      />
+      <LeagueCard
+        href={'#'}
+        survivors={20}
+        title={'Demo League 2'}
+        totalPlayers={30}
+      />
+      <LeagueCard
+        href={'#'}
+        survivors={20}
+        title={'Demo League 3'}
+        totalPlayers={30}
+      />
+    </section>
+  );
 };
 
 export default AdminLeagues;
