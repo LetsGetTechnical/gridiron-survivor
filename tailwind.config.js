@@ -70,6 +70,12 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      gridTemplateColumns: {
+        'adminLayout': '16rem auto',
+      },
+      gridTemplateRows: {
+        'adminLayout': '5rem auto',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
