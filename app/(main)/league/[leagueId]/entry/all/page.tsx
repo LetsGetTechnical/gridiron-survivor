@@ -127,19 +127,27 @@ const Entry = ({
         <GlobalSpinner />
       ) : (
         <div className="mx-auto max-w-3xl pt-10">
-          <header>
-            <div className="to-leagues-link">
+          <header data-testid="entry-page-header">
+            <div className="entry-page-header-to-leagues-link">
               <Link
                 className="text-xl text-orange-600 hover:text-orange-500 flex items-center gap-3 font-semibold hover:underline"
+                data-testid="entry-page-header-to-leagues-link"
                 href={`/league/all`}
               >
                 <ChevronLeft />
                 Your Leagues
               </Link>
             </div>
-            <div className="entries-header-main flex flex-col justify-between text-center gap-10 pt-6 pb-4">
-              <div className="entries-hader-name flex flex-col gap-3">
-                <Heading as="h2" className="text-4xl font-bold">
+            <div
+              className="entry-page-header-main flex flex-col justify-between text-center gap-10 pt-6 pb-4"
+              data-testid="entry-page-header-main"
+            >
+              <div className="entry-page-header-league-name-and-survivors flex flex-col gap-3">
+                <Heading
+                  as="h2"
+                  className="text-4xl font-bold"
+                  data-testid="entry-page-header-league-name"
+                >
                   {leagueName}
                 </Heading>
                 <LeagueSurvivors
@@ -148,7 +156,11 @@ const Entry = ({
                   totalPlayers={totalPlayers}
                 />
               </div>
-              <Heading as="h3" className="text-2xl leading-8 font-semibold">
+              <Heading
+                as="h3"
+                className="text-2xl leading-8 font-semibold"
+                data-testid="entry-page-header-current-week"
+              >
                 Week {currentWeek}
               </Heading>
             </div>
@@ -195,6 +207,7 @@ const Entry = ({
                 {currentWeek > 1 && (
                   <Link
                     className="text-orange-600 hover:text-orange-500 font-bold hover:underline"
+                    data-testid="past-weeks-link"
                     href={`#`}
                   >
                     View Past Weeks
