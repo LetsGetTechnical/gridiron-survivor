@@ -2,9 +2,13 @@
 // Licensed under the MIT License.
 
 'use client';
+import { getCurrentLeague } from '@/api/apiFunctions';
+import { Input } from '@/components/Input/Input';
 import { JSX, useState } from 'react';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
 import React from 'react';
+import { Button } from '@/components/Button/Button';
+import { Label } from '@/components/Label/Label';
 
 /**
  * The admin home page.
@@ -12,38 +16,55 @@ import React from 'react';
  */
 const AdminNotifications = (): JSX.Element => {
   const [content, setContent] = useState<string>('');
-  const participants = ['66bd072b001f6b1f6ac0'];
+  const [groupEmailTest, setGroupEmailTest] = useState<string[]>([]);
   const [subject, setSubject] = useState<string>('');
 
   /**
-   * To handle the form submission.
-   * @param event - Takes the inputted information and sends it via Email.
+   * To grab all users from the league.
+   */
+  const getLeagueData = async (): Promise<void> => {
+    const leagueId = '66c6618900033d179dda';
+    const leagueData = await getCurrentLeague(leagueId);
+    setGroupEmailTest(leagueData.participants);
+    try {
+    } catch (error) {
+      throw new Error('Error Fetching Data');
+    }
+  };
+
+  /**
+   * Handle form submission
+   * @param event - Prevents the default reloading.
    */
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    await sendEmailNotifications({ content, participants, subject });
+    await sendEmailNotifications({ content, groupEmailTest, subject });
   };
 
   return (
     <section data-testid="admin-notifications-content">
+      <Button
+        label="Email Testers"
+        type="button"
+        onClick={getLeagueData}
+        data-testid="email-testers"
+      />
       <form onSubmit={handleSubmit}>
-        <label htmlFor="subject">Subject:</label>
-        <input
+        <Label htmlFor="subject">Subject:</Label>
+        <Input
           type="text"
           id="subject"
-          onChange={(e) => setSubject(e.target.value)}
           data-testid="subject-text"
+          onChange={(e) => setSubject(e.target.value)}
         />
-        <label htmlFor="content">Content:</label>
+        <Label htmlFor="content">Content:</Label>
         <textarea
           name="content"
           id="content"
           onChange={(e) => setContent(e.target.value)}
           data-testid="content-text"
         />
-        <button type="submit" data-testid="send-email">
-          Send Email
-        </button>
+        <Button label="Send Email" type="submit" data-testid="send-email" />
       </form>
     </section>
   );
