@@ -4,11 +4,15 @@
 import { JSX } from 'react';
 
 /**
- * Renders the admin page.
- * @returns {JSX.Element} - The rendered login page.
+ * The admin home page.
+ * @returns The rendered AdminHome page.
  */
 const AdminNotifications = (): JSX.Element => {
-  return <div>Admin Notifications</div>;
+  return (
+    <section data-testid="admin-notifications-content">
+      <p>{`This is where I'd put my notifation dashboard, IF I HAD ONE!`}</p>
+    </section>
+  );
 };
 
 export default AdminNotifications;
