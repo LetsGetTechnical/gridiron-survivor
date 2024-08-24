@@ -57,7 +57,7 @@ const Entry = ({
     };
 
     getCurrentLeagueName();
-  }, [leagueId]);
+  });
 
   /**
    * Fetches all entries for the current user.
