@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useEffect, useState } from 'react';
+import React, { ChangeEvent, JSX, useEffect, useState } from 'react';
 import {
   FormField,
   FormItem,
@@ -17,12 +17,8 @@ import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
-import {
-  getAllWeeklyPicks,
-  getCurrentUserEntries,
-  getCurrentLeague,
-} from '@/api/apiFunctions';
-import { ILeague, INFLTeam } from '@/api/apiFunctions.interface';
+import { getCurrentLeague } from '@/api/apiFunctions';
+import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
@@ -39,7 +35,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
-  const [selectedTeams, setSelectedTeams] = useState<INFLTeam[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
@@ -65,32 +60,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       required_error: 'You need to select a team.',
     }),
   });
-
-  /**
-   * Fetches the league's weekly pick results for the user and set the user pick.
-   * @returns {Promise<void>}
-   */
-  const getUserWeeklyPick = async (): Promise<void> => {
-    try {
-      const userWeeklyPickResults = await getAllWeeklyPicks({
-        leagueId: league,
-        weekId: week,
-      });
-
-      updateWeeklyPicks({
-        leagueId: league,
-        gameWeekId: week,
-        userResults: userWeeklyPickResults || {},
-      });
-
-      if (userWeeklyPickResults?.[user.id]?.[entry]) {
-        const userPick = userWeeklyPickResults[user.id][entry].teamName;
-        setUserPick(userPick);
-      }
-    } catch (error) {
-      console.error('Error getting weekly pick:', error);
-    }
-  };
 
   /**
    * Loads the week data.
@@ -125,30 +94,15 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
-   * Get selected teams for the current user entry.
-   * @returns {Promise<void>} The selected teams
-   */
-  const getUserSelectedTeams = async (): Promise<void> => {
-    try {
-      const getEntries = await getCurrentUserEntries(user.id, league);
-      const currentEntry = getEntries.find(
-        (userEntry) => userEntry.$id === entry,
-      );
-      const selectedTeams = currentEntry?.selectedTeams || [];
-      setSelectedTeams(selectedTeams);
-    } catch (error) {
-      console.error('Error getting user selected teams:', error);
-    }
-  };
-
-  /**
-   * Handles the weekly pick team change
-   * @param teamSelect - the selected team name.
+   * Handles the weekly picks
+   * @param data - data of the pick
    * @returns {void}
    */
-  const handleWeeklyPickChange = async (teamSelect: string): Promise<void> => {
+  const handleWeeklyPickChange = async (
+    data: ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
     const params = {
-      teamSelect,
+      data,
       entry,
       league,
       NFLTeams,
@@ -172,11 +126,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
     getSchedule(week);
   }, [week, selectedLeague]);
-
-  useEffect(() => {
-    getUserSelectedTeams();
-    getUserWeeklyPick();
-  }, [user]);
 
   if (loadingData) {
     return <GlobalSpinner />;
@@ -218,7 +167,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                       <FormControl>
                         <WeekTeams
                           schedule={schedule}
-                          selectedTeams={selectedTeams}
                           field={field}
                           userPick={userPick}
                           onWeeklyPickChange={handleWeeklyPickChange}

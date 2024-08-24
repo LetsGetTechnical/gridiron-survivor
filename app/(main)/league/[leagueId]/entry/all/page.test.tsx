@@ -33,11 +33,17 @@ jest.mock('@/components/LeagueEntries/LeagueEntries', () => ({
     teamLogo?: string;
   }) => (
     <div data-testid="league-entry">
-      {!isPickSet && <span data-testid="make-pick-text">Make Pick</span>}
-      {isPickSet && teamLogo && (
-        <img src={teamLogo} alt="Team Logo" data-testid="team-logo" />
+      {!isPickSet && (
+        <span data-testid="league-entry__make-pick-text">Make Pick</span>
       )}
-      <button data-testid="pick-button">
+      {isPickSet && teamLogo && (
+        <img
+          src={teamLogo}
+          alt="Team Logo"
+          data-testid="league-entry__team-logo"
+        />
+      )}
+      <button data-testid="league-entry__button">
         {isPickSet ? 'Edit Pick' : 'Make Pick'}
       </button>
     </div>
@@ -100,9 +106,13 @@ describe('Entry Component', () => {
     render(<Entry params={{ leagueId: '123' }} />);
 
     await waitFor(() => {
-      expect(screen.getByTestId('pick-button')).toHaveTextContent('Make Pick');
+      expect(screen.getByTestId('league-entry__button')).toHaveTextContent(
+        'Make Pick',
+      );
 
-      expect(screen.getByTestId('make-pick-text')).toBeInTheDocument();
+      expect(
+        screen.getByTestId('league-entry__make-pick-text'),
+      ).toBeInTheDocument();
     });
   });
 
@@ -127,12 +137,14 @@ describe('Entry Component', () => {
     render(<Entry params={{ leagueId: '123' }} />);
 
     await waitFor(() => {
-      expect(screen.getByTestId('team-logo')).toHaveAttribute(
+      expect(screen.getByTestId('league-entry__team-logo')).toHaveAttribute(
         'src',
         'team-a-logo.png',
       );
 
-      expect(screen.getByTestId('pick-button')).toHaveTextContent('Edit Pick');
+      expect(screen.getByTestId('league-entry__button')).toHaveTextContent(
+        'Edit Pick',
+      );
     });
   });
 });
