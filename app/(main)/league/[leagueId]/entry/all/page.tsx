@@ -39,13 +39,11 @@ const Entry = ({
   const [totalPlayers, setTotalPlayers] = useState<number>(0);
   const { user } = useDataStore((state) => state);
 
-  /**
-   * Fetches the current league name.
-   * @returns {Promise<void>}
-   */
   useEffect(() => {
     /**
      * Fetches the current league name.
+     * @returns {Promise<void>}
+     * @throws {Error} - An error occurred fetching the league name.
      */
     const getCurrentLeagueName = async (): Promise<void> => {
       try {
@@ -54,7 +52,7 @@ const Entry = ({
         setSurvivors(league.survivors.length);
         setTotalPlayers(league.participants.length);
       } catch (error) {
-        console.error(error);
+        throw new Error(`Error fetching league name: ${error}`);
       }
     };
 
