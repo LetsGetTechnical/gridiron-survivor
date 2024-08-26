@@ -1,8 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React from 'react';
 import Heading from '@/components/Heading/Heading';
+import React from 'react';
 
 /**
  * The header for the admin pages.
