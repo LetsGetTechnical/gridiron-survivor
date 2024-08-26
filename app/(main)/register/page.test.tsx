@@ -1,4 +1,10 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react';
+import React, { Dispatch, useState as useStateMock } from 'react';
 import Register from './page';
 import { registerAccount } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
@@ -7,8 +13,15 @@ import { toast } from 'react-hot-toast';
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
+const setIsLoading = jest.fn();
+const setState = jest.fn();
 
-jest.mock('../../../api/apiFunctions', () => ({
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn()
+}));
+
+jest.mock('@/api/apiFunctions', () => ({
   registerAccount: jest.fn(),
 }));
 
@@ -44,8 +57,11 @@ jest.mock('../../../context/AuthContextProvider', () => ({
 }));
 
 describe('Register', () => {
+  const setIsLoading = jest.fn();
+  const useStateMock = (init: any): [unknown, Dispatch<unknown>] => [init, setState];
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(React, 'useState').mockImplementation(useStateMock);
 
     render(<Register />);
 
@@ -84,9 +100,10 @@ describe('Register', () => {
     fireEvent.change(emailInput, { target: { value: 'rt@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'rawr123' } });
     fireEvent.change(confirmPasswordInput, { target: { value: 'rawr123' } });
-    fireEvent.click(continueButton);
+    fireEvent.submit(continueButton);
 
     await waitFor(() => {
+      expect(registerAccount).toHaveBeenCalledTimes(1);
       expect(registerAccount).toHaveBeenCalledWith({
         email: 'rt@example.com',
         password: 'rawr123',
@@ -116,7 +133,7 @@ describe('Register', () => {
     fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
     fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
     fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
-    fireEvent.click(continueButton);
+    fireEvent.submit(continueButton);
 
     await waitFor(() => {
       expect(registerAccount).toHaveBeenCalledWith({
@@ -147,7 +164,7 @@ describe('Register', () => {
     fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
     fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
     fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
-    fireEvent.click(continueButton);
+    fireEvent.submit(continueButton);
 
     await waitFor(() => {
       expect(registerAccount).toHaveBeenCalledWith({
@@ -169,5 +186,26 @@ describe('Register', () => {
     const darkModeSection = screen.getByTestId('dark-mode-section');
 
     expect(darkModeSection).toHaveClass('dark:bg-gradient-to-b');
+  });
+});
+
+describe('Register loading spinner', () => {
+  it('should show the loading spinner', async () => {
+    (useStateMock as jest.Mock).mockImplementation((init: boolean) => [true, setIsLoading]);
+
+    render(<Register />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
+    });
+  });
+  it('should not show the loading spinner', async () => {
+    (useStateMock as jest.Mock).mockImplementation((init: boolean) => [false, setIsLoading]);
+
+    render(<Register />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
   });
 });
