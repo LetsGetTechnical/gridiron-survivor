@@ -10,14 +10,16 @@ import {
   ILeague,
   IGameWeek,
 } from '@/api/apiFunctions.interface';
+import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
 
 //Define the shape of the state
 interface IDataStoreState {
   user: IUser;
   NFLTeam: INFLTeam[];
   weeklyPicks: IWeeklyPicks;
-  league: ILeague;
+  leagues: ILeague[];
   gameWeek: IGameWeek;
+  entries: IEntry[];
 }
 
 /* eslint-disable */
@@ -36,14 +38,9 @@ interface IDataStoreAction {
     gameWeekId,
     userResults,
   }: IWeeklyPicks) => void;
-  updateLeague: ({
-    leagueId,
-    logo,
-    leagueName,
-    participants,
-    survivors,
-  }: ILeague) => void;
+  updateLeagues: (leagues: ILeague[]) => void;
   updateGameWeek: (gameWeek: IGameWeek) => void;
+  updateEntries: (entries: IEntry[]) => void;
 }
 /* eslint-disable */
 
@@ -62,17 +59,12 @@ const initialState: IDataStoreState = {
     gameWeekId: '',
     userResults: {},
   },
-  league: {
-    leagueId: '',
-    leagueName: '',
-    logo: '',
-    participants: [],
-    survivors: [],
-  },
+  leagues: [],
   gameWeek: {
     id: '',
     week: 0,
   },
+  entries: [],
 };
 
 //create the store
@@ -132,29 +124,15 @@ export const useDataStore = create<DataStore>((set) => ({
   /**
    * Update the game group
    * @param props - props
-   * @param props.leagueId - The league id
-   * @param props.leagueName - The league name
-   * @param props.logo - The logo
-   * @param props.participants - The participants
-   * @param props.survivors - The survivors
+   * @param props.leagues - The leagues the user is a part of
    * @returns {void}
    */
-  updateLeague: ({
-    leagueId,
-    leagueName,
-    logo,
-    participants,
-    survivors,
-  }: ILeague): void =>
+  updateLeagues: (leagues: ILeague[]): void =>
     set(
       produce((state: IDataStoreState) => {
-        state.league.leagueId = leagueId;
-        state.league.leagueName = leagueName;
-        state.league.logo = logo;
-        state.league.participants = participants;
-        state.league.survivors = survivors;
-      }),
-    ),
+        state.leagues = [...leagues];
+      })
+      ),
   /**
    * Update the current week
    * @param props - props
@@ -169,4 +147,16 @@ export const useDataStore = create<DataStore>((set) => ({
         state.gameWeek.week = week;
       }),
     ),
+  /**
+   * Update the entries
+   * @param props - props
+   * @param props.entries - all user entries from all leagues
+   * @returns {void}
+   */
+  updateEntries: (entries: IEntry[]): void =>
+    set(
+      produce((state: IDataStoreState) => {
+        state.entries = [...entries];
+      })
+      ),
 }));

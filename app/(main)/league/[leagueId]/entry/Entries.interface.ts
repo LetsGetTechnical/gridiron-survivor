@@ -6,8 +6,8 @@ import { ILeague, INFLTeam, IUser } from '@/api/apiFunctions.interface';
 export interface IEntry {
   $id: string;
   name: string;
-  user: IUser;
-  league: ILeague;
+  user: IUser['id'];
+  league: ILeague['leagueId'];
   selectedTeams: INFLTeam[];
   eliminated: boolean;
 }

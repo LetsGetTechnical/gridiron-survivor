@@ -5,20 +5,19 @@
 
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { getUserLeagues } from '@/utils/utils';
-import { ILeague } from '@/api/apiFunctions.interface';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import React, { JSX, useEffect, useState } from 'react';
+import { getCurrentUserEntries, getGameWeek } from '@/api/apiFunctions';
 
 /**
  * Renders the leagues component.
  * @returns {JSX.Element} The rendered leagues component.
  */
 const Leagues = (): JSX.Element => {
-  const [leagues, setLeagues] = useState<ILeague[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const { user } = useDataStore((state) => state);
+  const { user, leagues, updateLeagues, updateGameWeek,  updateEntries } = useDataStore((state) => state);
 
   /**
    * Fetches the user's leagues.
@@ -27,11 +26,28 @@ const Leagues = (): JSX.Element => {
   const getLeagues = async (): Promise<void> => {
     try {
       const userLeagues = await getUserLeagues(user.leagues);
-      setLeagues(userLeagues);
+      updateLeagues(userLeagues);
     } catch (error) {
       throw new Error('Error fetching user leagues');
     } finally {
       setLoadingData(false);
+    }
+  };
+
+  /**
+   * Fetches entries per league and the current week.
+   * @returns {Promise<void>}
+   */
+  const fetchAdditionalUserData = async (): Promise<void> => {
+    try {
+      const promises = leagues.map((league) => getCurrentUserEntries(user.id, league.leagueId));
+      const entries = await Promise.all(promises);
+      const currentWeek = await getGameWeek();
+      updateEntries(entries.flat());
+      updateGameWeek(currentWeek);
+    } catch (error) {
+      console.error('Error fetching entries and game week:', error);
+      throw new Error('Error fetching entries and game week');
     }
   };
 
@@ -42,6 +58,12 @@ const Leagues = (): JSX.Element => {
 
     getLeagues();
   }, [user]);
+
+  useEffect(() => {
+    if (leagues.length > 0) {
+      fetchAdditionalUserData();
+    }
+  }, [leagues])
 
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">

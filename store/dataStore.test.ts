@@ -21,13 +21,22 @@ const NFLTeam = [
   },
 ];
 
-const league = {
+const league = [{
   leagueId: '123',
   leagueName: 'Test League',
   logo: 'https://findmylogo.com/logo.png',
   participants: ['123456', '78'],
   survivors: ['123456', '78', '9'],
-};
+}];
+
+const entries = [{
+  $id: '123',
+  name: 'Test Entry',
+  user: '123',
+  league: '123',
+  selectedTeams: [],
+  eliminated: false,
+}];
 
 const gameCurrentWeek = {
   id: '1234567890',
@@ -130,24 +139,36 @@ describe('Data Store', () => {
   describe('League Test', () => {
     it('Check the default league state', () => {
       const { result } = renderHook(() => useDataStore());
-      expect(result.current.league.leagueId).toBe('');
-      expect(result.current.league.leagueName).toBe('');
-      expect(result.current.league.logo).toBe('');
-      expect(result.current.league.participants).toStrictEqual([]);
-      expect(result.current.league.survivors).toStrictEqual([]);
+      expect(result.current.leagues).toStrictEqual([]);
     });
     it('Check the updated league state', () => {
       const { result } = renderHook(() => useDataStore());
 
       act(() => {
-        result.current.updateLeague(league);
+        result.current.updateLeagues(league);
       });
 
-      expect(result.current.league.leagueId).toBe(league.leagueId);
-      expect(result.current.league.leagueName).toBe(league.leagueName);
-      expect(result.current.league.logo).toBe(league.logo);
-      expect(result.current.league.participants).toBe(league.participants);
-      expect(result.current.league.survivors).toBe(league.survivors);
+      expect(result.current.leagues[0].leagueId).toBe(league[0].leagueId);
+      expect(result.current.leagues[0].leagueName).toBe(league[0].leagueName);
+      expect(result.current.leagues[0].logo).toBe(league[0].logo);
+      expect(result.current.leagues[0].participants).toBe(league[0].participants);
+      expect(result.current.leagues[0].survivors).toBe(league[0].survivors);
+    });
+  });
+
+  describe('Entries Test', () => {
+    it('Check the default entries state', () => {
+      const { result } = renderHook(() => useDataStore());
+      expect(result.current.entries).toStrictEqual([]);
+    });
+    it('Check the updated entries state', () => {
+      const { result } = renderHook(() => useDataStore());
+
+      act(() => {
+        result.current.updateEntries(entries);
+      });
+
+      expect(result.current.entries).toStrictEqual(entries);
     });
   });
 
