@@ -17,7 +17,6 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/utils';
 import { useAuthContext } from '@/context/AuthContextProvider';
-import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
@@ -36,19 +35,11 @@ export const Nav = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
   const { user } = useDataStore((state) => state);
 
-  const getLeagues = async (): Promise<void> => {
-    try {
-      const userLeagues = await getUserLeagues(user.leagues);
-      setLeagues(userLeagues);
-    } catch (error) {}
-  };
-
   useEffect(() => {
     if (!user.id || user.id === '') {
       return;
     }
-
-    getLeagues();
+    setLeagues(user.leagues);
   }, [user]);
 
   /**
@@ -87,7 +78,6 @@ export const Nav = (): JSX.Element => {
               </DrawerHeader>
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
-                  {/* Find an alternative to Button -> need to display leagues/all as list and sublist if more than one leauge */}
                   <div className="Leagues mx-auto max-w-3xl pt-10">
                     <h1 className="pb-10 text-center text-l font-bold tracking-tight">
                       Your leagues

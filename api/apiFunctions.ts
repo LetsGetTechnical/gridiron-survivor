@@ -81,10 +81,21 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
       Collection.USERS,
       [Query.equal('userId', userId)],
     );
-    return {
+    const currentUser = {
       id: user.documents[0].userId,
       email: user.documents[0].email,
       leagues: user.documents[0].leagues,
+    };
+    let leagues = [];
+    if (currentUser.leagues && currentUser.leagues.length > 0) {
+      leagues = currentUser.leagues.map((league:string) => {
+        return getCurrentLeague(league);
+      });
+    }
+    return {
+      id: currentUser.id,
+      email: currentUser.email,
+      leagues: await Promise.all(leagues),
     };
   } catch (error) {
     console.error(error);

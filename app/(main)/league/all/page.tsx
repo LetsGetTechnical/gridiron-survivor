@@ -6,7 +6,6 @@
 import React, { JSX, useEffect, useState } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { ILeague } from '@/api/apiFunctions.interface';
-import { getUserLeagues } from '@/utils/utils';
 import { useDataStore } from '@/store/dataStore';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 
@@ -22,19 +21,13 @@ const Leagues = (): JSX.Element => {
    * Fetches the user's leagues.
    * @returns {Promise<void>}
    */
-  const getLeagues = async (): Promise<void> => {
-    try {
-      const userLeagues = await getUserLeagues(user.leagues);
-      setLeagues(userLeagues);
-    } catch (error) {}
-  };
 
   useEffect(() => {
     if (!user.id || user.id === '') {
       return;
     }
 
-    getLeagues();
+    setLeagues(user.leagues);
   }, [user]);
 
   return (
