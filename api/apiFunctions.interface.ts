@@ -10,7 +10,7 @@ export interface IAccountData {
 export interface IUser {
   id: string;
   email: string;
-  leagues: ILeague[];
+  leagues: string[];
 }
 export interface IUserPick {
   [userId: string]: {

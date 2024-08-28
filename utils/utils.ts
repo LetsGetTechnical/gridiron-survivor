@@ -129,7 +129,7 @@ export const getUserLeagues = async (
     return [];
   }
   const userLeagues = leagues.map((league) => {
-    return getCurrentLeague(league.leagueId);
+    return getCurrentLeague(league);
   });
 
   return Promise.all(userLeagues);

@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useEffect, useState } from 'react';
+import React, { JSX, useState, useEffect } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
@@ -13,6 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../NavDrawer/NavDrawer';
+import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/utils';
@@ -21,7 +22,7 @@ import { useDataStore } from '@/store/dataStore';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { ILeague } from '@/api/apiFunctions.interface';
-
+import { getUserLeagues } from '@/utils/utils';
 /**
  * Renders the navigation.
  * @returns {JSX.Element} The rendered navigation.
@@ -31,15 +32,32 @@ export const Nav = (): JSX.Element => {
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
   const [open, setOpen] = React.useState(false);
-
-  const [leagues, setLeagues] = useState<ILeague[]>([]);
   const { user } = useDataStore((state) => state);
+  const [leagues, setLeagues] = useState<ILeague[]>([]);
+  const [loadingLeagues, setLoadingLeagues] = useState<boolean>(true);
+
+  /**
+   * Fetches the user's leagues.
+   * @returns {Promise<void>}
+   */
+  const getLeagues = async (): Promise<void> => {
+    try {
+      const userLeagues = await getUserLeagues(user.leagues);
+      setLeagues(userLeagues);
+    } catch (error) {
+      console.error('Error fetching user leagues', error);
+    } finally {
+      setLoadingLeagues(false);
+    }
+  };
 
   useEffect(() => {
     if (!user.id || user.id === '') {
+      setLoadingLeagues(false);
       return;
     }
-    setLeagues(user.leagues);
+
+    getLeagues();
   }, [user]);
 
   /**
@@ -82,26 +100,32 @@ export const Nav = (): JSX.Element => {
                     <h1 className="pb-10 text-center text-l font-bold tracking-tight">
                       Your leagues
                     </h1>
-                    <section>
-                      {leagues.length > 0 ? (
-                        leagues.map((league) => (
-                          <LeagueCard
-                            key={league.leagueId}
-                            href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
-                            leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
-                            survivors={league.survivors.length}
-                            title={league.leagueName}
-                            totalPlayers={league.participants.length}
-                          />
-                        ))
-                      ) : (
-                        <div className="text-center">
-                          <p className="text-lg font-bold">
-                            You are not enrolled in any leagues
-                          </p>
-                        </div>
-                      )}
-                    </section>
+                    {loadingLeagues ? (
+                      <GlobalSpinner />
+                    ) : (
+                      <>
+                        <section className="grid gap-6 md:grid-cols-2">
+                          {leagues.length > 0 ? (
+                            leagues.map((league) => (
+                              <LeagueCard
+                                key={league.leagueId}
+                                href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
+                                leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
+                                survivors={league.survivors.length}
+                                title={league.leagueName}
+                                totalPlayers={league.participants.length}
+                              />
+                            ))
+                          ) : (
+                            <div className="text-center">
+                              <p className="text-lg font-bold">
+                                You are not enrolled in any leagues
+                              </p>
+                            </div>
+                          )}
+                        </section>
+                      </>
+                    )}
                   </div>
                 </li>
                 <li>
