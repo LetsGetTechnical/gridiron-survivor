@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 'use client';
-
 import {
   createEntry,
   getCurrentUserEntries,
@@ -16,6 +15,7 @@ import { ENTRY_URL, LEAGUE_URL, WEEK_URL } from '@/const/global';
 import { IGameWeek } from '@/api/apiFunctions.interface';
 import { Button } from '@/components/Button/Button';
 import { PlusCircle } from 'lucide-react';
+import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 
 /**
  * Display all entries for a league.
@@ -27,8 +27,9 @@ const Entry = ({
 }: {
   params: { leagueId: string };
 }): JSX.Element => {
-  const [entries, setEntries] = useState<IEntry[]>([]);
   const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
+  const [entries, setEntries] = useState<IEntry[]>([]);
+  const [loadingData, setLoadingData] = useState<boolean>(true);
   const { user } = useDataStore((state) => state);
 
   /**
@@ -36,8 +37,14 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getAllEntries = async (): Promise<void> => {
-    const getEntries = await getCurrentUserEntries(user.id, leagueId);
-    setEntries(getEntries);
+    try {
+      const getEntries = await getCurrentUserEntries(user.id, leagueId);
+      setEntries(getEntries);
+    } catch (error) {
+      throw new Error("Error fetching user's entries");
+    } finally {
+      setLoadingData(false);
+    }
   };
 
   /**
@@ -50,6 +57,8 @@ const Entry = ({
       setCurrentWeek(currentWeek.week);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoadingData(false);
     }
   };
 
@@ -85,35 +94,70 @@ const Entry = ({
 
   return (
     <>
-      {entries.map((entry) => {
-        const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
+      {loadingData ? (
+        <GlobalSpinner />
+      ) : (
+        <>
+          {entries.length > 0 ? (
+            <>
+              {entries.map((entry) => {
+                const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
+                const isPickSet =
+                  entry.selectedTeams && entry.selectedTeams.length > 0;
 
-        return (
-          <section key={entry.$id}>
-            <LeagueEntries
-              key={entry.$id}
-              entryName={entry.name}
-              linkUrl={linkUrl}
-            />
-          </section>
-        );
-      })}
+                const teamLogo = isPickSet
+                  ? entry.selectedTeams[0].teamLogo
+                  : '';
 
-      <div className="flex justify-center items-center mt-2 mb-2 w-full">
-        <Button
-          icon={<PlusCircle className="mr-2" />}
-          variant="outline"
-          onClick={() =>
-            addNewEntry({
-              name: `Entry ${entries.length + 1}`,
-              user: user.id,
-              league: leagueId,
-            })
-          }
-        >
-          Add New Entry
-        </Button>
-      </div>
+                return (
+                  <section key={entry.$id}>
+                    <LeagueEntries
+                      key={entry.$id}
+                      entryName={entry.name}
+                      isEliminated={entry.eliminated}
+                      isPickSet={isPickSet}
+                      linkUrl={linkUrl}
+                      teamLogo={teamLogo}
+                    />
+                  </section>
+                );
+              })}
+
+              <div className="flex justify-center items-center mt-2 mb-2 w-full">
+                <Button
+                  icon={<PlusCircle className="mr-2" />}
+                  variant="outline"
+                  onClick={() =>
+                    addNewEntry({
+                      name: `Entry ${entries.length + 1}`,
+                      user: user.id,
+                      league: leagueId,
+                    })
+                  }
+                >
+                  Add New Entry
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="flex justify-center items-center mt-2 mb-2 w-full">
+              <Button
+                icon={<PlusCircle className="mr-2" />}
+                variant="outline"
+                onClick={() =>
+                  addNewEntry({
+                    name: `Entry ${entries.length + 1}`,
+                    user: user.id,
+                    league: leagueId,
+                  })
+                }
+              >
+                Add New Entry
+              </Button>
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 };

@@ -126,6 +126,7 @@ export async function getCurrentUserEntries(
       user: entry.user,
       league: entry.league,
       selectedTeams: entry.selectedTeams,
+      eliminated: entry.eliminated,
     }));
 
     return entries;
@@ -149,6 +150,7 @@ export const getNFLTeams = async (): Promise<INFLTeam[]> => {
 
     const nflTeams = response.documents.map((team) => ({
       teamId: team.$id,
+      teamLogo: team.teamLogo,
       teamName: team.teamName,
     }));
 

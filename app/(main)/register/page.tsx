@@ -2,18 +2,9 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Input } from '@/components/Input/Input';
-import Logo from '@/components/Logo/Logo';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { Button } from '@/components/Button/Button';
-import { registerAccount } from '@/api/apiFunctions';
-import logo from '/public/assets/logo-colored-outline.svg';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { z } from 'zod';
 import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -21,9 +12,18 @@ import {
   FormItem,
   FormMessage,
 } from '../../../components/Form/Form';
+import { Input } from '@/components/Input/Input';
+import { registerAccount } from '@/api/apiFunctions';
 import { toast } from 'react-hot-toast';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import Logo from '@/components/Logo/Logo';
+import logo from '/public/assets/logo-colored-outline.svg';
+import React, { JSX, useEffect } from 'react';
 
 const RegisterUserSchema = z
   .object({
@@ -59,6 +59,7 @@ const Register = (): JSX.Element => {
     if (isSignedIn) {
       router.push('/league/all');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn]);
 
   const form = useForm<RegisterUserSchemaType>({
@@ -67,7 +68,6 @@ const Register = (): JSX.Element => {
 
   /**
    * The current value of the 'email' field in the form.
-   *
    * @type {string}
    */
   const email: string = useWatch({
