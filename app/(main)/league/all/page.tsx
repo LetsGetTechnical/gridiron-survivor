@@ -41,15 +41,19 @@ const Leagues = (): JSX.Element => {
    */
   const fetchAdditionalUserData = async (): Promise<void> => {
     try {
-      const promises = leagues.map((league) =>
+      const entryPromises = leagues.map((league) =>
         getCurrentUserEntries(user.id, league.leagueId),
       );
-      const entries = await Promise.all(promises);
-      const currentWeek = await getGameWeek();
+      const gameWeekPromise = getGameWeek();
+
+      const [entries, currentWeek] = await Promise.all([
+        Promise.all(entryPromises),
+        gameWeekPromise,
+      ]);
+
       updateEntries(entries.flat());
       updateGameWeek(currentWeek);
     } catch (error) {
-      console.error('Error fetching entries and game week:', error);
       throw new Error('Error fetching entries and game week');
     }
   };
