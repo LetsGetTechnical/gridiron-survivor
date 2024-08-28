@@ -15,8 +15,8 @@ import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
 
 /**
- * The admin user settings component.
- * @returns The rendered admin user settings.
+ * Renders admin user settings.
+ * @returns {JSX.Element} The rendered admin user settings component.
  */
 export const AdminUserSettings = (): React.JSX.Element => {
   const router = useRouter();
