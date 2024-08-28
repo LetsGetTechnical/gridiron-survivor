@@ -131,8 +131,8 @@ export const useDataStore = create<DataStore>((set) => ({
     set(
       produce((state: IDataStoreState) => {
         state.leagues = [...leagues];
-      })
-      ),
+      }),
+    ),
   /**
    * Update the current week
    * @param props - props
@@ -157,6 +157,6 @@ export const useDataStore = create<DataStore>((set) => ({
     set(
       produce((state: IDataStoreState) => {
         state.entries = [...entries];
-      })
-      ),
+      }),
+    ),
 }));

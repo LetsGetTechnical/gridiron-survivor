@@ -17,7 +17,8 @@ import { getCurrentUserEntries, getGameWeek } from '@/api/apiFunctions';
  */
 const Leagues = (): JSX.Element => {
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const { user, leagues, updateLeagues, updateGameWeek,  updateEntries } = useDataStore((state) => state);
+  const { user, leagues, updateLeagues, updateGameWeek, updateEntries } =
+    useDataStore((state) => state);
 
   /**
    * Fetches the user's leagues.
@@ -40,7 +41,9 @@ const Leagues = (): JSX.Element => {
    */
   const fetchAdditionalUserData = async (): Promise<void> => {
     try {
-      const promises = leagues.map((league) => getCurrentUserEntries(user.id, league.leagueId));
+      const promises = leagues.map((league) =>
+        getCurrentUserEntries(user.id, league.leagueId),
+      );
       const entries = await Promise.all(promises);
       const currentWeek = await getGameWeek();
       updateEntries(entries.flat());
@@ -63,7 +66,7 @@ const Leagues = (): JSX.Element => {
     if (leagues.length > 0) {
       fetchAdditionalUserData();
     }
-  }, [leagues])
+  }, [leagues]);
 
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
