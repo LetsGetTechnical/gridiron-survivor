@@ -40,7 +40,7 @@ const Leagues = (): JSX.Element => {
       return;
     }
 
-    setLeagues(user.leagues);
+    getLeagues();
   }, [user]);
 
   return (
