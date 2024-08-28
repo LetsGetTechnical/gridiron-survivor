@@ -11,25 +11,21 @@ import { messaging } from '@/api/serverConfig';
  * @param props.content - The email itself.
  * @param props.subject - The header of the email.
  * @param props.groupEmailTest - All users of the league.
+ * @param props.groupUsers - All userId's of the league.
  */
 export const sendEmailNotifications = async ({
   content,
-  groupEmailTest,
+  groupUsers,
   subject,
 }: {
   content: string;
-  groupEmailTest: string[];
+  groupUsers: string[];
   subject: string;
 }): Promise<void> => {
   try {
-    await messaging.createEmail(
-      ID.unique(), // messageId
-      subject, // subject
-      content, // content
-      [], // topics (optional)
-      groupEmailTest, // users (optional)
-    );
+    await messaging.createEmail(ID.unique(), subject, content, [], groupUsers);
   } catch (error) {
+    console.error('Error Sending Email:', error);
     throw new Error('Error Sending Email');
   }
 };

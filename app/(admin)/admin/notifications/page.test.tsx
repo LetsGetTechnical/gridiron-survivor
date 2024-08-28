@@ -1,8 +1,8 @@
 // /Users/ryanfurrer/Developer/GitHub/gridiron-survivor/app/(admin)/admin/notifications/page.test.tsx
 
 import AdminNotifications from './page';
-import { getCurrentLeague } from '@/api/apiFunctions';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { getCurrentLeague } from '@/api/apiFunctions';
 import React from 'react';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
 
@@ -55,7 +55,7 @@ describe('Admin notifications page', () => {
     await waitFor(() => {
       expect(sendEmailNotifications as jest.Mock).toHaveBeenCalledWith({
         content: 'Test message section.',
-        groupEmailTest: dummyParticipants,
+        groupUsers: dummyParticipants,
         subject: 'Test Title',
       });
     });

@@ -16,7 +16,7 @@ import React from 'react';
  */
 const AdminNotifications = (): JSX.Element => {
   const [content, setContent] = useState<string>('');
-  const [groupEmailTest, setGroupEmailTest] = useState<string[]>([]);
+  const [groupUsers, setGroupUsers] = useState<string[]>([]);
   const [subject, setSubject] = useState<string>('');
 
   /**
@@ -25,9 +25,10 @@ const AdminNotifications = (): JSX.Element => {
   const getLeagueData = async (): Promise<void> => {
     const leagueId = '66c6618900033d179dda';
     const leagueData = await getCurrentLeague(leagueId);
-    setGroupEmailTest(leagueData.participants);
+    setGroupUsers(leagueData.participants);
     try {
     } catch (error) {
+      console.error('Error Fetching Data:', error);
       throw new Error('Error Fetching Data');
     }
   };
@@ -38,7 +39,7 @@ const AdminNotifications = (): JSX.Element => {
    */
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    await sendEmailNotifications({ content, groupEmailTest, subject });
+    await sendEmailNotifications({ content, groupUsers, subject });
   };
 
   return (
