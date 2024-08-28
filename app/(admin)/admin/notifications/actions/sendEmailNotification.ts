@@ -10,7 +10,6 @@ import { messaging } from '@/api/serverConfig';
  * @param props - subject, content.
  * @param props.content - The email itself.
  * @param props.subject - The header of the email.
- * @param props.groupEmailTest - All users of the league.
  * @param props.groupUsers - All userId's of the league.
  */
 export const sendEmailNotifications = async ({
