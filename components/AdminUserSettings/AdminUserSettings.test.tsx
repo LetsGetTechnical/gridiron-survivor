@@ -8,6 +8,8 @@ import {
 } from '@testing-library/react';
 import React from 'react';
 
+const mockPush = jest.fn();
+const mockUsePathname = jest.fn();
 const mockLogoutAccount = jest.fn();
 
 const mockUseAuthContext = {
@@ -20,6 +22,17 @@ jest.mock('../../context/AuthContextProvider', () => ({
     return {
       ...mockUseAuthContext,
     };
+  },
+}));
+
+jest.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      push: mockPush,
+    };
+  },
+  usePathname() {
+    return mockUsePathname();
   },
 }));
 
@@ -57,6 +70,36 @@ describe('AdminUserSettings Component', () => {
     waitFor(() => {
       expect(screen.getByTestId('edit-profile-button')).not.toBeInTheDocument();
       expect(screen.getByTestId('sign-out-button')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should direct to /admin/edit-profile route when the edit profile button is clicked', () => {
+    const adminUserSettings = screen.getByTestId('admin-user-settings');
+
+    fireEvent.click(adminUserSettings);
+
+    waitFor(() => {
+      const editProfileButton = screen.getByTestId('edit-profile-button');
+      fireEvent.click(editProfileButton);
+    });
+
+    waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith('/admin/edit-profile');
+    });
+  });
+
+  it('should direct to /login route when the sign out button is clicked', () => {
+    const adminUserSettings = screen.getByTestId('admin-user-settings');
+
+    fireEvent.click(adminUserSettings);
+
+    waitFor(() => {
+      const signOutButton = screen.getByTestId('sign-out-button');
+      fireEvent.click(signOutButton);
+    });
+
+    waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith('/login');
     });
   });
 });
