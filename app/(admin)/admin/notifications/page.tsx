@@ -28,8 +28,8 @@ const AdminNotifications = (): JSX.Element => {
     setGroupUsers(leagueData.participants);
     try {
     } catch (error) {
-      console.error('Error Fetching Data:', error);
-      throw new Error('Error Fetching Data');
+      console.error('Error Sending Email:', error);
+      throw new Error('Error Sending Email');
     }
   };
 
