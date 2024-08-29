@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
+import React, { JSX } from 'react';
 import { Button } from '../Button/Button';
 import {
   DropdownMenu,
@@ -10,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
 import { LucideChevronsUpDown } from 'lucide-react';
-import React, { JSX } from 'react';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
  * Renders admin user settings.
  * @returns {JSX.Element} The rendered admin user settings component.
  */
-export const AdminUserSettings = (): React.JSX.Element => {
+export const AdminUserSettings = (): JSX.Element => {
   const router = useRouter();
   const { logoutAccount } = useAuthContext();
 
