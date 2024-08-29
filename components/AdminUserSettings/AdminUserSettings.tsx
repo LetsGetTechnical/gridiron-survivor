@@ -54,7 +54,7 @@ export const AdminUserSettings = (): React.JSX.Element => {
             variant="link"
             label="Edit Profile"
             onClick={() => {
-              router.push('/admin/edit-profile');
+              router.push('/user/edit');
             }}
             data-testid="edit-profile-button"
           />

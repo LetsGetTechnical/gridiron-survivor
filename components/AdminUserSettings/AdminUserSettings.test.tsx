@@ -84,7 +84,7 @@ describe('AdminUserSettings Component', () => {
     });
 
     waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/admin/edit-profile');
+      expect(mockPush).toHaveBeenCalledWith('/user/edit');
     });
   });
 
