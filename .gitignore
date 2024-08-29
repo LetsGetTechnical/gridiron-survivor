@@ -27,7 +27,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env
+.env.local
 
 # vercel
 .vercel
@@ -39,10 +40,12 @@ next-env.d.ts
 #playwright
 /blob-report/
 /playwright/.cache/
+/playwright-report
+/test-results
 
-*storybook.log
-/blob-report/
-/playwright/.cache/
+# storybook
 storybook-static/*
+*storybook.log
 
+# vscode
 .vscode

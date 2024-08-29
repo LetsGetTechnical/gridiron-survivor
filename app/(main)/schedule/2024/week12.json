@@ -1,0 +1,3507 @@
+{
+  "leagues": [
+    {
+      "id": "28",
+      "uid": "s:20~l:28",
+      "name": "National Football League",
+      "abbreviation": "NFL",
+      "slug": "nfl",
+      "season": {
+        "year": 2024,
+        "startDate": "2024-08-01T07:00Z",
+        "endDate": "2025-02-15T07:59Z",
+        "displayName": "2024",
+        "type": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "abbreviation": "reg"
+        }
+      },
+      "logos": [
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/leagues/500/nfl.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": ["full", "default"],
+          "lastUpdated": "2018-06-05T12:07Z"
+        }
+      ],
+      "calendarType": "list",
+      "calendarIsWhitelist": true,
+      "calendarStartDate": "2024-08-01T07:00Z",
+      "calendarEndDate": "2025-02-15T07:59Z",
+      "calendar": [
+        {
+          "label": "Preseason",
+          "value": "1",
+          "startDate": "2024-08-01T07:00Z",
+          "endDate": "2024-09-05T06:59Z",
+          "entries": [
+            {
+              "label": "Hall of Fame Weekend",
+              "alternateLabel": "HOF",
+              "detail": "Aug 1-7",
+              "value": "1",
+              "startDate": "2024-08-01T07:00Z",
+              "endDate": "2024-08-08T06:59Z"
+            },
+            {
+              "label": "Preseason Week 1",
+              "alternateLabel": "Pre Wk 1",
+              "detail": "Aug 8-14",
+              "value": "2",
+              "startDate": "2024-08-08T07:00Z",
+              "endDate": "2024-08-15T06:59Z"
+            },
+            {
+              "label": "Preseason Week 2",
+              "alternateLabel": "Pre Wk 2",
+              "detail": "Aug 15-21",
+              "value": "3",
+              "startDate": "2024-08-15T07:00Z",
+              "endDate": "2024-08-22T06:59Z"
+            },
+            {
+              "label": "Preseason Week 3",
+              "alternateLabel": "Pre Wk 3",
+              "detail": "Aug 22-Sep 3",
+              "value": "4",
+              "startDate": "2024-08-22T07:00Z",
+              "endDate": "2024-09-04T06:59Z"
+            }
+          ]
+        },
+        {
+          "label": "Regular Season",
+          "value": "2",
+          "startDate": "2024-09-05T07:00Z",
+          "endDate": "2025-01-09T07:59Z",
+          "entries": [
+            {
+              "label": "Week 1",
+              "alternateLabel": "Week 1",
+              "detail": "Sep 4-10",
+              "value": "1",
+              "startDate": "2024-09-04T07:00Z",
+              "endDate": "2024-09-11T06:59Z"
+            },
+            {
+              "label": "Week 2",
+              "alternateLabel": "Week 2",
+              "detail": "Sep 11-17",
+              "value": "2",
+              "startDate": "2024-09-11T07:00Z",
+              "endDate": "2024-09-18T06:59Z"
+            },
+            {
+              "label": "Week 3",
+              "alternateLabel": "Week 3",
+              "detail": "Sep 18-24",
+              "value": "3",
+              "startDate": "2024-09-18T07:00Z",
+              "endDate": "2024-09-25T06:59Z"
+            },
+            {
+              "label": "Week 4",
+              "alternateLabel": "Week 4",
+              "detail": "Sep 25-Oct 1",
+              "value": "4",
+              "startDate": "2024-09-25T07:00Z",
+              "endDate": "2024-10-02T06:59Z"
+            },
+            {
+              "label": "Week 5",
+              "alternateLabel": "Week 5",
+              "detail": "Oct 2-8",
+              "value": "5",
+              "startDate": "2024-10-02T07:00Z",
+              "endDate": "2024-10-09T06:59Z"
+            },
+            {
+              "label": "Week 6",
+              "alternateLabel": "Week 6",
+              "detail": "Oct 9-15",
+              "value": "6",
+              "startDate": "2024-10-09T07:00Z",
+              "endDate": "2024-10-16T06:59Z"
+            },
+            {
+              "label": "Week 7",
+              "alternateLabel": "Week 7",
+              "detail": "Oct 16-22",
+              "value": "7",
+              "startDate": "2024-10-16T07:00Z",
+              "endDate": "2024-10-23T06:59Z"
+            },
+            {
+              "label": "Week 8",
+              "alternateLabel": "Week 8",
+              "detail": "Oct 23-29",
+              "value": "8",
+              "startDate": "2024-10-23T07:00Z",
+              "endDate": "2024-10-30T06:59Z"
+            },
+            {
+              "label": "Week 9",
+              "alternateLabel": "Week 9",
+              "detail": "Oct 30-Nov 5",
+              "value": "9",
+              "startDate": "2024-10-30T07:00Z",
+              "endDate": "2024-11-06T07:59Z"
+            },
+            {
+              "label": "Week 10",
+              "alternateLabel": "Week 10",
+              "detail": "Nov 6-12",
+              "value": "10",
+              "startDate": "2024-11-06T08:00Z",
+              "endDate": "2024-11-13T07:59Z"
+            },
+            {
+              "label": "Week 11",
+              "alternateLabel": "Week 11",
+              "detail": "Nov 13-19",
+              "value": "11",
+              "startDate": "2024-11-13T08:00Z",
+              "endDate": "2024-11-20T07:59Z"
+            },
+            {
+              "label": "Week 12",
+              "alternateLabel": "Week 12",
+              "detail": "Nov 20-26",
+              "value": "12",
+              "startDate": "2024-11-20T08:00Z",
+              "endDate": "2024-11-27T07:59Z"
+            },
+            {
+              "label": "Week 13",
+              "alternateLabel": "Week 13",
+              "detail": "Nov 27-Dec 3",
+              "value": "13",
+              "startDate": "2024-11-27T08:00Z",
+              "endDate": "2024-12-04T07:59Z"
+            },
+            {
+              "label": "Week 14",
+              "alternateLabel": "Week 14",
+              "detail": "Dec 4-10",
+              "value": "14",
+              "startDate": "2024-12-04T08:00Z",
+              "endDate": "2024-12-11T07:59Z"
+            },
+            {
+              "label": "Week 15",
+              "alternateLabel": "Week 15",
+              "detail": "Dec 11-17",
+              "value": "15",
+              "startDate": "2024-12-11T08:00Z",
+              "endDate": "2024-12-18T07:59Z"
+            },
+            {
+              "label": "Week 16",
+              "alternateLabel": "Week 16",
+              "detail": "Dec 18-24",
+              "value": "16",
+              "startDate": "2024-12-18T08:00Z",
+              "endDate": "2024-12-25T07:59Z"
+            },
+            {
+              "label": "Week 17",
+              "alternateLabel": "Week 17",
+              "detail": "Dec 25-31",
+              "value": "17",
+              "startDate": "2024-12-25T08:00Z",
+              "endDate": "2025-01-01T07:59Z"
+            },
+            {
+              "label": "Week 18",
+              "alternateLabel": "Week 18",
+              "detail": "Jan 1-7",
+              "value": "18",
+              "startDate": "2025-01-01T08:00Z",
+              "endDate": "2025-01-08T07:59Z"
+            }
+          ]
+        },
+        {
+          "label": "Postseason",
+          "value": "3",
+          "startDate": "2025-01-09T08:00Z",
+          "endDate": "2025-02-15T07:59Z",
+          "entries": [
+            {
+              "label": "Wild Card",
+              "alternateLabel": "Wild Card",
+              "detail": "Jan 8-16",
+              "value": "1",
+              "startDate": "2025-01-08T08:00Z",
+              "endDate": "2025-01-17T07:59Z"
+            },
+            {
+              "label": "Divisional Round",
+              "alternateLabel": "Div Rd",
+              "detail": "Jan 17-23",
+              "value": "2",
+              "startDate": "2025-01-17T08:00Z",
+              "endDate": "2025-01-24T07:59Z"
+            },
+            {
+              "label": "Conference Championship",
+              "alternateLabel": "Conf Champ",
+              "detail": "Jan 24-30",
+              "value": "3",
+              "startDate": "2025-01-24T08:00Z",
+              "endDate": "2025-01-31T07:59Z"
+            },
+            {
+              "label": "Pro Bowl",
+              "alternateLabel": "Pro Bowl",
+              "detail": "Jan 31-Feb 6",
+              "value": "4",
+              "startDate": "2025-01-31T08:00Z",
+              "endDate": "2025-02-07T07:59Z"
+            },
+            {
+              "label": "Super Bowl",
+              "alternateLabel": "Super Bowl",
+              "detail": "Feb 7-14",
+              "value": "5",
+              "startDate": "2025-02-07T08:00Z",
+              "endDate": "2025-02-15T07:59Z"
+            }
+          ]
+        },
+        {
+          "label": "Off Season",
+          "value": "4",
+          "startDate": "2025-02-15T08:00Z",
+          "endDate": "2025-08-01T06:59Z",
+          "entries": [
+            {
+              "label": "Week 1",
+              "alternateLabel": "Week 1",
+              "detail": "Feb 15-Jul 31",
+              "value": "1",
+              "startDate": "2025-02-15T08:00Z",
+              "endDate": "2025-08-01T06:59Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "season": {
+    "type": 2,
+    "year": 2024
+  },
+  "week": {
+    "number": 12,
+    "teamsOnBye": [
+      {
+        "id": "1",
+        "uid": "s:20~l:28~t:1",
+        "location": "Atlanta",
+        "name": "Falcons",
+        "abbreviation": "ATL",
+        "displayName": "Atlanta Falcons",
+        "shortDisplayName": "Falcons",
+        "isActive": true,
+        "links": [
+          {
+            "rel": ["clubhouse", "desktop", "team"],
+            "href": "https://www.espn.com/nfl/team/_/name/atl/atlanta-falcons",
+            "text": "Clubhouse",
+            "isExternal": false,
+            "isPremium": false
+          }
+        ],
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png"
+      },
+      {
+        "id": "2",
+        "uid": "s:20~l:28~t:2",
+        "location": "Buffalo",
+        "name": "Bills",
+        "abbreviation": "BUF",
+        "displayName": "Buffalo Bills",
+        "shortDisplayName": "Bills",
+        "isActive": true,
+        "links": [
+          {
+            "rel": ["clubhouse", "desktop", "team"],
+            "href": "https://www.espn.com/nfl/team/_/name/buf/buffalo-bills",
+            "text": "Clubhouse",
+            "isExternal": false,
+            "isPremium": false
+          }
+        ],
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png"
+      },
+      {
+        "id": "4",
+        "uid": "s:20~l:28~t:4",
+        "location": "Cincinnati",
+        "name": "Bengals",
+        "abbreviation": "CIN",
+        "displayName": "Cincinnati Bengals",
+        "shortDisplayName": "Bengals",
+        "isActive": true,
+        "links": [
+          {
+            "rel": ["clubhouse", "desktop", "team"],
+            "href": "https://www.espn.com/nfl/team/_/name/cin/cincinnati-bengals",
+            "text": "Clubhouse",
+            "isExternal": false,
+            "isPremium": false
+          }
+        ],
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png"
+      },
+      {
+        "id": "18",
+        "uid": "s:20~l:28~t:18",
+        "location": "New Orleans",
+        "name": "Saints",
+        "abbreviation": "NO",
+        "displayName": "New Orleans Saints",
+        "shortDisplayName": "Saints",
+        "isActive": true,
+        "links": [
+          {
+            "rel": ["clubhouse", "desktop", "team"],
+            "href": "https://www.espn.com/nfl/team/_/name/no/new-orleans-saints",
+            "text": "Clubhouse",
+            "isExternal": false,
+            "isPremium": false
+          }
+        ],
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png"
+      },
+      {
+        "id": "20",
+        "uid": "s:20~l:28~t:20",
+        "location": "New York",
+        "name": "Jets",
+        "abbreviation": "NYJ",
+        "displayName": "New York Jets",
+        "shortDisplayName": "Jets",
+        "isActive": true,
+        "links": [
+          {
+            "rel": ["clubhouse", "desktop", "team"],
+            "href": "https://www.espn.com/nfl/team/_/name/nyj/new-york-jets",
+            "text": "Clubhouse",
+            "isExternal": false,
+            "isPremium": false
+          }
+        ],
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png"
+      },
+      {
+        "id": "30",
+        "uid": "s:20~l:28~t:30",
+        "location": "Jacksonville",
+        "name": "Jaguars",
+        "abbreviation": "JAX",
+        "displayName": "Jacksonville Jaguars",
+        "shortDisplayName": "Jaguars",
+        "isActive": true,
+        "links": [
+          {
+            "rel": ["clubhouse", "desktop", "team"],
+            "href": "https://www.espn.com/nfl/team/_/name/jax/jacksonville-jaguars",
+            "text": "Clubhouse",
+            "isExternal": false,
+            "isPremium": false
+          }
+        ],
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": "401671875",
+      "uid": "s:20~l:28~e:401671875",
+      "date": "2024-11-22T01:15Z",
+      "name": "Pittsburgh Steelers at Cleveland Browns",
+      "shortName": "PIT @ CLE",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671875",
+          "uid": "s:20~l:28~e:401671875~c:401671875",
+          "date": "2024-11-22T01:15Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3679",
+            "fullName": "Cleveland Browns Stadium",
+            "address": {
+              "city": "Cleveland",
+              "state": "OH"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "5",
+              "uid": "s:20~l:28~t:5",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "5",
+                "uid": "s:20~l:28~t:5",
+                "location": "Cleveland",
+                "name": "Browns",
+                "abbreviation": "CLE",
+                "displayName": "Cleveland Browns",
+                "shortDisplayName": "Browns",
+                "color": "472a08",
+                "alternateColor": "ff3c00",
+                "isActive": true,
+                "venue": {
+                  "id": "3679"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/cle/cleveland-browns",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/cle/cleveland-browns",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/cle/cleveland-browns",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/cle",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "23",
+              "uid": "s:20~l:28~t:23",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "23",
+                "uid": "s:20~l:28~t:23",
+                "location": "Pittsburgh",
+                "name": "Steelers",
+                "abbreviation": "PIT",
+                "displayName": "Pittsburgh Steelers",
+                "shortDisplayName": "Steelers",
+                "color": "000000",
+                "alternateColor": "ffb612",
+                "isActive": true,
+                "venue": {
+                  "id": "3752"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/pit/pittsburgh-steelers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/pit/pittsburgh-steelers",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/pit/pittsburgh-steelers",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/pit",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Thu, November 21st at 8:15 PM EST",
+              "shortDetail": "11/21 - 8:15 PM EST"
+            },
+            "isTBDFlex": false
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["PRIME VIDEO"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $67",
+              "numberAvailable": 6831,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/cleveland-browns-tickets-cleveland-browns-stadium-3-3-2025--sports-nfl-football/production/4780746?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/firstenergy-stadium-cleveland-tickets/venue/349?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-22T01:15Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "4",
+                "shortName": "Streaming"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "PRIME VIDEO"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671875/steelers-browns",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Thu, November 21st at 8:15 PM EST",
+          "shortDetail": "11/21 - 8:15 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671870",
+      "uid": "s:20~l:28~e:401671870",
+      "date": "2024-11-24T18:00Z",
+      "name": "Minnesota Vikings at Chicago Bears",
+      "shortName": "MIN @ CHI",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671870",
+          "uid": "s:20~l:28~e:401671870~c:401671870",
+          "date": "2024-11-24T18:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3933",
+            "fullName": "Soldier Field",
+            "address": {
+              "city": "Chicago",
+              "state": "IL"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "3",
+              "uid": "s:20~l:28~t:3",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "3",
+                "uid": "s:20~l:28~t:3",
+                "location": "Chicago",
+                "name": "Bears",
+                "abbreviation": "CHI",
+                "displayName": "Chicago Bears",
+                "shortDisplayName": "Bears",
+                "color": "0b1c3a",
+                "alternateColor": "e64100",
+                "isActive": true,
+                "venue": {
+                  "id": "3933"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/chi/chicago-bears",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/chi/chicago-bears",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/chi/chicago-bears",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/chi",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "16",
+              "uid": "s:20~l:28~t:16",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "16",
+                "uid": "s:20~l:28~t:16",
+                "location": "Minnesota",
+                "name": "Vikings",
+                "abbreviation": "MIN",
+                "displayName": "Minnesota Vikings",
+                "shortDisplayName": "Vikings",
+                "color": "4f2683",
+                "alternateColor": "ffc62f",
+                "isActive": true,
+                "venue": {
+                  "id": "5239"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/min/minnesota-vikings",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/min/minnesota-vikings",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/min/minnesota-vikings",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/min",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 1:00 PM EST",
+              "shortDetail": "11/24 - 1:00 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["FOX"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $128",
+              "numberAvailable": 4534,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/chicago-bears-tickets-soldier-field-3-3-2025--sports-nfl-football/production/4817646?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/soldier-field-tickets/venue/1567?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T18:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "FOX"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671870/vikings-bears",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 1:00 PM EST",
+          "shortDetail": "11/24 - 1:00 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671866",
+      "uid": "s:20~l:28~e:401671866",
+      "date": "2024-11-24T18:00Z",
+      "name": "Detroit Lions at Indianapolis Colts",
+      "shortName": "DET @ IND",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671866",
+          "uid": "s:20~l:28~e:401671866~c:401671866",
+          "date": "2024-11-24T18:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3812",
+            "fullName": "Lucas Oil Stadium",
+            "address": {
+              "city": "Indianapolis",
+              "state": "IN"
+            },
+            "indoor": true
+          },
+          "competitors": [
+            {
+              "id": "11",
+              "uid": "s:20~l:28~t:11",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "11",
+                "uid": "s:20~l:28~t:11",
+                "location": "Indianapolis",
+                "name": "Colts",
+                "abbreviation": "IND",
+                "displayName": "Indianapolis Colts",
+                "shortDisplayName": "Colts",
+                "color": "003b75",
+                "alternateColor": "ffffff",
+                "isActive": true,
+                "venue": {
+                  "id": "3812"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/ind/indianapolis-colts",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/ind/indianapolis-colts",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/ind/indianapolis-colts",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/ind",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "8",
+              "uid": "s:20~l:28~t:8",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "8",
+                "uid": "s:20~l:28~t:8",
+                "location": "Detroit",
+                "name": "Lions",
+                "abbreviation": "DET",
+                "displayName": "Detroit Lions",
+                "shortDisplayName": "Lions",
+                "color": "0076b6",
+                "alternateColor": "bbbbbb",
+                "isActive": true,
+                "venue": {
+                  "id": "3727"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/det/detroit-lions",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/det/detroit-lions",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/det/detroit-lions",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/det",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 1:00 PM EST",
+              "shortDetail": "11/24 - 1:00 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["FOX"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $98",
+              "numberAvailable": 2603,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/indianapolis-colts-tickets-lucas-oil-stadium-3-6-2025--sports-nfl-football/production/4785807?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/lucas-oil-stadium-tickets/venue/5647?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T18:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "FOX"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671866/lions-colts",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 1:00 PM EST",
+          "shortDetail": "11/24 - 1:00 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671847",
+      "uid": "s:20~l:28~e:401671847",
+      "date": "2024-11-24T18:00Z",
+      "name": "New England Patriots at Miami Dolphins",
+      "shortName": "NE @ MIA",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671847",
+          "uid": "s:20~l:28~e:401671847~c:401671847",
+          "date": "2024-11-24T18:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3948",
+            "fullName": "Hard Rock Stadium",
+            "address": {
+              "city": "Miami Gardens",
+              "state": "FL"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "15",
+              "uid": "s:20~l:28~t:15",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "15",
+                "uid": "s:20~l:28~t:15",
+                "location": "Miami",
+                "name": "Dolphins",
+                "abbreviation": "MIA",
+                "displayName": "Miami Dolphins",
+                "shortDisplayName": "Dolphins",
+                "color": "008e97",
+                "alternateColor": "fc4c02",
+                "isActive": true,
+                "venue": {
+                  "id": "3948"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/mia/miami-dolphins",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/mia/miami-dolphins",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/mia/miami-dolphins",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/mia",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "17",
+              "uid": "s:20~l:28~t:17",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "17",
+                "uid": "s:20~l:28~t:17",
+                "location": "New England",
+                "name": "Patriots",
+                "abbreviation": "NE",
+                "displayName": "New England Patriots",
+                "shortDisplayName": "Patriots",
+                "color": "002a5c",
+                "alternateColor": "c60c30",
+                "isActive": true,
+                "venue": {
+                  "id": "3738"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/ne/new-england-patriots",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/ne/new-england-patriots",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/ne/new-england-patriots",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/ne",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 1:00 PM EST",
+              "shortDetail": "11/24 - 1:00 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["CBS"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $91",
+              "numberAvailable": 7521,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/miami-dolphins-tickets-hard-rock-stadium-3-2-2025--sports-nfl-football/production/4780423?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/hard-rock-stadium-tickets/venue/1366?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T18:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "CBS"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671847/patriots-dolphins",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 1:00 PM EST",
+          "shortDetail": "11/24 - 1:00 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671638",
+      "uid": "s:20~l:28~e:401671638",
+      "date": "2024-11-24T18:00Z",
+      "name": "Tampa Bay Buccaneers at New York Giants",
+      "shortName": "TB @ NYG",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671638",
+          "uid": "s:20~l:28~e:401671638~c:401671638",
+          "date": "2024-11-24T18:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3839",
+            "fullName": "MetLife Stadium",
+            "address": {
+              "city": "East Rutherford",
+              "state": "NJ"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "19",
+              "uid": "s:20~l:28~t:19",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "19",
+                "uid": "s:20~l:28~t:19",
+                "location": "New York",
+                "name": "Giants",
+                "abbreviation": "NYG",
+                "displayName": "New York Giants",
+                "shortDisplayName": "Giants",
+                "color": "003c7f",
+                "alternateColor": "c9243f",
+                "isActive": true,
+                "venue": {
+                  "id": "3839"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/nyg/new-york-giants",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/nyg/new-york-giants",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/nyg/new-york-giants",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/nyg",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "27",
+              "uid": "s:20~l:28~t:27",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "27",
+                "uid": "s:20~l:28~t:27",
+                "location": "Tampa Bay",
+                "name": "Buccaneers",
+                "abbreviation": "TB",
+                "displayName": "Tampa Bay Buccaneers",
+                "shortDisplayName": "Buccaneers",
+                "color": "bd1c36",
+                "alternateColor": "3e3a35",
+                "isActive": true,
+                "venue": {
+                  "id": "3886"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/tb/tampa-bay-buccaneers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/tb/tampa-bay-buccaneers",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/tb/tampa-bay-buccaneers",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/tb",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 1:00 PM EST",
+              "shortDetail": "11/24 - 1:00 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["CBS"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $48",
+              "numberAvailable": 8746,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/new-york-giants-tickets-metlife-stadium-3-15-2025--sports-nfl-football/production/4797463?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/metlife-stadium-tickets/venue/8136?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T18:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "CBS"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671638/buccaneers-giants",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 1:00 PM EST",
+          "shortDetail": "11/24 - 1:00 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671715",
+      "uid": "s:20~l:28~e:401671715",
+      "date": "2024-11-24T18:00Z",
+      "name": "Dallas Cowboys at Washington Commanders",
+      "shortName": "DAL @ WSH",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671715",
+          "uid": "s:20~l:28~e:401671715~c:401671715",
+          "date": "2024-11-24T18:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3719",
+            "fullName": "FedExField",
+            "address": {
+              "city": "Landover",
+              "state": "MD"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "28",
+              "uid": "s:20~l:28~t:28",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "28",
+                "uid": "s:20~l:28~t:28",
+                "location": "Washington",
+                "name": "Commanders",
+                "abbreviation": "WSH",
+                "displayName": "Washington Commanders",
+                "shortDisplayName": "Commanders",
+                "color": "5a1414",
+                "alternateColor": "ffb612",
+                "isActive": true,
+                "venue": {
+                  "id": "3719"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/wsh/washington-commanders",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/wsh/washington-commanders",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/wsh/washington-commanders",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/wsh",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "6",
+              "uid": "s:20~l:28~t:6",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "6",
+                "uid": "s:20~l:28~t:6",
+                "location": "Dallas",
+                "name": "Cowboys",
+                "abbreviation": "DAL",
+                "displayName": "Dallas Cowboys",
+                "shortDisplayName": "Cowboys",
+                "color": "002a5c",
+                "alternateColor": "b0b7bc",
+                "isActive": true,
+                "venue": {
+                  "id": "3687"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/dal/dallas-cowboys",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/dal/dallas-cowboys",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/dal/dallas-cowboys",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/dal",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 1:00 PM EST",
+              "shortDetail": "11/24 - 1:00 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["FOX"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $86",
+              "numberAvailable": 8166,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/washington-commanders-tickets-fedexfield-3-1-2025--sports-nfl-football/production/4807703?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/fedex-field-tickets/venue/549?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T18:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "FOX"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671715/cowboys-commanders",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 1:00 PM EST",
+          "shortDetail": "11/24 - 1:00 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671651",
+      "uid": "s:20~l:28~e:401671651",
+      "date": "2024-11-24T18:00Z",
+      "name": "Kansas City Chiefs at Carolina Panthers",
+      "shortName": "KC @ CAR",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671651",
+          "uid": "s:20~l:28~e:401671651~c:401671651",
+          "date": "2024-11-24T18:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3628",
+            "fullName": "Bank of America Stadium",
+            "address": {
+              "city": "Charlotte",
+              "state": "NC"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "29",
+              "uid": "s:20~l:28~t:29",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "29",
+                "uid": "s:20~l:28~t:29",
+                "location": "Carolina",
+                "name": "Panthers",
+                "abbreviation": "CAR",
+                "displayName": "Carolina Panthers",
+                "shortDisplayName": "Panthers",
+                "color": "0085ca",
+                "alternateColor": "000000",
+                "isActive": true,
+                "venue": {
+                  "id": "3628"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/car/carolina-panthers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/car/carolina-panthers",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/car/carolina-panthers",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/car",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "12",
+              "uid": "s:20~l:28~t:12",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "12",
+                "uid": "s:20~l:28~t:12",
+                "location": "Kansas City",
+                "name": "Chiefs",
+                "abbreviation": "KC",
+                "displayName": "Kansas City Chiefs",
+                "shortDisplayName": "Chiefs",
+                "color": "e31837",
+                "alternateColor": "ffb612",
+                "isActive": true,
+                "venue": {
+                  "id": "3622"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/kc/kansas-city-chiefs",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/kc/kansas-city-chiefs",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/kc/kansas-city-chiefs",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/kc",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 1:00 PM EST",
+              "shortDetail": "11/24 - 1:00 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["CBS"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $148",
+              "numberAvailable": 5715,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/carolina-panthers-tickets-bank-of-america-stadium-3-5-2025--sports-nfl-football/production/4817774?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/bank-of-america-stadium-tickets/venue/518?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T18:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "CBS"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671651/chiefs-panthers",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 1:00 PM EST",
+          "shortDetail": "11/24 - 1:00 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671858",
+      "uid": "s:20~l:28~e:401671858",
+      "date": "2024-11-24T18:00Z",
+      "name": "Tennessee Titans at Houston Texans",
+      "shortName": "TEN @ HOU",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671858",
+          "uid": "s:20~l:28~e:401671858~c:401671858",
+          "date": "2024-11-24T18:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3891",
+            "fullName": "NRG Stadium",
+            "address": {
+              "city": "Houston",
+              "state": "TX"
+            },
+            "indoor": true
+          },
+          "competitors": [
+            {
+              "id": "34",
+              "uid": "s:20~l:28~t:34",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "34",
+                "uid": "s:20~l:28~t:34",
+                "location": "Houston",
+                "name": "Texans",
+                "abbreviation": "HOU",
+                "displayName": "Houston Texans",
+                "shortDisplayName": "Texans",
+                "color": "00143f",
+                "alternateColor": "c41230",
+                "isActive": true,
+                "venue": {
+                  "id": "3891"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/hou/houston-texans",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/hou/houston-texans",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/hou/houston-texans",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/hou",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "10",
+              "uid": "s:20~l:28~t:10",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "10",
+                "uid": "s:20~l:28~t:10",
+                "location": "Tennessee",
+                "name": "Titans",
+                "abbreviation": "TEN",
+                "displayName": "Tennessee Titans",
+                "shortDisplayName": "Titans",
+                "color": "4b92db",
+                "alternateColor": "002a5c",
+                "isActive": true,
+                "venue": {
+                  "id": "3810"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/ten/tennessee-titans",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/ten/tennessee-titans",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/ten/tennessee-titans",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/ten",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 1:00 PM EST",
+              "shortDetail": "11/24 - 1:00 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["CBS"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $61",
+              "numberAvailable": 7146,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/houston-texans-tickets-nrg-stadium-3-3-2025--sports-nfl-football/production/4780948?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/nrg-stadium-tickets/venue/2411?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T18:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "CBS"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671858/titans-texans",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 1:00 PM EST",
+          "shortDetail": "11/24 - 1:00 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671656",
+      "uid": "s:20~l:28~e:401671656",
+      "date": "2024-11-24T21:05Z",
+      "name": "Denver Broncos at Las Vegas Raiders",
+      "shortName": "DEN @ LV",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671656",
+          "uid": "s:20~l:28~e:401671656~c:401671656",
+          "date": "2024-11-24T21:05Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "6501",
+            "fullName": "Allegiant Stadium",
+            "address": {
+              "city": "Las Vegas",
+              "state": "NV"
+            },
+            "indoor": true
+          },
+          "competitors": [
+            {
+              "id": "13",
+              "uid": "s:20~l:28~t:13",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "13",
+                "uid": "s:20~l:28~t:13",
+                "location": "Las Vegas",
+                "name": "Raiders",
+                "abbreviation": "LV",
+                "displayName": "Las Vegas Raiders",
+                "shortDisplayName": "Raiders",
+                "color": "000000",
+                "alternateColor": "a5acaf",
+                "isActive": true,
+                "venue": {
+                  "id": "6501"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/lv/las-vegas-raiders",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/lv/las-vegas-raiders",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/lv/las-vegas-raiders",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/lv",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "7",
+              "uid": "s:20~l:28~t:7",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "7",
+                "uid": "s:20~l:28~t:7",
+                "location": "Denver",
+                "name": "Broncos",
+                "abbreviation": "DEN",
+                "displayName": "Denver Broncos",
+                "shortDisplayName": "Broncos",
+                "color": "0a2343",
+                "alternateColor": "fc4c02",
+                "isActive": true,
+                "venue": {
+                  "id": "3937"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/den/denver-broncos",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/den/denver-broncos",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/den/denver-broncos",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/den",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 4:05 PM EST",
+              "shortDetail": "11/24 - 4:05 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["CBS"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $163",
+              "numberAvailable": 4671,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/las-vegas-raiders-tickets-allegiant-stadium-3-1-2025--sports-nfl-football/production/4797229?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/allegiant-stadium-tickets/venue/25873?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T21:05Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "CBS"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671656/broncos-raiders",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 4:05 PM EST",
+          "shortDetail": "11/24 - 4:05 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671768",
+      "uid": "s:20~l:28~e:401671768",
+      "date": "2024-11-24T21:25Z",
+      "name": "San Francisco 49ers at Green Bay Packers",
+      "shortName": "SF @ GB",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671768",
+          "uid": "s:20~l:28~e:401671768~c:401671768",
+          "date": "2024-11-24T21:25Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3798",
+            "fullName": "Lambeau Field",
+            "address": {
+              "city": "Green Bay",
+              "state": "WI"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "9",
+              "uid": "s:20~l:28~t:9",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "9",
+                "uid": "s:20~l:28~t:9",
+                "location": "Green Bay",
+                "name": "Packers",
+                "abbreviation": "GB",
+                "displayName": "Green Bay Packers",
+                "shortDisplayName": "Packers",
+                "color": "204e32",
+                "alternateColor": "ffb612",
+                "isActive": true,
+                "venue": {
+                  "id": "3798"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/gb/green-bay-packers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/gb/green-bay-packers",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/gb/green-bay-packers",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/gb",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "25",
+              "uid": "s:20~l:28~t:25",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "25",
+                "uid": "s:20~l:28~t:25",
+                "location": "San Francisco",
+                "name": "49ers",
+                "abbreviation": "SF",
+                "displayName": "San Francisco 49ers",
+                "shortDisplayName": "49ers",
+                "color": "aa0000",
+                "alternateColor": "b3995d",
+                "isActive": true,
+                "venue": {
+                  "id": "4738"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/sf/san-francisco-49ers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/sf/san-francisco-49ers",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/sf/san-francisco-49ers",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/sf",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 4:25 PM EST",
+              "shortDetail": "11/24 - 4:25 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["FOX"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $159",
+              "numberAvailable": 3590,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/green-bay-packers-tickets-lambeau-field-3-7-2025--sports-nfl-football/production/4812396?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/lambeau-field-tickets/venue/895?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T21:25Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "FOX"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671768/49ers-packers",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 4:25 PM EST",
+          "shortDetail": "11/24 - 4:25 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671775",
+      "uid": "s:20~l:28~e:401671775",
+      "date": "2024-11-24T21:25Z",
+      "name": "Arizona Cardinals at Seattle Seahawks",
+      "shortName": "ARI @ SEA",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671775",
+          "uid": "s:20~l:28~e:401671775~c:401671775",
+          "date": "2024-11-24T21:25Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "3673",
+            "fullName": "Lumen Field",
+            "address": {
+              "city": "Seattle",
+              "state": "WA"
+            },
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "26",
+              "uid": "s:20~l:28~t:26",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "26",
+                "uid": "s:20~l:28~t:26",
+                "location": "Seattle",
+                "name": "Seahawks",
+                "abbreviation": "SEA",
+                "displayName": "Seattle Seahawks",
+                "shortDisplayName": "Seahawks",
+                "color": "002a5c",
+                "alternateColor": "69be28",
+                "isActive": true,
+                "venue": {
+                  "id": "3673"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/sea/seattle-seahawks",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/sea/seattle-seahawks",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/sea/seattle-seahawks",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/sea",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "22",
+              "uid": "s:20~l:28~t:22",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "22",
+                "uid": "s:20~l:28~t:22",
+                "location": "Arizona",
+                "name": "Cardinals",
+                "abbreviation": "ARI",
+                "displayName": "Arizona Cardinals",
+                "shortDisplayName": "Cardinals",
+                "color": "a4113e",
+                "alternateColor": "ffffff",
+                "isActive": true,
+                "venue": {
+                  "id": "3970"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/ari/arizona-cardinals",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/ari/arizona-cardinals",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/ari/arizona-cardinals",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/ari",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 4:25 PM EST",
+              "shortDetail": "11/24 - 4:25 PM EST"
+            },
+            "isTBDFlex": true
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["FOX"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $85",
+              "numberAvailable": 3505,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/seattle-seahawks-tickets-lumen-field-3-1-2025--sports-nfl-football/production/4819423?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/lumen-field-tickets/venue/2440?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-24T21:25Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "FOX"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671775/cardinals-seahawks",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 4:25 PM EST",
+          "shortDetail": "11/24 - 4:25 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671794",
+      "uid": "s:20~l:28~e:401671794",
+      "date": "2024-11-25T01:20Z",
+      "name": "Philadelphia Eagles at Los Angeles Rams",
+      "shortName": "PHI @ LAR",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671794",
+          "uid": "s:20~l:28~e:401671794~c:401671794",
+          "date": "2024-11-25T01:20Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "7065",
+            "fullName": "SoFi Stadium",
+            "address": {
+              "city": "Inglewood",
+              "state": "CA"
+            },
+            "indoor": true
+          },
+          "competitors": [
+            {
+              "id": "14",
+              "uid": "s:20~l:28~t:14",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "14",
+                "uid": "s:20~l:28~t:14",
+                "location": "Los Angeles",
+                "name": "Rams",
+                "abbreviation": "LAR",
+                "displayName": "Los Angeles Rams",
+                "shortDisplayName": "Rams",
+                "color": "003594",
+                "alternateColor": "ffd100",
+                "isActive": true,
+                "venue": {
+                  "id": "477"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/lar/los-angeles-rams",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/lar/los-angeles-rams",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/lar/los-angeles-rams",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/lar",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "21",
+              "uid": "s:20~l:28~t:21",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "21",
+                "uid": "s:20~l:28~t:21",
+                "location": "Philadelphia",
+                "name": "Eagles",
+                "abbreviation": "PHI",
+                "displayName": "Philadelphia Eagles",
+                "shortDisplayName": "Eagles",
+                "color": "06424d",
+                "alternateColor": "000000",
+                "isActive": true,
+                "venue": {
+                  "id": "3806"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/phi/philadelphia-eagles",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/phi/philadelphia-eagles",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/phi/philadelphia-eagles",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/phi",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Sun, November 24th at 8:20 PM EST",
+              "shortDetail": "11/24 - 8:20 PM EST"
+            },
+            "isTBDFlex": false
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["NBC"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $94",
+              "numberAvailable": 7118,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/los-angeles-rams-tickets-sofi-stadium-3-16-2025--sports-nfl-football/production/4817977?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/sofi-stadium-tickets/venue/21877?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-25T01:20Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "NBC"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671794/eagles-rams",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, November 24th at 8:20 PM EST",
+          "shortDetail": "11/24 - 8:20 PM EST"
+        }
+      }
+    },
+    {
+      "id": "401671689",
+      "uid": "s:20~l:28~e:401671689",
+      "date": "2024-11-26T01:15Z",
+      "name": "Baltimore Ravens at Los Angeles Chargers",
+      "shortName": "BAL @ LAC",
+      "season": {
+        "year": 2024,
+        "type": 2,
+        "slug": "regular-season"
+      },
+      "week": {
+        "number": 12
+      },
+      "competitions": [
+        {
+          "id": "401671689",
+          "uid": "s:20~l:28~e:401671689~c:401671689",
+          "date": "2024-11-26T01:15Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "conferenceCompetition": false,
+          "playByPlayAvailable": false,
+          "recent": false,
+          "venue": {
+            "id": "7065",
+            "fullName": "SoFi Stadium",
+            "address": {
+              "city": "Inglewood",
+              "state": "CA"
+            },
+            "indoor": true
+          },
+          "competitors": [
+            {
+              "id": "24",
+              "uid": "s:20~l:28~t:24",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "24",
+                "uid": "s:20~l:28~t:24",
+                "location": "Los Angeles",
+                "name": "Chargers",
+                "abbreviation": "LAC",
+                "displayName": "Los Angeles Chargers",
+                "shortDisplayName": "Chargers",
+                "color": "0080c6",
+                "alternateColor": "ffc20e",
+                "isActive": true,
+                "venue": {
+                  "id": "538"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/lac/los-angeles-chargers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/lac/los-angeles-chargers",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/lac/los-angeles-chargers",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/lac",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png"
+              },
+              "score": "0",
+              "statistics": []
+            },
+            {
+              "id": "33",
+              "uid": "s:20~l:28~t:33",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "33",
+                "uid": "s:20~l:28~t:33",
+                "location": "Baltimore",
+                "name": "Ravens",
+                "abbreviation": "BAL",
+                "displayName": "Baltimore Ravens",
+                "shortDisplayName": "Ravens",
+                "color": "29126f",
+                "alternateColor": "000000",
+                "isActive": true,
+                "venue": {
+                  "id": "3814"
+                },
+                "links": [
+                  {
+                    "rel": ["clubhouse", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/_/name/bal/baltimore-ravens",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["roster", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/roster/_/name/bal/baltimore-ravens",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["stats", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/stats/_/name/bal/baltimore-ravens",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": ["schedule", "desktop", "team"],
+                    "href": "https://www.espn.com/nfl/team/schedule/_/name/bal",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
+              },
+              "score": "0",
+              "statistics": []
+            }
+          ],
+          "notes": [],
+          "status": {
+            "clock": 0.0,
+            "displayClock": "0:00",
+            "period": 0,
+            "type": {
+              "id": "1",
+              "name": "STATUS_SCHEDULED",
+              "state": "pre",
+              "completed": false,
+              "description": "Scheduled",
+              "detail": "Mon, November 25th at 8:15 PM EST",
+              "shortDetail": "11/25 - 8:15 PM EST"
+            },
+            "isTBDFlex": false
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": ["ESPN"]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "tickets": [
+            {
+              "summary": "Tickets as low as $50",
+              "numberAvailable": 9510,
+              "links": [
+                {
+                  "href": "https://www.vividseats.com/los-angeles-chargers-tickets-sofi-stadium-3-4-2025--sports-nfl-football/production/4797286?wsUser=717"
+                },
+                {
+                  "href": "https://www.vividseats.com/sofi-stadium-tickets/venue/21877?wsUser=717"
+                }
+              ]
+            }
+          ],
+          "startDate": "2024-11-26T01:15Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "ESPN"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": ["summary", "desktop", "event"],
+          "href": "https://www.espn.com/nfl/game/_/gameId/401671689/ravens-chargers",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Mon, November 25th at 8:15 PM EST",
+          "shortDetail": "11/25 - 8:15 PM EST"
+        }
+      }
+    }
+  ]
+}

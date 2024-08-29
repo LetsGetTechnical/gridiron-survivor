@@ -1,0 +1,47 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test-e2e-setup:
+    name: Setup E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Vercel Preview
+        uses: zentered/vercel-preview-url@v1.1.9
+        id: vercel_preview_url
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          max_timeout: 600
+        with:
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel_team_id: ${{ secrets.VERCEL_TEAM_ID }}
+      - name: Get URL
+        run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
+
+  test-e2e:
+    needs: test-e2e-setup
+    name: E2E Tests
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_APPWRITE_API_URL: ${{ secrets.NEXT_PUBLIC_APPWRITE_API_URL }}
+      NEXT_PUBLIC_APPWRITE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_PROJECT_ID }}
+      NEXT_PUBLIC_APPWRITE_DATABASE_ID: ${{ secrets.NEXT_PUBLIC_APPWRITE_DATABASE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm install -g pnpm && pnpm install
+      - run: pnpm exec playwright install --with-deps
+      - run: pnpm exec playwright test
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

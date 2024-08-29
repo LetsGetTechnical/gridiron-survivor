@@ -1,9 +1,16 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 import { Client, Account, Databases, ID } from 'appwrite';
 
+const URL = process.env.NEXT_PUBLIC_APPWRITE_API_URL as string;
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string;
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID as string;
+
 export const appwriteConfig = {
-  url: 'https://api.gridironsurvivor.com/v1',
-  projectId: '6616ea581ef9f5521c7d',
-  databaseId: '6616ea9dcb86b246a7b0',
+  url: URL,
+  projectId: PROJECT_ID,
+  databaseId: DATABASE_ID,
 };
 
 export const client = new Client();

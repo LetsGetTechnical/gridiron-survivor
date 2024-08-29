@@ -1,15 +1,26 @@
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
 'use client';
 
-import * as React from 'react';
+import React, { JSX } from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { X } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 
+/**
+ * Drawer component.
+ * @param props - The props
+ * @param props.shouldScaleBackground - Should scale background
+ * @returns The Drawer component
+ */
 const Drawer = ({
   shouldScaleBackground = true,
   ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
+}: React.ComponentProps<typeof DrawerPrimitive.Root> & {
+  shouldScaleBackground?: boolean;
+}): JSX.Element => (
   <DrawerPrimitive.Root
     shouldScaleBackground={shouldScaleBackground}
     direction="right"
@@ -26,7 +37,9 @@ const DrawerClose = DrawerPrimitive.Close;
 
 const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> & {
+    className?: string;
+  }
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
@@ -38,7 +51,9 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & {
+    className?: string;
+  }
 >(({ className, children, ...props }, ref) => (
   <DrawerPortal>
     <DrawerOverlay />
@@ -56,10 +71,18 @@ const DrawerContent = React.forwardRef<
 ));
 DrawerContent.displayName = 'DrawerContent';
 
+/**
+ * Drawer header component.
+ * @param props - The props
+ * @param props.className - The class name
+ * @returns The Drawer header component
+ */
 const DrawerHeader = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+}: React.HTMLAttributes<HTMLDivElement> & {
+  className?: string;
+}): JSX.Element => (
   <div
     className={cn(
       'grid h-16 items-center gap-1.5 px-0 text-center sm:text-left',
@@ -70,10 +93,18 @@ const DrawerHeader = ({
 );
 DrawerHeader.displayName = 'DrawerHeader';
 
+/**
+ * Drawer footer component.
+ * @param props - The props
+ * @param props.className - The class name
+ * @returns The Drawer footer component
+ */
 const DrawerFooter = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+}: React.HTMLAttributes<HTMLDivElement> & {
+  className?: string;
+}): JSX.Element => (
   <div
     className={cn('mt-auto flex flex-col gap-2 p-4', className)}
     {...props}
@@ -83,7 +114,9 @@ DrawerFooter.displayName = 'DrawerFooter';
 
 const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title> & {
+    className?: string;
+  }
 >(({ className, ...props }, ref) => (
   <div className="flex items-center">
     <DrawerPrimitive.Title
@@ -104,7 +137,9 @@ DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
 const DrawerDescription = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description> & {
+    className?: string;
+  }
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description
     ref={ref}

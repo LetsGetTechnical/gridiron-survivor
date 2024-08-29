@@ -9,4 +9,11 @@ describe('Input', () => {
     );
     expect(getByPlaceholderText('Placeholder text')).toBeInTheDocument();
   });
+  it('renders the correct font color', () => {
+    const { getByRole } = render(<Input />);
+    const input = getByRole('textbox');
+    expect(input).toHaveStyle({
+      color: 'text-zinc-50',
+    });
+  });
 });

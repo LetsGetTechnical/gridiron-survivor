@@ -1,0 +1,5 @@
+**/*.test.ts
+**/*.test.tsx
+**/*.test.js
+**/*.test.jsx
+next-env.d.ts
