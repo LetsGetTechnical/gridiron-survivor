@@ -1,8 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React from 'react';
 import { LucideChevronsUpDown } from 'lucide-react';
+import React from 'react';
 
 /**
  * The admin user settings component.

@@ -1,8 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React from 'react';
 import LogoNav from '@/components/LogoNav/LogoNav';
+import React from 'react';
 
 /**
  * The admin logo component.
