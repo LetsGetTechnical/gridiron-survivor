@@ -56,7 +56,7 @@ const Entry = ({
       const currentWeek = await getGameWeek();
       setCurrentWeek(currentWeek.week);
     } catch (error) {
-      console.error(error);
+      throw new Error('Error fetching current game week');
     } finally {
       setLoadingData(false);
     }
@@ -77,17 +77,13 @@ const Entry = ({
   }: IEntryProps): Promise<void> => {
     try {
       const createdEntry = await createEntry({ name, user, league });
-      setEntries([...entries, createdEntry]);
+      setEntries((prevEntries) => [...prevEntries, createdEntry]);
     } catch (error) {
-      console.error(error);
+      throw new Error('Error adding new entry');
     }
   };
 
   useEffect(() => {
-    if (!user.id || user.id === '') {
-      return;
-    }
-
     getCurrentGameWeek();
     getAllEntries();
   }, [user]);
