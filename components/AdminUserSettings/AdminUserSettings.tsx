@@ -1,7 +1,7 @@
-'use client';
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+'use client';
 import { Button } from '../Button/Button';
 import {
   DropdownMenu,
@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
 import { LucideChevronsUpDown } from 'lucide-react';
-import React from 'react';
+import React, { JSX } from 'react';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
 
@@ -31,12 +31,13 @@ export const AdminUserSettings = (): React.JSX.Element => {
       await logoutAccount();
       router.push('/login');
     } catch (error) {
-      console.error(error);
+      console.error('Logout failed:', error);
     }
   };
 
   /**
    * Handles the route to edit profile
+   * @returns {void} No return value.
    */
   const handleRoute = (): void => {
     router.push('/user/edit');
@@ -49,7 +50,7 @@ export const AdminUserSettings = (): React.JSX.Element => {
         data-testid="admin-user-settings"
       >
         <div className="admin-user-settings flex gap-2 px-2 py-2 items-center outline outline-border rounded text-zinc-50">
-          <span className="bg-cyan-500 w-8  h-8 rounded-full" />
+          <span className="bg-cyan-500 w-8 h-8 rounded-full" />
           <p>Users Name</p>
           <LucideChevronsUpDown className="ml-auto text-zinc-300" size={16} />
         </div>

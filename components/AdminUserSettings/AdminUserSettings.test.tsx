@@ -14,7 +14,6 @@ const mockLogoutAccount = jest.fn();
 
 const mockUseAuthContext = {
   logoutAccount: mockLogoutAccount,
-  isSignedIn: true,
 };
 
 jest.mock('../../context/AuthContextProvider', () => ({
