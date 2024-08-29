@@ -35,6 +35,13 @@ export const AdminUserSettings = (): React.JSX.Element => {
     }
   };
 
+  /**
+   * Handles the route to edit profile
+   */
+  const handleRoute = (): void => {
+    router.push('/user/edit');
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -53,9 +60,7 @@ export const AdminUserSettings = (): React.JSX.Element => {
             className="flex justify-start p-0 text-base font-normal hover:no-underline w-full"
             variant="link"
             label="Edit Profile"
-            onClick={() => {
-              router.push('/user/edit');
-            }}
+            onClick={handleRoute}
             data-testid="edit-profile-button"
           />
         </DropdownMenuItem>
