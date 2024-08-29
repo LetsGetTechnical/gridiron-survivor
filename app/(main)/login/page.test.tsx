@@ -1,6 +1,7 @@
 import React, { Dispatch, useState as useStateMock } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Login from './page';
+import { loginAccount } from '@/api/apiFunctions';
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
@@ -74,9 +75,10 @@ describe('Login', () => {
   test('should call loginAccount function with email and password when continue button is clicked', async () => {
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.click(continueButton);
+    fireEvent.submit(continueButton);
 
-    waitFor(() => {
+    await waitFor(() => {
+      expect(mockLogin).toHaveBeenCalledTimes(1);
       expect(mockLogin).toHaveBeenCalledWith({
         email: 'test@example.com',
         password: 'password123',
