@@ -23,10 +23,10 @@ const AdminNotifications = (): JSX.Element => {
    * To grab all users from the league.
    */
   const getLeagueData = async (): Promise<void> => {
-    const leagueId = '66c6618900033d179dda';
-    const leagueData = await getCurrentLeague(leagueId);
-    setGroupUsers(leagueData.participants);
     try {
+      const leagueId = '66c6618900033d179dda';
+      const leagueData = await getCurrentLeague(leagueId);
+      setGroupUsers(leagueData.participants);
     } catch (error) {
       console.error('Error Sending Email:', error);
       throw new Error('Error Sending Email');
