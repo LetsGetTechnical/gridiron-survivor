@@ -6,8 +6,13 @@ import { Button } from '@/components/Button/Button';
 import { getCurrentLeague } from '@/api/apiFunctions';
 import { Input } from '@/components/Input/Input';
 import { JSX, useState } from 'react';
-import { Label } from '@/components/Label/Label';
+import { LabelText } from '@/components/LabelText/LabelText';
+import {
+  RadioGroupDefault,
+  RadioGroupDefaultItem,
+} from '@/components/RadioGroupDefault/RadioGroupDefault';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
+import { Textarea } from '@/components/Textarea/Textarea';
 import React from 'react';
 
 /**
@@ -43,29 +48,64 @@ const AdminNotifications = (): JSX.Element => {
   };
 
   return (
-    <section data-testid="admin-notifications-content">
-      <Button
-        label="Email Testers"
-        type="button"
-        onClick={getLeagueData}
-        data-testid="email-testers"
-      />
-      <form onSubmit={handleSubmit}>
-        <Label htmlFor="subject">Subject:</Label>
-        <Input
-          type="text"
-          id="subject"
-          data-testid="subject-text"
-          onChange={(e) => setSubject(e.target.value)}
+    <section
+      className="flex flex-col space-y-6"
+      data-testid="admin-notifications-content"
+    >
+      <p>
+        Choose the users you would like to email in INSERT_CURRENT_LEAGUE_HERE
+      </p>
+      <RadioGroupDefault
+        defaultValue="all"
+        onValueChange={getLeagueData}
+        required
+      >
+        <div className="flex items-center space-x-2">
+          <RadioGroupDefaultItem value="all" id="all" />
+          <LabelText htmlFor="all">All users</LabelText>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupDefaultItem value="survivors" id="survivors" />
+          <LabelText htmlFor="survivors">Only the survivors</LabelText>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupDefaultItem value="losers" id="losers" />
+          <LabelText htmlFor="losers">Only the losers</LabelText>
+        </div>
+      </RadioGroupDefault>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-6 max-w-[80ch]"
+      >
+        <div className="flex gap-2 flex-col">
+          <LabelText htmlFor="subject" className="text-lg">
+            Subject:
+          </LabelText>
+          <Input
+            data-testid="subject-text"
+            id="subject"
+            name="subject"
+            onChange={(e) => setSubject(e.target.value)}
+            type="text"
+          />
+        </div>
+        <div className="flex gap-2 flex-col">
+          <LabelText htmlFor="content" className="text-lg">
+            Message:
+          </LabelText>
+          <Textarea
+            data-testid="content-text"
+            id="content"
+            name="content"
+            onChange={(e) => setContent(e.target.value)}
+          />
+        </div>
+        <Button
+          className="md:max-w-fit"
+          data-testid="send-email"
+          label="Send email"
+          type="submit"
         />
-        <Label htmlFor="content">Content:</Label>
-        <textarea
-          name="content"
-          id="content"
-          onChange={(e) => setContent(e.target.value)}
-          data-testid="content-text"
-        />
-        <Button label="Send Email" type="submit" data-testid="send-email" />
       </form>
     </section>
   );
