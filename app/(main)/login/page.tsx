@@ -88,7 +88,6 @@ const Login = (): React.JSX.Element => {
     try {
       setIsLoading(true);
       await login(data);
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
       throw new Error('An error occurred while logging in');
