@@ -89,6 +89,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       }
     } catch (error) {
       console.error('Error getting weekly pick:', error);
+      throw new Error('Error getting weekly pick');
     }
   };
 
@@ -138,6 +139,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       setSelectedTeams(selectedTeams);
     } catch (error) {
       console.error('Error getting user selected teams:', error);
+      throw new Error('Error getting user selected teams');
     }
   };
 
