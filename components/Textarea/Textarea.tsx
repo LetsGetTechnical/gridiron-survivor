@@ -102,6 +102,7 @@ export const Textarea = React.forwardRef<
 
     return (
       <textarea
+        data-testid="textarea"
         {...props}
         value={value}
         ref={textAreaRef}

@@ -17,6 +17,7 @@ const RadioGroupDefault = React.forwardRef<
   return (
     <RadioGroupPrimitive.Root
       className={cn('grid gap-2', className)}
+      data-testid="radio-group-default"
       {...props}
       ref={ref}
     />
@@ -37,10 +38,14 @@ const RadioGroupDefaultItem = React.forwardRef<
         'aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
         className,
       )}
+      data-testid="radio-group-default-item"
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <Circle className="h-2.5 w-2.5 fill-current text-current" />
+        <Circle
+          className="h-2.5 w-2.5 fill-current text-current"
+          data-testid="radio-group-default-indicator"
+        />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );

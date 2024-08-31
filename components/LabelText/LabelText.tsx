@@ -20,6 +20,7 @@ const LabelText = React.forwardRef<
   <LabelPrimitive.Root
     ref={ref}
     className={cn(labelTextVariants(), className)}
+    data-testid="label-text"
     {...props}
   />
 ))
