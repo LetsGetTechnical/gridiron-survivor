@@ -61,15 +61,27 @@ const AdminNotifications = (): JSX.Element => {
         required
       >
         <div className="flex items-center space-x-2">
-          <RadioGroupDefaultItem value="all" id="all" />
+          <RadioGroupDefaultItem
+            value="all"
+            id="all"
+            data-testid="all-users-option"
+          />
           <LabelText htmlFor="all">All users</LabelText>
         </div>
         <div className="flex items-center space-x-2">
-          <RadioGroupDefaultItem value="survivors" id="survivors" />
+          <RadioGroupDefaultItem
+            value="survivors"
+            id="survivors"
+            data-testid="only-survivors-option"
+          />
           <LabelText htmlFor="survivors">Only the survivors</LabelText>
         </div>
         <div className="flex items-center space-x-2">
-          <RadioGroupDefaultItem value="losers" id="losers" />
+          <RadioGroupDefaultItem
+            value="losers"
+            id="losers"
+            data-testid="only-losers-option"
+          />
           <LabelText htmlFor="losers">Only the losers</LabelText>
         </div>
       </RadioGroupDefault>

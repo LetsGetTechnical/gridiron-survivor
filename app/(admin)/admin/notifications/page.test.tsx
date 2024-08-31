@@ -1,14 +1,13 @@
-// /Users/ryanfurrer/Developer/GitHub/gridiron-survivor/app/(admin)/admin/notifications/page.test.tsx
-
-import AdminNotifications from './page';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { getCurrentLeague } from '@/api/apiFunctions';
-import React from 'react';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
+import AdminNotifications from './page';
+import React from 'react';
 
 let contentInput: HTMLInputElement,
-  emailButton: HTMLElement,
-  emailTestersButton: HTMLElement,
+  selectAllUsersRadioOption: HTMLElement,
+  selectRecipientsRadioGroup: HTMLElement,
+  sendEmailButton: HTMLElement,
   subjectInput: HTMLInputElement;
 
 jest.mock('@/api/apiFunctions', () => ({
@@ -26,8 +25,9 @@ describe('Admin notifications page', () => {
     render(<AdminNotifications />);
 
     contentInput = screen.getByTestId('content-text');
-    emailButton = screen.getByTestId('send-email');
-    emailTestersButton = screen.getByTestId('email-testers');
+    selectAllUsersRadioOption = screen.getByTestId('all-users-option');
+    selectRecipientsRadioGroup = screen.getByTestId('radio-group-default');
+    sendEmailButton = screen.getByTestId('send-email');
     subjectInput = screen.getByTestId('subject-text');
   });
   it(`should render it's content`, () => {
@@ -40,17 +40,21 @@ describe('Admin notifications page', () => {
   });
   it('should call the sendEmailNotifications function with the provided inputs', async () => {
     const dummyParticipants = ['12345', '1234', '123'];
-    (getCurrentLeague as jest.Mock).mockResolvedValue({ participants: dummyParticipants });
+    (getCurrentLeague as jest.Mock).mockResolvedValue({
+      participants: dummyParticipants,
+    });
 
-    fireEvent.click(emailTestersButton);
+    fireEvent.click(selectAllUsersRadioOption);
     fireEvent.change(subjectInput, { target: { value: 'Test Title' } });
-    fireEvent.change(contentInput, { target: { value: 'Test message section.' } });
+    fireEvent.change(contentInput, {
+      target: { value: 'Test message section.' },
+    });
 
     await waitFor(() => {
-      expect(emailButton).toBeInTheDocument();
+      expect(sendEmailButton).toBeInTheDocument();
     });
-    
-    fireEvent.submit(emailButton);
+
+    fireEvent.submit(sendEmailButton);
 
     await waitFor(() => {
       expect(sendEmailNotifications as jest.Mock).toHaveBeenCalledWith({
