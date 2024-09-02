@@ -9,6 +9,7 @@ import {
   IWeeklyPicks,
   ILeague,
   IGameWeek,
+  IAllLeagues,
 } from '@/api/apiFunctions.interface';
 
 //Define the shape of the state
@@ -18,6 +19,7 @@ interface IDataStoreState {
   weeklyPicks: IWeeklyPicks;
   league: ILeague;
   gameWeek: IGameWeek;
+  allLeagues: IAllLeagues;
 }
 
 /* eslint-disable */
@@ -44,6 +46,7 @@ interface IDataStoreAction {
     survivors,
   }: ILeague) => void;
   updateGameWeek: (gameWeek: IGameWeek) => void;
+  updateAllLeagues: (allLeagues: IAllLeagues) => void;
 }
 /* eslint-disable */
 
@@ -72,6 +75,13 @@ const initialState: IDataStoreState = {
   gameWeek: {
     id: '',
     week: 0,
+  },
+  allLeagues: {
+    leagueId: '',
+    leagueName: '',
+    logo: '',
+    participants: [],
+    survivors: [],
   },
 };
 
@@ -167,6 +177,33 @@ export const useDataStore = create<DataStore>((set) => ({
       produce((state: IDataStoreState) => {
         state.gameWeek.id = id;
         state.gameWeek.week = week;
+      }),
+    ),
+  /**
+   * Updates all leagues in the data store.
+   *
+   * @param {IAllLeagues} props - The league properties to update.
+   * @param {string} props.leagueId - The ID of the league.
+   * @param {string} props.leagueName - The name of the league.
+   * @param {string} props.logo - The logo of the league.
+   * @param {any[]} props.participants - The participants of the league.
+   * @param {any[]} props.survivors - The survivors of the league.
+   * @returns {void}
+   */
+  updateAllLeagues: ({
+    leagueId,
+    leagueName,
+    logo,
+    participants,
+    survivors,
+  }: IAllLeagues): void =>
+    set(
+      produce((state: IDataStoreState) => {
+        state.allLeagues.leagueId = leagueId;
+        state.allLeagues.leagueName = leagueName;
+        state.allLeagues.logo = logo;
+        state.allLeagues.participants = participants;
+        state.allLeagues.survivors = survivors;
       }),
     ),
 }));

@@ -11,12 +11,15 @@ export interface IUser {
   id: string;
   email: string;
   leagues: string[];
+  selectedLeagues?: string[];
 }
 export interface IUserPick {
   [userId: string]: {
-    [entryId: IEntry['$id']]: {
-      teamName: string;
-      correct: boolean;
+    [leagueId: string]: {
+      [entryId: IEntry['$id']]: {
+        teamName: string;
+        correct: boolean;
+      };
     };
   };
 }
@@ -44,4 +47,12 @@ export interface ILeague {
 export interface IGameWeek {
   id: string;
   week: number;
+}
+
+export interface IAllLeagues {
+  leagueId: string;
+  leagueName: string;
+  logo: string;
+  participants: string[];
+  survivors: string[];
 }

@@ -6,7 +6,7 @@ import {
   IUser,
   IUserPick,
 } from '@/api/apiFunctions.interface';
-import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries } from '@/api/apiFunctions';
+import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries, getAllLeagues } from '@/api/apiFunctions';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -143,4 +143,18 @@ export const getUserLeagues = async (
  */
 export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['leagueId']): Promise<IEntry[]> => {
   return await getCurrentUserEntries(userId, leagueId);
+}
+
+/**
+ * Retrieves a list of all available leagues.
+ * @returns {Promise<ILeague[]>} A promise that resolves to a list of available leagues.
+ */
+export const fetchAvailableLeagues = async (): Promise<ILeague[]> => {
+  try { 
+    const response = await getAllLeagues();
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error fetching available leagues');
+  }
 }

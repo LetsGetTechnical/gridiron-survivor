@@ -10,6 +10,7 @@ import {
   IUser,
   IWeeklyPicks,
   INFLTeam,
+  IAllLeagues,
 } from './apiFunctions.interface';
 import { Collection, Document } from './apiFunctions.enum';
 import { Query } from 'appwrite';
@@ -226,11 +227,6 @@ export async function getAllWeeklyPicks({
       return null;
     }
 
-    // check if any users have selected their pick
-    if (response.documents[0].userResults === '') {
-      return null;
-    }
-
     const data = JSON.parse(response.documents[0].userResults);
     return data;
   } catch (error) {
@@ -299,5 +295,56 @@ export async function createEntry({
   } catch (error) {
     console.error(error);
     throw new Error('Error creating entry');
+  }
+}
+
+/**
+ * Retrieves a list of all leagues.
+ * @returns {ILeague[]} A list of all available leagues.
+ */
+export async function getAllLeagues(): Promise<IAllLeagues[]> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.LEAGUE,
+      [Query.limit(100)],
+    );
+
+    const allLeagues = response.documents.map((league) => ({
+      leagueId: league.$id,
+      leagueName: league.name,
+      logo: '',
+      participants: league.selectedTeams,
+      survivors: league.eliminated,
+    }));
+
+    return allLeagues;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error getting all leagues');
+  }
+}
+
+/**
+ *
+ * @param userId
+ * @param leagueId
+ */
+export async function addUserToLeague(
+  userId: string,
+  leagueId: string,
+): Promise<void> {
+  try {
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      userId,
+      {
+        league: leagueId,
+      },
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error adding user to league');
   }
 }
