@@ -335,3 +335,19 @@ export const createLeague = async ({
     throw new Error('Error Creating League');
   }
 };
+
+/**
+ * To delete a league.
+ * @returns {object} - The object.
+ */
+export const deleteLeague = async (): Promise<object> => {
+  try {
+    return await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      Collection.LEAGUE,
+      '66d719890036b83e18a3',
+    );
+  } catch (error) {
+    throw new Error('Error Deleting League');
+  }
+};

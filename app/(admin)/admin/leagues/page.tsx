@@ -4,7 +4,7 @@
 'use client';
 import { JSX } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { createLeague } from '@/api/apiFunctions';
+import { createLeague, deleteLeague } from '@/api/apiFunctions';
 import { ILeagueCreate } from '@/api/apiFunctions.interface';
 
 /**
@@ -32,6 +32,18 @@ const AdminLeagues = (): JSX.Element => {
       console.error(error);
     }
   };
+
+  /**
+   * Handle deleting a league.
+   */
+  const handleDeleteLeague = async (): Promise<void> => {
+    try {
+      await deleteLeague();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section className="grid grid-cols-2 gap-6">
       <button
@@ -45,7 +57,10 @@ const AdminLeagues = (): JSX.Element => {
           })
         }
       >
-        Add New Entry
+        Add New League
+      </button>
+      <button type="submit" onClick={() => handleDeleteLeague()}>
+        Delete A League
       </button>
       <LeagueCard
         href={'#'}
