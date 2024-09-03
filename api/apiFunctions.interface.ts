@@ -45,3 +45,10 @@ export interface IGameWeek {
   id: string;
   week: number;
 }
+
+export interface ILeagueCreate {
+  leagueName: string;
+  participants: string[];
+  survivors: string[];
+  type: string;
+}
