@@ -1,6 +1,9 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import Leagues from '@/app/(main)/league/all/page';
 import Nav from './Nav';
 import Login from '@/app/(main)/login/page';
+import { useDataStore } from '@/store/dataStore';
+import { getUserLeagues } from '@/utils/utils';
 
 const mockPush = jest.fn();
 const mockUsePathname = jest.fn();
@@ -32,6 +35,14 @@ jest.mock('../../context/AuthContextProvider', () => ({
   },
 }));
 
+jest.mock('@/store/dataStore', () => ({
+  useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
+}));
+
+jest.mock('@/utils/utils', () => ({
+  getUserLeagues: jest.fn(() => Promise.resolve([])),
+}));
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
@@ -47,8 +58,23 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 describe('Nav', () => {
+  const mockUseDataStore = useDataStore as unknown as jest.Mock;
+  const mockGetUserLeagues = getUserLeagues as jest.Mock;
+
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
+    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
+    mockGetUserLeagues.mockResolvedValueOnce([]);
+    render(<Leagues />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('You are not enrolled in any leagues'),
+      ).toBeInTheDocument();
+    });
   });
 
   it('it should render the default component state', () => {

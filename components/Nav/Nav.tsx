@@ -53,10 +53,8 @@ export const Nav = (): JSX.Element => {
 
   useEffect(() => {
     if (!user.id || user.id === '') {
-      setLoadingLeagues(false);
       return;
     }
-
     getLeagues();
   }, [user]);
 
