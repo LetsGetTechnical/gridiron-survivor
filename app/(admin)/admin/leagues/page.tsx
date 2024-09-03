@@ -20,7 +20,7 @@ const AdminLeagues = (): JSX.Element => {
    * @param props.survivors - Users left in the league who haven't been eliminated.
    * @param props.type - Type of league. I just put 'string'.
    */
-  const createNewLeague = async ({
+  const handleAddLeague = async ({
     leagueName,
     participants,
     survivors,
@@ -49,7 +49,7 @@ const AdminLeagues = (): JSX.Element => {
       <button
         type="submit"
         onClick={() =>
-          createNewLeague({
+          handleAddLeague({
             leagueName: 'Test League Creation',
             participants: ['66bd072b001f6b1f6ac0'],
             survivors: ['66bd072b001f6b1f6ac0'],
