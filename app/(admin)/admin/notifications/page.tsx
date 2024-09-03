@@ -47,6 +47,16 @@ const AdminNotifications = (): JSX.Element => {
     await sendEmailNotifications({ content, groupUsers, subject });
   };
 
+  /**
+   * Function to handle radio selection logic.
+   * @param value - Value of the radio buttons.
+   */
+  const handleRadioChange = (value: string): void => {
+    if (value === 'all') {
+      getLeagueData();
+    }
+  };
+
   return (
     <section
       className="flex flex-col space-y-6"
@@ -56,8 +66,8 @@ const AdminNotifications = (): JSX.Element => {
         Choose the users you would like to email in INSERT_CURRENT_LEAGUE_HERE
       </p>
       <RadioGroupDefault
-        defaultValue="all"
-        onValueChange={getLeagueData}
+        defaultValue=""
+        onValueChange={handleRadioChange}
         required
       >
         <div className="flex items-center space-x-2">
