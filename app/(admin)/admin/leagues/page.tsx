@@ -4,7 +4,11 @@
 'use client';
 import { JSX } from 'react';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
-import { createLeague, deleteLeague } from '@/api/apiFunctions';
+import {
+  createLeague,
+  deleteLeague,
+  getCurrentLeague,
+} from '@/api/apiFunctions';
 import { ILeagueCreate } from '@/api/apiFunctions.interface';
 
 /**
@@ -44,6 +48,23 @@ const AdminLeagues = (): JSX.Element => {
     }
   };
 
+  /**
+   *
+   * @param root0
+   * @param root0.leagueId
+   */
+  const handleGetLeague = async ({
+    leagueId,
+  }: {
+    leagueId: string;
+  }): Promise<void> => {
+    try {
+      await getCurrentLeague(leagueId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section className="grid grid-cols-2 gap-6">
       <button
@@ -58,6 +79,12 @@ const AdminLeagues = (): JSX.Element => {
         }
       >
         Add New League
+      </button>
+      <button
+        type="submit"
+        onClick={() => handleGetLeague({ leagueId: '66c6618900033d179dda' })}
+      >
+        Get League Data
       </button>
       <button type="submit" onClick={() => handleDeleteLeague()}>
         Delete A League
