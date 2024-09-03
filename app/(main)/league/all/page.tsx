@@ -85,15 +85,16 @@ const Leagues = (): JSX.Element => {
     }
 
     try {
-      await addUserToLeague(user.id, {
-        selectedLeagues: [...(user.selectedLeagues ?? []), selectedLeagues],
+      await addUserToLeague({
+        selectedLeagues: [...(user.leagues ?? []), selectedLeagues],
       });
 
-      updateUser({
-        ...user,
-        leagues: [...(user.leagues ?? []), selectedLeagues],
-        selectedLeagues: [...(user.selectedLeagues ?? []), selectedLeagues],
-      });
+      updateUser(
+        user.id,
+        user.email,
+        [...(user.leagues ?? []), selectedLeagues],
+        [...(user.selectedLeagues ?? []), selectedLeagues],
+      );
     } catch (error) {
       console.error('Error adding league:', error);
       alert('Failed to add the league. Please try again.');

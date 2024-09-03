@@ -332,16 +332,19 @@ export async function getAllLeagues(): Promise<IAllLeagues[]> {
  * @param updatedData
  * @returns {Promise<void>} A promise that resolves when the user has been added to the league.
  */
-export async function addUserToLeague(
-  userId: string,
-  updatedData: Partial<IUser>,
-): Promise<void> {
+export async function addUserToLeague({
+  selectedLeagues,
+}: {
+  selectedLeagues: string[];
+}): Promise<void> {
   try {
     await databases.updateDocument(
       appwriteConfig.databaseId,
       Collection.USERS,
-      userId,
-      updatedData,
+      '66bd072d001722fbc8fc',
+      {
+        leagues: selectedLeagues,
+      },
     );
   } catch (error) {
     console.error('Error adding user to league', error);
