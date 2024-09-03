@@ -15,25 +15,25 @@ import {
 } from '../TableDropDownMenu/TableDropDownMenu';
 
 export type Header = {
-  text: string;
-  text2: string;
-  text3: string;
+  leagueName: string;
+  participants: number;
+  survivors: number;
 };
 
 export const columns: ColumnDef<Header>[] = [
   {
-    accessorKey: 'text',
-    header: 'HEADING',
+    accessorKey: 'leagueName',
+    header: 'League Name',
     /**
      * Value of row.
      * @param {object} row - The row data.
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text')}</div>,
+    cell: ({ row }) => <div>{row.getValue('leagueName')}</div>,
   },
   {
-    accessorKey: 'text2',
+    accessorKey: 'participants',
 
     /**
      * Value of row.
@@ -47,7 +47,7 @@ export const columns: ColumnDef<Header>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          HEADING
+          Participants
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -59,10 +59,10 @@ export const columns: ColumnDef<Header>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text2')}</div>,
+    cell: ({ row }) => <div>{row.getValue('participants')}</div>,
   },
   {
-    accessorKey: 'text3',
+    accessorKey: 'survivors',
 
     /**
      * Value of row.
@@ -76,7 +76,7 @@ export const columns: ColumnDef<Header>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          HEADING
+          Survivors
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -88,7 +88,7 @@ export const columns: ColumnDef<Header>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text3')}</div>,
+    cell: ({ row }) => <div>{row.getValue('survivors')}</div>,
   },
   {
     id: 'actions',
