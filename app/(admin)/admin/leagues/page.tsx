@@ -49,9 +49,9 @@ const AdminLeagues = (): JSX.Element => {
   };
 
   /**
-   *
-   * @param root0
-   * @param root0.leagueId
+   * To get league data.
+   * @param props - Props being passed to get the league's data.
+   * @param props.leagueId - ID of the league.
    */
   const handleGetLeague = async ({
     leagueId,
