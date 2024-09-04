@@ -30,6 +30,7 @@ describe('Admin notifications page', () => {
     sendEmailButton = screen.getByTestId('send-email');
     subjectInput = screen.getByTestId('subject-text');
   });
+
   it(`should render it's content`, () => {
     (sendEmailNotifications as jest.Mock).mockResolvedValue({});
 
@@ -38,6 +39,7 @@ describe('Admin notifications page', () => {
     );
     expect(adminNotificationsContent).toBeInTheDocument();
   });
+
   it('should call the sendEmailNotifications function with the provided inputs', async () => {
     const dummyParticipants = ['12345', '1234', '123'];
     (getCurrentLeague as jest.Mock).mockResolvedValue({
