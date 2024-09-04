@@ -63,14 +63,14 @@ export const AdminQuickMenu = ({ ...props }): React.JSX.Element => {
       data-testid="admin-quick-menu"
     >
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <div className="flex gap-2 px-2 py-2 items-center outline outline-border rounded w-80 focus:outline-none">
+        <DropdownMenuTrigger className="focus:outline-none">
+          <div className="flex gap-2 px-2 py-2 items-center border-[1px] border-zinc-700 rounded-[6px] w-80 ">
             <LucideCog className="w-8 h-8 p-1 bg-zinc-700" />
             <p>{selectedLeague}</p>
             <LucideChevronsUpDown className="ml-auto text-zinc-300" size={16} />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className=" outline outline-border rounded border-zinc-700 w-80 p-0">
+        <DropdownMenuContent className="border-[1px] border-zinc-700 rounded-[6px]  w-80 p-0">
           <DropdownMenuItem className="pl-[16px] h-[56px] cursor-pointer">
             <LucideCog className="w-8 h-8 p-1 mr-2  bg-zinc-700" />
             <p>Admin</p>
