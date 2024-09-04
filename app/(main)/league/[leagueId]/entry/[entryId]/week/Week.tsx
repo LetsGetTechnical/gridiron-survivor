@@ -28,6 +28,7 @@ import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { NFLTeams } from '@/api/apiFunctions.enum';
 
 /**
  * Renders the weekly picks page.
@@ -148,7 +149,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
    * @param teamSelect - the selected team name.
    * @returns {void}
    */
-  const handleWeeklyPickChange = async (teamSelect: string): Promise<void> => {
+  const handleWeeklyPickChange = async (
+    teamSelect: NFLTeams,
+  ): Promise<void> => {
     const params = {
       teamSelect,
       entry,
@@ -186,7 +189,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
   if (error) {
     return <Alert variant={AlertVariants.Error} message={error} />;
-
   }
 
   return (
