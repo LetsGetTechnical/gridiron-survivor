@@ -1,6 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+'use client';
 import '../globals.css';
 import { AdminHeader } from '@/components/AdminHeader/AdminHeader';
 import { AdminLogo } from '@/components/AdminLogo/AdminLogo';
@@ -9,17 +10,20 @@ import { AdminQuickMenu } from '@/components/AdminQuickMenu/AdminQuickMenu';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from '@/app/error';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ILeague } from '@/api/apiFunctions.interface';
+import { useDataStore } from '@/store/dataStore';
+import { getUserLeagues } from '@/utils/utils';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000';
 
-export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: 'GridIron Survivor',
-  description: 'Fantasy Football Survivor Pool',
-};
+// export const metadata = {
+//   metadataBase: new URL(defaultUrl),
+//   title: 'GridIron Survivor',
+//   description: 'Fantasy Football Survivor Pool',
+// };
 
 /**
  * The root layout for the admin pages.
