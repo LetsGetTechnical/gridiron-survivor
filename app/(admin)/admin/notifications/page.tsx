@@ -13,7 +13,7 @@ import {
 } from '@/components/RadioGroupDefault/RadioGroupDefault';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
 import { Textarea } from '@/components/Textarea/Textarea';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 /**
  * The admin home page.
@@ -22,7 +22,9 @@ import React from 'react';
 const AdminNotifications = (): JSX.Element => {
   const [content, setContent] = useState<string>('');
   const [groupUsers, setGroupUsers] = useState<string[]>([]);
+  const [leagueName, setLeagueName] = useState<string>('');
   const [subject, setSubject] = useState<string>('');
+  const [emailRecipients, setEmailRecipients] = useState<string>('');
 
   /**
    * To grab all users from the league.
@@ -32,6 +34,7 @@ const AdminNotifications = (): JSX.Element => {
       const leagueId = '66c6618900033d179dda';
       const leagueData = await getCurrentLeague(leagueId);
       setGroupUsers(leagueData.participants);
+      setLeagueName(leagueData.leagueName);
     } catch (error) {
       console.error('Error Sending Email:', error);
       throw new Error('Error Sending Email');
@@ -52,10 +55,14 @@ const AdminNotifications = (): JSX.Element => {
    * @param value - Value of the radio buttons.
    */
   const handleRadioChange = (value: string): void => {
-    if (value === 'all') {
-      getLeagueData();
-    }
+    getLeagueData();
+    setEmailRecipients(value);
   };
+
+  useEffect(() => {
+    getLeagueData();
+    setEmailRecipients('all users');
+  }, []);
 
   return (
     <section
@@ -63,16 +70,17 @@ const AdminNotifications = (): JSX.Element => {
       data-testid="admin-notifications-content"
     >
       <p>
-        Choose the users you would like to email in INSERT_CURRENT_LEAGUE_HERE
+        Choose the users you would like to email in{' '}
+        <span className="font-bold text-orange-500">{leagueName}</span>.
       </p>
       <RadioGroupDefault
-        defaultValue=""
+        defaultValue="all users"
         onValueChange={handleRadioChange}
         required
       >
         <div className="flex items-center space-x-2">
           <RadioGroupDefaultItem
-            value="all"
+            value="all users"
             id="all"
             data-testid="all-users-option"
           />
@@ -80,7 +88,7 @@ const AdminNotifications = (): JSX.Element => {
         </div>
         <div className="flex items-center space-x-2">
           <RadioGroupDefaultItem
-            value="survivors"
+            value="all survivors"
             id="survivors"
             data-testid="only-survivors-option"
           />
@@ -88,7 +96,7 @@ const AdminNotifications = (): JSX.Element => {
         </div>
         <div className="flex items-center space-x-2">
           <RadioGroupDefaultItem
-            value="losers"
+            value="all losers"
             id="losers"
             data-testid="only-losers-option"
           />
@@ -122,6 +130,13 @@ const AdminNotifications = (): JSX.Element => {
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
+        <p>
+          This email will be sent to{' '}
+          <span className="font-bold text-orange-500">
+            {emailRecipients.toLowerCase()}
+          </span>{' '}
+          in <span className="font-bold text-orange-500">{leagueName}</span>
+        </p>
         <Button
           className="md:max-w-fit"
           data-testid="send-email"

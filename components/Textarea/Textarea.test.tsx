@@ -36,7 +36,7 @@ describe('Textarea Component', () => {
   it('respects minHeight and maxHeight props', () => {
     render(<Textarea minHeight={100} maxHeight={200} />);
     const textarea = screen.getByTestId('textarea');
-    expect(textarea.style.minHeight).toBe('102px'); // 100 + offsetBorder
+    expect(textarea.style.minHeight).toBe('102px');
     expect(textarea.style.maxHeight).toBe('200px');
   });
 
@@ -46,6 +46,6 @@ describe('Textarea Component', () => {
     fireEvent.change(textarea, {
       target: { value: 'A very long text that should trigger auto resize' },
     });
-    expect(textarea.style.height).not.toBe('102px'); // Should have resized
+    expect(textarea.style.height).not.toBe('102px');
   });
 });

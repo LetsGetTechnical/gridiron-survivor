@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 "use client"
-
 import { cn } from "@/utils/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 import * as LabelPrimitive from "@radix-ui/react-label"

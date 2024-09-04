@@ -1,7 +1,7 @@
+import { LabelText } from '../LabelText/LabelText';
 import { RadioGroupDefault, RadioGroupDefaultItem } from './RadioGroupDefault';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { LabelText } from '../LabelText/LabelText';
 
 describe('RadioGroupDefault', () => {
   beforeEach(() => {
@@ -14,6 +14,7 @@ describe('RadioGroupDefault', () => {
       </RadioGroupDefault>,
     );
   });
+
   it('renders the RadioGroupDefault component', () => {
     const radioGroup = screen.getByTestId('radio-group-default');
     expect(radioGroup).toBeInTheDocument();
