@@ -171,4 +171,53 @@ describe('League entries page (Entry Component)', () => {
       expect(viewPastWeeksLink).toBeInTheDocument();
     });
   });
+
+  it('should display a button to add a new entry if there are less than 5 entries', async () => {
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        id: '66311a210039f0532044',
+        week: 1,
+        selectedTeams: [],
+      },
+    ]);
+
+    render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('add-new-entry-button')).toBeInTheDocument();
+    });
+  });
+
+  it('should not display a button to add a new entry if there are more than 5 entries', async () => {
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        id: '66311a210039f0532044',
+        week: 1,
+        selectedTeams: [],
+      },
+      {
+        id: '66311a210039f0532045',
+        week: 1,
+        selectedTeams: [],
+      },
+      {
+        id: '66311a210039f0532046',
+        week: 1,
+        selectedTeams: [],
+      },
+      {
+        id: '66311a210039f0532047',
+        week: 1,
+        selectedTeams: [],
+      },
+    ]);
+
+    render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
+
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('add-new-entry-button'),
+      ).not.toBeInTheDocument();
+    });
+  });
 });

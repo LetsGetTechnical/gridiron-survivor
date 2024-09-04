@@ -20,6 +20,7 @@ import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import Heading from '@/components/Heading/Heading';
 import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
+const MAX_ENTRIES = 5;
 
 /**
  * Display all entries for a league.
@@ -189,19 +190,22 @@ const Entry = ({
               })}
 
               <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
-                <Button
-                  icon={<PlusCircle className="mr-2" />}
-                  variant="outline"
-                  onClick={() =>
-                    addNewEntry({
-                      name: `Entry ${entries.length + 1}`,
-                      user: user.id,
-                      league: leagueId,
-                    })
-                  }
-                >
-                  Add New Entry
-                </Button>
+                {entries.length < MAX_ENTRIES && (
+                  <Button
+                    icon={<PlusCircle className="mr-2" />}
+                    variant="outline"
+                    onClick={() =>
+                      addNewEntry({
+                        name: `Entry ${entries.length + 1}`,
+                        user: user.id,
+                        league: leagueId,
+                      })
+                    }
+                    data-testid="add-new-entry-button"
+                  >
+                    Add New Entry
+                  </Button>
+                )}
                 {currentWeek > 1 && (
                   <Link
                     className="text-orange-600 hover:text-orange-500 font-bold hover:underline"
