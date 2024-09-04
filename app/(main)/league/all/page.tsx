@@ -78,12 +78,27 @@ const Leagues = (): JSX.Element => {
   };
 
   /**
+   * Checks if leagueId already exists, then can't select this league
    * Adds the selected league to the current user's leagues.
    */
   const handleAddLeague = async (): Promise<void> => {
     const { user, updateUser } = useDataStore.getState();
     if (!selectedLeagues) {
       alert('Please select a league to join.');
+      return;
+    }
+
+    const isLeagueAlreadySelected = user.leagues?.some(
+      (leagueId: string) => leagueId === selectedLeagues,
+    );
+
+    if (isLeagueAlreadySelected) {
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Warning}
+          message="You have already selected this league. Please choose a different one."
+        />,
+      );
       return;
     }
 
@@ -160,10 +175,9 @@ const Leagues = (): JSX.Element => {
               className="border rounded p-2 w-full"
             >
               <option value="">Select league</option>
-              {availableLeagues.map((leagues) => (
-                <option value={leagues.leagueId} key={leagues.leagueId}>
-                  {/* {leagues.leagueName} */}
-                  {leagues.leagueId}
+              {availableLeagues.map((league) => (
+                <option value={league.leagueId} key={league.leagueId}>
+                  {league.leagueName}
                 </option>
               ))}
             </select>

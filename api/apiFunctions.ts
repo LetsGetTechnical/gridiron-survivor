@@ -307,12 +307,11 @@ export async function getAllLeagues(): Promise<IAllLeagues[]> {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.LEAGUE,
-      [Query.limit(100)],
     );
 
     const allLeagues = response.documents.map((league) => ({
       leagueId: league.$id,
-      leagueName: league.name,
+      leagueName: league.leagueName,
       logo: '',
       participants: league.selectedTeams,
       survivors: league.eliminated,
