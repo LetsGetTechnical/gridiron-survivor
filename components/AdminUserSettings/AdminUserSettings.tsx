@@ -55,8 +55,8 @@ export const AdminUserSettings = (): JSX.Element => {
           <LucideChevronsUpDown className="ml-auto text-zinc-300" size={16} />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="border-[1px] border-zinc-700 rounded-[6px]  w-[230px]">
-        <DropdownMenuItem className="cursor-pointer">
+      <DropdownMenuContent className="border-[1px] border-zinc-700 rounded-[6px]  w-[230px] p-0">
+        <DropdownMenuItem className="cursor-pointer rounded-none">
           <Button
             className="flex justify-start p-0 text-base font-normal hover:no-underline w-full"
             variant="link"
@@ -65,7 +65,7 @@ export const AdminUserSettings = (): JSX.Element => {
             data-testid="edit-profile-button"
           />
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">
+        <DropdownMenuItem className="cursor-pointer rounded-none">
           <Button
             className="flex justify-start p-0 text-base font-normal hover:no-underline w-full"
             variant="link"
