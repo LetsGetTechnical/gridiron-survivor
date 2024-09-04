@@ -171,4 +171,63 @@ describe('League entries page (Entry Component)', () => {
       expect(viewPastWeeksLink).toBeInTheDocument();
     });
   });
+
+  it('should display the Add New Entry button when there are less than 5 entries', async () => {
+    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
+    mockGetCurrentLeague.mockResolvedValueOnce({
+      leagueName: 'GiS League',
+      participants: 47,
+      survivors: 47,
+    });
+
+    render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
+
+    await waitFor(() => {
+      const addNewEntryButton = screen.getByTestId('add-new-entry-button');
+      expect(addNewEntryButton).toBeInTheDocument();
+    });
+  });
+  it('should not display the Add New Entry button when there 5 entries', async () => {
+    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
+    mockGetCurrentLeague.mockResolvedValueOnce({
+      leagueName: 'GiS League',
+      participants: 47,
+      survivors: 47,
+    });
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        id: '66311a210039f0532044',
+        week: 2,
+        selectedTeams: [],
+      },
+      {
+        id: '66311a210039f0532045',
+        week: 2,
+        selectedTeams: [],
+      },
+      {
+        id: '66311a210039f0532046',
+        week: 2,
+        selectedTeams: [],
+      },
+      {
+        id: '66311a210039f0532047',
+        week: 2,
+        selectedTeams: [],
+      },
+      {
+        id: '66311a210039f0532048',
+        week: 2,
+        selectedTeams: [],
+      },
+    ]);
+
+    render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
+
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('add-new-entry-button'),
+      ).not.toBeInTheDocument();
+    });
+  });
 });
