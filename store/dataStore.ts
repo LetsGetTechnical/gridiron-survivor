@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { produce } from 'immer';
 import {
   INFLTeam,

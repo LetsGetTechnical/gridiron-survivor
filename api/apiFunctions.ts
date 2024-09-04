@@ -332,8 +332,10 @@ export async function getAllLeagues(): Promise<IAllLeagues[]> {
  * @returns {Promise<void>} A promise that resolves when the user has been added to the league.
  */
 export async function addUserToLeague({
+  // userId,
   selectedLeagues,
 }: {
+  // userId: string,
   selectedLeagues: string[];
 }): Promise<void> {
   try {

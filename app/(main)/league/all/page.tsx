@@ -102,6 +102,14 @@ const Leagues = (): JSX.Element => {
       return;
     }
 
+    const selectedLeague = availableLeagues.find(
+      (league) => league.leagueId === selectedLeagues,
+    );
+
+    const leagueName = selectedLeague
+      ? selectedLeague.leagueName
+      : 'Unknown League';
+
     try {
       await addUserToLeague({
         selectedLeagues: [...(user.leagues ?? []), selectedLeagues],
@@ -116,7 +124,7 @@ const Leagues = (): JSX.Element => {
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
-          message={`You have successfully pick the ${selectedLeagues} for your team!`}
+          message={`You have successfully pick the ${leagueName} for your team!`}
         />,
       );
     } catch (error) {
