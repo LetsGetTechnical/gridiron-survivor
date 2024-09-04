@@ -29,6 +29,9 @@ const Leagues = (): JSX.Element => {
 
   /**
    * Fetches all available leagues.
+   * @param root0
+   * @param root0.participants
+   * @param root0.survivors
    * @returns {Promise<void>}
    */
   const fetchLeagues = async (): Promise<void> => {

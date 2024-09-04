@@ -313,8 +313,8 @@ export async function getAllLeagues(): Promise<IAllLeagues[]> {
       leagueId: league.$id,
       leagueName: league.leagueName,
       logo: '',
-      participants: league.selectedTeams,
-      survivors: league.eliminated,
+      participants: league.participants,
+      survivors: league.survivors,
     }));
 
     return allLeagues;
