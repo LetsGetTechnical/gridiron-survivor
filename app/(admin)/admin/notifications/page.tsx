@@ -28,6 +28,7 @@ const AdminNotifications = (): JSX.Element => {
 
   /**
    * To grab all users from the league.
+   * @returns The league data.
    */
   const getLeagueData = async (): Promise<void> => {
     try {
@@ -55,13 +56,18 @@ const AdminNotifications = (): JSX.Element => {
    * @param value - Value of the radio buttons.
    */
   const handleRadioChange = (value: string): void => {
-    getLeagueData();
     setEmailRecipients(value);
   };
 
   useEffect(() => {
-    getLeagueData();
-    setEmailRecipients('all users');
+    /**
+     * Fetches the league data.
+     * @returns The league data.
+     */
+    const fetchData = async (): Promise<void> => {
+      await getLeagueData();
+    };
+    fetchData();
   }, []);
 
   return (
