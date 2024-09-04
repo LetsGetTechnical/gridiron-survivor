@@ -3,6 +3,8 @@
 
 'use client';
 
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { Button } from '@/components/Button/Button';
 import { getUserLeagues, fetchAvailableLeagues } from '@/utils/utils';
@@ -12,6 +14,7 @@ import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import React, { JSX, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 /**
  * Renders the leagues component.
@@ -95,9 +98,20 @@ const Leagues = (): JSX.Element => {
         [...(user.leagues ?? []), selectedLeagues],
         [...(user.selectedLeagues ?? []), selectedLeagues],
       );
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Success}
+          message={`You have successfully pick the ${selectedLeagues} for your team!`}
+        />,
+      );
     } catch (error) {
       console.error('Error adding league:', error);
-      alert('Failed to add the league. Please try again.');
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Error}
+          message="Failed to add the league. Please try again."
+        />,
+      );
     }
   };
 
