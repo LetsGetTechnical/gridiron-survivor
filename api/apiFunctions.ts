@@ -357,10 +357,16 @@ export const getUserDocumentId = async (userId: string): Promise<string> => {
  */
 export async function addUserToLeague({
   userId,
+  selectedLeague,
   selectedLeagues,
+  participants,
+  survivors,
 }: {
   userId: string;
+  selectedLeague: string;
   selectedLeagues: string[];
+  participants: string[];
+  survivors: string[];
 }): Promise<void> {
   try {
     const documentId = await getUserDocumentId(userId);
@@ -371,6 +377,16 @@ export async function addUserToLeague({
       documentId,
       {
         leagues: selectedLeagues,
+      },
+    );
+
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.LEAGUE,
+      selectedLeague,
+      {
+        participants: participants,
+        survivors: survivors,
       },
     );
   } catch (error) {

@@ -113,10 +113,17 @@ const Leagues = (): JSX.Element => {
       ? selectedLeague.leagueName
       : 'Unknown League';
 
+    const leagueParticipants = selectedLeague?.participants;
+
+    const leagueSurvivors = selectedLeague?.survivors;
+
     try {
       await addUserToLeague({
         userId: user.id,
+        selectedLeague: selectedLeagues,
         selectedLeagues: [...(user.leagues ?? []), selectedLeagues],
+        participants: [...(leagueParticipants ?? []), user.id],
+        survivors: [...(leagueSurvivors ?? []), user.id],
       });
 
       updateUser(
