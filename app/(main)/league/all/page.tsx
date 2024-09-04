@@ -6,10 +6,13 @@
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { getUserLeagues } from '@/utils/utils';
 import { ILeague } from '@/api/apiFunctions.interface';
+import { JoinLeagueCard } from '@/components/JoinLeagueCard/JoinLeagueCard';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import React, { JSX, useEffect, useState } from 'react';
+import Heading from '@/components/Heading/Heading';
+import { Button } from '@/components/Button/Button';
 
 /**
  * Renders the leagues component.
@@ -49,28 +52,52 @@ const Leagues = (): JSX.Element => {
         <GlobalSpinner />
       ) : (
         <>
-          <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
-            Your leagues
-          </h1>
-          <section className="grid gap-6 md:grid-cols-2">
-            {leagues.length > 0 ? (
-              leagues.map((league) => (
-                <LeagueCard
-                  key={league.leagueId}
-                  href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
-                  leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
-                  survivors={league.survivors.length}
-                  title={league.leagueName}
-                  totalPlayers={league.participants.length}
-                />
-              ))
-            ) : (
-              <div className="text-center">
-                <p className="text-lg font-bold">
-                  You are not enrolled in any leagues
-                </p>
-              </div>
-            )}
+          <section className="mb-24">
+            <Heading as="h1" className="text-center mb-10">
+              Your Leagues
+            </Heading>
+            <div>
+              {leagues.length > 0 ? (
+                <div className="grid gap-6 md:grid-cols-2">
+                  {leagues.map((league) => (
+                    <LeagueCard
+                      key={league.leagueId}
+                      href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
+                      leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
+                      survivors={league.survivors.length}
+                      title={league.leagueName}
+                      totalPlayers={league.participants.length}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center mx-auto">
+                  <p className="text-lg">
+                    You are not enrolled in any leagues.
+                  </p>
+                  <p className="text-lg">
+                    Join a league below or create your own!
+                  </p>
+                  <Button
+                    className="mt-6"
+                    onClick={() => {
+                      /* Add your create league logic here */
+                    }}
+                    label="Create your League"
+                  />
+                </div>
+              )}
+            </div>
+          </section>
+          <section>
+            <Heading as="h2" className="text-center mb-10">
+              Join a League
+            </Heading>
+            <div className="grid gap-6">
+              <JoinLeagueCard title="League 1" totalPlayers={12} />
+              <JoinLeagueCard title="League 2" totalPlayers={20} />
+              <JoinLeagueCard title="League 3" totalPlayers={8} />
+            </div>
           </section>
         </>
       )}
