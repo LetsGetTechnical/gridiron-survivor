@@ -112,6 +112,7 @@ const Leagues = (): JSX.Element => {
 
     try {
       await addUserToLeague({
+        userId: user.id,
         selectedLeagues: [...(user.leagues ?? []), selectedLeagues],
       });
 

@@ -323,6 +323,30 @@ export async function getAllLeagues(): Promise<IAllLeagues[]> {
     throw new Error('Error getting all leagues');
   }
 }
+/**
+ * Retrieves the user document ID dynamically from the database.
+ * @param userId - The user ID
+ * @returns {string} - The user document ID
+ */
+export const getUserDocumentId = async (userId: string): Promise<string> => {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      [Query.equal('userId', userId)],
+    );
+
+    if (response.documents.length === 0) {
+      throw new Error('User document not found');
+    }
+
+    // Assuming only one document per userId
+    return response.documents[0].$id;
+  } catch (error) {
+    console.error('Error getting user document ID:', error);
+    throw new Error('Error getting user document ID');
+  }
+};
 
 /**
  * Adds a user to a league by updating the user's entry document.
@@ -332,17 +356,19 @@ export async function getAllLeagues(): Promise<IAllLeagues[]> {
  * @returns {Promise<void>} A promise that resolves when the user has been added to the league.
  */
 export async function addUserToLeague({
-  // userId,
+  userId,
   selectedLeagues,
 }: {
-  // userId: string,
+  userId: string;
   selectedLeagues: string[];
 }): Promise<void> {
   try {
+    const documentId = await getUserDocumentId(userId);
+
     await databases.updateDocument(
       appwriteConfig.databaseId,
       Collection.USERS,
-      '66bd072d001722fbc8fc',
+      documentId,
       {
         leagues: selectedLeagues,
       },
