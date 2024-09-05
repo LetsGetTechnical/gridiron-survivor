@@ -340,7 +340,6 @@ export const getUserDocumentId = async (userId: string): Promise<string> => {
       throw new Error('User document not found');
     }
 
-    // Assuming only one document per userId
     return response.documents[0].$id;
   } catch (error) {
     throw new Error('Error getting user document ID', { cause: error });
