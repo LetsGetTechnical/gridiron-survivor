@@ -110,7 +110,6 @@ const Register = (): JSX.Element => {
       setIsLoading(true);
       await registerAccount(data);
       await login(data);
-      setIsLoading(false);
       router.push('/league/all');
       toast.custom(
         <Alert
@@ -119,11 +118,13 @@ const Register = (): JSX.Element => {
         />,
       );
     } catch (error) {
-      setIsLoading(false);
       console.error('Registration Failed', error);
       toast.custom(
         <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
       );
+      throw new Error('An error occurred while registering your account');
+    } finally {
+      setIsLoading(false);
     }
   };
 
