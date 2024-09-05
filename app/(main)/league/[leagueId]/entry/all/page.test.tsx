@@ -90,8 +90,9 @@ describe('League entries page (Entry Component)', () => {
       expect(mockGetGameWeek).toHaveBeenCalled();
       expect(mockGetCurrentUserEntries).toHaveBeenCalled();
       expect(mockGetCurrentLeague).toHaveBeenCalled();
-      expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
     });
+
+    expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
 
   it('should display the header with the league name, survivors, and week number, without a past weeks link', async () => {
@@ -116,32 +117,33 @@ describe('League entries page (Entry Component)', () => {
     render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
 
     await waitFor(() => {
-      const entryPageHeader = screen.getByTestId('entry-page-header');
-      const entryPageHeaderToLeaguesLink = screen.getByTestId(
-        'entry-page-header-to-leagues-link',
-      );
-      const entryPageHeaderLeagueName = screen.getByTestId(
-        'entry-page-header-league-name',
-      );
-      const entryPageHeaderLeagueSurvivors =
-        screen.getByTestId('LeagueSurvivors');
-      const entryPageHeaderCurrentWeek = screen.getByTestId(
-        'entry-page-header-current-week',
-      );
-
-      expect(entryPageHeader).toBeInTheDocument();
-      expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
-      expect(entryPageHeaderToLeaguesLink).toHaveAttribute(
-        'href',
-        '/league/all',
-      );
-      expect(entryPageHeaderLeagueName).toBeInTheDocument();
-      expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
-      expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
-      expect(entryPageHeaderLeagueSurvivors).toHaveTextContent('Survivors');
-      expect(entryPageHeaderCurrentWeek).toBeInTheDocument();
-      expect(entryPageHeaderCurrentWeek).toHaveTextContent('Week 1');
+      expect(mockGetGameWeek).toHaveBeenCalled();
+      expect(mockGetCurrentUserEntries).toHaveBeenCalled();
+      expect(mockGetCurrentLeague).toHaveBeenCalled();
     });
+
+    const entryPageHeader = screen.getByTestId('entry-page-header');
+    const entryPageHeaderToLeaguesLink = screen.getByTestId(
+      'entry-page-header-to-leagues-link',
+    );
+    const entryPageHeaderLeagueName = screen.getByTestId(
+      'entry-page-header-league-name',
+    );
+    const entryPageHeaderLeagueSurvivors =
+      screen.getByTestId('LeagueSurvivors');
+    const entryPageHeaderCurrentWeek = screen.getByTestId(
+      'entry-page-header-current-week',
+    );
+
+    expect(entryPageHeader).toBeInTheDocument();
+    expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
+    expect(entryPageHeaderToLeaguesLink).toHaveAttribute('href', '/league/all');
+    expect(entryPageHeaderLeagueName).toBeInTheDocument();
+    expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
+    expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
+    expect(entryPageHeaderLeagueSurvivors).toHaveTextContent('Survivors');
+    expect(entryPageHeaderCurrentWeek).toBeInTheDocument();
+    expect(entryPageHeaderCurrentWeek).toHaveTextContent('Week 1');
   });
 
   it('should display the header with the league name, survivors, and week number, with a past weeks link and add new entry button', async () => {
@@ -166,36 +168,37 @@ describe('League entries page (Entry Component)', () => {
     render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
 
     await waitFor(() => {
-      const entryPageHeader = screen.getByTestId('entry-page-header');
-      const entryPageHeaderToLeaguesLink = screen.getByTestId(
-        'entry-page-header-to-leagues-link',
-      );
-      const entryPageHeaderLeagueName = screen.getByTestId(
-        'entry-page-header-league-name',
-      );
-      const entryPageHeaderLeagueSurvivors =
-        screen.getByTestId('LeagueSurvivors');
-      const entryPageHeaderCurrentWeek = screen.getByTestId(
-        'entry-page-header-current-week',
-      );
-      const viewPastWeeksLink = screen.getByTestId('past-weeks-link');
-      const addNewEntryButton = screen.getByTestId('add-new-entry-button');
-
-      expect(entryPageHeader).toBeInTheDocument();
-      expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
-      expect(entryPageHeaderToLeaguesLink).toHaveAttribute(
-        'href',
-        '/league/all',
-      );
-      expect(entryPageHeaderLeagueName).toBeInTheDocument();
-      expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
-      expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
-      expect(entryPageHeaderLeagueSurvivors).toHaveTextContent('Survivors');
-      expect(entryPageHeaderCurrentWeek).toBeInTheDocument();
-      expect(entryPageHeaderCurrentWeek).toHaveTextContent('Week 2');
-      expect(addNewEntryButton).toBeInTheDocument();
-      expect(viewPastWeeksLink).toBeInTheDocument();
+      expect(mockGetGameWeek).toHaveBeenCalled();
+      expect(mockGetCurrentUserEntries).toHaveBeenCalled();
+      expect(mockGetCurrentLeague).toHaveBeenCalled();
     });
+
+    const entryPageHeader = screen.getByTestId('entry-page-header');
+    const entryPageHeaderToLeaguesLink = screen.getByTestId(
+      'entry-page-header-to-leagues-link',
+    );
+    const entryPageHeaderLeagueName = screen.getByTestId(
+      'entry-page-header-league-name',
+    );
+    const entryPageHeaderLeagueSurvivors =
+      screen.getByTestId('LeagueSurvivors');
+    const entryPageHeaderCurrentWeek = screen.getByTestId(
+      'entry-page-header-current-week',
+    );
+    const viewPastWeeksLink = screen.getByTestId('past-weeks-link');
+    const addNewEntryButton = screen.getByTestId('add-new-entry-button');
+
+    expect(entryPageHeader).toBeInTheDocument();
+    expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
+    expect(entryPageHeaderToLeaguesLink).toHaveAttribute('href', '/league/all');
+    expect(entryPageHeaderLeagueName).toBeInTheDocument();
+    expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
+    expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
+    expect(entryPageHeaderLeagueSurvivors).toHaveTextContent('Survivors');
+    expect(entryPageHeaderCurrentWeek).toBeInTheDocument();
+    expect(entryPageHeaderCurrentWeek).toHaveTextContent('Week 2');
+    expect(addNewEntryButton).toBeInTheDocument();
+    expect(viewPastWeeksLink).toBeInTheDocument();
   });
 
   it('should not display a button to add a new entry if there are more than 5 entries', async () => {
