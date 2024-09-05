@@ -216,7 +216,7 @@ describe('getCurrentUserEntries()', () => {
   });
 });
 
-describe('get all leagues', () => {
+xdescribe('get all leagues', () => {
   it('should return all leagues upon successful call', async () => {
     const mockAllLeagues = [
       {

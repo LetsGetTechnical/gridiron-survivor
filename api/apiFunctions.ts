@@ -323,28 +323,6 @@ export async function getAllLeagues(): Promise<ILeague[]> {
     throw new Error('Error getting all leagues', { cause: error });
   }
 }
-/**
- * Retrieves the user document ID dynamically from the database.
- * @param userId - The user ID
- * @returns {string} - The user document ID
- */
-export const getUserDocumentId = async (userId: string): Promise<string> => {
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      Collection.USERS,
-      [Query.equal('userId', userId)],
-    );
-
-    if (response.documents.length === 0) {
-      throw new Error('User document not found');
-    }
-
-    return response.documents[0].$id;
-  } catch (error) {
-    throw new Error('Error getting user document ID', { cause: error });
-  }
-};
 
 /**
  * Adds a user to a league by updating the user's entry document.
