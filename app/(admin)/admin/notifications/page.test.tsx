@@ -19,8 +19,13 @@ jest.mock('./actions/sendEmailNotification', () => ({
 }));
 
 describe('Admin notifications page', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.clearAllMocks();
+
+    (getCurrentLeague as jest.Mock).mockResolvedValue({
+      participants: ['12345', '1234', '123'],
+      leagueName: 'Test League',
+    });
 
     render(<AdminNotifications />);
 
@@ -41,11 +46,6 @@ describe('Admin notifications page', () => {
   });
 
   it('should call the sendEmailNotifications function with the provided inputs', async () => {
-    const dummyParticipants = ['12345', '1234', '123'];
-    (getCurrentLeague as jest.Mock).mockResolvedValue({
-      participants: dummyParticipants,
-    });
-
     fireEvent.click(selectAllUsersRadioOption);
     fireEvent.change(subjectInput, { target: { value: 'Test Title' } });
     fireEvent.change(contentInput, {
@@ -61,7 +61,7 @@ describe('Admin notifications page', () => {
     await waitFor(() => {
       expect(sendEmailNotifications as jest.Mock).toHaveBeenCalledWith({
         content: 'Test message section.',
-        groupUsers: dummyParticipants,
+        groupUsers: ['12345', '1234', '123'],
         subject: 'Test Title',
       });
     });
