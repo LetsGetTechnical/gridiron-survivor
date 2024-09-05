@@ -88,8 +88,6 @@ const Entry = ({
       setCurrentWeek(currentWeek.week);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoadingData(false);
     }
   };
 
@@ -200,7 +198,7 @@ const Entry = ({
               })}
 
             <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
-              {entries.length < MAX_ENTRIES && (
+              {!loadingData && entries.length < MAX_ENTRIES && (
                 <Button
                   icon={
                     <PlusCircle
