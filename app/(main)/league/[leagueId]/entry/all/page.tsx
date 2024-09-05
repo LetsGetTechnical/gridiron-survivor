@@ -20,7 +20,8 @@ import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import Heading from '@/components/Heading/Heading';
 import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
-const MAX_ENTRIES = 5;
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import { cn } from '@/utils/utils';
 
 /**
  * Display all entries for a league.
@@ -40,6 +41,7 @@ const Entry = ({
   const [survivors, setSurvivors] = useState<number>(0);
   const [totalPlayers, setTotalPlayers] = useState<number>(0);
   const { user } = useDataStore((state) => state);
+  const MAX_ENTRIES = 5;
 
   useEffect(() => {
     /**
@@ -200,7 +202,11 @@ const Entry = ({
             <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
               {entries.length < MAX_ENTRIES && (
                 <Button
-                  icon={<PlusCircle className="mr-2" />}
+                  icon={
+                    <PlusCircle
+                      className={cn('mr-2', addingEntry && 'hidden')}
+                    />
+                  }
                   variant="outline"
                   onClick={() =>
                     addNewEntry({
@@ -212,7 +218,7 @@ const Entry = ({
                   data-testid="add-new-entry-button"
                   disabled={addingEntry}
                 >
-                  {addingEntry ? 'Adding...' : 'Add New Entry'}
+                  {addingEntry ? <LoadingSpinner /> : 'Add New Entry'}
                 </Button>
               )}
 
