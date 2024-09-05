@@ -17,13 +17,7 @@ const mockField = {
   onBlur: jest.fn(),
 };
 
-const mockSelectedTeams = [
-  {
-    teamId: '1234',
-    teamName: 'Packers',
-    teamLogo: 'https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png',
-  },
-];
+const mockSelectedTeams = ['Packers'];
 
 const mockDefaultUserPick = 'Ravens';
 const mockNewUserPick = 'Chiefs';

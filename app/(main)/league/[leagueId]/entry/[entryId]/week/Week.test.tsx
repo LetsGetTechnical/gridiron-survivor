@@ -17,9 +17,14 @@ import { IWeeklyPicks } from '@/api/apiFunctions.interface';
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
+    currentWeek: 1,
+    getState: jest.fn(() => ({
+      currentWeek: 1,
+    })),
     user: { id: '123', leagues: [] },
-    weeklyPicks: {},
     updateWeeklyPicks: jest.fn(),
+    updateCurrentWeek: jest.fn(),
+    weeklyPicks: {},
   })),
 }));
 
@@ -37,6 +42,11 @@ jest.mock('@/api/apiFunctions', () => ({
         selectedTeams: [],
       },
     ]),
+  ),
+  getGameWeek: jest.fn(() =>
+    Promise.resolve({
+      week: 1,
+    }),
   ),
   createWeeklyPicks: jest.fn(),
   getAllWeeklyPicks: jest.fn(),
