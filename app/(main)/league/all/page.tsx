@@ -118,8 +118,6 @@ const Leagues = (): JSX.Element => {
           message="Failed to add the league. Please try again."
         />,
       );
-    } finally {
-      setSelectedLeague(null);
     }
   };
 
