@@ -7,12 +7,12 @@ import {
   getCurrentLeague,
   getCurrentUserEntries,
   getGameWeek,
+  getNFLTeams,
 } from '@/api/apiFunctions';
 import { Button } from '@/components/Button/Button';
 import { ChevronLeft, PlusCircle } from 'lucide-react';
 import { ENTRY_URL, LEAGUE_URL, WEEK_URL } from '@/const/global';
 import { IEntry, IEntryProps } from '../Entries.interface';
-import { IGameWeek } from '@/api/apiFunctions.interface';
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import { useDataStore } from '@/store/dataStore';
@@ -33,14 +33,14 @@ const Entry = ({
 }: {
   params: { leagueId: string };
 }): JSX.Element => {
-  const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
   const [entries, setEntries] = useState<IEntry[]>([]);
   const [leagueName, setLeagueName] = useState<string>('');
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [addingEntry, setAddingEntry] = useState<boolean>(false);
   const [survivors, setSurvivors] = useState<number>(0);
   const [totalPlayers, setTotalPlayers] = useState<number>(0);
-  const { user } = useDataStore((state) => state);
+  const { currentWeek, NFLTeams, user, updateCurrentWeek, updateNFLTeams } =
+    useDataStore((state) => state);
   const MAX_ENTRIES = 5;
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Entry = ({
     };
 
     getCurrentLeagueName();
-  });
+  }, []);
 
   /**
    * Fetches all entries for the current user.
@@ -84,10 +84,25 @@ const Entry = ({
    */
   const getCurrentGameWeek = async (): Promise<void> => {
     try {
-      const currentWeek = await getGameWeek();
-      setCurrentWeek(currentWeek.week);
+      const getCurrentWeek = await getGameWeek();
+      updateCurrentWeek(getCurrentWeek.week);
     } catch (error) {
-      console.error(error);
+      throw new Error('Error fetching current game week');
+    } finally {
+      setLoadingData(false);
+    }
+  };
+
+  /**
+   * Fetches all NFL teams.
+   * @returns {Promise<INFLTeam[]>} - The NFL teams.
+   */
+  const getAllNFLTeams = async (): Promise<void> => {
+    try {
+      const NFLTeams = await getNFLTeams();
+      updateNFLTeams(NFLTeams);
+    } catch (error) {
+      throw new Error('Error getting NFL teams');
     }
   };
 
@@ -110,9 +125,9 @@ const Entry = ({
     setAddingEntry(true);
     try {
       const createdEntry = await createEntry({ name, user, league });
-      setEntries([...entries, createdEntry]);
+      setEntries((prevEntries) => [...prevEntries, createdEntry]);
     } catch (error) {
-      console.error(error);
+      throw new Error('Error adding new entry');
     } finally {
       setAddingEntry(false);
     }
@@ -122,9 +137,10 @@ const Entry = ({
     if (!user.id || user.id === '') {
       return;
     }
+
     getCurrentGameWeek();
     getAllEntries();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getAllNFLTeams();
   }, [user]);
 
   return (
@@ -176,12 +192,15 @@ const Entry = ({
             {entries.length > 0 &&
               entries.map((entry) => {
                 const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
-                const isPickSet =
-                  entry.selectedTeams && entry.selectedTeams.length > 0;
 
-                const teamLogo = isPickSet
-                  ? entry.selectedTeams[0].teamLogo
-                  : '';
+                const selectedTeam = entry.selectedTeams[currentWeek - 1];
+                const isPickSet =
+                  // eslint-disable-next-line no-undefined
+                  selectedTeam !== undefined;
+
+                const teamLogo = NFLTeams.find(
+                  (teams) => teams.teamName === selectedTeam,
+                )?.teamLogo;
 
                 return (
                   <section key={entry.$id}>
