@@ -10,7 +10,7 @@ import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
 import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
-import { loginAccount } from './AuthHelper';
+import { loginAccount, logoutHandler } from './AuthHelper';
 import { usePathname } from 'next/navigation';
 
 type UserCredentials = {
@@ -20,10 +20,9 @@ type UserCredentials = {
 
 type AuthContextType = {
   getUser: () => Promise<IUser | undefined>;
-  isSignedIn: boolean;
   login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
-  logoutAccount: () => Promise<void>;
-  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  logoutAccount: () => Promise<void | Error>;
+  isSignedIn: boolean;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -70,17 +69,10 @@ export const AuthContextProvider = ({
 
   /**
    * Log out and clear session state
-   * @returns {Promise<void>}
+   * @returns {Promise<void | Error>} - The error if there is one.
    */
-  const logoutAccount = async (): Promise<void> => {
-    try {
-      await account.deleteSession('current');
-      setIsSignedIn(false);
-      resetUser(); // Reset user data in the store
-      router.push('/login');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+  const logoutAccount = async (): Promise<void | Error> => {
+    await logoutHandler({ router, resetUser, setIsSignedIn });
   };
 
   /**
@@ -128,7 +120,6 @@ export const AuthContextProvider = ({
       isSignedIn,
       login,
       logoutAccount,
-      setIsSignedIn,
     }),
     [isSignedIn],
   );

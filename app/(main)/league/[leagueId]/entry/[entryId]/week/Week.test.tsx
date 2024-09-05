@@ -1,14 +1,45 @@
+import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import Week from './Week';
+import {
+  getCurrentLeague,
+  getCurrentUserEntries,
+  createWeeklyPicks,
+  getAllWeeklyPicks,
+} from '@/api/apiFunctions';
+import { useDataStore } from '@/store/dataStore';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { onWeeklyPickChange } from './WeekHelper';
-import { createWeeklyPicks } from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import { IWeeklyPicks } from '@/api/apiFunctions.interface';
 
+jest.mock('@/store/dataStore', () => ({
+  useDataStore: jest.fn(() => ({
+    user: { id: '123', leagues: [] },
+    weeklyPicks: {},
+    updateWeeklyPicks: jest.fn(),
+  })),
+}));
+
 jest.mock('@/api/apiFunctions', () => ({
+  getCurrentLeague: jest.fn(() =>
+    Promise.resolve({
+      week: 1,
+    }),
+  ),
+  getCurrentUserEntries: jest.fn(() =>
+    Promise.resolve([
+      {
+        id: '123',
+        week: 1,
+        selectedTeams: [],
+      },
+    ]),
+  ),
   createWeeklyPicks: jest.fn(),
+  getAllWeeklyPicks: jest.fn(),
 }));
 
 jest.mock('react-hot-toast', () => ({
@@ -17,15 +48,23 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
+
 describe('Week', () => {
   const teamSelect = 'Browns';
-  const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: '' }];
+  const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: 'browns' }];
   const user = { id: '12345', email: 'email@example.com', leagues: [] };
   const entry = 'mockEntry';
   const league = 'mockLeague';
-  const week = 'mockWeek';
-  const updateWeeklyPicks = jest.fn();
+  const week = '1';
   const setUserPick = jest.fn();
+  const updateWeeklyPicks = jest.fn();
+  const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
+  const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
 
   const weeklyPicks: IWeeklyPicks = {
     leagueId: '123',
@@ -60,6 +99,29 @@ describe('Week', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  test('should display GlobalSpinner while loading data', async () => {
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+    await waitFor(() => {
+      expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
+    });
+  });
+
+  test('should not display GlobalSpinner after loading data', async () => {
+    mockGetCurrentLeague.mockResolvedValue({
+      week: 1,
+    });
+    mockCreateWeeklyPicks.mockResolvedValue({});
+
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+    await waitFor(() => {
+      expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
+    });
   });
 
   test('should show success notification after changing your team pick', async () => {

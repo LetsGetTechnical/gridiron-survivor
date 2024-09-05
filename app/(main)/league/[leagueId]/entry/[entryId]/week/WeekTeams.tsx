@@ -50,15 +50,16 @@ const WeekTeams = ({
   userPick,
   onWeeklyPickChange,
 }: IWeekTeamsProps): JSX.Element => (
-  <>
+  <RadioGroup
+    onValueChange={(value: string) => onWeeklyPickChange(value)}
+    defaultValue={userPick}
+    value={userPick}
+    onChange={field.onChange}
+  >
     {schedule.map((scheduledGame) => (
-      <RadioGroup
-        onValueChange={(value: string) => onWeeklyPickChange(value)}
-        defaultValue={userPick}
-        value={userPick}
-        key={scheduledGame.id}
+      <div
         className="grid w-full grid-cols-2 gap-4 pb-8"
-        onChange={field.onChange}
+        key={scheduledGame.id}
       >
         <div className="week-page-game-schedule col-span-2 text-center">
           <p>{formatDateTime(scheduledGame.date)}</p>
@@ -77,8 +78,8 @@ const WeekTeams = ({
             </FormControl>
           </FormItem>
         ))}
-      </RadioGroup>
+      </div>
     ))}
-  </>
+  </RadioGroup>
 );
 export default WeekTeams;

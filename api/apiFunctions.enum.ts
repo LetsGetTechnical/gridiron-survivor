@@ -36,3 +36,40 @@ export enum GameWeek {
 export enum Document {
   CURRENT_GAME_WEEK = '664cfd88003c6cf2ff75',
 }
+
+/**
+ * Enum representing NFL teams with their corresponding unique identifiers.
+ */
+export enum NFLTeams {
+  '49ERS' = '49ers',
+  BEARS = 'Bears',
+  BENGALS = 'Bengals',
+  BILLS = 'Bills',
+  BRONCOS = 'Broncos',
+  BROWNS = 'Browns',
+  BUCCANEERS = 'Buccaneers',
+  CARDINALS = 'Cardinals',
+  CHARGERS = 'Chargers',
+  CHIEFS = 'Chiefs',
+  COMMANDERS = 'Commanders',
+  COWBOYS = 'Cowboys',
+  DOLPHINS = 'Dolphins',
+  EAGLES = 'Eagles',
+  FALCONS = 'Falcons',
+  GIANTS = 'Giants',
+  JAGUARS = 'Jaguars',
+  JETS = 'Jets',
+  LIONS = 'Lions',
+  PACKERS = 'Packers',
+  PANTHERS = 'Panthers',
+  PATRIOTS = 'Patriots',
+  RAIDERS = 'Raiders',
+  RAMS = 'Rams',
+  RAVENS = 'Ravens',
+  SAINTS = 'Saints',
+  SEAHAWKS = 'Seahawks',
+  STEELERS = 'Steelers',
+  TEXANS = 'Texans',
+  TITANS = 'Titans',
+  VIKINGS = 'Vikings',
+}

@@ -12,12 +12,12 @@ import Image from 'next/image';
 const GlobalSpinner = (): React.JSX.Element => (
   <div
     className="global-spinner grid h-screen place-content-center"
-    data-testId="global-spinner"
+    data-testid="global-spinner"
   >
     <Image
       alt="Gridiron Survivor logo fading in and out"
       className="animate-pulse h-64 w-64"
-      data-testId="global-spinner-image"
+      data-testid="global-spinner-image"
       height={100}
       src={GlobalSpinnerImage}
       width={100}

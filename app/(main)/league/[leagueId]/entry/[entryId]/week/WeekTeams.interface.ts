@@ -3,6 +3,7 @@
 
 import { ControllerRenderProps, FieldValues } from 'react-hook-form';
 import { INFLTeam } from '@/api/apiFunctions.interface';
+import { NFLTeams } from '@/api/apiFunctions.enum';
 
 export interface ISchedule {
   id: string;
@@ -30,7 +31,7 @@ export interface IWeekTeamsProps {
   selectedTeams: INFLTeam[];
   userPick: string;
   // eslint-disable-next-line no-unused-vars
-  onWeeklyPickChange: (teamSelect: string) => Promise<void>;
+  onWeeklyPickChange: (teamSelect: NFLTeams) => Promise<void>;
 }
 
 interface ICompetition {
