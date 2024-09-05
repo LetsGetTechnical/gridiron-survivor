@@ -33,7 +33,6 @@ type LeagueFormInputs = z.infer<typeof leagueSchema>;
 const Leagues = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
   const { user, updateUser, allLeagues, updateAllLeagues } = useDataStore(
     (state) => state,
   );
