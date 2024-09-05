@@ -36,6 +36,7 @@ const Entry = ({
   const [entries, setEntries] = useState<IEntry[]>([]);
   const [leagueName, setLeagueName] = useState<string>('');
   const [loadingData, setLoadingData] = useState<boolean>(true);
+  const [addingEntry, setAddingEntry] = useState<boolean>(false);
   const [survivors, setSurvivors] = useState<number>(0);
   const [totalPlayers, setTotalPlayers] = useState<number>(0);
   const { user } = useDataStore((state) => state);
@@ -103,11 +104,17 @@ const Entry = ({
     user,
     league,
   }: IEntryProps): Promise<void> => {
+    if (entries.length >= MAX_ENTRIES) {
+      return;
+    }
+    setAddingEntry(true);
     try {
       const createdEntry = await createEntry({ name, user, league });
       setEntries([...entries, createdEntry]);
     } catch (error) {
       console.error(error);
+    } finally {
+      setAddingEntry(false);
     }
   };
 
@@ -164,9 +171,10 @@ const Entry = ({
               </Heading>
             </div>
           </header>
-          {entries.length > 0 ? (
-            <section className="flex flex-col gap-3">
-              {entries.map((entry) => {
+
+          <section className="flex flex-col gap-3">
+            {entries.length > 0 &&
+              entries.map((entry) => {
                 const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
                 const isPickSet =
                   entry.selectedTeams && entry.selectedTeams.length > 0;
@@ -189,51 +197,36 @@ const Entry = ({
                 );
               })}
 
-              <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
-                {entries.length < MAX_ENTRIES && (
-                  <Button
-                    icon={<PlusCircle className="mr-2" />}
-                    variant="outline"
-                    onClick={() =>
-                      addNewEntry({
-                        name: `Entry ${entries.length + 1}`,
-                        user: user.id,
-                        league: leagueId,
-                      })
-                    }
-                    data-testid="add-new-entry-button"
-                  >
-                    Add New Entry
-                  </Button>
-                )}
-                {currentWeek > 1 && (
-                  <Link
-                    className="text-orange-600 hover:text-orange-500 font-bold hover:underline"
-                    data-testid="past-weeks-link"
-                    href={`#`}
-                  >
-                    View Past Weeks
-                  </Link>
-                )}
-              </div>
-            </section>
-          ) : (
-            <div className="flex justify-center items-center mt-2 mb-2 w-full">
-              <Button
-                icon={<PlusCircle className="mr-2" />}
-                variant="outline"
-                onClick={() =>
-                  addNewEntry({
-                    name: `Entry ${entries.length + 1}`,
-                    user: user.id,
-                    league: leagueId,
-                  })
-                }
-              >
-                Add New Entry
-              </Button>
+            <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
+              {entries.length < MAX_ENTRIES && (
+                <Button
+                  icon={<PlusCircle className="mr-2" />}
+                  variant="outline"
+                  onClick={() =>
+                    addNewEntry({
+                      name: `Entry ${entries.length + 1}`,
+                      user: user.id,
+                      league: leagueId,
+                    })
+                  }
+                  data-testid="add-new-entry-button"
+                  disabled={addingEntry}
+                >
+                  {addingEntry ? 'Adding...' : 'Add New Entry'}
+                </Button>
+              )}
+
+              {currentWeek > 1 && (
+                <Link
+                  className="text-orange-600 hover:text-orange-500 font-bold hover:underline"
+                  data-testid="past-weeks-link"
+                  href={`#`}
+                >
+                  View Past Weeks
+                </Link>
+              )}
             </div>
-          )}
+          </section>
         </div>
       )}
     </>
