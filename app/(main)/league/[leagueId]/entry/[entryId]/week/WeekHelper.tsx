@@ -2,7 +2,11 @@
 // Licensed under the MIT License.
 
 import React from 'react';
-import { createWeeklyPicks } from '@/api/apiFunctions';
+import {
+  createWeeklyPicks,
+  getCurrentUserEntries,
+  updateEntry,
+} from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
@@ -10,9 +14,9 @@ import { toast } from 'react-hot-toast';
 import { IWeeklyPickChange } from './Week.interface';
 
 /**
- * Handles the form submission.
- * @param props - data, NFLTeams, user, entry, weeklyPicks, league, week, updateWeeklyPicks, setUserPick
- * @param props.data - The form data.
+ * Handles the weekly pick team change.
+ * @param props - teamSelect, NFLTeams, user, entry, weeklyPicks, league, week, updateWeeklyPicks, setUserPick
+ * @param props.teamSelect - The selected team name
  * @param props.NFLTeams - Props for NFL teams
  * @param props.user - Props for user
  * @param props.entry - Prop for the entry string
@@ -24,7 +28,7 @@ import { IWeeklyPickChange } from './Week.interface';
  * @returns {void}
  */
 export const onWeeklyPickChange = async ({
-  data,
+  teamSelect,
   entry,
   league,
   NFLTeams,
@@ -35,7 +39,6 @@ export const onWeeklyPickChange = async ({
   week,
 }: IWeeklyPickChange): Promise<void> => {
   try {
-    const teamSelect = data.target.value;
     const teamID = NFLTeams.find(
       (team) => team.teamName === teamSelect,
     )?.teamName;
@@ -60,6 +63,19 @@ export const onWeeklyPickChange = async ({
       leagueId: league,
       gameWeekId: week,
       userResults: updatedWeeklyPicks,
+    });
+
+    const leagueEntryData = await getCurrentUserEntries(user.id, league);
+
+    const currentEntry = leagueEntryData.find(
+      (leagueEntry) => leagueEntry.$id === entry,
+    );
+
+    const currentEntrySelectedTeams = currentEntry?.selectedTeams || [];
+    currentEntrySelectedTeams[parseInt(week) - 1] = teamSelect;
+    await updateEntry({
+      entryId: entry,
+      selectedTeams: currentEntrySelectedTeams,
     });
 
     // update weekly picks in the data store

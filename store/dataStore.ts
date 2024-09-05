@@ -13,8 +13,9 @@ import {
 
 //Define the shape of the state
 interface IDataStoreState {
+  currentWeek: number;
   user: IUser;
-  NFLTeam: INFLTeam[];
+  NFLTeams: INFLTeam[];
   weeklyPicks: IWeeklyPicks;
   league: ILeague;
   gameWeek: IGameWeek;
@@ -26,7 +27,8 @@ interface IDataStoreState {
 //Define the actions that can be performed on the state
 interface IDataStoreAction {
   resetUser: () => void;
-  updateNFLTeam: (updatedTeam: INFLTeam[]) => void;
+  updateCurrentWeek: (week: number) => void;
+  updateNFLTeams: (updatedTeam: INFLTeam[]) => void;
   updateUser: (
     documentId: IUser['documentId'],
     id: IUser['id'],
@@ -54,7 +56,8 @@ export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
 //creating the initial state
 const initialState: IDataStoreState = {
-  NFLTeam: [],
+  currentWeek: 1,
+  NFLTeams: [],
   user: {
     documentId: '',
     id: '',
@@ -83,6 +86,7 @@ const initialState: IDataStoreState = {
 //create the store
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
+  updateCurrentWeek: (week: number): void => set({ currentWeek: week }),
   /**
    * Reset the user state
    * @returns {void}
@@ -93,10 +97,10 @@ export const useDataStore = create<DataStore>((set) => ({
    * @param updatedTeam - The updated team
    * @returns {void}
    */
-  updateNFLTeam: (updatedTeam: INFLTeam[]): void =>
+  updateNFLTeams: (updatedTeams: INFLTeam[]): void =>
     set(
       produce((state: IDataStoreState) => ({
-        NFLTeam: [...state.NFLTeam, ...updatedTeam],
+        NFLTeams: [...state.NFLTeams, ...updatedTeams],
       })),
     ),
   /**

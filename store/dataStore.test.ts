@@ -8,7 +8,7 @@ const userData = {
   leagues: ['123456'],
 };
 
-const NFLTeam = [
+const NFLTeams = [
   {
     teamId: '1',
     teamName: 'New England Patriots',
@@ -85,17 +85,17 @@ describe('Data Store', () => {
   describe('NFL Teams Test', () => {
     it('Check the default NFL Teams state', () => {
       const { result } = renderHook(() => useDataStore());
-      expect(result.current.NFLTeam).toStrictEqual([]);
+      expect(result.current.NFLTeams).toStrictEqual([]);
     });
     it('Check the updated NFL Teams state', () => {
       const { result } = renderHook(() => useDataStore());
 
       act(() => {
-        result.current.updateNFLTeam(NFLTeam);
+        result.current.updateNFLTeams(NFLTeams);
       });
 
-      expect(result.current.NFLTeam[0]).toBe(NFLTeam[0]);
-      expect(result.current.NFLTeam[1]).toBe(NFLTeam[1]);
+      expect(result.current.NFLTeams[0]).toBe(NFLTeams[0]);
+      expect(result.current.NFLTeams[1]).toBe(NFLTeams[1]);
     });
   });
 
