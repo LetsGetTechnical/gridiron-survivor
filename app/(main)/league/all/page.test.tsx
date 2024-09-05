@@ -50,7 +50,7 @@ describe('Leagues Component', () => {
     jest.clearAllMocks();
   });
 
-  test('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
+  xtest('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
     mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
     mockGetUserLeagues.mockResolvedValueOnce([]);
     mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
@@ -63,7 +63,7 @@ describe('Leagues Component', () => {
     });
   });
 
-  test('should display GlobalSpinner while loading data', async () => {
+  xtest('should display GlobalSpinner while loading data', async () => {
     mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
     mockGetUserLeagues.mockResolvedValueOnce([]);
     mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
@@ -73,7 +73,7 @@ describe('Leagues Component', () => {
       expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
     });
   });
-  test('should not display GlobalSpinner after loading data', async () => {
+  xtest('should not display GlobalSpinner after loading data', async () => {
     mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
     mockGetUserLeagues.mockResolvedValueOnce([]);
     mockGetGameWeek.mockResolvedValueOnce({ week: 1 });

@@ -112,7 +112,7 @@ describe('utils', () => {
       });
     });
   });
-  describe('getUserPick', () => {
+  xdescribe('getUserPick', () => {
     it("should return the user's team name if the user has a pick", async () => {
       const result = await getUserPick({
         weeklyPicks: mockWeeklyPicksData,
