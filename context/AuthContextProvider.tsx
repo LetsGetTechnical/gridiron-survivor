@@ -90,7 +90,12 @@ export const AuthContextProvider = ({
     try {
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
-      updateUser(userData.id, userData.email, userData.leagues);
+      updateUser(
+        userData.documentId,
+        userData.id,
+        userData.email,
+        userData.leagues,
+      );
       return userData;
     } catch (error) {
       resetUser();
