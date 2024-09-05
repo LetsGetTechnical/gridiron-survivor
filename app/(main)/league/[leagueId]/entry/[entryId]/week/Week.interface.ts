@@ -8,6 +8,7 @@ import {
   IWeeklyPicks,
   IUser,
 } from '@/api/apiFunctions.interface';
+import { NFLTeams } from '@/api/apiFunctions.enum';
 
 export interface IWeekParams {
   params: {
@@ -18,7 +19,7 @@ export interface IWeekParams {
 }
 
 export interface IWeeklyPickChange {
-  teamSelect: string;
+  teamSelect: NFLTeams;
   entry: string;
   league: string;
   NFLTeams: INFLTeam[];
