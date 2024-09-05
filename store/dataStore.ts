@@ -19,6 +19,7 @@ interface IDataStoreState {
   weeklyPicks: IWeeklyPicks;
   league: ILeague;
   gameWeek: IGameWeek;
+  allLeagues: ILeague[];
 }
 
 /* eslint-disable */
@@ -29,6 +30,7 @@ interface IDataStoreAction {
   updateCurrentWeek: (week: number) => void;
   updateNFLTeams: (updatedTeam: INFLTeam[]) => void;
   updateUser: (
+    documentId: IUser['documentId'],
     id: IUser['id'],
     email: IUser['email'],
     leagues: IUser['leagues'],
@@ -46,6 +48,7 @@ interface IDataStoreAction {
     survivors,
   }: ILeague) => void;
   updateGameWeek: (gameWeek: IGameWeek) => void;
+  updateAllLeagues: (allLeagues: ILeague[]) => void;
 }
 /* eslint-disable */
 
@@ -56,6 +59,7 @@ const initialState: IDataStoreState = {
   currentWeek: 1,
   NFLTeams: [],
   user: {
+    documentId: '',
     id: '',
     email: '',
     leagues: [],
@@ -76,6 +80,7 @@ const initialState: IDataStoreState = {
     id: '',
     week: 0,
   },
+  allLeagues: [],
 };
 
 //create the store
@@ -103,11 +108,13 @@ export const useDataStore = create<DataStore>((set) => ({
    * @param id - The user id
    * @param email - The user email
    * @param leagues - The user league
+   * @param selectedLeagues - The user selected league
    * @returns {void}
    */
-  updateUser: (id, email, leagues): void =>
+  updateUser: (documentId, id, email, leagues): void =>
     set(
       produce((state: IDataStoreState) => {
+        state.user.documentId = documentId;
         state.user.id = id;
         state.user.email = email;
         state.user.leagues = [...leagues];
@@ -171,6 +178,18 @@ export const useDataStore = create<DataStore>((set) => ({
       produce((state: IDataStoreState) => {
         state.gameWeek.id = id;
         state.gameWeek.week = week;
+      }),
+    ),
+  /**
+   * Updates all leagues in the data store.
+   *
+   * @param {IAllLeagues} props - The league properties to update..
+   * @returns {void}
+   */
+  updateAllLeagues: (updatedLeagues: ILeague[]): void =>
+    set(
+      produce((state: IDataStoreState) => {
+        state.allLeagues = [...state.allLeagues, ...updatedLeagues];
       }),
     ),
 }));
