@@ -21,8 +21,9 @@ import {
   getAllWeeklyPicks,
   getCurrentUserEntries,
   getCurrentLeague,
+  getGameWeek,
 } from '@/api/apiFunctions';
-import { ILeague, INFLTeam } from '@/api/apiFunctions.interface';
+import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
@@ -40,12 +41,25 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
-  const [selectedTeams, setSelectedTeams] = useState<INFLTeam[]>([]);
+  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [userPick, setUserPick] = useState<string>('');
-  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
-    (state) => state,
-  );
+  const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
+    useDataStore((state) => state);
+
+  /**
+   * Fetches the current game week.
+   * @returns {Promise<void>}
+   */
+  const getCurrentGameWeek = async (): Promise<void> => {
+    try {
+      const getCurrentWeek = await getGameWeek();
+      updateCurrentWeek(getCurrentWeek.week);
+    } catch (error) {
+      console.error('Error getting current week:', error);
+      throw new Error('Error getting current week');
+    }
+  };
 
   /**
    * Fetches the selected league.
@@ -163,6 +177,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       weeklyPicks,
       week,
     };
+
     try {
       await onWeeklyPickChange(params);
     } catch (error) {
@@ -179,6 +194,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   }, [week, selectedLeague]);
 
   useEffect(() => {
+    getCurrentGameWeek();
     getUserSelectedTeams();
     getUserWeeklyPick();
   }, [user]);

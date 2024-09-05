@@ -28,7 +28,7 @@ export interface ISchedule {
 export interface IWeekTeamsProps {
   field: ControllerRenderProps<FieldValues, string>;
   schedule: ISchedule[];
-  selectedTeams: INFLTeam[];
+  selectedTeams: INFLTeam['teamName'][];
   userPick: string;
   // eslint-disable-next-line no-unused-vars
   onWeeklyPickChange: (teamSelect: NFLTeams) => Promise<void>;

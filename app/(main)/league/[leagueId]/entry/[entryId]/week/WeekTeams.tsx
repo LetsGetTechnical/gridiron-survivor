@@ -7,6 +7,7 @@ import { RadioGroup } from '@radix-ui/react-radio-group';
 import { IWeekTeamsProps } from './WeekTeams.interface';
 import { WeeklyPickButton } from '@/components/WeeklyPickButton/WeeklyPickButton';
 import { hasTeamBeenPicked } from '@/utils/utils';
+import { NFLTeams } from '@/api/apiFunctions.enum';
 
 /**
  * Formats the date to 'day, mon date' format and the time to either 12 or 24-hour format based on the user's locale.
@@ -51,7 +52,7 @@ const WeekTeams = ({
   onWeeklyPickChange,
 }: IWeekTeamsProps): JSX.Element => (
   <RadioGroup
-    onValueChange={(value: string) => onWeeklyPickChange(value)}
+    onValueChange={(value: string) => onWeeklyPickChange(value as NFLTeams)}
     defaultValue={userPick}
     value={userPick}
     onChange={field.onChange}

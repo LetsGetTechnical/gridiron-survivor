@@ -301,3 +301,32 @@ export async function createEntry({
     throw new Error('Error creating entry');
   }
 }
+
+/**
+ * Update an entry
+ * @param props - The entry data
+ * @param props.entryId - The entry ID
+ * @param props.selectedTeams - The selected teams
+ * @returns {Models.Document | Error} - The entry object or an error
+ */
+export async function updateEntry({
+  entryId,
+  selectedTeams,
+}: {
+  entryId: string;
+  selectedTeams: INFLTeam['teamName'][];
+}): Promise<Models.Document & IEntry> {
+  try {
+    return await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      entryId,
+      {
+        selectedTeams,
+      },
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error updating entry');
+  }
+}

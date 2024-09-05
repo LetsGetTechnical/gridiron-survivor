@@ -2,7 +2,11 @@
 // Licensed under the MIT License.
 
 import React from 'react';
-import { createWeeklyPicks } from '@/api/apiFunctions';
+import {
+  createWeeklyPicks,
+  getCurrentUserEntries,
+  updateEntry,
+} from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
@@ -59,6 +63,19 @@ export const onWeeklyPickChange = async ({
       leagueId: league,
       gameWeekId: week,
       userResults: updatedWeeklyPicks,
+    });
+
+    const leagueEntryData = await getCurrentUserEntries(user.id, league);
+
+    const currentEntry = leagueEntryData.find(
+      (leagueEntry) => leagueEntry.$id === entry,
+    );
+
+    const currentEntrySelectedTeams = currentEntry?.selectedTeams || [];
+    currentEntrySelectedTeams[parseInt(week) - 1] = teamSelect;
+    await updateEntry({
+      entryId: entry,
+      selectedTeams: currentEntrySelectedTeams,
     });
 
     // update weekly picks in the data store

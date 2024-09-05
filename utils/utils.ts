@@ -5,7 +5,6 @@ import {
   IGameWeek,
   IUser,
   IUserPick,
-  INFLTeam
 } from '@/api/apiFunctions.interface';
 import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries } from '@/api/apiFunctions';
 import { clsx, type ClassValue } from 'clsx';
@@ -16,6 +15,7 @@ import {
 } from './utils.interface';
 import { ILeague } from '@/api/apiFunctions.interface';
 import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
+import { useDataStore } from '@/store/dataStore';
 
 /**
  * Combine class names
@@ -152,6 +152,7 @@ export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['lea
  * @param selectedTeams - the user's selected teams
  * @returns {boolean} - Whether the team has already been picked
  */
-export const hasTeamBeenPicked = (teamName: string, selectedTeams: INFLTeam[]): boolean => {
-  return selectedTeams.find((team) => team.teamName === teamName) ? true : false;
+export const hasTeamBeenPicked = (teamName: string, selectedTeams: string[]): boolean => {
+  const currentWeek = useDataStore.getState().currentWeek;
+  return selectedTeams.some((team, index) => index !== (currentWeek - 1) && team === teamName) ? true : false;
 }
