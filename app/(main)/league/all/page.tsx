@@ -16,6 +16,15 @@ import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import React, { JSX, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const leagueSchema = z.object({
+  selectedLeague: z.string().nonempty('Please select a league'),
+});
+
+type LeagueFormInputs = z.infer<typeof leagueSchema>;
 
 /**
  * Renders the leagues component.
@@ -29,6 +38,9 @@ const Leagues = (): JSX.Element => {
     (state) => state,
   );
   const { isSignedIn } = useAuthContext();
+  const { handleSubmit, control } = useForm<LeagueFormInputs>({
+    resolver: zodResolver(leagueSchema),
+  });
 
   /**
    * Fetches all leagues and leagues user is a part of from the database.
@@ -58,19 +70,18 @@ const Leagues = (): JSX.Element => {
   };
 
   useEffect(() => {
-    isSignedIn && fetchData();
+    if (isSignedIn) {
+      fetchData();
+    }
   }, [isSignedIn]);
 
   /**
-   * Checks if leagueId already exists, then can't select this league
-   * Adds the selected league to the current user's leagues.
+   * Handles the form submission.
+   * @param {LeagueFormInputs} data - The data from the form.
+   * @throws {Error} Throws an error if the selected league is not provided.
    */
-  const handleAddLeague = async (): Promise<void> => {
-    if (!selectedLeague) {
-      alert('Please select a league to join.');
-      return;
-    }
-
+  const onSubmit: SubmitHandler<LeagueFormInputs> = async (data) => {
+    const { selectedLeague } = data;
     const league = allLeagues.find(
       (league) => league.leagueId === selectedLeague,
     );
@@ -80,16 +91,13 @@ const Leagues = (): JSX.Element => {
       return;
     }
 
-    const leagueParticipants = league?.participants;
-    const leagueSurvivors = league?.survivors;
-
     try {
       await addUserToLeague({
         userDocumentId: user.documentId,
         selectedLeague: league.leagueId,
         selectedLeagues: [...(user.leagues ?? []), league.leagueId],
-        participants: [...(leagueParticipants ?? []), user.id],
-        survivors: [...(leagueSurvivors ?? []), user.id],
+        participants: [...(league.participants ?? []), user.id],
+        survivors: [...(league.survivors ?? []), user.id],
       });
 
       setLeagues([...leagues, league]);
@@ -147,33 +155,53 @@ const Leagues = (): JSX.Element => {
             )}
           </section>
 
-          <div className="mb-8">
-            <label
-              htmlFor="available-leagues"
-              className="block text-lg font-medium mb-2"
-            >
-              Select league to join
-            </label>
-            <select
-              id="available-leagues"
-              value={selectedLeague || ''}
-              onChange={(e) => setSelectedLeague(e.target.value)}
-              className="border rounded p-2 w-full dark:text-secondary"
-            >
-              <option value="">Select league</option>
-              {allLeagues
-                .filter((league) => !user.leagues.includes(league.leagueId))
-                .map((league) => (
-                  <option
-                    key={`${league.leagueId}-${league.leagueName}`}
-                    value={league.leagueId}
-                  >
-                    {league.leagueName}
-                  </option>
-                ))}
-            </select>
-            <Button onClick={handleAddLeague}>Join League</Button>
-          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-8">
+              <label
+                htmlFor="available-leagues"
+                className="block text-lg font-medium mb-2"
+              >
+                Select league to join
+              </label>
+              <Controller
+                name="selectedLeague"
+                control={control}
+                defaultValue=""
+                // rules={{ required: 'Please select a league' }}
+                render={({ field, fieldState }) => (
+                  <>
+                    <select
+                      {...field}
+                      id="available-leagues"
+                      className={`border rounded p-2 w-full dark:text-secondary ${
+                        fieldState.error ? 'border-red-500' : ''
+                      }`}
+                    >
+                      <option value="">Select league</option>
+                      {allLeagues
+                        .filter(
+                          (league) => !user.leagues.includes(league.leagueId),
+                        )
+                        .map((league) => (
+                          <option
+                            key={`${league.leagueId}-${league.leagueName}`}
+                            value={league.leagueId}
+                          >
+                            {league.leagueName}
+                          </option>
+                        ))}
+                    </select>
+                    {fieldState.error && (
+                      <span className="text-red-500">
+                        {fieldState.error.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+            <Button type="submit">Join League</Button>
+          </form>
         </>
       )}
     </div>

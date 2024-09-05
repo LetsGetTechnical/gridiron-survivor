@@ -320,8 +320,7 @@ export async function getAllLeagues(): Promise<ILeague[]> {
 
     return leagues;
   } catch (error) {
-    console.error(error);
-    throw new Error('Error getting all leagues');
+    throw new Error('Error getting all leagues', { cause: error });
   }
 }
 /**
@@ -344,8 +343,7 @@ export const getUserDocumentId = async (userId: string): Promise<string> => {
     // Assuming only one document per userId
     return response.documents[0].$id;
   } catch (error) {
-    console.error('Error getting user document ID:', error);
-    throw new Error('Error getting user document ID');
+    throw new Error('Error getting user document ID', { cause: error });
   }
 };
 
@@ -391,7 +389,6 @@ export async function addUserToLeague({
       },
     );
   } catch (error) {
-    console.error('Error adding user to league', error);
-    throw new Error('Error adding user to league');
+    throw new Error('Error getting user document ID', { cause: error });
   }
 }
