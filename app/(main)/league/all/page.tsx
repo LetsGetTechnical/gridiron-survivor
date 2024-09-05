@@ -160,6 +160,7 @@ const Leagues = (): JSX.Element => {
               <label
                 htmlFor="available-leagues"
                 className="block text-lg font-medium mb-2"
+                data-testid="available-leagues-label"
               >
                 Select league to join
               </label>
