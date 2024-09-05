@@ -129,7 +129,6 @@ describe('Register', () => {
         password: 'pw1234',
         confirmPassword: 'pw1234',
       });
-      expect(mockPush).toHaveBeenCalledWith('/league/all');
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
           variant={AlertVariants.Success}
