@@ -8,10 +8,10 @@ export interface IAccountData {
   password: string;
 }
 export interface IUser {
+  documentId: string;
   id: string;
   email: string;
   leagues: string[];
-  selectedLeagues?: string[];
 }
 export interface IUserPick {
   [userId: string]: {
@@ -47,12 +47,4 @@ export interface ILeague {
 export interface IGameWeek {
   id: string;
   week: number;
-}
-
-export interface IAllLeagues {
-  leagueId: string;
-  leagueName: string;
-  logo: string;
-  participants: string[];
-  survivors: string[];
 }

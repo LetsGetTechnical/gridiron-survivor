@@ -7,135 +7,100 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { Button } from '@/components/Button/Button';
-import { getUserLeagues, fetchAvailableLeagues } from '@/utils/utils';
-import { ILeague, IAllLeagues } from '@/api/apiFunctions.interface';
-import { addUserToLeague } from '@/api/apiFunctions';
+import { getUserLeagues } from '@/utils/utils';
+import { ILeague } from '@/api/apiFunctions.interface';
+import { addUserToLeague, getAllLeagues } from '@/api/apiFunctions';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import React, { JSX, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useAuthContext } from '@/context/AuthContextProvider';
 
 /**
  * Renders the leagues component.
  * @returns {JSX.Element} The rendered leagues component.
  */
 const Leagues = (): JSX.Element => {
-  const [availableLeagues, setAvailableLeagues] = useState<IAllLeagues[]>([]);
   const [leagues, setLeagues] = useState<ILeague[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const [selectedLeagues, setSelectedLeagues] = useState<string | null>(null);
-  const { user } = useDataStore((state) => state);
+  const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
+  const { user, updateUser, allLeagues, updateAllLeagues } = useDataStore(
+    (state) => state,
+  );
+  const { isSignedIn } = useAuthContext();
 
   /**
-   * Fetches all available leagues.
-   * @param root0
-   * @param root0.participants
-   * @param root0.survivors
-   * @returns {Promise<void>}
+   * Fetches all leagues and leagues user is a part of from the database.
    */
-  const fetchLeagues = async (): Promise<void> => {
+  const fetchData = async (): Promise<void> => {
     try {
-      const leagues = await fetchAvailableLeagues();
-      console.log(leagues);
-      setAvailableLeagues(leagues);
-    } catch (error) {
-      throw new Error('Error fetching available leagues');
-    } finally {
-      setLoadingData(false);
-    }
-  };
+      // Only fetch all leagues if they're not already in the store
+      if (allLeagues.length === 0) {
+        const fetchedLeagues = await getAllLeagues();
+        updateAllLeagues(fetchedLeagues);
+      }
 
-  /**
-   * Fetches the user's leagues.
-   * @returns {Promise<void>}
-   */
-  const getLeagues = async (): Promise<void> => {
-    try {
-      const userLeagues = await getUserLeagues(user.leagues);
-      setLeagues(userLeagues);
+      // Fetch user leagues
+      const fetchedUserLeagues = await getUserLeagues(user.leagues);
+      setLeagues(fetchedUserLeagues);
     } catch (error) {
-      throw new Error('Error fetching user leagues');
+      console.error('Error fetching leagues:', error);
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Error}
+          message="Failed to fetch leagues. Please try again."
+        />,
+      );
     } finally {
       setLoadingData(false);
     }
   };
 
   useEffect(() => {
-    if (!user.id || user.id === '') {
-      return;
-    }
-
-    fetchLeagues();
-    getLeagues();
-  }, [user]);
-
-  /**
-   * Handles league selection from dropdown.
-   * @param {React.ChangeEvent<HTMLSelectElement>} event
-   */
-  const handleLeagueChange = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ): void => {
-    setSelectedLeagues(event.target.value);
-  };
+    isSignedIn && fetchData();
+  }, [isSignedIn]);
 
   /**
    * Checks if leagueId already exists, then can't select this league
    * Adds the selected league to the current user's leagues.
    */
   const handleAddLeague = async (): Promise<void> => {
-    const { user, updateUser } = useDataStore.getState();
-    if (!selectedLeagues) {
+    if (!selectedLeague) {
       alert('Please select a league to join.');
       return;
     }
 
-    const isLeagueAlreadySelected = user.leagues?.some(
-      (leagueId: string) => leagueId === selectedLeagues,
+    const league = allLeagues.find(
+      (league) => league.leagueId === selectedLeague,
     );
 
-    if (isLeagueAlreadySelected) {
-      toast.custom(
-        <Alert
-          variant={AlertVariants.Warning}
-          message="You have already selected this league. Please choose a different one."
-        />,
-      );
+    if (!league) {
+      alert('Please select a valid league.');
       return;
     }
 
-    const selectedLeague = availableLeagues.find(
-      (league) => league.leagueId === selectedLeagues,
-    );
-
-    const leagueName = selectedLeague
-      ? selectedLeague.leagueName
-      : 'Unknown League';
-
-    const leagueParticipants = selectedLeague?.participants;
-
-    const leagueSurvivors = selectedLeague?.survivors;
+    const leagueParticipants = league?.participants;
+    const leagueSurvivors = league?.survivors;
 
     try {
       await addUserToLeague({
-        userId: user.id,
-        selectedLeague: selectedLeagues,
-        selectedLeagues: [...(user.leagues ?? []), selectedLeagues],
+        userDocumentId: user.documentId,
+        selectedLeague: league.leagueId,
+        selectedLeagues: [...(user.leagues ?? []), league.leagueId],
         participants: [...(leagueParticipants ?? []), user.id],
         survivors: [...(leagueSurvivors ?? []), user.id],
       });
 
-      updateUser(
-        user.id,
-        user.email,
-        [...(user.leagues ?? []), selectedLeagues],
-        [...(user.selectedLeagues ?? []), selectedLeagues],
-      );
+      setLeagues([...leagues, league]);
+      updateUser(user.documentId, user.id, user.email, [
+        ...user.leagues,
+        league.leagueId,
+      ]);
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
-          message={`You have successfully pick the ${leagueName} for your team!`}
+          message={`Added ${league.leagueName} to your leagues!`}
         />,
       );
     } catch (error) {
@@ -146,6 +111,8 @@ const Leagues = (): JSX.Element => {
           message="Failed to add the league. Please try again."
         />,
       );
+    } finally {
+      setSelectedLeague(null);
     }
   };
 
@@ -189,16 +156,21 @@ const Leagues = (): JSX.Element => {
             </label>
             <select
               id="available-leagues"
-              value={selectedLeagues || ''}
-              onChange={handleLeagueChange}
-              className="border rounded p-2 w-full"
+              value={selectedLeague || ''}
+              onChange={(e) => setSelectedLeague(e.target.value)}
+              className="border rounded p-2 w-full dark:text-secondary"
             >
               <option value="">Select league</option>
-              {availableLeagues.map((league) => (
-                <option value={league.leagueId} key={league.leagueId}>
-                  {league.leagueName}
-                </option>
-              ))}
+              {allLeagues
+                .filter((league) => !user.leagues.includes(league.leagueId))
+                .map((league) => (
+                  <option
+                    key={`${league.leagueId}-${league.leagueName}`}
+                    value={league.leagueId}
+                  >
+                    {league.leagueName}
+                  </option>
+                ))}
             </select>
             <Button onClick={handleAddLeague}>Join League</Button>
           </div>

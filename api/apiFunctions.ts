@@ -10,7 +10,6 @@ import {
   IUser,
   IWeeklyPicks,
   INFLTeam,
-  IAllLeagues,
 } from './apiFunctions.interface';
 import { Collection, Document } from './apiFunctions.enum';
 import { Query } from 'appwrite';
@@ -83,6 +82,7 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
       [Query.equal('userId', userId)],
     );
     return {
+      documentId: user.documents[0].$id,
       id: user.documents[0].userId,
       email: user.documents[0].email,
       leagues: user.documents[0].leagues,
@@ -300,16 +300,17 @@ export async function createEntry({
 
 /**
  * Retrieves a list of all leagues.
- * @returns {ILeague[]} A list of all available leagues.
+ * @returns {Models.Document[]} A list of all available leagues.
  */
-export async function getAllLeagues(): Promise<IAllLeagues[]> {
+export async function getAllLeagues(): Promise<ILeague[]> {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.LEAGUE,
     );
 
-    const allLeagues = response.documents.map((league) => ({
+    // loop through leagues and return ILeague[] instead of Models.Document[]
+    const leagues = response.documents.map((league) => ({
       leagueId: league.$id,
       leagueName: league.leagueName,
       logo: '',
@@ -317,7 +318,7 @@ export async function getAllLeagues(): Promise<IAllLeagues[]> {
       survivors: league.survivors,
     }));
 
-    return allLeagues;
+    return leagues;
   } catch (error) {
     console.error(error);
     throw new Error('Error getting all leagues');
@@ -350,31 +351,31 @@ export const getUserDocumentId = async (userId: string): Promise<string> => {
 
 /**
  * Adds a user to a league by updating the user's entry document.
- * @param {string} userId - The ID of the user to add to the league.
- * @param {string} leagueId - The ID of the league to add the user to.
- * @param updatedData
+ * @param {string} userDocumentId - The ID of the user to add to the league.
+ * @param {string} selectedLeague - The ID of the league to add the user to.
+ * @param selectedLeagues - The user selected leagues
+ * @param participants - The user's participants
+ * @param survivors - The user's survivors
  * @returns {Promise<void>} A promise that resolves when the user has been added to the league.
  */
 export async function addUserToLeague({
-  userId,
+  userDocumentId,
   selectedLeague,
   selectedLeagues,
   participants,
   survivors,
 }: {
-  userId: string;
+  userDocumentId: string;
   selectedLeague: string;
   selectedLeagues: string[];
   participants: string[];
   survivors: string[];
 }): Promise<void> {
   try {
-    const documentId = await getUserDocumentId(userId);
-
     await databases.updateDocument(
       appwriteConfig.databaseId,
       Collection.USERS,
-      documentId,
+      userDocumentId,
       {
         leagues: selectedLeagues,
       },
