@@ -8,7 +8,7 @@ import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
-import { IUser } from '@/api/apiFunctions.interface';
+import { ICollectionuser, IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { loginAccount, logoutHandler } from './AuthHelper';
 import { usePathname } from 'next/navigation';
@@ -50,8 +50,12 @@ export const AuthContextProvider = ({
       getUser();
       return;
     }
+
     setIsSignedIn(true);
-  }, [user]);
+    if (pathname.startsWith('/admin')) {
+      !user.labels.includes('admin') && router.push('/');
+    }
+  }, [user, pathname]);
 
   /**
    * Authenticate and set session state
@@ -89,9 +93,8 @@ export const AuthContextProvider = ({
 
     try {
       const user = await account.get();
-      const userData: IUser = await getCurrentUser(user.$id);
-      updateUser(userData.id, userData.email, userData.leagues);
-      return userData;
+      const userData: ICollectionuser = await getCurrentUser(user.$id);
+      updateUser(userData.id, userData.email, userData.leagues, user.labels);
     } catch (error) {
       resetUser();
       setIsSignedIn(false);

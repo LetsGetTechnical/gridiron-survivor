@@ -144,3 +144,12 @@ export const getUserLeagues = async (
 export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['leagueId']): Promise<IEntry[]> => {
   return await getCurrentUserEntries(userId, leagueId);
 }
+
+/**
+ * Check if the route is an /admin route
+ * @param path - The path to check
+ * @returns {boolean} - Whether the route is an /admin route
+ */
+export const isAdminRoute = (path: string): boolean => {
+  return path.startsWith('/admin');
+};
