@@ -66,7 +66,7 @@ export const Nav = (): JSX.Element => {
               <ul className="m-0 flex flex-col gap-4 p-0">
                 <li>
                   <Link
-                    data-testid="link-nav"
+                    data-testid="league-link"
                     href="/league/all"
                     className="pb-3 text-base font-normal text-zinc-600"
                   >

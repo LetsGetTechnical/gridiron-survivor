@@ -1,5 +1,4 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Leagues from '@/app/(main)/league/all/page';
 import Nav from './Nav';
 import Login from '@/app/(main)/login/page';
 import { useDataStore } from '@/store/dataStore';
@@ -39,10 +38,6 @@ jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
 }));
 
-jest.mock('@/utils/utils', () => ({
-  getUserLeagues: jest.fn(() => Promise.resolve([])),
-}));
-
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
@@ -65,16 +60,13 @@ describe('Nav', () => {
     jest.clearAllMocks();
   });
 
-  it('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
-    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
-    mockGetUserLeagues.mockResolvedValueOnce([]);
-    render(<Leagues />);
+  it('renders link to /league/all', () => {
+    render(<Nav />);
 
-    await waitFor(() => {
-      expect(
-        screen.getByText('You are not enrolled in any leagues'),
-      ).toBeInTheDocument();
-    });
+    let linkNav: HTMLElement;
+    linkNav = screen.getByTestId('league-link');
+    expect(linkNav).toBeInTheDocument();
+    expect(linkNav).toHaveAttribute('href', '/league/all');
   });
 
   it('it should render the default component state', () => {
