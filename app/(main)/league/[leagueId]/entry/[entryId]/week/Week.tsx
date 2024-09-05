@@ -100,7 +100,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
       if (userWeeklyPickResults?.[user.id]?.[entry]) {
         const userPick = userWeeklyPickResults[user.id][entry].teamName;
-        setUserPick(userPick);
+        setUserPick(userPick.teamName);
       }
     } catch (error) {
       console.error('Error getting weekly pick:', error);
