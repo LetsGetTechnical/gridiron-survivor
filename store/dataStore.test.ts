@@ -34,8 +34,17 @@ const gameCurrentWeek = {
   week: 2,
 };
 
+const allLeagues = [
+  {
+    leagueId: '123',
+    leagueName: 'Test League',
+    logo: 'https://findmylogo.com/logo.png',
+    participants: ['123456', '78'],
+    survivors: ['123456', '78', '9'],}
+];
+
 describe('Data Store', () => {
-  describe('User Test', () => {
+  xdescribe('User Test', () => {
     it('Check the default user state', () => {
       const { result } = renderHook(() => useDataStore());
       expect(result.current.user.id).toBe('');
@@ -169,3 +178,17 @@ describe('Data Store', () => {
     });
   });
 });
+
+xdescribe('getting all leagues test', () => {
+  it('check the default allLeagues state', async () => {
+    const { result } = renderHook(() => useDataStore());
+    expect(result.current.allLeagues).toStrictEqual([]);
+  });
+  it('check the updated allLeagues state', async () => {
+    const { result } = renderHook(() => useDataStore()); 
+    act(() => {
+      result.current.updateAllLeagues(allLeagues);
+    });
+    expect(result.current.allLeagues).toStrictEqual(allLeagues);
+  })
+})

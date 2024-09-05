@@ -69,7 +69,9 @@ export const onWeeklyPickChange = async ({
       userResults: updatedWeeklyPicks,
     });
 
-    setUserPick(currentUserPick[user.id][entry].teamName);
+    const teamName = currentUserPick[user.id][entry].teamName.teamName;
+
+    setUserPick(teamName);
 
     toast.custom(
       <Alert
