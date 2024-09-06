@@ -5,10 +5,21 @@ import {
   getGameWeek,
   getCurrentUserEntries,
   getCurrentLeague,
+  getNFLTeams,
 } from '@/api/apiFunctions';
 
 jest.mock('@/store/dataStore', () => ({
-  useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
+  useDataStore: jest.fn(() => ({
+    currentWeek: 1,
+    NFLTeams: [{
+      teamId: '1',
+      teamLogo: 'team-a-logo.png',
+      teamName: 'Packers',
+    }],
+    user: { id: '123', leagues: [] },
+    updateCurrentWeek: jest.fn(),
+    updateNFLTeams: jest.fn(),
+  })),
 }));
 
 jest.mock('@/api/apiFunctions', () => ({
@@ -25,6 +36,15 @@ jest.mock('@/api/apiFunctions', () => ({
       week: 1,
     }),
   ),
+  getNFLTeams: jest.fn(() =>
+    Promise.resolve([
+      {
+        teamId: '1',
+        teamLogo: 'team-a-logo.png',
+        teamName: 'Packers',
+      },
+    ]),
+  ),
 }));
 
 describe('League entries page (Entry Component)', () => {
@@ -38,10 +58,6 @@ describe('League entries page (Entry Component)', () => {
   });
 
   test('should display GlobalSpinner while loading data', async () => {
-    mockUseDataStore.mockReturnValueOnce({
-      user: { id: '123', leagues: [] },
-    });
-    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '66311a210039f0532044',
@@ -66,8 +82,6 @@ describe('League entries page (Entry Component)', () => {
   });
 
   test('should not display GlobalSpinner after data is loaded', async () => {
-    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
-    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '66311a210039f0532044',
@@ -96,8 +110,6 @@ describe('League entries page (Entry Component)', () => {
   });
 
   it('should display the header with the league name, survivors, and week number, without a past weeks link', async () => {
-    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
-    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '66311a210039f0532044',
@@ -147,8 +159,10 @@ describe('League entries page (Entry Component)', () => {
   });
 
   it('should display the header with the league name, survivors, and week number, with a past weeks link and add new entry button', async () => {
-    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
-    mockGetGameWeek.mockResolvedValueOnce({ week: 2 });
+    mockUseDataStore.mockReturnValue({
+      ...mockUseDataStore(),
+      currentWeek: 2,
+    });
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '66311a210039f0532044',
@@ -202,8 +216,10 @@ describe('League entries page (Entry Component)', () => {
   });
 
   it('should not display a button to add a new entry if there are more than 5 entries', async () => {
-    mockUseDataStore.mockReturnValueOnce({ user: { id: '123', leagues: [] } });
-    mockGetGameWeek.mockResolvedValueOnce({ week: 2 });
+    mockUseDataStore.mockReturnValue({
+      ...mockUseDataStore(),
+      currentWeek: 2,
+    });
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '66311a210039f0532044',
@@ -264,5 +280,51 @@ describe('League entries page (Entry Component)', () => {
     expect(
       screen.queryByTestId('add-new-entry-button'),
     ).not.toBeInTheDocument();
+  });
+  it('should display "Make Pick" button when no pick is set', async () => {
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        $id: '123',
+        name: 'Test Entry',
+        week: 1,
+        selectedTeams: [],
+      },
+    ]);
+
+    render(<Entry params={{ leagueId: '123' }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('league-entry-pick-button')).toHaveTextContent(
+        'Make Pick',
+      );
+    });
+  });
+
+  it('should render team logo and change button to "Change Pick" when a pick is made', async () => {
+    mockUseDataStore.mockReturnValue({
+      ...mockUseDataStore(),
+      currentWeek: 1,
+    });
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        $id: '123',
+        name: 'Test Entry',
+        week: 1,
+        selectedTeams: ['Packers'],
+      },
+    ]);
+    
+    render(<Entry params={{ leagueId: '123' }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('league-entry-logo')).toHaveAttribute(
+        'src',
+        'team-a-logo.png',
+      );
+
+      expect(screen.getByTestId('league-entry-pick-button')).toHaveTextContent(
+        'Change Pick',
+      );
+    });
   });
 });

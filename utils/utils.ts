@@ -15,6 +15,7 @@ import {
 } from './utils.interface';
 import { ILeague } from '@/api/apiFunctions.interface';
 import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
+import { useDataStore } from '@/store/dataStore';
 
 /**
  * Combine class names
@@ -82,7 +83,7 @@ export const getUserPick = async ({
   }
 
   const userTeamId = weeklyPicks[userId][entryId].teamName;
-  const userSelectedTeam = NFLTeams.find((team) => team.teamName === userTeamId);
+  const userSelectedTeam = NFLTeams.find((team) => team.teamName === userTeamId.teamName);
 
   return userSelectedTeam?.teamName || '';
 };
@@ -143,4 +144,15 @@ export const getUserLeagues = async (
  */
 export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['leagueId']): Promise<IEntry[]> => {
   return await getCurrentUserEntries(userId, leagueId);
+}
+
+/**
+ * Returns if the team has already been picked by the user
+ * @param teamName - The team name
+ * @param selectedTeams - the user's selected teams
+ * @returns {boolean} - Whether the team has already been picked
+ */
+export const hasTeamBeenPicked = (teamName: string, selectedTeams: string[]): boolean => {
+  const currentWeek = useDataStore.getState().currentWeek;
+  return selectedTeams.some((team, index) => index !== (currentWeek - 1) && team === teamName) ? true : false;
 }
