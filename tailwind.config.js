@@ -8,6 +8,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    darkMode: 'selector',
     container: {
       center: true,
       padding: '2rem',
