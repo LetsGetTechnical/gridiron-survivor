@@ -56,9 +56,7 @@ describe('LeagueEntries', () => {
     const entryStatus = screen.getByTestId('entry-status');
 
     expect(entryStatus).toHaveTextContent('eliminated');
-    expect(leagueEntryContainerCard).toHaveClass(
-      'bg-zinc-100 dark:bg-zinc-900',
-    );
+    expect(leagueEntryContainerCard).toHaveClass('bg-muted');
     expect(leagueEntryNumber).toHaveTextContent('Entry 3');
   });
 

@@ -28,8 +28,8 @@ const LeagueEntries = ({
   <div
     data-testid="league-entry-container-card"
     className={cn(
-      'league-entry-container-card grid h-20 min-w-fit grid-cols-2 justify-between rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
-      isEliminated ? 'bg-zinc-100 dark:bg-zinc-900' : 'transparent',
+      'league-entry-container-card grid h-20 min-w-fit grid-cols-2 justify-between rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm',
+      isEliminated ? 'bg-muted' : 'transparent',
     )}
   >
     <section

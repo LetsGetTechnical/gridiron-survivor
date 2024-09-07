@@ -168,6 +168,6 @@ describe('Register', () => {
   test('renders Register component in dark mode using global css styles for background and foreground', () => {
     const darkModeSection = screen.getByTestId('dark-mode-section');
 
-    expect(darkModeSection).toHaveClass('dark:bg-gradient-to-b');
+    expect(darkModeSection).toHaveClass('bg-gradient-to-b');
   });
 });

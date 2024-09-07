@@ -44,7 +44,7 @@ export const Nav = (): JSX.Element => {
   return (
     <nav
       className={cn(
-        'flex h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b',
+        'flex h-16 items-center border-b border-border from-[#4E160E] to-zinc-950 px-4 bg-gradient-to-b',
         pathname === '/login' || pathname === '/register' ? 'hidden' : '',
       )}
       data-testid="nav"
@@ -56,7 +56,7 @@ export const Nav = (): JSX.Element => {
         <li>
           <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger data-testid="drawer-trigger">
-              <Menu className="text-zinc-600 dark:text-white" />
+              <Menu className="text-foreground" />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>

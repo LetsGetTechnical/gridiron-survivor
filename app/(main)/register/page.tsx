@@ -128,7 +128,7 @@ const Register = (): JSX.Element => {
     <section className="grid xl:grid-cols-2 xl:grid-rows-none">
       <div
         data-testid="dark-mode-section"
-        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
+        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
       >
         <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
         <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground text-white">
