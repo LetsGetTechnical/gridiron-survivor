@@ -152,7 +152,7 @@ const Entry = ({
           <header data-testid="entry-page-header">
             <div className="entry-page-header-to-leagues-link">
               <Link
-                className="text-xl text-orange-600 hover:text-orange-500 flex items-center gap-3 font-semibold hover:underline"
+                className="text-xl text-primary hover:text-primary-muted flex items-center gap-3 font-semibold hover:underline"
                 data-testid="entry-page-header-to-leagues-link"
                 href={`/league/all`}
               >
@@ -241,7 +241,7 @@ const Entry = ({
 
               {currentWeek > 1 && (
                 <Link
-                  className="text-orange-600 hover:text-orange-500 font-bold hover:underline"
+                  className="text-primary hover:text-primary-muted font-bold hover:underline"
                   data-testid="past-weeks-link"
                   href={`#`}
                 >

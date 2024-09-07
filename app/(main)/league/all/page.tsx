@@ -171,7 +171,7 @@ const Leagues = (): JSX.Element => {
                     <select
                       {...field}
                       id="available-leagues"
-                      className={`border rounded p-2 w-full text-secondary ${
+                      className={`border border-border rounded p-2 w-full text-secondary ${
                         fieldState.error ? 'border-error' : ''
                       }`}
                     >

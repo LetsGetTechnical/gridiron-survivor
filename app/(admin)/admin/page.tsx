@@ -10,7 +10,7 @@ import { JSX } from 'react';
 const AdminHomepage = (): JSX.Element => {
   return (
     <section
-      className="admin-homepage-content space-y-4 px-6 py-6 outline outline-border rounded"
+      className="admin-homepage-content space-y-4 px-6 py-6 outline outline-outline rounded"
       data-testid="admin-homepage-content"
     >
       <p>
