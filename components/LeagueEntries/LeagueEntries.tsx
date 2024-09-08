@@ -33,7 +33,7 @@ const LeagueEntries = ({
     )}
   >
     <section
-      className="league-entry-header flex items-center gap-2 md:gap-12"
+      className="league-entry-header flex items-center gap-12"
       data-testid="league-entry-header"
     >
       <h4
@@ -48,7 +48,7 @@ const LeagueEntries = ({
       <EntryStatus isEliminated={isEliminated} />
     </section>
     <section
-      className="league-entry-footer flex items-center justify-end gap-2 md:gap-12"
+      className="league-entry-footer flex items-center justify-end gap-12"
       data-testid="league-entry-footer"
     >
       {isPickSet && (
