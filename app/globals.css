@@ -34,9 +34,9 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
 
-    --error: 0 73.7% 41.8%;
-    --success: 142.4 71.8% 29.2%;
-    --warning: 26 90.5% 37.1%;
+    --error: 0 90.6% 70.8%;
+    --success: 141.9 69.2% 58%;
+    --warning: 43.3 96.4% 56.3%;
 
     --radius: 0.5rem;
 
@@ -62,6 +62,7 @@
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 3.7% 15.9%;
+    --secondary-muted: 240 5.3% 26.1%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 240 3.7% 15.9%;
@@ -79,7 +80,7 @@
     --ring: 240 4.9% 83.9%;
 
     --error: 0 90.6% 70.8%;
-    --success: 141.9 69.2% 58%;
+    --success: #4ade80;
     --warning: 43.3 96.4% 56.3%;
 
     --radius: 0.5rem;

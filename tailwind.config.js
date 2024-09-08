@@ -19,16 +19,27 @@ module.exports = {
     extend: {
       colors: {
         border: 'hsl(var(--border))',
+        outline: 'hsl(var(--outline))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        error: 'hsl(var(--error))',
+        success: 'hsl(var(--success))',
+        warning: 'hsl(var(--warning))',
+        chart1: 'hsl(var(--chart1))',
+        chart2: 'hsl(var(--chart2))',
+        chart3: 'hsl(var(--chart3))',
+        chart4: 'hsl(var(--chart4))',
+        chart5: 'hsl(var(--chart5))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
+          muted: 'hsl(var(--primary-muted))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
+          muted: 'hsl(var(--secondary-muted))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {
