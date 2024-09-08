@@ -22,6 +22,7 @@ import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { cn } from '@/utils/utils';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
 /**
  * Display all entries for a league.
@@ -151,14 +152,14 @@ const Entry = ({
         <div className="mx-auto max-w-3xl pt-10">
           <header data-testid="entry-page-header">
             <div className="entry-page-header-to-leagues-link">
-              <Link
-                className="text-xl text-primary hover:text-primary-muted flex items-center gap-3 font-semibold hover:underline"
+              <LinkCustom
+                className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
                 data-testid="entry-page-header-to-leagues-link"
                 href={`/league/all`}
               >
                 <ChevronLeft />
                 Your Leagues
-              </Link>
+              </LinkCustom>
             </div>
             <div
               className="entry-page-header-main flex flex-col justify-between text-center gap-10 pt-6 pb-4"

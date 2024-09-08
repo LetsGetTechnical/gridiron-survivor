@@ -26,7 +26,7 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
       data-testid="LeagueCard"
       href={href}
       className={cn(
-        'LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm hover:bg-muted',
+        'LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm hover:bg-muted/50',
       )}
       ref={ref}
     >

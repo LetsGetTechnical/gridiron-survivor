@@ -215,7 +215,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         <>
           <nav className="py-6 text-primary hover:no-underline">
             <LinkCustom
-              className="text-primary flex gap-3 items-center font-semibold text-xl hover:no-underline"
+              className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
               href={`/league/${league}/entry/all`}
             >
               <span aria-hidden="true">

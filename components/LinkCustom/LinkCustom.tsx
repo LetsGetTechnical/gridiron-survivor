@@ -26,7 +26,10 @@ const LinkCustom = ({
 }: ILinkCustomProps): JSX.Element => {
   return (
     <Link
-      className={cn('underline hover:text-accent', className)}
+      className={cn(
+        'underline underline-offset-4 hover:text-primary-muted transition-colors',
+        className,
+      )}
       data-testid="linkCustom"
       href={href}
       passHref
