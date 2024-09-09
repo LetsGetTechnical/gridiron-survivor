@@ -99,6 +99,6 @@ describe('LeagueCard with custom league logo', () => {
     const leagueCard = screen.getByTestId('LeagueCard');
     fireEvent.mouseOver(leagueCard);
 
-    expect(leagueCard).toHaveClass('hover:bg-zinc-800');
+    expect(leagueCard).toHaveClass('hover:bg-muted/50');
   });
 });

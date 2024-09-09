@@ -154,7 +154,6 @@ const Entry = ({
             <div className="entry-page-header-to-leagues-link">
               <LinkCustom
                 className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
-                data-testid="entry-page-header-to-leagues-link"
                 href={`/league/all`}
               >
                 <ChevronLeft />
