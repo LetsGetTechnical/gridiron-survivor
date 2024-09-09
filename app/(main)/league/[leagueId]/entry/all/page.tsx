@@ -151,7 +151,7 @@ const Entry = ({
       ) : (
         <div className="mx-auto max-w-3xl pt-10">
           <header data-testid="entry-page-header">
-            <div className="entry-page-header-to-leagues-link">
+            <div data-testid="entry-page-header-to-leagues-link">
               <LinkCustom
                 className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
                 href={`/league/all`}
