@@ -28,12 +28,12 @@ const LeagueEntries = ({
   <div
     data-testid="league-entry-container-card"
     className={cn(
-      'league-entry-container-card grid h-20 min-w-fit grid-cols-2 justify-between rounded-lg border bg-card p-4 text-card-foreground shadow-sm dark:border-zinc-800',
-      isEliminated ? 'bg-zinc-100 dark:bg-zinc-900' : 'transparent',
+      'league-entry-container-card grid h-20 min-w-fit grid-cols-2 justify-between rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm',
+      isEliminated ? 'bg-muted' : 'transparent',
     )}
   >
     <section
-      className="league-entry-header flex items-center gap-2 md:gap-12"
+      className="league-entry-header flex items-center gap-12"
       data-testid="league-entry-header"
     >
       <h4
@@ -48,7 +48,7 @@ const LeagueEntries = ({
       <EntryStatus isEliminated={isEliminated} />
     </section>
     <section
-      className="league-entry-footer flex items-center justify-end gap-2 md:gap-12"
+      className="league-entry-footer flex items-center justify-end gap-12"
       data-testid="league-entry-footer"
     >
       {isPickSet && (

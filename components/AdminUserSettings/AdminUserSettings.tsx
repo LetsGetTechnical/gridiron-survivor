@@ -44,6 +44,7 @@ export const AdminUserSettings = (): JSX.Element => {
   };
 
   return (
+<<<<<<< clue355/implement-menu-dropdown
     <DropdownMenu>
       <DropdownMenuTrigger
         className="w-full focus:outline-none"
@@ -76,5 +77,18 @@ export const AdminUserSettings = (): JSX.Element => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+=======
+    <div
+      className="admin-user-settings flex gap-2 px-2 py-2 items-center outline outline-border rounded text-foreground"
+      data-testid="admin-user-settings"
+    >
+      <span className="bg-cyan-500 w-8 h-8 rounded-full" />
+      <p>Users Name</p>
+      <LucideChevronsUpDown
+        className="ml-auto text-muted-foreground"
+        size={16}
+      />
+    </div>
+>>>>>>> develop
   );
 };

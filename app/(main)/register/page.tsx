@@ -128,10 +128,10 @@ const Register = (): JSX.Element => {
     <section className="grid xl:grid-cols-2 xl:grid-rows-none">
       <div
         data-testid="dark-mode-section"
-        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
+        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
       >
         <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
-        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground text-white">
+        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground">
           <p className="hidden leading-7 xl:block">
             Thank you... fantasy football draft, for letting me know that even
             in my fantasies, I am bad at sports.
@@ -144,7 +144,7 @@ const Register = (): JSX.Element => {
           <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
             Register A New Account
           </h1>
-          <p className="pb-4 font-normal leading-7 text-zinc-500">
+          <p className="pb-4 font-normal leading-7 text-muted-foreground">
             If you have an existing account{' '}
             <LinkCustom href="/login">Login!</LinkCustom>
           </p>

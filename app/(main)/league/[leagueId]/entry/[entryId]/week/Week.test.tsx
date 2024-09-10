@@ -15,6 +15,18 @@ import { onWeeklyPickChange } from './WeekHelper';
 import { parseUserPick } from '@/utils/utils';
 import { IWeeklyPicks } from '@/api/apiFunctions.interface';
 
+const mockUseAuthContext = {
+  isSignedIn: false,
+};
+
+jest.mock('@/context/AuthContextProvider', () => ({
+  useAuthContext() {
+    return {
+      ...mockUseAuthContext,
+    };
+  },
+}));
+
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
     currentWeek: 1,
@@ -120,15 +132,22 @@ describe('Week', () => {
   });
 
   test('should display GlobalSpinner while loading data', async () => {
+    mockUseAuthContext.isSignedIn = true;
+
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
+
     await waitFor(() => {
       expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
     });
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
+<<<<<<< clue355/implement-menu-dropdown
+=======
+    mockUseAuthContext.isSignedIn = true;
+>>>>>>> develop
     mockCreateWeeklyPicks.mockResolvedValue({});
 
     render(

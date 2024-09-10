@@ -215,20 +215,37 @@ export async function getAllWeeklyPicks({
   leagueId: ILeague['leagueId'];
   weekId: IGameWeek['id'];
 }): Promise<IWeeklyPicks['userResults'] | null> {
+  const currentYear = new Date().getFullYear().toString();
+
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.GAME_RESULTS,
-      [Query.equal('gameId', leagueId), Query.equal('gameWeekId', weekId)],
+      [Query.equal('leagueId', leagueId), Query.equal('gameWeekId', weekId)],
     );
 
-    // check if any users have selected their pick
-    if (response.documents[0].userResults === '') {
-      return null;
-    }
+    if (response.total === 0) {
+      const newDocument = await databases.createDocument(
+        appwriteConfig.databaseId,
+        Collection.GAME_RESULTS,
+        ID.unique(),
+        {
+          leagueId: leagueId,
+          gameWeekId: weekId,
+          userResults: '{}',
+          year: currentYear,
+        },
+      );
 
+<<<<<<< clue355/implement-menu-dropdown
     const data = JSON.parse(response.documents[0].userResults);
     return data;
+=======
+      return JSON.parse(newDocument.documents[0].userResults);
+    }
+
+    return JSON.parse(response.documents[0].userResults);
+>>>>>>> develop
   } catch (error) {
     console.error(error);
     throw new Error('Error getting all weekly picks');
@@ -249,10 +266,19 @@ export async function createWeeklyPicks({
   userResults,
 }: IWeeklyPicks): Promise<Models.Document> {
   try {
+    const getLeagueGameResults = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.GAME_RESULTS,
+      [
+        Query.equal('leagueId', leagueId),
+        Query.equal('gameWeekId', gameWeekId),
+      ],
+    );
+
     return await databases.updateDocument(
       appwriteConfig.databaseId,
       Collection.GAME_RESULTS, //collectionID
-      '663130a100297f77c3c8', //documentID
+      getLeagueGameResults.documents[0].$id, //documentID
       {
         leagueId,
         gameWeekId,
@@ -299,6 +325,10 @@ export async function createEntry({
 }
 
 /**
+<<<<<<< clue355/implement-menu-dropdown
+=======
+
+>>>>>>> develop
  * Update an entry
  * @param props - The entry data
  * @param props.entryId - The entry ID
@@ -356,7 +386,11 @@ export async function getAllLeagues(): Promise<ILeague[]> {
 /**
  * Adds a user to a league by updating the user's entry document.
  * @param {string} userDocumentId - The ID of the user to add to the league.
+<<<<<<< clue355/implement-menu-dropdown
  * @param selectedLeague - The ID of the league to add the user to.
+=======
+ * @param {string} selectedLeague - The ID of the league to add the user to.
+>>>>>>> develop
  * @param selectedLeagues - The user selected leagues
  * @param participants - The user's participants
  * @param survivors - The user's survivors

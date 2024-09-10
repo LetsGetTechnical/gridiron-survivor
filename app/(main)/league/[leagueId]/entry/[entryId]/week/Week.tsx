@@ -30,6 +30,10 @@ import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
+<<<<<<< clue355/implement-menu-dropdown
+=======
+import { useAuthContext } from '@/context/AuthContextProvider';
+>>>>>>> develop
 
 /**
  * Renders the weekly picks page.
@@ -46,6 +50,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
+<<<<<<< clue355/implement-menu-dropdown
+=======
+  const { isSignedIn } = useAuthContext();
+>>>>>>> develop
 
   /**
    * Fetches the current game week.
@@ -194,10 +202,19 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   }, [week, selectedLeague]);
 
   useEffect(() => {
+<<<<<<< clue355/implement-menu-dropdown
     getCurrentGameWeek();
     getUserSelectedTeams();
     getUserWeeklyPick();
   }, [user]);
+=======
+    if (isSignedIn) {
+      getCurrentGameWeek();
+      getUserSelectedTeams();
+      getUserWeeklyPick();
+    }
+  }, [isSignedIn]);
+>>>>>>> develop
 
   if (loadingData) {
     return <GlobalSpinner />;
@@ -213,9 +230,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
-          <nav className="py-6 text-orange-500 hover:no-underline">
+          <nav className="py-6 text-primary hover:no-underline">
             <LinkCustom
-              className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+              className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
               href={`/league/${league}/entry/all`}
             >
               <span aria-hidden="true">
@@ -225,7 +242,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             </LinkCustom>
           </nav>
           <section className="w-full pt-8" data-testid="weekly-picks">
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+            <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
             </h1>
 
