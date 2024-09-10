@@ -299,7 +299,6 @@ export async function createEntry({
 }
 
 /**
-
  * Update an entry
  * @param props - The entry data
  * @param props.entryId - The entry ID
@@ -357,7 +356,7 @@ export async function getAllLeagues(): Promise<ILeague[]> {
 /**
  * Adds a user to a league by updating the user's entry document.
  * @param {string} userDocumentId - The ID of the user to add to the league.
- * @param {string} selectedLeague - The ID of the league to add the user to.
+ * @param selectedLeague - The ID of the league to add the user to.
  * @param selectedLeagues - The user selected leagues
  * @param participants - The user's participants
  * @param survivors - The user's survivors
