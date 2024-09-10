@@ -144,10 +144,7 @@ describe('Week', () => {
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
-<<<<<<< clue355/implement-menu-dropdown
-=======
     mockUseAuthContext.isSignedIn = true;
->>>>>>> develop
     mockCreateWeeklyPicks.mockResolvedValue({});
 
     render(

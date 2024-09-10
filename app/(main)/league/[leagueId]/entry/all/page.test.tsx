@@ -5,22 +5,11 @@ import {
   getGameWeek,
   getCurrentUserEntries,
   getCurrentLeague,
-<<<<<<< clue355/implement-menu-dropdown
-  getNFLTeams,
-=======
->>>>>>> develop
 } from '@/api/apiFunctions';
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
     currentWeek: 1,
-<<<<<<< clue355/implement-menu-dropdown
-    NFLTeams: [{
-      teamId: '1',
-      teamLogo: 'team-a-logo.png',
-      teamName: 'Packers',
-    }],
-=======
     NFLTeams: [
       {
         teamId: '1',
@@ -28,7 +17,6 @@ jest.mock('@/store/dataStore', () => ({
         teamName: 'Packers',
       },
     ],
->>>>>>> develop
     user: { id: '123', leagues: [] },
     updateCurrentWeek: jest.fn(),
     updateNFLTeams: jest.fn(),
@@ -162,10 +150,6 @@ describe('League entries page (Entry Component)', () => {
 
     expect(entryPageHeader).toBeInTheDocument();
     expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
-<<<<<<< clue355/implement-menu-dropdown
-    expect(entryPageHeaderToLeaguesLink).toHaveAttribute('href', '/league/all');
-=======
->>>>>>> develop
     expect(entryPageHeaderLeagueName).toBeInTheDocument();
     expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
     expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
@@ -220,10 +204,6 @@ describe('League entries page (Entry Component)', () => {
 
     expect(entryPageHeader).toBeInTheDocument();
     expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
-<<<<<<< clue355/implement-menu-dropdown
-    expect(entryPageHeaderToLeaguesLink).toHaveAttribute('href', '/league/all');
-=======
->>>>>>> develop
     expect(entryPageHeaderLeagueName).toBeInTheDocument();
     expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
     expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
@@ -332,11 +312,6 @@ describe('League entries page (Entry Component)', () => {
         selectedTeams: ['Packers'],
       },
     ]);
-<<<<<<< clue355/implement-menu-dropdown
-    
-=======
-
->>>>>>> develop
     render(<Entry params={{ leagueId: '123' }} />);
 
     await waitFor(() => {
