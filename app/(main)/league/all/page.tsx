@@ -171,8 +171,8 @@ const Leagues = (): JSX.Element => {
                     <select
                       {...field}
                       id="available-leagues"
-                      className={`border rounded p-2 w-full dark:text-secondary ${
-                        fieldState.error ? 'border-red-500' : ''
+                      className={`border border-border rounded p-2 w-full text-secondary ${
+                        fieldState.error ? 'border-error' : ''
                       }`}
                     >
                       <option value="">Select league</option>
@@ -190,7 +190,7 @@ const Leagues = (): JSX.Element => {
                         ))}
                     </select>
                     {fieldState.error && (
-                      <span className="text-red-500">
+                      <span className="text-warning">
                         {fieldState.error.message}
                       </span>
                     )}
