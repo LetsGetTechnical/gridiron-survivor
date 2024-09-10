@@ -30,6 +30,7 @@ import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
+import { useAuthContext } from '@/context/AuthContextProvider';
 
 /**
  * Renders the weekly picks page.
@@ -46,6 +47,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
+  const { isSignedIn } = useAuthContext();
 
   /**
    * Fetches the current game week.
@@ -194,10 +196,12 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   }, [week, selectedLeague]);
 
   useEffect(() => {
-    getCurrentGameWeek();
-    getUserSelectedTeams();
-    getUserWeeklyPick();
-  }, [user]);
+    if (isSignedIn) {
+      getCurrentGameWeek();
+      getUserSelectedTeams();
+      getUserWeeklyPick();
+    }
+  }, [isSignedIn]);
 
   if (loadingData) {
     return <GlobalSpinner />;
