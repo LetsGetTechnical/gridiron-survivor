@@ -217,9 +217,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
-          <nav className="py-6 text-orange-500 hover:no-underline">
+          <nav className="py-6 text-primary hover:no-underline">
             <LinkCustom
-              className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+              className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
               href={`/league/${league}/entry/all`}
             >
               <span aria-hidden="true">
@@ -229,7 +229,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             </LinkCustom>
           </nav>
           <section className="w-full pt-8" data-testid="weekly-picks">
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+            <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
             </h1>
 
