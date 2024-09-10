@@ -196,7 +196,7 @@ const Entry = ({
                 const selectedTeam = entry.selectedTeams[currentWeek - 1];
                 const isPickSet =
                   // eslint-disable-next-line no-undefined
-                  selectedTeam !== undefined;
+                  selectedTeam !== null && selectedTeam !== undefined;
 
                 const teamLogo = NFLTeams.find(
                   (teams) => teams.teamName === selectedTeam,
