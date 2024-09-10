@@ -240,8 +240,7 @@ export async function getAllWeeklyPicks({
       return JSON.parse(newDocument.documents[0].userResults);
     }
 
-    const data = JSON.parse(response.documents[0].userResults);
-    return data;
+    return JSON.parse(response.documents[0].userResults);
   } catch (error) {
     console.error(error);
     throw new Error('Error getting all weekly picks');
