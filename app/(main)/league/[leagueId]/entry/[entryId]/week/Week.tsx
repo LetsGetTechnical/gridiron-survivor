@@ -30,10 +30,7 @@ import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
-<<<<<<< clue355/implement-menu-dropdown
-=======
 import { useAuthContext } from '@/context/AuthContextProvider';
->>>>>>> develop
 
 /**
  * Renders the weekly picks page.
@@ -50,10 +47,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
-<<<<<<< clue355/implement-menu-dropdown
-=======
   const { isSignedIn } = useAuthContext();
->>>>>>> develop
 
   /**
    * Fetches the current game week.
@@ -203,19 +197,12 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   }, [week, selectedLeague]);
 
   useEffect(() => {
-<<<<<<< clue355/implement-menu-dropdown
-    getCurrentGameWeek();
-    getUserSelectedTeams();
-    getUserWeeklyPick();
-  }, [user]);
-=======
     if (isSignedIn) {
       getCurrentGameWeek();
       getUserSelectedTeams();
       getUserWeeklyPick();
     }
   }, [isSignedIn]);
->>>>>>> develop
 
   if (loadingData) {
     return <GlobalSpinner />;

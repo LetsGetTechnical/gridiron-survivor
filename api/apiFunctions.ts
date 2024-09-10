@@ -237,15 +237,10 @@ export async function getAllWeeklyPicks({
         },
       );
 
-<<<<<<< clue355/implement-menu-dropdown
-    const data = JSON.parse(response.documents[0].userResults);
-    return data;
-=======
       return JSON.parse(newDocument.documents[0].userResults);
     }
 
     return JSON.parse(response.documents[0].userResults);
->>>>>>> develop
   } catch (error) {
     console.error(error);
     throw new Error('Error getting all weekly picks');
@@ -325,10 +320,6 @@ export async function createEntry({
 }
 
 /**
-<<<<<<< clue355/implement-menu-dropdown
-=======
-
->>>>>>> develop
  * Update an entry
  * @param props - The entry data
  * @param props.entryId - The entry ID
@@ -386,11 +377,7 @@ export async function getAllLeagues(): Promise<ILeague[]> {
 /**
  * Adds a user to a league by updating the user's entry document.
  * @param {string} userDocumentId - The ID of the user to add to the league.
-<<<<<<< clue355/implement-menu-dropdown
- * @param selectedLeague - The ID of the league to add the user to.
-=======
  * @param {string} selectedLeague - The ID of the league to add the user to.
->>>>>>> develop
  * @param selectedLeagues - The user selected leagues
  * @param participants - The user's participants
  * @param survivors - The user's survivors
