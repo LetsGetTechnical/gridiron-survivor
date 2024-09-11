@@ -202,7 +202,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       getUserSelectedTeams();
       getUserWeeklyPick();
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, getCurrentGameWeek]);
 
   if (loadingData) {
     return <GlobalSpinner />;
