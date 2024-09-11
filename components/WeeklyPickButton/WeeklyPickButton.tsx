@@ -19,7 +19,7 @@ type WeeklyPickButtonProps = {
  * @param props.team - The team name
  * @param props.src - The image source
  * @param props.isDisabled - Whether the button is disabled
- * @param props.homeAway
+ * @param props.homeAway - Shows whether the team is home or away.
  * @returns The rendered weekly pick button.
  */
 const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
