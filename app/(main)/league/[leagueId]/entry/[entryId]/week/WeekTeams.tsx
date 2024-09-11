@@ -1,6 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import React, { JSX } from 'react';
 import { FormItem, FormControl } from '@/components/Form/Form';
 import { RadioGroup } from '@radix-ui/react-radio-group';
@@ -8,7 +9,6 @@ import { IWeekTeamsProps } from './WeekTeams.interface';
 import { WeeklyPickButton } from '@/components/WeeklyPickButton/WeeklyPickButton';
 import { hasTeamBeenPicked } from '@/utils/utils';
 import { NFLTeams } from '@/api/apiFunctions.enum';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 /**
  * Formats the date to 'day, mon date' format and the time to either 12 or 24-hour format based on the user's locale.
@@ -71,15 +71,19 @@ const WeekTeams = ({
         {scheduledGame.competitions[0].competitors.map((competition) => (
           <FormItem key={competition.id}>
             <FormControl>
-              {loadingTeamName === competition.team.shortDisplayName.toLowerCase() ? <LoadingSpinner/> : 
-              <WeeklyPickButton
-                team={competition.team.name}
-                src={competition.team.logo}
-                isDisabled={Boolean(loadingTeamName) || hasTeamBeenPicked(
-                  competition.team.name,
-                  selectedTeams,
-                )}
-              />}
+              {loadingTeamName ===
+              competition.team.shortDisplayName.toLowerCase() ? (
+                <LoadingSpinner />
+              ) : (
+                <WeeklyPickButton
+                  team={competition.team.name}
+                  src={competition.team.logo}
+                  isDisabled={
+                    Boolean(loadingTeamName) ||
+                    hasTeamBeenPicked(competition.team.name, selectedTeams)
+                  }
+                />
+              )}
             </FormControl>
           </FormItem>
         ))}

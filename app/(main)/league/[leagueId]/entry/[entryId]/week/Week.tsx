@@ -179,11 +179,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       user,
       weeklyPicks,
       week,
-      setLoadingTeamName: setLoadingTeamName
+      setLoadingTeamName: setLoadingTeamName,
     };
 
     try {
-      await onWeeklyPickChange(params)
+      await onWeeklyPickChange(params);
     } catch (error) {
       console.error('Submission error:', error);
     }
@@ -195,7 +195,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
-  }, [week, selectedLeague, loadingTeamName]);
+  }, [week, selectedLeague]);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -203,7 +203,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       getUserSelectedTeams();
       getUserWeeklyPick();
     }
-  }, [isSignedIn, userPick]);
+  }, [isSignedIn]);
 
   if (loadingData) {
     return <GlobalSpinner />;

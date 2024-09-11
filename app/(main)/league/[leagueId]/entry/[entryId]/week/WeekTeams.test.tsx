@@ -23,12 +23,14 @@ const mockDefaultUserPick = 'Ravens';
 const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
 const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
+const mockLoadingTeamName = 'packers';
 
 const TestWeekTeamsComponent = () => {
   const formMethods = useForm();
   return (
     <FormProvider {...formMethods}>
       <WeekTeams
+        loadingTeamName={mockLoadingTeamName}
         field={mockField}
         schedule={mockSchedule}
         selectedTeams={mockSelectedTeams}

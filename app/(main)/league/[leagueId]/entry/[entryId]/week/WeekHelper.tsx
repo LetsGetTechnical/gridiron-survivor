@@ -44,7 +44,7 @@ export const onWeeklyPickChange = async ({
       (team) => team.teamName === teamSelect,
     );
 
-    setLoadingTeamName(team?.teamId ?? null)
+    setLoadingTeamName(team?.teamId ?? null);
 
     const currentUserPick = parseUserPick(user.id, entry, team?.teamName || '');
 
@@ -95,9 +95,8 @@ export const onWeeklyPickChange = async ({
     toast.custom(
       <Alert
         variant={AlertVariants.Success}
-        message={`You have successfully pick the ${
-          currentUserPick[user.id][entry].teamName
-        } for your team!`}
+        message={`You have successfully pick the ${currentUserPick[user.id][entry].teamName
+          } for your team!`}
       />,
     );
   } catch (error) {
@@ -109,6 +108,6 @@ export const onWeeklyPickChange = async ({
       />,
     );
   } finally {
-      setLoadingTeamName(null);
-  }  
+    setLoadingTeamName(null);
+  }
 };
