@@ -107,7 +107,6 @@ const Register = (): JSX.Element => {
     try {
       await registerAccount(data);
       await login(data);
-      router.push('/league/all');
       toast.custom(
         <Alert
           variant={AlertVariants.Success}

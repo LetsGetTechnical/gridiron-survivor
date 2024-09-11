@@ -102,8 +102,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       });
 
       if (userWeeklyPickResults?.[user.id]?.[entry]) {
-        const userPick = userWeeklyPickResults[user.id][entry].teamName;
-        setUserPick(userPick.teamName);
+        const userPick = userWeeklyPickResults[user.id][entry];
+        setUserPick(userPick.teamName as unknown as string);
       }
     } catch (error) {
       console.error('Error getting weekly pick:', error);
@@ -184,6 +184,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
     try {
       await onWeeklyPickChange(params);
+      setUserPick(teamSelect);
     } catch (error) {
       console.error('Submission error:', error);
     }
