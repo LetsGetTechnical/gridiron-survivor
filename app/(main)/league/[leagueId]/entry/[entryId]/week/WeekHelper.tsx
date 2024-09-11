@@ -37,13 +37,16 @@ export const onWeeklyPickChange = async ({
   user,
   weeklyPicks,
   week,
+  setLoadingTeamName: setLoadingTeamName,
 }: IWeeklyPickChange): Promise<void> => {
   try {
-    const teamID = NFLTeams.find(
+    const team = NFLTeams.find(
       (team) => team.teamName === teamSelect,
-    )?.teamName;
+    );
 
-    const currentUserPick = parseUserPick(user.id, entry, teamID || '');
+    setLoadingTeamName(team?.teamId ?? null)
+
+    const currentUserPick = parseUserPick(user.id, entry, team?.teamName || '');
 
     // combines current picks and the user pick into one object.
     // if the user pick exists then it overrides the pick of the user.
@@ -105,5 +108,7 @@ export const onWeeklyPickChange = async ({
         message="There was an error processing your request."
       />,
     );
-  }
+  } finally {
+      setLoadingTeamName(null);
+  }  
 };

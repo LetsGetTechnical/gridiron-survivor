@@ -28,6 +28,7 @@ export interface IWeeklyPickChange {
   user: IUser;
   weeklyPicks: IWeeklyPicks;
   week: string;
+  setLoadingTeamName: (loadData: string | null) => void;
 }
 
 export interface IWeekProps {

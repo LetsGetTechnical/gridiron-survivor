@@ -8,6 +8,7 @@ import { IWeekTeamsProps } from './WeekTeams.interface';
 import { WeeklyPickButton } from '@/components/WeeklyPickButton/WeeklyPickButton';
 import { hasTeamBeenPicked } from '@/utils/utils';
 import { NFLTeams } from '@/api/apiFunctions.enum';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 /**
  * Formats the date to 'day, mon date' format and the time to either 12 or 24-hour format based on the user's locale.
@@ -42,6 +43,7 @@ const formatDateTime = (dateString: string): string => {
  * @param props.selectedTeams The user's selected teams.
  * @param props.userPick The user's pick.
  * @param props.onWeeklyPickChange The function to call when the user's pick changes.
+ * @param props.loadingTeam The loading state for selecting teams.
  * @returns The rendered weekly picks page.
  */
 const WeekTeams = ({
@@ -50,6 +52,7 @@ const WeekTeams = ({
   selectedTeams,
   userPick,
   onWeeklyPickChange,
+  loadingTeamName,
 }: IWeekTeamsProps): JSX.Element => (
   <RadioGroup
     onValueChange={(value: string) => onWeeklyPickChange(value as NFLTeams)}
@@ -68,14 +71,15 @@ const WeekTeams = ({
         {scheduledGame.competitions[0].competitors.map((competition) => (
           <FormItem key={competition.id}>
             <FormControl>
+              {loadingTeamName === competition.team.shortDisplayName.toLowerCase() ? <LoadingSpinner/> : 
               <WeeklyPickButton
                 team={competition.team.name}
                 src={competition.team.logo}
-                isDisabled={hasTeamBeenPicked(
+                isDisabled={Boolean(loadingTeamName) || hasTeamBeenPicked(
                   competition.team.name,
                   selectedTeams,
                 )}
-              />
+              />}
             </FormControl>
           </FormItem>
         ))}

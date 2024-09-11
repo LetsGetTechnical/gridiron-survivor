@@ -44,6 +44,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
+  const [loadingTeamName, setLoadingTeamName] = useState<string | null>(null);
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
@@ -178,10 +179,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       user,
       weeklyPicks,
       week,
+      setLoadingTeamName: setLoadingTeamName
     };
 
     try {
-      await onWeeklyPickChange(params);
+      await onWeeklyPickChange(params)
     } catch (error) {
       console.error('Submission error:', error);
     }
@@ -193,7 +195,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       return;
     }
     getSchedule(week);
-  }, [week, selectedLeague]);
+  }, [week, selectedLeague, loadingTeamName]);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -201,7 +203,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       getUserSelectedTeams();
       getUserWeeklyPick();
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, userPick]);
 
   if (loadingData) {
     return <GlobalSpinner />;
@@ -242,6 +244,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                     <FormItem>
                       <FormControl>
                         <WeekTeams
+                          loadingTeamName={loadingTeamName}
                           schedule={schedule}
                           selectedTeams={selectedTeams}
                           field={field}

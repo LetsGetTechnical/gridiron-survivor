@@ -32,6 +32,7 @@ export interface IWeekTeamsProps {
   userPick: string;
   // eslint-disable-next-line no-unused-vars
   onWeeklyPickChange: (teamSelect: NFLTeams) => Promise<void>;
+  loadingTeamName: string | null;
 }
 
 interface ICompetition {

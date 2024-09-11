@@ -92,7 +92,7 @@ export const getUserPick = async ({
  * Parse the user pick
  * @param userId - The user id
  * @param entryId - The entry id
- * @param teamName - The team id
+ * @param teamName - The team name
  * @returns {string} The parsed user pick
  */
 export const parseUserPick = (
@@ -101,7 +101,7 @@ export const parseUserPick = (
   teamName: string,
 ): IUserPick => {
   if (!userId || !teamName || !entryId) {
-    throw new Error('User ID and Team ID Required');
+    throw new Error('User ID and Team Name Required');
   }
 
   const parsedData = JSON.parse(
