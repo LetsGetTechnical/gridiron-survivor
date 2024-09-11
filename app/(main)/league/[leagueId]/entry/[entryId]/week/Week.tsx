@@ -238,7 +238,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                           field={field}
                           userPick={userPick}
                           onWeeklyPickChange={handleWeeklyPickChange}
-                          data-testid="team-pick"
                         />
                       </FormControl>
                       <FormMessage />

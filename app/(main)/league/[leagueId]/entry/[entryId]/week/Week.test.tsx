@@ -224,18 +224,15 @@ describe('Week', () => {
   });
 
   test('should redirect back to entry page after successfully selecting a team', async () => {
-    mockUseAuthContext.isSignedIn = true;
-    mockCreateWeeklyPicks.mockResolvedValue({});
-
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
 
-    const selectedTeam = screen.getByTestId('team-pick');
-    fireEvent.click(selectedTeam);
+    const selectedTeam = await screen.findAllByTestId('team-radio');
+    fireEvent.click(selectedTeam[0]);
 
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith(`/league/${league}/entry/all`);
-    });
+    })
   });
 });
