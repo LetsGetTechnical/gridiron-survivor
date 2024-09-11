@@ -97,7 +97,6 @@ describe('API Functions', () => {
           password: 'test12345',
         };
         const response = await registerAccount(userDummy);
-        console.log(response);
         expect(account.create).toHaveBeenCalledWith(
           expect.any(String),
           userDummy.email,
