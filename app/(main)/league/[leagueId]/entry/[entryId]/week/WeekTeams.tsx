@@ -59,7 +59,7 @@ const WeekTeams = ({
   >
     {schedule.map((scheduledGame) => (
       <div
-        className="grid w-full grid-cols-[1fr_auto_1fr] gap-4 pb-8 items-center"
+        className="grid w-full grid-cols-[1fr_auto_1fr] gap-4 pb-8"
         style={{ direction: 'rtl' }}
         key={scheduledGame.id}
       >
@@ -68,13 +68,11 @@ const WeekTeams = ({
         </div>
         {scheduledGame.competitions[0].competitors.map((competition, index) => (
           <>
-            {/*@*/}
             {index > 0 && (
-              <div>
+              <div className="h-20 flex self-end items-center">
                 <span className="mx-2">@</span>
               </div>
             )}
-            {/*teams*/}
             <FormItem key={competition.id} className="text-center">
               <FormControl>
                 <WeeklyPickButton
