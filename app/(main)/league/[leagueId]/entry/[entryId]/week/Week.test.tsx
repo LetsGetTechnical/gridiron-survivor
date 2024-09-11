@@ -228,8 +228,8 @@ describe('Week', () => {
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
 
-    const selectedTeam = await screen.findAllByTestId('team-radio');
-    fireEvent.click(selectedTeam[0]);
+    const teamRadios = await screen.findAllByTestId('team-radio');
+    fireEvent.click(teamRadios[0]);
 
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith(`/league/${league}/entry/all`);
