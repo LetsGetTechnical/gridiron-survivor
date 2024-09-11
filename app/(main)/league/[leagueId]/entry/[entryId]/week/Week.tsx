@@ -30,6 +30,8 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useRouter } from 'next/navigation';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { ChevronLeft } from 'lucide-react';
 
 /**
  * Renders the weekly picks page.
@@ -219,6 +221,17 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
+          <nav className="py-6 text-primary hover:no-underline">
+            <LinkCustom
+              className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
+              href={`/league/${league}/entry/all`}
+            >
+              <span aria-hidden="true">
+                <ChevronLeft size={16} />
+              </span>
+              {selectedLeague?.leagueName as string}
+            </LinkCustom>
+          </nav>
           <section className="w-full pt-8" data-testid="weekly-picks">
             <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
