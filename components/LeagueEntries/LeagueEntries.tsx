@@ -1,12 +1,11 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { Button } from '../Button/Button';
 import { cn } from '@/utils/utils';
 import { EntryStatus } from '../EntryStatus/EntryStatus';
 import { ILeagueEntriesProps } from './LeagueEntries.interface';
+import LinkCustom from '../LinkCustom/LinkCustom';
 import React, { JSX } from 'react';
-import Link from 'next/link';
 
 /**
  * A card that contains information on the user's entry for this league. Contains the entry number, their entry status (alive or eliminated), team logo once a pick is set, and a button to make a pick or change their pick
@@ -15,15 +14,15 @@ import Link from 'next/link';
  * @param props.linkUrl - the url to the user's entry page
  * @param props.isEliminated - If true, the user is flagged as eliminat4ed
  * @param props.isPickSet - if true, the team logo of the picked team shows up on the LeagueEntries card and the button changes from "make a pick" to "chagne pick"
- * @param props.lockout - if true, the user is locked out from making a pick
  * @param props.teamLogo - the team logo
+ * @param props.lockout - if true, the user is locked out from making a pick
  * @returns {React.JSX.Element} - A div element that contains the user's entry information
  */
 const LeagueEntries = ({
   entryName,
-  linkUrl,
   isEliminated = false,
   isPickSet = false,
+  linkUrl,
   lockout = false,
   teamLogo = '',
 }: ILeagueEntriesProps): JSX.Element => (
@@ -67,15 +66,16 @@ const LeagueEntries = ({
         data-testid="league-entry-pick-button-container"
       >
         {!isEliminated && (
-          <Link href={linkUrl} data-testid="league-entry-pick-button-link">
-            <Button
-              className="league-entry-pick-button"
-              data-testid="league-entry-pick-button"
-              // need to link disabled attribute to lockout state. if lockout = true, button should be disabled
-              label={isPickSet ? 'Change Pick' : 'Make Pick'}
-              variant={isPickSet ? 'secondary' : 'default'}
-            />
-          </Link>
+          <LinkCustom
+            aria-disabled={lockout === true ? 'true' : 'false'}
+            href={lockout === true ? '#' : linkUrl}
+            data-testid="league-entry-pick-button-link"
+            variant={isPickSet ? 'secondaryButton' : 'primaryButton'}
+            size={'defaultButton'}
+            className={lockout === true ? 'opacity-50 cursor-not-allowed' : ''}
+          >
+            {isPickSet ? 'Change Pick' : 'Make Pick'}
+          </LinkCustom>
         )}
       </div>
     </section>

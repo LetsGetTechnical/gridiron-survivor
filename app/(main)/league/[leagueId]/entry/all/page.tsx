@@ -66,7 +66,7 @@ const Entry = ({
       }
     };
 
-    // Check immediately on page load
+    // Check immediately on mount
     checkLockout();
 
     // Check time every hour
@@ -237,10 +237,10 @@ const Entry = ({
                 return (
                   <section key={entry.$id}>
                     <LeagueEntries
-                      key={entry.$id}
                       entryName={entry.name}
                       isEliminated={entry.eliminated}
                       isPickSet={isPickSet}
+                      key={entry.$id}
                       linkUrl={linkUrl}
                       lockout={lockout}
                       teamLogo={teamLogo}
