@@ -31,6 +31,8 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import { getNFLTeamLogo } from '@/utils/utils';
+import Image from 'next/image';
 
 /**
  * Renders the weekly picks page.
@@ -39,6 +41,7 @@ import { useAuthContext } from '@/context/AuthContextProvider';
  */
 // eslint-disable-next-line no-unused-vars
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
+  const [pickHistory, setPickHistory] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
@@ -133,6 +136,36 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     } catch (error) {
       console.error('Could not load week data:', error);
       setError('Could not load week data.');
+    }
+  };
+
+  /**
+   * Fetches all entries for the current user.
+   * @returns {Promise<void>}
+   */
+  const getPickHistory = async (): Promise<void> => {
+    const entryId: string = entry;
+    const currentWeek: number = Number(week);
+
+    try {
+      const entries = await getCurrentUserEntries(user.id, league);
+      const currentEntry = entries.find((entry) => entry.$id === entryId);
+
+      if (!currentEntry) {
+        throw new Error('Entry not found');
+      }
+
+      let entryHistory = currentEntry?.selectedTeams || [];
+
+      if (week !== '1' && currentEntry?.selectedTeams.length > 0) {
+        entryHistory = entryHistory
+          .slice(0, currentWeek - 1)
+          .map((teamName) => getNFLTeamLogo(NFLTeams, teamName));
+      }
+
+      setPickHistory(entryHistory);
+    } catch (error) {
+      throw new Error("Error fetching user's pick history");
     } finally {
       setLoadingData(false);
     }
@@ -201,6 +234,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       getCurrentGameWeek();
       getUserSelectedTeams();
       getUserWeeklyPick();
+      getPickHistory();
     }
   }, [isSignedIn]);
 
@@ -229,10 +263,31 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               {selectedLeague?.leagueName as string}
             </LinkCustom>
           </nav>
-          <section className="w-full pt-8" data-testid="weekly-picks">
+          <section className="flex flex-col items-center w-full pt-8" data-testid="weekly-picks">
             <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
             </h1>
+
+            {pickHistory.length > 0 && (
+              <section className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center">
+                {pickHistory?.map((logoURL, index) => (
+                  <div
+                    key={logoURL}
+                    className="flex flex-col items-center justify-center border border-border p-2 rounded-lg gap-1"
+                  >
+                    <span className="text-sm">WEEK {index + 1}</span>
+                    <Image
+                      className="league-entry-logo -mt-1.5"
+                      width={64}
+                      height={64}
+                      data-testid="league-entry-logo"
+                      src={logoURL}
+                      alt="teamLogo"
+                    />
+                  </div>
+                ))}
+              </section>
+            )}
 
             <FormProvider {...form}>
               <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">

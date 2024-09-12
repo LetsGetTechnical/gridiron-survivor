@@ -70,6 +70,7 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getAllEntries = async (): Promise<void> => {
+    setLoadingData(true);
     try {
       const getEntries = await getCurrentUserEntries(user.id, leagueId);
       setEntries(getEntries);
@@ -85,6 +86,7 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getCurrentGameWeek = async (): Promise<void> => {
+    setLoadingData(true);
     try {
       const getCurrentWeek = await getGameWeek();
       updateCurrentWeek(getCurrentWeek.week);
@@ -100,11 +102,14 @@ const Entry = ({
    * @returns {Promise<INFLTeam[]>} - The NFL teams.
    */
   const getAllNFLTeams = async (): Promise<void> => {
+    setLoadingData(true);
     try {
       const NFLTeams = await getNFLTeams();
       updateNFLTeams(NFLTeams);
     } catch (error) {
       throw new Error('Error getting NFL teams');
+    } finally {
+      setLoadingData(false);
     }
   };
 

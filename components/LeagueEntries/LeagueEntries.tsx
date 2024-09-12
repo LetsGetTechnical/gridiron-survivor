@@ -32,8 +32,9 @@ const LeagueEntries = ({
     <div
       data-testid="league-entry-container-card"
       className={cn(
-        'league-entry-container-card grid h-21 min-w-fit grid-cols-3 items-center justify-between rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm',
+        'league-entry-container-card grid h-21 min-w-fit items-center justify-between rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm',
         isEliminated ? 'bg-muted' : 'transparent',
+        userPickHistory.length === 0 ? 'grid-cols-2' : 'grid-cols-3',
       )}
     >
       <section
@@ -52,18 +53,21 @@ const LeagueEntries = ({
         <EntryStatus isEliminated={isEliminated} />
       </section>
       {userPickHistory.length > 0 && (
-        <section className="flex gap-2 overflow-x-scroll justify-end">
+        <section
+          className="flex gap-2 overflow-x-scroll justify-end mr-2"
+          data-testid="user-pick-history"
+        >
           {userPickHistory?.map((logoURL, index) => (
             <div
               key={logoURL}
-              className="flex flex-col h-[66px] items-center justify-center border border-border px-2 py-1 rounded-lg gap-1"
+              className="flex flex-col h-[66px] items-center justify-center border border-border px-4 py-1 rounded-lg gap-1"
             >
-              <span className="text-xs">{index + 1}</span>
+              <span className="text-xs">WEEK {index + 1}</span>
               <Image
                 className="league-entry-logo -mt-1.5"
                 width={40}
                 height={40}
-                data-testid="league-entry-logo"
+                data-testid="league-history-logo"
                 src={logoURL}
                 alt="teamLogo"
               />
@@ -77,7 +81,7 @@ const LeagueEntries = ({
       >
         {isPickSet && (
           <div className="flex flex-col items-center border border-primary-muted px-2 py-1 rounded-lg">
-            <span className="text-xs">current</span>
+            <span className="text-xs">CURRENT</span>
             <Image
               className="league-entry-logo"
               height={40}

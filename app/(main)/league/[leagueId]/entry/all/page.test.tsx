@@ -5,6 +5,7 @@ import {
   getGameWeek,
   getCurrentUserEntries,
   getCurrentLeague,
+  getNFLTeams,
 } from '@/api/apiFunctions';
 
 jest.mock('@/store/dataStore', () => ({
@@ -13,7 +14,7 @@ jest.mock('@/store/dataStore', () => ({
     NFLTeams: [
       {
         teamId: '1',
-        teamLogo: 'team-a-logo.png',
+        teamLogo: '/team-a-logo.png',
         teamName: 'Packers',
       },
     ],
@@ -53,6 +54,7 @@ describe('League entries page (Entry Component)', () => {
   const mockGetCurrentUserEntries = getCurrentUserEntries as jest.Mock;
   const mockGetGameWeek = getGameWeek as jest.Mock;
   const mockUseDataStore = useDataStore as unknown as jest.Mock;
+  const mockGetNFLTeams = getNFLTeams as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -83,21 +85,40 @@ describe('League entries page (Entry Component)', () => {
   });
 
   test('should not display GlobalSpinner after data is loaded', async () => {
+    mockUseDataStore.mockReturnValue({
+      ...mockUseDataStore(),
+      currentWeek: 1,
+      NFLTeams: [
+        {
+          teamId: '1',
+          teamLogo: '/packers-logo.png',
+          teamName: 'Packers',
+        },
+        {
+          teamId: '2',
+          teamLogo: '/bears-logo.png',
+          teamName: 'Bears',
+        },
+      ],
+    });
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
-        $id: '66311a210039f0532044',
-        name: 'Entry 1',
-        user: '1',
-        league: '1',
-        selectedTeams: '',
-        eliminated: false,
+        $id: '123',
+        name: 'Test Entry',
+        week: 1,
+        selectedTeams: ['Packers', 'Bears'],
       },
     ]);
-    mockGetCurrentLeague.mockResolvedValueOnce({
-      leagueName: 'GiS League',
-      participants: 47,
-      survivors: 47,
+    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
+    mockGetCurrentLeague.mockResolvedValue({
+      leagueName: 'Test League',
+      participants: 10,
+      survivors: 8,
     });
+    mockGetNFLTeams.mockResolvedValue([
+      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+    ]);
 
     render(<Entry params={{ leagueId: '123' }} />);
 
@@ -105,6 +126,7 @@ describe('League entries page (Entry Component)', () => {
       expect(mockGetGameWeek).toHaveBeenCalled();
       expect(mockGetCurrentUserEntries).toHaveBeenCalled();
       expect(mockGetCurrentLeague).toHaveBeenCalled();
+      expect(mockGetNFLTeams).toHaveBeenCalled();
     });
 
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
@@ -214,7 +236,7 @@ describe('League entries page (Entry Component)', () => {
     expect(viewPastWeeksLink).toBeInTheDocument();
   });
 
-  it('should not display a button to add a new entry if there are more than 5 entries', async () => {
+  it('should not display a button to add a new entry if there are 5 entries', async () => {
     mockUseDataStore.mockReturnValue({
       ...mockUseDataStore(),
       currentWeek: 2,
@@ -318,12 +340,163 @@ describe('League entries page (Entry Component)', () => {
     await waitFor(() => {
       expect(screen.getByTestId('league-entry-logo')).toHaveAttribute(
         'src',
-        'team-a-logo.png',
+        '/_next/image?url=%2Fpackers-logo.png&w=96&q=75',
       );
 
       expect(screen.getByTestId('league-entry-pick-button')).toHaveTextContent(
         'Change Pick',
       );
     });
+  });
+  it('should not display the user pick history if the current week is 1', async () => {
+    mockUseDataStore.mockReturnValue({
+      ...mockUseDataStore(),
+      currentWeek: 1,
+      NFLTeams: [
+        {
+          teamId: '1',
+          teamLogo: '/packers-logo.png',
+          teamName: 'Packers',
+        },
+      ],
+    });
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        $id: '123',
+        name: 'Test Entry',
+        week: 1,
+        selectedTeams: ['Packers', 'Bears'],
+      },
+    ]);
+    mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
+    mockGetCurrentLeague.mockResolvedValue({
+      leagueName: 'Test League',
+      participants: 10,
+      survivors: 8,
+    });
+    mockGetNFLTeams.mockResolvedValue([
+      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+    ]);
+
+    render(<Entry params={{ leagueId: '123' }} />);
+
+    await waitFor(() => {
+      expect(mockGetGameWeek).toHaveBeenCalled();
+      expect(mockGetCurrentUserEntries).toHaveBeenCalled();
+      expect(mockGetCurrentLeague).toHaveBeenCalled();
+      expect(mockGetNFLTeams).toHaveBeenCalled();
+    });
+
+    const userPickHistory = screen.queryByTestId('user-pick-history');
+    expect(userPickHistory).not.toBeInTheDocument();
+  });
+
+  it('should display the user pick history if the current week is greater than 1', async () => {
+    mockUseDataStore.mockReturnValue({
+      ...mockUseDataStore(),
+      currentWeek: 2,
+      NFLTeams: [
+        {
+          teamId: '1',
+          teamLogo: '/packers-logo.png',
+          teamName: 'Packers',
+        },
+        {
+          teamId: '2',
+          teamLogo: '/bears-logo.png',
+          teamName: 'Bears',
+        },
+      ],
+    });
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        $id: '123',
+        name: 'Test Entry',
+        week: 2,
+        selectedTeams: ['Packers', 'Bears'],
+      },
+    ]);
+    mockGetGameWeek.mockResolvedValueOnce({ week: 2 });
+    mockGetCurrentLeague.mockResolvedValue({
+      leagueName: 'Test League',
+      participants: 10,
+      survivors: 8,
+    });
+    mockGetNFLTeams.mockResolvedValue([
+      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+    ]);
+
+    render(<Entry params={{ leagueId: '123' }} />);
+
+    await waitFor(() => {
+      expect(mockGetGameWeek).toHaveBeenCalled();
+      expect(mockGetCurrentUserEntries).toHaveBeenCalled();
+      expect(mockGetCurrentLeague).toHaveBeenCalled();
+      expect(mockGetNFLTeams).toHaveBeenCalled();
+    });
+    // Add a delay to allow for any asynchronous rendering
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    const userPickHistory = screen.queryByTestId('user-pick-history');
+    expect(userPickHistory).toBeInTheDocument();
+    expect(screen.getByTestId('league-history-logo')).toHaveAttribute(
+      'src',
+      '/_next/image?url=%2Fpackers-logo.png&w=96&q=75',
+    );
+    expect(screen.getByTestId('league-history-logo')).not.toHaveAttribute(
+      'src',
+      '/_next/image?url=%2Fbears-logo.png&w=96&q=75',
+    );
+    expect(screen.getByTestId('league-entry-logo')).toHaveAttribute(
+      'src',
+      '/_next/image?url=%2Fbears-logo.png&w=96&q=75',
+    );
+  });
+
+  it('should not display the user pick history if the entries selected teams are empty', async () => {
+    mockUseDataStore.mockReturnValue({
+      ...mockUseDataStore(),
+      currentWeek: 2,
+      NFLTeams: [
+        {
+          teamId: '1',
+          teamLogo: '/packers-logo.png',
+          teamName: 'Packers',
+        },
+        { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+      ],
+    });
+    mockGetCurrentUserEntries.mockResolvedValueOnce([
+      {
+        $id: '123',
+        name: 'Test Entry',
+        week: 2,
+        selectedTeams: [],
+      },
+    ]);
+    mockGetGameWeek.mockResolvedValueOnce({ week: 2 });
+    mockGetCurrentLeague.mockResolvedValue({
+      leagueName: 'Test League',
+      participants: 10,
+      survivors: 8,
+    });
+    mockGetNFLTeams.mockResolvedValue([
+      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+    ]);
+
+    render(<Entry params={{ leagueId: '123' }} />);
+
+    await waitFor(() => {
+      expect(mockGetGameWeek).toHaveBeenCalled();
+      expect(mockGetCurrentUserEntries).toHaveBeenCalled();
+      expect(mockGetCurrentLeague).toHaveBeenCalled();
+      expect(mockGetNFLTeams).toHaveBeenCalled();
+    });
+
+    const userPickHistory = screen.queryByTestId('user-pick-history');
+    expect(userPickHistory).not.toBeInTheDocument();
   });
 });
