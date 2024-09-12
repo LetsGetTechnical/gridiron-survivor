@@ -10,7 +10,7 @@ const Table = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <table
     ref={ref}
-    className={cn('table-auto border rounded-md border-zinc-800', className)}
+    className={cn('table-auto border border-border rounded-md', className)}
     {...props}
   />
 ));
@@ -22,7 +22,7 @@ const TableHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <thead
     ref={ref}
-    className={cn('border-b border-zinc-800 text-left', className)}
+    className={cn('border-b border-border text-left', className)}
     {...props}
   />
 ));
@@ -49,7 +49,7 @@ const TableRow = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tr
     ref={ref}
-    className={cn('border-b border-zinc-800 text-left', className)}
+    className={cn('border-b border-border text-left', className)}
     {...props}
   />
 ));
@@ -62,7 +62,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      'border-b border-zinc-800 px-3 py-2 gap-2 font-semibold text-sm text-zinc-400',
+      'border-b border-border px-3 py-2 gap-2 font-semibold text-sm text-muted-foreground',
       className,
       'last:w-[80px]',
     )}
