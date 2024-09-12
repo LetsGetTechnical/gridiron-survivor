@@ -361,9 +361,8 @@ describe('API Functions', () => {
       ];
 
       apiFunctions.getCurrentUserEntries.mockResolvedValue(userEntries);
-
       const result = await apiFunctions.getCurrentUserEntries();
-
+      
       for (const entry of result) {
         expect(entry.eliminated).toEqual(false);
       }
@@ -382,7 +381,6 @@ describe('API Functions', () => {
       ];
 
       apiFunctions.getCurrentUserEntries.mockResolvedValue(userEntries);
-
       const result = await apiFunctions.getCurrentUserEntries();
 
       for (const entry of result) {
@@ -390,7 +388,6 @@ describe('API Functions', () => {
       }
     });
   });
-
   xdescribe('get all leagues', () => {
     it('should return all leagues upon successful call', async () => {
       const mockAllLeagues = [
@@ -411,7 +408,6 @@ describe('API Functions', () => {
       ];
 
       apiFunctions.getAllLeagues.mockResolvedValue(mockAllLeagues);
-
       const result = await apiFunctions.getAllLeagues();
 
       expect(result).toEqual([
