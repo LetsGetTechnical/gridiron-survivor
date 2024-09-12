@@ -1,40 +1,40 @@
 import { Query } from 'appwrite';
 import {
+  createWeeklyPicks,
   getAllWeeklyPicks,
   loginAccount,
   logoutAccount,
   registerAccount,
-  createWeeklyPicks,
 } from './apiFunctions';
-import { account, databases } from './config';
-import { IUserPick } from './apiFunctions.interface';
 import { Collection } from './apiFunctions.enum';
+import { IUserPick } from './apiFunctions.interface';
+import { account, databases } from './config';
 const apiFunctions = require('./apiFunctions');
 
 jest.mock('./apiFunctions', () => {
   const actualModule = jest.requireActual('./apiFunctions');
   return {
     ...actualModule,
-    getUserWeeklyPick: jest.fn(),
-    getCurrentUserEntries: jest.fn(),
-    getAllLeagues: jest.fn(),
-    getUserDocumentId: jest.fn(),
     addUserToLeague: jest.fn(),
+    getAllLeagues: jest.fn(),
+    getCurrentUserEntries: jest.fn(),
+    getUserDocumentId: jest.fn(),
+    getUserWeeklyPick: jest.fn(),
   };
 });
 
 jest.mock('./config', () => ({
-  databases: {
-    listDocuments: jest.fn(),
-    createDocument: jest.fn(),
-    updateDocument: jest.fn(),
-  },
   account: {
     create: jest.fn(),
     deleteSession: jest.fn(),
   },
   appwriteConfig: {
     databaseId: 'mockDatabaseId', // Mocked databaseId
+  },
+  databases: {
+    createDocument: jest.fn(),
+    listDocuments: jest.fn(),
+    updateDocument: jest.fn(),
   },
   ID: {
     unique: jest.fn().mockReturnValue('mocked-unique-id'),
