@@ -4,6 +4,7 @@
 'use client';
 import React, { JSX } from 'react';
 import { Button } from '../Button/Button';
+import { useDataStore } from '@/store/dataStore';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +22,7 @@ import { useRouter } from 'next/navigation';
 export const AdminUserSettings = (): JSX.Element => {
   const router = useRouter();
   const { logoutAccount } = useAuthContext();
+  const { user } = useDataStore((state) => state);
 
   /**
    * Handles the logout.
@@ -31,7 +33,7 @@ export const AdminUserSettings = (): JSX.Element => {
       await logoutAccount();
       router.push('/login');
     } catch (error) {
-      console.error('Logout failed:', error);
+      throw new Error('Logout failed');
     }
   };
 
@@ -49,9 +51,9 @@ export const AdminUserSettings = (): JSX.Element => {
         className="w-full focus:outline-none"
         data-testid="admin-user-settings"
       >
-        <div className="admin-user-settings flex gap-2 px-2 py-2 items-center border-[1px] border-zinc-700 rounded-[6px] text-zinc-50">
+        <div className="admin-user-settings w-[230px] flex gap-2 px-2 py-2 items-center border-[1px] border-zinc-700 rounded-[6px] text-zinc-50 overflow-hidden">
           <span className="bg-cyan-500 w-8 h-8 rounded-full" />
-          <p>Users Name</p>
+          <p className="truncate ... w-36 ">{user.email}</p>
           <LucideChevronsUpDown className="ml-auto text-zinc-300" size={16} />
         </div>
       </DropdownMenuTrigger>

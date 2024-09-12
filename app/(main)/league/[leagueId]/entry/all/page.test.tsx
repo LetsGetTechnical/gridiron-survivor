@@ -1,4 +1,4 @@
-import { render, screen, waitFor, cleanup } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import Entry from './page';
 import { useDataStore } from '@/store/dataStore';
 import {

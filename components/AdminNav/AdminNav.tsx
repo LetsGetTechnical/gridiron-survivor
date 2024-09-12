@@ -1,7 +1,6 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-'use client';
 import { AdminUserSettings } from '../AdminUserSettings/AdminUserSettings';
 import Link from 'next/link';
 import {
