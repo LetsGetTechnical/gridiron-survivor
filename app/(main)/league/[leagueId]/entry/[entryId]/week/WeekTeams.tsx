@@ -70,7 +70,7 @@ const WeekTeams = ({
           <>
             {index > 0 && (
               <div className="h-20 flex self-end items-center">
-                <span className="mx-2">@</span>
+                <span>@</span>
               </div>
             )}
             <FormItem key={competition.id} className="text-center">
