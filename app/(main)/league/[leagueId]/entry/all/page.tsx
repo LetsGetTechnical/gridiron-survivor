@@ -23,6 +23,7 @@ import React, { JSX, useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { cn } from '@/utils/utils';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { getNFLTeamLogo } from '@/utils/utils';
 
 /**
  * Display all entries for a league.
@@ -198,9 +199,15 @@ const Entry = ({
                   // eslint-disable-next-line no-undefined
                   selectedTeam !== null && selectedTeam !== undefined;
 
-                const teamLogo = NFLTeams.find(
-                  (teams) => teams.teamName === selectedTeam,
-                )?.teamLogo;
+                const selectedTeamLogo = getNFLTeamLogo(NFLTeams, selectedTeam);
+
+                let userPickHistory: string[] = [];
+
+                if (currentWeek > 1 && entry.selectedTeams.length > 0) {
+                  userPickHistory = entry.selectedTeams
+                    .slice(0, currentWeek - 1)
+                    .map((teamName) => getNFLTeamLogo(NFLTeams, teamName));
+                }
 
                 return (
                   <section key={entry.$id}>
@@ -210,7 +217,8 @@ const Entry = ({
                       isEliminated={entry.eliminated}
                       isPickSet={isPickSet}
                       linkUrl={linkUrl}
-                      teamLogo={teamLogo}
+                      userPickHistory={userPickHistory}
+                      selectedTeamLogo={selectedTeamLogo}
                     />
                   </section>
                 );
