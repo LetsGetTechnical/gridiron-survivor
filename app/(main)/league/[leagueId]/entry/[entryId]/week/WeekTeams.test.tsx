@@ -9,7 +9,7 @@ jest.mock('@/utils/utils', () => ({
   hasTeamBeenPicked: jest.fn(),
   cn: jest.fn(),
 }));
-  
+
 const mockField = {
   name: 'value',
   value: '',
@@ -24,13 +24,12 @@ const mockDefaultUserPick = 'Ravens';
 const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
 const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
-const setState = jest.fn();
 const mockLoadingTeamName = '';
-const mockSetTeamName = jest.fn();
+const setTeamLoadingName = jest.fn();
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
-  useState: jest.fn().mockImplementation((init) => [init, mockSetTeamName]),
+  useState: jest.fn().mockImplementation((init) => [init, setTeamLoadingName]),
 }));
 
 const TestWeekTeamsComponent = () => {
@@ -50,11 +49,6 @@ const TestWeekTeamsComponent = () => {
 };
 
 describe('WeekTeams', () => {
-  const useStateMock = (init: any): [unknown, Dispatch<unknown>] => [
-    init,
-    setState,
-  ];
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -112,7 +106,7 @@ describe('WeekTeams', () => {
 
   describe('team loading spinner', () => {
     it('should show the loading spinner', async () => {
-      jest.fn().mockImplementationOnce(() => ['packers', mockSetTeamName]);
+      jest.fn().mockImplementationOnce(() => ['packers', setTeamLoadingName]);
 
       render(<TestWeekTeamsComponent />);
 
@@ -122,7 +116,7 @@ describe('WeekTeams', () => {
     });
 
     it('should not show the loading spinner', async () => {
-      jest.fn().mockImplementationOnce(() => ['ravens', mockSetTeamName]);
+      jest.fn().mockImplementationOnce(() => ['ravens', setTeamLoadingName]);
 
       render(<TestWeekTeamsComponent />);
 

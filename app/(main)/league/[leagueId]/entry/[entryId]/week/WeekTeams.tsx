@@ -43,7 +43,7 @@ const formatDateTime = (dateString: string): string => {
  * @param props.selectedTeams The user's selected teams.
  * @param props.userPick The user's pick.
  * @param props.onWeeklyPickChange The function to call when the user's pick changes.
- * @param props.loadingTeam The loading state for selecting teams.
+ * @param props.loadingTeamName The loading state for selecting teams.
  * @returns The rendered weekly picks page.
  */
 const WeekTeams = ({

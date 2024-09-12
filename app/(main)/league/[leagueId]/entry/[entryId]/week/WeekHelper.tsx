@@ -25,6 +25,7 @@ import { IWeeklyPickChange } from './Week.interface';
  * @param props.week - Prop value for gameWeekId in updateWeeklyPicks
  * @param props.updateWeeklyPicks - Prop for the updateWeeklyPicks function
  * @param props.setUserPick - Prop for the setUserPick function
+ * @param props.setLoadingTeamName - Prop for the setLoadingTeamName state
  * @returns {void}
  */
 export const onWeeklyPickChange = async ({
@@ -40,9 +41,7 @@ export const onWeeklyPickChange = async ({
   setLoadingTeamName: setLoadingTeamName,
 }: IWeeklyPickChange): Promise<void> => {
   try {
-    const team = NFLTeams.find(
-      (team) => team.teamName === teamSelect,
-    );
+    const team = NFLTeams.find((team) => team.teamName === teamSelect);
 
     setLoadingTeamName(team?.teamId ?? null);
 
@@ -95,8 +94,9 @@ export const onWeeklyPickChange = async ({
     toast.custom(
       <Alert
         variant={AlertVariants.Success}
-        message={`You have successfully pick the ${currentUserPick[user.id][entry].teamName
-          } for your team!`}
+        message={`You have successfully pick the ${
+          currentUserPick[user.id][entry].teamName
+        } for your team!`}
       />,
     );
   } catch (error) {
