@@ -22,6 +22,7 @@ describe('WeeklyPickButton', () => {
 
     const homeAwayLabel = screen.getByTestId('home-away');
     expect(homeAwayLabel).toBeInTheDocument();
+    expect(homeAwayLabel).toHaveTextContent('Home');
 
     const image = screen.getByTestId('team-image');
 
