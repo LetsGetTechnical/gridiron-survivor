@@ -15,8 +15,6 @@ import { IWeekProps } from './Week.interface';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
-import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
 import {
   getAllWeeklyPicks,
   getCurrentUserEntries,
@@ -31,6 +29,9 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { ChevronLeft } from 'lucide-react';
 
 /**
  * Renders the weekly picks page.
@@ -48,6 +49,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
+  const router = useRouter();
 
   /**
    * Fetches the current game week.
@@ -183,6 +185,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     try {
       await onWeeklyPickChange(params);
       setUserPick(teamSelect);
+      router.push(`/league/${league}/entry/all`);
     } catch (error) {
       console.error('Submission error:', error);
     }
