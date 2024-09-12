@@ -1,13 +1,9 @@
+import React, { Dispatch, useState as useStateMock } from 'react';
 import WeekTeams from './WeekTeams';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { mockSchedule } from './__mocks__/mockSchedule';
 import { FormProvider, useForm } from 'react-hook-form';
-import { hasTeamBeenPicked, cn } from '@/utils/utils';
-
-jest.mock('@/utils/utils', () => ({
-  hasTeamBeenPicked: jest.fn(),
-  cn: jest.fn(),
-}));
+import { hasTeamBeenPicked } from '@/utils/utils';
 
 const mockField = {
   name: 'value',
@@ -23,7 +19,14 @@ const mockDefaultUserPick = 'Ravens';
 const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
 const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
-const mockLoadingTeamName = 'packers';
+const setState = jest.fn();
+const mockLoadingTeamName = '';
+const mockSetTeamName = jest.fn();
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn().mockImplementation((init) => [init, mockSetTeamName]),
+}));
 
 const TestWeekTeamsComponent = () => {
   const formMethods = useForm();
@@ -42,6 +45,11 @@ const TestWeekTeamsComponent = () => {
 };
 
 describe('WeekTeams', () => {
+  const useStateMock = (init: any): [unknown, Dispatch<unknown>] => [
+    init,
+    setState,
+  ];
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -95,5 +103,27 @@ describe('WeekTeams', () => {
 
     expect(packersButton).toBeInTheDocument();
     expect(packersButton).toBeDisabled();
+  });
+
+  describe('team loading spinner', () => {
+    it('should show the loading spinner', async () => {
+      jest.fn().mockImplementationOnce(() => ['packers', mockSetTeamName]);
+
+      render(<TestWeekTeamsComponent />);
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+      });
+    });
+
+    it('should not show the loading spinner', async () => {
+      jest.fn().mockImplementationOnce(() => ['ravens', mockSetTeamName]);
+
+      render(<TestWeekTeamsComponent />);
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+      });
+    });
   });
 });
