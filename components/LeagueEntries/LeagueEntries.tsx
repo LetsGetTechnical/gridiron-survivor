@@ -15,6 +15,7 @@ import Link from 'next/link';
  * @param props.linkUrl - the url to the user's entry page
  * @param props.isEliminated - If true, the user is flagged as eliminat4ed
  * @param props.isPickSet - if true, the team logo of the picked team shows up on the LeagueEntries card and the button changes from "make a pick" to "chagne pick"
+ * @param props.lockout - if true, the user is locked out from making a pick
  * @param props.teamLogo - the team logo
  * @returns {React.JSX.Element} - A div element that contains the user's entry information
  */
@@ -23,6 +24,7 @@ const LeagueEntries = ({
   linkUrl,
   isEliminated = false,
   isPickSet = false,
+  lockout = false,
   teamLogo = '',
 }: ILeagueEntriesProps): JSX.Element => (
   <div
@@ -69,6 +71,7 @@ const LeagueEntries = ({
             <Button
               className="league-entry-pick-button"
               data-testid="league-entry-pick-button"
+              // need to link disabled attribute to lockout state. if lockout = true, button should be disabled
               label={isPickSet ? 'Change Pick' : 'Make Pick'}
               variant={isPickSet ? 'secondary' : 'default'}
             />
