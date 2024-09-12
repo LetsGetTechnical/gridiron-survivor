@@ -60,7 +60,7 @@ export const AdminUserSettings = (): JSX.Element => {
       <DropdownMenuContent className="border-[1px] border-zinc-700 rounded-[6px]  w-[230px] p-0">
         <DropdownMenuItem className="cursor-pointer rounded-none">
           <Button
-            className="flex justify-start p-0 text-base font-normal hover:no-underline w-full"
+            className="flex justify-start p-0 text-base font-normal hover:text-black w-full"
             variant="link"
             label="Edit Profile"
             onClick={handleRoute}
@@ -69,7 +69,7 @@ export const AdminUserSettings = (): JSX.Element => {
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer rounded-none">
           <Button
-            className="flex justify-start p-0 text-base font-normal hover:no-underline w-full"
+            className="flex justify-start p-0 text-base font-normal hover:text-black w-full"
             variant="link"
             label="Sign Out"
             onClick={handleLogout}
