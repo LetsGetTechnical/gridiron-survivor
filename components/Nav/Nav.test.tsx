@@ -60,11 +60,14 @@ describe('Nav', () => {
     jest.clearAllMocks();
   });
 
-  it('renders link to /league/all', () => {
+  it('renders link to /league/all', async () => {
     render(<Nav />);
 
+    const drawTrigger = screen.getByTestId('drawer-trigger');
+    fireEvent.click(drawTrigger);
+
     let linkNav: HTMLElement;
-    linkNav = screen.getByTestId('league-link');
+    linkNav = await screen.getByTestId('league-link');
     expect(linkNav).toBeInTheDocument();
     expect(linkNav).toHaveAttribute('href', '/league/all');
   });
