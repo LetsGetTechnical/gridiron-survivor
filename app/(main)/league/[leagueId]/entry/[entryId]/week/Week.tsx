@@ -277,7 +277,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                   >
                     <span className="text-sm">WEEK {index + 1}</span>
                     <Image
-                      className="league-entry-logo -mt-1.5"
+                      className="league-entry-logo"
                       width={64}
                       height={64}
                       data-testid="league-entry-logo"
