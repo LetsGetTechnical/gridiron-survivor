@@ -3,8 +3,13 @@ import WeekTeams from './WeekTeams';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { mockSchedule } from './__mocks__/mockSchedule';
 import { FormProvider, useForm } from 'react-hook-form';
-import { hasTeamBeenPicked } from '@/utils/utils';
+import { hasTeamBeenPicked, cn } from '@/utils/utils';
 
+jest.mock('@/utils/utils', () => ({
+  hasTeamBeenPicked: jest.fn(),
+  cn: jest.fn(),
+}));
+  
 const mockField = {
   name: 'value',
   value: '',
