@@ -4,6 +4,7 @@ import { WeeklyPickButton } from './WeeklyPickButton';
 import { RadioGroup } from '../RadioGroup/RadioGroup';
 
 const weeklyPickData = {
+  homeAway: 'Home',
   team: 'Ravens',
   src: '/path/to/ravens.svg',
   height: '48',
@@ -15,9 +16,12 @@ describe('WeeklyPickButton', () => {
   it('renders correctly', () => {
     render(
       <RadioGroup>
-        <WeeklyPickButton team={weeklyPickData.team} src={weeklyPickData.src} />
+        <WeeklyPickButton homeAway={weeklyPickData.homeAway} team={weeklyPickData.team} src={weeklyPickData.src} />
       </RadioGroup>,
     );
+
+    const homeAwayLabel = screen.getByTestId('home-away');
+    expect(homeAwayLabel).toBeInTheDocument();
 
     const image = screen.getByTestId('team-image');
 
