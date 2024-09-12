@@ -80,7 +80,7 @@ const LeagueEntries = ({
         data-testid="league-entry-footer"
       >
         {isPickSet && (
-          <div className="flex flex-col items-center border border-primary-muted px-2 py-1 rounded-lg">
+          <div className="flex flex-col items-center border border-primary px-2 py-1 rounded-lg">
             <span className="text-xs">CURRENT</span>
             <Image
               className="league-entry-logo"
