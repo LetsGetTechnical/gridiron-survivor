@@ -24,6 +24,8 @@ import {
   FormItem,
   FormMessage,
 } from '../../../../components/Form/Form';
+import { Suspense } from 'react';
+import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 
 interface CustomError extends Error {
   type?: string;
@@ -59,26 +61,37 @@ type ResetUserPasswordSchemaType = z.infer<typeof ResetPasswordSchema>;
  */
 const ResetPassword = (): React.JSX.Element => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { isSignedIn, getUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  let userId: string | null = null;
+  let secret: string | null = null;
+  let expire: string | null = null;
 
-  const userId: string | null = searchParams.get('userId');
-  const secret: string | null = searchParams.get('secret');
-  const expire: string | null = searchParams.get('expire');
+  /**
+   * Wrapper component to handle search params
+   * @returns {null} - null
+   */
+  const SearchParamsWrapper = (): null => {
+    const searchParams = useSearchParams();
+    userId = searchParams.get('userId');
+    secret = searchParams.get('secret');
+    expire = searchParams.get('expire');
 
-  useEffect(() => {
-    if (!userId || !secret || !expire) {
-      router.push('/login');
-    } else {
-      setIsLoading(false);
-      if (isSignedIn) {
-        getUser();
-        router.push('/league/all');
+    useEffect(() => {
+      if (!userId || !secret || !expire) {
+        router.push('/login');
+      } else {
+        setIsLoading(false);
+        if (isSignedIn) {
+          getUser();
+          router.push('/league/all');
+        }
       }
-    }
-  }, [isSignedIn]);
+    }, [isSignedIn]);
+
+    return null;
+  };
 
   const form = useForm<ResetUserPasswordSchemaType>({
     resolver: zodResolver(ResetPasswordSchema),
@@ -157,6 +170,10 @@ const ResetPassword = (): React.JSX.Element => {
 
   return (
     <section className="grid xl:grid-cols-2 xl:grid-rows-none">
+      <Suspense fallback={<GlobalSpinner />}>
+        <SearchParamsWrapper />
+      </Suspense>
+
       <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
         <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
         <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground">
