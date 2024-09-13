@@ -1,6 +1,5 @@
-import React, { useState as useStateMock } from 'react'
 import WeekTeams from './WeekTeams';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { mockSchedule } from './__mocks__/mockSchedule';
 import { FormProvider, useForm } from 'react-hook-form';
 import { hasTeamBeenPicked, cn } from '@/utils/utils';
@@ -24,20 +23,13 @@ const mockDefaultUserPick = 'Ravens';
 const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
 const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
-const mockLoadingTeamName = null;
-const setTeamLoadingName = jest.fn();
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn(),
-}));
-
-const TestWeekTeamsComponent = () => {
+const TestWeekTeamsComponent = ({loadingTeamName}:{loadingTeamName: string}) => {
   const formMethods = useForm();
   return (
     <FormProvider {...formMethods}>
       <WeekTeams
-        loadingTeamName={mockLoadingTeamName}
+        loadingTeamName={loadingTeamName}
         field={mockField}
         schedule={mockSchedule}
         selectedTeams={mockSelectedTeams}
@@ -56,7 +48,7 @@ describe('WeekTeams', () => {
   it('the team should render active and the user currently has them selected', () => {
     mockHasTeamBeenPicked.mockReturnValue(false);
 
-    render(<TestWeekTeamsComponent />);
+    render(<TestWeekTeamsComponent loadingTeamName={''} />);
 
     const weekTeamsRadioItems: HTMLButtonElement[] =
       screen.getAllByTestId('team-radio');
@@ -73,7 +65,7 @@ describe('WeekTeams', () => {
   it('the team should render active and the user should be able to select the team', () => {
     mockHasTeamBeenPicked.mockReturnValue(false);
 
-    render(<TestWeekTeamsComponent />);
+    render(<TestWeekTeamsComponent loadingTeamName={''} />);
     const weeklyPickButtons = screen.getAllByTestId('team-label');
 
     const chiefsButton = weeklyPickButtons.filter(
@@ -91,7 +83,7 @@ describe('WeekTeams', () => {
   it('the team should render disabled if the team has already been used and the user should not be able to select the team', () => {
     mockHasTeamBeenPicked.mockReturnValue(true);
 
-    render(<TestWeekTeamsComponent />);
+    render(<TestWeekTeamsComponent loadingTeamName={''} />);
 
     const weeklyPickButtons: HTMLButtonElement[] =
       screen.getAllByTestId('team-radio');
@@ -104,35 +96,16 @@ describe('WeekTeams', () => {
     expect(packersButton).toBeDisabled();
   });
 
-  describe('team loading spinner', () => {
-
-    beforeEach(() => {
-      (useStateMock as jest.Mock).mockImplementation(init => [init, setTeamLoadingName])
-    });
-  
-    it('should show the loading spinner', async () => {
-      jest.spyOn(React, 'useState').mockImplementationOnce(() => ['packers', setTeamLoadingName]);
-
-      render(<TestWeekTeamsComponent />);
-
-    const teamRadios = screen.getAllByTestId('team-radio');
-
-    expect(teamRadios).toBeInTheDocument();
-    // fireEvent.click(teamRadios[0]);
-
-    // const loadingSpinner = await screen.findByTestId('loading-spinner');
-
-    // expect(loadingSpinner).toBeInTheDocument();
+  describe('loading spinner team selection', () => {
+    it('the loading spinner should display after team selection', () => {
+      render(<TestWeekTeamsComponent loadingTeamName={'packers'}/>);
+      expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
     });
 
-    it('should not show the loading spinner', async () => {
-      jest.spyOn(React, 'useState').mockImplementationOnce(() => ['ravens', setTeamLoadingName]);
-
-      render(<TestWeekTeamsComponent />);
-
-      await waitFor(async() => {
-        expect(await screen.findByTestId('loading-spinner')).not.toBeInTheDocument();
-      });
+    it('the loading spinner should display after team selection', () => {
+      render(<TestWeekTeamsComponent loadingTeamName={''}/>);
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
     });
   });
+
 });
