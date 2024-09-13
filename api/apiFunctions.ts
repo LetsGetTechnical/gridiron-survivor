@@ -91,38 +91,6 @@ export async function resetPassword({
 }
 
 /**
- * Login to an existing account
- * @param props - The account data
- * @param props.email - The email of the user
- * @param props.password - The password of the user
- * @returns {Models.Session | Error} - The session object or an error
- */
-export async function loginAccount({
-  email,
-  password,
-}: IAccountData): Promise<Models.Session | Error> {
-  try {
-    return await account.createEmailPasswordSession(email, password);
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error logging in user');
-  }
-}
-
-/**
- * Logout the current user
- * @returns {object | Error} - The session object or an error
- */
-export async function logoutAccount(): Promise<object | Error> {
-  try {
-    return await account.deleteSession('current');
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error logging out user');
-  }
-}
-
-/**
  * Get the current user
  * @param userId - The user ID
  * @returns {Models.DocumentList<Models.Document> | Error} - The user object or an error
