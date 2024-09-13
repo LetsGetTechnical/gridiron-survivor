@@ -23,12 +23,12 @@ export interface IWeeklyPickChange {
   entry: string;
   league: string;
   NFLTeams: INFLTeam[];
+  setLoadingTeamName: React.Dispatch<React.SetStateAction<string | null>>;
   setUserPick: React.Dispatch<React.SetStateAction<string>>;
   updateWeeklyPicks: ({}: IWeeklyPicks) => void;
   user: IUser;
   weeklyPicks: IWeeklyPicks;
   week: string;
-  setLoadingTeamName: (loadData: string | null) => void;
 }
 
 export interface IWeekProps {

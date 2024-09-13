@@ -33,12 +33,12 @@ export const onWeeklyPickChange = async ({
   entry,
   league,
   NFLTeams,
+  setLoadingTeamName,
   setUserPick,
   updateWeeklyPicks,
   user,
   weeklyPicks,
   week,
-  setLoadingTeamName: setLoadingTeamName,
 }: IWeeklyPickChange): Promise<void> => {
   try {
     const team = NFLTeams.find((team) => team.teamName === teamSelect);

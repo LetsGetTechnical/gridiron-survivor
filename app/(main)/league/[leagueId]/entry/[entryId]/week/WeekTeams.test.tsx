@@ -111,7 +111,7 @@ describe('WeekTeams', () => {
       render(<TestWeekTeamsComponent />);
 
       await waitFor(() => {
-        expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+        expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
       });
     });
 

@@ -176,12 +176,12 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       entry,
       league,
       NFLTeams,
+      setLoadingTeamName,
       setUserPick,
       updateWeeklyPicks,
       user,
       weeklyPicks,
       week,
-      setLoadingTeamName: setLoadingTeamName,
     };
 
     try {

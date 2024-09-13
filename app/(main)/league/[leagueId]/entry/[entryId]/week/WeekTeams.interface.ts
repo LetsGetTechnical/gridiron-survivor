@@ -27,12 +27,12 @@ export interface ISchedule {
 
 export interface IWeekTeamsProps {
   field: ControllerRenderProps<FieldValues, string>;
+  loadingTeamName: string | null;
+  onWeeklyPickChange: ({}: NFLTeams) => Promise<void>;
   schedule: ISchedule[];
   selectedTeams: INFLTeam['teamName'][];
   userPick: string;
   // eslint-disable-next-line no-unused-vars
-  onWeeklyPickChange: (teamSelect: NFLTeams) => Promise<void>;
-  loadingTeamName: string | null;
 }
 
 interface ICompetition {

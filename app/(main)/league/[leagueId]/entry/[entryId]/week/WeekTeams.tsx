@@ -72,18 +72,17 @@ const WeekTeams = ({
           <FormItem key={competition.id}>
             <FormControl>
               {loadingTeamName ===
-              competition.team.shortDisplayName.toLowerCase() ? (
-                <LoadingSpinner />
-              ) : (
-                <WeeklyPickButton
-                  team={competition.team.name}
-                  src={competition.team.logo}
-                  isDisabled={
-                    Boolean(loadingTeamName) ||
+              competition.team.shortDisplayName.toLowerCase() ? ( <LoadingSpinner/>
+                ) : (
+                  <WeeklyPickButton
+                    team={competition.team.name}
+                    src={competition.team.logo}
+                    isDisabled={
+                      Boolean(loadingTeamName) ||
                     hasTeamBeenPicked(competition.team.name, selectedTeams)
-                  }
-                />
-              )}
+                    }
+                  />
+                )}
             </FormControl>
           </FormItem>
         ))}
