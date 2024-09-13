@@ -67,7 +67,7 @@ describe('League entries page (Entry Component)', () => {
         name: 'Entry 1',
         user: '1',
         league: '1',
-        selectedTeams: '',
+        selectedTeams: [],
         eliminated: false,
       },
     ]);

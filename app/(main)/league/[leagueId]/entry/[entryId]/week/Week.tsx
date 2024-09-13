@@ -29,7 +29,7 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { useAuthContext } from '@/context/AuthContextProvider';
-import { getNFLTeamLogo } from '@/utils/utils';
+import { cn, getNFLTeamLogo } from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
@@ -147,7 +147,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
    */
   const getPickHistory = async (): Promise<void> => {
     const entryId: string = entry;
-    const currentWeek: number = Number(week);
 
     try {
       const entries = await getCurrentUserEntries(user.id, league);
@@ -159,10 +158,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
       let entryHistory = currentEntry?.selectedTeams || [];
 
-      if (week !== '1' && currentEntry?.selectedTeams.length > 0) {
-        entryHistory = entryHistory
-          .slice(0, currentWeek - 1)
-          .map((teamName) => getNFLTeamLogo(NFLTeams, teamName));
+      if (currentEntry?.selectedTeams.length > 0) {
+        entryHistory = entryHistory.map((teamName) =>
+          getNFLTeamLogo(NFLTeams, teamName),
+        );
       }
 
       setPickHistory(entryHistory);
@@ -266,7 +265,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               {selectedLeague?.leagueName as string}
             </LinkCustom>
           </nav>
-          <section className="flex flex-col items-center w-full pt-8" data-testid="weekly-picks">
+          <section
+            className="flex flex-col items-center w-full pt-8"
+            data-testid="weekly-picks"
+          >
             <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
             </h1>
@@ -276,9 +278,18 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                 {pickHistory?.map((logoURL, index) => (
                   <div
                     key={logoURL}
-                    className="flex flex-col items-center justify-center border border-border p-2 rounded-lg gap-1"
+                    className={cn(
+                      'flex flex-col items-center justify-center border  p-2 rounded-lg gap-1',
+                      index === pickHistory.length - 1
+                        ? 'border-primary'
+                        : 'border-border opacity-80',
+                    )}
                   >
-                    <span className="text-sm">WEEK {index + 1}</span>
+                    <span className="text-sm">
+                      {index === pickHistory.length - 1
+                        ? 'CURRENT'
+                        : `WEEK ${index + 1}`}
+                    </span>
                     <Image
                       className="league-entry-logo"
                       width={64}
