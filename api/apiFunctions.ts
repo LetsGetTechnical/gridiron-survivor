@@ -10,6 +10,7 @@ import {
   IUser,
   IWeeklyPicks,
   INFLTeam,
+  IRecoveryToken,
 } from './apiFunctions.interface';
 import { Collection, Document } from './apiFunctions.enum';
 import { Query } from 'appwrite';
@@ -17,6 +18,7 @@ import {
   IEntry,
   IEntryProps,
 } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
+import { getBaseURL } from '@/utils/utils';
 
 /**
  * Register a new account
@@ -36,6 +38,64 @@ export async function registerAccount({
     throw new Error('Error registering user');
   }
 }
+
+/**
+ * Recover a User Password
+ * @param props - the props for the recover password function
+ * @param props.email - the email of the user
+ * @returns {Promise<IRecoveryToken>} - the recovery token
+ */
+export async function recoverPassword({
+  email,
+}: {
+  email: string;
+}): Promise<IRecoveryToken> {
+  const baseURL = getBaseURL();
+  try {
+    const result = await account.createRecovery(
+      email,
+      `${baseURL}/account/recovery`,
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error recovering password');
+  }
+}
+
+/**
+ * Reset a User Password
+ * @param props - the props for the reset password function
+ * @param props.userId - the user id
+ * @param props.token - the recovery token
+ * @param props.password - the new password
+ * @returns {Promise<void>} - the reset password
+ */
+export async function resetPassword({
+  userId,
+  token,
+  password,
+}: {
+  userId: string;
+  token: string;
+  password: string;
+}): Promise<IRecoveryToken> {
+  try {
+    const result = await account.updateRecovery(userId, token, password);
+    return result;
+  } catch (error) {
+    console.error('Password reset error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Reset a User Password
+ * @param props - the props for the reset password function
+ * @param props.recoveryToken - the recovery token
+ * @param props.password - the new password
+ * @returns {Promise<void>} - the reset password
+ */
 
 /**
  * Login to an existing account
