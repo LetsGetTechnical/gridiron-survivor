@@ -18,7 +18,7 @@ import {
   IEntry,
   IEntryProps,
 } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
-import { getBaseURL } from '@/utils/utils';
+import { getBaseURL } from '@/utils/getBaseUrl';
 
 /**
  * Register a new account
@@ -51,6 +51,7 @@ export async function recoverPassword({
   email: string;
 }): Promise<IRecoveryToken> {
   const baseURL = getBaseURL();
+
   try {
     const result = await account.createRecovery(
       email,
@@ -88,14 +89,6 @@ export async function resetPassword({
     throw error;
   }
 }
-
-/**
- * Reset a User Password
- * @param props - the props for the reset password function
- * @param props.recoveryToken - the recovery token
- * @param props.password - the new password
- * @returns {Promise<void>} - the reset password
- */
 
 /**
  * Login to an existing account
