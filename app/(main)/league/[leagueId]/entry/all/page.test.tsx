@@ -280,7 +280,7 @@ describe('League entries page (Entry Component)', () => {
       screen.queryByTestId('add-new-entry-button'),
     ).not.toBeInTheDocument();
   });
-  it('should display "Make Pick" button when no pick is set', async () => {
+  it('should display "Make Pick" link when no pick is set', async () => {
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '123',
@@ -293,13 +293,13 @@ describe('League entries page (Entry Component)', () => {
     render(<Entry params={{ leagueId: '123' }} />);
 
     await waitFor(() => {
-      expect(screen.getByTestId('league-entry-pick-button')).toHaveTextContent(
+      expect(screen.getByTestId('league-entry-pick-link')).toHaveTextContent(
         'Make Pick',
       );
     });
   });
 
-  it('should render team logo and change button to "Change Pick" when a pick is made', async () => {
+  it('should render team logo and change link to "Change Pick" when a pick is made', async () => {
     mockUseDataStore.mockReturnValue({
       ...mockUseDataStore(),
       currentWeek: 1,
@@ -321,7 +321,7 @@ describe('League entries page (Entry Component)', () => {
         'team-a-logo.png',
       );
 
-      expect(screen.getByTestId('league-entry-pick-button')).toHaveTextContent(
+      expect(screen.getByTestId('league-entry-pick-link')).toHaveTextContent(
         'Change Pick',
       );
     });

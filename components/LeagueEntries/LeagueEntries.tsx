@@ -106,7 +106,7 @@ const LeagueEntries = ({
               className={
                 isLockedOut === true ? 'opacity-50 cursor-not-allowed' : ''
               }
-              data-testid="league-entry-pick-button-link"
+              data-testid="league-entry-pick-link"
               href={linkUrl}
               onClick={(e: { preventDefault: () => unknown }) =>
                 isLockedOut === true && e.preventDefault()
