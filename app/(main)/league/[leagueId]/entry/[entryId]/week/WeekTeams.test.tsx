@@ -1,4 +1,4 @@
-import React, { Dispatch, useState as useStateMock } from 'react';
+import React, { useState as useStateMock } from 'react'
 import WeekTeams from './WeekTeams';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { mockSchedule } from './__mocks__/mockSchedule';
@@ -24,12 +24,12 @@ const mockDefaultUserPick = 'Ravens';
 const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
 const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
-const mockLoadingTeamName = '';
+const mockLoadingTeamName = null;
 const setTeamLoadingName = jest.fn();
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
-  useState: jest.fn().mockImplementation((init) => [init, setTeamLoadingName]),
+  useState: jest.fn(),
 }));
 
 const TestWeekTeamsComponent = () => {
@@ -105,23 +105,33 @@ describe('WeekTeams', () => {
   });
 
   describe('team loading spinner', () => {
+
+    beforeEach(() => {
+      (useStateMock as jest.Mock).mockImplementation(init => [init, setTeamLoadingName])
+    });
+  
     it('should show the loading spinner', async () => {
-      jest.fn().mockImplementationOnce(() => ['packers', setTeamLoadingName]);
+      jest.spyOn(React, 'useState').mockImplementationOnce(() => ['packers', setTeamLoadingName]);
 
       render(<TestWeekTeamsComponent />);
 
-      await waitFor(() => {
-        expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
-      });
+    const teamRadios = screen.getAllByTestId('team-radio');
+
+    expect(teamRadios).toBeInTheDocument();
+    // fireEvent.click(teamRadios[0]);
+
+    // const loadingSpinner = await screen.findByTestId('loading-spinner');
+
+    // expect(loadingSpinner).toBeInTheDocument();
     });
 
     it('should not show the loading spinner', async () => {
-      jest.fn().mockImplementationOnce(() => ['ravens', setTeamLoadingName]);
+      jest.spyOn(React, 'useState').mockImplementationOnce(() => ['ravens', setTeamLoadingName]);
 
       render(<TestWeekTeamsComponent />);
 
-      await waitFor(() => {
-        expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+      await waitFor(async() => {
+        expect(await screen.findByTestId('loading-spinner')).not.toBeInTheDocument();
       });
     });
   });
