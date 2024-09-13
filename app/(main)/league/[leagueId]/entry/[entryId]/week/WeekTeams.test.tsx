@@ -24,7 +24,11 @@ const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
 const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
 
-const TestWeekTeamsComponent = ({loadingTeamName}:{loadingTeamName: string}) => {
+const TestWeekTeamsComponent = ({
+  loadingTeamName,
+}: {
+  loadingTeamName: string;
+}) => {
   const formMethods = useForm();
   return (
     <FormProvider {...formMethods}>
@@ -98,14 +102,13 @@ describe('WeekTeams', () => {
 
   describe('loading spinner team selection', () => {
     it('the loading spinner should display after team selection', () => {
-      render(<TestWeekTeamsComponent loadingTeamName={'packers'}/>);
+      render(<TestWeekTeamsComponent loadingTeamName={'packers'} />);
       expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
     });
 
     it('the loading spinner should display after team selection', () => {
-      render(<TestWeekTeamsComponent loadingTeamName={''}/>);
+      render(<TestWeekTeamsComponent loadingTeamName={''} />);
       expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
     });
   });
-
 });
