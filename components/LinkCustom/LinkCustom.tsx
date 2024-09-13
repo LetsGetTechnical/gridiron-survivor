@@ -37,6 +37,8 @@ interface ILinkCustomProps extends VariantProps<typeof linkCustomVariants> {
   children?: React.ReactNode;
   className?: string;
   href: string;
+  // eslint-disable-next-line no-unused-vars
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
 
 /**
@@ -45,6 +47,7 @@ interface ILinkCustomProps extends VariantProps<typeof linkCustomVariants> {
  * @param props.children - the children of the link
  * @param props.className - the class name of the link
  * @param props.href - the url of the link
+ * @param props.onClick - the click event of the link
  * @param props.size - the size of the link
  * @param props.variant - the variant of the link
  * @returns {React.JSX.Element} - A link element
@@ -53,6 +56,7 @@ const LinkCustom = ({
   children,
   className,
   href,
+  onClick,
   size,
   variant,
 }: ILinkCustomProps): JSX.Element => {
@@ -61,6 +65,7 @@ const LinkCustom = ({
       className={cn(linkCustomVariants({ size, variant }), className)}
       data-testid="linkCustom"
       href={href}
+      onClick={onClick}
       passHref
     >
       {children}

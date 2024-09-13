@@ -43,38 +43,6 @@ const Entry = ({
   const { currentWeek, NFLTeams, user, updateCurrentWeek, updateNFLTeams } =
     useDataStore((state) => state);
   const MAX_ENTRIES = 5;
-  const [lockout, setLockout] = useState<boolean>(false);
-
-  useEffect(() => {
-    /**
-     * Checks if the current time is within the lockout period.
-     */
-    const checkLockout = (): void => {
-      const now = new Date();
-      const day = now.getUTCDay();
-      const hours = now.getUTCHours();
-
-      // Lockout from 12am UTC on Thursday (day 4) until 12pm UTC on the following Tuesday (day 2)
-      if (
-        (day === 4 && hours >= 0) || // Thursday from 12am
-        (day > 4 && day < 2) || // Friday, Saturday, Sunday, Monday
-        (day === 2 && hours < 12) // Tuesday until 12pm
-      ) {
-        setLockout(true);
-      } else {
-        setLockout(false);
-      }
-    };
-
-    // Check immediately on mount
-    checkLockout();
-
-    // Check time every hour
-    const intervalId = setInterval(checkLockout, 60 * 60 * 1000);
-
-    // Cleanup interval on unmount
-    return (): void => clearInterval(intervalId);
-  }, []);
 
   useEffect(() => {
     /**
@@ -240,9 +208,9 @@ const Entry = ({
                       entryName={entry.name}
                       isEliminated={entry.eliminated}
                       isPickSet={isPickSet}
+                      isLockedOutProp={false}
                       key={entry.$id}
                       linkUrl={linkUrl}
-                      lockout={lockout}
                       teamLogo={teamLogo}
                     />
                   </section>
