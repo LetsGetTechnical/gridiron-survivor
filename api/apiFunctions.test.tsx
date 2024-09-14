@@ -30,7 +30,7 @@ describe('Auth Functions', () => {
     registerAccount: jest.fn(),
   }));
 
-  xdescribe('login account successful', () => {
+  describe('login account successful', () => {
     it('should show user login successfully', async () => {
       const userDummy = {
         email: 'testemail@email.com',
@@ -79,7 +79,7 @@ describe('Auth Functions', () => {
   });
 });
 
-xtest('get weekly picks mock function', async () => {
+test('get weekly picks mock function', async () => {
   const users = { userId: '66174f2362ec891167be' };
   const resp = { data: users };
 

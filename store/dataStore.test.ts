@@ -44,7 +44,7 @@ const allLeagues = [
 ];
 
 describe('Data Store', () => {
-  xdescribe('User Test', () => {
+  describe('User Test', () => {
     it('Check the default user state', () => {
       const { result } = renderHook(() => useDataStore());
       expect(result.current.user.id).toBe('');
