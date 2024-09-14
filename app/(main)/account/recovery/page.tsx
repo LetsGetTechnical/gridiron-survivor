@@ -189,7 +189,7 @@ const ResetPassword = (): React.JSX.Element => {
           <>
             <div>
               <h1 className="text-5xl font-extrabold tracking-tight">
-                Recover Your Password
+                Reset Your Password
               </h1>
               <p className="pb-4 font-normal leading-7 text-muted-foreground">
                 Enter your new password and confirm it to recover your account.
