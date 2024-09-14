@@ -60,6 +60,9 @@ const RecoverPassword = (): React.JSX.Element => {
 
   const form = useForm<ResetUserPasswordSchemaType>({
     resolver: zodResolver(RecoverUserPasswordSchema),
+    defaultValues: {
+      email: '',
+    },
   });
 
   const email = useWatch({
