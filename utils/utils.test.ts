@@ -144,7 +144,7 @@ describe('utils', () => {
           '66281d5ec5614f76bc91': {
             '123':{
             '1234': {
-              teamName: 'New England Patriots',
+              teamName: '',
               correct: false,
             },
           },

@@ -82,8 +82,14 @@ export const getUserPick = async ({
     return '';
   }
 
-  const userTeamId = weeklyPicks[userId][entryId].teamName;
-  const userSelectedTeam = NFLTeams.find((team) => team.teamName === userTeamId.teamName);
+  const leagueId = Object.keys(weeklyPicks[userId])[0]; 
+  const userPick = weeklyPicks[userId][leagueId]?.[entryId];
+
+  if (!userPick) {
+    return '';
+  }
+
+  const userSelectedTeam = NFLTeams.find((team) => team.teamName === userPick.teamName);
 
   return userSelectedTeam?.teamName || '';
 };
