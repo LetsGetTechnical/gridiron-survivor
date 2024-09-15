@@ -124,7 +124,7 @@ const Leagues = (): JSX.Element => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       {loadingData ? (
-        <GlobalSpinner />
+        <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
           <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
@@ -169,6 +169,7 @@ const Leagues = (): JSX.Element => {
                 render={({ field, fieldState }) => (
                   <>
                     <select
+                      data-testid="select-available-leagues"
                       {...field}
                       id="available-leagues"
                       className={`border border-border rounded p-2 w-full text-secondary ${

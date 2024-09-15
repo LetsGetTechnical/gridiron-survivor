@@ -3,6 +3,7 @@ import { useDataStore } from './dataStore';
 
 // test values
 const userData = {
+  documentId: '123',
   userId: '123',
   userEmail: 'test@email.com',
   leagues: ['123456'],
@@ -56,6 +57,7 @@ describe('Data Store', () => {
 
       act(() => {
         result.current.updateUser(
+          userData.documentId,
           userData.userId,
           userData.userEmail,
           userData.leagues,
@@ -70,6 +72,7 @@ describe('Data Store', () => {
 
       act(() => {
         result.current.updateUser(
+          userData.documentId,
           userData.userId,
           userData.userEmail,
           userData.leagues,
@@ -112,18 +115,22 @@ describe('Data Store', () => {
         leagueId: '123',
         gameWeekId: '456',
         userResults: {
-          '66281d5ec5614f76bc91': {
-            team: '66218f22b40deef340f8',
-            correct: false,
-          },
-          '6628077faeeedd272637': {
-            team: '6621b30ea57bd075e9d3',
-            correct: false,
-          },
-          '66174f2362ec891167be': {
-            team: '6621b30ea57bd075e9d3',
-            correct: true,
-          },
+          '123': {
+            '456': {
+            'entry1': {
+              teamName: 'New England Patriots',
+              correct:true
+            },
+            'entry2': {
+              teamName: 'Kansas City Chiefs',
+              correct:false
+            },
+            'entry3': {
+              teamName: 'New England Patriots',
+              correct:false
+            }
+          }
+          }
         },
       };
       act(() => {
