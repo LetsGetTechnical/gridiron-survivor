@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url(../app/globals.css);
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-muted-foreground;
+}
+
+h1 {
+  font-size: 3rem; /* 48px */
+  line-height: 1;
+}
+
+h2 {
+  font-size: 2.25rem; /* 36px */
+  line-height: 2.5rem; /* 40px */
+}
+
+h3 {
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem; /* 36px */
+}
+
+h4 {
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+}
+
+h5 {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+}
+
+h6 {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.sponsors-container {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.sponsor-cards {
+  max-width: 10rem;
+  max-height: 8rem;
+  display: grid;
+  row-gap: 1rem;
+  justify-content: center;
+  justify-items: center;
+  align-items: space-around;
+}
+
+.sponsor-cards h5 {
+  @apply text-foreground;
+}
+
+.sponsor-cards img {
+  max-height: 8rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.team-member {
+  @apply outline outline-outline;
+  display: grid;
+  grid-column: repeat(1, 1fr);
+  grid-row: auto;
+  padding: 1.5rem;
+  aspect-ratio: 1/1;
+  border-radius: 1rem;
+  align-items: space-around;
+  text-wrap: pretty;
+
+  a {
+    display: block;
+  }
+}

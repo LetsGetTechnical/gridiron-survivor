@@ -1,7 +1,105 @@
-import './styles.css';
+import './welcome-styles.css';
+import GridironLogo from './assets/gridironSurvivorLogo.svg';
+import AppwriteLogo from './assets/appwriteLogo.svg';
+import BlogRecorderLogo from './assets/blogRecorderLogo.svg';
+import frontendMentorLogo from './assets/frontendMentorLogo.svg';
+import gitkrakenLogo from './assets/gitkrakenLogo.svg';
+import pastelLogo from './assets/pastelLogo.svg';
+import Image from 'next/image';
 
-<h1>Welcome</h1>
+<html>
+  <body class="dark bg-background text-foreground max-w-screen-lg min-w-screen-sm mx-auto text-pretty">
+    <section class="header align-center">
+      <Image src={GridironLogo} alt='Gridiron Survivor Football Logo' />
+    </section>
+    <section class="hero">
+      <h2>What is Gridiron Survivor?</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat
+        architecto ab blanditiis numquam itaque tenetur recusandae cupiditate
+        accusantium molestiae autem consectetur earum excepturi labore corrupti
+        sit illo quis voluptatibus fuga, vitae quisquam placeat nesciunt velit.
+        Eius est, sequi voluptatem repellat mollitia consequuntur beatae,
+        voluptates aliquam nihil perspiciatis neque quas cumque.
+      </p>
+    </section>
+    <section class="sponsors">
+      <h2>Sponsors</h2>
+      <section class="sponsors-container flex flex-wrap gap-8 justify-center">
+        <div class="sponsor-cards">
+          <Image src={AppwriteLogo} alt='Appwrite Logomark' />
+          <h5>Appwrite</h5>
+        </div>
+        <div class="sponsor-cards">
+          <Image src={BlogRecorderLogo} alt='' />
+          <h5>Blog Recorder</h5>
+        </div>
+        <div class="sponsor-cards">
+          <Image src={frontendMentorLogo} alt='' />
+          <h5>Frontend Mentor</h5>
+        </div>
+        <div class="sponsor-cards">
+          <Image src={gitkrakenLogo} alt='' />
+          <h5>GitKraken</h5>
+        </div>
+        <div class="sponsor-cards">
+          <Image src={pastelLogo} alt='' />
+          <h5>Pastel</h5>
+        </div>
+      </section>
+    </section>
+    <h2>Meet the Team</h2>
+    <section class="meet-the-team grid grid-cols-4 grid-rows-auto gap-12">
+      <div class="team-member">
+        <h5>Name</h5>
+        <p>Title</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Name</h5>
+        <p>Title</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Name</h5>
+        <p>Title</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Name</h5>
+        <p>Title</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Name</h5>
+        <p>Title</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Name</h5>
+        <p>Title</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Name</h5>
+        <p>Title</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Walter Furrer</h5>
+        <p>Documentation Engineer</p>
+        <a href="https://github.com/FurrerW">GitHub</a>
+        <a href="https://www.linkedin.com/in/furrerw/">LinkedIn</a>
+      </div>
+    </section>
 
-<div className="doc_nav_links">
-  <p>[Application Setup](?path=/docs/about-application-setup--docs)</p>
-</div>
+  </body>
+
+</html>
