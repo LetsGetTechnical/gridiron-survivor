@@ -55,6 +55,7 @@ const Leagues = (): JSX.Element => {
       // Fetch user leagues
       const fetchedUserLeagues = await getUserLeagues(user.leagues);
       setLeagues(fetchedUserLeagues);
+      setLoadingData(false);
     } catch (error) {
       console.error('Error fetching leagues:', error);
       toast.custom(
@@ -145,7 +146,10 @@ const Leagues = (): JSX.Element => {
               ))
             ) : (
               <div className="text-center">
-                <p className="text-lg font-bold">
+                <p
+                  className="text-lg font-bold"
+                  data-testId="no-leagues-message"
+                >
                   You are not enrolled in any leagues
                 </p>
               </div>
