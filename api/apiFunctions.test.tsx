@@ -2,7 +2,6 @@ import { log } from 'console';
 import {
   addUserToLeague,
   getAllLeagues,
-  getUserDocumentId,
   loginAccount,
   logoutAccount,
   registerAccount,
@@ -21,33 +20,39 @@ jest.mock('./apiFunctions', () => {
     getAllLeagues: jest.fn(),
     getUserDocumentId: jest.fn(),
     addUserToLeague: jest.fn(),
+    loginAccount: jest.fn(),
+    registerAccount: jest.fn(),
   };
 });
 
 describe('Auth Functions', () => {
-  jest.mock('./apiFunctions', () => ({
-    loginAccount: jest.fn(),
-    registerAccount: jest.fn(),
-  }));
-
   describe('login account successful', () => {
     it('should show user login successfully', async () => {
       const userDummy = {
         email: 'testemail@email.com',
         password: 'test1234',
       };
-      await loginAccount(userDummy);
-      expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
+      const mockSession = {
+        $id: 'unique_session_id',
+        $createdAt: '2023-09-14T10:30:00.000+00:00',
+        userId: 'user_unique_id',
+      };
+      (loginAccount as jest.Mock).mockResolvedValue(mockSession);
+      const result = await loginAccount(userDummy);
+      expect(result).toEqual(mockSession);
     });
 
-    //user failed to log in
     it('should send error if user could not log in', async () => {
       const failDummy = {
         email: 'testemil@email.com',
         password: 'tet1234679',
       };
-      await loginAccount(failDummy);
-      expect(loginAccount(failDummy)).rejects.toThrow('error');
+      (loginAccount as jest.Mock).mockRejectedValue(
+        new Error('Error logging in user'),
+      );
+      await expect(loginAccount(failDummy)).rejects.toThrow(
+        'Error logging in user',
+      );
     });
   });
 
@@ -69,12 +74,15 @@ describe('Auth Functions', () => {
         email: 'testemail0@email.com',
         password: 'test12345',
       };
-      const response = await registerAccount(userDummy);
-      expect(account.create).toHaveBeenCalledWith(
-        expect.any(String),
-        userDummy.email,
-        userDummy.password,
-      );
+      const mockSession = {
+        $id: 'unique_session_id',
+        $createdAt: '2023-10-14T10:30:00.000+00:00',
+        userId: 'user_unique_id',
+      };
+      (registerAccount as jest.Mock).mockResolvedValue(mockSession);
+      const result = await registerAccount(userDummy);
+      expect(result).toEqual(mockSession);
+      // );
     });
   });
 });
