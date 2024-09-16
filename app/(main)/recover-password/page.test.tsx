@@ -8,7 +8,6 @@ import {
 } from '@testing-library/react';
 import RecoverPassword from './page';
 
-// mock the recoverPassword function
 jest.mock('@/api/apiFunctions', () => ({
   recoverPassword: jest.fn(),
 }));

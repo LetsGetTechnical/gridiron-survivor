@@ -19,8 +19,6 @@ jest.mock('./apiFunctions', () => {
     getAllLeagues: jest.fn(),
     getUserDocumentId: jest.fn(),
     addUserToLeague: jest.fn(),
-    getCurrentLeague: jest.fn(),
-    loginAccount: jest.fn(),
   };
 });
 
