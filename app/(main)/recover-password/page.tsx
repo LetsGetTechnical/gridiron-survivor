@@ -27,7 +27,7 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 /**
- * The schema for the login form.
+ * The schema for the recover password form
  * @throws {Error} Throws an error if the email is not a valid email address.
  * @throws {Error} Throws an error if the email is not provided.
  * @throws {Error} Throws an error if the email is not a string.
@@ -43,7 +43,7 @@ type ResetUserPasswordSchemaType = z.infer<typeof RecoverUserPasswordSchema>;
 
 /**
  * Renders the recover password page.
- * @returns {React.JSX.Element} The rendered login page.
+ * @returns {React.JSX.Element} The rendered recover password page.
  */
 const RecoverPassword = (): React.JSX.Element => {
   const router = useRouter();
@@ -56,7 +56,7 @@ const RecoverPassword = (): React.JSX.Element => {
       router.push('/league/all');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSignedIn, getUser]);
+  }, [isSignedIn]);
 
   const form = useForm<ResetUserPasswordSchemaType>({
     resolver: zodResolver(RecoverUserPasswordSchema),
@@ -82,7 +82,7 @@ const RecoverPassword = (): React.JSX.Element => {
     toast.custom(
       <Alert
         variant={AlertVariants.Success}
-        message={`Thank you! Check your email for instructions to reset your password if an associated account is found with ${data.email}`}
+        message={`If an account exists for ${data.email}, we've sent password reset instructions to that email address. Please check your inbox and follow the provided steps to reset your password.`}
       />,
     );
     setTimeout(() => router.push('/login'), 2000);

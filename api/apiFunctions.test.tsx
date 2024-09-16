@@ -375,14 +375,6 @@ describe('apiFunctions', () => {
       apiFunctions.addUserToLeague.mockRejectedValue(
         new Error('Error adding user to league'),
       );
-      await expect(apiFunctions.addUserToLeague('123', '456')).rejects.toThrow(
-        'Error adding user to league',
-      );
-    });
-    it('should return error upon unsuccessful call', async () => {
-      apiFunctions.addUserToLeague.mockRejectedValue(
-        new Error('Error adding user to league'),
-      );
       await expect(apiFunctions.addUserToLeague({ response })).rejects.toThrow(
         'Error adding user to league',
       );
