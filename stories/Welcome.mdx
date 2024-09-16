@@ -8,13 +8,13 @@ import pastelLogo from './assets/pastelLogo.svg';
 import Image from 'next/image';
 
 <html>
-  <body class="dark bg-background text-foreground max-w-screen-lg min-w-screen-sm mx-auto text-pretty">
-    <section class="header align-center">
-      <Image src={GridironLogo} alt='Gridiron Survivor Football Logo' />
+  <body class="dark bg-background text-foreground in-w-5xl max-w-7xl mx-auto text-pretty">
+    <section class="header flex justify-center align-middle p-16">
+      <Image class="w-2/6 h-auto" src={GridironLogo} alt='Gridiron Survivor Football Logo' />
     </section>
     <section class="hero">
       <h2>What is Gridiron Survivor?</h2>
-      <p>
+      <p class="text-xl">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat
         architecto ab blanditiis numquam itaque tenetur recusandae cupiditate
         accusantium molestiae autem consectetur earum excepturi labore corrupti
@@ -23,9 +23,9 @@ import Image from 'next/image';
         voluptates aliquam nihil perspiciatis neque quas cumque.
       </p>
     </section>
-    <section class="sponsors">
+    <section class="sponsors pt-16">
       <h2>Sponsors</h2>
-      <section class="sponsors-container flex flex-wrap gap-8 justify-center">
+      <section class="sponsors-container flex flex-wrap gap-24 justify-center">
         <div class="sponsor-cards">
           <Image src={AppwriteLogo} alt='Appwrite Logomark' />
           <h5>Appwrite</h5>
@@ -49,46 +49,22 @@ import Image from 'next/image';
       </section>
     </section>
     <h2>Meet the Team</h2>
-    <section class="meet-the-team grid grid-cols-4 grid-rows-auto gap-12">
+    <section class="meet-the-team grid grid-cols-4 grid-rows-auto gap-12 p-16">
       <div class="team-member">
-        <h5>Name</h5>
-        <p>Title</p>
+        <h5>Alex Appleget</h5>
+        <p>Software Engineer</p>
         <a href="#">GitHub</a>
         <a href="#">LinkedIn</a>
       </div>
       <div class="team-member">
-        <h5>Name</h5>
-        <p>Title</p>
+        <h5>Richard Choi</h5>
+        <p>DevRel Engineer</p>
         <a href="#">GitHub</a>
         <a href="#">LinkedIn</a>
       </div>
       <div class="team-member">
-        <h5>Name</h5>
-        <p>Title</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Name</h5>
-        <p>Title</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Name</h5>
-        <p>Title</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Name</h5>
-        <p>Title</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Name</h5>
-        <p>Title</p>
+        <h5>Ryan Furrer</h5>
+        <p>UX Engineer</p>
         <a href="#">GitHub</a>
         <a href="#">LinkedIn</a>
       </div>
@@ -97,6 +73,30 @@ import Image from 'next/image';
         <p>Documentation Engineer</p>
         <a href="https://github.com/FurrerW">GitHub</a>
         <a href="https://www.linkedin.com/in/furrerw/">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Corina Murg</h5>
+        <p>Accessibility Expert</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Chris Nowicki</h5>
+        <p>Software Engineer</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Jason Torres</h5>
+        <p>Technical Project Manager</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <div class="team-member">
+        <h5>Mai Vang</h5>
+        <p>Frontend Engineer</p>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
       </div>
     </section>
 
