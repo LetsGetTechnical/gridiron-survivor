@@ -277,7 +277,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               <section className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center">
                 {pickHistory?.map((logoURL, index) => (
                   <div
-                    key={logoURL}
+                    key={`${logoURL}-${index + 1}`}
                     className={cn(
                       'flex flex-col items-center justify-center border  p-2 rounded-lg gap-1',
                       index === pickHistory.length - 1

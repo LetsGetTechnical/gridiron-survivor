@@ -1,13 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Week from './Week';
-import {
-  getCurrentLeague,
-  getCurrentUserEntries,
-  createWeeklyPicks,
-  getAllWeeklyPicks,
-} from '@/api/apiFunctions';
-import { useDataStore } from '@/store/dataStore';
+import { getCurrentLeague, createWeeklyPicks } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
@@ -102,13 +96,13 @@ describe('Week', () => {
   const teamSelect = 'Browns';
   const NFLTeams = [
     {
+      teamId: 'browns',
       teamName: 'Browns',
-      teamId: '1234',
       teamLogo: 'https://example.com/logo-1.png',
     },
     {
+      teamId: 'packers',
       teamName: 'Packers',
-      teamId: '1234',
       teamLogo: 'https://example.com/logo-2.png',
     },
   ];
@@ -127,7 +121,7 @@ describe('Week', () => {
     userResults: {},
   };
 
-  const teamID = NFLTeams[0].teamName;
+  const teamName = NFLTeams[0].teamName;
 
   const updatedWeeklyPicks = {
     ...weeklyPicks.userResults,
@@ -135,7 +129,7 @@ describe('Week', () => {
       ...weeklyPicks.userResults[user.id],
       [entry]: {
         ...weeklyPicks.userResults[user.id]?.[entry],
-        ...parseUserPick(user.id, entry, teamID || '')[user.id][entry],
+        ...parseUserPick(user.id, entry, teamName || '')[user.id][entry],
       },
     },
   };
@@ -246,8 +240,17 @@ describe('Week', () => {
   });
 
   test('should redirect back to entry page after successfully selecting a team', async () => {
+    mockUseAuthContext.isSignedIn = true;
+
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+      },
+      { timeout: 5000 },
     );
 
     const teamRadios = await screen.findAllByTestId('team-radio');

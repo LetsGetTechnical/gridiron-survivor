@@ -102,7 +102,7 @@ export const parseUserPick = (
   teamName: string,
 ): IUserPick => {
   if (!userId || !teamName || !entryId) {
-    throw new Error('User ID and Team ID Required');
+    throw new Error('User ID, Entry ID, and Team Name Required');
   }
 
   const parsedData = JSON.parse(
