@@ -59,9 +59,12 @@ jest.mock('@/api/apiFunctions', () => ({
   getCurrentUserEntries: jest.fn(() =>
     Promise.resolve([
       {
-        id: '123',
-        week: 1,
-        selectedTeams: [],
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: ['Packers', 'Browns'],
+        eliminated: false,
       },
     ]),
   ),
@@ -79,6 +82,7 @@ jest.mock('@/utils/utils', () => {
   return {
     ...actualUtils,
     hasTeamBeenPicked: jest.fn(),
+    getNFLTeamLogo: jest.fn(),
   };
 });
 
@@ -96,10 +100,21 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
 
 describe('Week', () => {
   const teamSelect = 'Browns';
-  const NFLTeams = [{ teamName: 'Browns', teamId: '1234', teamLogo: 'browns' }];
-  const user = { id: '12345', email: 'email@example.com', leagues: [] };
-  const entry = 'mockEntry';
-  const league = 'mockLeague';
+  const NFLTeams = [
+    {
+      teamName: 'Browns',
+      teamId: '1234',
+      teamLogo: 'https://example.com/logo-1.png',
+    },
+    {
+      teamName: 'Packers',
+      teamId: '1234',
+      teamLogo: 'https://example.com/logo-2.png',
+    },
+  ];
+  const user = { id: '123', email: 'email@example.com', leagues: ['123'] };
+  const entry = '123';
+  const league = '123';
   const week = '1';
   const setUserPick = jest.fn();
   const updateWeeklyPicks = jest.fn();
@@ -153,16 +168,23 @@ describe('Week', () => {
     });
   });
 
-  test('should not display GlobalSpinner after loading data', async () => {
+  test('should display main content after data is loaded and hide GlobalSpinner', async () => {
     mockUseAuthContext.isSignedIn = true;
-    mockCreateWeeklyPicks.mockResolvedValue({});
 
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
-    await waitFor(() => {
-      expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
-    });
+
+    // Wait for the main content to be displayed
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
+
+    // Ensure the GlobalSpinner is not present when main content is loaded
+    expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
 
   xtest('should show success notification after changing your team pick', async () => {
@@ -233,6 +255,6 @@ describe('Week', () => {
 
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith(`/league/${league}/entry/all`);
-    })
+    });
   });
 });
