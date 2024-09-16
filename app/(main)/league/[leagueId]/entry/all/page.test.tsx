@@ -314,6 +314,7 @@ describe('League entries page (Entry Component)', () => {
     ]);
 
     render(<Entry params={{ leagueId: '123' }} />);
+
     await waitFor(() => {
       expect(screen.getByTestId('league-entry-logo')).toHaveAttribute(
         'src',
