@@ -274,7 +274,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             </h1>
 
             {pickHistory.length > 0 && (
-              <section className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center">
+              <section
+                className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
+                data-testid="user-pick-history"
+              >
                 {pickHistory?.map((logoURL, index) => (
                   <div
                     key={`${logoURL}-${index + 1}`}
@@ -294,7 +297,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                       className="league-entry-logo"
                       width={64}
                       height={64}
-                      data-testid="league-entry-logo"
+                      data-testid="league-history-logo"
                       src={logoURL}
                       alt="teamLogo"
                     />

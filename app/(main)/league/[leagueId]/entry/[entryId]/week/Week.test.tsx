@@ -1,12 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Week from './Week';
-import { getCurrentLeague, createWeeklyPicks } from '@/api/apiFunctions';
+import { createWeeklyPicks, getCurrentUserEntries } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { onWeeklyPickChange } from './WeekHelper';
-import { parseUserPick } from '@/utils/utils';
+import { getNFLTeamLogo, parseUserPick } from '@/utils/utils';
 import { IWeeklyPicks } from '@/api/apiFunctions.interface';
 
 const mockPush = jest.fn();
@@ -34,13 +34,10 @@ jest.mock('@/context/AuthContextProvider', () => ({
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
     currentWeek: 1,
-    getState: jest.fn(() => ({
-      currentWeek: 1,
-    })),
-    user: { id: '123', leagues: [] },
+    user: { id: '123', email: 'email@example.com', leagues: ['123'] },
+    weeklyPicks: {},
     updateWeeklyPicks: jest.fn(),
     updateCurrentWeek: jest.fn(),
-    weeklyPicks: {},
   })),
 }));
 
@@ -50,18 +47,6 @@ jest.mock('@/api/apiFunctions', () => ({
       week: 1,
     }),
   ),
-  getCurrentUserEntries: jest.fn(() =>
-    Promise.resolve([
-      {
-        $id: '123',
-        name: 'Entry 1',
-        user: '123',
-        league: '123',
-        selectedTeams: ['Packers', 'Browns'],
-        eliminated: false,
-      },
-    ]),
-  ),
   getGameWeek: jest.fn(() =>
     Promise.resolve({
       week: 1,
@@ -69,6 +54,7 @@ jest.mock('@/api/apiFunctions', () => ({
   ),
   createWeeklyPicks: jest.fn(),
   getAllWeeklyPicks: jest.fn(),
+  getCurrentUserEntries: jest.fn(),
 }));
 
 jest.mock('@/utils/utils', () => {
@@ -92,47 +78,51 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
 }));
 
+// constants
+const teamSelect = 'Browns';
+const NFLTeams = [
+  {
+    teamId: 'browns',
+    teamName: 'Browns',
+    teamLogo: 'https://example.com/browns.png',
+  },
+  {
+    teamId: 'packers',
+    teamName: 'Packers',
+    teamLogo: 'https://example.com/packers.png',
+  },
+];
+const user = { id: '123', email: 'email@example.com', leagues: ['123'] };
+const entry = '123';
+const league = '123';
+const week = '1';
+const weeklyPicks: IWeeklyPicks = {
+  leagueId: '123',
+  gameWeekId: '123456',
+  userResults: {},
+};
+
+const teamName = NFLTeams[0].teamName;
+
+const updatedWeeklyPicks = {
+  ...weeklyPicks.userResults,
+  [user.id]: {
+    ...weeklyPicks.userResults[user.id],
+    [entry]: {
+      ...weeklyPicks.userResults[user.id]?.[entry],
+      ...parseUserPick(user.id, entry, teamName || '')[user.id][entry],
+    },
+  },
+};
+
 describe('Week', () => {
-  const teamSelect = 'Browns';
-  const NFLTeams = [
-    {
-      teamId: 'browns',
-      teamName: 'Browns',
-      teamLogo: 'https://example.com/logo-1.png',
-    },
-    {
-      teamId: 'packers',
-      teamName: 'Packers',
-      teamLogo: 'https://example.com/logo-2.png',
-    },
-  ];
-  const user = { id: '123', email: 'email@example.com', leagues: ['123'] };
-  const entry = '123';
-  const league = '123';
-  const week = '1';
   const setUserPick = jest.fn();
   const updateWeeklyPicks = jest.fn();
-  const mockGetCurrentLeague = getCurrentLeague as jest.Mock;
-  const mockCreateWeeklyPicks = createWeeklyPicks as jest.Mock;
-
-  const weeklyPicks: IWeeklyPicks = {
-    leagueId: '123',
-    gameWeekId: '123456',
-    userResults: {},
-  };
-
-  const teamName = NFLTeams[0].teamName;
-
-  const updatedWeeklyPicks = {
-    ...weeklyPicks.userResults,
-    [user.id]: {
-      ...weeklyPicks.userResults[user.id],
-      [entry]: {
-        ...weeklyPicks.userResults[user.id]?.[entry],
-        ...parseUserPick(user.id, entry, teamName || '')[user.id][entry],
-      },
-    },
-  };
+  const mockGetNFLTeamLogo = getNFLTeamLogo as jest.Mock;
+  mockGetNFLTeamLogo.mockImplementation((teams, teamName) => {
+    const team = teams.find((t) => t.teamName === teamName);
+    return team ? team.teamLogo : '';
+  });
 
   const mockParseUserPick = jest.fn().mockReturnValue({
     [user.id]: {
@@ -152,6 +142,16 @@ describe('Week', () => {
 
   test('should display GlobalSpinner while loading data', async () => {
     mockUseAuthContext.isSignedIn = true;
+    (getCurrentUserEntries as jest.Mock).mockResolvedValue([
+      {
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: [],
+        eliminated: false,
+      },
+    ]);
 
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
@@ -164,6 +164,16 @@ describe('Week', () => {
 
   test('should display main content after data is loaded and hide GlobalSpinner', async () => {
     mockUseAuthContext.isSignedIn = true;
+    (getCurrentUserEntries as jest.Mock).mockResolvedValue([
+      {
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: [],
+        eliminated: false,
+      },
+    ]);
 
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
@@ -179,6 +189,73 @@ describe('Week', () => {
 
     // Ensure the GlobalSpinner is not present when main content is loaded
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
+  });
+
+  test('should not show previous weeks picks if the current week is not greater than 0', async () => {
+    mockUseAuthContext.isSignedIn = true;
+    (getCurrentUserEntries as jest.Mock).mockResolvedValue([
+      {
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: [],
+        eliminated: false,
+      },
+    ]);
+
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
+
+    const userPickHistory = screen.queryByTestId('user-pick-history');
+    expect(userPickHistory).not.toBeInTheDocument();
+  });
+
+  test('show show previous weeks picks if the pick history is greater than 0', async () => {
+    mockUseAuthContext.isSignedIn = true;
+    (getCurrentUserEntries as jest.Mock).mockResolvedValue([
+      {
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: ['Packers', 'Browns'],
+        eliminated: false,
+      },
+    ]);
+
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
+
+    const userPickHistory = screen.getByTestId('user-pick-history');
+    expect(userPickHistory).toBeInTheDocument();
+
+    const userPickHistoryLogos = screen.queryAllByTestId('league-history-logo');
+    expect(userPickHistoryLogos).toHaveLength(2);
+    expect(userPickHistoryLogos[0]).toHaveAttribute(
+      'src',
+      '/_next/image?url=https%3A%2F%2Fexample.com%2Fpackers.png&w=128&q=75',
+    );
+    expect(userPickHistoryLogos[1]).toHaveAttribute(
+      'src',
+      '/_next/image?url=https%3A%2F%2Fexample.com%2Fbrowns.png&w=128&q=75',
+    );
   });
 
   xtest('should show success notification after changing your team pick', async () => {
@@ -241,6 +318,16 @@ describe('Week', () => {
 
   test('should redirect back to entry page after successfully selecting a team', async () => {
     mockUseAuthContext.isSignedIn = true;
+    (getCurrentUserEntries as jest.Mock).mockResolvedValue([
+      {
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: [],
+        eliminated: false,
+      },
+    ]);
 
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
