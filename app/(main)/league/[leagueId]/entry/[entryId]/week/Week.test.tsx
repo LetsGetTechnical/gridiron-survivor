@@ -7,7 +7,7 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 import { onWeeklyPickChange } from './WeekHelper';
 import { getNFLTeamLogo, parseUserPick } from '@/utils/utils';
-import { IWeeklyPicks } from '@/api/apiFunctions.interface';
+import { INFLTeam, IWeeklyPicks } from '@/api/apiFunctions.interface';
 
 const mockPush = jest.fn();
 
@@ -92,7 +92,12 @@ const NFLTeams = [
     teamLogo: 'https://example.com/packers.png',
   },
 ];
-const user = { id: '123', email: 'email@example.com', leagues: ['123'] };
+const user = {
+  documentId: 'mockDocument',
+  id: '123',
+  email: 'email@example.com',
+  leagues: ['123'],
+};
 const entry = '123';
 const league = '123';
 const week = '1';
@@ -120,7 +125,7 @@ describe('Week', () => {
   const updateWeeklyPicks = jest.fn();
   const mockGetNFLTeamLogo = getNFLTeamLogo as jest.Mock;
   mockGetNFLTeamLogo.mockImplementation((teams, teamName) => {
-    const team = teams.find((t) => t.teamName === teamName);
+    const team = teams.find((t: INFLTeam) => t.teamName === teamName);
     return team ? team.teamLogo : '';
   });
 
@@ -261,7 +266,7 @@ describe('Week', () => {
   xtest('should show success notification after changing your team pick', async () => {
     (createWeeklyPicks as jest.Mock).mockResolvedValue({});
 
-    const currentUserPick = mockParseUserPick(user.id, entry, teamID);
+    const currentUserPick = mockParseUserPick(user.id, entry, teamName);
 
     await onWeeklyPickChange({
       teamSelect,
@@ -281,7 +286,7 @@ describe('Week', () => {
       userResults: updatedWeeklyPicks,
     });
 
-    expect(mockParseUserPick).toHaveBeenCalledWith(user.id, entry, teamID);
+    expect(mockParseUserPick).toHaveBeenCalledWith(user.id, entry, teamName);
 
     expect(toast.custom).toHaveBeenCalledWith(
       <Alert
