@@ -27,7 +27,7 @@ jest.mock('@/context/AuthContextProvider', () => ({
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
-    user: { id: '123', leagues: [], documentId: 'user123' },
+    user: { id: '1234', leagues: [] },
     allLeagues: [
       {
         leagueId: '123',
@@ -100,7 +100,9 @@ describe('Leagues Component', () => {
       screen.queryByTestId('global-spinner'),
     );
 
-    expect(screen.getByTestId('no-leagues-message')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByTestId('no-leagues-message')).toBeInTheDocument();
+    });
   });
 
   test('should display GlobalSpinner while loading data', async () => {

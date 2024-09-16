@@ -148,7 +148,7 @@ const Leagues = (): JSX.Element => {
               <div className="text-center">
                 <p
                   className="text-lg font-bold"
-                  data-testId="no-leagues-message"
+                  data-testid="no-leagues-message"
                 >
                   You are not enrolled in any leagues
                 </p>
