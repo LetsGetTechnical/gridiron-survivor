@@ -13,7 +13,7 @@ jest.mock('@/store/dataStore', () => ({
     currentWeek: 1,
     NFLTeams: [
       {
-        teamId: '1',
+        teamId: 'packers',
         teamLogo: '/team-a-logo.png',
         teamName: 'Packers',
       },
@@ -28,8 +28,8 @@ jest.mock('@/api/apiFunctions', () => ({
   getCurrentLeague: jest.fn(() =>
     Promise.resolve({
       leagueName: 'Test League',
-      participants: 12,
-      survivors: 10,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     }),
   ),
   getCurrentUserEntries: jest.fn(),
@@ -41,7 +41,7 @@ jest.mock('@/api/apiFunctions', () => ({
   getNFLTeams: jest.fn(() =>
     Promise.resolve([
       {
-        teamId: '1',
+        teamId: 'packers',
         teamLogo: 'team-a-logo.png',
         teamName: 'Packers',
       },
@@ -73,8 +73,8 @@ describe('League entries page (Entry Component)', () => {
     ]);
     mockGetCurrentLeague.mockResolvedValueOnce({
       leagueName: 'GiS League',
-      participants: 47,
-      survivors: 47,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     });
 
     render(<Entry params={{ leagueId: '123' }} />);
@@ -90,12 +90,12 @@ describe('League entries page (Entry Component)', () => {
       currentWeek: 1,
       NFLTeams: [
         {
-          teamId: '1',
+          teamId: 'packers',
           teamLogo: '/packers-logo.png',
           teamName: 'Packers',
         },
         {
-          teamId: '2',
+          teamId: 'bears',
           teamLogo: '/bears-logo.png',
           teamName: 'Bears',
         },
@@ -112,12 +112,12 @@ describe('League entries page (Entry Component)', () => {
     mockGetGameWeek.mockResolvedValueOnce({ week: 1 });
     mockGetCurrentLeague.mockResolvedValue({
       leagueName: 'Test League',
-      participants: 10,
-      survivors: 8,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     });
     mockGetNFLTeams.mockResolvedValue([
-      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
-      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+      { teamId: 'packers', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: 'bears', teamLogo: '/bears-logo.png', teamName: 'Bears' },
     ]);
 
     render(<Entry params={{ leagueId: '123' }} />);
@@ -145,8 +145,8 @@ describe('League entries page (Entry Component)', () => {
     ]);
     mockGetCurrentLeague.mockResolvedValueOnce({
       leagueName: 'GiS League',
-      participants: 47,
-      survivors: 47,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     });
 
     render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
@@ -197,8 +197,8 @@ describe('League entries page (Entry Component)', () => {
     ]);
     mockGetCurrentLeague.mockResolvedValueOnce({
       leagueName: 'GiS League',
-      participants: 47,
-      survivors: 47,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     });
 
     render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
@@ -285,8 +285,8 @@ describe('League entries page (Entry Component)', () => {
     ]);
     mockGetCurrentLeague.mockResolvedValueOnce({
       leagueName: 'GiS League',
-      participants: 47,
-      survivors: 47,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     });
 
     render(<Entry params={{ leagueId: '66311a210039f0532044' }} />);
@@ -354,7 +354,7 @@ describe('League entries page (Entry Component)', () => {
       currentWeek: 1,
       NFLTeams: [
         {
-          teamId: '1',
+          teamId: 'packers',
           teamLogo: '/packers-logo.png',
           teamName: 'Packers',
         },
@@ -375,8 +375,8 @@ describe('League entries page (Entry Component)', () => {
       survivors: 8,
     });
     mockGetNFLTeams.mockResolvedValue([
-      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
-      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+      { teamId: 'packers', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: 'bears', teamLogo: '/bears-logo.png', teamName: 'Bears' },
     ]);
 
     render(<Entry params={{ leagueId: '123' }} />);
@@ -398,12 +398,12 @@ describe('League entries page (Entry Component)', () => {
       currentWeek: 2,
       NFLTeams: [
         {
-          teamId: '1',
+          teamId: 'packers',
           teamLogo: '/packers-logo.png',
           teamName: 'Packers',
         },
         {
-          teamId: '2',
+          teamId: 'bears',
           teamLogo: '/bears-logo.png',
           teamName: 'Bears',
         },
@@ -420,12 +420,12 @@ describe('League entries page (Entry Component)', () => {
     mockGetGameWeek.mockResolvedValueOnce({ week: 2 });
     mockGetCurrentLeague.mockResolvedValue({
       leagueName: 'Test League',
-      participants: 10,
-      survivors: 8,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     });
     mockGetNFLTeams.mockResolvedValue([
-      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
-      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+      { teamId: 'packers', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: 'bears', teamLogo: '/bears-logo.png', teamName: 'Bears' },
     ]);
 
     render(<Entry params={{ leagueId: '123' }} />);
@@ -445,10 +445,6 @@ describe('League entries page (Entry Component)', () => {
       'src',
       '/_next/image?url=%2Fpackers-logo.png&w=96&q=75',
     );
-    expect(screen.getByTestId('league-history-logo')).not.toHaveAttribute(
-      'src',
-      '/_next/image?url=%2Fbears-logo.png&w=96&q=75',
-    );
     expect(screen.getByTestId('league-entry-logo')).toHaveAttribute(
       'src',
       '/_next/image?url=%2Fbears-logo.png&w=96&q=75',
@@ -461,7 +457,7 @@ describe('League entries page (Entry Component)', () => {
       currentWeek: 2,
       NFLTeams: [
         {
-          teamId: '1',
+          teamId: 'packers',
           teamLogo: '/packers-logo.png',
           teamName: 'Packers',
         },
@@ -479,12 +475,12 @@ describe('League entries page (Entry Component)', () => {
     mockGetGameWeek.mockResolvedValueOnce({ week: 2 });
     mockGetCurrentLeague.mockResolvedValue({
       leagueName: 'Test League',
-      participants: 10,
-      survivors: 8,
+      participants: ['123', '456'],
+      survivors: ['123', '456'],
     });
     mockGetNFLTeams.mockResolvedValue([
-      { teamId: '1', teamLogo: '/packers-logo.png', teamName: 'Packers' },
-      { teamId: '2', teamLogo: '/bears-logo.png', teamName: 'Bears' },
+      { teamId: 'packers', teamLogo: '/packers-logo.png', teamName: 'Packers' },
+      { teamId: 'bears', teamLogo: '/bears-logo.png', teamName: 'Bears' },
     ]);
 
     render(<Entry params={{ leagueId: '123' }} />);
