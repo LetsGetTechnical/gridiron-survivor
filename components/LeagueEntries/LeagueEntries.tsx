@@ -103,10 +103,11 @@ const LeagueEntries = ({
           {!isEliminated && (
             <LinkCustom
               aria-disabled={isLockedOut === true ? 'true' : 'false'}
-              className={
-                isLockedOut === true ? 'opacity-50 cursor-not-allowed' : ''
-              }
-              data-testid="league-entry-pick-link"
+              className={cn(
+                'league-entry-pick-link',
+                isLockedOut === true ? 'opacity-50 cursor-not-allowed' : '',
+              )}
+              dataTestidProp="league-entry-pick-link"
               href={linkUrl}
               onClick={(e: { preventDefault: () => unknown }) =>
                 isLockedOut === true && e.preventDefault()
