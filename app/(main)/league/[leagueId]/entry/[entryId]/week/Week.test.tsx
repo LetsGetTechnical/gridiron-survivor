@@ -78,7 +78,6 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
 }));
 
-// constants
 const teamSelect = 'Browns';
 const NFLTeams = [
   {
@@ -125,7 +124,7 @@ describe('Week', () => {
   const updateWeeklyPicks = jest.fn();
   const mockGetNFLTeamLogo = getNFLTeamLogo as jest.Mock;
   mockGetNFLTeamLogo.mockImplementation((teams, teamName) => {
-    const team = teams.find((t: INFLTeam) => t.teamName === teamName);
+    const team = teams.find((team: INFLTeam) => team.teamName === teamName);
     return team ? team.teamLogo : '';
   });
 
@@ -192,11 +191,10 @@ describe('Week', () => {
       { timeout: 5000 },
     );
 
-    // Ensure the GlobalSpinner is not present when main content is loaded
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
 
-  test('should not show previous weeks picks if the current week is not greater than 0', async () => {
+  test('should not show previous weeks picks if there is no history of selected teams', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {
@@ -224,7 +222,7 @@ describe('Week', () => {
     expect(userPickHistory).not.toBeInTheDocument();
   });
 
-  test('show show previous weeks picks if the pick history is greater than 0', async () => {
+  test('should show previous weeks picks if their are picks in selected teams history', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {
