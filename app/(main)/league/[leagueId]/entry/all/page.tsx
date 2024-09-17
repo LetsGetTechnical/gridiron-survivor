@@ -22,6 +22,7 @@ import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { cn } from '@/utils/utils';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
 
 /**
  * Display all entries for a league.
@@ -150,15 +151,14 @@ const Entry = ({
       ) : (
         <div className="mx-auto max-w-3xl pt-10">
           <header data-testid="entry-page-header">
-            <div className="entry-page-header-to-leagues-link">
-              <Link
-                className="text-xl text-orange-600 hover:text-orange-500 flex items-center gap-3 font-semibold hover:underline"
-                data-testid="entry-page-header-to-leagues-link"
+            <div data-testid="entry-page-header-to-leagues-link">
+              <LinkCustom
+                className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
                 href={`/league/all`}
               >
                 <ChevronLeft />
                 Your Leagues
-              </Link>
+              </LinkCustom>
             </div>
             <div
               className="entry-page-header-main flex flex-col justify-between text-center gap-10 pt-6 pb-4"
@@ -196,7 +196,7 @@ const Entry = ({
                 const selectedTeam = entry.selectedTeams[currentWeek - 1];
                 const isPickSet =
                   // eslint-disable-next-line no-undefined
-                  selectedTeam !== undefined;
+                  selectedTeam !== null && selectedTeam !== undefined;
 
                 const teamLogo = NFLTeams.find(
                   (teams) => teams.teamName === selectedTeam,
@@ -241,7 +241,7 @@ const Entry = ({
 
               {currentWeek > 1 && (
                 <Link
-                  className="text-orange-600 hover:text-orange-500 font-bold hover:underline"
+                  className="text-primary hover:text-primary-muted font-bold hover:underline"
                   data-testid="past-weeks-link"
                   href={`#`}
                 >

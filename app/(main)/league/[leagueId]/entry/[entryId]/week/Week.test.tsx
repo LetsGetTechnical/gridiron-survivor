@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Week from './Week';
 import {
@@ -14,6 +14,28 @@ import { toast } from 'react-hot-toast';
 import { onWeeklyPickChange } from './WeekHelper';
 import { parseUserPick } from '@/utils/utils';
 import { IWeeklyPicks } from '@/api/apiFunctions.interface';
+
+const mockPush = jest.fn();
+
+jest.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      push: mockPush,
+    };
+  },
+}));
+
+const mockUseAuthContext = {
+  isSignedIn: false,
+};
+
+jest.mock('@/context/AuthContextProvider', () => ({
+  useAuthContext() {
+    return {
+      ...mockUseAuthContext,
+    };
+  },
+}));
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
@@ -120,15 +142,19 @@ describe('Week', () => {
   });
 
   test('should display GlobalSpinner while loading data', async () => {
+    mockUseAuthContext.isSignedIn = true;
+
     render(
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
+
     await waitFor(() => {
       expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
     });
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
+    mockUseAuthContext.isSignedIn = true;
     mockCreateWeeklyPicks.mockResolvedValue({});
 
     render(
@@ -195,5 +221,18 @@ describe('Week', () => {
         message="There was an error processing your request."
       />,
     );
+  });
+
+  test('should redirect back to entry page after successfully selecting a team', async () => {
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    const teamRadios = await screen.findAllByTestId('team-radio');
+    fireEvent.click(teamRadios[0]);
+
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith(`/league/${league}/entry/all`);
+    })
   });
 });
