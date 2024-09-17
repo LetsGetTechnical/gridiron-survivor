@@ -8,13 +8,13 @@ import pastelLogo from './assets/pastelLogo.svg';
 import Image from 'next/image';
 
 <html>
-  <body class="dark bg-background text-foreground in-w-5xl max-w-7xl mx-auto text-pretty">
-    <section class="header flex justify-center align-middle p-16">
+  <body class="dark bg-background text-muted-foreground max-w-screen-xl mx-auto text-pretty flex flex-col space-y-36 outline">
+    <header class="header flex justify-center align-middle">
       <Image class="w-2/6 h-auto" src={GridironLogo} alt='Gridiron Survivor Football Logo' />
-    </section>
-    <section class="hero">
-      <h2>What is Gridiron Survivor?</h2>
-      <p class="text-xl">
+    </header>
+    <section class="hero space-y-12">
+      <h1>What is Gridiron Survivor?</h1>
+      <p class="text-xl text-pretty max-w-screen-lg mx-auto">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat
         architecto ab blanditiis numquam itaque tenetur recusandae cupiditate
         accusantium molestiae autem consectetur earum excepturi labore corrupti
@@ -23,83 +23,90 @@ import Image from 'next/image';
         voluptates aliquam nihil perspiciatis neque quas cumque.
       </p>
     </section>
-    <section class="sponsors pt-16">
+    <section class="sponsors space-y-12">
       <h2>Sponsors</h2>
-      <section class="sponsors-container flex flex-wrap gap-24 justify-center">
-        <div class="sponsor-cards">
+      <section class="sponsors-container max-w-screen-lg flex flex-wrap gap-24 justify-center lg:justify-between mx-auto outline">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-card-link-container block"><div class="sponsor-cards outline">
           <Image src={AppwriteLogo} alt='Appwrite Logomark' />
-          <h5>Appwrite</h5>
+          <h3>Appwrite</h3>
+        </div></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
+          <Image src={BlogRecorderLogo} alt='Blog Recorder Logomark' />
+          <h3>Blog Recorder</h3>
+        </div></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
+          <Image src={frontendMentorLogo} alt='Frontend Mentor Logomark' />
+          <h3>Frontend Mentor</h3>
+        </div></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
+          <Image src={gitkrakenLogo} alt='GitKraken Logomark' />
+          <h3>GitKraken</h3>
+        </div></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
+          <Image src={pastelLogo} alt='Pastel Logomark' />
+          <h3>Pastel</h3>
+        </div></a>
+      </section>
+    </section>
+    <section class="meet-the-team space-y-12">
+      <h2>Meet the Team</h2>
+      <section class="meet-the-team grid grid-cols-4 grid-rows-auto place-items-center mx-auto gap-y-16 max-w-screen-lg">
+        <div class="team-member">
+          <h4>Alex Appleget</h4>
+          <p>Software Engineer</p>
+          <a href="https://github.com/alexappleget" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/alex-appleget/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
-        <div class="sponsor-cards">
-          <Image src={BlogRecorderLogo} alt='' />
-          <h5>Blog Recorder</h5>
+        <div class="team-member">
+          <h4>Richard Choi</h4>
+          <p>DevRel Engineer</p>
+          <a href="https://github.com/choir27" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/richard-choir/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
-        <div class="sponsor-cards">
-          <Image src={frontendMentorLogo} alt='' />
-          <h5>Frontend Mentor</h5>
+        <div class="team-member">
+          <h4>Ryan Furrer</h4>
+          <p>UX Engineer</p>
+          <a href="https://github.com/ryandotfurrer" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/ryanfurrer/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
-        <div class="sponsor-cards">
-          <Image src={gitkrakenLogo} alt='' />
-          <h5>GitKraken</h5>
+        <div class="team-member">
+          <h4>Walter Furrer</h4>
+          <p>Documentation Engineer</p>
+          <a href="https://github.com/FurrerW" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/furrerw/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
-        <div class="sponsor-cards">
-          <Image src={pastelLogo} alt='' />
-          <h5>Pastel</h5>
+        <div class="team-member">
+          <h4>Shashi Lo</h4>
+          <p>Engineering Manager</p>
+          <a href="https://github.com/shashilo" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/shashilo/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <h4>Mai Vang</h4>
+          <p>Frontend Engineer</p>
+          <a href="https://github.com/vmaineng" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/mai-vang-swe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <h4>Chris Nowicki</h4>
+          <p>Software Engineer</p>
+          <a href="https://github.com/chris-nowicki" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/chris-nowicki/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <h4>Jason Torres</h4>
+          <p>Technical Project Manager</p>
+          <a href="https://github.com/jasonetorres" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/TheJasonTorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <div class="team-member">
+          <h4>Mai Vang</h4>
+          <p>Frontend Engineer</p>
+          <a href="https://github.com/vmaineng" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/mai-vang-swe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </section>
     </section>
-    <h2>Meet the Team</h2>
-    <section class="meet-the-team grid grid-cols-4 grid-rows-auto gap-12 p-16">
-      <div class="team-member">
-        <h5>Alex Appleget</h5>
-        <p>Software Engineer</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Richard Choi</h5>
-        <p>DevRel Engineer</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Ryan Furrer</h5>
-        <p>UX Engineer</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Walter Furrer</h5>
-        <p>Documentation Engineer</p>
-        <a href="https://github.com/FurrerW">GitHub</a>
-        <a href="https://www.linkedin.com/in/furrerw/">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Corina Murg</h5>
-        <p>Accessibility Expert</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Chris Nowicki</h5>
-        <p>Software Engineer</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Jason Torres</h5>
-        <p>Technical Project Manager</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-      <div class="team-member">
-        <h5>Mai Vang</h5>
-        <p>Frontend Engineer</p>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-      </div>
-    </section>
-
   </body>
 
 </html>

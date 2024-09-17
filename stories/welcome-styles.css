@@ -1,70 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @import url(../app/globals.css);
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply text-muted-foreground;
-}
-
 h1 {
-  font-size: 3rem; /* 48px */
-  line-height: 1;
+  @apply text-foreground;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.125em;
 }
 
 h2 {
-  font-size: 2.25rem; /* 36px */
-  line-height: 2.5rem; /* 40px */
+  @apply text-foreground;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1.125em;
 }
 
 h3 {
-  font-size: 1.875rem; /* 30px */
-  line-height: 2.25rem; /* 36px */
+  @apply text-foreground;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1.125em;
 }
 
 h4 {
-  font-size: 1.5rem; /* 24px */
-  line-height: 2rem; /* 32px */
-}
-
-h5 {
-  font-size: 1.25rem; /* 20px */
-  line-height: 1.75rem; /* 28px */
-}
-
-h6 {
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.75rem; /* 28px */
-}
-
-.sponsors-container {
-  margin-top: 2rem;
-  margin-bottom: 4rem;
-}
-
-.sponsor-cards {
-  max-width: 10rem;
-  height: auto;
-  display: grid;
-  row-gap: 1rem;
-  justify-content: center;
-  justify-items: center;
-  align-items: space-evenly;
-
-  img {
-    max-height: 7rem;
-    max-width: 7rem;
-  }
-}
-
-.sponsor-cards h5 {
   @apply text-foreground;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1.125em;
 }
 
 img {
@@ -72,26 +40,49 @@ img {
   max-width: 100%;
 }
 
-.team-member {
-  @apply outline outline-outline;
+.sponsor-card-link-container {
   display: grid;
-  grid-column: repeat(1, 1fr);
-  grid-row: auto;
-  max-width: 12rem;
-  padding: 1.5rem;
-  aspect-ratio: 1/1;
-  border-radius: 1rem;
-  align-self: space-around;
-
-  a {
-    display: block;
-    max-width: fit-content;
-    max-height: fit-content;
-    color: orangered;
-  }
+  /* flex-direction: column; */
+  align-items: space-between;
 }
 
-a:hover {
-  text-decoration: underline;
-  color: hsl(224.3 76.3% 48%);
+.sponsor-cards {
+  align-items: space-evenly;
+  display: grid;
+  height: auto;
+  justify-content: center;
+  justify-items: center;
+  max-width: 8rem;
+  row-gap: 1rem;
+  aspect-ratio: 1/1;
+}
+
+.sponsor-cards img {
+  max-width: 6rem;
+  max-height: 8rem;
+}
+
+.team-member {
+  @apply outline outline-outline;
+  aspect-ratio: 1/1;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-inline: 1rem;
+  height: auto;
+  max-width: 11rem;
+  min-width: 11rem;
+
+  a {
+    color: #dd4c3b;
+    display: block;
+    height: fit-content;
+    width: fit-content;
+  }
+
+  a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
 }
