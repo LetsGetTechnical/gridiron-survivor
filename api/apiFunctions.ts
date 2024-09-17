@@ -91,6 +91,29 @@ export async function resetPassword({
 }
 
 /**
+ * Update the user email
+ * @param props - The props for the update email function
+ * @param props.email - The email
+ * @param props.password - The user's current password
+ * @returns {Promise<Models.Document>} - The updated user
+ */
+export async function updateUserEmail({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<Models.Document> {
+  try {
+    const result = await account.updateEmail(email, password);
+    return result;
+  } catch (error) {
+    console.error('Error updating user email:', error);
+    throw error;
+  }
+}
+
+/**
  * Get the current user
  * @param userId - The user ID
  * @returns {Models.DocumentList<Models.Document> | Error} - The user object or an error

@@ -70,12 +70,12 @@ export const Nav = (): JSX.Element => {
               <ul className="m-0 flex flex-col gap-1 p-0">
                 <li>
                   <a
-                    href="/account/preferences"
+                    href="/account/settings"
                     className="p-0 text-base font-normal text-muted-foreground underline underline-offset-4 hover:text-primary/90"
                     onClick={() => setOpen(false)}
-                    data-testid="preferences-link"
+                    data-testid="settings-link"
                   >
-                    Preferences
+                    Settings
                   </a>
                 </li>
                 <li>

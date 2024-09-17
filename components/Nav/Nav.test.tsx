@@ -77,7 +77,7 @@ describe('Nav', () => {
 
     const title = screen.getByTestId('title');
     const logo = screen.getByTestId('logo-nav');
-    const preferencesLink = screen.getByTestId('preferences-link');
+    const preferencesLink = screen.getByTestId('settings-link');
     const signOutButton = screen.getByTestId('sign-out-button');
 
     expect(preferencesLink).toBeInTheDocument();
@@ -94,9 +94,9 @@ describe('Nav', () => {
     const drawerTrigger = screen.getByTestId('drawer-trigger');
     fireEvent.click(drawerTrigger);
 
-    const preferencesLink = await screen.findByTestId('preferences-link');
+    const preferencesLink = await screen.findByTestId('settings-link');
 
-    expect(preferencesLink).toHaveAttribute('href', '/account/preferences');
+    expect(preferencesLink).toHaveAttribute('href', '/account/settings');
 
     // Simulate the click event
     fireEvent.click(preferencesLink);
