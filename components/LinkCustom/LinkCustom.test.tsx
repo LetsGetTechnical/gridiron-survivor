@@ -5,7 +5,11 @@ import LinkCustom from './LinkCustom';
 describe('LinkCustom Component', () => {
   it('renders with default props', () => {
     render(
-      <LinkCustom children="Test link" href="https://example.com"></LinkCustom>,
+      <LinkCustom
+        children="Test link"
+        dataTestidProp="linkCustom"
+        href="https://example.com"
+      ></LinkCustom>,
     );
     const link = screen.getByTestId('linkCustom');
     expect(link).toBeInTheDocument();
