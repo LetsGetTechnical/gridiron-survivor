@@ -95,7 +95,7 @@ export async function resetPassword({
  * @param props - The props for the update email function
  * @param props.email - The email
  * @param props.password - The user's current password
- * @returns {Promise<Models.Document>} - The updated user
+ * @returns {Promise<void>} - The updated user
  */
 export async function updateUserEmail({
   email,
@@ -103,10 +103,28 @@ export async function updateUserEmail({
 }: {
   email: string;
   password: string;
-}): Promise<Models.Document> {
+}): Promise<void> {
   try {
     const result = await account.updateEmail(email, password);
-    return result;
+
+    const userDocument = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      [Query.equal('userId', result.$id)],
+    );
+
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      userDocument.documents[0].$id,
+      {
+        email: email,
+        name: userDocument.documents[0].name,
+        labels: userDocument.documents[0].labels,
+        userId: userDocument.documents[0].userId,
+        leagues: userDocument.documents[0].leagues,
+      },
+    );
   } catch (error) {
     console.error('Error updating user email:', error);
     throw error;
