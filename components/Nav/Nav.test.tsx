@@ -47,12 +47,25 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 describe('Nav', () => {
+  beforeAll(() => {
+    const originalCreateElement = document.createElement.bind(document);
+    jest
+      .spyOn(document, 'createElement')
+      .mockImplementation((tagName, options) => {
+        const element = originalCreateElement(tagName, options);
+        if (tagName.toLowerCase() === 'a') {
+          element.addEventListener('click', (e) => e.preventDefault());
+        }
+        return element;
+      });
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('it should render the default component state', () => {
-    mockUsePathname.mockImplementation(() => '/weeklyPicks');
+    mockUsePathname.mockImplementation(() => '/league/all');
 
     render(<Nav />);
 
@@ -64,11 +77,35 @@ describe('Nav', () => {
 
     const title = screen.getByTestId('title');
     const logo = screen.getByTestId('logo-nav');
+    const preferencesLink = screen.getByTestId('preferences-link');
     const signOutButton = screen.getByTestId('sign-out-button');
 
+    expect(preferencesLink).toBeInTheDocument();
     expect(title).toBeInTheDocument();
     expect(logo).toBeInTheDocument();
     expect(signOutButton).toBeInTheDocument();
+  });
+
+  it('should route to the preferences page when the user clicks on the preferences link', async () => {
+    mockUsePathname.mockReturnValue('/league/all');
+
+    render(<Nav />);
+
+    const drawerTrigger = screen.getByTestId('drawer-trigger');
+    fireEvent.click(drawerTrigger);
+
+    const preferencesLink = await screen.findByTestId('preferences-link');
+
+    expect(preferencesLink).toHaveAttribute('href', '/account/preferences');
+
+    // Simulate the click event
+    fireEvent.click(preferencesLink);
+
+    // Check if the drawer closes
+    await waitFor(() => {
+      expect(screen.queryByTestId('preferences-link')).not.toBeInTheDocument();
+      expect(drawerTrigger.getAttribute('data-state')).toBe('closed');
+    });
   });
 
   it('it should be hidden when path is /register', () => {
