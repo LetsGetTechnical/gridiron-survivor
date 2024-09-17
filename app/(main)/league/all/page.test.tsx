@@ -156,8 +156,6 @@ describe('Leagues Component', () => {
           survivors: [],
         },
       ],
-      updateUser: jest.fn(),
-      updateAllLeagues: jest.fn(),
     });
     mockGetUserLeagues.mockResolvedValueOnce([]);
 
@@ -185,10 +183,25 @@ describe('Leagues Component', () => {
   });
   test('should show error if adding to league fails', async () => {
     mockUseAuthContext.isSignedIn = true;
+
+    mockGetUserLeagues.mockResolvedValueOnce([]);
+    mockGetAllLeagues.mockResolvedValueOnce([
+      {
+        leagueId: '123',
+        leagueName: 'Test League',
+        participants: [],
+        survivors: [],
+      },
+    ]);
     mockAddUserToLeague.mockRejectedValueOnce(
       new Error('Failed to join league'),
     );
+
     render(<Leagues />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
+    });
 
     const selectElement = screen.getByTestId('select-available-leagues');
     fireEvent.change(selectElement, { target: { value: '123' } });
