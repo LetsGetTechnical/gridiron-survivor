@@ -103,7 +103,7 @@ const RecoverPassword = (): React.JSX.Element => {
       <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
         <div>
           <h1 className="text-5xl font-extrabold tracking-tight">
-            Recover Your Password
+            Password Recovery
           </h1>
           <p className="pb-4 font-normal leading-7 text-muted-foreground">
             Enter the email address associated with your account to recover your
@@ -139,7 +139,7 @@ const RecoverPassword = (): React.JSX.Element => {
             />
             <Button
               data-testid="continue-button"
-              label={isLoading ? <LoadingSpinner /> : 'Continue'}
+              label={isLoading ? <LoadingSpinner /> : 'Recover'}
               type="submit"
               disabled={!email || isLoading}
             />
