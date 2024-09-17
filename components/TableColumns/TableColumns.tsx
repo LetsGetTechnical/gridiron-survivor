@@ -20,7 +20,9 @@ export type Header = {
   text3: string;
 };
 
-export const columns: ColumnDef<Header>[] = [
+export const entryColumns: ColumnDef<Header>[] = [];
+
+export const leagueColumns: ColumnDef<Header>[] = [
   {
     accessorKey: 'text',
     header: 'HEADING',
@@ -116,3 +118,5 @@ export const columns: ColumnDef<Header>[] = [
     },
   },
 ];
+
+export const playerColumns: ColumnDef<Header>[] = [];
