@@ -84,7 +84,7 @@ const RecoverPassword = (): React.JSX.Element => {
         message={`If an account exists for ${data.email}, we've sent password reset instructions to that email address. Please check your inbox and follow the provided steps to reset your password.`}
       />,
     );
-    setTimeout(() => router.push('/login'), 2000);
+    router.push('/login');
   };
 
   return (

@@ -70,7 +70,6 @@ describe('Recover Password', () => {
   });
 
   it('should call recoverPassword function and redirect to /login', async () => {
-    jest.useFakeTimers();
     render(<RecoverPassword />);
 
     const emailInput = screen.getByTestId('email');
@@ -87,12 +86,7 @@ describe('Recover Password', () => {
       });
     });
 
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
-
     expect(mockPush).toHaveBeenCalledWith('/login');
-    jest.useRealTimers();
   });
 
   it('should not call recover password function when email is empty', async () => {
