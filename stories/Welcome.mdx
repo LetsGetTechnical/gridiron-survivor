@@ -1,112 +1,138 @@
 import './welcome-styles.css';
-import GridironLogo from './assets/gridironSurvivorLogo.svg';
-import AppwriteLogo from './assets/appwriteLogo.svg';
-import BlogRecorderLogo from './assets/blogRecorderLogo.svg';
+import gridironLogo from './assets/gridironSurvivorLogo.svg';
+import appwriteLogo from './assets/appwriteLogo.svg';
+import blogRecorderLogo from './assets/blogRecorderLogo.svg';
 import frontendMentorLogo from './assets/frontendMentorLogo.svg';
 import gitkrakenLogo from './assets/gitkrakenLogo.svg';
 import pastelLogo from './assets/pastelLogo.svg';
 import Image from 'next/image';
 
 <html>
-  <body class="dark bg-background text-muted-foreground max-w-screen-xl mx-auto text-pretty flex flex-col space-y-36 outline">
+  <body class="dark bg-background text-muted-foreground max-w-screen-xl mx-auto text-pretty flex flex-col space-y-36 pb-36">
     <header class="header flex justify-center align-middle">
-      <Image class="w-2/6 h-auto" src={GridironLogo} alt='Gridiron Survivor Football Logo' />
+      <a href="https://www.gridironsurvivor.com" target="_blank" rel="noreferrer" class="w-2/6 h-fit">
+        <Image class="w-full" src={gridironLogo} alt='Gridiron Survivor Football Logo' />
+      </a>
     </header>
     <section class="hero space-y-12">
-      <h1>What is Gridiron Survivor?</h1>
+      <h1 class="pl-16">What is Gridiron Survivor?</h1>
       <p class="text-xl text-pretty max-w-screen-lg mx-auto">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat
-        architecto ab blanditiis numquam itaque tenetur recusandae cupiditate
-        accusantium molestiae autem consectetur earum excepturi labore corrupti
-        sit illo quis voluptatibus fuga, vitae quisquam placeat nesciunt velit.
-        Eius est, sequi voluptatem repellat mollitia consequuntur beatae,
-        voluptates aliquam nihil perspiciatis neque quas cumque.
+        Gridiron Survivor is the ultimate pick'em league app. Track your picks, see how you stack up against your friends, and hope to be crowned champion! Developed by a talented team of junior developers using technologies such as Next.js, React, and Tailwind CSS, Gridiron Survivor is the perfect tool for any football fan looking to take their pick'em game to the next level.
+        <br />
+        Gridiron Survivor is currently in its first Alpha for the 2024-2025 NFL Season! 1st, 2nd, and 3rd place winners of the season get spoiled with prizes from our generous sponsors.
       </p>
     </section>
-    <section class="sponsors space-y-12">
-      <h2>Sponsors</h2>
-      <section class="sponsors-container max-w-screen-lg flex flex-wrap gap-24 justify-center lg:justify-between mx-auto outline">
-        <a href="#" target="_blank" rel="noopener noreferrer" class="sponsor-card-link-container block"><div class="sponsor-cards outline">
-          <Image src={AppwriteLogo} alt='Appwrite Logomark' />
+    <section class="sponsors-section h-fit">
+      <h2 class="pl-16 pb-8">Sponsors</h2>
+      <div class="sponsors-card-container flex flex-row flex-wrap justify-between max-w-screen-lg mx-auto">
+        <a href="https://appwrite.io/" target="_blank" rel="noreferrer" class="sponsor-card">
+          <Image src={appwriteLogo} />
           <h3>Appwrite</h3>
-        </div></a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
-          <Image src={BlogRecorderLogo} alt='Blog Recorder Logomark' />
+        </a>
+        <a href="https://blogrecorder.com/" target="_blank" rel="noreferrer" class="sponsor-card">
+          <Image src={blogRecorderLogo} />
           <h3>Blog Recorder</h3>
-        </div></a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
-          <Image src={frontendMentorLogo} alt='Frontend Mentor Logomark' />
+        </a>
+        <a href="https://www.frontendmentor.io/" target="_blank" rel="noreferrer" class="sponsor-card">
+          <Image src={frontendMentorLogo} />
           <h3>Frontend Mentor</h3>
-        </div></a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
-          <Image src={gitkrakenLogo} alt='GitKraken Logomark' />
+        </a>
+        <a href="https://www.gitkraken.com/" target="_blank" rel="noreferrer" class="sponsor-card">
+          <Image src={gitkrakenLogo} />
           <h3>GitKraken</h3>
-        </div></a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="block"><div class="sponsor-cards outline">
-          <Image src={pastelLogo} alt='Pastel Logomark' />
+        </a>
+        <a href="https://usepastel.com/" target="_blank" rel="noreferrer" class="sponsor-card">
+          <Image src={pastelLogo} />
           <h3>Pastel</h3>
-        </div></a>
-      </section>
+        </a>
+      </div>
     </section>
     <section class="meet-the-team space-y-12">
-      <h2>Meet the Team</h2>
-      <section class="meet-the-team grid grid-cols-4 grid-rows-auto place-items-center mx-auto gap-y-16 max-w-screen-lg">
-        <div class="team-member">
-          <h4>Alex Appleget</h4>
-          <p>Software Engineer</p>
-          <a href="https://github.com/alexappleget" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/alex-appleget/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <h2 class="pl-16">Meet the Team</h2>
+      <section class="meet-the-team grid grid-cols-4 grid-rows-auto place-items-center mx-auto gap-x-20 gap-y-10 max-w-screen-lg">
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Alex Appleget</h4>
+            <p>Software Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/alexappleget" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/alex-appleget/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-        <div class="team-member">
-          <h4>Richard Choi</h4>
-          <p>DevRel Engineer</p>
-          <a href="https://github.com/choir27" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/richard-choir/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Richard Choi</h4>
+            <p>DevRel Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/choir27" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/richard-choir/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-        <div class="team-member">
-          <h4>Ryan Furrer</h4>
-          <p>UX Engineer</p>
-          <a href="https://github.com/ryandotfurrer" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/ryanfurrer/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Ryan Furrer</h4>
+            <p>UX Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/ryandotfurrer" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/ryanfurrer/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-        <div class="team-member">
-          <h4>Walter Furrer</h4>
-          <p>Documentation Engineer</p>
-          <a href="https://github.com/FurrerW" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/furrerw/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Walter Furrer</h4>
+            <p>Documentation Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/FurrerW" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/furrerw/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-        <div class="team-member">
-          <h4>Shashi Lo</h4>
-          <p>Engineering Manager</p>
-          <a href="https://github.com/shashilo" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/shashilo/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Shashi Lo</h4>
+            <p>Engineering Manager</p>
+          </div>
+          <div>
+            <a href="https://github.com/shashilo" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/shashilo/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-        <div class="team-member">
-          <h4>Mai Vang</h4>
-          <p>Frontend Engineer</p>
-          <a href="https://github.com/vmaineng" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/mai-vang-swe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Corina Murg</h4>
+            <p>Frontend Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/CorinaMurg" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/corinamurg/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-        <div class="team-member">
-          <h4>Chris Nowicki</h4>
-          <p>Software Engineer</p>
-          <a href="https://github.com/chris-nowicki" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/chris-nowicki/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Chris Nowicki</h4>
+            <p>Software Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/chris-nowicki" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/chris-nowicki/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
-        <div class="team-member">
-          <h4>Jason Torres</h4>
-          <p>Technical Project Manager</p>
-          <a href="https://github.com/jasonetorres" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/TheJasonTorres/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        </div>
-        <div class="team-member">
-          <h4>Mai Vang</h4>
-          <p>Frontend Engineer</p>
-          <a href="https://github.com/vmaineng" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/mai-vang-swe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="team-member flex flex-col gap-2">
+          <div>
+            <h4>Mai Vang</h4>
+            <p>Frontend Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/vmaineng" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/mai-vang-swe/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
         </div>
       </section>
     </section>
+
   </body>
 
 </html>
