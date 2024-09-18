@@ -126,7 +126,7 @@ describe('apiFunctions', () => {
       });
     });
 
-    describe('resetPassword', () => {
+    describe('resetRecoveredPassword', () => {
       it('should successfully reset the password', async () => {
         (account.updateRecovery as jest.Mock).mockResolvedValue(
           mockRecoveryToken,
