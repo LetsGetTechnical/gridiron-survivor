@@ -43,13 +43,12 @@ describe('LeagueEntries', () => {
     const leagueEntryPickButton = screen.getByTestId(
       'league-entry-pick-button',
     );
-    const userHistoryPicks = screen.queryByTestId('user-pick-history');
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 2');
     expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
-    expect(userHistoryPicks).toBeInTheDocument();
+    expect(screen.queryByTestId('user-pick-history')).toBeInTheDocument();
   });
 
   it('renders as if the user is eliminated', () => {

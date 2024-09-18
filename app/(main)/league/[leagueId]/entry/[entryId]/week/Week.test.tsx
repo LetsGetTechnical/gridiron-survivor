@@ -119,7 +119,7 @@ const updatedWeeklyPicks = {
   },
 };
 
-describe('Week', () => {
+describe('League Week Picks', () => {
   const setUserPick = jest.fn();
   const updateWeeklyPicks = jest.fn();
   const mockGetNFLTeamLogo = getNFLTeamLogo as jest.Mock;
@@ -218,8 +218,7 @@ describe('Week', () => {
       { timeout: 5000 },
     );
 
-    const userPickHistory = screen.queryByTestId('user-pick-history');
-    expect(userPickHistory).not.toBeInTheDocument();
+    expect(screen.queryByTestId('user-pick-history')).not.toBeInTheDocument();
   });
 
   it('should show previous weeks picks if their are picks in selected teams history', async () => {
@@ -246,8 +245,7 @@ describe('Week', () => {
       { timeout: 5000 },
     );
 
-    const userPickHistory = screen.getByTestId('user-pick-history');
-    expect(userPickHistory).toBeInTheDocument();
+    expect(screen.getByTestId('user-pick-history')).toBeInTheDocument();
 
     const userPickHistoryLogos = screen.queryAllByTestId('league-history-logo');
     expect(userPickHistoryLogos).toHaveLength(2);

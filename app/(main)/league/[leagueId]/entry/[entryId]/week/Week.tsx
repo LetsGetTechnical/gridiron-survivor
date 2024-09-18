@@ -136,8 +136,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         setSchedule(scheduleData.events);
       }
     } catch (error) {
-      console.error('Could not load week data:', error);
       setError('Could not load week data.');
+      throw error;
     }
   };
 

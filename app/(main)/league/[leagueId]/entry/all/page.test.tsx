@@ -388,8 +388,7 @@ describe('League entries page (Entry Component)', () => {
       expect(mockGetNFLTeams).toHaveBeenCalled();
     });
 
-    const userPickHistory = screen.queryByTestId('user-pick-history');
-    expect(userPickHistory).not.toBeInTheDocument();
+    expect(screen.queryByTestId('user-pick-history')).not.toBeInTheDocument();
   });
 
   it('should display the user pick history if the current week is greater than 1', async () => {
@@ -439,8 +438,7 @@ describe('League entries page (Entry Component)', () => {
     // Add a delay to allow for any asynchronous rendering
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    const userPickHistory = screen.queryByTestId('user-pick-history');
-    expect(userPickHistory).toBeInTheDocument();
+    expect(screen.queryByTestId('user-pick-history')).toBeInTheDocument();
     expect(screen.getByTestId('league-history-logo')).toHaveAttribute(
       'src',
       '/_next/image?url=%2Fpackers-logo.png&w=96&q=75',
@@ -492,7 +490,6 @@ describe('League entries page (Entry Component)', () => {
       expect(mockGetNFLTeams).toHaveBeenCalled();
     });
 
-    const userPickHistory = screen.queryByTestId('user-pick-history');
-    expect(userPickHistory).not.toBeInTheDocument();
+    expect(screen.queryByTestId('user-pick-history')).not.toBeInTheDocument();
   });
 });
