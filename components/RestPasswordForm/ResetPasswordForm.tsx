@@ -99,7 +99,7 @@ const ResetPasswordForm = (): JSX.Element => {
   return (
     <Form {...form}>
       <form
-        id="input-container"
+        id="password-input-container"
         className="border border-border rounded-lg w-full bg-border/40"
         onSubmit={form.handleSubmit(onSubmit)}
       >

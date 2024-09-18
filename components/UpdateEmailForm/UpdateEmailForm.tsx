@@ -8,10 +8,9 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
-import { useAuthContext } from '@/context/AuthContextProvider';
 import { useDataStore } from '@/store/dataStore';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { JSX, useEffect, useState } from 'react';
+import { JSX, useState } from 'react';
 import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
@@ -29,10 +28,7 @@ const UpdateEmailSchema = z.object({
     .string()
     .min(1, { message: 'Please enter an email address' })
     .email({ message: 'Please enter a valid email address' }),
-  password: z
-    .string()
-    .min(1, { message: 'Please enter a password' })
-    .min(6, { message: 'Password must be at least 6 characters' }),
+  password: z.string().min(1, { message: 'Please enter a password' }),
 });
 
 type UpdateEmailSchemaType = z.infer<typeof UpdateEmailSchema>;
@@ -44,18 +40,11 @@ type UpdateEmailSchemaType = z.infer<typeof UpdateEmailSchema>;
 const UpdateEmailForm = (): JSX.Element => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const { user, updateUser } = useDataStore((state) => state);
-  const { isSignedIn } = useAuthContext();
-
-  useEffect(() => {
-    if (isSignedIn) {
-      form.reset({ email: user.email || '', password: '' });
-    }
-  }, [isSignedIn, user]);
 
   const form = useForm<UpdateEmailSchemaType>({
     resolver: zodResolver(UpdateEmailSchema),
     defaultValues: {
-      email: user.email || '',
+      email: user.email,
       password: '',
     },
   });
@@ -63,13 +52,11 @@ const UpdateEmailForm = (): JSX.Element => {
   const email: string = useWatch({
     control: form.control,
     name: 'email',
-    defaultValue: user.email || '',
   });
 
   const password: string = useWatch({
     control: form.control,
     name: 'password',
-    defaultValue: '',
   });
 
   /**
@@ -96,8 +83,7 @@ const UpdateEmailForm = (): JSX.Element => {
       );
 
       updateUser(user.documentId, user.id, email, user.leagues);
-
-      form.reset({ email: user.email || '', password: '' });
+      form.reset({ email: email || '', password: '' });
     } catch (error) {
       console.error('Email Update Failed', error);
       toast.custom(
@@ -113,7 +99,7 @@ const UpdateEmailForm = (): JSX.Element => {
   return (
     <Form {...form}>
       <form
-        id="input-container"
+        id="email-input-container"
         className="border border-border rounded-lg w-full bg-border/40"
         onSubmit={form.handleSubmit(onSubmit)}
       >

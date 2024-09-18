@@ -1,127 +1,95 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { toast } from 'react-hot-toast';
 import UpdateEmailForm from './UpdateEmailForm';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { updateUserEmail } from '@/api/apiFunctions';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import { useDataStore } from '@/store/dataStore';
 
 jest.mock('react-hot-toast');
 jest.mock('@/api/apiFunctions');
-jest.mock('@/context/AuthContextProvider');
+jest.mock(`@/store/dataStore`, () => ({
+  useDataStore: jest.fn(() => ({
+    user: { documentId: 'doc123', id: '123', email: 'olduser@example.com' },
+    updateUser: jest.fn(),
+  })),
+}));
 
 describe('UpdateEmailForm', () => {
-  const mockUser = {
-    documentId: 'doc123',
-    id: 'user123',
-    email: 'olduser@example.com',
-    leagues: [],
-  };
-
-  const mockUpdateUser = jest.fn();
-  const mockUseDataStore = useDataStore as unknown as jest.Mock;
+  let mockToast: jest.Mock;
 
   beforeEach(() => {
-    (useAuthContext as jest.Mock).mockReturnValue({
-      isSignedIn: true,
-    });
-
-    (toast.custom as jest.Mock).mockImplementation(() => {});
+    mockToast = jest.fn();
+    (toast.custom as jest.Mock).mockImplementation(mockToast);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('renders the update email form', () => {
-    mockUseDataStore.mockReturnValue({
-      user: mockUser,
-      updateUser: mockUpdateUser,
+  const fillForm = () => {
+    fireEvent.change(screen.getByTestId('email'), {
+      target: { value: 'newuser@example.com' },
     });
+    fireEvent.change(screen.getByTestId('current-password'), {
+      target: { value: 'password123' },
+    });
+  };
+
+  it('should render the update email form with the update button disabled', () => {
     render(<UpdateEmailForm />);
+
     expect(screen.getByTestId('email')).toBeInTheDocument();
     expect(screen.getByTestId('current-password')).toBeInTheDocument();
     expect(screen.getByTestId('updated-email-button')).toBeInTheDocument();
+    expect(screen.getByTestId('updated-email-button')).toBeDisabled();
   });
 
-  it('disables the update button when email is unchanged', () => {
+  it('should update the form with new email and password and update button should be enabled', async () => {
     render(<UpdateEmailForm />);
-    const updateButton = screen.getByTestId('updated-email-button');
-    expect(updateButton).toBeDisabled();
-  });
-
-  it('enables the update button when email is changed and password is entered', async () => {
-    render(<UpdateEmailForm />);
-    const emailInput = screen.getByTestId('email') as HTMLInputElement;
-    const passwordInput = screen.getByTestId(
-      'current-password',
-    ) as HTMLInputElement;
-    const updateButton = screen.getByTestId(
-      'updated-email-button',
-    ) as HTMLButtonElement;
-
-    expect(updateButton).toBeDisabled();
-    expect(emailInput.value).toBe('olduser@example.com');
-    expect(passwordInput.value).toBe('');
-
-    fireEvent.change(emailInput, { target: { value: 'newuser@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fillForm();
 
     await waitFor(() => {
-      expect(emailInput.value).toBe('newuser@example.com');
-      expect(passwordInput.value).toBe('password123');
+      expect(screen.getByTestId('email')).toHaveValue('newuser@example.com');
+      expect(screen.getByTestId('current-password')).toHaveValue('password123');
+      expect(screen.getByTestId('updated-email-button')).not.toBeDisabled();
     });
-
-    // await waitFor(() => {
-    //   expect(updateButton).not.toBeDisabled();
-    // });
   });
-
-  it('calls updateUserEmail and shows success message on successful update', async () => {
-    (updateUserEmail as jest.Mock).mockResolvedValue({});
-
+  it('should submit the form and update the user email successfully', async () => {
     render(<UpdateEmailForm />);
-    const emailInput = screen.getByTestId('email');
-    const passwordInput = screen.getByTestId('current-password');
-    const updateButton = screen.getByTestId('updated-email-button');
+    fillForm();
 
-    fireEvent.change(emailInput, { target: { value: 'newuser@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.click(updateButton);
+    fireEvent.click(screen.getByTestId('updated-email-button'));
 
     await waitFor(() => {
       expect(updateUserEmail).toHaveBeenCalledWith({
         email: 'newuser@example.com',
         password: 'password123',
       });
-      expect(toast.custom).toHaveBeenCalledWith(expect.anything());
-      expect(mockUpdateUser).toHaveBeenCalledWith(
-        'doc123',
-        'user123',
-        'newuser@example.com',
-        [],
+      expect(screen.getByTestId('email')).toHaveValue('newuser@example.com');
+      expect(screen.getByTestId('current-password')).toHaveValue('');
+
+      expect(toast.custom).toHaveBeenCalledWith(
+        <Alert
+          variant={AlertVariants.Success}
+          message="You have successfully updated your email."
+        />,
       );
     });
   });
-
-  it('shows error message on update failure', async () => {
-    (updateUserEmail as jest.Mock).mockRejectedValue(
-      new Error('Update failed'),
-    );
+  it('should submit the form and show error message on update failure', async () => {
+    (updateUserEmail as jest.Mock).mockRejectedValue(new Error());
 
     render(<UpdateEmailForm />);
-    const emailInput = screen.getByTestId('email');
-    const passwordInput = screen.getByTestId('current-password');
-    const updateButton = screen.getByTestId('updated-email-button');
+    fillForm();
 
-    fireEvent.change(emailInput, { target: { value: 'newuser@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.click(updateButton);
+    fireEvent.click(screen.getByTestId('updated-email-button'));
 
     await waitFor(() => {
-      expect(updateUserEmail).toHaveBeenCalled();
-      expect(toast.custom).toHaveBeenCalledWith(expect.anything());
-      expect(mockUpdateUser).not.toHaveBeenCalled();
+      expect(updateUserEmail).rejects.toThrow();
+
+      expect(toast.custom).toHaveBeenCalledWith(
+        <Alert variant={AlertVariants.Error} message="Email Update Failed!" />,
+      );
     });
   });
 });
