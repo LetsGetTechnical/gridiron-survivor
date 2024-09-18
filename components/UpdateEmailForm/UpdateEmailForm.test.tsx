@@ -76,7 +76,7 @@ describe('UpdateEmailForm', () => {
       );
     });
   });
-  it('should submit the form and show error message on update failure', async () => {
+  it('should submit the form and show error message on email update failure', async () => {
     (updateUserEmail as jest.Mock).mockRejectedValue(new Error());
 
     render(<UpdateEmailForm />);

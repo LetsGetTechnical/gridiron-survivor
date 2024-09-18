@@ -52,13 +52,11 @@ const ResetPasswordForm = (): JSX.Element => {
   const oldPassword: string = useWatch({
     control: form.control,
     name: 'oldPassword',
-    defaultValue: '',
   });
 
   const newPassword: string = useWatch({
     control: form.control,
     name: 'newPassword',
-    defaultValue: '',
   });
 
   /**
@@ -85,9 +83,12 @@ const ResetPasswordForm = (): JSX.Element => {
 
       form.reset({ oldPassword: '', newPassword: '' });
     } catch (error) {
-      console.error('Email Update Failed', error);
+      console.error('Password Update Failed', error);
       toast.custom(
-        <Alert variant={AlertVariants.Error} message="Email Update Failed!" />,
+        <Alert
+          variant={AlertVariants.Error}
+          message="Password Update Failed!"
+        />,
       );
     } finally {
       setIsUpdating(false);
@@ -173,7 +174,7 @@ const ResetPasswordForm = (): JSX.Element => {
         </div>
         <div className="flex justify-end pb-4 pr-4">
           <Button
-            data-testid="updated-password-button"
+            data-testid="update-password-button"
             type="submit"
             disabled={isDisabled}
             className="w-[100px]"
