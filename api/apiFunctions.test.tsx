@@ -1,7 +1,7 @@
 import {
   recoverPassword,
   registerAccount,
-  resetPassword,
+  resetRecoveredPassword,
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
 import { account, ID } from './config';
@@ -131,7 +131,7 @@ describe('apiFunctions', () => {
           mockRecoveryToken,
         );
 
-        const result = await resetPassword({
+        const result = await resetRecoveredPassword({
           userId: mockUserId,
           token: mockToken,
           password: mockPassword,
@@ -150,7 +150,7 @@ describe('apiFunctions', () => {
         (account.updateRecovery as jest.Mock).mockRejectedValue(mockError);
 
         await expect(
-          resetPassword({
+          resetRecoveredPassword({
             userId: mockUserId,
             token: mockToken,
             password: mockPassword,

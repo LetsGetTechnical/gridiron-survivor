@@ -8,7 +8,7 @@ import {
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import ResetPassword from './page';
-import { resetPassword } from '@/api/apiFunctions';
+import { resetRecoveredPassword } from '@/api/apiFunctions';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
@@ -84,12 +84,12 @@ describe('ResetPassword', () => {
   });
 
   it('should submit the form and reset password successfully', async () => {
-    (resetPassword as jest.Mock).mockResolvedValue({});
+    (resetRecoveredPassword as jest.Mock).mockResolvedValue({});
     render(<ResetPassword />);
     fillFormAndSubmit();
 
     await waitFor(() => {
-      expect(resetPassword).toHaveBeenCalledWith({
+      expect(resetRecoveredPassword).toHaveBeenCalledWith({
         userId: '123',
         token: 'abc',
         password: 'newpassword123',
@@ -111,7 +111,7 @@ describe('ResetPassword', () => {
   it('should show an error message when the token is invalid', async () => {
     const error = new Error('Invalid token') as Error & { type?: string };
     error.type = 'user_invalid_token';
-    (resetPassword as jest.Mock).mockRejectedValue(error);
+    (resetRecoveredPassword as jest.Mock).mockRejectedValue(error);
 
     render(<ResetPassword />);
     fillFormAndSubmit();
@@ -132,7 +132,7 @@ describe('ResetPassword', () => {
   });
 
   it('should show an error message when the password reset fails', async () => {
-    (resetPassword as jest.Mock).mockRejectedValue(
+    (resetRecoveredPassword as jest.Mock).mockRejectedValue(
       new Error('Error resetting password'),
     );
 

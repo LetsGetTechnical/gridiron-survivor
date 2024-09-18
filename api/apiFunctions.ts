@@ -60,14 +60,14 @@ export async function recoverPassword({
 }
 
 /**
- * Reset a User Password
+ * Reset a User's Recovered Password
  * @param props - the props for the reset password function
  * @param props.userId - the user id
  * @param props.token - the recovery token
  * @param props.password - the new password
- * @returns {Promise<void>} - the reset password
+ * @returns {Promise<void>}
  */
-export async function resetPassword({
+export async function resetRecoveredPassword({
   userId,
   token,
   password,

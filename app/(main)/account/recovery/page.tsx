@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import { resetPassword } from '@/api/apiFunctions';
+import { resetRecoveredPassword } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { Button } from '@/components/Button/Button';
@@ -130,7 +130,7 @@ const ResetPassword = (): React.JSX.Element => {
     setIsSubmitting(true);
 
     try {
-      await resetPassword({
+      await resetRecoveredPassword({
         userId: userId as string,
         token: secret as string,
         password,
