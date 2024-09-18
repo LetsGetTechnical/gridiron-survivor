@@ -189,7 +189,7 @@ const ResetPassword = (): React.JSX.Element => {
           <>
             <div>
               <h1 className="text-5xl font-extrabold tracking-tight">
-                Reset Your Password
+                Reset Password
               </h1>
               <p className="pb-4 font-normal leading-7 text-muted-foreground">
                 Enter your new password and confirm it to recover your account.
@@ -244,8 +244,8 @@ const ResetPassword = (): React.JSX.Element => {
                   )}
                 />
                 <Button
-                  data-testid="continue-button"
-                  label={isSubmitting ? <LoadingSpinner /> : 'Continue'}
+                  data-testid="reset-password-button"
+                  label={isSubmitting ? <LoadingSpinner /> : 'Reset Password'}
                   type="submit"
                   disabled={isDisabled}
                 />

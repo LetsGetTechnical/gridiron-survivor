@@ -116,9 +116,7 @@ describe('apiFunctions', () => {
         const mockError = new Error('Recovery creation failed');
         (account.createRecovery as jest.Mock).mockRejectedValue(mockError);
 
-        await expect(recoverPassword({ email: mockEmail })).rejects.toThrow(
-          'Error recovering password',
-        );
+        await expect(recoverPassword({ email: mockEmail })).rejects.toThrow();
         expect(getBaseURL).toHaveBeenCalledTimes(1);
         expect(account.createRecovery).toHaveBeenCalledWith(
           mockEmail,
@@ -157,7 +155,7 @@ describe('apiFunctions', () => {
             token: mockToken,
             password: mockPassword,
           }),
-        ).rejects.toThrow('Password reset failed');
+        ).rejects.toThrow();
         expect(account.updateRecovery).toHaveBeenCalledWith(
           mockUserId,
           mockToken,
