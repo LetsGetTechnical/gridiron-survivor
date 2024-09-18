@@ -15,7 +15,7 @@ import { JSX, useEffect, useState } from 'react';
  * Display user preferences
  * @returns {JSX.Element} The rendered user preferences component.
  */
-const AccountPreferences = (): JSX.Element => {
+const AccountSettings = (): JSX.Element => {
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const { isSignedIn } = useAuthContext();
 
@@ -47,7 +47,7 @@ const AccountPreferences = (): JSX.Element => {
             <Heading
               as="h2"
               className="text-4xl font-bold"
-              data-testid="entry-page-header-league-name"
+              data-testid="entry-page-header-page-name"
             >
               Settings
             </Heading>
@@ -63,4 +63,4 @@ const AccountPreferences = (): JSX.Element => {
   );
 };
 
-export default AccountPreferences;
+export default AccountSettings;

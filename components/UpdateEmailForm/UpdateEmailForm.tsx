@@ -155,7 +155,7 @@ const UpdateEmailForm = (): JSX.Element => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      data-testid="password"
+                      data-testid="current-password"
                       type="password"
                       placeholder="Enter Password"
                       {...field}
