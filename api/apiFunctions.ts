@@ -77,8 +77,7 @@ export async function resetRecoveredPassword({
   password: string;
 }): Promise<IRecoveryToken> {
   try {
-    const result = await account.updateRecovery(userId, token, password);
-    return result;
+    return await account.updateRecovery(userId, token, password);
   } catch (error) {
     throw error;
   }

@@ -47,7 +47,7 @@ describe('Recover Password', () => {
     jest.clearAllMocks();
   });
 
-  test('should render the recover password page', () => {
+  it('should render the recover password page', () => {
     render(<RecoverPassword />);
     emailInput = screen.getByTestId('email');
     continueButton = screen.getByTestId('recover-password-button');
@@ -59,7 +59,7 @@ describe('Recover Password', () => {
     expect(continueButton).toBeInTheDocument();
   });
 
-  test('should update email state when input value changes', () => {
+  it('should update email state when input value changes', () => {
     render(<RecoverPassword />);
 
     emailInput = screen.getByTestId('email');
@@ -69,7 +69,7 @@ describe('Recover Password', () => {
     expect(emailInput).toHaveValue('test@example.com');
   });
 
-  test('should call recoverPassword function and redirect to /login', async () => {
+  it('should call recoverPassword function and redirect to /login', async () => {
     jest.useFakeTimers();
     render(<RecoverPassword />);
 
@@ -95,7 +95,7 @@ describe('Recover Password', () => {
     jest.useRealTimers();
   });
 
-  test('should not call recover password function when email is empty', async () => {
+  it('should not call recover password function when email is empty', async () => {
     render(<RecoverPassword />);
 
     const continueButton = screen.getByTestId('recover-password-button');
@@ -109,7 +109,7 @@ describe('Recover Password', () => {
     });
   });
 
-  test('redirects to /league/all when user navigates to /recover-password and is signed in', async () => {
+  it('redirects to /league/all when user navigates to /recover-password and is signed in', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<RecoverPassword />);
