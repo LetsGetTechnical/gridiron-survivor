@@ -2,16 +2,13 @@
 // Licensed under the MIT License.
 
 'use client';
-import { updateUserEmail } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import { useDataStore } from '@/store/dataStore';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { JSX, useEffect, useState } from 'react';
+import { JSX, useState } from 'react';
 import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
@@ -24,51 +21,40 @@ import {
   FormMessage,
 } from '../Form/Form';
 
-const UpdateEmailSchema = z.object({
-  email: z
+const ResetPasswordSchema = z.object({
+  oldPassword: z.string().min(1, { message: 'Please enter your old password' }),
+  newPassword: z
     .string()
-    .min(1, { message: 'Please enter an email address' })
-    .email({ message: 'Please enter a valid email address' }),
-  password: z
-    .string()
-    .min(1, { message: 'Please enter a password' })
+    .min(1, { message: 'Please enter your new password' })
     .min(6, { message: 'Password must be at least 6 characters' }),
 });
 
-type UpdateEmailSchemaType = z.infer<typeof UpdateEmailSchema>;
+type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>;
 
 /**
  * Display update user email form
  * @returns {JSX.Element} The rendered update user email form.
  */
-const UpdateEmailForm = (): JSX.Element => {
+const ResetPasswordForm = (): JSX.Element => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const { user, updateUser } = useDataStore((state) => state);
-  const { isSignedIn } = useAuthContext();
 
-  useEffect(() => {
-    if (isSignedIn) {
-      form.reset({ email: user.email || '', password: '' });
-    }
-  }, [isSignedIn, user]);
-
-  const form = useForm<UpdateEmailSchemaType>({
-    resolver: zodResolver(UpdateEmailSchema),
+  const form = useForm<ResetPasswordSchemaType>({
+    resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
-      email: user.email || '',
-      password: '',
+      oldPassword: '',
+      newPassword: '',
     },
   });
 
-  const email: string = useWatch({
+  const oldPassword: string = useWatch({
     control: form.control,
-    name: 'email',
-    defaultValue: user.email || '',
+    name: 'oldPassword',
+    defaultValue: '',
   });
 
-  const password: string = useWatch({
+  const newPassword: string = useWatch({
     control: form.control,
-    name: 'password',
+    name: 'newPassword',
     defaultValue: '',
   });
 
@@ -77,27 +63,20 @@ const UpdateEmailForm = (): JSX.Element => {
    * @param {UpdateEmailSchemaType} data - The data submitted in the form.
    * @returns {Promise<void>} Promise that resolves after form submission is processed.
    */
-  const onSubmit: SubmitHandler<UpdateEmailSchemaType> = async (
-    data: UpdateEmailSchemaType,
+  const onSubmit: SubmitHandler<ResetPasswordSchemaType> = async (
+    data: ResetPasswordSchemaType,
   ): Promise<void> => {
-    const { email, password } = data;
+    const { oldPassword, newPassword } = data;
     setIsUpdating(true);
     try {
-      await updateUserEmail({
-        email,
-        password,
-      });
-
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
-          message="You have successfully updated your email."
+          message="You have successfully updated your password."
         />,
       );
 
-      updateUser(user.documentId, user.id, email, user.leagues);
-
-      form.reset({ email: user.email || '', password: '' });
+      form.reset({ oldPassword: '', newPassword: '' });
     } catch (error) {
       console.error('Email Update Failed', error);
       toast.custom(
@@ -108,7 +87,7 @@ const UpdateEmailForm = (): JSX.Element => {
     }
   };
 
-  const isDisabled = email === user.email || !email || isUpdating || !password;
+  const isDisabled = oldPassword === '' || newPassword === '' || isUpdating;
 
   return (
     <Form {...form}>
@@ -118,28 +97,27 @@ const UpdateEmailForm = (): JSX.Element => {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex justify-between items-start mb-4 border-b border-border pb-4">
-          <span className="w-1/2 pl-4 pt-4 align-top">Email</span>
+          <span className="w-1/2 pl-4 pt-4 align-top">Password</span>
           <div className="flex flex-col gap-4 w-2/4 pr-4 pt-4">
             <FormField
               control={form.control as Control<object>}
-              name="email"
+              name="oldPassword"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="border-none px-0 py-0 pb-1 pl-1">
-                    Email
+                    Old Password
                   </FormLabel>
                   <FormControl>
                     <Input
-                      data-testid="email"
-                      type="email"
-                      placeholder="Email"
-                      className="w-full"
+                      data-testid="old-password"
+                      type="password"
+                      placeholder="Enter Password"
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.email && (
+                  {form.formState.errors.oldPassword && (
                     <FormMessage>
-                      {form.formState.errors.email.message}
+                      {form.formState.errors.oldPassword.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -147,23 +125,23 @@ const UpdateEmailForm = (): JSX.Element => {
             />
             <FormField
               control={form.control as Control<object>}
-              name="password"
+              name="newPassword"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="border-none px-0 py-0 pb-1 pl-1">
-                    Current Password
+                    New Password
                   </FormLabel>
                   <FormControl>
                     <Input
-                      data-testid="password"
+                      data-testid="new-password"
                       type="password"
                       placeholder="Enter Password"
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.password && (
+                  {form.formState.errors.newPassword && (
                     <FormMessage>
-                      {form.formState.errors.password.message}
+                      {form.formState.errors.newPassword.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -173,7 +151,7 @@ const UpdateEmailForm = (): JSX.Element => {
         </div>
         <div className="flex justify-end pb-4 pr-4">
           <Button
-            data-testid="updated-email-button"
+            data-testid="updated-password-button"
             type="submit"
             disabled={isDisabled}
             className="w-[100px]"
@@ -186,4 +164,4 @@ const UpdateEmailForm = (): JSX.Element => {
   );
 };
 
-export default UpdateEmailForm;
+export default ResetPasswordForm;

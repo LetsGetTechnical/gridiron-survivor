@@ -5,6 +5,7 @@
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import Heading from '@/components/Heading/Heading';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import ResetPasswordForm from '@/components/RestPasswordForm/ResetPasswordForm';
 import UpdateEmailForm from '@/components/UpdateEmailForm/UpdateEmailForm';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { ChevronLeft } from 'lucide-react';
@@ -52,8 +53,9 @@ const AccountPreferences = (): JSX.Element => {
             </Heading>
           </header>
 
-          <div className="w-ful pt-6">
+          <div className="flex flex-col w-full pt-6 gap-4">
             <UpdateEmailForm />
+            <ResetPasswordForm />
           </div>
         </section>
       )}
