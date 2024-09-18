@@ -39,9 +39,9 @@ const LeagueEntries = ({
      * Checks if the user is locked out from making a pick
      */
     const checkLockout = (): void => {
-      const now = new Date();
-      const day = now.getUTCDay();
-      const hours = now.getUTCHours();
+      const currentDateAndTime = new Date();
+      const day = currentDateAndTime.getUTCDay();
+      const hours = currentDateAndTime.getUTCHours();
       if (
         (day === 4 && hours >= 0) ||
         (day > 4 && day < 2) ||
