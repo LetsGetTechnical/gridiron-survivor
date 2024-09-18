@@ -27,10 +27,6 @@ import {
 import { Suspense } from 'react';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 
-interface CustomError extends Error {
-  type?: string;
-}
-
 /**
  * The schema for the login form.
  * @throws {Error} Throws an error if the email is not a valid email address.
@@ -145,24 +141,20 @@ const ResetPassword = (): React.JSX.Element => {
         />,
       );
 
-      setTimeout(() => router.push('/login'), 2000);
-    } catch (err) {
-      console.error('Error resetting password:', err);
+      router.push('/login');
+    } catch (error) {
+      console.error('Error resetting password:', error);
       let errorMessage = 'There was an error resetting your password.';
 
-      if (err instanceof Error) {
-        const customErr = err as CustomError;
-        if (customErr.type === 'user_invalid_token') {
-          errorMessage =
-            'Invalid recovery token. Your token may have expired or already been used.  Please try again.';
-        }
+      if (error instanceof Error) {
+        errorMessage = error.message;
       }
 
       toast.custom(
         <Alert variant={AlertVariants.Error} message={errorMessage} />,
       );
 
-      setTimeout(() => router.push('/recover-password'), 2000);
+      router.push('/recover-password');
     } finally {
       setIsSubmitting(false);
     }
