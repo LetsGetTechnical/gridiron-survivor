@@ -100,6 +100,7 @@ export async function resetPassword({
   try {
     await account.updatePassword(newPassword, oldPassword);
   } catch (error) {
+    console.error('Password reset failed:', error);
     throw error;
   }
 }
