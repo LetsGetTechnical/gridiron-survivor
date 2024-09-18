@@ -207,8 +207,8 @@ const Entry = ({
                     <LeagueEntries
                       entryName={entry.name}
                       isEliminated={entry.eliminated}
-                      isPickSet={isPickSet}
                       isLockedOutProp={false}
+                      isPickSet={isPickSet}
                       key={entry.$id}
                       linkUrl={linkUrl}
                       teamLogo={teamLogo}
