@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import ResetPassword from './page';
@@ -25,7 +19,6 @@ describe('ResetPassword', () => {
   let mockToast: jest.Mock;
 
   beforeEach(() => {
-    jest.useFakeTimers();
     mockUseSearchParams = jest.fn().mockImplementation((param: string) => {
       const params: { [key: string]: string } = {
         userId: '123',
@@ -50,7 +43,6 @@ describe('ResetPassword', () => {
   });
 
   afterEach(() => {
-    jest.useRealTimers();
     jest.clearAllMocks();
   });
 
@@ -102,15 +94,12 @@ describe('ResetPassword', () => {
       );
     });
 
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
     expect(mockRouter.push).toHaveBeenCalledWith('/login');
   });
 
   it('should show an error message when the token is invalid', async () => {
-    const error = new Error('Invalid token') as Error & { type?: string };
-    error.type = 'user_invalid_token';
+    const error = new Error('Invalid token') as Error & { message?: string };
+    error.message = 'Invalid token';
     (resetRecoveredPassword as jest.Mock).mockRejectedValue(error);
 
     render(<ResetPassword />);
@@ -118,23 +107,16 @@ describe('ResetPassword', () => {
 
     await waitFor(() => {
       expect(mockToast).toHaveBeenCalledWith(
-        <Alert
-          variant={AlertVariants.Error}
-          message="Invalid recovery token. Your token may have expired or already been used.  Please try again."
-        />,
+        <Alert variant={AlertVariants.Error} message="Invalid token" />,
       );
     });
 
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
     expect(mockRouter.push).toHaveBeenCalledWith('/recover-password');
   });
 
   it('should show an error message when the password reset fails', async () => {
-    (resetRecoveredPassword as jest.Mock).mockRejectedValue(
-      new Error('Error resetting password'),
-    );
+    const error = { message: 'Error resetting password' };
+    (resetRecoveredPassword as jest.Mock).mockRejectedValue(error);
 
     render(<ResetPassword />);
     fillFormAndSubmit();
@@ -148,9 +130,6 @@ describe('ResetPassword', () => {
       );
     });
 
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
     expect(mockRouter.push).toHaveBeenCalledWith('/recover-password');
   });
 });

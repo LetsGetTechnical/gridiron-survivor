@@ -55,7 +55,6 @@ const RecoverPassword = (): React.JSX.Element => {
       getUser();
       router.push('/league/all');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn]);
 
   const form = useForm<ResetUserPasswordSchemaType>({
