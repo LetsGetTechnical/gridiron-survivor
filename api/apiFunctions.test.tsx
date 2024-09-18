@@ -80,8 +80,9 @@ describe('apiFunctions', () => {
       });
 
       it('should throw an error if registration fails', async () => {
-        const mockError = new Error('Registration failed');
-        (account.create as jest.Mock).mockRejectedValue(mockError);
+        (account.create as jest.Mock).mockRejectedValue(
+          new Error('Registration failed'),
+        );
 
         await expect(
           registerAccount({ email: mockEmail, password: mockPassword }),

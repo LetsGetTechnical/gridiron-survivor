@@ -81,12 +81,14 @@ const ResetPassword = (): React.JSX.Element => {
     useEffect(() => {
       if (!userId || !secret || !expire) {
         router.push('/login');
-      } else {
-        setIsLoading(false);
-        if (isSignedIn) {
-          getUser();
-          router.push('/league/all');
-        }
+        return;
+      }
+
+      setIsLoading(false);
+
+      if (isSignedIn) {
+        getUser();
+        router.push('/league/all');
       }
     }, [isSignedIn]);
 
