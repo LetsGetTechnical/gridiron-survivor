@@ -101,14 +101,15 @@ const ResetPasswordForm = (): JSX.Element => {
     <Form {...form}>
       <form
         id="password-input-container"
-        className="border border-border rounded-lg w-full bg-border/40"
+        className="border border-border rounded-lg w-full bg-border/40 p-6"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex justify-between items-start mb-4 border-b border-border pb-4">
-          <div className="flex flex-col gap-4 w-1/2 pl-4 pt-4 align-top">
-            Password
-            <span className="flex gap-1 text-sm">
-              Forgot your password?
+          <div className="flex flex-col gap-2 w-1/2 pl-4 pt-4 align-top pr-5">
+            <span className="font-semibold">Password</span>
+            <p className="text-sm">
+              This will update the password for your account login. If you
+              forgot your password you can{' '}
               <a
                 href="/recover-password"
                 className="underline underline-offset-4 hover:text-primary-muted transition-colors"
@@ -119,7 +120,8 @@ const ResetPasswordForm = (): JSX.Element => {
               >
                 Recover your password
               </a>
-            </span>
+              .
+            </p>
           </div>
           <div className="flex flex-col gap-4 w-2/4 pr-4 pt-4">
             <FormField
@@ -127,7 +129,7 @@ const ResetPasswordForm = (): JSX.Element => {
               name="oldPassword"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel className="border-none px-0 py-0 pb-1 pl-1">
+                  <FormLabel className="border-none px-0 py-0 pb-2 pl-1">
                     Old Password
                   </FormLabel>
                   <FormControl>
@@ -151,7 +153,7 @@ const ResetPasswordForm = (): JSX.Element => {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="border-none px-0 py-0 pb-1 pl-1">
+                  <FormLabel className="border-none px-0 py-0 pb-2 pl-1">
                     New Password
                   </FormLabel>
                   <FormControl>
@@ -177,9 +179,9 @@ const ResetPasswordForm = (): JSX.Element => {
             data-testid="update-password-button"
             type="submit"
             disabled={isDisabled}
-            className="w-[100px]"
+            className="w-[150px]"
           >
-            {isUpdating ? <LoadingSpinner /> : 'Update'}
+            {isUpdating ? <LoadingSpinner /> : 'Update Password'}
           </Button>
         </div>
       </form>

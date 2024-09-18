@@ -100,18 +100,24 @@ const UpdateEmailForm = (): JSX.Element => {
     <Form {...form}>
       <form
         id="email-input-container"
-        className="border border-border rounded-lg w-full bg-border/40"
+        className="border border-border rounded-lg w-full bg-border/40 p-6"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex justify-between items-start mb-4 border-b border-border pb-4">
-          <span className="w-1/2 pl-4 pt-4 align-top">Email</span>
+          <div className="flex flex-col gap-2 w-1/2 pl-4 pt-4 align-top">
+            <span className="font-semibold">Email</span>
+            <p className="text-sm">
+              This will update both your login email and how you receive email
+              updates from GridIron Survivor.
+            </p>
+          </div>
           <div className="flex flex-col gap-4 w-2/4 pr-4 pt-4">
             <FormField
               control={form.control as Control<object>}
               name="email"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel className="border-none px-0 py-0 pb-1 pl-1">
+                  <FormLabel className="border-none px-0 py-0 pb-2 pl-1">
                     Email
                   </FormLabel>
                   <FormControl>
@@ -136,7 +142,7 @@ const UpdateEmailForm = (): JSX.Element => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="border-none px-0 py-0 pb-1 pl-1">
+                  <FormLabel className="border-none px-0 py-0 pb-2 pl-1">
                     Current Password
                   </FormLabel>
                   <FormControl>
@@ -162,9 +168,9 @@ const UpdateEmailForm = (): JSX.Element => {
             data-testid="updated-email-button"
             type="submit"
             disabled={isDisabled}
-            className="w-[100px]"
+            className="w-[125px]"
           >
-            {isUpdating ? <LoadingSpinner /> : 'Update'}
+            {isUpdating ? <LoadingSpinner /> : 'Update Email'}
           </Button>
         </div>
       </form>

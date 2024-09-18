@@ -30,7 +30,7 @@ const AccountSettings = (): JSX.Element => {
       {loadingData ? (
         <GlobalSpinner />
       ) : (
-        <section className="mx-auto max-w-3xl pt-10">
+        <section className="mx-auto max-w-5xl pt-10">
           <header
             className="flex flex-col gap-4"
             data-testid="settings-page-header"
@@ -53,7 +53,7 @@ const AccountSettings = (): JSX.Element => {
             </Heading>
           </header>
 
-          <div className="flex flex-col w-full pt-6 gap-4">
+          <div className="flex flex-col w-full pt-10 gap-8">
             <UpdateEmailForm />
             <ResetPasswordForm />
           </div>
