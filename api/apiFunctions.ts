@@ -85,6 +85,27 @@ export async function resetRecoveredPassword({
 }
 
 /**
+ * Resets a user's password from the settings page
+ * @param params - The params for the reset password function
+ * @param params.newPassword - The new password
+ * @param params.oldPassword - The old password
+ * @returns {Promise<void>}
+ */
+export async function resetPassword({
+  newPassword,
+  oldPassword,
+}: {
+  newPassword: string;
+  oldPassword: string;
+}): Promise<void> {
+  try {
+    await account.updatePassword(newPassword, oldPassword);
+  } catch (error) {
+    throw error;
+  }
+}
+
+/**
  * Update the user email
  * @param props - The props for the update email function
  * @param props.email - The email

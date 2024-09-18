@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
+import { resetPassword } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { Button } from '@/components/Button/Button';
@@ -20,6 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../Form/Form';
+import { useAuthContext } from '@/context/AuthContextProvider';
 
 const ResetPasswordSchema = z.object({
   oldPassword: z.string().min(1, { message: 'Please enter your old password' }),
@@ -37,6 +39,7 @@ type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>;
  */
 const ResetPasswordForm = (): JSX.Element => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
+  const { logoutAccount } = useAuthContext();
 
   const form = useForm<ResetPasswordSchemaType>({
     resolver: zodResolver(ResetPasswordSchema),
@@ -60,7 +63,7 @@ const ResetPasswordForm = (): JSX.Element => {
 
   /**
    * A function that handles form submission.
-   * @param {UpdateEmailSchemaType} data - The data submitted in the form.
+   * @param {ResetPasswordSchemaType} data - The data submitted in the form.
    * @returns {Promise<void>} Promise that resolves after form submission is processed.
    */
   const onSubmit: SubmitHandler<ResetPasswordSchemaType> = async (
@@ -69,6 +72,10 @@ const ResetPasswordForm = (): JSX.Element => {
     const { oldPassword, newPassword } = data;
     setIsUpdating(true);
     try {
+      await resetPassword({
+        newPassword,
+        oldPassword,
+      });
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
@@ -97,7 +104,22 @@ const ResetPasswordForm = (): JSX.Element => {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex justify-between items-start mb-4 border-b border-border pb-4">
-          <span className="w-1/2 pl-4 pt-4 align-top">Password</span>
+          <div className="flex flex-col gap-4 w-1/2 pl-4 pt-4 align-top">
+            Password
+            <span className="flex gap-1 text-sm">
+              Forgot your password?
+              <a
+                href="/recover-password"
+                className="underline underline-offset-4 hover:text-primary-muted transition-colors"
+                data-testid="recover-password-link"
+                onClick={() => {
+                  logoutAccount();
+                }}
+              >
+                Recover your password
+              </a>
+            </span>
+          </div>
           <div className="flex flex-col gap-4 w-2/4 pr-4 pt-4">
             <FormField
               control={form.control as Control<object>}
