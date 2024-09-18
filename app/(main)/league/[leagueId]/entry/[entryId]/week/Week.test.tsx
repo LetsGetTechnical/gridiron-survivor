@@ -144,7 +144,7 @@ describe('Week', () => {
     jest.clearAllMocks();
   });
 
-  test('should display GlobalSpinner while loading data', async () => {
+  it('should display GlobalSpinner while loading data', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {
@@ -166,7 +166,7 @@ describe('Week', () => {
     });
   });
 
-  test('should display main content after data is loaded and hide GlobalSpinner', async () => {
+  it('should display main content after data is loaded and hide GlobalSpinner', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {
@@ -194,7 +194,7 @@ describe('Week', () => {
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
 
-  test('should not show previous weeks picks if there is no history of selected teams', async () => {
+  it('should not show previous weeks picks if there is no history of selected teams', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {
@@ -222,7 +222,7 @@ describe('Week', () => {
     expect(userPickHistory).not.toBeInTheDocument();
   });
 
-  test('should show previous weeks picks if their are picks in selected teams history', async () => {
+  it('should show previous weeks picks if their are picks in selected teams history', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {
@@ -261,7 +261,7 @@ describe('Week', () => {
     );
   });
 
-  xtest('should show success notification after changing your team pick', async () => {
+  xit('should show success notification after changing your team pick', async () => {
     (createWeeklyPicks as jest.Mock).mockResolvedValue({});
 
     const currentUserPick = mockParseUserPick(user.id, entry, teamName);
@@ -296,7 +296,7 @@ describe('Week', () => {
     );
   });
 
-  xtest('should show error notification when changing your team fails', async () => {
+  xit('should show error notification when changing your team fails', async () => {
     (createWeeklyPicks as jest.Mock).mockRejectedValue(new Error('error'));
 
     await onWeeklyPickChange({
@@ -319,7 +319,7 @@ describe('Week', () => {
     );
   });
 
-  test('should redirect back to entry page after successfully selecting a team', async () => {
+  it('should redirect back to entry page after successfully selecting a team', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {

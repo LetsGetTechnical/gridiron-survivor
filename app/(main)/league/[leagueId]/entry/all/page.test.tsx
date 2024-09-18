@@ -60,7 +60,7 @@ describe('League entries page (Entry Component)', () => {
     jest.clearAllMocks();
   });
 
-  test('should display GlobalSpinner while loading data', async () => {
+  it('should display GlobalSpinner while loading data', async () => {
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '66311a210039f0532044',
@@ -84,7 +84,7 @@ describe('League entries page (Entry Component)', () => {
     });
   });
 
-  test('should not display GlobalSpinner after data is loaded', async () => {
+  it('should not display GlobalSpinner after data is loaded', async () => {
     mockUseDataStore.mockReturnValue({
       ...mockUseDataStore(),
       currentWeek: 1,
