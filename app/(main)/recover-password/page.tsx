@@ -138,8 +138,8 @@ const RecoverPassword = (): React.JSX.Element => {
               )}
             />
             <Button
-              data-testid="continue-button"
-              label={isLoading ? <LoadingSpinner /> : 'Recover'}
+              data-testid="recover-password-button"
+              label={isLoading ? <LoadingSpinner /> : 'Recover Password'}
               type="submit"
               disabled={!email || isLoading}
             />

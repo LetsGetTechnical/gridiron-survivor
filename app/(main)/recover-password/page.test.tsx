@@ -50,10 +50,10 @@ describe('Recover Password', () => {
   test('should render the recover password page', () => {
     render(<RecoverPassword />);
     emailInput = screen.getByTestId('email');
-    continueButton = screen.getByTestId('continue-button');
+    continueButton = screen.getByTestId('recover-password-button');
 
     const headingElement = screen.getByRole('heading', { level: 1 });
-    expect(headingElement).toHaveTextContent('Recover Your Password');
+    expect(headingElement).toHaveTextContent('Password Recovery');
 
     expect(emailInput).toBeInTheDocument();
     expect(continueButton).toBeInTheDocument();
@@ -63,7 +63,7 @@ describe('Recover Password', () => {
     render(<RecoverPassword />);
 
     emailInput = screen.getByTestId('email');
-    continueButton = screen.getByTestId('continue-button');
+    continueButton = screen.getByTestId('recover-password-button');
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     expect(emailInput).toHaveValue('test@example.com');
@@ -74,7 +74,7 @@ describe('Recover Password', () => {
     render(<RecoverPassword />);
 
     const emailInput = screen.getByTestId('email');
-    const continueButton = screen.getByTestId('continue-button');
+    const continueButton = screen.getByTestId('recover-password-button');
 
     await act(async () => {
       fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
@@ -98,7 +98,7 @@ describe('Recover Password', () => {
   test('should not call recover password function when email is empty', async () => {
     render(<RecoverPassword />);
 
-    const continueButton = screen.getByTestId('continue-button');
+    const continueButton = screen.getByTestId('recover-password-button');
 
     await act(async () => {
       fireEvent.click(continueButton);

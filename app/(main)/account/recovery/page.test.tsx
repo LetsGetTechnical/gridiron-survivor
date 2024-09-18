@@ -61,12 +61,16 @@ describe('ResetPassword', () => {
     fireEvent.change(screen.getByTestId('confirm-password'), {
       target: { value: 'newpassword123' },
     });
-    fireEvent.click(screen.getByTestId('continue-button'));
+    fireEvent.click(screen.getByTestId('reset-password-button'));
   };
 
   it('should render the reset password form when all search params are present', async () => {
     render(<ResetPassword />);
-    await screen.findByText('Reset Your Password');
+    const heading = await screen.findByRole('heading', {
+      name: 'Reset Password',
+      level: 1,
+    });
+    expect(heading).toBeInTheDocument();
     expect(screen.getByTestId('password')).toBeInTheDocument();
     expect(screen.getByTestId('confirm-password')).toBeInTheDocument();
   });

@@ -53,14 +53,9 @@ export async function recoverPassword({
   const baseURL = getBaseURL();
 
   try {
-    const result = await account.createRecovery(
-      email,
-      `${baseURL}/account/recovery`,
-    );
-    return result;
+    return await account.createRecovery(email, `${baseURL}/account/recovery`);
   } catch (error) {
-    console.error(error);
-    throw new Error('Error recovering password');
+    throw error;
   }
 }
 
@@ -85,7 +80,6 @@ export async function resetPassword({
     const result = await account.updateRecovery(userId, token, password);
     return result;
   } catch (error) {
-    console.error('Password reset error:', error);
     throw error;
   }
 }
