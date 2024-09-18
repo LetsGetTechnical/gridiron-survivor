@@ -15,8 +15,6 @@ import { IWeekProps } from './Week.interface';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
-import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
 import {
   getAllWeeklyPicks,
   getCurrentUserEntries,
@@ -30,6 +28,10 @@ import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { ChevronLeft } from 'lucide-react';
 
 /**
  * Renders the weekly picks page.
@@ -46,6 +48,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
+  const { isSignedIn } = useAuthContext();
+  const router = useRouter();
 
   /**
    * Fetches the current game week.
@@ -99,8 +103,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       });
 
       if (userWeeklyPickResults?.[user.id]?.[entry]) {
-        const userPick = userWeeklyPickResults[user.id][entry].teamName;
-        setUserPick(userPick.teamName);
+        const userPick = userWeeklyPickResults[user.id][entry];
+        setUserPick(userPick.teamName as unknown as string);
       }
     } catch (error) {
       console.error('Error getting weekly pick:', error);
@@ -180,6 +184,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
     try {
       await onWeeklyPickChange(params);
+      setUserPick(teamSelect);
+      router.push(`/league/${league}/entry/all`);
     } catch (error) {
       console.error('Submission error:', error);
     }
@@ -194,10 +200,12 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   }, [week, selectedLeague]);
 
   useEffect(() => {
-    getCurrentGameWeek();
-    getUserSelectedTeams();
-    getUserWeeklyPick();
-  }, [user]);
+    if (isSignedIn) {
+      getCurrentGameWeek();
+      getUserSelectedTeams();
+      getUserWeeklyPick();
+    }
+  }, [isSignedIn]);
 
   if (loadingData) {
     return <GlobalSpinner />;
@@ -213,9 +221,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
-          <nav className="py-6 text-orange-500 hover:no-underline">
+          <nav className="py-6 text-primary hover:no-underline">
             <LinkCustom
-              className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+              className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
               href={`/league/${league}/entry/all`}
             >
               <span aria-hidden="true">
@@ -225,7 +233,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             </LinkCustom>
           </nav>
           <section className="w-full pt-8" data-testid="weekly-picks">
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+            <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
             </h1>
 

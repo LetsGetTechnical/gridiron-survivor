@@ -10,10 +10,10 @@ interface HeadingProps {
 }
 
 const headingVariants = {
-  h1: 'font-extrabold text-5xl leading-none tracking-tight',
-  h2: 'font-bold text-[2rem] leading-[1.125rem] tracking-tighter',
-  h3: 'font-semibold text-base leading-8 tracking-tighter',
-  h4: 'font-semibold text-sm leading-7 tracking-tighter',
+  h1: 'font-extrabold text-5xl leading-none tracking-tight text-foreground',
+  h2: 'font-bold text-[2rem] leading-[1.125rem] tracking-tighter text-foreground',
+  h3: 'font-semibold text-base leading-8 tracking-tighter text-foreground',
+  h4: 'font-semibold text-sm leading-7 tracking-tighter text-foreground',
 };
 /**
  * Dynamically assigns the HTML element based on HeadingSize, applies the appropriate variant class name,

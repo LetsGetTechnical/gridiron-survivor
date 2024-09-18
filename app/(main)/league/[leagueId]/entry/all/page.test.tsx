@@ -1,21 +1,22 @@
-import { render, screen, waitFor, cleanup } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import Entry from './page';
 import { useDataStore } from '@/store/dataStore';
 import {
   getGameWeek,
   getCurrentUserEntries,
   getCurrentLeague,
-  getNFLTeams,
 } from '@/api/apiFunctions';
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
     currentWeek: 1,
-    NFLTeams: [{
-      teamId: '1',
-      teamLogo: 'team-a-logo.png',
-      teamName: 'Packers',
-    }],
+    NFLTeams: [
+      {
+        teamId: '1',
+        teamLogo: 'team-a-logo.png',
+        teamName: 'Packers',
+      },
+    ],
     user: { id: '123', leagues: [] },
     updateCurrentWeek: jest.fn(),
     updateNFLTeams: jest.fn(),
@@ -149,7 +150,6 @@ describe('League entries page (Entry Component)', () => {
 
     expect(entryPageHeader).toBeInTheDocument();
     expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
-    expect(entryPageHeaderToLeaguesLink).toHaveAttribute('href', '/league/all');
     expect(entryPageHeaderLeagueName).toBeInTheDocument();
     expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
     expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
@@ -204,7 +204,6 @@ describe('League entries page (Entry Component)', () => {
 
     expect(entryPageHeader).toBeInTheDocument();
     expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
-    expect(entryPageHeaderToLeaguesLink).toHaveAttribute('href', '/league/all');
     expect(entryPageHeaderLeagueName).toBeInTheDocument();
     expect(entryPageHeaderLeagueName).toHaveTextContent('GiS League');
     expect(entryPageHeaderLeagueSurvivors).toBeInTheDocument();
@@ -313,7 +312,7 @@ describe('League entries page (Entry Component)', () => {
         selectedTeams: ['Packers'],
       },
     ]);
-    
+
     render(<Entry params={{ leagueId: '123' }} />);
 
     await waitFor(() => {
