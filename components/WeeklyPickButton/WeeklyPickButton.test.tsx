@@ -12,12 +12,16 @@ const weeklyPickData = {
 };
 
 describe('WeeklyPickButton', () => {
-  it('renders correctly', () => {
+  it.each(['Home', 'Away'])('renders correctly with homeAway data', (homeAway) => {
     render(
       <RadioGroup>
-        <WeeklyPickButton team={weeklyPickData.team} src={weeklyPickData.src} />
+        <WeeklyPickButton homeAway={homeAway} team={weeklyPickData.team} src={weeklyPickData.src} />
       </RadioGroup>,
     );
+
+    const homeAwayLabel = screen.getByTestId('home-away');
+    expect(homeAwayLabel).toBeInTheDocument();
+    expect(homeAwayLabel).toHaveTextContent(homeAway);
 
     const image = screen.getByTestId('team-image');
 
