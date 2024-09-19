@@ -36,7 +36,24 @@ const RootLayout = ({
         <ErrorBoundary>
           <AuthContextProvider>
             <Nav />
-            <main>{children}</main>
+            <main>
+              <div className="bg-gradient-to-b from-primary to-orange-400 w-fit mx-auto my-12 rounded-lg text-center p-1 drop-shadow-[0_2px_24px_rgba(234,88,12,0.65)] hover:drop-shadow-[0_2px_24px_rgba(234,88,12,0.95)] transition-all duration-500">
+                <div className="bg-muted p-4 rounded-[calc(.5rem-2px)]">
+                  <p className="text-foreground text-lg">
+                    <a
+                      className="font-bold underline hover:text-primary"
+                      href="https://docs.google.com/forms/d/1Nz-xfu3wxUPniiG0UpLxNkl3dIQi8N5dFeq4bQELhOQ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Provide feedback
+                    </a>{' '}
+                    to help make Gridiron Survivor even better!
+                  </p>
+                </div>
+              </div>
+              {children}
+            </main>
             <Toaster />
           </AuthContextProvider>
         </ErrorBoundary>
