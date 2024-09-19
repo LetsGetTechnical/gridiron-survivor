@@ -69,6 +69,7 @@ export const Nav = (): JSX.Element => {
                     data-testid="league-link"
                     href="/league/all"
                     className="pb-3 text-base font-normal text-zinc-600"
+                    onClick={() => setOpen(false)}
                   >
                     Leagues
                   </Link>
