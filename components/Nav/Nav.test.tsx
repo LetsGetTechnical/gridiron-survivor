@@ -92,6 +92,26 @@ describe('Nav', () => {
     expect(navElement).toBeInTheDocument();
     expect(navElement).toHaveClass('hidden');
   });
+  it('it should be hidden when path is /reset-password', () => {
+    mockUsePathname.mockImplementation(() => '/recover-password');
+
+    render(<Nav />);
+
+    const navElement = screen.getByTestId('nav');
+
+    expect(navElement).toBeInTheDocument();
+    expect(navElement).toHaveClass('hidden');
+  });
+  it('it should be hidden when path is /account/recovery', () => {
+    mockUsePathname.mockImplementation(() => '/account/recovery');
+
+    render(<Nav />);
+
+    const navElement = screen.getByTestId('nav');
+
+    expect(navElement).toBeInTheDocument();
+    expect(navElement).toHaveClass('hidden');
+  });
 
   it('it should be visible when logged in', () => {
     mockUsePathname.mockImplementation(() => '/weeklyPicks');
