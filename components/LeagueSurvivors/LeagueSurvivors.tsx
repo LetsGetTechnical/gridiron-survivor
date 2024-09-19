@@ -25,7 +25,7 @@ const LeagueSurvivors = ({
     Survivors {survivors}
     <span
       data-testid="LeagueSurvivorsTotalPlayers"
-      className="text-foreground/50"
+      className="text-muted-foreground"
     >
       {' '}
       / {totalPlayers}

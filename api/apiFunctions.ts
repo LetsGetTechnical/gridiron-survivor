@@ -82,6 +82,7 @@ export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
       [Query.equal('userId', userId)],
     );
     return {
+      documentId: user.documents[0].$id,
       id: user.documents[0].userId,
       email: user.documents[0].email,
       leagues: user.documents[0].leagues,
@@ -214,25 +215,32 @@ export async function getAllWeeklyPicks({
   leagueId: ILeague['leagueId'];
   weekId: IGameWeek['id'];
 }): Promise<IWeeklyPicks['userResults'] | null> {
+  const currentYear = new Date().getFullYear().toString();
+
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.GAME_RESULTS,
-      [Query.equal('gameId', leagueId), Query.equal('gameWeekId', weekId)],
+      [Query.equal('leagueId', leagueId), Query.equal('gameWeekId', weekId)],
     );
 
-    // check if any users have selected their pick
-    if (response.documents[0].userResults === '') {
-      return null;
+    if (response.total === 0) {
+      const newDocument = await databases.createDocument(
+        appwriteConfig.databaseId,
+        Collection.GAME_RESULTS,
+        ID.unique(),
+        {
+          leagueId: leagueId,
+          gameWeekId: weekId,
+          userResults: '{}',
+          year: currentYear,
+        },
+      );
+
+      return JSON.parse(newDocument.documents[0].userResults);
     }
 
-    // check if any users have selected their pick
-    if (response.documents[0].userResults === '') {
-      return null;
-    }
-
-    const data = JSON.parse(response.documents[0].userResults);
-    return data;
+    return JSON.parse(response.documents[0].userResults);
   } catch (error) {
     console.error(error);
     throw new Error('Error getting all weekly picks');
@@ -253,10 +261,19 @@ export async function createWeeklyPicks({
   userResults,
 }: IWeeklyPicks): Promise<Models.Document> {
   try {
+    const getLeagueGameResults = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.GAME_RESULTS,
+      [
+        Query.equal('leagueId', leagueId),
+        Query.equal('gameWeekId', gameWeekId),
+      ],
+    );
+
     return await databases.updateDocument(
       appwriteConfig.databaseId,
       Collection.GAME_RESULTS, //collectionID
-      '663130a100297f77c3c8', //documentID
+      getLeagueGameResults.documents[0].$id, //documentID
       {
         leagueId,
         gameWeekId,
@@ -299,5 +316,107 @@ export async function createEntry({
   } catch (error) {
     console.error(error);
     throw new Error('Error creating entry');
+  }
+}
+
+/**
+
+ * Update an entry
+ * @param props - The entry data
+ * @param props.entryId - The entry ID
+ * @param props.selectedTeams - The selected teams
+ * @returns {Models.Document | Error} - The entry object or an error
+ */
+export async function updateEntry({
+  entryId,
+  selectedTeams,
+}: {
+  entryId: string;
+  selectedTeams: INFLTeam['teamName'][];
+}): Promise<Models.Document & IEntry> {
+  try {
+    return await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      entryId,
+      {
+        selectedTeams,
+      },
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error updating entry');
+  }
+}
+
+/**
+ * Retrieves a list of all leagues.
+ * @returns {Models.Document[]} A list of all available leagues.
+ */
+export async function getAllLeagues(): Promise<ILeague[]> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.LEAGUE,
+    );
+
+    // loop through leagues and return ILeague[] instead of Models.Document[]
+    const leagues = response.documents.map((league) => ({
+      leagueId: league.$id,
+      leagueName: league.leagueName,
+      logo: '',
+      participants: league.participants,
+      survivors: league.survivors,
+    }));
+
+    return leagues;
+  } catch (error) {
+    throw new Error('Error getting all leagues', { cause: error });
+  }
+}
+
+/**
+ * Adds a user to a league by updating the user's entry document.
+ * @param {string} userDocumentId - The ID of the user to add to the league.
+ * @param {string} selectedLeague - The ID of the league to add the user to.
+ * @param selectedLeagues - The user selected leagues
+ * @param participants - The user's participants
+ * @param survivors - The user's survivors
+ * @returns {Promise<void>} A promise that resolves when the user has been added to the league.
+ */
+export async function addUserToLeague({
+  userDocumentId,
+  selectedLeague,
+  selectedLeagues,
+  participants,
+  survivors,
+}: {
+  userDocumentId: string;
+  selectedLeague: string;
+  selectedLeagues: string[];
+  participants: string[];
+  survivors: string[];
+}): Promise<void> {
+  try {
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      userDocumentId,
+      {
+        leagues: selectedLeagues,
+      },
+    );
+
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.LEAGUE,
+      selectedLeague,
+      {
+        participants: participants,
+        survivors: survivors,
+      },
+    );
+  } catch (error) {
+    throw new Error('Error getting user document ID', { cause: error });
   }
 }

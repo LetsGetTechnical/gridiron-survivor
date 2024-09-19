@@ -9,7 +9,7 @@ describe('AdminNav Component', () => {
 
   it('should render the navigation links with correct href attributes', () => {
     const homeLink = screen.getByText('Home').closest('a');
-    const leaguesLink = screen.getByText('Leauges').closest('a');
+    const leaguesLink = screen.getByText('Leagues').closest('a');
     const playersLink = screen.getByText('Players').closest('a');
     const notificationsLink = screen.getByText('Notifications').closest('a');
 

@@ -1,8 +1,8 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React from 'react';
 import Heading from '@/components/Heading/Heading';
+import React from 'react';
 
 /**
  * The header for the admin pages.
@@ -18,7 +18,7 @@ export const AdminHeader = (): React.JSX.Element => {
         Page Title
       </Heading>
       <p
-        className="text-zinc-400 max-w-prose"
+        className="text-muted-foreground max-w-prose"
         data-testid="admin-header-description"
       >
         Page Description

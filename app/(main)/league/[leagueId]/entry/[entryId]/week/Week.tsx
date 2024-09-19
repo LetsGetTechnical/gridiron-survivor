@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { ChangeEvent, JSX, useEffect, useState } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import {
   FormField,
   FormItem,
@@ -15,15 +15,23 @@ import { IWeekProps } from './Week.interface';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
-import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
-import { getCurrentLeague } from '@/api/apiFunctions';
+import {
+  getAllWeeklyPicks,
+  getCurrentUserEntries,
+  getCurrentLeague,
+  getGameWeek,
+} from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { NFLTeams } from '@/api/apiFunctions.enum';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { ChevronLeft } from 'lucide-react';
 
 /**
  * Renders the weekly picks page.
@@ -35,11 +43,27 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
+  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [userPick, setUserPick] = useState<string>('');
-  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
-    (state) => state,
-  );
+  const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
+    useDataStore((state) => state);
+  const { isSignedIn } = useAuthContext();
+  const router = useRouter();
+
+  /**
+   * Fetches the current game week.
+   * @returns {Promise<void>}
+   */
+  const getCurrentGameWeek = async (): Promise<void> => {
+    try {
+      const getCurrentWeek = await getGameWeek();
+      updateCurrentWeek(getCurrentWeek.week);
+    } catch (error) {
+      console.error('Error getting current week:', error);
+      throw new Error('Error getting current week');
+    }
+  };
 
   /**
    * Fetches the selected league.
@@ -60,6 +84,33 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       required_error: 'You need to select a team.',
     }),
   });
+
+  /**
+   * Fetches the league's weekly pick results for the user and set the user pick.
+   * @returns {Promise<void>}
+   */
+  const getUserWeeklyPick = async (): Promise<void> => {
+    try {
+      const userWeeklyPickResults = await getAllWeeklyPicks({
+        leagueId: league,
+        weekId: week,
+      });
+
+      updateWeeklyPicks({
+        leagueId: league,
+        gameWeekId: week,
+        userResults: userWeeklyPickResults || {},
+      });
+
+      if (userWeeklyPickResults?.[user.id]?.[entry]) {
+        const userPick = userWeeklyPickResults[user.id][entry];
+        setUserPick(userPick.teamName as unknown as string);
+      }
+    } catch (error) {
+      console.error('Error getting weekly pick:', error);
+      throw new Error('Error getting weekly pick');
+    }
+  };
 
   /**
    * Loads the week data.
@@ -94,15 +145,33 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
-   * Handles the weekly picks
-   * @param data - data of the pick
+   * Get selected teams for the current user entry.
+   * @returns {Promise<void>} The selected teams
+   */
+  const getUserSelectedTeams = async (): Promise<void> => {
+    try {
+      const getEntries = await getCurrentUserEntries(user.id, league);
+      const currentEntry = getEntries.find(
+        (userEntry) => userEntry.$id === entry,
+      );
+      const selectedTeams = currentEntry?.selectedTeams || [];
+      setSelectedTeams(selectedTeams);
+    } catch (error) {
+      console.error('Error getting user selected teams:', error);
+      throw new Error('Error getting user selected teams');
+    }
+  };
+
+  /**
+   * Handles the weekly pick team change
+   * @param teamSelect - the selected team name.
    * @returns {void}
    */
   const handleWeeklyPickChange = async (
-    data: ChangeEvent<HTMLInputElement>,
+    teamSelect: NFLTeams,
   ): Promise<void> => {
     const params = {
-      data,
+      teamSelect,
       entry,
       league,
       NFLTeams,
@@ -112,8 +181,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       weeklyPicks,
       week,
     };
+
     try {
       await onWeeklyPickChange(params);
+      setUserPick(teamSelect);
+      router.push(`/league/${league}/entry/all`);
     } catch (error) {
       console.error('Submission error:', error);
     }
@@ -126,6 +198,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
     getSchedule(week);
   }, [week, selectedLeague]);
+
+  useEffect(() => {
+    if (isSignedIn) {
+      getCurrentGameWeek();
+      getUserSelectedTeams();
+      getUserWeeklyPick();
+    }
+  }, [isSignedIn]);
 
   if (loadingData) {
     return <GlobalSpinner />;
@@ -141,9 +221,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
-          <nav className="py-6 text-orange-500 hover:no-underline">
+          <nav className="py-6 text-primary hover:no-underline">
             <LinkCustom
-              className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+              className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
               href={`/league/${league}/entry/all`}
             >
               <span aria-hidden="true">
@@ -153,7 +233,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             </LinkCustom>
           </nav>
           <section className="w-full pt-8" data-testid="weekly-picks">
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+            <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
             </h1>
 
@@ -167,6 +247,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                       <FormControl>
                         <WeekTeams
                           schedule={schedule}
+                          selectedTeams={selectedTeams}
                           field={field}
                           userPick={userPick}
                           onWeeklyPickChange={handleWeeklyPickChange}

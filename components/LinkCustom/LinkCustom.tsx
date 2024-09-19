@@ -26,7 +26,10 @@ const LinkCustom = ({
 }: ILinkCustomProps): JSX.Element => {
   return (
     <Link
-      className={cn('font-bold text-orange-600 hover:text-orange-600 hover:underline', className)}
+      className={cn(
+        'underline underline-offset-4 hover:text-primary-muted transition-colors',
+        className,
+      )}
       data-testid="linkCustom"
       href={href}
       passHref
@@ -36,4 +39,5 @@ const LinkCustom = ({
   );
 };
 
-export default LinkCustom;
+export { Label };
+

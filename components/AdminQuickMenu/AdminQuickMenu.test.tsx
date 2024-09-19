@@ -5,8 +5,8 @@ import React from 'react';
 describe('AdminQuickMenu Component', () => {
   it('should render the component', () => {
     render(<AdminQuickMenu />);
-    const adminUserSettings = screen.getByTestId('admin-quick-menu');
+    const adminQuickMenu = screen.getByTestId('admin-quick-menu');
 
-    expect(adminUserSettings).toBeInTheDocument();
+    expect(adminQuickMenu).toBeInTheDocument();
   });
 });

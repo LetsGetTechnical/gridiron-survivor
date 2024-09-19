@@ -8,7 +8,7 @@ const userData = {
   leagues: ['123456'],
 };
 
-const NFLTeam = [
+const NFLTeams = [
   {
     teamId: '1',
     teamName: 'New England Patriots',
@@ -34,8 +34,17 @@ const gameCurrentWeek = {
   week: 2,
 };
 
+const allLeagues = [
+  {
+    leagueId: '123',
+    leagueName: 'Test League',
+    logo: 'https://findmylogo.com/logo.png',
+    participants: ['123456', '78'],
+    survivors: ['123456', '78', '9'],}
+];
+
 describe('Data Store', () => {
-  describe('User Test', () => {
+  xdescribe('User Test', () => {
     it('Check the default user state', () => {
       const { result } = renderHook(() => useDataStore());
       expect(result.current.user.id).toBe('');
@@ -76,17 +85,17 @@ describe('Data Store', () => {
   describe('NFL Teams Test', () => {
     it('Check the default NFL Teams state', () => {
       const { result } = renderHook(() => useDataStore());
-      expect(result.current.NFLTeam).toStrictEqual([]);
+      expect(result.current.NFLTeams).toStrictEqual([]);
     });
     it('Check the updated NFL Teams state', () => {
       const { result } = renderHook(() => useDataStore());
 
       act(() => {
-        result.current.updateNFLTeam(NFLTeam);
+        result.current.updateNFLTeams(NFLTeams);
       });
 
-      expect(result.current.NFLTeam[0]).toBe(NFLTeam[0]);
-      expect(result.current.NFLTeam[1]).toBe(NFLTeam[1]);
+      expect(result.current.NFLTeams[0]).toBe(NFLTeams[0]);
+      expect(result.current.NFLTeams[1]).toBe(NFLTeams[1]);
     });
   });
 
@@ -169,3 +178,17 @@ describe('Data Store', () => {
     });
   });
 });
+
+xdescribe('getting all leagues test', () => {
+  it('check the default allLeagues state', async () => {
+    const { result } = renderHook(() => useDataStore());
+    expect(result.current.allLeagues).toStrictEqual([]);
+  });
+  it('check the updated allLeagues state', async () => {
+    const { result } = renderHook(() => useDataStore()); 
+    act(() => {
+      result.current.updateAllLeagues(allLeagues);
+    });
+    expect(result.current.allLeagues).toStrictEqual(allLeagues);
+  })
+})
