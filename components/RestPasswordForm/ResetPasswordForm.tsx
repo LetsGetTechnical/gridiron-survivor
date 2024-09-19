@@ -8,6 +8,7 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { Button } from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import { useAuthContext } from '@/context/AuthContextProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSX, useState } from 'react';
 import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
@@ -21,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from '../Form/Form';
-import { useAuthContext } from '@/context/AuthContextProvider';
 
 const ResetPasswordSchema = z.object({
   oldPassword: z.string().min(1, { message: 'Please enter your old password' }),
@@ -106,7 +106,7 @@ const ResetPasswordForm = (): JSX.Element => {
       >
         <div className="flex justify-between items-start mb-4 border-b border-border pb-4">
           <div className="flex flex-col gap-2 w-1/2 pl-4 pt-4 align-top pr-5">
-            <span className="font-semibold">Password</span>
+            <h3 className="font-semibold text-lg">Password</h3>
             <p className="text-sm">
               This will update the password for your account login. If you
               forgot your password you can{' '}

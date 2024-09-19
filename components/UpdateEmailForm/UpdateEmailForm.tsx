@@ -105,7 +105,7 @@ const UpdateEmailForm = (): JSX.Element => {
       >
         <div className="flex justify-between items-start mb-4 border-b border-border pb-4">
           <div className="flex flex-col gap-2 w-1/2 pl-4 pt-4 align-top">
-            <span className="font-semibold">Email</span>
+            <h3 className="font-semibold text-lg">Email</h3>
             <p className="text-sm">
               This will update both your login email and where you receive email
               updates from GridIron Survivor.
