@@ -3,6 +3,7 @@
 
 import {
   IGameWeek,
+  INFLTeam,
   IUser,
   IUserPick,
 } from '@/api/apiFunctions.interface';
@@ -101,7 +102,7 @@ export const parseUserPick = (
   teamName: string,
 ): IUserPick => {
   if (!userId || !teamName || !entryId) {
-    throw new Error('User ID and Team ID Required');
+    throw new Error('User ID, Entry ID, and Team Name Required');
   }
 
   const parsedData = JSON.parse(
@@ -155,4 +156,14 @@ export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['lea
 export const hasTeamBeenPicked = (teamName: string, selectedTeams: string[]): boolean => {
   const currentWeek = useDataStore.getState().currentWeek;
   return selectedTeams.some((team, index) => index !== (currentWeek - 1) && team === teamName) ? true : false;
+}
+
+/**
+ * Returns the logos for picked NFL teams
+ * @param NFLTeams - The NFL teams
+ * @param  teamName - The team name
+ * @returns {string} - The logo URL
+ */
+export const getNFLTeamLogo = (NFLTeams: INFLTeam[], teamName: string): string => {
+  return NFLTeams.find((teams) => teams.teamName === teamName)?.teamLogo as string;
 }
