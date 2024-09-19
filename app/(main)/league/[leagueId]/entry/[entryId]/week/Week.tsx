@@ -273,38 +273,44 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               Week {week} pick
             </h1>
 
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {pickHistory?.map((logoURL, index) => {
-                const isCurrentWeek = index === pickHistory.length - 1;
-                const hasCurrentWeekPick = pickHistory.length === Number(week);
+            {pickHistory.length > 0 && (
+              <section
+                className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
+                data-testid="user-pick-history"
+              >
+                {pickHistory?.map((logoURL, index) => {
+                  const isCurrentWeek = index === pickHistory.length - 1;
+                  const hasCurrentWeekPick =
+                    pickHistory.length === Number(week);
 
-                return (
-                  <div
-                    key={`${logoURL}-${index + 1}`}
-                    className={cn(
-                      'flex flex-col items-center justify-center border p-2 rounded-lg gap-1',
-                      isCurrentWeek && hasCurrentWeekPick
-                        ? 'border-primary'
-                        : 'border-border opacity-80',
-                    )}
-                  >
-                    <span className="text-sm">
-                      {isCurrentWeek && hasCurrentWeekPick
-                        ? 'CURRENT'
-                        : `WEEK ${index + 1}`}
-                    </span>
-                    <Image
-                      className="league-entry-logo"
-                      width={64}
-                      height={64}
-                      data-testid="league-history-logo"
-                      src={logoURL}
-                      alt="teamLogo"
-                    />
-                  </div>
-                );
-              })}
-            </div>
+                  return (
+                    <div
+                      key={`${logoURL}-${index + 1}`}
+                      className={cn(
+                        'flex flex-col items-center justify-center border p-2 rounded-lg gap-1',
+                        isCurrentWeek && hasCurrentWeekPick
+                          ? 'border-primary'
+                          : 'border-border opacity-80',
+                      )}
+                    >
+                      <span className="text-sm">
+                        {isCurrentWeek && hasCurrentWeekPick
+                          ? 'CURRENT'
+                          : `WEEK ${index + 1}`}
+                      </span>
+                      <Image
+                        className="league-entry-logo"
+                        width={64}
+                        height={64}
+                        data-testid="league-history-logo"
+                        src={logoURL}
+                        alt="teamLogo"
+                      />
+                    </div>
+                  );
+                })}
+              </section>
+            )}
 
             <FormProvider {...form}>
               <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">

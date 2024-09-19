@@ -211,18 +211,16 @@ describe('League Week Picks', () => {
       <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
     );
 
-    await waitFor(
-      () => {
-        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      },
-      { timeout: 5000 },
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+    });
 
     expect(screen.queryByTestId('user-pick-history')).not.toBeInTheDocument();
   });
 
   it('should show previous weeks picks if their are picks in selected teams history', async () => {
     mockUseAuthContext.isSignedIn = true;
+    const mockWeek = '2';
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {
         $id: '123',
@@ -235,7 +233,12 @@ describe('League Week Picks', () => {
     ]);
 
     render(
-      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+      <Week
+        entry={entry}
+        league={league}
+        NFLTeams={NFLTeams}
+        week={mockWeek}
+      />,
     );
 
     await waitFor(
