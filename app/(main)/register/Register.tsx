@@ -2,19 +2,9 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Input } from '@/components/Input/Input';
-import Logo from '@/components/Logo/Logo';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { Button } from '@/components/Button/Button';
-import { registerAccount } from '@/api/apiFunctions';
-import logo from '/public/assets/logo-colored-outline.svg';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { Label } from '@/components/Label/Label';
-import { z } from 'zod';
 import { Control, useForm, useWatch, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -22,9 +12,20 @@ import {
   FormItem,
   FormMessage,
 } from '../../../components/Form/Form';
+import { Input } from '@/components/Input/Input';
+import { registerAccount } from '@/api/apiFunctions';
 import { toast } from 'react-hot-toast';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { Label } from '@/components/Label/Label';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import Logo from '@/components/Logo/Logo';
+import logo from '/public/assets/logo-colored-outline.svg';
+import React, { JSX, useEffect } from 'react';
+
 
 const RegisterUserSchema = z
   .object({
@@ -60,6 +61,7 @@ const Register = (): JSX.Element => {
     if (isSignedIn) {
       router.push('/league/all');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn]);
 
   const form = useForm<RegisterUserSchemaType>({
@@ -107,7 +109,6 @@ const Register = (): JSX.Element => {
     try {
       await registerAccount(data);
       await login(data);
-      router.push('/league/all');
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
@@ -128,10 +129,10 @@ const Register = (): JSX.Element => {
     <section className="grid xl:grid-cols-2 xl:grid-rows-none">
       <div
         data-testid="dark-mode-section"
-        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
+        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
       >
         <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
-        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground text-white">
+        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground">
           <p className="hidden leading-7 xl:block">
             Thank you... fantasy football draft, for letting me know that even
             in my fantasies, I am bad at sports.
@@ -139,29 +140,23 @@ const Register = (): JSX.Element => {
           <p className="hidden leading-7 xl:block">Jimmy Fallon</p>
         </div>
       </div>
+
       <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
         <div>
           <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
             Register A New Account
           </h1>
-          <p className="pb-4 font-normal leading-7 text-zinc-500">
+          <p className="pb-4 font-normal leading-7 text-muted-foreground">
             If you have an existing account{' '}
-            <LinkCustom 
-              href="/login"
-              data-testid="login-link"
-            >
-              Login
-            </LinkCustom>
-            !
+            <LinkCustom href="/login">Login!</LinkCustom>
           </p>
-        </div>
-
+        </div>  
         <Form {...form}>
           <form
             id="input-container"
             className="grid gap-3"
             onSubmit={form.handleSubmit(onSubmit)}
-          >
+          >        
             <FormField
               control={form.control as Control<object>}
               name="email"
@@ -186,7 +181,7 @@ const Register = (): JSX.Element => {
                   )}
                 </FormItem>
               )}
-            />
+            />         
             <FormField
               control={form.control as Control<object>}
               name="password"
@@ -211,7 +206,7 @@ const Register = (): JSX.Element => {
                   )}
                 </FormItem>
               )}
-            />
+            />         
             <FormField
               control={form.control as Control<object>}
               name="confirmPassword"
@@ -237,7 +232,6 @@ const Register = (): JSX.Element => {
                 </FormItem>
               )}
             />
-
             <Button
               data-testid="continue-button"
               label="Register"
@@ -256,7 +250,7 @@ const Register = (): JSX.Element => {
           </form>
         </Form>
       </div>
-    </section>
+    </section>  
   );
 };
 

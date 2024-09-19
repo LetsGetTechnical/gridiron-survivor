@@ -5,6 +5,7 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
 
+
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
 

@@ -39,5 +39,5 @@ const LinkCustom = ({
   );
 };
 
-export { Label };
+export default LinkCustom;
 
