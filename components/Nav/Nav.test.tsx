@@ -164,4 +164,22 @@ describe('Nav', () => {
       expect(drawerTrigger.getAttribute('data-state')).toBe('closed');
     });
   });
+
+  it('it should close the drawer when the leagues link is clicked', async () => {
+    mockUsePathname.mockImplementation(() => '/league/all');
+
+    render(<Nav />);
+
+    const drawerTrigger = screen.getByTestId('drawer-trigger');
+
+    fireEvent.click(drawerTrigger);
+
+    const linkNav = screen.getByTestId('league-link');
+
+    fireEvent.click(linkNav);
+
+    await waitFor(() => {
+      expect(drawerTrigger.getAttribute('data-state')).toBe('closed');
+    });
+  });
 });
