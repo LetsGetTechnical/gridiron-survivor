@@ -41,7 +41,7 @@ const RootLayout = ({
               {children}
               <div className="pt-24">
                 <a
-                  className="bg-background border border-border text-primary rounded-full w-24 h-24 flex flex-col items-center justify-center fixed bottom-4 right-4 md:bottom-12 md:right-12  hover:bg-muted transition-colors duration-300 text-center text-xs font-bold"
+                  className="bg-muted ring ring-border ring-inset text-primary rounded-full w-24 h-24 flex flex-col items-center justify-center fixed bottom-4 right-4 md:bottom-12 md:right-12  hover:bg-muted transition-all duration-500 text-center text-xs font-bold hover:drop-shadow-[0_2px_24px_rgba(234,88,12,0.5)] hover:ring-primary/5"
                   href="https://docs.google.com/forms/d/1Nz-xfu3wxUPniiG0UpLxNkl3dIQi8N5dFeq4bQELhOQ"
                   target="_blank"
                   rel="noopener noreferrer"
