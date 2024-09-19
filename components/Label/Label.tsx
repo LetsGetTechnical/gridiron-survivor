@@ -9,28 +9,32 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../utils/utils';
 
 const labelVariants = cva(
-  'text-base font-normal leading-none text-foreground cursor-pointer flex gap-2 items-center rounded-xl border-2 border-border py-4 px-3 w-full transition',
+  'font-normal leading-none w-full transition',
   {
     variants: {
-      disabled: {
-        true: 'opacity-50 cursor-not-allowed',
-        false: 'peer-aria-checked:border-accent peer-hover:border-white'
-      },
+      variant: {
+        default: 'text-sm text-zinc-300 cursor-text flex-col gap-1.5',
+        secondary: 'text-base text-zinc-50 cursor-pointer rounded-xl items-center py-4 px-3 border-2 border-zinc-800 peer-aria-checked:border-orange-600 peer-hover:bg-zinc-800 flex gap-2',
+      }
     },
+    defaultVariants: {
+      variant: 'default'
+    }
   }
 );
 
 const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & 
     VariantProps<typeof labelVariants>
->(({ className, disabled, ...props }, ref) => (
+>(({ className, variant, ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
-    className={cn(labelVariants({ disabled }), className)}
+    className={cn(labelVariants({ variant }), className)}
     {...props}
   />
 ));
 Label.displayName = LabelPrimitive.Root.displayName;
 
 export { Label };
+

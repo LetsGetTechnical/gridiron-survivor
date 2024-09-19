@@ -1,9 +1,10 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Register from './page';
+import RegisterPage from './page';
 import { registerAccount } from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
+
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
@@ -47,7 +48,7 @@ describe('Register', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    render(<Register />);
+    render(<RegisterPage />);
 
     // Get form elements
     emailInput = screen.getByTestId('email');
@@ -103,7 +104,7 @@ describe('Register', () => {
   test('redirects to /league/all when the button is clicked', async () => {
     mockUseAuthContext.isSignedIn = true;
 
-    render(<Register />);
+    render(<RegisterPage />);
 
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith('/league/all');

@@ -9,7 +9,6 @@ import { RadioGroupItem } from '../RadioGroup/RadioGroup';
 type WeeklyPickButtonProps = {
   team: string;
   src: string;
-  isDisabled?: boolean;
 };
 
 /**
@@ -17,23 +16,16 @@ type WeeklyPickButtonProps = {
  * @param props - The props
  * @param props.team - The team name
  * @param props.src - The image source
- * @param props.isDisabled - Whether the button is disabled
  * @returns The rendered weekly pick button.
  */
 const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
   team,
   src,
-  isDisabled = false,
 }): JSX.Element => {
   return (
     <div className="flex items-center">
-      <RadioGroupItem
-        value={team}
-        id={team}
-        disabled={isDisabled}
-        data-testid="team-radio"
-      />
-      <Label htmlFor={team} data-testid="team-label" disabled={isDisabled}>
+      <RadioGroupItem value={team} id={team} data-testid="team-radio" />
+      <Label htmlFor={team} variant="secondary" data-testid="team-label">
         <Image
           src={src}
           alt={team}
