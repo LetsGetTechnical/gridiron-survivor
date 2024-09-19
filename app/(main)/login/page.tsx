@@ -8,7 +8,7 @@ import {
   Form,
   FormControl,
   FormField,
-  FormItem, 
+  FormItem,
   FormMessage,
 } from '../../../components/Form/Form';
 import { Input } from '@/components/Input/Input';
@@ -123,6 +123,7 @@ const Login = (): React.JSX.Element => {
           <form
             id="input-container"
             className="grid gap-3"
+            data-testid="login-form"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
@@ -169,7 +170,13 @@ const Login = (): React.JSX.Element => {
             />
             <Button
               data-testid="continue-button"
-              label={isLoading ? <LoadingSpinner /> : 'Continue'}
+              label={
+                isLoading ? (
+                  <LoadingSpinner data-testid="loading-spinner" />
+                ) : (
+                  'Continue'
+                )
+              }
               type="submit"
               disabled={!email || !password || isLoading}
             />

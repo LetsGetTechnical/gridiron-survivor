@@ -1,13 +1,12 @@
-import React, { Dispatch, useState as useStateMock } from 'react';
+import { act } from 'react-dom/test-utils';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Login from './page';
-import { loginAccount } from '@/api/apiFunctions';
+import React, { useState as useStateMock } from 'react';
 
+const getUser = jest.fn();
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
-const getUser = jest.fn();
 const setIsLoading = jest.fn();
-const setState = jest.fn();
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -42,40 +41,35 @@ jest.mock('../../../context/AuthContextProvider', () => ({
 
 describe('Login', () => {
   const setIsLoading = jest.fn();
-  const useStateMock = (init: any): [unknown, Dispatch<unknown>] => [
-    init,
-    setState,
-  ];
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+    jest
+      .spyOn(React, 'useState')
+      .mockImplementation(() => [false, setIsLoading]);
 
     render(<Login />);
 
+    continueButton = screen.getByTestId('continue-button');
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
-    continueButton = screen.getByTestId('continue-button');
   });
-  test('should render the login page', () => {
+  it('should render the login page', () => {
+    expect(continueButton).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
-    expect(continueButton).toBeInTheDocument();
   });
 
-  test('should update email state when input value changes', () => {
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    expect(emailInput).toHaveValue('test@example.com');
-  });
+  it('should update email and password fields and submit form', async () => {
+    const form = screen.getByTestId('login-form');
 
-  test('should update password state when input value changes', () => {
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    expect(passwordInput).toHaveValue('password123');
-  });
+    await act(async () => {
+      fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+      fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    });
 
-  test('should call loginAccount function with email and password when continue button is clicked', async () => {
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.submit(continueButton);
+    await act(async () => {
+      fireEvent.submit(form);
+    });
 
     await waitFor(() => {
       expect(mockLogin).toHaveBeenCalledTimes(1);
@@ -86,7 +80,7 @@ describe('Login', () => {
     });
   });
 
-  test('redirects to /weeklyPicks when the button is clicked', () => {
+  it('redirects to /weeklyPicks when the button is clicked', () => {
     mockUseAuthContext.isSignedIn = true;
 
     render(<Login />);
@@ -95,12 +89,18 @@ describe('Login', () => {
     mockUseAuthContext.isSignedIn = false;
   });
 
-  test('redirects to /league/all when user navigates to /login', async () => {
+  it('redirects to /league/all when user navigates to /login', async () => {
     mockUseAuthContext.isSignedIn = true;
 
-    render(<Login />);
+    act(() => {
+      render(<Login />);
+    });
 
-    expect(mockPush).toHaveBeenCalledWith('/league/all');
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith('/league/all');
+    });
+
+    mockUseAuthContext.isSignedIn = false;
   });
 });
 
