@@ -1,11 +1,13 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React, { JSX, ChangeEvent } from 'react';
+import React, { JSX } from 'react';
 import { FormItem, FormControl } from '@/components/Form/Form';
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import { IWeekTeamsProps } from './WeekTeams.interface';
 import { WeeklyPickButton } from '@/components/WeeklyPickButton/WeeklyPickButton';
+import { hasTeamBeenPicked } from '@/utils/utils';
+import { NFLTeams } from '@/api/apiFunctions.enum';
 
 /**
  * Formats the date to 'day, mon date' format and the time to either 12 or 24-hour format based on the user's locale.
@@ -37,6 +39,7 @@ const formatDateTime = (dateString: string): string => {
  * @param props The parameters for the weekly picks page.
  * @param props.field The form field.
  * @param props.schedule The schedule for the week.
+ * @param props.selectedTeams The user's selected teams.
  * @param props.userPick The user's pick.
  * @param props.onWeeklyPickChange The function to call when the user's pick changes.
  * @returns The rendered weekly picks page.
@@ -44,35 +47,49 @@ const formatDateTime = (dateString: string): string => {
 const WeekTeams = ({
   field,
   schedule,
+  selectedTeams,
   userPick,
   onWeeklyPickChange,
 }: IWeekTeamsProps): JSX.Element => (
-  <>
+  <RadioGroup
+    onValueChange={(value: string) => onWeeklyPickChange(value as NFLTeams)}
+    defaultValue={userPick}
+    value={userPick}
+    onChange={field.onChange}
+  >
     {schedule.map((scheduledGame) => (
-      <RadioGroup
-        onValueChange={field.onChange}
-        defaultValue={userPick}
+      <div
+        className="grid w-full grid-cols-[1fr_auto_1fr] gap-4 pb-8"
+        style={{ direction: 'rtl' }}
         key={scheduledGame.id}
-        className="grid w-full grid-cols-2 gap-4 pb-8"
-        onChange={(event) =>
-          onWeeklyPickChange(event as unknown as ChangeEvent<HTMLInputElement>)
-        }
       >
-        <div className="week-page-game-schedule col-span-2 text-center">
+        <div className="week-page-game-schedule col-span-3 text-center">
           <p>{formatDateTime(scheduledGame.date)}</p>
         </div>
-        {scheduledGame.competitions[0].competitors.map((competition) => (
-          <FormItem key={competition.id}>
-            <FormControl>
-              <WeeklyPickButton
-                team={competition.team.name}
-                src={competition.team.logo}
-              />
-            </FormControl>
-          </FormItem>
+        {scheduledGame.competitions[0].competitors.map((competition, index) => (
+          <>
+            {index > 0 && (
+              <div className="h-20 flex self-end items-center">
+                <span>@</span>
+              </div>
+            )}
+            <FormItem key={competition.id} className="text-center">
+              <FormControl>
+                <WeeklyPickButton
+                  homeAway={competition.homeAway}
+                  team={competition.team.name}
+                  src={competition.team.logo}
+                  isDisabled={hasTeamBeenPicked(
+                    competition.team.name,
+                    selectedTeams,
+                  )}
+                />
+              </FormControl>
+            </FormItem>
+          </>
         ))}
-      </RadioGroup>
+      </div>
     ))}
-  </>
+  </RadioGroup>
 );
 export default WeekTeams;

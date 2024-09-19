@@ -8,12 +8,11 @@ import {
   Form,
   FormControl,
   FormField,
-  FormItem, 
+  FormItem,
   FormMessage,
 } from '../../../components/Form/Form';
 import { Input } from '@/components/Input/Input';
 import { useAuthContext } from '@/context/AuthContextProvider';
-import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
@@ -21,37 +20,34 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { recoverPassword } from '@/api/apiFunctions';
+import toast from 'react-hot-toast';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 
 /**
- * The schema for the login form.
- * @type {z.ZodObject} The schema for the login form.
- * @property {z.ZodString} email - The email address of the user.
- * @property {z.ZodString} password - The password of the user.
- * @returns {z.ZodObject} The schema for the login form.
- * @throws {Error} Throws an error if the email is not a valid email address or if the password is less than 6 characters.
- * @throws {Error} Throws an error if the email is not provided or if the password is not provided.
- * @throws {Error} Throws an error if the email is not a string or if the password is not a string.
+ * The schema for the recover password form
+ * @throws {Error} Throws an error if the email is not a valid email address.
+ * @throws {Error} Throws an error if the email is not provided.
+ * @throws {Error} Throws an error if the email is not a string.
  */
-const LoginUserSchema = z.object({
+const RecoverUserPasswordSchema = z.object({
   email: z
     .string()
     .min(1, { message: 'Please enter an email address' })
     .email({ message: 'Please enter a valid email address' }),
-  password: z
-    .string()
-    .min(1, { message: 'Please enter a password' })
-    .min(6, { message: 'Password must be at least 6 characters' }),
 });
 
-type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
+type ResetUserPasswordSchemaType = z.infer<typeof RecoverUserPasswordSchema>;
 
 /**
- * Renders the login page.
- * @returns {React.JSX.Element} The rendered login page.
+ * Renders the recover password page.
+ * @returns {React.JSX.Element} The rendered recover password page.
  */
-const Login = (): React.JSX.Element => {
+const RecoverPassword = (): React.JSX.Element => {
   const router = useRouter();
-  const { login, isSignedIn, getUser } = useAuthContext();
+  const { isSignedIn, getUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -59,11 +55,13 @@ const Login = (): React.JSX.Element => {
       getUser();
       router.push('/league/all');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSignedIn, getUser]);
+  }, [isSignedIn]);
 
-  const form = useForm<LoginUserSchemaType>({
-    resolver: zodResolver(LoginUserSchema),
+  const form = useForm<ResetUserPasswordSchemaType>({
+    resolver: zodResolver(RecoverUserPasswordSchema),
+    defaultValues: {
+      email: '',
+    },
   });
 
   const email = useWatch({
@@ -72,28 +70,21 @@ const Login = (): React.JSX.Element => {
     defaultValue: '',
   });
 
-  const password = useWatch({
-    control: form.control,
-    name: 'password',
-    defaultValue: '',
-  });
-
   /**
    * Handles the form submission.
-   * @param {LoginUserSchemaType} data - The data from the form.
+   * @param {ResetUserPasswordSchemaType} data - The data from the form.
    */
-  const onSubmit: SubmitHandler<LoginUserSchemaType> = async (
-    data: LoginUserSchemaType,
-  ): Promise<void> => {
-    try {
-      setIsLoading(true);
-      await login(data);
-    } catch (error) {
-      console.error('Login error:', error);
-      throw new Error('An error occurred while logging in');
-    } finally {
-      setIsLoading(false);
-    }
+  const onSubmit: SubmitHandler<ResetUserPasswordSchemaType> = async (data) => {
+    setIsLoading(true);
+    await recoverPassword(data);
+    setIsLoading(false);
+    toast.custom(
+      <Alert
+        variant={AlertVariants.Success}
+        message={`If an account exists for ${data.email}, we've sent password reset instructions to that email address. Please check your inbox and follow the provided steps to reset your password.`}
+      />,
+    );
+    router.push('/login');
   };
 
   return (
@@ -111,12 +102,11 @@ const Login = (): React.JSX.Element => {
       <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
         <div>
           <h1 className="text-5xl font-extrabold tracking-tight">
-            Join Gridiron Survivor
+            Password Recovery
           </h1>
           <p className="pb-4 font-normal leading-7 text-muted-foreground">
-            Log in to your existing account or{' '}
-            <LinkCustom href="/register">sign up</LinkCustom> to get started
-            with a league
+            Enter the email address associated with your account to recover your
+            password.
           </p>
         </div>
         <Form {...form}>
@@ -138,7 +128,7 @@ const Login = (): React.JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors?.email && (
+                  {form.formState.errors.email && (
                     <FormMessage>
                       {form.formState.errors.email.message}
                     </FormMessage>
@@ -146,39 +136,13 @@ const Login = (): React.JSX.Element => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control as Control<object>}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      data-testid="password"
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                    />
-                  </FormControl>
-                  {form.formState.errors?.password && (
-                    <FormMessage>
-                      {form.formState.errors?.password.message}
-                    </FormMessage>
-                  )}
-                </FormItem>
-              )}
-            />
             <Button
-              data-testid="continue-button"
-              label={isLoading ? <LoadingSpinner /> : 'Continue'}
+              data-testid="recover-password-button"
+              label={isLoading ? <LoadingSpinner /> : 'Recover Password'}
               type="submit"
-              disabled={!email || !password || isLoading}
+              disabled={!email || isLoading}
             />
-            <LinkCustom href="/register">
-              Sign up to get started with a league
-            </LinkCustom>
-            <LinkCustom href="/recover-password">
-              Forgot your password?
-            </LinkCustom>
+            <LinkCustom href="/login">Return to Login</LinkCustom>
           </form>
         </Form>
       </div>
@@ -186,4 +150,4 @@ const Login = (): React.JSX.Element => {
   );
 };
 
-export default Login;
+export default RecoverPassword;

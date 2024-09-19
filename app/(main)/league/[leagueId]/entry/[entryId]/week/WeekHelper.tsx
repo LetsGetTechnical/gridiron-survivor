@@ -2,7 +2,11 @@
 // Licensed under the MIT License.
 
 import React from 'react';
-import { createWeeklyPicks } from '@/api/apiFunctions';
+import {
+  createWeeklyPicks,
+  getCurrentUserEntries,
+  updateEntry,
+} from '@/api/apiFunctions';
 import { parseUserPick } from '@/utils/utils';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
@@ -10,9 +14,9 @@ import { toast } from 'react-hot-toast';
 import { IWeeklyPickChange } from './Week.interface';
 
 /**
- * Handles the form submission.
- * @param props - data, NFLTeams, user, entry, weeklyPicks, league, week, updateWeeklyPicks, setUserPick
- * @param props.data - The form data.
+ * Handles the weekly pick team change.
+ * @param props - teamSelect, NFLTeams, user, entry, weeklyPicks, league, week, updateWeeklyPicks, setUserPick
+ * @param props.teamSelect - The selected team name
  * @param props.NFLTeams - Props for NFL teams
  * @param props.user - Props for user
  * @param props.entry - Prop for the entry string
@@ -24,7 +28,7 @@ import { IWeeklyPickChange } from './Week.interface';
  * @returns {void}
  */
 export const onWeeklyPickChange = async ({
-  data,
+  teamSelect,
   entry,
   league,
   NFLTeams,
@@ -35,12 +39,15 @@ export const onWeeklyPickChange = async ({
   week,
 }: IWeeklyPickChange): Promise<void> => {
   try {
-    const teamSelect = data.target.value;
-    const teamID = NFLTeams.find(
+    const selectedTeamName = NFLTeams.find(
       (team) => team.teamName === teamSelect,
     )?.teamName;
 
-    const currentUserPick = parseUserPick(user.id, entry, teamID || '');
+    const currentUserPick = parseUserPick(
+      user.id,
+      entry,
+      selectedTeamName || '',
+    );
 
     // combines current picks and the user pick into one object.
     // if the user pick exists then it overrides the pick of the user.
@@ -62,6 +69,19 @@ export const onWeeklyPickChange = async ({
       userResults: updatedWeeklyPicks,
     });
 
+    const leagueEntryData = await getCurrentUserEntries(user.id, league);
+
+    const currentEntry = leagueEntryData.find(
+      (leagueEntry) => leagueEntry.$id === entry,
+    );
+
+    const currentEntrySelectedTeams = currentEntry?.selectedTeams || [];
+    currentEntrySelectedTeams[parseInt(week) - 1] = teamSelect;
+    await updateEntry({
+      entryId: entry,
+      selectedTeams: currentEntrySelectedTeams,
+    });
+
     // update weekly picks in the data store
     updateWeeklyPicks({
       leagueId: league,
@@ -69,7 +89,9 @@ export const onWeeklyPickChange = async ({
       userResults: updatedWeeklyPicks,
     });
 
-    setUserPick(currentUserPick[user.id][entry].teamName);
+    const teamName = currentUserPick[user.id][entry].teamName.teamName;
+
+    setUserPick(teamName);
 
     toast.custom(
       <Alert

@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { ChangeEvent, JSX, useEffect, useState } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import {
   FormField,
   FormItem,
@@ -15,15 +15,25 @@ import { IWeekProps } from './Week.interface';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDataStore } from '@/store/dataStore';
 import { ISchedule } from './WeekTeams.interface';
-import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
-import { getCurrentLeague } from '@/api/apiFunctions';
+import {
+  getAllWeeklyPicks,
+  getCurrentUserEntries,
+  getCurrentLeague,
+  getGameWeek,
+} from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { NFLTeams } from '@/api/apiFunctions.enum';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { cn, getNFLTeamLogo } from '@/utils/utils';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { ChevronLeft } from 'lucide-react';
 
 /**
  * Renders the weekly picks page.
@@ -32,14 +42,31 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
  */
 // eslint-disable-next-line no-unused-vars
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
+  const [pickHistory, setPickHistory] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
+  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [userPick, setUserPick] = useState<string>('');
-  const { user, updateWeeklyPicks, weeklyPicks } = useDataStore(
-    (state) => state,
-  );
+  const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
+    useDataStore((state) => state);
+  const { isSignedIn } = useAuthContext();
+  const router = useRouter();
+
+  /**
+   * Fetches the current game week.
+   * @returns {Promise<void>}
+   */
+  const getCurrentGameWeek = async (): Promise<void> => {
+    try {
+      const getCurrentWeek = await getGameWeek();
+      updateCurrentWeek(getCurrentWeek.week);
+    } catch (error) {
+      console.error('Error getting current week:', error);
+      throw new Error('Error getting current week');
+    }
+  };
 
   /**
    * Fetches the selected league.
@@ -62,6 +89,33 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
+   * Fetches the league's weekly pick results for the user and set the user pick.
+   * @returns {Promise<void>}
+   */
+  const getUserWeeklyPick = async (): Promise<void> => {
+    try {
+      const userWeeklyPickResults = await getAllWeeklyPicks({
+        leagueId: league,
+        weekId: week,
+      });
+
+      updateWeeklyPicks({
+        leagueId: league,
+        gameWeekId: week,
+        userResults: userWeeklyPickResults || {},
+      });
+
+      if (userWeeklyPickResults?.[user.id]?.[entry]) {
+        const userPick = userWeeklyPickResults[user.id][entry];
+        setUserPick(userPick.teamName as unknown as string);
+      }
+    } catch (error) {
+      console.error('Error getting weekly pick:', error);
+      throw new Error('Error getting weekly pick');
+    }
+  };
+
+  /**
    * Loads the week data.
    * @param {string} week The week ID.
    * @returns {Promise<void>} A promise that resolves when the week data is loaded.
@@ -82,8 +136,37 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         setSchedule(scheduleData.events);
       }
     } catch (error) {
-      console.error('Could not load week data:', error);
       setError('Could not load week data.');
+      throw error;
+    }
+  };
+
+  /**
+   * Fetches all entries for the current user.
+   * @returns {Promise<void>}
+   */
+  const getPickHistory = async (): Promise<void> => {
+    const entryId: string = entry;
+
+    try {
+      const entries = await getCurrentUserEntries(user.id, league);
+      const currentEntry = entries.find((entry) => entry.$id === entryId);
+
+      if (!currentEntry) {
+        throw new Error('Entry not found');
+      }
+
+      let entryHistory = currentEntry?.selectedTeams || [];
+
+      if (currentEntry?.selectedTeams.length > 0) {
+        entryHistory = entryHistory.map((teamName) =>
+          getNFLTeamLogo(NFLTeams, teamName),
+        );
+      }
+
+      setPickHistory(entryHistory);
+    } catch (error) {
+      throw new Error("Error fetching user's pick history");
     } finally {
       setLoadingData(false);
     }
@@ -94,15 +177,33 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   /**
-   * Handles the weekly picks
-   * @param data - data of the pick
+   * Get selected teams for the current user entry.
+   * @returns {Promise<void>} The selected teams
+   */
+  const getUserSelectedTeams = async (): Promise<void> => {
+    try {
+      const getEntries = await getCurrentUserEntries(user.id, league);
+      const currentEntry = getEntries.find(
+        (userEntry) => userEntry.$id === entry,
+      );
+      const selectedTeams = currentEntry?.selectedTeams || [];
+      setSelectedTeams(selectedTeams);
+    } catch (error) {
+      console.error('Error getting user selected teams:', error);
+      throw new Error('Error getting user selected teams');
+    }
+  };
+
+  /**
+   * Handles the weekly pick team change
+   * @param teamSelect - the selected team name.
    * @returns {void}
    */
   const handleWeeklyPickChange = async (
-    data: ChangeEvent<HTMLInputElement>,
+    teamSelect: NFLTeams,
   ): Promise<void> => {
     const params = {
-      data,
+      teamSelect,
       entry,
       league,
       NFLTeams,
@@ -112,8 +213,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       weeklyPicks,
       week,
     };
+
     try {
       await onWeeklyPickChange(params);
+      setUserPick(teamSelect);
+      router.push(`/league/${league}/entry/all`);
     } catch (error) {
       console.error('Submission error:', error);
     }
@@ -126,6 +230,15 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
     getSchedule(week);
   }, [week, selectedLeague]);
+
+  useEffect(() => {
+    if (isSignedIn) {
+      getCurrentGameWeek();
+      getUserSelectedTeams();
+      getUserWeeklyPick();
+      getPickHistory();
+    }
+  }, [isSignedIn]);
 
   if (loadingData) {
     return <GlobalSpinner />;
@@ -141,9 +254,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
         <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
-          <nav className="py-6 text-orange-500 hover:no-underline">
+          <nav className="py-6 text-primary hover:no-underline">
             <LinkCustom
-              className="text-orange-500 flex gap-3 items-center font-semibold text-xl hover:no-underline"
+              className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
               href={`/league/${league}/entry/all`}
             >
               <span aria-hidden="true">
@@ -152,10 +265,52 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               {selectedLeague?.leagueName as string}
             </LinkCustom>
           </nav>
-          <section className="w-full pt-8" data-testid="weekly-picks">
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-white">
+          <section
+            className="flex flex-col items-center w-full pt-8"
+            data-testid="weekly-picks"
+          >
+            <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
               Week {week} pick
             </h1>
+
+            {pickHistory.length > 0 && (
+              <section
+                className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
+                data-testid="user-pick-history"
+              >
+                {pickHistory?.map((logoURL, index) => {
+                  const isCurrentWeek = index === pickHistory.length - 1;
+                  const hasCurrentWeekPick =
+                    pickHistory.length === Number(week);
+
+                  return (
+                    <div
+                      key={`${logoURL}-${index + 1}`}
+                      className={cn(
+                        'flex flex-col items-center justify-center border p-2 rounded-lg gap-1',
+                        isCurrentWeek && hasCurrentWeekPick
+                          ? 'border-primary'
+                          : 'border-border opacity-80',
+                      )}
+                    >
+                      <span className="text-sm">
+                        {isCurrentWeek && hasCurrentWeekPick
+                          ? 'CURRENT'
+                          : `WEEK ${index + 1}`}
+                      </span>
+                      <Image
+                        className="league-entry-logo"
+                        width={64}
+                        height={64}
+                        data-testid="league-history-logo"
+                        src={logoURL}
+                        alt="teamLogo"
+                      />
+                    </div>
+                  );
+                })}
+              </section>
+            )}
 
             <FormProvider {...form}>
               <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
@@ -167,6 +322,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                       <FormControl>
                         <WeekTeams
                           schedule={schedule}
+                          selectedTeams={selectedTeams}
                           field={field}
                           userPick={userPick}
                           onWeeklyPickChange={handleWeeklyPickChange}

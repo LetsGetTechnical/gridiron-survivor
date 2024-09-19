@@ -7,12 +7,12 @@ import {
   getCurrentLeague,
   getCurrentUserEntries,
   getGameWeek,
+  getNFLTeams,
 } from '@/api/apiFunctions';
 import { Button } from '@/components/Button/Button';
 import { ChevronLeft, PlusCircle } from 'lucide-react';
 import { ENTRY_URL, LEAGUE_URL, WEEK_URL } from '@/const/global';
 import { IEntry, IEntryProps } from '../Entries.interface';
-import { IGameWeek } from '@/api/apiFunctions.interface';
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import { useDataStore } from '@/store/dataStore';
@@ -22,6 +22,8 @@ import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { cn } from '@/utils/utils';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { getNFLTeamLogo } from '@/utils/utils';
 
 /**
  * Display all entries for a league.
@@ -33,14 +35,14 @@ const Entry = ({
 }: {
   params: { leagueId: string };
 }): JSX.Element => {
-  const [currentWeek, setCurrentWeek] = useState<IGameWeek['week']>(1);
   const [entries, setEntries] = useState<IEntry[]>([]);
   const [leagueName, setLeagueName] = useState<string>('');
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [addingEntry, setAddingEntry] = useState<boolean>(false);
   const [survivors, setSurvivors] = useState<number>(0);
   const [totalPlayers, setTotalPlayers] = useState<number>(0);
-  const { user } = useDataStore((state) => state);
+  const { currentWeek, NFLTeams, user, updateCurrentWeek, updateNFLTeams } =
+    useDataStore((state) => state);
   const MAX_ENTRIES = 5;
 
   useEffect(() => {
@@ -61,13 +63,14 @@ const Entry = ({
     };
 
     getCurrentLeagueName();
-  });
+  }, []);
 
   /**
    * Fetches all entries for the current user.
    * @returns {Promise<void>}
    */
   const getAllEntries = async (): Promise<void> => {
+    setLoadingData(true);
     try {
       const getEntries = await getCurrentUserEntries(user.id, leagueId);
       setEntries(getEntries);
@@ -83,11 +86,30 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getCurrentGameWeek = async (): Promise<void> => {
+    setLoadingData(true);
     try {
-      const currentWeek = await getGameWeek();
-      setCurrentWeek(currentWeek.week);
+      const getCurrentWeek = await getGameWeek();
+      updateCurrentWeek(getCurrentWeek.week);
     } catch (error) {
-      console.error(error);
+      throw new Error('Error fetching current game week');
+    } finally {
+      setLoadingData(false);
+    }
+  };
+
+  /**
+   * Fetches all NFL teams.
+   * @returns {Promise<INFLTeam[]>} - The NFL teams.
+   */
+  const getAllNFLTeams = async (): Promise<void> => {
+    setLoadingData(true);
+    try {
+      const NFLTeams = await getNFLTeams();
+      updateNFLTeams(NFLTeams);
+    } catch (error) {
+      throw new Error('Error getting NFL teams');
+    } finally {
+      setLoadingData(false);
     }
   };
 
@@ -110,9 +132,9 @@ const Entry = ({
     setAddingEntry(true);
     try {
       const createdEntry = await createEntry({ name, user, league });
-      setEntries([...entries, createdEntry]);
+      setEntries((prevEntries) => [...prevEntries, createdEntry]);
     } catch (error) {
-      console.error(error);
+      throw new Error('Error adding new entry');
     } finally {
       setAddingEntry(false);
     }
@@ -122,9 +144,10 @@ const Entry = ({
     if (!user.id || user.id === '') {
       return;
     }
+
     getCurrentGameWeek();
     getAllEntries();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getAllNFLTeams();
   }, [user]);
 
   return (
@@ -134,15 +157,14 @@ const Entry = ({
       ) : (
         <div className="mx-auto max-w-3xl pt-10">
           <header data-testid="entry-page-header">
-            <div className="entry-page-header-to-leagues-link">
-              <Link
-                className="text-xl text-orange-600 hover:text-orange-500 flex items-center gap-3 font-semibold hover:underline"
-                data-testid="entry-page-header-to-leagues-link"
+            <div data-testid="entry-page-header-to-leagues-link">
+              <LinkCustom
+                className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
                 href={`/league/all`}
               >
                 <ChevronLeft />
                 Your Leagues
-              </Link>
+              </LinkCustom>
             </div>
             <div
               className="entry-page-header-main flex flex-col justify-between text-center gap-10 pt-6 pb-4"
@@ -176,12 +198,21 @@ const Entry = ({
             {entries.length > 0 &&
               entries.map((entry) => {
                 const linkUrl = `/${LEAGUE_URL}/${leagueId}/${ENTRY_URL}/${entry.$id}/${WEEK_URL}/${currentWeek}`;
-                const isPickSet =
-                  entry.selectedTeams && entry.selectedTeams.length > 0;
 
-                const teamLogo = isPickSet
-                  ? entry.selectedTeams[0].teamLogo
-                  : '';
+                const selectedTeam = entry.selectedTeams[currentWeek - 1];
+                const isPickSet =
+                  // eslint-disable-next-line no-undefined
+                  selectedTeam !== null && selectedTeam !== undefined;
+
+                const selectedTeamLogo = getNFLTeamLogo(NFLTeams, selectedTeam);
+
+                let userPickHistory: string[] = [];
+
+                if (currentWeek > 1 && entry.selectedTeams.length > 0) {
+                  userPickHistory = entry.selectedTeams
+                    .slice(0, currentWeek - 1)
+                    .map((teamName) => getNFLTeamLogo(NFLTeams, teamName));
+                }
 
                 return (
                   <section key={entry.$id}>
@@ -191,7 +222,8 @@ const Entry = ({
                       isEliminated={entry.eliminated}
                       isPickSet={isPickSet}
                       linkUrl={linkUrl}
-                      teamLogo={teamLogo}
+                      userPickHistory={userPickHistory}
+                      selectedTeamLogo={selectedTeamLogo}
                     />
                   </section>
                 );
@@ -222,7 +254,7 @@ const Entry = ({
 
               {currentWeek > 1 && (
                 <Link
-                  className="text-orange-600 hover:text-orange-500 font-bold hover:underline"
+                  className="text-primary hover:text-primary-muted font-bold hover:underline"
                   data-testid="past-weeks-link"
                   href={`#`}
                 >
