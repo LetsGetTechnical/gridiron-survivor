@@ -1,13 +1,14 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import React, { JSX } from 'react';
-import { GeistSans } from 'geist/font/sans';
 import '../globals.css';
-import Nav from '@/components/Nav/Nav';
 import { AuthContextProvider } from '@/context/AuthContextProvider';
-import ErrorBoundary from '../error';
+import { GeistSans } from 'geist/font/sans';
+import { MessageSquareShare } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
+import ErrorBoundary from '../error';
+import Nav from '@/components/Nav/Nav';
+import React, { JSX } from 'react';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -37,22 +38,17 @@ const RootLayout = ({
           <AuthContextProvider>
             <Nav />
             <main>
-              <div className="bg-gradient-to-b from-primary to-orange-400 w-fit mx-auto my-12 rounded-lg text-center p-1 drop-shadow-[0_2px_24px_rgba(234,88,12,0.65)] hover:drop-shadow-[0_2px_24px_rgba(234,88,12,0.95)] transition-all duration-500">
-                <div className="bg-muted p-4 rounded-[calc(.5rem-2px)]">
-                  <p className="text-foreground text-lg">
-                    <a
-                      className="font-bold underline hover:text-primary"
-                      href="https://docs.google.com/forms/d/1Nz-xfu3wxUPniiG0UpLxNkl3dIQi8N5dFeq4bQELhOQ"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Provide feedback
-                    </a>{' '}
-                    to help make Gridiron Survivor even better!
-                  </p>
-                </div>
-              </div>
               {children}
+              <div>
+                <a
+                  className="bg-transparent border border-border text-primary rounded-full w-12 h-2 flex items-center justify-center fixed bottom-4 right-4 md:bottom-12 md:right-12 md:w-20 md:h-20 hover:bg-muted transition-colors duration-300"
+                  href="https://docs.google.com/forms/d/1Nz-xfu3wxUPniiG0UpLxNkl3dIQi8N5dFeq4bQELhOQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageSquareShare className="md:w-9 md:h-9" />
+                </a>
+              </div>
             </main>
             <Toaster />
           </AuthContextProvider>
