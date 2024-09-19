@@ -78,7 +78,7 @@ export const Nav = (): JSX.Element => {
                 </li>
                 <li>
                   <Button
-                    className="p-0 text-base font-normal text-muted-foreground"
+                    className="p-0 text-base font-normal text-primary-foreground"
                     variant="link"
                     label="Sign Out"
                     onClick={() => {
