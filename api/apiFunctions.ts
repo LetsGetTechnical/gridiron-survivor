@@ -72,9 +72,9 @@ export async function resetRecoveredPassword({
   token,
   password,
 }: {
-  userId: string;
-  token: string;
   password: string;
+  token: string;
+  userId: string;
 }): Promise<IRecoveryToken> {
   try {
     return await account.updateRecovery(userId, token, password);
