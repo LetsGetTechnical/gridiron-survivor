@@ -46,7 +46,12 @@ export const Nav = (): JSX.Element => {
     <nav
       className={cn(
         'flex h-16 items-center border-b border-border from-[#4E160E] to-zinc-950 px-4 bg-gradient-to-b',
-        pathname === '/login' || pathname === '/register' ? 'hidden' : '',
+        pathname === '/login' ||
+          pathname === '/register' ||
+          pathname === '/recover-password' ||
+          pathname === '/account/recovery'
+          ? 'hidden'
+          : '',
       )}
       data-testid="nav"
     >
