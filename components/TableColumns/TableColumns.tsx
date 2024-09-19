@@ -14,18 +14,19 @@ import {
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
 
-export type Header = {
+export type LeagueHeader = {
   text: string;
   text2: string;
   text3: string;
+  text4: string;
 };
 
 export const entryColumns: ColumnDef<Header>[] = [];
 
-export const leagueColumns: ColumnDef<Header>[] = [
+export const leagueColumns: ColumnDef<LeagueHeader>[] = [
   {
     accessorKey: 'text',
-    header: 'HEADING',
+    header: 'League Name',
     /**
      * Value of row.
      * @param {object} row - The row data.
@@ -49,7 +50,7 @@ export const leagueColumns: ColumnDef<Header>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          HEADING
+          # of Participants
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -78,7 +79,7 @@ export const leagueColumns: ColumnDef<Header>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          HEADING
+          # of Survivors
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -91,6 +92,35 @@ export const leagueColumns: ColumnDef<Header>[] = [
      * @returns {JSX.Element} - The cell component.
      */
     cell: ({ row }) => <div>{row.getValue('text3')}</div>,
+  },
+  {
+    accessorKey: 'text4',
+
+    /**
+     * Value of row.
+     * @param {object} column - The column data.
+     * @param {object} column.column - The column definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    header: ({ column }): JSX.Element => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          # of Entries
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+
+    /**
+     * Value of row.
+     * @param {object} row - The row data.
+     * @param {object} row.row - The row definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    cell: ({ row }) => <div>{row.getValue('text2')}</div>,
   },
   {
     id: 'actions',
