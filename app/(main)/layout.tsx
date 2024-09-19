@@ -39,14 +39,15 @@ const RootLayout = ({
             <Nav />
             <main>
               {children}
-              <div>
+              <div className="pt-24">
                 <a
-                  className="bg-transparent border border-border text-primary rounded-full w-12 h-2 flex items-center justify-center fixed bottom-4 right-4 md:bottom-12 md:right-12 md:w-20 md:h-20 hover:bg-muted transition-colors duration-300"
+                  className="bg-background border border-border text-primary rounded-full w-24 h-24 flex flex-col items-center justify-center fixed bottom-4 right-4 md:bottom-12 md:right-12  hover:bg-muted transition-colors duration-300 text-center text-xs font-bold"
                   href="https://docs.google.com/forms/d/1Nz-xfu3wxUPniiG0UpLxNkl3dIQi8N5dFeq4bQELhOQ"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <MessageSquareShare className="md:w-9 md:h-9" />
+                  <MessageSquareShare className="w-10 h-10" />
+                  Feedback
                 </a>
               </div>
             </main>
