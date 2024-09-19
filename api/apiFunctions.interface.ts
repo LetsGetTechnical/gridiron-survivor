@@ -51,8 +51,8 @@ export interface IGameWeek {
 
 export interface IRecoveryToken {
   $id: string;
-  userId: string;
-  secret: string;
   expire: string;
   phrase?: string;
+  secret: string;
+  userId: string;
 }
