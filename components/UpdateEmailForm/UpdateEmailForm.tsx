@@ -107,7 +107,7 @@ const UpdateEmailForm = (): JSX.Element => {
           <div className="flex flex-col gap-2 w-1/2 pl-4 pt-4 align-top">
             <span className="font-semibold">Email</span>
             <p className="text-sm">
-              This will update both your login email and how you receive email
+              This will update both your login email and where you receive email
               updates from GridIron Survivor.
             </p>
           </div>

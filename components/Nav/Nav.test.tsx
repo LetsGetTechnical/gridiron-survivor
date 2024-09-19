@@ -75,15 +75,10 @@ describe('Nav', () => {
     const drawerTrigger = screen.getByTestId('drawer-trigger');
     fireEvent.click(drawerTrigger);
 
-    const title = screen.getByTestId('title');
-    const logo = screen.getByTestId('logo-nav');
-    const preferencesLink = screen.getByTestId('settings-link');
-    const signOutButton = screen.getByTestId('sign-out-button');
-
-    expect(preferencesLink).toBeInTheDocument();
-    expect(title).toBeInTheDocument();
-    expect(logo).toBeInTheDocument();
-    expect(signOutButton).toBeInTheDocument();
+    expect(screen.getByTestId('settings-link')).toBeInTheDocument();
+    expect(screen.getByTestId('title')).toBeInTheDocument();
+    expect(screen.getByTestId('logo-nav')).toBeInTheDocument();
+    expect(screen.getByTestId('sign-out-button')).toBeInTheDocument();
   });
 
   it('should route to the preferences page when the user clicks on the preferences link', async () => {
@@ -98,10 +93,8 @@ describe('Nav', () => {
 
     expect(preferencesLink).toHaveAttribute('href', '/account/settings');
 
-    // Simulate the click event
     fireEvent.click(preferencesLink);
 
-    // Check if the drawer closes
     await waitFor(() => {
       expect(screen.queryByTestId('preferences-link')).not.toBeInTheDocument();
       expect(drawerTrigger.getAttribute('data-state')).toBe('closed');

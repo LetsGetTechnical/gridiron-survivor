@@ -35,7 +35,7 @@ const AccountSettings = (): JSX.Element => {
             className="flex flex-col gap-4"
             data-testid="settings-page-header"
           >
-            <div data-testid="entry-page-header-to-leagues-link">
+            <div data-testid="link-to-all-leagues-page">
               <LinkCustom
                 className="no-underline hover:underline text-primary flex gap-3 items-center font-semibold text-xl"
                 href={`/league/all`}
