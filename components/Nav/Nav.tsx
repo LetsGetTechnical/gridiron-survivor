@@ -68,7 +68,9 @@ export const Nav = (): JSX.Element => {
                   <Link
                     data-testid="league-link"
                     href="/league/all"
-                    className="pb-3 text-base font-normal text-zinc-600"
+                    className={cn(
+                      'underline underline-offset-4 hover:text-primary-muted transition-colors',
+                    )}
                     onClick={() => setOpen(false)}
                   >
                     Leagues
