@@ -1,376 +1,713 @@
 {
-  "projectId": "6616ea581ef9f5521c7d",
-  "databases": [
-    {
-      "$id": "6616ea9dcb86b246a7b0",
-      "name": "Gridiron Survivor Database",
-      "enabled": true
-    }
-  ],
-  "collections": [
-    {
-      "$id": "6622c701cb5a58fcdf06",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "6616ea9dcb86b246a7b0",
-      "name": "Game Week",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
+    "projectId": "6616ea581ef9f5521c7d",
+    "databases": [
         {
-          "key": "week",
-          "type": "integer",
-          "required": true,
-          "array": false,
-          "min": 1,
-          "max": 18,
-          "default": null
+            "$id": "6616ea9dcb86b246a7b0",
+            "name": "Gridiron Survivor Database",
+            "enabled": true
+        },
+        {
+            "$id": "66ece48a000b5846438f",
+            "name": "Staging Database",
+            "enabled": true
         }
-      ],
-      "indexes": []
-    },
-    {
-      "$id": "6626a937b6302f6a4d28",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "6616ea9dcb86b246a7b0",
-      "name": "League",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
+    ],
+    "collections": [
         {
-          "key": "admin",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6626c4fa8f793ae275ee",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "gameIdAdmin",
-          "onDelete": "cascade",
-          "side": "parent"
+            "$id": "6622c701cb5a58fcdf06",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "6616ea9dcb86b246a7b0",
+            "name": "Game Week",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "week",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 18,
+                    "default": null
+                }
+            ],
+            "indexes": []
         },
         {
-          "key": "survivors",
-          "type": "string",
-          "required": false,
-          "array": true,
-          "size": 1073741824,
-          "default": null
+            "$id": "6626a937b6302f6a4d28",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "6616ea9dcb86b246a7b0",
+            "name": "League",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "admin",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626c4fa8f793ae275ee",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "gameIdAdmin",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "survivors",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1073741824,
+                    "default": null
+                },
+                {
+                    "key": "participants",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1073741824,
+                    "default": null
+                },
+                {
+                    "key": "leagueName",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 500,
+                    "default": null
+                },
+                {
+                    "key": "logo",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "type",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "users",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626c4fa8f793ae275ee",
+                    "relationType": "manyToMany",
+                    "twoWay": true,
+                    "twoWayKey": "league",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
         },
         {
-          "key": "participants",
-          "type": "string",
-          "required": false,
-          "array": true,
-          "size": 1073741824,
-          "default": null
+            "$id": "6626c4fa8f793ae275ee",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "6616ea9dcb86b246a7b0",
+            "name": "Users",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null
+                },
+                {
+                    "key": "email",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "labels",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 10,
+                    "default": null
+                },
+                {
+                    "key": "userId",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "gameIdAdmin",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626a937b6302f6a4d28",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "admin",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "leagues",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1073741824,
+                    "default": null
+                },
+                {
+                    "key": "league",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626a937b6302f6a4d28",
+                    "relationType": "manyToMany",
+                    "twoWay": true,
+                    "twoWayKey": "users",
+                    "onDelete": "setNull",
+                    "side": "child"
+                }
+            ],
+            "indexes": []
         },
         {
-          "key": "leagueName",
-          "type": "string",
-          "required": false,
-          "array": false,
-          "size": 500,
-          "default": null
+            "$id": "66313025000612a5380e",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "6616ea9dcb86b246a7b0",
+            "name": "Game Results",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "userResults",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 1073741824,
+                    "default": null
+                },
+                {
+                    "key": "year",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "leagueId",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626a937b6302f6a4d28",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "66e085d6003a21ddb468",
+                    "onDelete": "restrict",
+                    "side": "parent"
+                },
+                {
+                    "key": "gameWeekId",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6622c701cb5a58fcdf06",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "66e0860e000b53b1c230",
+                    "onDelete": "restrict",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
         },
         {
-          "key": "logo",
-          "type": "string",
-          "required": false,
-          "array": false,
-          "size": 1000,
-          "default": null
+            "$id": "662152bfabacfbda3bb3",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "6616ea9dcb86b246a7b0",
+            "name": "NFL Teams",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "teamName",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null
+                },
+                {
+                    "key": "teamLogo",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 150,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "$id"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
-          "key": "type",
-          "type": "string",
-          "required": true,
-          "array": false,
-          "size": 100,
-          "default": null
+            "$id": "current_week",
+            "$permissions": [
+                "read(\"any\")",
+                "update(\"any\")"
+            ],
+            "databaseId": "6616ea9dcb86b246a7b0",
+            "name": "Current Week",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "gameWeek",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6622c701cb5a58fcdf06",
+                    "relationType": "oneToOne",
+                    "twoWay": false,
+                    "twoWayKey": "currentWeek",
+                    "onDelete": "restrict",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
         },
         {
-          "key": "users",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6626c4fa8f793ae275ee",
-          "relationType": "manyToMany",
-          "twoWay": true,
-          "twoWayKey": "league",
-          "onDelete": "setNull",
-          "side": "parent"
+            "$id": "entries",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "6616ea9dcb86b246a7b0",
+            "name": "Entries",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "user",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "league",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626a937b6302f6a4d28",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "66886ba20000c7d83f1b",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "eliminated",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "selectedTeams",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1073741824,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "6622c701cb5a58fcdf06",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "66ece48a000b5846438f",
+            "name": "Game Week",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "week",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 18,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "6626a937b6302f6a4d28",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "66ece48a000b5846438f",
+            "name": "League",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "admin",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626c4fa8f793ae275ee",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "gameIdAdmin",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "survivors",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1073741824,
+                    "default": null
+                },
+                {
+                    "key": "participants",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1073741824,
+                    "default": null
+                },
+                {
+                    "key": "leagueName",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 500,
+                    "default": null
+                },
+                {
+                    "key": "logo",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "type",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "users",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626c4fa8f793ae275ee",
+                    "relationType": "manyToMany",
+                    "twoWay": true,
+                    "twoWayKey": "league",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "6626c4fa8f793ae275ee",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "66ece48a000b5846438f",
+            "name": "Users",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "gameIdAdmin",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626a937b6302f6a4d28",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "admin",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "league",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626a937b6302f6a4d28",
+                    "relationType": "manyToMany",
+                    "twoWay": true,
+                    "twoWayKey": "users",
+                    "onDelete": "setNull",
+                    "side": "child"
+                },
+                {
+                    "key": "name",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null
+                },
+                {
+                    "key": "email",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "labels",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 10,
+                    "default": null
+                },
+                {
+                    "key": "userId",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "leagues",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1073741824,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "66313025000612a5380e",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "66ece48a000b5846438f",
+            "name": "Game Results",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "userResults",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 1073741824,
+                    "default": null
+                },
+                {
+                    "key": "year",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "leagueId",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6626a937b6302f6a4d28",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "66e085d6003a21ddb468",
+                    "onDelete": "restrict",
+                    "side": "parent"
+                },
+                {
+                    "key": "gameWeekId",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6622c701cb5a58fcdf06",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "66e0860e000b53b1c230",
+                    "onDelete": "restrict",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "662152bfabacfbda3bb3",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "66ece48a000b5846438f",
+            "name": "NFL Teams",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "teamName",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null
+                },
+                {
+                    "key": "teamLogo",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 150,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "$id"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "current_week",
+            "$permissions": [
+                "read(\"any\")",
+                "update(\"any\")"
+            ],
+            "databaseId": "66ece48a000b5846438f",
+            "name": "Current Week",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "gameWeek",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "6622c701cb5a58fcdf06",
+                    "relationType": "oneToOne",
+                    "twoWay": false,
+                    "twoWayKey": "currentWeek",
+                    "onDelete": "restrict",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "entries",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "66ece48a000b5846438f",
+            "name": "Entries",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [],
+            "indexes": []
         }
-      ],
-      "indexes": []
-    },
-    {
-      "$id": "6626c4fa8f793ae275ee",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "6616ea9dcb86b246a7b0",
-      "name": "Users",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
-        {
-          "key": "name",
-          "type": "string",
-          "required": false,
-          "array": false,
-          "size": 50,
-          "default": null
-        },
-        {
-          "key": "email",
-          "type": "string",
-          "required": false,
-          "array": false,
-          "size": 100,
-          "default": null
-        },
-        {
-          "key": "labels",
-          "type": "string",
-          "required": false,
-          "array": true,
-          "size": 10,
-          "default": null
-        },
-        {
-          "key": "userId",
-          "type": "string",
-          "required": false,
-          "array": false,
-          "size": 100,
-          "default": null
-        },
-        {
-          "key": "gameIdAdmin",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6626a937b6302f6a4d28",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "admin",
-          "onDelete": "cascade",
-          "side": "child"
-        },
-        {
-          "key": "leagues",
-          "type": "string",
-          "required": false,
-          "array": true,
-          "size": 1073741824,
-          "default": null
-        },
-        {
-          "key": "league",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6626a937b6302f6a4d28",
-          "relationType": "manyToMany",
-          "twoWay": true,
-          "twoWayKey": "users",
-          "onDelete": "setNull",
-          "side": "child"
-        }
-      ],
-      "indexes": []
-    },
-    {
-      "$id": "66313025000612a5380e",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "6616ea9dcb86b246a7b0",
-      "name": "Game Results",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
-        {
-          "key": "userResults",
-          "type": "string",
-          "required": true,
-          "array": false,
-          "size": 1073741824,
-          "default": null
-        },
-        {
-          "key": "year",
-          "type": "string",
-          "required": true,
-          "array": false,
-          "size": 255,
-          "default": null
-        },
-        {
-          "key": "leagueId",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6626a937b6302f6a4d28",
-          "relationType": "manyToOne",
-          "twoWay": false,
-          "twoWayKey": "66e085d6003a21ddb468",
-          "onDelete": "restrict",
-          "side": "parent"
-        },
-        {
-          "key": "gameWeekId",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6622c701cb5a58fcdf06",
-          "relationType": "manyToOne",
-          "twoWay": false,
-          "twoWayKey": "66e0860e000b53b1c230",
-          "onDelete": "restrict",
-          "side": "parent"
-        }
-      ],
-      "indexes": []
-    },
-    {
-      "$id": "662152bfabacfbda3bb3",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "6616ea9dcb86b246a7b0",
-      "name": "NFL Teams",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
-        {
-          "key": "teamName",
-          "type": "string",
-          "required": false,
-          "array": false,
-          "size": 50,
-          "default": null
-        },
-        {
-          "key": "teamLogo",
-          "type": "string",
-          "required": false,
-          "array": false,
-          "size": 150,
-          "default": null
-        }
-      ],
-      "indexes": [
-        {
-          "key": "index",
-          "type": "key",
-          "status": "available",
-          "attributes": ["$id"],
-          "orders": ["ASC"]
-        }
-      ]
-    },
-    {
-      "$id": "current_week",
-      "$permissions": ["read(\"any\")", "update(\"any\")"],
-      "databaseId": "6616ea9dcb86b246a7b0",
-      "name": "Current Week",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
-        {
-          "key": "gameWeek",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6622c701cb5a58fcdf06",
-          "relationType": "oneToOne",
-          "twoWay": false,
-          "twoWayKey": "currentWeek",
-          "onDelete": "restrict",
-          "side": "parent"
-        }
-      ],
-      "indexes": []
-    },
-    {
-      "$id": "entries",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "6616ea9dcb86b246a7b0",
-      "name": "Entries",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
-        {
-          "key": "name",
-          "type": "string",
-          "required": true,
-          "array": false,
-          "size": 255,
-          "default": null
-        },
-        {
-          "key": "user",
-          "type": "string",
-          "required": true,
-          "array": false,
-          "size": 255,
-          "default": null
-        },
-        {
-          "key": "league",
-          "type": "relationship",
-          "required": false,
-          "array": false,
-          "relatedCollection": "6626a937b6302f6a4d28",
-          "relationType": "manyToOne",
-          "twoWay": false,
-          "twoWayKey": "66886ba20000c7d83f1b",
-          "onDelete": "setNull",
-          "side": "parent"
-        },
-        {
-          "key": "eliminated",
-          "type": "boolean",
-          "required": false,
-          "array": false,
-          "default": false
-        },
-        {
-          "key": "selectedTeams",
-          "type": "string",
-          "required": false,
-          "array": true,
-          "size": 1073741824,
-          "default": null
-        }
-      ],
-      "indexes": []
-    }
-  ]
+    ]
 }
-
