@@ -39,11 +39,15 @@ export const onWeeklyPickChange = async ({
   week,
 }: IWeeklyPickChange): Promise<void> => {
   try {
-    const teamID = NFLTeams.find(
+    const selectedTeamName = NFLTeams.find(
       (team) => team.teamName === teamSelect,
     )?.teamName;
 
-    const currentUserPick = parseUserPick(user.id, entry, teamID || '');
+    const currentUserPick = parseUserPick(
+      user.id,
+      entry,
+      selectedTeamName || '',
+    );
 
     // combines current picks and the user pick into one object.
     // if the user pick exists then it overrides the pick of the user.
