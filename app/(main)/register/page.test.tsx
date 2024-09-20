@@ -77,8 +77,8 @@ describe('Register', () => {
 
     await act(async () => {
       fireEvent.change(emailInput, { target: { value: 'rt@example.com' } });
-      fireEvent.change(passwordInput, { target: { value: 'rawr123' } });
-      fireEvent.change(confirmPasswordInput, { target: { value: 'rawr123' } });
+      fireEvent.change(passwordInput, { target: { value: 'rawr1234' } });
+      fireEvent.change(confirmPasswordInput, { target: { value: 'rawr1234' } });
     });
 
     await act(async () => {
@@ -89,8 +89,8 @@ describe('Register', () => {
       expect(registerAccount).toHaveBeenCalledTimes(1);
       expect(registerAccount).toHaveBeenCalledWith({
         email: 'rt@example.com',
-        password: 'rawr123',
-        confirmPassword: 'rawr123',
+        password: 'rawr1234',
+        confirmPassword: 'rawr1234',
       });
     });
   });
@@ -109,20 +109,20 @@ describe('Register', () => {
 
   it('should show success notification upon successful submission', async () => {
     fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
-    fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
+    fireEvent.change(passwordInput, { target: { value: 'pw123456' } });
+    fireEvent.change(confirmPasswordInput, { target: { value: 'pw123456' } });
     fireEvent.submit(continueButton);
 
     await waitFor(() => {
       expect(registerAccount).toHaveBeenCalledWith({
         email: 'test@test.com',
-        password: 'pw1234',
-        confirmPassword: 'pw1234',
+        password: 'pw123456',
+        confirmPassword: 'pw123456',
       });
       expect(mockLogin).toHaveBeenCalledWith({
         email: 'test@test.com',
-        password: 'pw1234',
-        confirmPassword: 'pw1234',
+        password: 'pw123456',
+        confirmPassword: 'pw123456',
       });
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
@@ -143,8 +143,8 @@ describe('Register', () => {
 
     await act(async () => {
       fireEvent.change(emailInput, { target: { value: 'test@test.com' } });
-      fireEvent.change(passwordInput, { target: { value: 'pw1234' } });
-      fireEvent.change(confirmPasswordInput, { target: { value: 'pw1234' } });
+      fireEvent.change(passwordInput, { target: { value: 'pw123456' } });
+      fireEvent.change(confirmPasswordInput, { target: { value: 'pw123456' } });
     });
 
     await act(async () => {
@@ -154,8 +154,8 @@ describe('Register', () => {
     await waitFor(() => {
       expect(registerAccount).toHaveBeenCalledWith({
         email: 'test@test.com',
-        password: 'pw1234',
-        confirmPassword: 'pw1234',
+        password: 'pw123456',
+        confirmPassword: 'pw123456',
       });
       expect(mockLogin).not.toHaveBeenCalled();
       expect(toast.custom).toHaveBeenCalledWith(
