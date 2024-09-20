@@ -184,12 +184,9 @@ describe('League Week Picks', () => {
     );
 
     // Wait for the main content to be displayed
-    await waitFor(
-      () => {
-        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      },
-      { timeout: 5000 },
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+    });
 
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
@@ -241,12 +238,9 @@ describe('League Week Picks', () => {
       />,
     );
 
-    await waitFor(
-      () => {
-        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      },
-      { timeout: 5000 },
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+    });
 
     expect(screen.getByTestId('user-pick-history')).toBeInTheDocument();
 
@@ -257,6 +251,46 @@ describe('League Week Picks', () => {
       '/_next/image?url=https%3A%2F%2Fexample.com%2Fpackers.png&w=128&q=75',
     );
     expect(userPickHistoryLogos[1]).toHaveAttribute(
+      'src',
+      '/_next/image?url=https%3A%2F%2Fexample.com%2Fbrowns.png&w=128&q=75',
+    );
+  });
+  it('should show previous week pick as no pick if there is no history of selected teams', async () => {
+    mockUseAuthContext.isSignedIn = true;
+    const mockWeek = '2';
+    (getCurrentUserEntries as jest.Mock).mockResolvedValue([
+      {
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: ['', 'Browns'],
+        eliminated: false,
+      },
+    ]);
+
+    render(
+      <Week
+        entry={entry}
+        league={league}
+        NFLTeams={NFLTeams}
+        week={mockWeek}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+    });
+
+    expect(screen.getByTestId('user-pick-history')).toBeInTheDocument();
+    expect(screen.getByTestId('user-pick-history')).toHaveTextContent(
+      'No Pick',
+    );
+
+    expect(screen.getByTestId('no-pick')).toBeInTheDocument();
+    const userPickHistoryLogos = screen.queryAllByTestId('league-history-logo');
+    expect(userPickHistoryLogos).toHaveLength(1);
+    expect(userPickHistoryLogos[0]).toHaveAttribute(
       'src',
       '/_next/image?url=https%3A%2F%2Fexample.com%2Fbrowns.png&w=128&q=75',
     );
