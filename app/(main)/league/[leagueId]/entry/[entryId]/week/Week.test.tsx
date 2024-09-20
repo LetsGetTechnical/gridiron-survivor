@@ -184,12 +184,9 @@ describe('League Week Picks', () => {
     );
 
     // Wait for the main content to be displayed
-    await waitFor(
-      () => {
-        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      },
-      { timeout: 5000 },
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+    });
 
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
@@ -241,12 +238,9 @@ describe('League Week Picks', () => {
       />,
     );
 
-    await waitFor(
-      () => {
-        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      },
-      { timeout: 5000 },
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+    });
 
     expect(screen.getByTestId('user-pick-history')).toBeInTheDocument();
 
@@ -284,12 +278,9 @@ describe('League Week Picks', () => {
       />,
     );
 
-    await waitFor(
-      () => {
-        expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      },
-      { timeout: 5000 },
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+    });
 
     expect(screen.getByTestId('user-pick-history')).toBeInTheDocument();
     expect(screen.getByTestId('user-pick-history')).toHaveTextContent(
