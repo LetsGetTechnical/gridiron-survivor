@@ -23,7 +23,8 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import Logo from '@/components/Logo/Logo';
 import logo from '/public/assets/logo-colored-outline.svg';
-import React, { JSX, useEffect } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 const RegisterUserSchema = z
   .object({
@@ -54,6 +55,7 @@ type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 const Register = (): JSX.Element => {
   const router = useRouter();
   const { login, isSignedIn } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -105,6 +107,7 @@ const Register = (): JSX.Element => {
     data: RegisterUserSchemaType,
   ): Promise<void> => {
     try {
+      setIsLoading(true);
       await registerAccount(data);
       await login(data);
       toast.custom(
@@ -118,6 +121,8 @@ const Register = (): JSX.Element => {
       toast.custom(
         <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -153,6 +158,7 @@ const Register = (): JSX.Element => {
           <form
             id="input-container"
             className="grid gap-3"
+            data-testid="register-form"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
@@ -168,9 +174,9 @@ const Register = (): JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.email && (
+                  {form.formState.errors?.email && (
                     <FormMessage>
-                      {form.formState.errors.email.message}
+                      {form.formState.errors?.email.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -189,9 +195,9 @@ const Register = (): JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.password && (
+                  {form.formState.errors?.password && (
                     <FormMessage>
-                      {form.formState.errors.password.message}
+                      {form.formState.errors?.password.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -210,9 +216,9 @@ const Register = (): JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.confirmPassword && (
+                  {form.formState.errors?.confirmPassword && (
                     <FormMessage>
-                      {form.formState.errors.confirmPassword.message}
+                      {form.formState.errors?.confirmPassword.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -221,7 +227,13 @@ const Register = (): JSX.Element => {
 
             <Button
               data-testid="continue-button"
-              label="Register"
+              label={
+                isLoading ? (
+                  <LoadingSpinner data-testid="loading-spinner" />
+                ) : (
+                  'Continue'
+                )
+              }
               type="submit"
               disabled={isDisabled}
             />
