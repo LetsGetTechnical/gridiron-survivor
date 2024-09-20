@@ -121,7 +121,6 @@ const Register = (): JSX.Element => {
       toast.custom(
         <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
       );
-      throw new Error('An error occurred while registering your account');
     } finally {
       setIsLoading(false);
     }
@@ -159,6 +158,7 @@ const Register = (): JSX.Element => {
           <form
             id="input-container"
             className="grid gap-3"
+            data-testid="register-form"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
@@ -227,7 +227,13 @@ const Register = (): JSX.Element => {
 
             <Button
               data-testid="continue-button"
-              label={isLoading ? <LoadingSpinner /> : 'Continue'}
+              label={
+                isLoading ? (
+                  <LoadingSpinner data-testid="loading-spinner" />
+                ) : (
+                  'Continue'
+                )
+              }
               type="submit"
               disabled={isDisabled}
             />
