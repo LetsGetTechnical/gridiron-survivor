@@ -308,7 +308,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                           alt="teamLogo"
                         />
                       ) : (
-                        <span className="text-xs h-16 w-16 text-primary pt-6 text-center">
+                        <span
+                          className="text-xs h-16 w-16 text-primary pt-6 text-center"
+                          data-testid="no-pick"
+                        >
                           No Pick
                         </span>
                       )}
