@@ -1,11 +1,5 @@
 import { AdminUserSettings } from './AdminUserSettings';
-import {
-  fireEvent,
-  getByTestId,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 
 const mockPush = jest.fn();
@@ -54,7 +48,7 @@ describe('AdminUserSettings Component', () => {
     fireEvent.click(adminUserSettings);
 
     waitFor(() => {
-      expect(screen.getByTestId('edit-profile-button')).toBeInTheDocument();
+      expect(screen.getByTestId('edit-profile-link')).toBeInTheDocument();
       expect(screen.getByTestId('sign-out-button')).toBeInTheDocument();
     });
   });
@@ -67,7 +61,7 @@ describe('AdminUserSettings Component', () => {
     fireEvent.click(adminUserSettings);
 
     waitFor(() => {
-      expect(screen.getByTestId('edit-profile-button')).not.toBeInTheDocument();
+      expect(screen.getByTestId('edit-profile-link')).not.toBeInTheDocument();
       expect(screen.getByTestId('sign-out-button')).not.toBeInTheDocument();
     });
   });
@@ -78,7 +72,7 @@ describe('AdminUserSettings Component', () => {
     fireEvent.click(adminUserSettings);
 
     waitFor(() => {
-      const editProfileButton = screen.getByTestId('edit-profile-button');
+      const editProfileButton = screen.getByTestId('edit-profile-link');
       fireEvent.click(editProfileButton);
     });
 
