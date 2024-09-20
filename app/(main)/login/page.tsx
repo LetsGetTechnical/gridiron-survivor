@@ -40,7 +40,7 @@ const LoginUserSchema = z.object({
   password: z
     .string()
     .min(1, { message: 'Please enter a password' })
-    .min(6, { message: 'Password must be at least 8 characters' }),
+    .min(8, { message: 'Password must be at least 8 characters' }),
 });
 
 type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
