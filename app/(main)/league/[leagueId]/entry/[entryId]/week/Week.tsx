@@ -298,14 +298,20 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                           ? 'CURRENT'
                           : `WEEK ${index + 1}`}
                       </span>
-                      <Image
-                        className="league-entry-logo"
-                        width={64}
-                        height={64}
-                        data-testid="league-history-logo"
-                        src={logoURL}
-                        alt="teamLogo"
-                      />
+                      {logoURL ? (
+                        <Image
+                          className="league-entry-logo"
+                          width={64}
+                          height={64}
+                          data-testid="league-history-logo"
+                          src={logoURL}
+                          alt="teamLogo"
+                        />
+                      ) : (
+                        <span className="text-xs h-16 w-16 text-primary pt-6 text-center">
+                          No Pick
+                        </span>
+                      )}
                     </div>
                   );
                 })}
