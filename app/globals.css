@@ -59,7 +59,7 @@
 
     --primary: 20.5 90.2% 48.2%;
     --primary-muted: 24.6 95% 53.1%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 240, 6%, 10%;
 
     --secondary: 240 3.7% 15.9%;
     --secondary-muted: 240 5.3% 26.1%;
