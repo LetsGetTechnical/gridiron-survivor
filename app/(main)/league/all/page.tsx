@@ -55,7 +55,6 @@ const Leagues = (): JSX.Element => {
       // Fetch user leagues
       const fetchedUserLeagues = await getUserLeagues(user.leagues);
       setLeagues(fetchedUserLeagues);
-      setLoadingData(false);
     } catch (error) {
       console.error('Error fetching leagues:', error);
       toast.custom(

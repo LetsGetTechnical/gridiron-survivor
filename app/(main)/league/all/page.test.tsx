@@ -27,7 +27,7 @@ jest.mock('@/context/AuthContextProvider', () => ({
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
-    user: { id: '1234', leagues: [] },
+    user: { id: '1234', email: 'email@example.com', leagues: [] },
     allLeagues: [
       {
         leagueId: '123',
@@ -78,15 +78,17 @@ describe('Leagues Component', () => {
   const mockAddUserToLeague = addUserToLeague as jest.Mock;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
 
   test('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     mockUseDataStore.mockReturnValueOnce({
-      user: { id: '123', leagues: [] },
+      user: { id: '123', email: 'email@example.com', leagues: [] },
       allLeagues: [],
+      updateUser: jest.fn(),
+      updateAllLeagues: jest.fn(),
     });
     mockGetUserLeagues.mockResolvedValueOnce([]);
     render(<Leagues />);
@@ -94,6 +96,8 @@ describe('Leagues Component', () => {
     await waitForElementToBeRemoved(() =>
       screen.queryByTestId('global-spinner'),
     );
+
+    screen.debug();
 
     await waitFor(() => {
       expect(screen.queryByTestId('no-leagues-message')).toBeInTheDocument();
@@ -177,7 +181,10 @@ describe('Leagues Component', () => {
     fireEvent.click(screen.getByText(/Join League/i));
 
     await waitFor(() => {
-      expect(mockAddUserToLeague).toHaveBeenCalledWith();
+      expect(mockAddUserToLeague).toHaveBeenCalledWith({
+        leagueId: '123',
+        userId: '123',
+      });
 
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
@@ -190,18 +197,30 @@ describe('Leagues Component', () => {
   test('should show error if adding to league fails', async () => {
     mockUseAuthContext.isSignedIn = true;
 
+    mockUseDataStore.mockReturnValueOnce({
+      user: { id: '123', leagues: [] },
+      allLeagues: [
+        {
+          leagueId: '123',
+          leagueName: 'Test League',
+          participants: [],
+          survivors: [],
+        },
+      ],
+    });
+
     mockGetUserLeagues.mockResolvedValueOnce([]);
-    // mockGetAllLeagues.mockResolvedValueOnce([
-    //   {
-    //     leagueId: '123',
-    //     leagueName: 'Test League',
-    //     participants: [],
-    //     survivors: [],
-    //   },
-    // ]);
-    // mockAddUserToLeague.mockRejectedValueOnce(
-    //   new Error('Failed to join league'),
-    // );
+    mockGetAllLeagues.mockResolvedValueOnce([
+      {
+        leagueId: '123',
+        leagueName: 'Test League',
+        participants: [],
+        survivors: [],
+      },
+    ]);
+    mockAddUserToLeague.mockRejectedValueOnce(
+      new Error('Failed to join league'),
+    );
 
     render(<Leagues />);
 
@@ -209,16 +228,22 @@ describe('Leagues Component', () => {
       expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
     });
 
-    // const selectElement = screen.getByTestId('select-available-leagues');
-    // fireEvent.change(selectElement, { target: { value: '123' } });
-    // fireEvent.click(screen.getByText(/Join League/i));
-    // await waitFor(() => {
-    //   expect(toast.custom).toHaveBeenCalledWith(
-    //     <Alert
-    //       variant={AlertVariants.Error}
-    //       message="Failed to add the league. Please try again."
-    //     />,
-    //   );
-    // });
+    const selectElement = screen.getByTestId('select-available-leagues');
+    fireEvent.change(selectElement, { target: { value: '123' } });
+    fireEvent.click(screen.getByText(/Join League/i));
+
+    await waitFor(() => {
+      expect(mockAddUserToLeague).toHaveBeenCalledWith({
+        leagueId: '123',
+        userId: '123',
+      });
+
+      expect(toast.custom).toHaveBeenCalledWith(
+        <Alert
+          variant={AlertVariants.Error}
+          message="Failed to add the league. Please try again."
+        />,
+      );
+    });
   });
 });
