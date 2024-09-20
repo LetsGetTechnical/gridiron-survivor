@@ -285,7 +285,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
                   return (
                     <div
-                      key={`${logoURL}-${index + 1}`}
+                      key={`${logoURL ? logoURL : 'no-pick'}-${index + 1}`}
                       className={cn(
                         'flex flex-col items-center justify-center border p-2 rounded-lg gap-1',
                         isCurrentWeek && hasCurrentWeekPick

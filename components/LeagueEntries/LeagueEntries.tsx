@@ -59,7 +59,7 @@ const LeagueEntries = ({
         >
           {userPickHistory?.map((logoURL, index) => (
             <div
-              key={index}
+              key={`${logoURL ? logoURL : 'no-pick'}-${index + 1}`}
               className="flex flex-col h-[66px] opacity-80 items-center justify-center border border-border px-4 py-1 rounded-lg gap-1"
             >
               <span className="text-xs">WEEK {index + 1}</span>
@@ -73,7 +73,10 @@ const LeagueEntries = ({
                   alt="teamLogo"
                 />
               ) : (
-                <span className="text-xs h-10 w-full text-primary pt-2">
+                <span
+                  className="text-xs h-10 w-full text-primary pt-2"
+                  data-testid="no-pick"
+                >
                   No Pick
                 </span>
               )}
