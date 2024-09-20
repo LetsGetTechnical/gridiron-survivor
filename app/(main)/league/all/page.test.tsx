@@ -27,7 +27,7 @@ jest.mock('@/context/AuthContextProvider', () => ({
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
-    user: { id: '1234', email: 'email@example.com', leagues: [] },
+    user: { id: '1234', leagues: [] },
     allLeagues: [
       {
         leagueId: '123',
@@ -37,8 +37,6 @@ jest.mock('@/store/dataStore', () => ({
         survivors: ['123456', '78', '9'],
       },
     ],
-    updateUser: jest.fn(),
-    updateAllLeagues: jest.fn(),
   })),
 }));
 
@@ -61,10 +59,6 @@ jest.mock('@/api/apiFunctions', () => ({
   addUserToLeague: jest.fn(() => Promise.resolve({})),
 }));
 
-// jest.mock('@/context/AuthContextProvider', () => ({
-//   useAuthContext: jest.fn(() => ({ isSignedIn: true, user: { id: '123' } })),
-// }));
-
 jest.mock('react-hot-toast', () => ({
   toast: {
     custom: jest.fn(),
@@ -79,29 +73,23 @@ describe('Leagues Component', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
+    mockUseAuthContext.isSignedIn = false;
   });
 
   test('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
     mockUseAuthContext.isSignedIn = true;
 
-    mockUseDataStore.mockReturnValueOnce({
-      user: { id: '123', email: 'email@example.com', leagues: [] },
+    mockUseDataStore.mockReturnValue({
+      user: { id: '123', leagues: [] },
       allLeagues: [],
-      updateUser: jest.fn(),
-      updateAllLeagues: jest.fn(),
     });
     mockGetUserLeagues.mockResolvedValueOnce([]);
+
     render(<Leagues />);
 
-    await waitForElementToBeRemoved(() =>
-      screen.queryByTestId('global-spinner'),
-    );
+    await waitForElementToBeRemoved(() => screen.getByTestId('global-spinner'));
 
-    screen.debug();
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('no-leagues-message')).toBeInTheDocument();
-    });
+    expect(screen.getByTestId('no-leagues-message')).toBeInTheDocument();
   });
 
   test('should display GlobalSpinner while loading data', async () => {
@@ -114,16 +102,14 @@ describe('Leagues Component', () => {
 
     render(<Leagues />);
 
-    await waitFor(() => {
-      expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
-    });
+    expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
   });
 
   test('should not display GlobalSpinner after loading data', async () => {
     mockUseAuthContext.isSignedIn = true;
 
-    mockUseDataStore.mockReturnValueOnce({
-      user: { id: '123', leagues: ['123'] },
+    mockUseDataStore.mockReturnValue({
+      user: { id: '123', leagues: [] },
       allLeagues: [
         {
           leagueId: '123',
@@ -146,7 +132,7 @@ describe('Leagues Component', () => {
   test('should handle form submission to join a league', async () => {
     mockUseAuthContext.isSignedIn = true;
 
-    mockUseDataStore.mockReturnValueOnce({
+    mockUseDataStore.mockReturnValue({
       user: { id: '123', leagues: [] },
       allLeagues: [
         {
@@ -176,7 +162,6 @@ describe('Leagues Component', () => {
     });
 
     const selectElement = screen.getByTestId('select-available-leagues');
-
     fireEvent.change(selectElement, { target: { value: '123' } });
     fireEvent.click(screen.getByText(/Join League/i));
 
@@ -189,15 +174,16 @@ describe('Leagues Component', () => {
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
           variant={AlertVariants.Success}
-          message={`Added test league to your leagues!`}
+          message={`Added Test League to your leagues!`}
         />,
       );
     });
   });
+
   test('should show error if adding to league fails', async () => {
     mockUseAuthContext.isSignedIn = true;
 
-    mockUseDataStore.mockReturnValueOnce({
+    mockUseDataStore.mockReturnValue({
       user: { id: '123', leagues: [] },
       allLeagues: [
         {
