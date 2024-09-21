@@ -197,7 +197,9 @@ const Leagues = (): JSX.Element => {
                 )}
               />
             </div>
-            <Button type="submit">Join League</Button>
+            <Button type="submit" data-testid="join-league-button">
+              Join League
+            </Button>
           </form>
         </>
       )}
