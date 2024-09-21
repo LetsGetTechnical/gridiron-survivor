@@ -28,6 +28,13 @@ export type LeagueDetailsHeader = {
   text4: string;
 };
 
+export type PlayersHeader = {
+  text: string;
+  text2: string;
+  text3: string;
+  text4: string;
+};
+
 export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
   {
     accessorKey: 'text',
