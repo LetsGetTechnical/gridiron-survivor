@@ -113,4 +113,33 @@ describe('LeagueEntries', () => {
       '/_next/image?url=%2Fteam-a-logo.png&w=96&q=75',
     );
   });
+  it('renders no pick when a previous week pick is not available', () => {
+    const teamLogoUrl = 'https://example.com/logo.png';
+    const linkUrl = '/change-pick';
+
+    render(
+      <LeagueEntries
+        entryName="Entry 2"
+        isPickSet={true}
+        linkUrl={linkUrl}
+        selectedTeamLogo={teamLogoUrl}
+        userPickHistory={['', '/team-a-logo.png']}
+      />,
+    );
+
+    const leagueEntryLogo = screen.getByTestId('league-entry-logo');
+    const noPick = screen.getByTestId('no-pick');
+
+    expect(leagueEntryLogo).toBeInTheDocument();
+    expect(leagueEntryLogo).toHaveAttribute(
+      'src',
+      '/_next/image?url=https%3A%2F%2Fexample.com%2Flogo.png&w=96&q=75',
+    );
+    expect(screen.getByTestId('league-history-logo')).toHaveAttribute(
+      'src',
+      '/_next/image?url=%2Fteam-a-logo.png&w=96&q=75',
+    );
+    expect(noPick).toBeInTheDocument();
+    expect(noPick).toHaveTextContent('No Pick');
+  });
 });

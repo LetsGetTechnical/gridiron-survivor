@@ -285,7 +285,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
                   return (
                     <div
-                      key={`${logoURL}-${index + 1}`}
+                      key={`${logoURL ? logoURL : 'no-pick'}-${index + 1}`}
                       className={cn(
                         'flex flex-col items-center justify-center border p-2 rounded-lg gap-1',
                         isCurrentWeek && hasCurrentWeekPick
@@ -298,14 +298,23 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                           ? 'CURRENT'
                           : `WEEK ${index + 1}`}
                       </span>
-                      <Image
-                        className="league-entry-logo"
-                        width={64}
-                        height={64}
-                        data-testid="league-history-logo"
-                        src={logoURL}
-                        alt="teamLogo"
-                      />
+                      {logoURL ? (
+                        <Image
+                          className="league-entry-logo"
+                          width={64}
+                          height={64}
+                          data-testid="league-history-logo"
+                          src={logoURL}
+                          alt="teamLogo"
+                        />
+                      ) : (
+                        <span
+                          className="text-xs h-16 w-16 text-primary pt-6 text-center"
+                          data-testid="no-pick"
+                        >
+                          No Pick
+                        </span>
+                      )}
                     </div>
                   );
                 })}
