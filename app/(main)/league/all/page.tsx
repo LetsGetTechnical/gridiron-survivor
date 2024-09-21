@@ -125,6 +125,12 @@ const Leagues = (): JSX.Element => {
     <div className="Leagues mx-auto max-w-3xl pt-10">
       {loadingData ? (
         <GlobalSpinner data-testid="global-spinner" />
+      ) : leagues.length === 0 ? (
+        <div className="text-center">
+          <p className="text-lg font-bold" data-testid="no-leagues-message">
+            You are not enrolled in any leagues
+          </p>
+        </div>
       ) : (
         <>
           <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
@@ -132,27 +138,16 @@ const Leagues = (): JSX.Element => {
           </h1>
 
           <section className="grid gap-6 md:grid-cols-2 mb-10">
-            {leagues.length > 0 ? (
-              leagues.map((league) => (
-                <LeagueCard
-                  key={league.leagueId}
-                  href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
-                  leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
-                  survivors={league.survivors.length}
-                  title={league.leagueName}
-                  totalPlayers={league.participants.length}
-                />
-              ))
-            ) : (
-              <div className="text-center">
-                <p
-                  className="text-lg font-bold"
-                  data-testid="no-leagues-message"
-                >
-                  You are not enrolled in any leagues
-                </p>
-              </div>
-            )}
+            {leagues.map((league) => (
+              <LeagueCard
+                key={league.leagueId}
+                href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
+                leagueCardLogo="https://ryanfurrer.com/_astro/logo-dark-theme.CS8e9u7V_JfowQ.svg" // should eventually be something like league.logo
+                survivors={league.survivors.length}
+                title={league.leagueName}
+                totalPlayers={league.participants.length}
+              />
+            ))}
           </section>
 
           <form onSubmit={handleSubmit(onSubmit)}>
