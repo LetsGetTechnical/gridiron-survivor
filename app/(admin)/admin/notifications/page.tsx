@@ -24,7 +24,7 @@ const AdminNotifications = (): JSX.Element => {
    */
   const getLeagueData = async (): Promise<void> => {
     try {
-      const leagueId = '66c6618900033d179dda';
+      const leagueId = '66f1a8e300102bff03ff';
       const leagueData = await getCurrentLeague(leagueId);
       setGroupUsers(leagueData.participants);
     } catch (error) {
