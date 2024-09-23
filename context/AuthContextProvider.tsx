@@ -81,7 +81,11 @@ export const AuthContextProvider = ({
    */
   const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
-      if (pathname !== '/register') {
+      if (
+        pathname !== '/register' &&
+        pathname !== '/account/recovery' &&
+        pathname !== '/recover-password'
+      ) {
         router.push('/login');
       }
       return;
