@@ -23,6 +23,7 @@ import React, { JSX, useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { cn } from '@/utils/utils';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import { getNFLTeamLogo } from '@/utils/utils';
 
 /**
  * Display all entries for a league.
@@ -69,6 +70,7 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getAllEntries = async (): Promise<void> => {
+    setLoadingData(true);
     try {
       const getEntries = await getCurrentUserEntries(user.id, leagueId);
       setEntries(getEntries);
@@ -84,6 +86,7 @@ const Entry = ({
    * @returns {Promise<void>}
    */
   const getCurrentGameWeek = async (): Promise<void> => {
+    setLoadingData(true);
     try {
       const getCurrentWeek = await getGameWeek();
       updateCurrentWeek(getCurrentWeek.week);
@@ -99,11 +102,14 @@ const Entry = ({
    * @returns {Promise<INFLTeam[]>} - The NFL teams.
    */
   const getAllNFLTeams = async (): Promise<void> => {
+    setLoadingData(true);
     try {
       const NFLTeams = await getNFLTeams();
       updateNFLTeams(NFLTeams);
     } catch (error) {
       throw new Error('Error getting NFL teams');
+    } finally {
+      setLoadingData(false);
     }
   };
 
@@ -198,9 +204,15 @@ const Entry = ({
                   // eslint-disable-next-line no-undefined
                   selectedTeam !== null && selectedTeam !== undefined;
 
-                const teamLogo = NFLTeams.find(
-                  (teams) => teams.teamName === selectedTeam,
-                )?.teamLogo;
+                const selectedTeamLogo = getNFLTeamLogo(NFLTeams, selectedTeam);
+
+                let userPickHistory: string[] = [];
+
+                if (currentWeek > 1 && entry.selectedTeams.length > 0) {
+                  userPickHistory = entry.selectedTeams
+                    .slice(0, currentWeek - 1)
+                    .map((teamName) => getNFLTeamLogo(NFLTeams, teamName));
+                }
 
                 return (
                   <section key={entry.$id}>
@@ -210,7 +222,8 @@ const Entry = ({
                       isEliminated={entry.eliminated}
                       isPickSet={isPickSet}
                       linkUrl={linkUrl}
-                      teamLogo={teamLogo}
+                      userPickHistory={userPickHistory}
+                      selectedTeamLogo={selectedTeamLogo}
                     />
                   </section>
                 );

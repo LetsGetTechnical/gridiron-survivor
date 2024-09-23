@@ -13,6 +13,7 @@ import {
 } from '../../../components/Form/Form';
 import { Input } from '@/components/Input/Input';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
@@ -20,7 +21,6 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import Logo from '@/components/Logo/Logo';
 import logo from '@/public/assets/logo-colored-outline.svg';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 /**
  * The schema for the login form.
@@ -40,7 +40,7 @@ const LoginUserSchema = z.object({
   password: z
     .string()
     .min(1, { message: 'Please enter a password' })
-    .min(6, { message: 'Password must be at least 6 characters' }),
+    .min(8, { message: 'Password must be at least 8 characters' }),
 });
 
 type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
@@ -82,10 +82,18 @@ const Login = (): React.JSX.Element => {
    * Handles the form submission.
    * @param {LoginUserSchemaType} data - The data from the form.
    */
-  const onSubmit: SubmitHandler<LoginUserSchemaType> = async (data) => {
-    setIsLoading(true);
-    await login(data);
-    setIsLoading(false);
+  const onSubmit: SubmitHandler<LoginUserSchemaType> = async (
+    data: LoginUserSchemaType,
+  ): Promise<void> => {
+    try {
+      setIsLoading(true);
+      await login(data);
+    } catch (error) {
+      console.error('Login error:', error);
+      throw new Error('An error occurred while logging in');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -115,6 +123,7 @@ const Login = (): React.JSX.Element => {
           <form
             id="input-container"
             className="grid gap-3"
+            data-testid="login-form"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
@@ -130,7 +139,7 @@ const Login = (): React.JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.email && (
+                  {form.formState.errors?.email && (
                     <FormMessage>
                       {form.formState.errors.email.message}
                     </FormMessage>
@@ -151,9 +160,9 @@ const Login = (): React.JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.password && (
+                  {form.formState.errors?.password && (
                     <FormMessage>
-                      {form.formState.errors.password.message}
+                      {form.formState.errors?.password.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -161,12 +170,21 @@ const Login = (): React.JSX.Element => {
             />
             <Button
               data-testid="continue-button"
-              label={isLoading ? <LoadingSpinner /> : 'Continue'}
+              label={
+                isLoading ? (
+                  <LoadingSpinner data-testid="loading-spinner" />
+                ) : (
+                  'Continue'
+                )
+              }
               type="submit"
               disabled={!email || !password || isLoading}
             />
             <LinkCustom href="/register">
               Sign up to get started with a league
+            </LinkCustom>
+            <LinkCustom href="/recover-password">
+              Forgot your password?
             </LinkCustom>
           </form>
         </Form>

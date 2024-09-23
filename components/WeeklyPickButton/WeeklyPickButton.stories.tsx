@@ -17,6 +17,7 @@ const meta = {
     },
   },
   argTypes: {
+    homeAway: { description: 'Location of game' },
     team: { description: 'Name of the team' },
     src: { description: 'Team logo image source' },
   },
@@ -33,12 +34,13 @@ type Story = StoryObj<typeof meta>;
 const withRadioGroup: Decorator = (Story) => (
   <RadioGroup>
     <Story />
-    <WeeklyPickButton team="Cowboys" src="/assets/team-logo-placeholder.jpg" />
+    <WeeklyPickButton homeAway='Home' team="Cowboys" src="/assets/team-logo-placeholder.jpg" />
   </RadioGroup>
 );
 
 export const Primary: Story = {
   args: {
+    homeAway: 'Home',
     team: 'Ravens',
     src: '/assets/team-logo-placeholder.jpg',
   },
