@@ -1,7 +1,6 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import React, { JSX } from 'react';
 import { FormItem, FormControl } from '@/components/Form/Form';
 import { RadioGroup } from '@radix-ui/react-radio-group';
@@ -78,19 +77,17 @@ const WeekTeams = ({
             )}
             <FormItem key={competition.id} className="text-center">
               <FormControl>
-                {loadingTeamName ===
-              competition.team.shortDisplayName.toLowerCase() ? ( <LoadingSpinner/>
-                ) : (
-                  <WeeklyPickButton
+                <WeeklyPickButton
+                  loadingTeamName={loadingTeamName}
+                  selectedTeam={competition.team.shortDisplayName.toLowerCase()}
                   homeAway={competition.homeAway}
-                      team={competition.team.name}
-                      src={competition.team.logo}
-                      isDisabled={
-                      Boolean(loadingTeamName) ||
-                      hasTeamBeenPicked(competition.team.name, selectedTeams)
-                      }
-                    />
-                  )}
+                  team={competition.team.name}
+                  src={competition.team.logo}
+                  isDisabled={
+                    Boolean(loadingTeamName) ||
+                    hasTeamBeenPicked(competition.team.name, selectedTeams)
+                  }
+                />
               </FormControl>
             </FormItem>
           </>
