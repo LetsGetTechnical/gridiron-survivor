@@ -3,9 +3,8 @@ import { getBaseURL } from './getBaseUrl';
 describe('getBaseURL', () => {
   it('should return the correct base URL for production', () => {
     process.env.NEXT_PUBLIC_VERCEL_ENV = 'production';
-    process.env.NEXT_PUBLIC_VERCEL_URL = 'production.com';
     const result = getBaseURL();
-    expect(result).toBe('https://production.com');
+    expect(result).toBe('https://www.gridironsurvivor.com');
   });
 
   it('should return the correct base URL for preview', () => {
