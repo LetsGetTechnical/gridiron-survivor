@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/utils';
 import { useAuthContext } from '@/context/AuthContextProvider';
+import Link from 'next/link';
 
 /**
  * Renders the navigation.
@@ -69,14 +70,14 @@ export const Nav = (): JSX.Element => {
               </DrawerHeader>
               <ul className="m-0 flex flex-col gap-1 p-0">
                 <li>
-                  <a
+                  <Link
                     href="/account/settings"
                     className="p-0 text-base font-normal text-muted-foreground underline underline-offset-4 hover:text-primary/90"
                     onClick={() => setOpen(false)}
                     data-testid="settings-link"
                   >
                     Settings
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <Button

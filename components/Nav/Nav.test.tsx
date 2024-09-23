@@ -81,7 +81,7 @@ describe('Nav', () => {
     expect(screen.getByTestId('sign-out-button')).toBeInTheDocument();
   });
 
-  it('should route to the preferences page when the user clicks on the preferences link', async () => {
+  it('should route to the settings page when the user clicks on the settings link', async () => {
     mockUsePathname.mockReturnValue('/league/all');
 
     render(<Nav />);
