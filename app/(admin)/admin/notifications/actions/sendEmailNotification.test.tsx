@@ -15,21 +15,21 @@ jest.mock('@/api/serverConfig', () => ({
 describe('SendEmailNotification', () => {
     it('should send email with provided information', async () => {
         const content = 'Test';
-        const groupUsers = ['123456', '12345', '1234'];
+        const sendEmailUsers = ['123456', '12345', '1234'];
         const subject = 'This is a test';
 
-        (sendEmailNotifications as jest.Mock).mockImplementation(async ({content, groupUsers, subject}) => {
-            await (messaging.createEmail as jest.Mock)('1234567890', subject, content, [], groupUsers);
+        (sendEmailNotifications as jest.Mock).mockImplementation(async ({content, sendEmailUsers, subject}) => {
+            await (messaging.createEmail as jest.Mock)('1234567890', subject, content, [], sendEmailUsers);
         })
 
-        await sendEmailNotifications({content, groupUsers, subject});
+        await sendEmailNotifications({content, sendEmailUsers, subject});
 
         expect(messaging.createEmail).toHaveBeenCalledWith(
             expect.any(String),
             subject,
             content,
             [],
-            groupUsers,
+            sendEmailUsers,
         );
     });
 });

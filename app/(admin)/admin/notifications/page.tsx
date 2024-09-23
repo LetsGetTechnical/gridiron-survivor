@@ -16,17 +16,17 @@ import React from 'react';
  */
 const AdminNotifications = (): JSX.Element => {
   const [content, setContent] = useState<string>('');
-  const [groupUsers, setGroupUsers] = useState<string[]>([]);
+  const [sendEmailUsers, setSendEmailUsers] = useState<string[]>([]);
   const [subject, setSubject] = useState<string>('');
 
   /**
    * To grab all users from the league.
    */
-  const getLeagueData = async (): Promise<void> => {
+  const participantsEmail = async (): Promise<void> => {
     try {
       const leagueId = '66f1a8e300102bff03ff';
       const leagueData = await getCurrentLeague(leagueId);
-      setGroupUsers(leagueData.participants);
+      setSendEmailUsers(leagueData.participants);
     } catch (error) {
       console.error('Error Sending Email:', error);
       throw new Error('Error Sending Email');
@@ -39,7 +39,7 @@ const AdminNotifications = (): JSX.Element => {
    */
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    await sendEmailNotifications({ content, groupUsers, subject });
+    await sendEmailNotifications({ content, sendEmailUsers, subject });
   };
 
   return (
@@ -47,7 +47,7 @@ const AdminNotifications = (): JSX.Element => {
       <Button
         label="Email Testers"
         type="button"
-        onClick={getLeagueData}
+        onClick={participantsEmail}
         data-testid="email-testers"
       />
       <form onSubmit={handleSubmit}>

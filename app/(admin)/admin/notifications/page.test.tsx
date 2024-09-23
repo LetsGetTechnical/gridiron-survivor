@@ -55,7 +55,7 @@ describe('Admin notifications page', () => {
     await waitFor(() => {
       expect(sendEmailNotifications as jest.Mock).toHaveBeenCalledWith({
         content: 'Test message section.',
-        groupUsers: dummyParticipants,
+        sendEmailUsers: dummyParticipants,
         subject: 'Test Title',
       });
     });
