@@ -20,7 +20,7 @@ const AdminNotifications = (): JSX.Element => {
   const [subject, setSubject] = useState<string>('');
 
   /**
-   * To grab all participant's userID's from the league.
+   * To grab all participant's userIDs from the league.
    */
   const participantsEmail = async (): Promise<void> => {
     try {

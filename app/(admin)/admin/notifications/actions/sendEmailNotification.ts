@@ -9,8 +9,8 @@ import { messaging } from '@/api/serverConfig';
  * Function to send email.
  * @param props - subject, content.
  * @param props.content - The actual email you are wanting to send.
- * @param props.subject - The subject of the email.
  * @param props.sendEmailUsers - User id's being passed in from the notification page.
+ * @param props.subject - The subject of the email.
  */
 export const sendEmailNotifications = async ({
   content,
