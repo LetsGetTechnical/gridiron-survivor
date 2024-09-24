@@ -15,7 +15,7 @@ describe('WeeklyPickButton', () => {
   it.each(['Home', 'Away'])('renders correctly with homeAway data', (homeAway) => {
     render(
       <RadioGroup>
-        <WeeklyPickButton homeAway={homeAway} team={weeklyPickData.team} src={weeklyPickData.src} />
+        <WeeklyPickButton loadingTeamName={''} selectedTeam={''} homeAway={homeAway} team={weeklyPickData.team} src={weeklyPickData.src} />
       </RadioGroup>,
     );
 
