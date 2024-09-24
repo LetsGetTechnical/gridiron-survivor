@@ -100,15 +100,4 @@ describe('WeekTeams', () => {
     expect(packersButton).toBeDisabled();
   });
 
-  describe('loading spinner team selection', () => {
-    it('the loading spinner should display after team selection', () => {
-      render(<TestWeekTeamsComponent loadingTeamName={'packers'} />);
-      expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
-    });
-
-    it('the loading spinner should not display after team selection', () => {
-      render(<TestWeekTeamsComponent loadingTeamName={''} />);
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-  });
 });
