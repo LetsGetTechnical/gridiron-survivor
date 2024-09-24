@@ -8,8 +8,8 @@ import { messaging } from '@/api/serverConfig';
 /**
  * Function to send email.
  * @param props - subject, content.
- * @param props.content - The email itself.
- * @param props.subject - The header of the email.
+ * @param props.content - The actual email you are wanting to send.
+ * @param props.subject - The subject of the email.
  * @param props.sendEmailUsers - User id's being passed in from the notification page.
  */
 export const sendEmailNotifications = async ({
@@ -30,7 +30,6 @@ export const sendEmailNotifications = async ({
       sendEmailUsers,
     );
   } catch (error) {
-    console.error('Error Sending Email:', error);
     throw new Error('Error Sending Email');
   }
 };
