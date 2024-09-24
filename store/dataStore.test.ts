@@ -4,7 +4,7 @@ import { useDataStore } from './dataStore';
 // test values
 const userData = {
   documentId: '123',
-  idd: '123',
+  id: '123',
   email: 'test@email.com',
   leagues: ['123456'],
 };

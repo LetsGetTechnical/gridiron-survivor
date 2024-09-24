@@ -39,7 +39,7 @@ jest.mock('@/store/dataStore', () => ({
         leagueName: 'Test League',
         logo: 'logo.png',
         participants: ['123456', '78'],
-        survivors: ['123456', '78', '9'],
+        survivors: ['123456', '78'],
       },
     ],
     updateUser: jest.fn(),
@@ -52,25 +52,8 @@ jest.mock('@/utils/utils', () => ({
 }));
 
 jest.mock('@/api/apiFunctions', () => ({
-  getAllLeagues: jest.fn(() =>
-    Promise.resolve([
-      {
-        leagueId: '123',
-        leagueName: 'Test League',
-        logo: 'logo.png',
-        participants: ['123456', '78', '9'],
-        survivors: ['123456', '78'],
-      },
-      {
-        leagueId: '456',
-        leagueName: 'Test League 2',
-        logo: 'logo.png',
-        participants: ['123456', '78', '9'],
-        survivors: ['123456', '78'],
-      },
-    ]),
-  ),
-  addUserToLeague: jest.fn(() => Promise.resolve({})),
+  getAllLeagues: jest.fn(),
+  addUserToLeague: jest.fn(),
 }));
 
 jest.mock('react-hot-toast', () => ({
@@ -166,7 +149,7 @@ describe('Leagues Component', () => {
       documentId: '123',
       email: 'test@test.com',
       id: '123',
-      leagues: ['12'],
+      leagues: [],
     };
 
     const league = {
@@ -185,7 +168,6 @@ describe('Leagues Component', () => {
       updateUser,
     });
 
-    mockGetUserLeagues.mockResolvedValueOnce([]);
     mockGetAllLeagues.mockResolvedValueOnce([league]);
     mockAddUserToLeague.mockResolvedValue(
       Promise.resolve({
@@ -237,7 +219,7 @@ describe('Leagues Component', () => {
       documentId: '123',
       email: 'test@test.com',
       id: '123',
-      leagues: ['12'],
+      leagues: [],
     };
 
     const league = {
