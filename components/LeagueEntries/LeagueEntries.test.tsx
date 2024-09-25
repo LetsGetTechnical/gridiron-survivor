@@ -5,7 +5,7 @@ import React from 'react';
 describe('LeagueEntries', () => {
   it(`renders 'default' state without a pick made`, () => {
     render(
-      <LeagueEntries entryName="Entry 1" linkUrl="" userPickHistory={[]} />,
+      <LeagueEntries entryName="Entry 1" isLockedOutProp={false} linkUrl="" userPickHistory={[]} />,
     );
 
     const leagueEntryContainerCard = screen.getByTestId(
@@ -13,15 +13,15 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId(
-      'league-entry-pick-button',
+    const leagueEntryPickLink = screen.getByTestId(
+      'league-entry-pick-link',
     );
     const userHistoryPicks = screen.queryByTestId('user-pick-history');
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 1');
-    expect(leagueEntryPickButton).toHaveTextContent('Make Pick');
+    expect(leagueEntryPickLink).toHaveTextContent('Make Pick');
     expect(userHistoryPicks).not.toBeInTheDocument();
   });
 
@@ -29,6 +29,7 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 2"
+        isLockedOutProp={false}
         linkUrl=""
         isPickSet={true}
         userPickHistory={['/team-a-logo.png']}
@@ -40,14 +41,14 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId(
-      'league-entry-pick-button',
+    const leagueEntryPickLink = screen.getByTestId(
+      'league-entry-pick-link',
     );
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 2');
-    expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
+    expect(leagueEntryPickLink).toHaveTextContent('Change Pick');
     expect(screen.queryByTestId('user-pick-history')).toBeInTheDocument();
   });
 
@@ -56,6 +57,7 @@ describe('LeagueEntries', () => {
       <LeagueEntries
         entryName="Entry 3"
         isEliminated
+        isLockedOutProp={false}
         isPickSet={false}
         linkUrl=""
         userPickHistory={['/team-a-logo.png']}
@@ -80,6 +82,7 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 2"
+        isLockedOutProp={false}
         isPickSet={true}
         linkUrl={linkUrl}
         selectedTeamLogo={teamLogoUrl}
@@ -92,16 +95,16 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId(
-      'league-entry-pick-button',
+    const leagueEntryPickLink = screen.getByTestId(
+      'league-entry-pick-link',
     );
-    const leagueLink = screen.getByTestId('league-entry-pick-button-link');
+    const leagueLink = screen.getByTestId('league-entry-pick-link');
     const leagueEntryLogo = screen.getByTestId('league-entry-logo');
 
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryNumber).toHaveTextContent('Entry 2');
-    expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
+    expect(leagueEntryPickLink).toHaveTextContent('Change Pick');
     expect(leagueLink).toHaveAttribute('href', linkUrl);
     expect(leagueEntryLogo).toBeInTheDocument();
     expect(leagueEntryLogo).toHaveAttribute(
@@ -120,6 +123,7 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 2"
+        isLockedOutProp={false}
         isPickSet={true}
         linkUrl={linkUrl}
         selectedTeamLogo={teamLogoUrl}
