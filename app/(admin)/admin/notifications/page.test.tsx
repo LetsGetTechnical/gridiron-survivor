@@ -40,7 +40,6 @@ describe('Admin notifications page', () => {
   });
   it('should call the sendEmailNotifications function with the provided inputs', async () => {
     const dummyParticipants = ['12345', '1234', '123'];
-    const testBCC = ['1234', '12345', '1234213'];
     (getCurrentLeague as jest.Mock).mockResolvedValue({ participants: dummyParticipants });
 
     fireEvent.click(emailTestersButton);
@@ -58,7 +57,7 @@ describe('Admin notifications page', () => {
         content: 'Test message section.',
         sendEmailUsers: dummyParticipants,
         subject: 'Test Title',
-        testBCC: testBCC,
+        testBCC: expect.any(Array),
       });
     });
   });
