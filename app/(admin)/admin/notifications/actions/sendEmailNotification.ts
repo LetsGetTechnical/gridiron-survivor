@@ -11,15 +11,18 @@ import { messaging } from '@/api/serverConfig';
  * @param props.content - The actual email you are wanting to send.
  * @param props.sendEmailUsers - User id's being passed in from the notification page.
  * @param props.subject - The subject of the email.
+ * @param props.testBCC - The target IDs of users needed to BCC emails.
  */
 export const sendEmailNotifications = async ({
   content,
   sendEmailUsers,
   subject,
+  testBCC,
 }: {
   content: string;
   sendEmailUsers: string[];
   subject: string;
+  testBCC: string[];
 }): Promise<void> => {
   try {
     await messaging.createEmail(
@@ -28,6 +31,9 @@ export const sendEmailNotifications = async ({
       content,
       [],
       sendEmailUsers,
+      [],
+      [],
+      testBCC,
     );
   } catch (error) {
     throw new Error('Error Sending Email');
