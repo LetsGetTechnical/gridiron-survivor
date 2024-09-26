@@ -1,12 +1,11 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { Button } from '../Button/Button';
 import { cn } from '@/utils/utils';
 import { EntryStatus } from '../EntryStatus/EntryStatus';
 import { ILeagueEntriesProps } from './LeagueEntries.interface';
 import React, { JSX, useEffect, useState } from 'react';
-import LinkCustom from 'next/link';
+import LinkCustom from '../LinkCustom/LinkCustom';
 import Image from 'next/image';
 
 /**
@@ -18,8 +17,14 @@ import Image from 'next/image';
  * @param props.isPickSet - if true, the team logo of the picked team shows up on the LeagueEntries card and the button changes from "make a pick" to "chagne pick"
  * @param props.userPickHistory - the user's pick history for this entry
  * @param props.selectedTeamLogo - the team logo
- * @param props.isLockedOutProp
+ * @param props.lockout - if true, the user is locked out from making a pick
  * @returns {React.JSX.Element} - A div element that contains the user's entry information
+ */
+
+/**
+ * Display all entries for a league.
+ * @param {string} leagueId - The league id.
+ * @returns {JSX.Element} The rendered entries component.
  */
 const LeagueEntries = ({
   entryName,
