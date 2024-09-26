@@ -48,6 +48,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
+  const [loadingTeamName, setLoadingTeamName] = useState<string | null>(null);
   const [userPick, setUserPick] = useState<string>('');
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
@@ -207,6 +208,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       entry,
       league,
       NFLTeams,
+      setLoadingTeamName,
       setUserPick,
       updateWeeklyPicks,
       user,
@@ -330,6 +332,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                     <FormItem>
                       <FormControl>
                         <WeekTeams
+                          loadingTeamName={loadingTeamName}
                           schedule={schedule}
                           selectedTeams={selectedTeams}
                           field={field}
