@@ -171,11 +171,11 @@ describe('Leagues Component', () => {
     mockGetAllLeagues.mockResolvedValueOnce([league]);
     mockAddUserToLeague.mockResolvedValue(
       Promise.resolve({
-        documentId: user.documentId,
-        leagueId: league.leagueId,
-        selectedLeagues: [...(user.leagues ?? []), league.leagueId],
-        participants: [...(league.participants ?? []), user.id],
-        survivors: [...(league.survivors ?? []), user.id],
+        userDocumentId: user.documentId,
+        selectedLeague: league.leagueId,
+        selectedLeagues: [league.leagueId],
+        participants: [user.id],
+        survivors: [user.id],
       }),
     );
 
@@ -259,7 +259,6 @@ describe('Leagues Component', () => {
 
     await waitFor(() => {
       expect(mockAddUserToLeague).toHaveBeenCalledWith({
-        userDocumentId: user.documentId,
         userDocumentId: user.documentId,
         selectedLeague: league.leagueId,
         selectedLeagues: [league.leagueId],
