@@ -46,11 +46,11 @@ const LeagueEntries = ({
       const day = currentDateAndTime.getUTCDay();
       const hours = currentDateAndTime.getUTCHours();
       if (
-        (day === 4 && hours >= 20) ||
-        day > 3 ||
-        day === 0 ||
-        day === 1 ||
-        (day === 2 && hours < 12)
+        (day === 5 && hours >= 0) || // Friday at 12am UTC (Thurs 8pm CT)
+        day > 5 || // Friday and Saturday
+        day === 0 || // Sunday
+        day === 1 || // Monday
+        (day === 2 && hours < 12) // Tuesday at 12pm UTC (8am CT)
       ) {
         setLockedOut(true);
       } else {
