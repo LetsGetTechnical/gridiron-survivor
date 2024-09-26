@@ -46,8 +46,10 @@ const LeagueEntries = ({
       const day = currentDateAndTime.getUTCDay();
       const hours = currentDateAndTime.getUTCHours();
       if (
-        (day === 4 && hours >= 0) ||
-        (day > 4 && day < 2) ||
+        (day === 4 && hours >= 20) ||
+        day > 3 ||
+        day === 0 ||
+        day === 1 ||
         (day === 2 && hours < 12)
       ) {
         setLockedOut(true);
