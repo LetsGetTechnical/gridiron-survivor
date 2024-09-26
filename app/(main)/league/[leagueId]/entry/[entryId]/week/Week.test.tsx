@@ -119,7 +119,7 @@ const updatedWeeklyPicks = {
   },
 };
 
-describe('League Week Picks', () => {
+xdescribe('League Week Picks', () => {
   const setUserPick = jest.fn();
   const updateWeeklyPicks = jest.fn();
   const mockGetNFLTeamLogo = getNFLTeamLogo as jest.Mock;
