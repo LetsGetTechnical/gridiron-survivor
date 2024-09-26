@@ -5,12 +5,15 @@ import React, { JSX } from 'react';
 import Image from 'next/image';
 import { Label } from '../Label/Label';
 import { RadioGroupItem } from '../RadioGroup/RadioGroup';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 type WeeklyPickButtonProps = {
   homeAway: string;
   team: string;
   src: string;
   isDisabled?: boolean;
+  loadingTeamName: string | null;
+  selectedTeam: string;
 };
 
 /**
@@ -20,6 +23,8 @@ type WeeklyPickButtonProps = {
  * @param props.src - The image source
  * @param props.isDisabled - Whether the button is disabled
  * @param props.homeAway - Shows whether the team is home or away.
+ * @param props.loadingTeamName - The loading state for selecting teams.
+ * @param props.selectedTeam - The selected team that the user chose.
  * @returns The rendered weekly pick button.
  */
 const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
@@ -27,6 +32,8 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
   team,
   src,
   isDisabled = false,
+  loadingTeamName,
+  selectedTeam,
 }): JSX.Element => {
   return (
     <>
@@ -40,6 +47,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
           disabled={isDisabled}
           data-testid="team-radio"
         />
+
         <Label htmlFor={team} data-testid="team-label" disabled={isDisabled}>
           <Image
             src={src}
@@ -50,7 +58,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
             data-testid="team-image"
             className="h-12 w-12"
           />
-          {team}
+          {loadingTeamName === selectedTeam ? <LoadingSpinner /> : <>{team}</>}
         </Label>
       </div>
     </>

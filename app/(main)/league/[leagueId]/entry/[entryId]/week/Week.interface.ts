@@ -23,6 +23,7 @@ export interface IWeeklyPickChange {
   entry: string;
   league: string;
   NFLTeams: INFLTeam[];
+  setLoadingTeamName: React.Dispatch<React.SetStateAction<string | null>>;
   setUserPick: React.Dispatch<React.SetStateAction<string>>;
   updateWeeklyPicks: ({}: IWeeklyPicks) => void;
   user: IUser;
