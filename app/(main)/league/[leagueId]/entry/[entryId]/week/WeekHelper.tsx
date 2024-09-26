@@ -25,6 +25,7 @@ import { IWeeklyPickChange } from './Week.interface';
  * @param props.week - Prop value for gameWeekId in updateWeeklyPicks
  * @param props.updateWeeklyPicks - Prop for the updateWeeklyPicks function
  * @param props.setUserPick - Prop for the setUserPick function
+ * @param props.setLoadingTeamName - Prop for the setLoadingTeamName state
  * @returns {void}
  */
 export const onWeeklyPickChange = async ({
@@ -32,6 +33,7 @@ export const onWeeklyPickChange = async ({
   entry,
   league,
   NFLTeams,
+  setLoadingTeamName,
   setUserPick,
   updateWeeklyPicks,
   user,
@@ -39,15 +41,11 @@ export const onWeeklyPickChange = async ({
   week,
 }: IWeeklyPickChange): Promise<void> => {
   try {
-    const selectedTeamName = NFLTeams.find(
-      (team) => team.teamName === teamSelect,
-    )?.teamName;
+    const team = NFLTeams.find((team) => team.teamName === teamSelect);
 
-    const currentUserPick = parseUserPick(
-      user.id,
-      entry,
-      selectedTeamName || '',
-    );
+    setLoadingTeamName(team?.teamId ?? null);
+
+    const currentUserPick = parseUserPick(user.id, entry, team?.teamName || '');
 
     // combines current picks and the user pick into one object.
     // if the user pick exists then it overrides the pick of the user.
@@ -109,5 +107,7 @@ export const onWeeklyPickChange = async ({
         message="There was an error processing your request."
       />,
     );
+  } finally {
+    setLoadingTeamName(null);
   }
 };

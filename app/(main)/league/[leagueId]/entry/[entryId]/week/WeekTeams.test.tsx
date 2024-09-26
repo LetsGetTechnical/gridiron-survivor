@@ -24,11 +24,16 @@ const mockNewUserPick = 'Chiefs';
 const mockOnWeeklyPickChange = jest.fn();
 const mockHasTeamBeenPicked = hasTeamBeenPicked as jest.Mock;
 
-const TestWeekTeamsComponent = () => {
+const TestWeekTeamsComponent = ({
+  loadingTeamName,
+}: {
+  loadingTeamName: string;
+}) => {
   const formMethods = useForm();
   return (
     <FormProvider {...formMethods}>
       <WeekTeams
+        loadingTeamName={loadingTeamName}
         field={mockField}
         schedule={mockSchedule}
         selectedTeams={mockSelectedTeams}
@@ -47,7 +52,7 @@ describe('WeekTeams', () => {
   it('the team should render active and the user currently has them selected', () => {
     mockHasTeamBeenPicked.mockReturnValue(false);
 
-    render(<TestWeekTeamsComponent />);
+    render(<TestWeekTeamsComponent loadingTeamName={''} />);
 
     const weekTeamsRadioItems: HTMLButtonElement[] =
       screen.getAllByTestId('team-radio');
@@ -64,7 +69,7 @@ describe('WeekTeams', () => {
   it('the team should render active and the user should be able to select the team', () => {
     mockHasTeamBeenPicked.mockReturnValue(false);
 
-    render(<TestWeekTeamsComponent />);
+    render(<TestWeekTeamsComponent loadingTeamName={''} />);
     const weeklyPickButtons = screen.getAllByTestId('team-label');
 
     const chiefsButton = weeklyPickButtons.filter(
@@ -82,7 +87,7 @@ describe('WeekTeams', () => {
   it('the team should render disabled if the team has already been used and the user should not be able to select the team', () => {
     mockHasTeamBeenPicked.mockReturnValue(true);
 
-    render(<TestWeekTeamsComponent />);
+    render(<TestWeekTeamsComponent loadingTeamName={''} />);
 
     const weeklyPickButtons: HTMLButtonElement[] =
       screen.getAllByTestId('team-radio');
@@ -94,4 +99,5 @@ describe('WeekTeams', () => {
     expect(packersButton).toBeInTheDocument();
     expect(packersButton).toBeDisabled();
   });
+
 });
