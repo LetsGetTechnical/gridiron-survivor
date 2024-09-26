@@ -42,6 +42,7 @@ const formatDateTime = (dateString: string): string => {
  * @param props.selectedTeams The user's selected teams.
  * @param props.userPick The user's pick.
  * @param props.onWeeklyPickChange The function to call when the user's pick changes.
+ * @param props.loadingTeamName The loading state for selecting teams.
  * @returns The rendered weekly picks page.
  */
 const WeekTeams = ({
@@ -50,6 +51,7 @@ const WeekTeams = ({
   selectedTeams,
   userPick,
   onWeeklyPickChange,
+  loadingTeamName,
 }: IWeekTeamsProps): JSX.Element => (
   <RadioGroup
     onValueChange={(value: string) => onWeeklyPickChange(value as NFLTeams)}
@@ -76,13 +78,15 @@ const WeekTeams = ({
             <FormItem key={competition.id} className="text-center">
               <FormControl>
                 <WeeklyPickButton
+                  loadingTeamName={loadingTeamName}
+                  selectedTeam={competition.team.shortDisplayName.toLowerCase()}
                   homeAway={competition.homeAway}
                   team={competition.team.name}
                   src={competition.team.logo}
-                  isDisabled={hasTeamBeenPicked(
-                    competition.team.name,
-                    selectedTeams,
-                  )}
+                  isDisabled={
+                    Boolean(loadingTeamName) ||
+                    hasTeamBeenPicked(competition.team.name, selectedTeams)
+                  }
                 />
               </FormControl>
             </FormItem>

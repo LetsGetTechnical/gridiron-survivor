@@ -18,7 +18,12 @@ module.exports = {
     ]
   },
   images: {
-    domains: ['a.espncdn.com'],
+    remotePatterns: [{
+      protocol: 'https',
+      hostname: 'a.espncdn.com',
+      port: '',
+      pathname: '/**',
+    }],
   },
   eslint: {
     ignoreDuringBuilds: false,

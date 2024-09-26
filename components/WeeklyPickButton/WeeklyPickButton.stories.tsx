@@ -34,7 +34,7 @@ type Story = StoryObj<typeof meta>;
 const withRadioGroup: Decorator = (Story) => (
   <RadioGroup>
     <Story />
-    <WeeklyPickButton homeAway='Home' team="Cowboys" src="/assets/team-logo-placeholder.jpg" />
+    <WeeklyPickButton homeAway='Home' team="Cowboys" src="/assets/team-logo-placeholder.jpg" loadingTeamName={"ravens"} selectedTeam={""} />
   </RadioGroup>
 );
 
@@ -43,6 +43,8 @@ export const Primary: Story = {
     homeAway: 'Home',
     team: 'Ravens',
     src: '/assets/team-logo-placeholder.jpg',
+    loadingTeamName: 'ravens',
+    selectedTeam: '',
   },
   decorators: withRadioGroup,
 };
