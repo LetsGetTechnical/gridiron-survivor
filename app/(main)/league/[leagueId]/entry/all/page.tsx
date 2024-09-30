@@ -219,7 +219,6 @@ const Entry = ({
                     <LeagueEntries
                       entryName={entry.name}
                       isEliminated={entry.eliminated}
-                      isLockedOutProp={false}
                       isPickSet={isPickSet}
                       key={entry.$id}
                       linkUrl={linkUrl}

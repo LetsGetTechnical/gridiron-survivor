@@ -31,11 +31,10 @@ const LeagueEntries = ({
   isEliminated = false,
   isPickSet = false,
   linkUrl,
-  isLockedOutProp = false,
   userPickHistory,
   selectedTeamLogo = '',
 }: ILeagueEntriesProps): JSX.Element => {
-  const [isLockedOut, setLockedOut] = useState<boolean>(isLockedOutProp);
+  const [isLockedOut, setLockedOut] = useState<boolean>(false);
 
   useEffect(() => {
     /**
