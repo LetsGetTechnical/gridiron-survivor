@@ -247,26 +247,22 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       week,
     };
 
-    if (lockedOut) {
-      try {
+    try {
+      if (lockedOut) {
         toast.custom(
           <Alert
             variant={AlertVariants.Error}
             message={`Team selection has been locked for the week!`}
           />,
         );
-        console.error(params);
-      } catch (error) {
-        console.error('Submission error:', error);
-      }
-    } else {
-      try {
+      } else {
         await onWeeklyPickChange(params);
         setUserPick(teamSelect);
         router.push(`/league/${league}/entry/all`);
-      } catch (error) {
-        console.error('Submission error:', error);
       }
+      console.error(params);
+    } catch (error) {
+      console.error('Submission error:', error);
     }
   };
 
