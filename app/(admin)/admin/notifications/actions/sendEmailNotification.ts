@@ -17,12 +17,10 @@ export const sendEmailNotifications = async ({
   content,
   sendEmailUsers,
   subject,
-  testBCC,
 }: {
   content: string;
   sendEmailUsers: string[];
   subject: string;
-  testBCC: string[];
 }): Promise<void> => {
   try {
     await messaging.createEmail(
@@ -33,7 +31,7 @@ export const sendEmailNotifications = async ({
       sendEmailUsers,
       [],
       [],
-      testBCC,
+      ['66bd072b4824aa77bd9b', '66da0993c6adb1bd868a'],
     );
   } catch (error) {
     throw new Error('Error Sending Email');

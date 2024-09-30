@@ -10,8 +10,6 @@ import { Label } from '@/components/Label/Label';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
 import React from 'react';
 
-const testBCC = ['66bd072b4824aa77bd9b', '66da0993c6adb1bd868a'];
-
 /**
  * The admin home page.
  * @returns The rendered AdminHome page.
@@ -40,7 +38,7 @@ const AdminNotifications = (): JSX.Element => {
    */
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    await sendEmailNotifications({ content, sendEmailUsers, subject, testBCC });
+    await sendEmailNotifications({ content, sendEmailUsers, subject });
   };
 
   return (
