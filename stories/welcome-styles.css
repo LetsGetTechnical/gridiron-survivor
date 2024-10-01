@@ -76,10 +76,10 @@ img {
   flex-direction: column;
   justify-content: space-around;
   padding: 1rem;
-  height: auto;
-  max-width: 13rem;
-  min-width: 13rem;
+  height: 8rem;
+  width: 13rem;
   transition-duration: 0.35s;
+  text-wrap: balance;
 
   a {
     color: #dd4c3b;

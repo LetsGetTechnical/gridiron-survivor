@@ -6,20 +6,22 @@ import frontendMentorLogo from './assets/frontendMentorLogo.svg';
 import gitkrakenLogo from './assets/gitkrakenLogo.svg';
 import pastelLogo from './assets/pastelLogo.svg';
 import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
+import { Github } from 'lucide-react';
+
+import { Button } from '../components/Button/Button.tsx';
 
 <html>
   <body class="dark bg-background text-muted-foreground max-w-screen-lg mx-auto text-pretty flex flex-col space-y-36 pb-36">
     <header class="header flex justify-center align-middle">
-      <a href="https://www.gridironsurvivor.com" target="_blank" rel="noreferrer" class="w-1/6 h-fit">
+      <a href="https://www.gridironsurvivor.com" target="_blank" rel="noreferrer" class="w-1/4 h-fit">
         <Image class="w-full" src={gridironLogo} alt='Gridiron Survivor Football Logo' />
       </a>
     </header>
     <section class="hero space-y-12">
       <h1>What is Gridiron Survivor?</h1>
-      <p class="text-xl text-pretty max-w-screen-lg mx-auto">
-        Gridiron Survivor is the ultimate pick'em league app. Track your picks, see how you stack up against your friends, and hope to be crowned champion! Developed by a talented team of junior developers using technologies such as Next.js, React, and Tailwind CSS, Gridiron Survivor is the perfect tool for any football fan looking to take their pick'em game to the next level.
-        <br />
-        Gridiron Survivor is currently in its first Alpha for the 2024-2025 NFL Season! 1st, 2nd, and 3rd place winners of the season get spoiled with prizes from our generous sponsors.
+      <p class="text-2xl text-pretty max-w-screen-lg mx-auto">
+        Gridiron Survivor is the ultimate survivor league app. Track your picks, see how you stack up against your competition, and hope to be crowned champion! Developed by a talented team of Junior Developers led by Senior Software Engineer Shashi Lo, Gridiron Survivor is the perfect app for any football fan looking to take their survivor league to the next level.
       </p>
     </section>
     <section class="sponsors-section h-fit">
@@ -92,6 +94,16 @@ import Image from 'next/image';
         </div>
         <div class="team-member flex flex-col gap-2">
           <div>
+            <h4>Danielle Lindblom</h4>
+            <p>Frontend Engineer</p>
+          </div>
+          <div>
+            <a href="https://github.com/Danielle254" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/Danielle-Lindblom" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>        
+        <div class="team-member flex flex-col gap-2">
+          <div>
             <h4>Shashi Lo</h4>
             <p>Engineering Manager</p>
           </div>
@@ -132,6 +144,14 @@ import Image from 'next/image';
         </div>
       </section>
     </section>
+    <footer class="flex flex-row justify-between align-bottom debug">      
+      <a href="https://github.com/LetsGetTechnical/gridiron-survivor">
+        <Github class="w-10 h-auto duration-200 hover:text-zinc-50 hover:scale-125 hover:duration-200" /> 
+      </a>
+      <a href="./About/Application Setup.mdx" >
+        <Button label="Application Setup ➔" />
+      </a>
+    </footer>
 
   </body>
 
