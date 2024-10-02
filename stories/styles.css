@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('../app/globals.css');
+
 .doc_nav_links {
   display: flex;
   justify-content: space-between;

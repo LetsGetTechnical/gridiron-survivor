@@ -1,158 +1,106 @@
-import './welcome-styles.css';
+import './styles.css';
+import Image from 'next/image';
 import gridironLogo from './assets/gridironSurvivorLogo.svg';
 import appwriteLogo from './assets/appwriteLogo.svg';
 import blogRecorderLogo from './assets/blogRecorderLogo.svg';
 import frontendMentorLogo from './assets/frontendMentorLogo.svg';
 import gitkrakenLogo from './assets/gitkrakenLogo.svg';
 import pastelLogo from './assets/pastelLogo.svg';
-import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
-import { Github } from 'lucide-react';
+import TeamMember from './TeamMember';
+import { Unstyled } from '@storybook/blocks';
 
-import { Button } from '../components/Button/Button.tsx';
+<Unstyled>
 
-<html>
-  <body class="dark bg-background text-muted-foreground max-w-screen-lg mx-auto text-pretty flex flex-col space-y-36 pb-36">
-    <header class="header flex justify-center align-middle">
-      <a href="https://www.gridironsurvivor.com" target="_blank" rel="noreferrer" class="w-1/4 h-fit">
-        <Image class="w-full" src={gridironLogo} alt='Gridiron Survivor Football Logo' />
-      </a>
-    </header>
-    <section class="hero space-y-12">
-      <h1>What is Gridiron Survivor?</h1>
-      <p class="text-2xl text-pretty max-w-screen-lg mx-auto">
-        Gridiron Survivor is the ultimate survivor league app. Track your picks, see how you stack up against your competition, and hope to be crowned champion! Developed by a talented team of Junior Developers led by Senior Software Engineer Shashi Lo, Gridiron Survivor is the perfect app for any football fan looking to take their survivor league to the next level.
-      </p>
-    </section>
-    <section class="sponsors-section h-fit">
-      <h2 class="pb-8">Sponsors</h2>
-      <div class="sponsors-card-container flex flex-row flex-wrap justify-between mx-auto">
-        <a href="https://appwrite.io/" target="_blank" rel="noreferrer" class="sponsor-card">
-          <Image src={appwriteLogo} />
-          <h3>Appwrite</h3>
-        </a>
-        <a href="https://blogrecorder.com/" target="_blank" rel="noreferrer" class="sponsor-card">
-          <Image src={blogRecorderLogo} />
-          <h3>Blog Recorder</h3>
-        </a>
-        <a href="https://www.frontendmentor.io/" target="_blank" rel="noreferrer" class="sponsor-card">
-          <Image src={frontendMentorLogo} />
-          <h3>Frontend Mentor</h3>
-        </a>
-        <a href="https://www.gitkraken.com/" target="_blank" rel="noreferrer" class="sponsor-card">
-          <Image src={gitkrakenLogo} />
-          <h3>GitKraken</h3>
-        </a>
-        <a href="https://usepastel.com/" target="_blank" rel="noreferrer" class="sponsor-card">
-          <Image src={pastelLogo} />
-          <h3>Pastel</h3>
-        </a>
-      </div>
-    </section>
-    <section class="meet-the-team space-y-12">
-      <h2>Meet the Team</h2>
-      <section class="meet-the-team grid grid-cols-4 grid-rows-auto place-items-center mx-auto gap-x-20 gap-y-10">
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Alex Appleget</h4>
-            <p>Software Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/alexappleget" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/alex-appleget/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Richard Choi</h4>
-            <p>DevRel Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/choir27" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/richard-choir/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Ryan Furrer</h4>
-            <p>UX Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/ryandotfurrer" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/ryanfurrer/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Walter Furrer</h4>
-            <p>Documentation Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/FurrerW" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/furrerw/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Danielle Lindblom</h4>
-            <p>Frontend Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/Danielle254" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/Danielle-Lindblom" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>        
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Shashi Lo</h4>
-            <p>Engineering Manager</p>
-          </div>
-          <div>
-            <a href="https://github.com/shashilo" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/shashilo/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Corina Murg</h4>
-            <p>Frontend Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/CorinaMurg" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/corinamurg/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Chris Nowicki</h4>
-            <p>Software Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/chris-nowicki" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/chris-nowicki/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <div class="team-member flex flex-col gap-2">
-          <div>
-            <h4>Mai Vang</h4>
-            <p>Frontend Engineer</p>
-          </div>
-          <div>
-            <a href="https://github.com/vmaineng" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/mai-vang-swe/" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-      </section>
-    </section>
-    <footer class="flex flex-row justify-between align-bottom debug">      
-      <a href="https://github.com/LetsGetTechnical/gridiron-survivor">
-        <Github class="w-10 h-auto duration-200 hover:text-zinc-50 hover:scale-125 hover:duration-200" /> 
-      </a>
-      <a href="./About/Application Setup.mdx" >
-        <Button label="Application Setup ➔" />
-      </a>
-    </footer>
+<Image
+  src={gridironLogo}
+  alt="Gridiron Surivior Logo"
+  className="block max-w-full"
+/>
 
-  </body>
+# What is Gridiron Survivor?
 
-</html>
+Gridiron Survivor is the ultimate survivor league app. Track your picks, see how you stack up against your competition and hope to be crowned champion! Developed by a talented team of Junior Developers led by Senior Software Engineer Shashi Lo, Gridiron Survivor is the perfect app for any football fan looking to take their survivor league to the next level.
+
+## Sponsors
+
+<Image
+  src={appwriteLogo}
+  alt="Gridiron Surivior Logo"
+  className="block max-w-full"
+/>
+### Appwrite
+
+<Image
+  src={blogRecorderLogo}
+  alt="Blog Recorder Logo"
+  className="block max-w-full"
+/>
+### Blog Recorder
+
+<Image
+  src={frontendMentorLogo}
+  alt="Frontend Mentor Logo"
+  className="block max-w-full"
+/>
+### Frontend Mentor
+
+<Image src={gitkrakenLogo} alt="GitKraken Logo" className="block max-w-full" />
+### GitKraken
+
+<Image src={pastelLogo} alt="Pastel Logo" className="block max-w-full" />
+### Pastel
+
+## Meet the Team
+
+<TeamMember />
+
+**Alex Appleget**  
+Software Engineer  
+[GitHub]()  
+[LinkedIn]()
+
+**Richard Choi**  
+ DevRel Engineer  
+ [GitHub]()  
+ [LinkedIn]()
+
+**Ryan Furrer**  
+ UX Engineer  
+ [GitHub]()  
+ [LinkedIn]()
+
+**Walter Furrer**  
+ Documentation Engineer  
+ [GitHub]()  
+ [LinkedIn]()
+
+**Danielle Lindblom**  
+ Frontend Engineer  
+ [GitHub]()  
+ [LinkedIn]()
+
+**Shashi Lo**  
+ Engineering Manager  
+ [GitHub]()  
+ [LinkedIn]()
+
+**Corina Murg**  
+ Accessibility Expert  
+ [GitHub]()  
+ [LinkedIn]()
+
+**Chris Nowicki**  
+ Software Engineer  
+ [GitHub]()  
+ [LinkedIn]()
+
+**Mai Vang**  
+ Frontend Engineer  
+ [GitHub]()  
+ [LinkedIn]()
+
+<ol className="doc_nav_links">
+  <li></li>
+  <li>[Application Setup ](?path=/docs/about-application-setup--docs)</li>
+</ol>
+</Unstyled>
