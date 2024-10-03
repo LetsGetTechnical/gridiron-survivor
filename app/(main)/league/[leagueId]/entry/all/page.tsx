@@ -251,16 +251,6 @@ const Entry = ({
                   {addingEntry ? <LoadingSpinner /> : 'Add New Entry'}
                 </Button>
               )}
-
-              {currentWeek > 1 && (
-                <Link
-                  className="text-primary hover:text-primary-muted font-bold hover:underline"
-                  data-testid="past-weeks-link"
-                  href={`#`}
-                >
-                  View Past Weeks
-                </Link>
-              )}
             </div>
           </section>
         </div>
