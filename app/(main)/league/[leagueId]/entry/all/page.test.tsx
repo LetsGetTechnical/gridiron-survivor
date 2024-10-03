@@ -132,7 +132,7 @@ describe('League entries page (Entry Component)', () => {
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
 
-  it('should display the header with the league name, survivors, and week number, without a past weeks link', async () => {
+  it('should display the header with the league name, survivors, and week number', async () => {
     mockGetCurrentUserEntries.mockResolvedValueOnce([
       {
         $id: '66311a210039f0532044',
