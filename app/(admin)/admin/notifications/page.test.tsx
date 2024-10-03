@@ -62,7 +62,9 @@ describe('Admin notifications page', () => {
       expect(sendEmailNotifications as jest.Mock).toHaveBeenCalledWith({
         content: 'Test message section.',
         groupUsers: ['12345', '1234', '123'],
+        sendEmailUsers: dummyParticipants,
         subject: 'Test Title',
+        testBCC: expect.any(Array),
       });
     });
   });

@@ -26,7 +26,7 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
       data-testid="LeagueCard"
       href={href}
       className={cn(
-        'LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg  border bg-card p-4 text-card-foreground shadow-sm hover:bg-zinc-800 dark:border-zinc-800',
+        'LeagueCard flex max-h-32 place-items-center gap-6 rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm hover:bg-muted/50',
       )}
       ref={ref}
     >
@@ -46,7 +46,7 @@ const LeagueCard = React.forwardRef<HTMLAnchorElement, ILeagueCardProps>(
           title={title}
           data-testid="LeagueCardTitle"
           className={cn(
-            'LeagueCardTitle text-2xl font-semibold leading-none tracking-tight dark:text-zinc-50',
+            'LeagueCardTitle text-2xl font-semibold leading-none tracking-tight text-foreground',
           )}
         >
           {title}

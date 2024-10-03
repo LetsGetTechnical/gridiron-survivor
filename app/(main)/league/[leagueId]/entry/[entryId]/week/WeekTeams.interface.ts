@@ -1,8 +1,9 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { ChangeEvent } from 'react';
 import { ControllerRenderProps, FieldValues } from 'react-hook-form';
+import { INFLTeam } from '@/api/apiFunctions.interface';
+import { NFLTeams } from '@/api/apiFunctions.enum';
 
 export interface ISchedule {
   id: string;
@@ -26,10 +27,12 @@ export interface ISchedule {
 
 export interface IWeekTeamsProps {
   field: ControllerRenderProps<FieldValues, string>;
+  loadingTeamName: string | null;
+  onWeeklyPickChange: ({}: NFLTeams) => Promise<void>;
   schedule: ISchedule[];
+  selectedTeams: INFLTeam['teamName'][];
   userPick: string;
   // eslint-disable-next-line no-unused-vars
-  onWeeklyPickChange: (data: ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 
 interface ICompetition {

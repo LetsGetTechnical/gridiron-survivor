@@ -3,13 +3,28 @@
 
 'use client';
 
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
+import { Button } from '@/components/Button/Button';
 import { getUserLeagues } from '@/utils/utils';
 import { ILeague } from '@/api/apiFunctions.interface';
+import { addUserToLeague, getAllLeagues } from '@/api/apiFunctions';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import React, { JSX, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const leagueSchema = z.object({
+  selectedLeague: z.string().nonempty('Please select a league'),
+});
+
+type LeagueFormInputs = z.infer<typeof leagueSchema>;
 
 /**
  * Renders the leagues component.
@@ -18,30 +33,93 @@ import React, { JSX, useEffect, useState } from 'react';
 const Leagues = (): JSX.Element => {
   const [leagues, setLeagues] = useState<ILeague[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const { user } = useDataStore((state) => state);
+  const { user, updateUser, allLeagues, updateAllLeagues } = useDataStore(
+    (state) => state,
+  );
+  const { isSignedIn } = useAuthContext();
+  const { handleSubmit, control } = useForm<LeagueFormInputs>({
+    resolver: zodResolver(leagueSchema),
+  });
 
   /**
-   * Fetches the user's leagues.
-   * @returns {Promise<void>}
+   * Fetches all leagues and leagues user is a part of from the database.
    */
-  const getLeagues = async (): Promise<void> => {
+  const fetchData = async (): Promise<void> => {
     try {
-      const userLeagues = await getUserLeagues(user.leagues);
-      setLeagues(userLeagues);
+      // Only fetch all leagues if they're not already in the store
+      if (allLeagues.length === 0) {
+        const fetchedLeagues = await getAllLeagues();
+        updateAllLeagues(fetchedLeagues);
+      }
+
+      // Fetch user leagues
+      const fetchedUserLeagues = await getUserLeagues(user.leagues);
+      setLeagues(fetchedUserLeagues);
     } catch (error) {
-      throw new Error('Error fetching user leagues');
+      console.error('Error fetching leagues:', error);
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Error}
+          message="Failed to fetch leagues. Please try again."
+        />,
+      );
     } finally {
       setLoadingData(false);
     }
   };
 
   useEffect(() => {
-    if (!user.id || user.id === '') {
+    if (isSignedIn) {
+      fetchData();
+    }
+  }, [isSignedIn]);
+
+  /**
+   * Handles the form submission.
+   * @param {LeagueFormInputs} data - The data from the form.
+   * @throws {Error} Throws an error if the selected league is not provided.
+   */
+  const onSubmit: SubmitHandler<LeagueFormInputs> = async (data) => {
+    const { selectedLeague } = data;
+    const league = allLeagues.find(
+      (league) => league.leagueId === selectedLeague,
+    );
+
+    if (!league) {
+      alert('Please select a valid league.');
       return;
     }
 
-    getLeagues();
-  }, [user]);
+    try {
+      await addUserToLeague({
+        userDocumentId: user.documentId,
+        selectedLeague: league.leagueId,
+        selectedLeagues: [...(user.leagues ?? []), league.leagueId],
+        participants: [...(league.participants ?? []), user.id],
+        survivors: [...(league.survivors ?? []), user.id],
+      });
+
+      setLeagues([...leagues, league]);
+      updateUser(user.documentId, user.id, user.email, [
+        ...user.leagues,
+        league.leagueId,
+      ]);
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Success}
+          message={`Added ${league.leagueName} to your leagues!`}
+        />,
+      );
+    } catch (error) {
+      console.error('Error adding league:', error);
+      toast.custom(
+        <Alert
+          variant={AlertVariants.Error}
+          message="Failed to add the league. Please try again."
+        />,
+      );
+    }
+  };
 
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
@@ -50,9 +128,10 @@ const Leagues = (): JSX.Element => {
       ) : (
         <>
           <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
-            Your leagues
+            Your Leagues
           </h1>
-          <section className="grid gap-6 md:grid-cols-2">
+
+          <section className="grid gap-6 md:grid-cols-2 mb-10">
             {leagues.length > 0 ? (
               leagues.map((league) => (
                 <LeagueCard
@@ -72,6 +151,55 @@ const Leagues = (): JSX.Element => {
               </div>
             )}
           </section>
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-8">
+              <label
+                htmlFor="available-leagues"
+                className="block text-lg font-medium mb-2"
+                data-testid="available-leagues-label"
+              >
+                Select league to join
+              </label>
+              <Controller
+                name="selectedLeague"
+                control={control}
+                defaultValue=""
+                // rules={{ required: 'Please select a league' }}
+                render={({ field, fieldState }) => (
+                  <>
+                    <select
+                      {...field}
+                      id="available-leagues"
+                      className={`border border-border rounded p-2 w-full text-secondary ${
+                        fieldState.error ? 'border-error' : ''
+                      }`}
+                    >
+                      <option value="">Select league</option>
+                      {allLeagues
+                        .filter(
+                          (league) => !user.leagues.includes(league.leagueId),
+                        )
+                        .map((league) => (
+                          <option
+                            key={`${league.leagueId}-${league.leagueName}`}
+                            value={league.leagueId}
+                          >
+                            {league.leagueName}
+                          </option>
+                        ))}
+                    </select>
+                    {fieldState.error && (
+                      <span className="text-warning">
+                        {fieldState.error.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+            <Button type="submit">Join League</Button>
+          </form>
         </>
       )}
     </div>

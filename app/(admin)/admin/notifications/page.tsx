@@ -23,21 +23,23 @@ const AdminNotifications = (): JSX.Element => {
   const [content, setContent] = useState<string>('');
   const [groupUsers, setGroupUsers] = useState<string[]>([]);
   const [leagueName, setLeagueName] = useState<string>('');
+  const [sendEmailUsers, setSendEmailUsers] = useState<string[]>([]);
   const [subject, setSubject] = useState<string>('');
   const [emailRecipients, setEmailRecipients] = useState<string>('');
 
   /**
    * To grab all users from the league.
    * @returns The league data.
+   * To grab all participant's userIDs from the league to be passed into the backend email function.
    */
-  const getLeagueData = async (): Promise<void> => {
+  const participantsEmail = async (): Promise<void> => {
     try {
-      const leagueId = '66c6618900033d179dda';
+      const leagueId = '66f1a8e300102bff03ff';
       const leagueData = await getCurrentLeague(leagueId);
       setGroupUsers(leagueData.participants);
       setLeagueName(leagueData.leagueName);
+      setSendEmailUsers(leagueData.participants);
     } catch (error) {
-      console.error('Error Sending Email:', error);
       throw new Error('Error Sending Email');
     }
   };
@@ -48,7 +50,7 @@ const AdminNotifications = (): JSX.Element => {
    */
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    await sendEmailNotifications({ content, groupUsers, subject });
+    await sendEmailNotifications({ content, sendEmailUsers, subject });
   };
 
   /**
@@ -148,6 +150,27 @@ const AdminNotifications = (): JSX.Element => {
           data-testid="send-email"
           label="Send email"
           type="submit"
+    <section data-testid="admin-notifications-content">
+      <Button
+        label="Email Testers"
+        type="button"
+        onClick={participantsEmail}
+        data-testid="email-testers"
+      />
+      <form onSubmit={handleSubmit}>
+        <Label htmlFor="subject">Subject:</Label>
+        <Input
+          type="text"
+          id="subject"
+          data-testid="subject-text"
+          onChange={(e) => setSubject(e.target.value)}
+        />
+        <Label htmlFor="content">Content:</Label>
+        <textarea
+          name="content"
+          id="content"
+          onChange={(e) => setContent(e.target.value)}
+          data-testid="content-text"
         />
       </form>
     </section>
