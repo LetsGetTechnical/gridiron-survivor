@@ -3,6 +3,40 @@
 @tailwind utilities;
 @import url('../app/globals.css');
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  @apply text-5xl;
+}
+
+h2 {
+  @apply text-4xl;
+}
+
+h3 {
+  @apply text-3xl;
+}
+
+h4 {
+  @apply text-2xl;
+}
+
+h5 {
+  @apply text-xl;
+}
+
+h6 {
+  @apply text-lg;
+}
+
+p {
+  @apply text-base;
+  @apply text-muted-foreground;
+}
+
 .doc_nav_links {
   display: flex;
   justify-content: space-between;
@@ -14,4 +48,8 @@
 .doc_nav_links li,
 .doc_nav_links p {
   font-size: 2rem;
+}
+
+p {
+  @apply text-foreground;
 }
