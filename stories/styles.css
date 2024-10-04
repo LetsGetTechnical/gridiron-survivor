@@ -3,9 +3,14 @@
 @tailwind utilities;
 @import url('../app/globals.css');
 
-* {
-  padding: 0;
-  margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-foreground;
+  @apply py-8;
 }
 
 h1 {
@@ -37,6 +42,10 @@ p {
   @apply text-muted-foreground;
 }
 
+.header p {
+  @apply text-lg;
+}
+
 .doc_nav_links {
   display: flex;
   justify-content: space-between;
@@ -48,8 +57,4 @@ p {
 .doc_nav_links li,
 .doc_nav_links p {
   font-size: 2rem;
-}
-
-p {
-  @apply text-foreground;
 }

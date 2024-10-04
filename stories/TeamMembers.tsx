@@ -101,22 +101,24 @@ const TeamMembers: React.FC = () => {
   });
 
   return (
-    <div className="team-members-container m-auto py-4 grid grid-cols-1 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="team-members-container m-auto grid grid-cols-1 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {sortedTeamMembers.map((member) => (
         <div
           key={member.name}
-          className="flex flex-col justify-around px-2 m-auto h-28 w-48 outline outline-outline rounded duration-300 hover:outline-accent-foreground"
+          className="flex flex-col justify-around px-2 m-auto h-32 w-48 outline outline-outline rounded duration-300 hover:outline-accent-foreground"
         >
           <div>
-            <p className="font-bold">{member.name}</p>
-            <p>{member.role}</p>
+            <p className="font-semibold text-foreground text-lg">
+              {member.name}
+            </p>
+            <p className="text-muted-foreground">{member.role}</p>
             <div className="flex gap-2 pt-2">
               {member.github && (
                 <a
                   href={member.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="duration-300 hover:rotate-12 hover:scale-125"
+                  className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
                 >
                   <FaGithub size={20} />
                 </a>
@@ -126,7 +128,7 @@ const TeamMembers: React.FC = () => {
                   href={member.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="duration-300 hover:rotate-12 hover:scale-125"
+                  className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
                 >
                   <FaLinkedin size={20} />
                 </a>
@@ -136,7 +138,7 @@ const TeamMembers: React.FC = () => {
                   href={member.twitter}
                   target="_blank"
                   rel="noreferrer"
-                  className="duration-300 hover:rotate-12 hover:scale-125"
+                  className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
                 >
                   <FaXTwitter size={20} />
                 </a>

@@ -16,6 +16,7 @@ const preview: Preview = {
         { name: 'light', value: '#fff' },
       ],
     },
+    layout: 'centered',
   },
 };
 
