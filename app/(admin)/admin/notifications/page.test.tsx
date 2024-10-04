@@ -1,13 +1,14 @@
+// /Users/ryanfurrer/Developer/GitHub/gridiron-survivor/app/(admin)/admin/notifications/page.test.tsx
+
+import AdminNotifications from './page';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { getCurrentLeague } from '@/api/apiFunctions';
-import { sendEmailNotifications } from './actions/sendEmailNotification';
-import AdminNotifications from './page';
 import React from 'react';
+import { sendEmailNotifications } from './actions/sendEmailNotification';
 
 let contentInput: HTMLInputElement,
-  selectAllUsersRadioOption: HTMLElement,
-  selectRecipientsRadioGroup: HTMLElement,
-  sendEmailButton: HTMLElement,
+  emailButton: HTMLElement,
+  emailTestersButton: HTMLElement,
   subjectInput: HTMLInputElement;
 
 jest.mock('@/api/apiFunctions', () => ({
@@ -19,23 +20,16 @@ jest.mock('./actions/sendEmailNotification', () => ({
 }));
 
 describe('Admin notifications page', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     jest.clearAllMocks();
-
-    (getCurrentLeague as jest.Mock).mockResolvedValue({
-      participants: ['12345', '1234', '123'],
-      leagueName: 'Test League',
-    });
 
     render(<AdminNotifications />);
 
     contentInput = screen.getByTestId('content-text');
-    selectAllUsersRadioOption = screen.getByTestId('all-users-option');
-    selectRecipientsRadioGroup = screen.getByTestId('radio-group-default');
-    sendEmailButton = screen.getByTestId('send-email');
+    emailButton = screen.getByTestId('send-email');
+    emailTestersButton = screen.getByTestId('email-testers');
     subjectInput = screen.getByTestId('subject-text');
   });
-
   it(`should render it's content`, () => {
     (sendEmailNotifications as jest.Mock).mockResolvedValue({});
 
@@ -44,24 +38,27 @@ describe('Admin notifications page', () => {
     );
     expect(adminNotificationsContent).toBeInTheDocument();
   });
-
   it('should call the sendEmailNotifications function with the provided inputs', async () => {
-    fireEvent.click(selectAllUsersRadioOption);
+    const dummyParticipants = ['12345', '1234', '123'];
+    (getCurrentLeague as jest.Mock).mockResolvedValue({
+      participants: dummyParticipants,
+    });
+
+    fireEvent.click(emailTestersButton);
     fireEvent.change(subjectInput, { target: { value: 'Test Title' } });
     fireEvent.change(contentInput, {
       target: { value: 'Test message section.' },
     });
 
     await waitFor(() => {
-      expect(sendEmailButton).toBeInTheDocument();
+      expect(emailButton).toBeInTheDocument();
     });
 
-    fireEvent.submit(sendEmailButton);
+    fireEvent.submit(emailButton);
 
     await waitFor(() => {
       expect(sendEmailNotifications as jest.Mock).toHaveBeenCalledWith({
         content: 'Test message section.',
-        groupUsers: ['12345', '1234', '123'],
         sendEmailUsers: dummyParticipants,
         subject: 'Test Title',
         testBCC: expect.any(Array),
