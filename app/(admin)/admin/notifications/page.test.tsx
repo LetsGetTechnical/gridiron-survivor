@@ -1,5 +1,3 @@
-// /Users/ryanfurrer/Developer/GitHub/gridiron-survivor/app/(admin)/admin/notifications/page.test.tsx
-
 import AdminNotifications from './page';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { getCurrentLeague } from '@/api/apiFunctions';

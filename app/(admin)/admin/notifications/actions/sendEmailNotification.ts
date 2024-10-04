@@ -11,7 +11,6 @@ import { messaging } from '@/api/serverConfig';
  * @param props.content - The actual email you are wanting to send.
  * @param props.sendEmailUsers - User id's being passed in from the notification page.
  * @param props.subject - The subject of the email.
- * @param props.testBCC - The target IDs of users needed to BCC emails.
  */
 export const sendEmailNotifications = async ({
   content,
