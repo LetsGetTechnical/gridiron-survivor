@@ -40,11 +40,9 @@ const formatDateTime = (dateString: string): string => {
  * @returns True if the current game time is within 1 hour of the current time, false otherwise.
  */
 const checkCurrentGameTime = (gameTime: string): boolean => {
-  const timestampStr = gameTime;
-  const timestamp = new Date(timestampStr);
+  const timestamp = new Date(gameTime);
   const currentTime = new Date();
 
-  // Subtract 1 hour from the current time
   const currentTimeMinus1Hour = new Date(
     currentTime.getTime() - 60 * 60 * 1000,
   );
