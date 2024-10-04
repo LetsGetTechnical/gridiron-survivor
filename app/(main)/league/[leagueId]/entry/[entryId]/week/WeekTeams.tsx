@@ -35,6 +35,24 @@ const formatDateTime = (dateString: string): string => {
 };
 
 /**
+ * Checks if the current game time is within 1 hour of the current time.
+ * @param gameTime The game time to check.
+ * @returns True if the current game time is within 1 hour of the current time, false otherwise.
+ */
+const checkCurrentGameTime = (gameTime: string): boolean => {
+  const timestampStr = gameTime;
+  const timestamp = new Date(timestampStr);
+  const currentTime = new Date();
+
+  // Subtract 1 hour from the current time
+  const currentTimeMinus1Hour = new Date(
+    currentTime.getTime() - 60 * 60 * 1000,
+  );
+
+  return currentTimeMinus1Hour > timestamp;
+};
+
+/**
  * Renders the weekly picks page.
  * @param props The parameters for the weekly picks page.
  * @param props.field The form field.
@@ -59,41 +77,48 @@ const WeekTeams = ({
     value={userPick}
     onChange={field.onChange}
   >
-    {schedule.map((scheduledGame) => (
-      <div
-        className="grid w-full grid-cols-[1fr_auto_1fr] gap-4 pb-8"
-        style={{ direction: 'rtl' }}
-        key={scheduledGame.id}
-      >
-        <div className="week-page-game-schedule col-span-3 text-center">
-          <p>{formatDateTime(scheduledGame.date)}</p>
+    {schedule.map((scheduledGame) => {
+      const disableGame = checkCurrentGameTime(scheduledGame.date);
+
+      return (
+        <div
+          className="grid w-full grid-cols-[1fr_auto_1fr] gap-4 pb-8"
+          style={{ direction: 'rtl' }}
+          key={scheduledGame.id}
+        >
+          <div className="week-page-game-schedule col-span-3 text-center">
+            <p>{formatDateTime(scheduledGame.date)}</p>
+          </div>
+          {scheduledGame.competitions[0].competitors.map(
+            (competition, index) => (
+              <>
+                {index > 0 && (
+                  <div className="h-20 flex self-end items-center">
+                    <span>@</span>
+                  </div>
+                )}
+                <FormItem key={competition.id} className="text-center">
+                  <FormControl>
+                    <WeeklyPickButton
+                      loadingTeamName={loadingTeamName}
+                      selectedTeam={competition.team.shortDisplayName.toLowerCase()}
+                      homeAway={competition.homeAway}
+                      team={competition.team.name}
+                      src={competition.team.logo}
+                      isDisabled={
+                        disableGame ||
+                        Boolean(loadingTeamName) ||
+                        hasTeamBeenPicked(competition.team.name, selectedTeams)
+                      }
+                    />
+                  </FormControl>
+                </FormItem>
+              </>
+            ),
+          )}
         </div>
-        {scheduledGame.competitions[0].competitors.map((competition, index) => (
-          <>
-            {index > 0 && (
-              <div className="h-20 flex self-end items-center">
-                <span>@</span>
-              </div>
-            )}
-            <FormItem key={competition.id} className="text-center">
-              <FormControl>
-                <WeeklyPickButton
-                  loadingTeamName={loadingTeamName}
-                  selectedTeam={competition.team.shortDisplayName.toLowerCase()}
-                  homeAway={competition.homeAway}
-                  team={competition.team.name}
-                  src={competition.team.logo}
-                  isDisabled={
-                    Boolean(loadingTeamName) ||
-                    hasTeamBeenPicked(competition.team.name, selectedTeams)
-                  }
-                />
-              </FormControl>
-            </FormItem>
-          </>
-        ))}
-      </div>
-    ))}
+      );
+    })}
   </RadioGroup>
 );
 export default WeekTeams;
