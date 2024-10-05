@@ -16,7 +16,6 @@ import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import Heading from '@/components/Heading/Heading';
-import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { getNFLTeamLogo } from '@/utils/utils';
@@ -196,29 +195,6 @@ const Entry = ({
                 );
               })}
 
-            <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
-              {!loadingData && entries.length < MAX_ENTRIES && (
-                <Button
-                  icon={
-                    <PlusCircle
-                      className={cn('mr-2', addingEntry && 'hidden')}
-                    />
-                  }
-                  variant="outline"
-                  onClick={() =>
-                    addNewEntry({
-                      name: `Entry ${entries.length + 1}`,
-                      user: user.id,
-                      league: leagueId,
-                    })
-                  }
-                  data-testid="add-new-entry-button"
-                  disabled={addingEntry}
-                >
-                  {addingEntry ? <LoadingSpinner /> : 'Add New Entry'}
-                </Button>
-              )}
-            </div>
           </section>
         </div>
       )}
