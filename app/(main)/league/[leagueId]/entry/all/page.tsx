@@ -193,8 +193,7 @@ const Entry = ({
                     />
                   </section>
                 );
-              })}
-              
+              })}              
 
           </section>
         </div>
