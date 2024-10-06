@@ -3,6 +3,10 @@
 @tailwind utilities;
 @import url('../app/globals.css');
 
+* {
+  font-family: Geist Sans;
+}
+
 h1,
 h2,
 h3,
@@ -10,7 +14,9 @@ h4,
 h5,
 h6 {
   @apply text-foreground;
-  @apply py-8;
+  @apply font-bold;
+  @apply tracking-tight;
+  text-wrap: balance;
 }
 
 h1 {
@@ -39,11 +45,19 @@ h6 {
 
 p {
   @apply text-base;
+  @apply tracking-normal;
   @apply text-muted-foreground;
+  text-wrap: balance;
+}
+
+.header h1 {
+  @apply pt-24;
+  @apply pb-8;
 }
 
 .header p {
   @apply text-lg;
+  @apply pb-8;
 }
 
 .doc_nav_links {

@@ -1,36 +1,37 @@
 import './styles.css';
 import Image from 'next/image';
-import gridironLogo from './assets/gridironSurvivorLogo.svg';
+import gridironLogo from '../public/assets/logo-colored-outline.svg';
 import TeamMembers from './TeamMembers';
 import Sponsors from './Sponsors';
 import { Unstyled } from '@storybook/blocks';
 
 <Unstyled>
-<div class="dark bg-background w-full">
+<div class="light bg-background w-full">
 <Image
   src={gridironLogo}
   alt="Gridiron Surivior Logo"
   className="block max-w-full m-auto py-8 justify-center"
 />
 
-<div className="header">
+<div className="header text-center sm:text-left">
 
 # What is Gridiron Survivor?
 
 Gridiron Survivor is the ultimate survivor league app. Track your picks, see how you stack up against your competition and hope to be crowned champion! Developed by a talented team of Junior Developers led by Senior Software Engineer Shashi Lo, Gridiron Survivor is the perfect app for any football fan looking to take their survivor league to the next level.
 
+<ol className="text-lg">
+  <li>[View our GitHub](https://github.com/LetsGetTechnical/gridiron-survivor)</li>
+  <li>[Check out Gridiron Survivor](https://www.gridironsurvivor.com)</li>
+</ol>
 </div>
-## Sponsors
 
 <Sponsors />
-
-## Meet the Team
 
 <TeamMembers />
 
 <ol className="doc_nav_links">
   <li></li>
-  <li>[Application Setup ](?path=/docs/about-application-setup--docs)</li>
+  <li>[Application Setup](?path=/docs/about-application-setup--docs)</li>
 </ol>
 </div>
 </Unstyled>

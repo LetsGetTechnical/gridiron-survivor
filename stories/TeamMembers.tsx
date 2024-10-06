@@ -60,14 +60,14 @@ const TeamMembersArray = [
   {
     name: 'Cody Epstein',
     role: 'UX Engineer',
-    github: '',
-    linkedin: '',
-    twitter: 'https://www.linkedin.com/in/cody-epstein/',
+    github: 'https://github.com/kepsteen/',
+    linkedin: 'https://www.linkedin.com/in/cody-epstein/',
+    twitter: '',
   },
   {
     name: 'Michael Larocca',
     role: 'Documentation Engineer',
-    github: '',
+    github: 'https://github.com/MichaelLarocca',
     linkedin: 'https://www.linkedin.com/in/michaeljudelarocca/',
     twitter: 'https://x.com/MikeJudeLarocca',
   },
@@ -77,6 +77,13 @@ const TeamMembersArray = [
     github: 'https://github.com/Danielle254',
     linkedin: 'https://www.linkedin.com/in/danielle-lindblom/',
     twitter: '',
+  },
+  {
+    name: 'Dominick Monaco',
+    role: 'Frontend Engineer',
+    github: 'https://github.com/HoldUpFjord',
+    linkedin: 'https://www.linkedin.com/in/dominick-j-monaco/',
+    twitter: 'https://x.com/DominickJMonaco',
   },
 ];
 
@@ -101,52 +108,53 @@ const TeamMembers: React.FC = () => {
   });
 
   return (
-    <div className="team-members-container m-auto grid grid-cols-1 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {sortedTeamMembers.map((member) => (
-        <div
-          key={member.name}
-          className="flex flex-col justify-around px-2 m-auto h-32 w-48 outline outline-outline rounded duration-300 hover:outline-accent-foreground"
-        >
-          <div>
-            <p className="font-semibold text-foreground text-lg">
-              {member.name}
-            </p>
-            <p className="text-muted-foreground">{member.role}</p>
-            <div className="flex gap-2 pt-2">
-              {member.github && (
-                <a
-                  href={member.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
-                >
-                  <FaGithub size={20} />
-                </a>
-              )}
-              {member.linkedin && (
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
-                >
-                  <FaLinkedin size={20} />
-                </a>
-              )}
-              {member.twitter && (
-                <a
-                  href={member.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
-                >
-                  <FaXTwitter size={20} />
-                </a>
-              )}
+    <div>
+      <h2 className="pt-24 pb-8 text-center sm:text-left">Meet the Team</h2>
+      <div className="team-members-container m-auto grid grid-cols-1 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {sortedTeamMembers.map((member) => (
+          <div
+            key={member.name}
+            className="flex flex-col justify-around px-2 m-auto h-32 w-48 outline outline-outline rounded duration-300 hover:outline-accent-foreground"
+          >
+            <div>
+              <h6 className="p-0 text-foreground text-lg">{member.name}</h6>
+              <p className="text-muted-foreground">{member.role}</p>
+              <div className="flex gap-2 pt-2">
+                {member.github && (
+                  <a
+                    href={member.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
+                  >
+                    <FaGithub size={20} />
+                  </a>
+                )}
+                {member.linkedin && (
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
+                  >
+                    <FaLinkedin size={20} />
+                  </a>
+                )}
+                {member.twitter && (
+                  <a
+                    href={member.twitter}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-muted-foreground duration-300 hover:rotate-12 hover:scale-125 hover:text-foreground hover:duration-300"
+                  >
+                    <FaXTwitter size={20} />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

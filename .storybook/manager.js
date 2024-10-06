@@ -5,5 +5,4 @@ addons.setConfig({
     showRoots: true,
     collapsedRoots: ['about', 'technical-planning-documents'],
   },
-  layout: 'fullscreen',
 });
