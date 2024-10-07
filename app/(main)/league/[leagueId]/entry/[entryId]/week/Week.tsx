@@ -24,15 +24,16 @@ import {
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
+import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { cn, getNFLTeamLogo } from '@/utils/utils';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
-import toast from 'react-hot-toast';
 
 /**
  * Renders the weekly picks page.
@@ -52,6 +53,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
+  const router = useRouter();
 
   /**
    * Fetches the current game week.
@@ -215,13 +217,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     };
 
     try {
-      toast.custom(
-        <Alert
-          variant={AlertVariants.Error}
-          message={`Team selection has been locked for the week!`}
-        />,
-      );
-      console.error(params);
+      await onWeeklyPickChange(params);
+      setUserPick(teamSelect);
+      router.push(`/league/${league}/entry/all`);
     } catch (error) {
       console.error('Submission error:', error);
     }
