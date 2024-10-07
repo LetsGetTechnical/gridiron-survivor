@@ -24,12 +24,14 @@ import {
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
+import { onWeeklyPickChange } from './WeekHelper';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { cn, getNFLTeamLogo } from '@/utils/utils';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
 import toast from 'react-hot-toast';

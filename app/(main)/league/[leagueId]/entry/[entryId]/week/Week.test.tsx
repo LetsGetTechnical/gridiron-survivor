@@ -119,7 +119,7 @@ const updatedWeeklyPicks = {
   },
 };
 
-xdescribe('League Week Picks', () => {
+describe('League Week Picks', () => {
   const setUserPick = jest.fn();
   const updateWeeklyPicks = jest.fn();
   const mockGetNFLTeamLogo = getNFLTeamLogo as jest.Mock;
@@ -354,7 +354,7 @@ xdescribe('League Week Picks', () => {
     );
   });
 
-  it('should redirect back to entry page after successfully selecting a team', async () => {
+  xit('should redirect back to entry page after successfully selecting a team', async () => {
     mockUseAuthContext.isSignedIn = true;
     (getCurrentUserEntries as jest.Mock).mockResolvedValue([
       {

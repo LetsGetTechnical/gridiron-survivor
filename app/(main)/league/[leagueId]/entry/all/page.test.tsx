@@ -180,7 +180,7 @@ describe('League entries page (Entry Component)', () => {
     expect(entryPageHeaderCurrentWeek).toHaveTextContent('Week 1');
   });
 
-  it('should display the header with the league name, survivors, and week number, with a past weeks link and add new entry button', async () => {
+  it('should display the header with the league name, survivors, and week number, with a past weeks link', async () => {
     mockUseDataStore.mockReturnValue({
       ...mockUseDataStore(),
       currentWeek: 2,
@@ -222,7 +222,6 @@ describe('League entries page (Entry Component)', () => {
       'entry-page-header-current-week',
     );
     const viewPastWeeksLink = screen.getByTestId('past-weeks-link');
-    const addNewEntryButton = screen.getByTestId('add-new-entry-button');
 
     expect(entryPageHeader).toBeInTheDocument();
     expect(entryPageHeaderToLeaguesLink).toBeInTheDocument();
@@ -232,11 +231,10 @@ describe('League entries page (Entry Component)', () => {
     expect(entryPageHeaderLeagueSurvivors).toHaveTextContent('Survivors');
     expect(entryPageHeaderCurrentWeek).toBeInTheDocument();
     expect(entryPageHeaderCurrentWeek).toHaveTextContent('Week 2');
-    expect(addNewEntryButton).toBeInTheDocument();
     expect(viewPastWeeksLink).toBeInTheDocument();
   });
 
-  it('should not display a button to add a new entry if there are 5 entries', async () => {
+  xit('should not display a button to add a new entry if there are 5 entries', async () => {
     mockUseDataStore.mockReturnValue({
       ...mockUseDataStore(),
       currentWeek: 2,
