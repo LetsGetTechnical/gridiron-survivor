@@ -3,20 +3,6 @@ import { AuthContextProvider } from '@/context/AuthContextProvider';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-const mockPush = jest.fn();
-const mockUsePathname = jest.fn();
-
-jest.mock('next/navigation', () => ({
-  useRouter() {
-    return {
-      push: mockPush,
-    };
-  },
-  usePathname() {
-    return mockUsePathname();
-  },
-}));
-
 describe('AdminNav Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
