@@ -2,41 +2,39 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useEffect, useState } from 'react';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { ChevronLeft } from 'lucide-react';
+import { Control, FormProvider, useForm } from 'react-hook-form';
+import { cn, getNFLTeamLogo } from '@/utils/utils';
 import {
   FormField,
   FormItem,
   FormControl,
   FormMessage,
 } from '@/components/Form/Form';
-import { FormProvider, Control, useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { IWeekProps } from './Week.interface';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useDataStore } from '@/store/dataStore';
-import { ISchedule } from './WeekTeams.interface';
 import {
   getAllWeeklyPicks,
   getCurrentUserEntries,
   getCurrentLeague,
   getGameWeek,
 } from '@/api/apiFunctions';
-import { ILeague } from '@/api/apiFunctions.interface';
-import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
-import { onWeeklyPickChange } from './WeekHelper';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
-import { NFLTeams } from '@/api/apiFunctions.enum';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import { cn, getNFLTeamLogo } from '@/utils/utils';
+import { ILeague } from '@/api/apiFunctions.interface';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { ISchedule } from './WeekTeams.interface';
+import { IWeekProps } from './Week.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { NFLTeams } from '@/api/apiFunctions.enum';
 import { onWeeklyPickChange } from './WeekHelper';
+import React, { JSX, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useDataStore } from '@/store/dataStore';
 import { useRouter } from 'next/navigation';
+import WeekTeams from './WeekTeams';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 /**
  * Renders the weekly picks page.
