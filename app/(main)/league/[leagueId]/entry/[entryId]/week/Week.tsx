@@ -25,7 +25,7 @@ import Image from 'next/image';
 import { ISchedule } from './WeekTeams.interface';
 import { IWeekProps } from './Week.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import useLockout from '@/hooks/useLockout/useLockout';
+import useLockout from '@/hooks/useLockout';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { onWeeklyPickChange } from './WeekHelper';
 import React, { JSX, useEffect, useState } from 'react';

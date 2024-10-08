@@ -7,7 +7,7 @@ import { ILeagueEntriesProps } from './LeagueEntries.interface';
 import Image from 'next/image';
 import LinkCustom from '../LinkCustom/LinkCustom';
 import React, { JSX } from 'react';
-import useLockout from '@/hooks/useLockout/useLockout';
+import useLockout from '@/hooks/useLockout';
 
 /**
  * A card that contains information on the user's entry for this league. Contains the entry number, their entry status (alive or eliminated), team logo once a pick is set, and a button to make a pick or change their pick
