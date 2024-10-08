@@ -37,7 +37,7 @@ interface ILinkCustomProps extends VariantProps<typeof linkCustomVariants> {
   className?: string;
   dataTestidProp?: string;
   href: string;
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  onClick?: ({}: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
 
 /**
