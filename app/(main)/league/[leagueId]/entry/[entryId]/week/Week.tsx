@@ -25,6 +25,7 @@ import Image from 'next/image';
 import { ISchedule } from './WeekTeams.interface';
 import { IWeekProps } from './Week.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import useLockout from '@/hooks/useLockout/useLockout';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { onWeeklyPickChange } from './WeekHelper';
 import React, { JSX, useEffect, useState } from 'react';
@@ -54,36 +55,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
-  const [lockedOut, setLockedOut] = useState<boolean>(false);
   const router = useRouter();
-
-  useEffect(() => {
-    /**
-     * Checks if the user is locked out from making a pick.
-     */
-    const checkLockout = (): void => {
-      const currentDateAndTime = new Date();
-      const day = currentDateAndTime.getUTCDay();
-      const hours = currentDateAndTime.getUTCHours();
-      if (
-        (day === 5 && hours >= 0) || // Friday at 12am UTC (Thurs 8pm CT)
-        day > 5 || // Friday and Saturday
-        day === 0 || // Sunday
-        day === 1 || // Monday
-        (day === 2 && hours < 12) // Tuesday at 12pm UTC (8am CT)
-      ) {
-        setLockedOut(true);
-      } else {
-        setLockedOut(false);
-      }
-    };
-
-    checkLockout();
-
-    const intervalId = setInterval(checkLockout, 60 * 60 * 1000);
-
-    return (): void => clearInterval(intervalId);
-  }, []);
+  const lockedOut = useLockout();
 
   /**
    * Fetches the current game week.

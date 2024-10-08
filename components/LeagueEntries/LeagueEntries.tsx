@@ -4,9 +4,10 @@
 import { cn } from '@/utils/utils';
 import { EntryStatus } from '../EntryStatus/EntryStatus';
 import { ILeagueEntriesProps } from './LeagueEntries.interface';
-import React, { JSX, useEffect, useState } from 'react';
-import LinkCustom from '../LinkCustom/LinkCustom';
 import Image from 'next/image';
+import LinkCustom from '../LinkCustom/LinkCustom';
+import React, { JSX } from 'react';
+import useLockout from '@/hooks/useLockout/useLockout';
 
 /**
  * A card that contains information on the user's entry for this league. Contains the entry number, their entry status (alive or eliminated), team logo once a pick is set, and a button to make a pick or change their pick
@@ -34,35 +35,7 @@ const LeagueEntries = ({
   userPickHistory,
   selectedTeamLogo = '',
 }: ILeagueEntriesProps): JSX.Element => {
-  const [isLockedOut, setLockedOut] = useState<boolean>(false);
-
-  useEffect(() => {
-    /**
-     * Checks if the user is locked out from making a pick.
-     */
-    const checkLockout = (): void => {
-      const currentDateAndTime = new Date();
-      const day = currentDateAndTime.getUTCDay();
-      const hours = currentDateAndTime.getUTCHours();
-      if (
-        (day === 5 && hours >= 0) || // Friday at 12am UTC (Thurs 8pm CT)
-        day > 5 || // Friday and Saturday
-        day === 0 || // Sunday
-        day === 1 || // Monday
-        (day === 2 && hours < 12) // Tuesday at 12pm UTC (8am CT)
-      ) {
-        setLockedOut(true);
-      } else {
-        setLockedOut(false);
-      }
-    };
-
-    checkLockout();
-
-    const intervalId = setInterval(checkLockout, 60 * 60 * 1000);
-
-    return (): void => clearInterval(intervalId);
-  }, []);
+  const lockedOut = useLockout();
 
   return (
     <div
@@ -144,15 +117,15 @@ const LeagueEntries = ({
         >
           {!isEliminated && (
             <LinkCustom
-              aria-disabled={isLockedOut === true ? 'true' : 'false'}
+              aria-disabled={lockedOut === true ? 'true' : 'false'}
               className={cn(
                 'league-entry-pick-link',
-                isLockedOut === true ? 'opacity-50 cursor-not-allowed' : '',
+                lockedOut === true ? 'opacity-50 cursor-not-allowed' : '',
               )}
               dataTestidProp="league-entry-pick-link"
               href={linkUrl}
               onClick={(e: { preventDefault: () => unknown }) =>
-                isLockedOut === true && e.preventDefault()
+                lockedOut === true && e.preventDefault()
               }
               size={'defaultButton'}
               variant={isPickSet ? 'secondaryButton' : 'primaryButton'}
