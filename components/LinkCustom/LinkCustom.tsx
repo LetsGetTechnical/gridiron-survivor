@@ -37,7 +37,6 @@ interface ILinkCustomProps extends VariantProps<typeof linkCustomVariants> {
   className?: string;
   dataTestidProp?: string;
   href: string;
-  // eslint-disable-next-line no-unused-vars
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
 
