@@ -29,7 +29,6 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 2"
-        isLockedOutProp={false}
         linkUrl=""
         isPickSet={true}
         userPickHistory={['/team-a-logo.png']}
@@ -57,7 +56,6 @@ describe('LeagueEntries', () => {
       <LeagueEntries
         entryName="Entry 3"
         isEliminated
-        isLockedOutProp={false}
         isPickSet={false}
         linkUrl=""
         userPickHistory={['/team-a-logo.png']}
@@ -82,7 +80,6 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 2"
-        isLockedOutProp={false}
         isPickSet={true}
         linkUrl={linkUrl}
         selectedTeamLogo={teamLogoUrl}
@@ -123,7 +120,6 @@ describe('LeagueEntries', () => {
     render(
       <LeagueEntries
         entryName="Entry 2"
-        isLockedOutProp={false}
         isPickSet={true}
         linkUrl={linkUrl}
         selectedTeamLogo={teamLogoUrl}
