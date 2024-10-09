@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Alert from './AlertNotification';
 import { AlertVariants } from './Alerts.enum';
 import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
@@ -33,4 +33,12 @@ describe('AlertNotification', () => {
       render(<Alert variant={AlertVariants[key]} message={value.message} />);
     });
   }
+  it('renders the dismiss button correctly', () => {
+    render(
+      <Alert variant={AlertVariants.Success} message="test dismiss btn" />,
+    );
+
+    const dismissBtn = screen.getByTestId('dismiss-icon');
+    expect(dismissBtn).toBeInTheDocument();
+  });
 });
