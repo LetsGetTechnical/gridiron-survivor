@@ -50,7 +50,7 @@ const AdminNotifications = (): JSX.Element => {
     event.preventDefault();
     await sendEmailNotifications({
       content,
-      sendEmailUsers: groupUsers,
+      groupUsers,
       subject,
     });
   };
