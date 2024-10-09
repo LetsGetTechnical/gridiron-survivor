@@ -51,7 +51,7 @@ const RootLayout = ({
                 </a>
               </div>
             </main>
-            <Toaster />
+            <Toaster position="top-right" containerStyle={{ top: '4rem' }} />
           </AuthContextProvider>
         </ErrorBoundary>
       </body>
