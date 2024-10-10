@@ -1,12 +1,17 @@
+import { mock } from 'node:test';
 import {
   recoverPassword,
   registerAccount,
+  resetPassword,
   resetRecoveredPassword,
+  updateUserEmail,
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
-import { account, ID } from './config';
+import { account, databases, ID } from './config';
 const apiFunctions = require('./apiFunctions');
 import { getBaseURL } from '@/utils/getBaseUrl';
+import { Collection } from './apiFunctions.enum';
+import { Query } from 'appwrite';
 
 jest.mock('./apiFunctions', () => {
   const actualModule = jest.requireActual('./apiFunctions');
@@ -30,7 +35,16 @@ jest.mock('./config', () => ({
   account: {
     create: jest.fn(),
     createRecovery: jest.fn(),
+    updateEmail: jest.fn(),
+    updatePassword: jest.fn(),
     updateRecovery: jest.fn(),
+  },
+  appwriteConfig: {
+    databaseId: 'mock-database-id',
+  },
+  databases: {
+    listDocuments: jest.fn(),
+    updateDocument: jest.fn(),
   },
   ID: {
     unique: jest.fn(),
@@ -163,6 +177,110 @@ describe('apiFunctions', () => {
           mockPassword,
         );
       });
+    });
+    describe('updateUserEmail', () => {
+      const mockNewEmail = 'new@example.com';
+      const mockPassword = 'password123';
+      const mockUserId = '123';
+      const mockDocumentId = '456';
+      it("should successfully update the user's email", async () => {
+        (account.updateEmail as jest.Mock).mockResolvedValue({
+          $id: mockUserId,
+        });
+
+        (databases.listDocuments as jest.Mock).mockResolvedValue({
+          documents: [
+            {
+              $id: mockDocumentId,
+              name: 'Test User',
+              email: 'old@example.com',
+              labels: '',
+              userId: mockUserId,
+              leagues: [],
+            },
+          ],
+        });
+
+        (databases.updateDocument as jest.Mock).mockResolvedValue({});
+
+        await updateUserEmail({
+          email: mockNewEmail,
+          password: mockPassword,
+        });
+
+        expect(account.updateEmail).toHaveBeenCalledWith(
+          mockNewEmail,
+          mockPassword,
+        );
+
+        expect(databases.listDocuments).toHaveBeenCalledWith(
+          'mock-database-id',
+          Collection.USERS,
+          [Query.equal('userId', mockUserId)],
+        );
+
+        expect(databases.updateDocument).toHaveBeenCalledWith(
+          'mock-database-id',
+          Collection.USERS,
+          mockDocumentId,
+          {
+            email: mockNewEmail,
+            name: 'Test User',
+            labels: '',
+            userId: mockUserId,
+            leagues: [],
+          },
+        );
+      });
+      it('should throw an error if updating email fails', async () => {
+        (account.updateEmail as jest.Mock).mockRejectedValue(new Error());
+
+        await expect(
+          updateUserEmail({
+            email: mockNewEmail,
+            password: mockPassword,
+          }),
+        ).rejects.toThrow();
+
+        expect(account.updateEmail).toHaveBeenCalledWith(
+          mockNewEmail,
+          mockPassword,
+        );
+
+        expect(databases.listDocuments).not.toHaveBeenCalled();
+        expect(databases.updateDocument).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('resetPassword', () => {
+      it('should successfully reset the password', async () => {
+        (account.updatePassword as jest.Mock).mockResolvedValue({});
+
+        await resetPassword({
+          newPassword: 'newPassword123',
+          oldPassword: 'oldPassword123',
+        });
+
+        expect(account.updatePassword).toHaveBeenCalledWith(
+          'newPassword123',
+          'oldPassword123',
+        );
+      });
+    });
+    it('should throw an error if resetting password fails', async () => {
+      (account.updatePassword as jest.Mock).mockRejectedValue(new Error());
+
+      await expect(
+        resetPassword({
+          newPassword: 'newPassword123',
+          oldPassword: 'oldPassword123',
+        }),
+      ).rejects.toThrow();
+
+      expect(account.updatePassword).toHaveBeenCalledWith(
+        'newPassword123',
+        'oldPassword123',
+      );
     });
   });
 
