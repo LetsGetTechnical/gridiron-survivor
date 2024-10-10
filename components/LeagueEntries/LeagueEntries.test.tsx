@@ -5,7 +5,7 @@ import React from 'react';
 describe('LeagueEntries', () => {
   it(`renders 'default' state without a pick made`, () => {
     render(
-      <LeagueEntries entryName="Entry 1" linkUrl="" userPickHistory={[]} />,
+      <LeagueEntries entryName="Entry 1" isLockedOutProp={false} linkUrl="" userPickHistory={[]} />,
     );
 
     const leagueEntryContainerCard = screen.getByTestId(
@@ -13,15 +13,15 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId(
-      'league-entry-pick-button',
+    const leagueEntryPickLink = screen.getByTestId(
+      'league-entry-pick-link',
     );
     const userHistoryPicks = screen.queryByTestId('user-pick-history');
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 1');
-    expect(leagueEntryPickButton).toHaveTextContent('Make Pick');
+    expect(leagueEntryPickLink).toHaveTextContent('Make Pick');
     expect(userHistoryPicks).not.toBeInTheDocument();
   });
 
@@ -40,14 +40,14 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId(
-      'league-entry-pick-button',
+    const leagueEntryPickLink = screen.getByTestId(
+      'league-entry-pick-link',
     );
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 2');
-    expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
+    expect(leagueEntryPickLink).toHaveTextContent('Change Pick');
     expect(screen.queryByTestId('user-pick-history')).toBeInTheDocument();
   });
 
@@ -92,16 +92,16 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickButton = screen.getByTestId(
-      'league-entry-pick-button',
+    const leagueEntryPickLink = screen.getByTestId(
+      'league-entry-pick-link',
     );
-    const leagueLink = screen.getByTestId('league-entry-pick-button-link');
+    const leagueLink = screen.getByTestId('league-entry-pick-link');
     const leagueEntryLogo = screen.getByTestId('league-entry-logo');
 
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryNumber).toHaveTextContent('Entry 2');
-    expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
+    expect(leagueEntryPickLink).toHaveTextContent('Change Pick');
     expect(leagueLink).toHaveAttribute('href', linkUrl);
     expect(leagueEntryLogo).toBeInTheDocument();
     expect(leagueEntryLogo).toHaveAttribute(

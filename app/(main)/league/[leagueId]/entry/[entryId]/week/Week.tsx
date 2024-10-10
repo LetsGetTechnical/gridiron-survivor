@@ -2,38 +2,40 @@
 // Licensed under the MIT License.
 
 'use client';
-import React, { JSX, useEffect, useState } from 'react';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { ChevronLeft } from 'lucide-react';
+import { Control, FormProvider, useForm } from 'react-hook-form';
+import { cn, getNFLTeamLogo } from '@/utils/utils';
 import {
   FormField,
   FormItem,
   FormControl,
   FormMessage,
 } from '@/components/Form/Form';
-import { FormProvider, Control, useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { IWeekProps } from './Week.interface';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useDataStore } from '@/store/dataStore';
-import { ISchedule } from './WeekTeams.interface';
 import {
   getAllWeeklyPicks,
   getCurrentUserEntries,
   getCurrentLeague,
   getGameWeek,
 } from '@/api/apiFunctions';
-import { ILeague } from '@/api/apiFunctions.interface';
-import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
-import { onWeeklyPickChange } from './WeekHelper';
-import Alert from '@/components/AlertNotification/AlertNotification';
-import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
-import { NFLTeams } from '@/api/apiFunctions.enum';
-import { useAuthContext } from '@/context/AuthContextProvider';
-import { cn, getNFLTeamLogo } from '@/utils/utils';
+import { ILeague } from '@/api/apiFunctions.interface';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { ISchedule } from './WeekTeams.interface';
+import { IWeekProps } from './Week.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
+import useLockout from '@/hooks/useLockout';
+import { NFLTeams } from '@/api/apiFunctions.enum';
+import { onWeeklyPickChange } from './WeekHelper';
+import React, { JSX, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useAuthContext } from '@/context/AuthContextProvider';
+import { useDataStore } from '@/store/dataStore';
+import { useRouter } from 'next/navigation';
+import WeekTeams from './WeekTeams';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 /**
  * Renders the weekly picks page.
@@ -54,6 +56,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
+  const lockedOut = useLockout();
 
   /**
    * Fetches the current game week.
@@ -197,6 +200,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
   /**
    * Handles the weekly pick team change
+   * @param lockedOut - the lockout logic.
    * @param teamSelect - the selected team name.
    * @returns {void}
    */
@@ -217,9 +221,19 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     };
 
     try {
-      await onWeeklyPickChange(params);
-      setUserPick(teamSelect);
-      router.push(`/league/${league}/entry/all`);
+      if (lockedOut) {
+        toast.custom(
+          <Alert
+            variant={AlertVariants.Error}
+            message={`Team selection has been locked for the week!`}
+          />,
+        );
+      } else {
+        await onWeeklyPickChange(params);
+        setUserPick(teamSelect);
+        router.push(`/league/${league}/entry/all`);
+      }
+      console.error(params);
     } catch (error) {
       console.error('Submission error:', error);
     }
