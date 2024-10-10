@@ -3,25 +3,20 @@
 
 'use client';
 import {
-  createEntry,
   getCurrentLeague,
   getCurrentUserEntries,
   getGameWeek,
   getNFLTeams,
 } from '@/api/apiFunctions';
-import { Button } from '@/components/Button/Button';
-import { ChevronLeft, PlusCircle } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { ENTRY_URL, LEAGUE_URL, WEEK_URL } from '@/const/global';
-import { IEntry, IEntryProps } from '../Entries.interface';
+import { IEntry } from '../Entries.interface';
 import { LeagueEntries } from '@/components/LeagueEntries/LeagueEntries';
 import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import Heading from '@/components/Heading/Heading';
-import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
-import { cn } from '@/utils/utils';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { getNFLTeamLogo } from '@/utils/utils';
 
@@ -38,12 +33,10 @@ const Entry = ({
   const [entries, setEntries] = useState<IEntry[]>([]);
   const [leagueName, setLeagueName] = useState<string>('');
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const [addingEntry, setAddingEntry] = useState<boolean>(false);
   const [survivors, setSurvivors] = useState<number>(0);
   const [totalPlayers, setTotalPlayers] = useState<number>(0);
   const { currentWeek, NFLTeams, user, updateCurrentWeek, updateNFLTeams } =
     useDataStore((state) => state);
-  const MAX_ENTRIES = 5;
 
   useEffect(() => {
     /**
@@ -110,33 +103,6 @@ const Entry = ({
       throw new Error('Error getting NFL teams');
     } finally {
       setLoadingData(false);
-    }
-  };
-
-  /**
-   * Adds a new entry to the league.
-   * @param {IEntryProps} props - The entry properties.
-   * @param {string} props.name - The name of the entry.
-   * @param {string} props.user - The user id.
-   * @param {string} props.league - The league id.
-   * @returns {void}
-   */
-  const addNewEntry = async ({
-    name,
-    user,
-    league,
-  }: IEntryProps): Promise<void> => {
-    if (entries.length >= MAX_ENTRIES) {
-      return;
-    }
-    setAddingEntry(true);
-    try {
-      const createdEntry = await createEntry({ name, user, league });
-      setEntries((prevEntries) => [...prevEntries, createdEntry]);
-    } catch (error) {
-      throw new Error('Error adding new entry');
-    } finally {
-      setAddingEntry(false);
     }
   };
 
@@ -228,40 +194,6 @@ const Entry = ({
                   </section>
                 );
               })}
-
-            <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
-              {!loadingData && entries.length < MAX_ENTRIES && (
-                <Button
-                  icon={
-                    <PlusCircle
-                      className={cn('mr-2', addingEntry && 'hidden')}
-                    />
-                  }
-                  variant="outline"
-                  onClick={() =>
-                    addNewEntry({
-                      name: `Entry ${entries.length + 1}`,
-                      user: user.id,
-                      league: leagueId,
-                    })
-                  }
-                  data-testid="add-new-entry-button"
-                  disabled={addingEntry}
-                >
-                  {addingEntry ? <LoadingSpinner /> : 'Add New Entry'}
-                </Button>
-              )}
-
-              {currentWeek > 1 && (
-                <Link
-                  className="text-primary hover:text-primary-muted font-bold hover:underline"
-                  data-testid="past-weeks-link"
-                  href={`#`}
-                >
-                  View Past Weeks
-                </Link>
-              )}
-            </div>
           </section>
         </div>
       )}
