@@ -8,7 +8,7 @@
 export const getBaseURL = (): string => {
   // Check for Vercel production environment
   if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production') {
-    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+    return `https://www.gridironsurvivor.com`;
   }
 
   // Check for Vercel preview environment
