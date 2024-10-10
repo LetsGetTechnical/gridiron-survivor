@@ -16,7 +16,6 @@ import { LeagueSurvivors } from '@/components/LeagueSurvivors/LeagueSurvivors';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import Heading from '@/components/Heading/Heading';
-import Link from 'next/link';
 import React, { JSX, useEffect, useState } from 'react';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { getNFLTeamLogo } from '@/utils/utils';
@@ -195,19 +194,6 @@ const Entry = ({
                   </section>
                 );
               })}
-
-            <div className="flex flex-col gap-8 justify-center items-center mt-2 mb-2 w-full">
-
-              {currentWeek > 1 && (
-                <Link
-                  className="text-primary hover:text-primary-muted font-bold hover:underline"
-                  data-testid="past-weeks-link"
-                  href={`#`}
-                >
-                  View Past Weeks
-                </Link>
-              )}
-            </div>
           </section>
         </div>
       )}
