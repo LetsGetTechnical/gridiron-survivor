@@ -6,9 +6,14 @@ import { Button } from '@/components/Button/Button';
 import { getCurrentLeague } from '@/api/apiFunctions';
 import { Input } from '@/components/Input/Input';
 import { JSX, useState } from 'react';
-import { Label } from '@/components/Label/Label';
+import { LabelText } from '@/components/LabelText/LabelText';
+import {
+  RadioGroupDefault,
+  RadioGroupDefaultItem,
+} from '@/components/RadioGroupDefault/RadioGroupDefault';
 import { sendEmailNotifications } from './actions/sendEmailNotification';
-import React from 'react';
+import { Textarea } from '@/components/Textarea/Textarea';
+import React, { useEffect } from 'react';
 
 /**
  * The admin home page.
@@ -16,18 +21,23 @@ import React from 'react';
  */
 const AdminNotifications = (): JSX.Element => {
   const [content, setContent] = useState<string>('');
-  const [sendEmailUsers, setSendEmailUsers] = useState<string[]>([]);
+  const [emailSubjects, setEmailSubjects] = useState<string>('all users');
+  const [groupUsers, setGroupUsers] = useState<string[]>([]);
+  const [leagueName, setLeagueName] = useState<string>('');
   const [subject, setSubject] = useState<string>('');
 
   /**
-   * To grab all participant's userIDs from the league to be passed into the backend email function.
+   * To grab all users from the league.
+   * @returns The league data.
    */
-  const participantsEmail = async (): Promise<void> => {
+  const getLeagueData = async (): Promise<void> => {
     try {
-      const leagueId = '66f1a8e300102bff03ff';
+      const leagueId = '66e1cc9000160b10bf2c'; // TEST LEAGUE (DO NOT JOIN)
       const leagueData = await getCurrentLeague(leagueId);
-      setSendEmailUsers(leagueData.participants);
+      setGroupUsers(leagueData.participants);
+      setLeagueName(leagueData.leagueName);
     } catch (error) {
+      console.error('Error Sending Email:', error);
       throw new Error('Error Sending Email');
     }
   };
@@ -38,33 +48,112 @@ const AdminNotifications = (): JSX.Element => {
    */
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    await sendEmailNotifications({ content, sendEmailUsers, subject });
+    await sendEmailNotifications({
+      content,
+      groupUsers,
+      subject,
+    });
   };
 
+  /**
+   * Function to handle radio selection logic.
+   * @param value - Value of the radio buttons.
+   */
+  const handleRadioChange = (value: string): void => {
+    setGroupUsers([value]);
+    setEmailSubjects(value);
+  };
+
+  useEffect(() => {
+    /**
+     * Fetches the league data.
+     * @returns The league data.
+     */
+    const fetchData = async (): Promise<void> => {
+      await getLeagueData();
+    };
+    fetchData();
+  }, []);
+
   return (
-    <section data-testid="admin-notifications-content">
-      <Button
-        label="Email Testers"
-        type="button"
-        onClick={participantsEmail}
-        data-testid="email-testers"
-      />
-      <form onSubmit={handleSubmit}>
-        <Label htmlFor="subject">Subject:</Label>
-        <Input
-          type="text"
-          id="subject"
-          data-testid="subject-text"
-          onChange={(e) => setSubject(e.target.value)}
+    <section
+      className="flex flex-col space-y-6"
+      data-testid="admin-notifications-content"
+    >
+      <p>
+        Choose the users you would like to email in{' '}
+        <span className="font-bold text-orange-500">{leagueName}</span>.
+      </p>
+      <RadioGroupDefault
+        defaultValue="all users"
+        onValueChange={handleRadioChange}
+        required
+      >
+        <div className="flex items-center space-x-2">
+          <RadioGroupDefaultItem
+            value="all users"
+            id="all"
+            data-testid="all-users-option"
+          />
+          <LabelText htmlFor="all">All users</LabelText>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupDefaultItem
+            value="all survivors"
+            id="survivors"
+            data-testid="only-survivors-option"
+          />
+          <LabelText htmlFor="survivors">Only the survivors</LabelText>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupDefaultItem
+            value="all losers"
+            id="losers"
+            data-testid="only-losers-option"
+          />
+          <LabelText htmlFor="losers">Only the losers</LabelText>
+        </div>
+      </RadioGroupDefault>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-6 max-w-[80ch]"
+      >
+        <div className="flex gap-2 flex-col">
+          <LabelText htmlFor="subject" className="text-lg">
+            Subject:
+          </LabelText>
+          <Input
+            data-testid="subject-text"
+            id="subject"
+            name="subject"
+            onChange={(e) => setSubject(e.target.value)}
+            type="text"
+          />
+        </div>
+        <div className="flex gap-2 flex-col">
+          <LabelText htmlFor="content" className="text-lg">
+            Message:
+          </LabelText>
+          <Textarea
+            data-testid="content-text"
+            id="content"
+            name="content"
+            onChange={(e) => setContent(e.target.value)}
+          />
+        </div>
+        <p>
+          This email will be sent to{' '}
+          <span className="font-bold text-orange-500">
+            {emailSubjects.toLowerCase()}
+          </span>{' '}
+          in <span className="font-bold text-orange-500">{leagueName}</span>
+        </p>
+        <Button
+          className="md:max-w-fit"
+          data-testid="send-email"
+          label="Send email"
+          type="submit"
         />
-        <Label htmlFor="content">Content:</Label>
-        <textarea
-          name="content"
-          id="content"
-          onChange={(e) => setContent(e.target.value)}
-          data-testid="content-text"
-        />
-        <Button label="Send Email" type="submit" data-testid="send-email" />
       </form>
     </section>
   );

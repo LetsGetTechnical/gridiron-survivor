@@ -9,17 +9,16 @@ import { messaging } from '@/api/serverConfig';
  * Function to send email.
  * @param props - subject, content.
  * @param props.content - The actual email you are wanting to send.
- * @param props.sendEmailUsers - User id's being passed in from the notification page.
+ * @param props.groupUsers - User id's being passed in from the notification page.
  * @param props.subject - The subject of the email.
- * @param props.testBCC - The target IDs of users needed to BCC emails.
  */
 export const sendEmailNotifications = async ({
   content,
-  sendEmailUsers,
+  groupUsers,
   subject,
 }: {
   content: string;
-  sendEmailUsers: string[];
+  groupUsers: string[];
   subject: string;
 }): Promise<void> => {
   try {
@@ -28,7 +27,7 @@ export const sendEmailNotifications = async ({
       subject,
       content,
       [],
-      sendEmailUsers,
+      groupUsers,
       [],
       [],
       [],
