@@ -117,15 +117,15 @@ const LeagueEntries = ({
         >
           {!isEliminated && (
             <LinkCustom
-              aria-disabled={lockedOut === true ? 'true' : 'false'}
+              aria-disabled={lockedOut ? 'true' : 'false'}
               className={cn(
                 'league-entry-pick-link',
-                lockedOut === true ? 'opacity-50 cursor-not-allowed' : '',
+                lockedOut ? 'opacity-50 cursor-not-allowed' : '',
               )}
               dataTestidProp="league-entry-pick-link"
               href={linkUrl}
               onClick={(e: { preventDefault: () => unknown }) =>
-                lockedOut === true && e.preventDefault()
+                lockedOut && e.preventDefault()
               }
               size={'defaultButton'}
               variant={isPickSet ? 'secondaryButton' : 'primaryButton'}
