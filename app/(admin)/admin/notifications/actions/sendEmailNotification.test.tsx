@@ -17,13 +17,12 @@ describe('SendEmailNotification', () => {
         const content = 'Test';
         const sendEmailUsers = ['123456', '12345', '1234'];
         const subject = 'This is a test';
-        const testBCC = ['1234566789', '12352', '1231232'];
 
         (sendEmailNotifications as jest.Mock).mockImplementation(async ({content, sendEmailUsers, subject, testBCC}) => {
-            await (messaging.createEmail as jest.Mock)('1234567890', subject, content, [], sendEmailUsers, [], [], testBCC);
+            await (messaging.createEmail as jest.Mock)('1234567890', subject, content, [], sendEmailUsers, [], [], []);
         })
 
-        await sendEmailNotifications({content, sendEmailUsers, subject, testBCC});
+        await sendEmailNotifications({content, sendEmailUsers, subject});
 
         expect(messaging.createEmail).toHaveBeenCalledWith(
             expect.any(String),
@@ -33,7 +32,7 @@ describe('SendEmailNotification', () => {
             sendEmailUsers,
             [],
             [],
-            testBCC,
+            [],
         );
     });
 });

@@ -57,7 +57,6 @@ describe('Admin notifications page', () => {
         content: 'Test message section.',
         sendEmailUsers: dummyParticipants,
         subject: 'Test Title',
-        testBCC: expect.any(Array),
       });
     });
   });
