@@ -50,11 +50,9 @@ const Alert = ({
       <Button
         variant="outline"
         className="absolute right-4 top-2 p-1 h-8 bg-transparent"
+        data-testid="dismiss-btn"
       >
-        <X
-          className="text-foreground h-full w-full"
-          data-testid="dismiss-icon"
-        />
+        <X className="text-foreground h-full w-full" />
       </Button>
     </AlertDefault>
   );
