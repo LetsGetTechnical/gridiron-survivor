@@ -2,6 +2,7 @@ import type { StorybookConfig } from '@storybook/nextjs';
 
 const config: StorybookConfig = {
   stories: [
+    '../stories/*.mdx',
     '../stories/**/*.mdx',
     '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
@@ -12,6 +13,7 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
+    '@storybook/manager-api',
   ],
   framework: {
     name: '@storybook/nextjs',

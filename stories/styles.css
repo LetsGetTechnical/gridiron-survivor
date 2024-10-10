@@ -1,3 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('../app/globals.css');
+
+* {
+  font-family: Geist Sans;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-foreground;
+  @apply font-bold;
+  @apply tracking-tight;
+  text-wrap: balance;
+}
+
+h1 {
+  @apply text-5xl;
+}
+
+h2 {
+  @apply text-4xl;
+}
+
+h3 {
+  @apply text-3xl;
+}
+
+h4 {
+  @apply text-2xl;
+}
+
+h5 {
+  @apply text-xl;
+}
+
+h6 {
+  @apply text-lg;
+}
+
+p {
+  @apply text-base;
+  @apply tracking-normal;
+  @apply text-muted-foreground;
+  text-wrap: balance;
+}
+
+header h1 {
+  @apply pt-24;
+  @apply pb-8;
+}
+
+header p {
+  @apply text-lg;
+  @apply pb-8;
+}
+
 .doc_nav_links {
   display: flex;
   justify-content: space-between;

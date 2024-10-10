@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react';
 import '../app/globals.css';
+import '../stories/styles.css';
 
 const preview: Preview = {
   parameters: {
@@ -9,13 +10,7 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    backgrounds: {
-      default: 'dark',
-      values: [
-        { name: 'dark', value: '#09090B' },
-        { name: 'light', value: '#fff' },
-      ],
-    },
+    layout: 'centered',
   },
 };
 
