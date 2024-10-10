@@ -21,10 +21,10 @@ import React, { useEffect } from 'react';
  */
 const AdminNotifications = (): JSX.Element => {
   const [content, setContent] = useState<string>('');
+  const [emailSubjects, setEmailSubjects] = useState<string>('all users');
   const [groupUsers, setGroupUsers] = useState<string[]>([]);
   const [leagueName, setLeagueName] = useState<string>('');
   const [subject, setSubject] = useState<string>('');
-  const [emailRecipients, setEmailRecipients] = useState<string>('');
 
   /**
    * To grab all users from the league.
@@ -60,7 +60,8 @@ const AdminNotifications = (): JSX.Element => {
    * @param value - Value of the radio buttons.
    */
   const handleRadioChange = (value: string): void => {
-    setEmailRecipients(value);
+    setGroupUsers([value]);
+    setEmailSubjects(value);
   };
 
   useEffect(() => {
@@ -143,7 +144,7 @@ const AdminNotifications = (): JSX.Element => {
         <p>
           This email will be sent to{' '}
           <span className="font-bold text-orange-500">
-            {emailRecipients.toLowerCase()}
+            {emailSubjects.toLowerCase()}
           </span>{' '}
           in <span className="font-bold text-orange-500">{leagueName}</span>
         </p>
