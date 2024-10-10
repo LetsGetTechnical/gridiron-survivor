@@ -31,7 +31,7 @@ export const sendEmailNotifications = async ({
       sendEmailUsers,
       [],
       [],
-      ['66bd072b4824aa77bd9b', '66da0993c6adb1bd868a'],
+      [],
     );
   } catch (error) {
     throw new Error('Error Sending Email');
