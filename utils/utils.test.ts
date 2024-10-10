@@ -50,10 +50,12 @@ const mockGameCurrentWeek = {
 
 const mockWeeklyPicksData = {
   '66281d5ec5614f76bc91': {
+    '123':{
     '1234': {
       teamName: 'New England Patriots',
       correct: false,
     },
+
   },
   '6628077faeeedd272637': {
     '4321': {
@@ -67,6 +69,7 @@ const mockWeeklyPicksData = {
       correct: true,
     },
   },
+},
 };
 
 describe('utils', () => {
@@ -112,7 +115,7 @@ describe('utils', () => {
       });
     });
   });
-  xdescribe('getUserPick', () => {
+  describe('getUserPick', () => {
     it("should return the user's team name if the user has a pick", async () => {
       const result = await getUserPick({
         weeklyPicks: mockWeeklyPicksData,
@@ -139,11 +142,13 @@ describe('utils', () => {
       const result = await getUserPick({
         weeklyPicks: {
           '66281d5ec5614f76bc91': {
+            '123':{
             '1234': {
-              teamName: 'New Team',
+              teamName: '',
               correct: false,
             },
           },
+        },
         },
         entryId: mockUserData.entryId,
         userId: mockUserData.userId,
@@ -179,7 +184,7 @@ describe('utils', () => {
       });
     });
   });
-  xdescribe('getUserLeagues', () => {
+  describe('getUserLeagues', () => {
     it('should return the list of leagues the user is a part of', async () => {
       (getCurrentLeague as jest.Mock).mockResolvedValue(mockLeague);
       const result = await getUserLeagues(mockUserData.leagues);
