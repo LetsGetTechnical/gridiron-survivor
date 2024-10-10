@@ -50,12 +50,12 @@ p {
   text-wrap: balance;
 }
 
-.header h1 {
+header h1 {
   @apply pt-24;
   @apply pb-8;
 }
 
-.header p {
+header p {
   @apply text-lg;
   @apply pb-8;
 }

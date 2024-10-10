@@ -1,7 +1,7 @@
 import './styles.css';
 import Image from 'next/image';
 import gridironLogo from '../public/assets/logo-colored-outline.svg';
-import TeamMembers from './TeamMembers';
+import TeamMemberSection from './TeamMemberSection';
 import Sponsors from './Sponsors';
 import { Unstyled } from '@storybook/blocks';
 
@@ -9,11 +9,11 @@ import { Unstyled } from '@storybook/blocks';
 <div class="light bg-background w-full">
 <Image
   src={gridironLogo}
-  alt="Gridiron Surivior Logo"
+  alt="Gridiron Survivor Logo"
   className="block max-w-full m-auto py-8 justify-center"
 />
 
-<div className="header text-center sm:text-left">
+<header className="mx-auto md:text-left">
 
 # What is Gridiron Survivor?
 
@@ -23,11 +23,11 @@ Gridiron Survivor is the ultimate survivor league app. Track your picks, see how
   <li>[View our GitHub](https://github.com/LetsGetTechnical/gridiron-survivor)</li>
   <li>[Check out Gridiron Survivor](https://www.gridironsurvivor.com)</li>
 </ol>
-</div>
+</header>
 
 <Sponsors />
 
-<TeamMembers />
+<TeamMemberSection />
 
 <ol className="doc_nav_links">
   <li></li>
