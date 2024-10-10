@@ -34,7 +34,7 @@ const AdminRootLayout = ({
 }): React.JSX.Element => {
   return (
     <html lang="en">
-      <body className="dark:dark bg-background text-foreground h-screen">
+      <body className="dark bg-background text-foreground h-screen">
         <ErrorBoundary>
           <AuthContextProvider>
             <div className="admin-body-inner-container grid grid-cols-adminLayout h-full">

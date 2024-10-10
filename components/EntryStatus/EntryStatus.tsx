@@ -17,8 +17,8 @@ export const EntryStatus = ({
   return (
     <div
       className={cn(
-        'entry-status rounded-full px-2 py-1 text-xs uppercase text-zinc-800',
-        isEliminated ? 'bg-red-500' : 'bg-green-500',
+        'entry-status rounded-full px-2 py-1 text-xs uppercase text-background',
+        isEliminated ? 'bg-error' : 'bg-success',
       )}
       data-testid="entry-status"
     >

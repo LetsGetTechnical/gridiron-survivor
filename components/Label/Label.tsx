@@ -9,17 +9,25 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../utils/utils';
 
 const labelVariants = cva(
-  'text-base font-normal leading-none text-zinc-50 cursor-pointer flex gap-2 items-center rounded-xl border-2 border-zinc-800 peer-aria-checked:border-orange-600 py-4 px-3 w-full peer-hover:bg-zinc-800 transition',
+  'text-base font-normal leading-none text-foreground cursor-pointer flex gap-2 items-center rounded-xl border-2 border-border py-4 px-3 w-full transition',
+  {
+    variants: {
+      disabled: {
+        true: 'opacity-50 cursor-not-allowed',
+        false: 'peer-aria-checked:border-accent peer-hover:border-white'
+      },
+    },
+  }
 );
 
 const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
     VariantProps<typeof labelVariants>
->(({ className, ...props }, ref) => (
+>(({ className, disabled, ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
-    className={cn(labelVariants(), className)}
+    className={cn(labelVariants({ disabled }), className)}
     {...props}
   />
 ));

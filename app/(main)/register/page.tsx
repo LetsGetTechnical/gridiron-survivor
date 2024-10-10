@@ -23,7 +23,8 @@ import Alert from '@/components/AlertNotification/AlertNotification';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import Logo from '@/components/Logo/Logo';
 import logo from '/public/assets/logo-colored-outline.svg';
-import React, { JSX, useEffect } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 const RegisterUserSchema = z
   .object({
@@ -34,11 +35,11 @@ const RegisterUserSchema = z
     password: z
       .string()
       .min(1, { message: 'Please enter a password' })
-      .min(6, { message: 'Password must be at least 6 characters' }),
+      .min(8, { message: 'Password must be at least 8 characters' }),
     confirmPassword: z
       .string()
       .min(1, { message: 'Please confirm your password' })
-      .min(6, { message: 'Password must be at least 6 characters' }),
+      .min(8, { message: 'Password must be at least 8 characters' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -54,6 +55,7 @@ type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 const Register = (): JSX.Element => {
   const router = useRouter();
   const { login, isSignedIn } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -105,9 +107,9 @@ const Register = (): JSX.Element => {
     data: RegisterUserSchemaType,
   ): Promise<void> => {
     try {
+      setIsLoading(true);
       await registerAccount(data);
       await login(data);
-      router.push('/league/all');
       toast.custom(
         <Alert
           variant={AlertVariants.Success}
@@ -119,6 +121,8 @@ const Register = (): JSX.Element => {
       toast.custom(
         <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -128,10 +132,10 @@ const Register = (): JSX.Element => {
     <section className="grid xl:grid-cols-2 xl:grid-rows-none">
       <div
         data-testid="dark-mode-section"
-        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 dark:bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
+        className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b"
       >
         <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
-        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground text-white">
+        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground">
           <p className="hidden leading-7 xl:block">
             Thank you... fantasy football draft, for letting me know that even
             in my fantasies, I am bad at sports.
@@ -144,7 +148,7 @@ const Register = (): JSX.Element => {
           <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
             Register A New Account
           </h1>
-          <p className="pb-4 font-normal leading-7 text-zinc-500">
+          <p className="pb-4 font-normal leading-7 text-muted-foreground">
             If you have an existing account{' '}
             <LinkCustom href="/login">Login!</LinkCustom>
           </p>
@@ -154,6 +158,7 @@ const Register = (): JSX.Element => {
           <form
             id="input-container"
             className="grid gap-3"
+            data-testid="register-form"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
@@ -169,9 +174,9 @@ const Register = (): JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.email && (
+                  {form.formState.errors?.email && (
                     <FormMessage>
-                      {form.formState.errors.email.message}
+                      {form.formState.errors?.email.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -190,9 +195,9 @@ const Register = (): JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.password && (
+                  {form.formState.errors?.password && (
                     <FormMessage>
-                      {form.formState.errors.password.message}
+                      {form.formState.errors?.password.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -211,9 +216,9 @@ const Register = (): JSX.Element => {
                       {...field}
                     />
                   </FormControl>
-                  {form.formState.errors.confirmPassword && (
+                  {form.formState.errors?.confirmPassword && (
                     <FormMessage>
-                      {form.formState.errors.confirmPassword.message}
+                      {form.formState.errors?.confirmPassword.message}
                     </FormMessage>
                   )}
                 </FormItem>
@@ -222,7 +227,13 @@ const Register = (): JSX.Element => {
 
             <Button
               data-testid="continue-button"
-              label="Register"
+              label={
+                isLoading ? (
+                  <LoadingSpinner data-testid="loading-spinner" />
+                ) : (
+                  'Continue'
+                )
+              }
               type="submit"
               disabled={isDisabled}
             />

@@ -8,15 +8,18 @@ export interface IAccountData {
   password: string;
 }
 export interface IUser {
+  documentId: string;
   id: string;
   email: string;
   leagues: string[];
 }
 export interface IUserPick {
   [userId: string]: {
-    [entryId: IEntry['$id']]: {
-      teamName: string;
-      correct: boolean;
+    [leagueId: string]: {
+      [entryId: IEntry['$id']]: {
+        teamName: string;
+        correct: boolean;
+      };
     };
   };
 }
@@ -51,4 +54,12 @@ export interface ILeagueCreate {
   participants: string[];
   survivors: string[];
   type: string;
+}
+
+export interface IRecoveryToken {
+  $id: string;
+  expire: string;
+  phrase?: string;
+  secret: string;
+  userId: string;
 }

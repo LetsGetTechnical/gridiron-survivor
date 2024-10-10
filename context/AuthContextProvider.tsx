@@ -81,7 +81,11 @@ export const AuthContextProvider = ({
    */
   const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
-      if (pathname !== '/register') {
+      if (
+        pathname !== '/register' &&
+        pathname !== '/account/recovery' &&
+        pathname !== '/recover-password'
+      ) {
         router.push('/login');
       }
       return;
@@ -90,7 +94,12 @@ export const AuthContextProvider = ({
     try {
       const user = await account.get();
       const userData: IUser = await getCurrentUser(user.$id);
-      updateUser(userData.id, userData.email, userData.leagues);
+      updateUser(
+        userData.documentId,
+        userData.id,
+        userData.email,
+        userData.leagues,
+      );
       return userData;
     } catch (error) {
       resetUser();
