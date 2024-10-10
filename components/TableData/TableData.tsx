@@ -66,21 +66,26 @@ const TableData = <TData, TValue>({
           </TableRow>
         ))}
       </TableHeader>
-      {tableRows?.length ? (
-        tableRows.map((row) => (
-          <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-            {row.getVisibleCells().map((cell) => (
-              <TableCell key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </TableCell>
-            ))}
+      <tbody>
+        {tableRows?.length ? (
+          tableRows.map((row) => (
+            <TableRow
+              key={row.id}
+              data-state={row.getIsSelected() && 'selected'}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={columns.length}>No results.</TableCell>
           </TableRow>
-        ))
-      ) : (
-        <TableRow>
-          <TableCell colSpan={columns.length}>No results.</TableCell>
-        </TableRow>
-      )}
+        )}
+      </tbody>
     </Table>
   );
 };

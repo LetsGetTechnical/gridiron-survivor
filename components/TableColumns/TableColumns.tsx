@@ -45,10 +45,10 @@ export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text')}</div>,
+    cell: ({ row }) => <div>{row.getValue('leagueName')}</div>,
   },
   {
-    accessorKey: 'text2',
+    accessorKey: 'participants',
 
     /**
      * Value of row.
@@ -74,10 +74,10 @@ export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text2')}</div>,
+    cell: ({ row }) => <div>{row.getValue('participants')}</div>,
   },
   {
-    accessorKey: 'text3',
+    accessorKey: 'survivors',
 
     /**
      * Value of row.
@@ -103,7 +103,7 @@ export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text3')}</div>,
+    cell: ({ row }) => <div>{row.getValue('survivors')}</div>,
   },
   {
     accessorKey: 'text4',
