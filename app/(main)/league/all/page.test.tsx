@@ -72,7 +72,7 @@ describe('Leagues Component', () => {
     jest.clearAllMocks();
   });
 
-  test('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
+  it('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
     mockUseAuthContext.isSignedIn = true;
     mockUseDataStore.mockReturnValue({
       user: {
@@ -94,7 +94,7 @@ describe('Leagues Component', () => {
     });
   });
 
-  test('should display GlobalSpinner while loading data', async () => {
+  it('should display GlobalSpinner while loading data', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     mockUseDataStore.mockReturnValueOnce({
@@ -112,7 +112,7 @@ describe('Leagues Component', () => {
     expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
   });
 
-  test('should not display GlobalSpinner after loading data', async () => {
+  it('should not display GlobalSpinner after loading data', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     mockUseDataStore.mockReturnValue({
@@ -142,7 +142,7 @@ describe('Leagues Component', () => {
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
   });
 
-  test('should handle form submission to join a league', async () => {
+  it('should handle form submission to join a league', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     const user = {
@@ -212,7 +212,7 @@ describe('Leagues Component', () => {
     });
   });
 
-  test('should show error if adding to league fails', async () => {
+  it('should show error if adding to league fails', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     const user = {
