@@ -48,7 +48,12 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
           data-testid="team-radio"
         />
 
-        <Label htmlFor={team} data-testid="team-label" disabled={isDisabled}>
+        <Label
+          htmlFor={team}
+          data-testid="team-label"
+          disabled={isDisabled}
+          className="flex-col xs:flex-row"
+        >
           <Image
             src={src}
             alt={team}
@@ -56,7 +61,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
             height={48}
             priority
             data-testid="team-image"
-            className="h-6 w-6 sm:h-12 sm:w-12"
+            className="h-12 w-12"
           />
           {loadingTeamName === selectedTeam ? <LoadingSpinner /> : <>{team}</>}
         </Label>

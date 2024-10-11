@@ -88,6 +88,9 @@ module.exports = {
       gridTemplateRows: {
         'adminLayout': '5rem auto',
       },
+      screens: {
+        'xs': '400px'
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],
