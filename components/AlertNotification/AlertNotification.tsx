@@ -9,6 +9,7 @@ import { CheckCircle, XCircle, Info, AlertTriangle, X } from 'lucide-react';
 import { IAlertNotification } from './AlertNotification.interface';
 import { AlertVariants } from './Alerts.enum';
 import { Button } from '../Button/Button';
+import toast from 'react-hot-toast';
 
 const variantConfig = {
   success: {
@@ -52,6 +53,7 @@ const Alert = ({
         size="icon"
         className="absolute right-4 top-2"
         data-testid="dismiss-alert-btn"
+        onClick={() => toast.remove()}
       >
         <X />
       </Button>
