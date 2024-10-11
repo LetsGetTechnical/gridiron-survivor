@@ -85,6 +85,7 @@ export const getUserPick = async ({
 
   const userTeamId = weeklyPicks[userId][entryId].teamName;
   const userSelectedTeam = NFLTeams.find((team) => team.teamName === userTeamId.teamName);
+  
   return userSelectedTeam?.teamName || '';
 };
 
