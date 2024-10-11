@@ -54,7 +54,6 @@ const Alert = ({
         className="absolute right-4 top-2"
         data-testid="dismiss-alert-btn"
         onClick={() => toast.remove()}
-        autoFocus
         aria-label='close notification'
       >
         <X />
