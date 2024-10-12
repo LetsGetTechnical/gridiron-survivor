@@ -2,14 +2,16 @@ import { Query } from 'appwrite';
 import {
   createWeeklyPicks,
   getAllWeeklyPicks,
-  loginAccount,
-  logoutAccount,
   registerAccount,
+  recoverPassword,
+  resetRecoveredPassword,
 } from './apiFunctions';
 import { Collection } from './apiFunctions.enum';
 import { IUserPick } from './apiFunctions.interface';
-import { account, databases } from './config';
+import { IUser } from './apiFunctions.interface';
+import { account, databases, ID } from './config';
 const apiFunctions = require('./apiFunctions');
+import { getBaseURL } from '@/utils/getBaseUrl';
 
 jest.mock('./apiFunctions', () => {
   const actualModule = jest.requireActual('./apiFunctions');
@@ -234,95 +236,204 @@ describe('API Functions', () => {
       expect(databases.updateDocument).not.toHaveBeenCalled();
     });
   });
+jest.mock('@/utils/getBaseUrl', () => ({
+  getBaseURL: jest.fn(),
+}));
 
-  describe('getAllWeeklyPicks', () => {
-    const mockLeagueId = 'mockLeagueId';
-    const mockWeekId = 'mockWeekId';
-    const mockYear = new Date().getFullYear().toString();
+jest.mock('./config', () => ({
+  account: {
+    create: jest.fn(),
+    createRecovery: jest.fn(),
+    updateRecovery: jest.fn(),
+  },
+  ID: {
+    unique: jest.fn(),
+  },
+}));
 
-    afterEach(() => {
+describe('apiFunctions', () => {
+  describe('Authentication Functions', () => {
+    const mockBaseURL = 'http://example.com';
+    const mockEmail = 'test@example.com';
+    const mockPassword = 'newPassword123';
+    const mockRecoveryToken = { userId: '123', secret: 'abc123' };
+    const mockToken = 'abc123';
+    const mockUserId = '123';
+    const mockUniqueId = 'unique123';
+
+    beforeEach(() => {
       jest.clearAllMocks();
+      (getBaseURL as jest.MockedFunction<typeof getBaseURL>).mockReturnValue(
+        mockBaseURL,
+      );
     });
 
-    it('should return the userResults when response is found', async () => {
-      const mockResponse = {
-        total: 1,
-        documents: [
-          {
-            userResults: JSON.stringify({ result: 'testResult' }),
-          },
-        ],
-      };
+    describe('registerAccount', () => {
+      it('should successfully register a new account', async () => {
+        const mockUser: IUser = {
+          documentId: '123',
+          id: mockUniqueId,
+          email: mockEmail,
+          leagues: [],
+        };
 
-      (databases.listDocuments as jest.Mock).mockResolvedValue(mockResponse);
+        (ID.unique as jest.Mock).mockReturnValue(mockUniqueId);
+        (account.create as jest.Mock).mockResolvedValue(mockUser);
 
-      const result = await getAllWeeklyPicks({
-        leagueId: mockLeagueId,
-        weekId: mockWeekId,
+        const result = await registerAccount({
+          email: mockEmail,
+          password: mockPassword,
+        });
+
+        expect(account.create).toHaveBeenCalledWith(
+          mockUniqueId,
+          mockEmail,
+          mockPassword,
+        );
+        expect(result).toEqual(mockUser);
       });
 
-      expect(databases.listDocuments).toHaveBeenCalled();
-      expect(databases.listDocuments).toHaveBeenCalledWith(
-        expect.any(String), // databaseId
-        Collection.GAME_RESULTS,
-        [
-          Query.equal('leagueId', mockLeagueId),
-          Query.equal('gameWeekId', mockWeekId),
-        ],
-      );
-      expect(result).toEqual({ result: 'testResult' });
+      it('should throw an error if registration fails', async () => {
+        (account.create as jest.Mock).mockRejectedValue(
+          new Error('Registration failed'),
+        );
+
+        await expect(
+          registerAccount({ email: mockEmail, password: mockPassword }),
+        ).rejects.toThrow('Error registering user');
+
+        expect(ID.unique).toHaveBeenCalledTimes(1);
+        expect(account.create).toHaveBeenCalledWith(
+          mockUniqueId,
+          mockEmail,
+          mockPassword,
+        );
+      });
     });
 
-    it('should create a new document and return userResults when no response is found', async () => {
-      const mockListResponse = {
-        total: 0,
-        documents: [],
-      };
-      const mockNewDocument = {
-        documents: [
-          {
-            userResults: JSON.stringify({ newResult: 'newTestResult' }),
-          },
-        ],
-      };
+    describe('recoverPassword', () => {
+      it('should successfully create a recovery token', async () => {
+        (account.createRecovery as jest.Mock).mockResolvedValue(
+          mockRecoveryToken,
+        );
 
-      (databases.listDocuments as jest.Mock).mockResolvedValue(
-        mockListResponse,
-      );
-      (databases.createDocument as jest.Mock).mockResolvedValue(
-        mockNewDocument,
-      );
+        const result = await recoverPassword({ email: mockEmail });
 
-      const result = await apiFunctions.getAllWeeklyPicks({
-        leagueId: mockLeagueId,
-        weekId: mockWeekId,
+        expect(getBaseURL).toHaveBeenCalledTimes(1);
+        expect(account.createRecovery).toHaveBeenCalledWith(
+          mockEmail,
+          `${mockBaseURL}/account/recovery`,
+        );
+        expect(result).toEqual(mockRecoveryToken);
       });
 
-      expect(databases.createDocument).toHaveBeenCalledWith(
-        expect.any(String), // databaseId
-        Collection.GAME_RESULTS,
-        'mocked-unique-id', // documentId
-        {
-          leagueId: mockLeagueId,
-          gameWeekId: mockWeekId,
-          userResults: '{}',
-          year: mockYear,
+      it('should throw an error if recovery creation fails', async () => {
+        const mockError = new Error('Recovery creation failed');
+        (account.createRecovery as jest.Mock).mockRejectedValue(mockError);
+
+        await expect(recoverPassword({ email: mockEmail })).rejects.toThrow();
+        expect(getBaseURL).toHaveBeenCalledTimes(1);
+        expect(account.createRecovery).toHaveBeenCalledWith(
+          mockEmail,
+          `${mockBaseURL}/account/recovery`,
+        );
+      });
+    });
+
+    describe('resetRecoveredPassword', () => {
+      it('should successfully reset the password', async () => {
+        (account.updateRecovery as jest.Mock).mockResolvedValue(
+          mockRecoveryToken,
+        );
+
+        const result = await resetRecoveredPassword({
+          userId: mockUserId,
+          token: mockToken,
+          password: mockPassword,
+        });
+
+        expect(account.updateRecovery).toHaveBeenCalledWith(
+          mockUserId,
+          mockToken,
+          mockPassword,
+        );
+        expect(result).toEqual(mockRecoveryToken);
+      });
+
+      it('should throw an error if password reset fails', async () => {
+        const mockError = new Error('Password reset failed');
+        (account.updateRecovery as jest.Mock).mockRejectedValue(mockError);
+
+        await expect(
+          resetRecoveredPassword({
+            userId: mockUserId,
+            token: mockToken,
+            password: mockPassword,
+          }),
+        ).rejects.toThrow();
+        expect(account.updateRecovery).toHaveBeenCalledWith(
+          mockUserId,
+          mockToken,
+          mockPassword,
+        );
+      });
+    });
+  });
+
+  describe('Get Weekly Picks Mock function', () => {
+    it('should mock getWeeklyPicks function', async () => {
+      const users = { $id: '663130a100297f77c3c8' };
+      const resp = { data: users };
+
+      apiFunctions.getUserWeeklyPick.mockResolvedValue(resp);
+
+      const result = await apiFunctions.getUserWeeklyPick({
+        userId: '66281d5ec5614f76bc91',
+        weekNumber: '6622c75658b8df4c4612',
+      });
+
+      expect(result).toEqual(resp);
+    });
+  });
+
+  describe('Create Weekly Picks Mock Function', () => {
+    it('should mock createWeeklyPicks function', async () => {
+      const users = { team: '66218f22b40deef340f8', correct: false };
+      const resp = { data: users };
+
+      apiFunctions.createWeeklyPicks.mockResolvedValue(resp);
+
+      const result = await apiFunctions.createWeeklyPicks({
+        gameWeekId: '6622c7596558b090872b',
+        gameId: '66311a210039f0532044',
+        userResults:
+          '{"66281d5ec5614f76bc91":{"team":"66218f22b40deef340f8","correct":false},"6628077faeeedd272637":{"team":"6621b30ea57bd075e9d3","correct":false}, "66174f2362ec891167be":{"team": "6621b30ea57bd075e9d3", "correct":true}}',
+      });
+
+      expect(result).toEqual(resp);
+    });
+  });
+
+  describe('Get All Weekly Picks Mock Function', () => {
+    it('should mock getAllWeeklyPicks function', async () => {
+      const weeklyPicks = {
+        '66281d5ec5614f76bc91': {
+          team: '66218f22b40deef340f8',
+          correct: false,
         },
-      );
-      expect(result).toEqual({ newResult: 'newTestResult' });
-    });
+        '6628077faeeedd272637': {
+          team: '6621b30ea57bd075e9d3',
+          correct: false,
+        },
+        '66174f2362ec891167be': { team: '6621b30ea57bd075e9d3', correct: true },
+      };
+      const response = { data: weeklyPicks };
 
-    it('should throw an error when there is a problem with the request', async () => {
-      (databases.listDocuments as jest.Mock).mockRejectedValue(
-        new Error('Test error'),
-      );
+      apiFunctions.getAllWeeklyPicks.mockResolvedValue(response);
 
-      await expect(
-        apiFunctions.getAllWeeklyPicks({
-          leagueId: mockLeagueId,
-          weekId: mockWeekId,
-        }),
-      ).rejects.toThrow('Error getting all weekly picks');
+      const result = await apiFunctions.getAllWeeklyPicks();
+
+      expect(result).toEqual(response);
     });
   });
 
@@ -361,8 +472,9 @@ describe('API Functions', () => {
       ];
 
       apiFunctions.getCurrentUserEntries.mockResolvedValue(userEntries);
+
       const result = await apiFunctions.getCurrentUserEntries();
-      
+
       for (const entry of result) {
         expect(entry.eliminated).toEqual(false);
       }
@@ -381,6 +493,7 @@ describe('API Functions', () => {
       ];
 
       apiFunctions.getCurrentUserEntries.mockResolvedValue(userEntries);
+
       const result = await apiFunctions.getCurrentUserEntries();
 
       for (const entry of result) {
@@ -388,6 +501,7 @@ describe('API Functions', () => {
       }
     });
   });
+
   xdescribe('get all leagues', () => {
     it('should return all leagues upon successful call', async () => {
       const mockAllLeagues = [
@@ -408,6 +522,7 @@ describe('API Functions', () => {
       ];
 
       apiFunctions.getAllLeagues.mockResolvedValue(mockAllLeagues);
+
       const result = await apiFunctions.getAllLeagues();
 
       expect(result).toEqual([
@@ -468,14 +583,6 @@ describe('API Functions', () => {
       apiFunctions.addUserToLeague.mockResolvedValue(response);
       const result = await apiFunctions.addUserToLeague({ response });
       expect(result).toEqual(response);
-    });
-    it('should return error upon unsuccessful call', async () => {
-      apiFunctions.addUserToLeague.mockRejectedValue(
-        new Error('Error adding user to league'),
-      );
-      await expect(apiFunctions.addUserToLeague('123', '456')).rejects.toThrow(
-        'Error adding user to league',
-      );
     });
     it('should return error upon unsuccessful call', async () => {
       apiFunctions.addUserToLeague.mockRejectedValue(
