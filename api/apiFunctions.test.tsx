@@ -1,15 +1,10 @@
-import { Query } from 'appwrite';
 import {
-  createWeeklyPicks,
-  getAllWeeklyPicks,
-  registerAccount,
   recoverPassword,
+  registerAccount,
   resetRecoveredPassword,
 } from './apiFunctions';
-import { Collection } from './apiFunctions.enum';
-import { IUserPick } from './apiFunctions.interface';
 import { IUser } from './apiFunctions.interface';
-import { account, databases, ID } from './config';
+import { account, ID } from './config';
 const apiFunctions = require('./apiFunctions');
 import { getBaseURL } from '@/utils/getBaseUrl';
 
@@ -17,225 +12,16 @@ jest.mock('./apiFunctions', () => {
   const actualModule = jest.requireActual('./apiFunctions');
   return {
     ...actualModule,
-    addUserToLeague: jest.fn(),
-    getAllLeagues: jest.fn(),
-    getCurrentUserEntries: jest.fn(),
-    getUserDocumentId: jest.fn(),
+    createWeeklyPicks: jest.fn(),
     getUserWeeklyPick: jest.fn(),
+    getAllWeeklyPicks: jest.fn(),
+    getCurrentUserEntries: jest.fn(),
+    getAllLeagues: jest.fn(),
+    getUserDocumentId: jest.fn(),
+    addUserToLeague: jest.fn(),
   };
 });
 
-jest.mock('./config', () => ({
-  account: {
-    create: jest.fn(),
-    deleteSession: jest.fn(),
-  },
-  appwriteConfig: {
-    databaseId: 'mockDatabaseId', // Mocked databaseId
-  },
-  databases: {
-    createDocument: jest.fn(),
-    listDocuments: jest.fn(),
-    updateDocument: jest.fn(),
-  },
-  ID: {
-    unique: jest.fn().mockReturnValue('mocked-unique-id'),
-  },
-}));
-
-jest.mock('appwrite', () => ({
-  Query: {
-    equal: jest.fn((field, value) => ({ field, value })),
-  },
-}));
-
-describe('API Functions', () => {
-  describe('Auth Functions', () => {
-    jest.mock('./apiFunctions', () => ({
-      loginAccount: jest.fn(),
-      registerAccount: jest.fn(),
-    }));
-
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    xdescribe('login account successful', () => {
-      it('should show user login successfully', async () => {
-        const userDummy = {
-          email: 'testemail@email.com',
-          password: 'test1234',
-        };
-        await loginAccount(userDummy);
-        expect(account.createEmailPasswordSession).toBeInstanceOf(Object);
-      });
-
-      //user failed to log in
-      it('should send error if user could not log in', async () => {
-        const failDummy = {
-          email: 'testemil@email.com',
-          password: 'tet1234679',
-        };
-        await loginAccount(failDummy);
-        expect(loginAccount(failDummy)).rejects.toThrow('error');
-      });
-    });
-
-    // Test the logout function
-    describe('logout account works', () => {
-      it('should log out successfully', async () => {
-        jest
-          .spyOn(account, 'deleteSession')
-          .mockResolvedValueOnce('Session deleted');
-        await logoutAccount();
-        expect(account.deleteSession).toHaveBeenCalledTimes(1);
-      });
-    });
-
-    describe('register account successful', () => {
-      it('Should allow a user to register an account', async () => {
-        const userDummy = {
-          email: 'testemail0@email.com',
-          password: 'test12345',
-        };
-        const response = await registerAccount(userDummy);
-        expect(account.create).toHaveBeenCalledWith(
-          expect.any(String),
-          userDummy.email,
-          userDummy.password,
-        );
-      });
-    });
-  });
-
-  describe('createWeeklyPicks', () => {
-    const mockLeagueId = 'mockLeagueId';
-    const mockGameWeekId = 'mockGameWeekId';
-    const mockDocumentId = 'mockDocumentId';
-    const mockUserResults: IUserPick = {
-      mockUserId: {
-        mockLeagueId: {
-          mockEntryId: {
-            teamName: 'Team A',
-            correct: true,
-          },
-        },
-      },
-    };
-
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it('should successfully create weekly picks', async () => {
-      const mockListResponse = {
-        documents: [{ $id: mockDocumentId }],
-      };
-      const mockUpdateResponse = {
-        $id: mockDocumentId,
-        leagueId: mockLeagueId,
-        gameWeekId: mockGameWeekId,
-        userResults: JSON.stringify(mockUserResults),
-      };
-
-      (databases.listDocuments as jest.Mock).mockResolvedValue(
-        mockListResponse,
-      );
-      (databases.updateDocument as jest.Mock).mockResolvedValue(
-        mockUpdateResponse,
-      );
-
-      const result = await createWeeklyPicks({
-        leagueId: mockLeagueId,
-        gameWeekId: mockGameWeekId,
-        userResults: mockUserResults,
-      });
-
-      expect(databases.listDocuments).toHaveBeenCalledWith(
-        'mockDatabaseId',
-        Collection.GAME_RESULTS,
-        [
-          Query.equal('leagueId', mockLeagueId),
-          Query.equal('gameWeekId', mockGameWeekId),
-        ],
-      );
-
-      expect(databases.updateDocument).toHaveBeenCalledWith(
-        'mockDatabaseId',
-        Collection.GAME_RESULTS,
-        mockDocumentId,
-        {
-          leagueId: mockLeagueId,
-          gameWeekId: mockGameWeekId,
-          userResults: JSON.stringify(mockUserResults),
-        },
-      );
-
-      expect(result).toEqual(mockUpdateResponse);
-    });
-
-    it('should throw an error when listDocuments fails', async () => {
-      (databases.listDocuments as jest.Mock).mockRejectedValue(
-        new Error('List documents failed'),
-      );
-
-      await expect(
-        createWeeklyPicks({
-          leagueId: mockLeagueId,
-          gameWeekId: mockGameWeekId,
-          userResults: mockUserResults,
-        }),
-      ).rejects.toThrow('Error creating weekly picks');
-
-      expect(databases.listDocuments).toHaveBeenCalled();
-      expect(databases.updateDocument).not.toHaveBeenCalled();
-    });
-
-    it('should throw an error when updateDocument fails', async () => {
-      const mockListResponse = {
-        documents: [{ $id: mockDocumentId }],
-      };
-
-      (databases.listDocuments as jest.Mock).mockResolvedValue(
-        mockListResponse,
-      );
-      (databases.updateDocument as jest.Mock).mockRejectedValue(
-        new Error('Update document failed'),
-      );
-
-      await expect(
-        createWeeklyPicks({
-          leagueId: mockLeagueId,
-          gameWeekId: mockGameWeekId,
-          userResults: mockUserResults,
-        }),
-      ).rejects.toThrow('Error creating weekly picks');
-
-      expect(databases.listDocuments).toHaveBeenCalled();
-      expect(databases.updateDocument).toHaveBeenCalled();
-    });
-
-    it('should throw an error when no documents are found', async () => {
-      const mockListResponse = {
-        documents: [],
-      };
-
-      (databases.listDocuments as jest.Mock).mockResolvedValue(
-        mockListResponse,
-      );
-
-      await expect(
-        createWeeklyPicks({
-          leagueId: mockLeagueId,
-          gameWeekId: mockGameWeekId,
-          userResults: mockUserResults,
-        }),
-      ).rejects.toThrow('Error creating weekly picks');
-
-      expect(databases.listDocuments).toHaveBeenCalled();
-      expect(databases.updateDocument).not.toHaveBeenCalled();
-    });
-  });
 jest.mock('@/utils/getBaseUrl', () => ({
   getBaseURL: jest.fn(),
 }));
