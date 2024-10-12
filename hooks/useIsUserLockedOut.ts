@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
  * Function to constantly check the current time every hour and set the lockout accordingly.
  * @returns - The value of lockedOut.
  */
-const useLockout = (): boolean => {
+const useIsUserLockedOut = (): boolean => {
   const [lockedOut, setLockedOut] = useState<boolean>(false);
   useEffect(() => {
     /**
@@ -40,4 +40,4 @@ const useLockout = (): boolean => {
   return lockedOut;
 };
 
-export default useLockout;
+export default useIsUserLockedOut;

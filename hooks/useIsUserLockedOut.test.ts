@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react"
-import useLockout from "./useLockout"
+import useIsUserLockedOut from "./useIsUserLockedOut";
 
 describe('useLockout hook', () => {
     let getUTCDaySpy: jest.SpyInstance;
@@ -18,7 +18,7 @@ describe('useLockout hook', () => {
         getUTCDaySpy.mockReturnValue(5); //Mocking Friday
         getUTCHoursSpy.mockReturnValue(0); //Mocking 12am UTC
 
-        const { result } = renderHook(() => useLockout());
+        const { result } = renderHook(() => useIsUserLockedOut());
 
         expect(result.current).toBe(true);
     });
@@ -27,7 +27,7 @@ describe('useLockout hook', () => {
         getUTCDaySpy.mockReturnValue(3); //Mocking Wednesday
         getUTCHoursSpy.mockReturnValue(12); //Mocking 12pm UTC
 
-        const { result } = renderHook(() => useLockout());
+        const { result } = renderHook(() => useIsUserLockedOut());
 
         expect(result.current).toBe(false);
     })

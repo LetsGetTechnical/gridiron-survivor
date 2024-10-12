@@ -25,7 +25,7 @@ import Image from 'next/image';
 import { ISchedule } from './WeekTeams.interface';
 import { IWeekProps } from './Week.interface';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import useLockout from '@/hooks/useLockout';
+import useIsUserLockedOut from '@/hooks/useIsUserLockedOut';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { onWeeklyPickChange } from './WeekHelper';
 import React, { JSX, useEffect, useState } from 'react';
@@ -56,7 +56,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
-  const lockedOut = useLockout();
+  const lockedOut = useIsUserLockedOut();
 
   /**
    * Fetches the current game week.
