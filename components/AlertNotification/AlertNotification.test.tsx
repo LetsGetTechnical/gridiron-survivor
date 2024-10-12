@@ -38,16 +38,4 @@ describe('AlertNotification', () => {
       );
     });
   }
-  it('renders the dismiss button correctly', () => {
-    render(
-      <Alert
-        variant={AlertVariants.Success}
-        message="test dismiss btn"
-        data-testid="dismiss-icon"
-      />,
-    );
-
-    const dismissBtn = screen.getByTestId('dismiss-btn');
-    expect(dismissBtn).toBeInTheDocument();
-  });
 });

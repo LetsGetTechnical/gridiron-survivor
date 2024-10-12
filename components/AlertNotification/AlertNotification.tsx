@@ -5,10 +5,9 @@ import { Alert as AlertDefault } from '../Alert/Alert';
 import { AlertTitle } from '../AlertTItle/AlertTitle';
 import { AlertDescription } from '../AlertDescription/AlertDescription';
 import { JSX } from 'react';
-import { CheckCircle, XCircle, Info, AlertTriangle, X } from 'lucide-react';
+import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 import { IAlertNotification } from './AlertNotification.interface';
 import { AlertVariants } from './Alerts.enum';
-import { Button } from '../Button/Button';
 
 const variantConfig = {
   success: {
@@ -47,13 +46,6 @@ const Alert = ({
       <Icon className="h-4 w-4" data-testid="alert-icon" />
       <AlertTitle title={title} data-testid="alert-title" />
       <AlertDescription message={message} data-testid="alert-message" />
-      <Button
-        variant="outline"
-        className="absolute right-4 top-2 p-1 h-8 bg-transparent"
-        data-testid="dismiss-btn"
-      >
-        <X className="text-foreground h-full w-full" />
-      </Button>
     </AlertDefault>
   );
 };
