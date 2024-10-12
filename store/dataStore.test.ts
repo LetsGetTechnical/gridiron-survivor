@@ -3,12 +3,13 @@ import { useDataStore } from './dataStore';
 
 // test values
 const userData = {
-  userId: '123',
-  userEmail: 'test@email.com',
+  documentId: '123',
+  id: '123',
+  email: 'test@email.com',
   leagues: ['123456'],
 };
 
-const NFLTeam = [
+const NFLTeams = [
   {
     teamId: '1',
     teamName: 'New England Patriots',
@@ -47,6 +48,15 @@ const gameCurrentWeek = {
   week: 2,
 };
 
+const allLeagues = [
+  {
+    leagueId: '123',
+    leagueName: 'Test League',
+    logo: 'https://findmylogo.com/logo.png',
+    participants: ['123456', '78'],
+    survivors: ['123456', '78', '9'],}
+];
+
 describe('Data Store', () => {
   describe('User Test', () => {
     it('Check the default user state', () => {
@@ -60,6 +70,7 @@ describe('Data Store', () => {
 
       act(() => {
         result.current.updateUser(
+          userData.documentId,
           userData.userId,
           userData.userEmail,
           userData.leagues,
@@ -74,6 +85,7 @@ describe('Data Store', () => {
 
       act(() => {
         result.current.updateUser(
+          userData.documentId,
           userData.userId,
           userData.userEmail,
           userData.leagues,
@@ -89,17 +101,17 @@ describe('Data Store', () => {
   describe('NFL Teams Test', () => {
     it('Check the default NFL Teams state', () => {
       const { result } = renderHook(() => useDataStore());
-      expect(result.current.NFLTeam).toStrictEqual([]);
+      expect(result.current.NFLTeams).toStrictEqual([]);
     });
     it('Check the updated NFL Teams state', () => {
       const { result } = renderHook(() => useDataStore());
 
       act(() => {
-        result.current.updateNFLTeam(NFLTeam);
+        result.current.updateNFLTeams(NFLTeams);
       });
 
-      expect(result.current.NFLTeam[0]).toBe(NFLTeam[0]);
-      expect(result.current.NFLTeam[1]).toBe(NFLTeam[1]);
+      expect(result.current.NFLTeams[0]).toBe(NFLTeams[0]);
+      expect(result.current.NFLTeams[1]).toBe(NFLTeams[1]);
     });
   });
 
@@ -116,18 +128,22 @@ describe('Data Store', () => {
         leagueId: '123',
         gameWeekId: '456',
         userResults: {
-          '66281d5ec5614f76bc91': {
-            team: '66218f22b40deef340f8',
-            correct: false,
-          },
-          '6628077faeeedd272637': {
-            team: '6621b30ea57bd075e9d3',
-            correct: false,
-          },
-          '66174f2362ec891167be': {
-            team: '6621b30ea57bd075e9d3',
-            correct: true,
-          },
+          '123': {
+            '456': {
+            'entry1': {
+              teamName: 'New England Patriots',
+              correct:true
+            },
+            'entry2': {
+              teamName: 'Kansas City Chiefs',
+              correct:false
+            },
+            'entry3': {
+              teamName: 'New England Patriots',
+              correct:false
+            }
+          }
+          }
         },
       };
       act(() => {
@@ -196,3 +212,17 @@ describe('Data Store', () => {
     });
   });
 });
+
+xdescribe('getting all leagues test', () => {
+  it('check the default allLeagues state', async () => {
+    const { result } = renderHook(() => useDataStore());
+    expect(result.current.allLeagues).toStrictEqual([]);
+  });
+  it('check the updated allLeagues state', async () => {
+    const { result } = renderHook(() => useDataStore()); 
+    act(() => {
+      result.current.updateAllLeagues(allLeagues);
+    });
+    expect(result.current.allLeagues).toStrictEqual(allLeagues);
+  })
+})

@@ -6,9 +6,9 @@ import { ILeague, INFLTeam, IUser } from '@/api/apiFunctions.interface';
 export interface IEntry {
   $id: string;
   name: string;
-  user: IUser['id'];
-  league: ILeague['leagueId'];
-  selectedTeams: INFLTeam[];
+  user: IUser;
+  league: ILeague;
+  selectedTeams: INFLTeam['teamName'][];
   eliminated: boolean;
 }
 
@@ -16,5 +16,5 @@ export interface IEntryProps {
   name: string;
   user: IUser['id'];
   league: ILeague['leagueId'];
-  selectedTeams?: INFLTeam[];
+  selectedTeams?: INFLTeam['teamName'][];
 }
