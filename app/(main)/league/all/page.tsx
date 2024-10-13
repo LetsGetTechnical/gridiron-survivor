@@ -124,13 +124,12 @@ const Leagues = (): JSX.Element => {
   return (
     <div className="Leagues mx-auto max-w-3xl pt-10">
       {loadingData ? (
-        <GlobalSpinner />
+        <GlobalSpinner data-testid="global-spinner" />
       ) : (
         <>
           <h1 className="pb-10 text-center text-3xl font-bold tracking-tight">
             Your Leagues
           </h1>
-
           <section className="grid gap-6 md:grid-cols-2 mb-10">
             {leagues.length > 0 ? (
               leagues.map((league) => (
@@ -145,7 +144,10 @@ const Leagues = (): JSX.Element => {
               ))
             ) : (
               <div className="text-center">
-                <p className="text-lg font-bold">
+                <p
+                  className="text-lg font-bold"
+                  data-testid="no-leagues-message"
+                >
                   You are not enrolled in any leagues
                 </p>
               </div>
@@ -169,6 +171,7 @@ const Leagues = (): JSX.Element => {
                 render={({ field, fieldState }) => (
                   <>
                     <select
+                      data-testid="select-available-leagues"
                       {...field}
                       id="available-leagues"
                       className={`border border-border rounded p-2 w-full text-secondary ${
@@ -198,7 +201,9 @@ const Leagues = (): JSX.Element => {
                 )}
               />
             </div>
-            <Button type="submit">Join League</Button>
+            <Button type="submit" data-testid="join-league-button">
+              Join League
+            </Button>
           </form>
         </>
       )}
