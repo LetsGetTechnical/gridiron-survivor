@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen} from '@testing-library/react';
 import Alert from './AlertNotification';
 import { AlertVariants } from './Alerts.enum';
 import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
