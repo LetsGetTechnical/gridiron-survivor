@@ -29,7 +29,18 @@ const variantTestCases = {
 
 describe('AlertNotification', () => {
   for (const [key, value] of Object.entries(variantTestCases)) {
-    it(`renders the correct variant ${key} and a dismiss button`, () => {
+    it(`renders the correct variant ${key}`, () => {
+      render(
+        <Alert
+          variant={AlertVariants[key as keyof typeof AlertVariants]}
+          message={value.message}
+        />,
+      );
+    });
+  };
+
+  for (const [key, value] of Object.entries(variantTestCases)) {
+    it('should render the dismiss button on each alert type', () => {
       render(
         <Alert
           variant={AlertVariants[key as keyof typeof AlertVariants]}
@@ -41,18 +52,4 @@ describe('AlertNotification', () => {
     });
   };
 
- /*  it('should close the notification upon clicking the dismiss button',    
-    async () => {
-      render(
-        <Alert
-        variant={AlertVariants.Warning}
-        message={'This is a warning message'}
-        />
-      );
-      const dismissButton = screen.getByTestId('dismiss-alert-btn');
-      fireEvent.click(dismissButton);
-      await waitFor(() => {
-        expect(dismissButton).not.toBeInTheDocument();
-      });
-  }); */
 });
