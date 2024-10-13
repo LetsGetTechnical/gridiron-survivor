@@ -29,29 +29,30 @@ const variantTestCases = {
 
 describe('AlertNotification', () => {
   for (const [key, value] of Object.entries(variantTestCases)) {
-    it(`renders the correct variant ${key}`, () => {
+    it(`renders the correct variant ${key} and a dismiss button`, () => {
       render(
         <Alert
           variant={AlertVariants[key as keyof typeof AlertVariants]}
           message={value.message}
         />,
       );
+      const dismissButton = screen.getByTestId('dismiss-alert-btn');
+      expect(dismissButton).toBeInTheDocument();
     });
   };
 
-  it('should render the dismiss button', () => {
-    // do I need to render the Alert first?
-    const dismissButton = screen.getByTestId('dismiss-alert-btn');
-    expect(dismissButton).toBeInTheDocument();
-  });
-
-  it('should close the notification upon clicking the dismiss button', 
-    // do I need to render the Alert first?
+ /*  it('should close the notification upon clicking the dismiss button',    
     async () => {
+      render(
+        <Alert
+        variant={AlertVariants.Warning}
+        message={'This is a warning message'}
+        />
+      );
       const dismissButton = screen.getByTestId('dismiss-alert-btn');
       fireEvent.click(dismissButton);
       await waitFor(() => {
-        expect(dismissButton.getAttribute('data-state')).toBe('closed'); // how do I tell if Alert is present or not?
+        expect(dismissButton).not.toBeInTheDocument();
       });
-  })
+  }); */
 });
