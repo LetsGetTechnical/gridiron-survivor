@@ -55,9 +55,8 @@ const Alert = ({
         data-testid="dismiss-alert-btn"
         onClick={() => toast.remove()}
         aria-label='close notification'
-      >
-        <X />
-      </Button>
+        label={<X/>}
+      />
     </AlertDefault>
   );
 };
