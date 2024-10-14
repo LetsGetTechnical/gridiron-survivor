@@ -2,40 +2,40 @@
 // Licensed under the MIT License.
 
 'use client';
-import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { ChevronLeft } from 'lucide-react';
-import { Control, FormProvider, useForm } from 'react-hook-form';
 import { cn, getNFLTeamLogo } from '@/utils/utils';
+import { Control, FormProvider, useForm } from 'react-hook-form';
 import {
+  FormControl,
   FormField,
   FormItem,
-  FormControl,
   FormMessage,
 } from '@/components/Form/Form';
 import {
   getAllWeeklyPicks,
-  getCurrentUserEntries,
   getCurrentLeague,
+  getCurrentUserEntries,
   getGameWeek,
 } from '@/api/apiFunctions';
-import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { ILeague } from '@/api/apiFunctions.interface';
-import Image from 'next/image';
 import { ISchedule } from './WeekTeams.interface';
 import { IWeekProps } from './Week.interface';
-import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import useIsUserLockedOut from '@/hooks/useIsUserLockedOut';
 import { NFLTeams } from '@/api/apiFunctions.enum';
 import { onWeeklyPickChange } from './WeekHelper';
-import React, { JSX, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { useAuthContext } from '@/context/AuthContextProvider';
 import { useDataStore } from '@/store/dataStore';
 import { useRouter } from 'next/navigation';
-import WeekTeams from './WeekTeams';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Alert from '@/components/AlertNotification/AlertNotification';
+import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
+import Image from 'next/image';
+import LinkCustom from '@/components/LinkCustom/LinkCustom';
+import React, { JSX, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import useIsUserLockedOut from '@/hooks/useIsUserLockedOut';
+import WeekTeams from './WeekTeams';
 
 /**
  * Renders the weekly picks page.
@@ -200,7 +200,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
 
   /**
    * Handles the weekly pick team change
-   * @param lockedOut - the lockout logic.
    * @param teamSelect - the selected team name.
    * @returns {void}
    */
