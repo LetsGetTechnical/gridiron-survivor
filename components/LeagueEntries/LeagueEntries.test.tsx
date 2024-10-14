@@ -5,7 +5,7 @@ import React from 'react';
 describe('LeagueEntries', () => {
   it(`renders 'default' state without a pick made`, () => {
     render(
-      <LeagueEntries entryName="Entry 1" isLockedOutProp={false} linkUrl="" userPickHistory={[]} />,
+      <LeagueEntries entryName="Entry 1" linkUrl="" userPickHistory={[]} />,
     );
 
     const leagueEntryContainerCard = screen.getByTestId(
@@ -13,9 +13,7 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickLink = screen.getByTestId(
-      'league-entry-pick-link',
-    );
+    const leagueEntryPickLink = screen.getByTestId('league-entry-pick-link');
     const userHistoryPicks = screen.queryByTestId('user-pick-history');
 
     expect(entryStatus).toHaveTextContent('alive');
@@ -40,9 +38,7 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickLink = screen.getByTestId(
-      'league-entry-pick-link',
-    );
+    const leagueEntryPickLink = screen.getByTestId('league-entry-pick-link');
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
@@ -92,9 +88,7 @@ describe('LeagueEntries', () => {
     );
     const leagueEntryNumber = screen.getByTestId('league-entry-number');
     const entryStatus = screen.getByTestId('entry-status');
-    const leagueEntryPickLink = screen.getByTestId(
-      'league-entry-pick-link',
-    );
+    const leagueEntryPickLink = screen.getByTestId('league-entry-pick-link');
     const leagueLink = screen.getByTestId('league-entry-pick-link');
     const leagueEntryLogo = screen.getByTestId('league-entry-logo');
 
