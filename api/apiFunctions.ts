@@ -382,7 +382,6 @@ export async function getAllLeagues(): Promise<ILeague[]> {
       participants: league.participants,
       survivors: league.survivors,
     }));
-
     return leagues;
   } catch (error) {
     throw new Error('Error getting all leagues', { cause: error });

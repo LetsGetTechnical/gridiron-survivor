@@ -18,10 +18,10 @@ interface IDataStoreState {
   user: IUser;
   NFLTeams: INFLTeam[];
   weeklyPicks: IWeeklyPicks;
-  leagues: ILeague[];
   gameWeek: IGameWeek;
   entries: IEntry[];
   allLeagues: ILeague[];
+  userLeagues: ILeague[];
 }
 
 /* eslint-disable */
@@ -42,10 +42,10 @@ interface IDataStoreAction {
     gameWeekId,
     userResults,
   }: IWeeklyPicks) => void;
-  updateLeagues: (leagues: ILeague[]) => void;
   updateGameWeek: (gameWeek: IGameWeek) => void;
   updateEntries: (entries: IEntry[]) => void;
   updateAllLeagues: (allLeagues: ILeague[]) => void;
+  updateUserLeagues: (userLeagues: ILeague[]) => void;
 }
 /* eslint-disable */
 
@@ -66,13 +66,13 @@ const initialState: IDataStoreState = {
     gameWeekId: '',
     userResults: {},
   },
-  leagues: [],
   gameWeek: {
     id: '',
     week: 0,
   },
   entries: [],
   allLeagues: [],
+  userLeagues: [],
 };
 
 //create the store
@@ -133,18 +133,6 @@ export const useDataStore = create<DataStore>((set) => ({
       }),
     ),
   /**
-   * Update the game group
-   * @param props - props
-   * @param props.leagues - The leagues the user is a part of
-   * @returns {void}
-   */
-  updateLeagues: (leagues: ILeague[]): void =>
-    set(
-      produce((state: IDataStoreState) => {
-        state.leagues = [...leagues];
-      }),
-    ),
-  /**
    * Update the current week
    * @param props - props
    * @param props.id - The id
@@ -180,6 +168,28 @@ export const useDataStore = create<DataStore>((set) => ({
     set(
       produce((state: IDataStoreState) => {
         state.allLeagues = [...state.allLeagues, ...updatedLeagues];
+      }),
+    ),
+  /**
+   * Updates user leagues in the data store.
+   *
+   * @param {ILeague[]} props - The league properties to update..
+   * @returns {void}
+   */
+  updateUserLeagues: (updatedUserLeagues: ILeague[]): void =>
+    set(
+      produce((state: IDataStoreState) => {
+        // Create a Set of current league IDs to avoid duplicates
+        const existingLeagueIds = new Set(
+          state.userLeagues.map((league) => league.leagueId),
+        );
+
+        // Add only leagues that are not already in the state
+        const newLeagues = updatedUserLeagues.filter(
+          (league) => !existingLeagueIds.has(league.leagueId),
+        );
+
+        state.userLeagues = [...state.userLeagues, ...newLeagues];
       }),
     ),
 }));
