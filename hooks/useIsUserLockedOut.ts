@@ -18,11 +18,10 @@ const useIsUserLockedOut = (): boolean => {
       const day = currentDateAndTime.getUTCDay();
       const hours = currentDateAndTime.getUTCHours();
       if (
-        (day === 5 && hours >= 0) || // Thursday at 8pm EST
-        day > 5 || // Friday and Saturday
+        day === 6 || // Saturday
         day === 0 || // Sunday
         day === 1 || // Monday
-        (day === 2 && hours < 12) // Tuesday at 8am EST
+        (day === 2 && hours < 12) // Tuesday before 1200pm UTC
       ) {
         setLockedOut(true);
       } else {
