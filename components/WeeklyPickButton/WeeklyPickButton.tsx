@@ -52,7 +52,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
           htmlFor={team}
           data-testid="team-label"
           disabled={isDisabled}
-          className="flex-col xs:flex-row"
+          className="flex-col sm:flex-row"
         >
           <Image
             src={src}
