@@ -49,13 +49,6 @@ export interface IGameWeek {
   week: number;
 }
 
-export interface ILeagueCreate {
-  leagueName: string;
-  participants: string[];
-  survivors: string[];
-  type: string;
-}
-
 export interface IRecoveryToken {
   $id: string;
   expire: string;

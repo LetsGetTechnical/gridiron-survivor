@@ -10,7 +10,6 @@ import {
   IUser,
   IWeeklyPicks,
   INFLTeam,
-  ILeagueCreate,
   IRecoveryToken,
 } from './apiFunctions.interface';
 import { Collection, Document } from './apiFunctions.enum';
@@ -335,56 +334,6 @@ export async function createEntry({
 }
 
 /**
- * Create a new league.
- * @param props - Props being passed in to create the league.
- * @param props.leagueName - Name for the league.
- * @param props.participants - User's in the league.
- * @param props.survivors - User's in the league that haven't been eliminated yet.
- * @param props.type - Type of league.
- * @returns {Models.Document} - The entry object.
- */
-export const createLeague = async ({
-  leagueName,
-  participants,
-  survivors,
-  type,
-}: ILeagueCreate): Promise<Models.Document> => {
-  try {
-    return await databases.createDocument(
-      appwriteConfig.databaseId,
-      Collection.LEAGUE,
-      ID.unique(),
-      {
-        leagueName,
-        participants,
-        survivors,
-        type,
-      },
-    );
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error Creating League');
-  }
-};
-
-/**
- * To delete a league.
- * @returns {object} - The object.
- */
-export const deleteLeague = async (): Promise<object> => {
-  try {
-    return await databases.deleteDocument(
-      appwriteConfig.databaseId,
-      Collection.LEAGUE,
-      '66d719890036b83e18a3',
-    );
-  } catch (error) {
-    throw new Error('Error Deleting League');
-  }
-};
-
-/**
-
  * Update an entry
  * @param props - The entry data
  * @param props.entryId - The entry ID
