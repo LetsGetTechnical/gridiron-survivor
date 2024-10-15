@@ -22,10 +22,10 @@ export type LeagueDetailsHeader = {
 };
 
 export type LeagueHeader = {
-  text: string;
-  text2: string;
-  text3: string;
-  text4: string;
+  leagueName: string;
+  participants: string[];
+  survivors: string[];
+  entries: string[];
 };
 
 export type PlayersHeader = {
@@ -163,7 +163,7 @@ export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
 
 export const leagueColumns: ColumnDef<LeagueHeader>[] = [
   {
-    accessorKey: 'text',
+    accessorKey: 'leagueName',
     header: 'League Name',
     /**
      * Value of row.
@@ -174,7 +174,7 @@ export const leagueColumns: ColumnDef<LeagueHeader>[] = [
     cell: ({ row }) => <div>{row.getValue('text')}</div>,
   },
   {
-    accessorKey: 'text2',
+    accessorKey: 'participants',
 
     /**
      * Value of row.
@@ -203,7 +203,7 @@ export const leagueColumns: ColumnDef<LeagueHeader>[] = [
     cell: ({ row }) => <div>{row.getValue('text2')}</div>,
   },
   {
-    accessorKey: 'text3',
+    accessorKey: 'survivors',
 
     /**
      * Value of row.
@@ -232,7 +232,7 @@ export const leagueColumns: ColumnDef<LeagueHeader>[] = [
     cell: ({ row }) => <div>{row.getValue('text3')}</div>,
   },
   {
-    accessorKey: 'text4',
+    accessorKey: 'entries',
 
     /**
      * Value of row.
