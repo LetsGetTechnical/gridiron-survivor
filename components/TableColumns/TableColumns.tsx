@@ -14,14 +14,14 @@ import {
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
 
-export type LeagueHeader = {
+export type LeagueDetailsHeader = {
   text: string;
   text2: string;
   text3: string;
   text4: string;
 };
 
-export type LeagueDetailsHeader = {
+export type LeagueHeader = {
   text: string;
   text2: string;
   text3: string;
