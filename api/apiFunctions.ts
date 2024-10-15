@@ -433,3 +433,26 @@ export async function addUserToLeague({
     throw new Error('Error getting user document ID', { cause: error });
   }
 }
+
+/**
+ *
+ */
+export async function getAllLeagueEntries(): Promise<void> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+    );
+
+    // loop through leagues and return ISomething[] instead of Models.Document[]
+    const entries = response.documents.map((entry) => ({
+      user: entry.user,
+      eliminated: entry.eliminated,
+      league: entry.league,
+    }));
+
+    return entries;
+  } catch (error) {
+    throw new Error('Error getting league entries:', { cause: error });
+  }
+}

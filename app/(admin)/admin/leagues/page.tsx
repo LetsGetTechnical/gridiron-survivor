@@ -18,7 +18,7 @@ const AdminLeagues = (): JSX.Element => {
   const [leaguesData, setLeaguesData] = useState<ILeague[]>([]);
 
   /**
-   *
+   * Get all leagues the user is a part of.
    */
   const fetchData = async (): Promise<void> => {
     try {
