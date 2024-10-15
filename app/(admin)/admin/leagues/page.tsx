@@ -3,7 +3,7 @@
 
 'use client';
 import { JSX } from 'react';
-import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
+import TableData from '@/components/TableData/TableData';
 
 /**
  * Renders the admin page.
@@ -12,24 +12,7 @@ import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 const AdminLeagues = (): JSX.Element => {
   return (
     <section className="grid grid-cols-2 gap-6">
-      <LeagueCard
-        href={'#'}
-        survivors={20}
-        title={'Demo League 1'}
-        totalPlayers={30}
-      />
-      <LeagueCard
-        href={'#'}
-        survivors={20}
-        title={'Demo League 2'}
-        totalPlayers={30}
-      />
-      <LeagueCard
-        href={'#'}
-        survivors={20}
-        title={'Demo League 3'}
-        totalPlayers={30}
-      />
+      <TableData />
     </section>
   );
 };
