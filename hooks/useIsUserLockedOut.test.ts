@@ -15,8 +15,8 @@ describe('useLockout hook', () => {
     getUTCHoursSpy.mockRestore();
   });
 
-  it('should lock out on Friday at 12am UTC', () => {
-    getUTCDaySpy.mockReturnValue(5); //Mocking Friday
+  it('should lock out on Saturday at 12am UTC', () => {
+    getUTCDaySpy.mockReturnValue(6); //Mocking Saturday
     getUTCHoursSpy.mockReturnValue(0); //Mocking 12am UTC
 
     const { result } = renderHook(() => useIsUserLockedOut());
