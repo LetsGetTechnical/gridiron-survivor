@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
+import { ILeague } from '@/api/apiFunctions.interface';
 
 export type LeagueDetailsHeader = {
   text: string;
@@ -23,9 +24,9 @@ export type LeagueDetailsHeader = {
 
 export type LeagueHeader = {
   leagueName: string;
-  participants: string[];
-  survivors: string[];
-  entries: string[];
+  participants: number;
+  survivors: number;
+  entries: number;
 };
 
 export type PlayersHeader = {
@@ -161,7 +162,7 @@ export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
   },
 ];
 
-export const leagueColumns: ColumnDef<LeagueHeader>[] = [
+export const leagueColumns: ColumnDef<ILeague>[] = [
   {
     accessorKey: 'leagueName',
     header: 'League Name',
@@ -171,36 +172,7 @@ export const leagueColumns: ColumnDef<LeagueHeader>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text')}</div>,
-  },
-  {
-    accessorKey: 'participants',
-
-    /**
-     * Value of row.
-     * @param {object} column - The column data.
-     * @param {object} column.column - The column definition
-     * @returns {JSX.Element} - The cell component.
-     */
-    header: ({ column }): JSX.Element => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          # of Participants
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-
-    /**
-     * Value of row.
-     * @param {object} row - The row data.
-     * @param {object} row.row - The row definition
-     * @returns {JSX.Element} - The cell component.
-     */
-    cell: ({ row }) => <div>{row.getValue('text2')}</div>,
+    cell: ({ row }) => <div>{row.getValue('leagueName')}</div>,
   },
   {
     accessorKey: 'survivors',
@@ -229,10 +201,13 @@ export const leagueColumns: ColumnDef<LeagueHeader>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text3')}</div>,
+    cell: ({ row }): JSX.Element => {
+      const survivors = row.getValue('survivors') as string[];
+      return <div>{survivors.length}</div>;
+    },
   },
   {
-    accessorKey: 'entries',
+    accessorKey: 'participants',
 
     /**
      * Value of row.
@@ -246,7 +221,7 @@ export const leagueColumns: ColumnDef<LeagueHeader>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          # of Entries
+          # of Participants
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -258,7 +233,21 @@ export const leagueColumns: ColumnDef<LeagueHeader>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text2')}</div>,
+    cell: ({ row }): JSX.Element => {
+      const participants = row.getValue('participants') as string[];
+      return <div>{participants.length}</div>;
+    },
+    /**
+     * To be able to sort the row by numbers.
+     * @param rowA - Example 1 of participants in a league.
+     * @param rowB - Example 2 of participants in a league.
+     * @returns - Length of each participants league to be able to accurately sort.
+     */
+    sortingFn: (rowA, rowB): number => {
+      const lengthA = (rowA.getValue('participants') as string[]).length;
+      const lengthB = (rowB.getValue('participants') as string[]).length;
+      return lengthA - lengthB;
+    },
   },
   {
     id: 'actions',
