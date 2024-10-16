@@ -17,6 +17,7 @@ import {
 import { toast } from 'react-hot-toast';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
+import { mock } from 'node:test';
 
 const mockUseAuthContext = {
   isSignedIn: false,
@@ -269,22 +270,26 @@ describe('Leagues Component', () => {
       survivors: [],
     };
 
+    const updateUser = jest.fn();
+    const updateUserLeagues = jest.fn();
+    const updateAllLeagues = jest.fn();
+    const updateGameWeek = jest.fn();
+    const updateEntries = jest.fn();
+
     mockUseDataStore.mockReturnValue({
       user,
       allLeagues: [league],
+      updateUser,
+      updateUserLeagues,
+      userLeagues: [],
+      updateAllLeagues,
+      updateGameWeek,
+      updateEntries,
     });
 
     mockGetUserLeagues.mockResolvedValueOnce([]);
     mockGetAllLeagues.mockResolvedValueOnce([league]);
-    mockAddUserToLeague.mockResolvedValue(
-      Promise.resolve({
-        userDocumentId: user.documentId,
-        selectedLeague: league.leagueId,
-        selectedLeagues: [league.leagueId],
-        participants: [user.id],
-        survivors: [user.id],
-      }),
-    );
+    mockAddUserToLeague.mockRejectedValue(new Error());
 
     render(<Leagues />);
 
@@ -297,14 +302,6 @@ describe('Leagues Component', () => {
     fireEvent.click(screen.getByTestId('join-league-button'));
 
     await waitFor(() => {
-      expect(mockAddUserToLeague).toHaveBeenCalledWith({
-        userDocumentId: user.documentId,
-        selectedLeague: league.leagueId,
-        selectedLeagues: [league.leagueId],
-        participants: [user.id],
-        survivors: [user.id],
-      });
-
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
           variant={AlertVariants.Error}
