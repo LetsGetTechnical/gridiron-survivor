@@ -67,11 +67,10 @@ describe('Nav', () => {
   it('renders link to /league/all', async () => {
     render(<Nav />);
 
-    const drawTrigger = screen.getByTestId('drawer-trigger');
-    fireEvent.click(drawTrigger);
+    fireEvent.click(screen.getByTestId('drawer-trigger'));
 
     let linkNav: HTMLElement;
-    linkNav = await screen.getByTestId('league-link');
+    linkNav = screen.getByTestId('league-link');
     expect(linkNav).toBeInTheDocument();
     expect(linkNav).toHaveAttribute('href', '/league/all');
   });
@@ -81,11 +80,9 @@ describe('Nav', () => {
 
     render(<Nav />);
 
-    const navElement = screen.getByTestId('nav');
-    expect(navElement).toBeInTheDocument();
+    expect(screen.getByTestId('nav')).toBeInTheDocument();
 
-    const drawerTrigger = screen.getByTestId('drawer-trigger');
-    fireEvent.click(drawerTrigger);
+    fireEvent.click(screen.getByTestId('drawer-trigger'));
 
     expect(screen.getByTestId('settings-link')).toBeInTheDocument();
     expect(screen.getByTestId('title')).toBeInTheDocument();
@@ -102,9 +99,7 @@ describe('Nav', () => {
     fireEvent.click(drawerTrigger);
 
     const preferencesLink = await screen.findByTestId('settings-link');
-
     expect(preferencesLink).toHaveAttribute('href', '/account/settings');
-
     fireEvent.click(preferencesLink);
 
     await waitFor(() => {
@@ -119,7 +114,6 @@ describe('Nav', () => {
     render(<Nav />);
 
     const navElement = screen.getByTestId('nav');
-
     expect(navElement).toBeInTheDocument();
     expect(navElement).toHaveClass('hidden');
   });
@@ -130,7 +124,6 @@ describe('Nav', () => {
     render(<Nav />);
 
     const navElement = screen.getByTestId('nav');
-
     expect(navElement).toBeInTheDocument();
     expect(navElement).toHaveClass('hidden');
   });
@@ -140,7 +133,6 @@ describe('Nav', () => {
     render(<Nav />);
 
     const navElement = screen.getByTestId('nav');
-
     expect(navElement).toBeInTheDocument();
     expect(navElement).toHaveClass('hidden');
   });
@@ -150,7 +142,6 @@ describe('Nav', () => {
     render(<Nav />);
 
     const navElement = screen.getByTestId('nav');
-
     expect(navElement).toBeInTheDocument();
     expect(navElement).toHaveClass('hidden');
   });
@@ -161,7 +152,6 @@ describe('Nav', () => {
     render(<Nav />);
 
     const navElement = screen.getByTestId('nav');
-
     expect(navElement).toBeInTheDocument();
     expect(navElement).not.toHaveClass('hidden');
   });
@@ -171,12 +161,9 @@ describe('Nav', () => {
 
     render(<Nav />);
 
-    const drawerTrigger = screen.getByTestId('drawer-trigger');
-    fireEvent.click(drawerTrigger);
+    fireEvent.click(screen.getByTestId('drawer-trigger'));
+    fireEvent.click(screen.getByTestId('sign-out-button'));
 
-    const signOutButton = screen.getByTestId('sign-out-button');
-
-    fireEvent.click(signOutButton);
     await waitFor(() => {
       expect(mockLogoutAccount).toHaveBeenCalled();
     });
@@ -194,12 +181,9 @@ describe('Nav', () => {
     render(<Nav />);
 
     const drawerTrigger = screen.getByTestId('drawer-trigger');
-
     fireEvent.click(drawerTrigger);
 
-    const signOutButton = screen.getByTestId('sign-out-button');
-
-    fireEvent.click(signOutButton);
+    fireEvent.click(screen.getByTestId('sign-out-button'));
 
     await waitFor(() => {
       expect(drawerTrigger.getAttribute('data-state')).toBe('closed');
@@ -212,12 +196,8 @@ describe('Nav', () => {
     render(<Nav />);
 
     const drawerTrigger = screen.getByTestId('drawer-trigger');
-
     fireEvent.click(drawerTrigger);
-
-    const linkNav = screen.getByTestId('league-link');
-
-    fireEvent.click(linkNav);
+    fireEvent.click(screen.getByTestId('league-link'));
 
     await waitFor(() => {
       expect(drawerTrigger.getAttribute('data-state')).toBe('closed');

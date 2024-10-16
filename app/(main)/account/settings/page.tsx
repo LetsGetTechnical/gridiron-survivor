@@ -45,7 +45,7 @@ const AccountSettings = (): JSX.Element => {
               </LinkCustom>
             </div>
             <Heading
-              as="h2"
+              as="h1"
               className="text-4xl font-bold"
               data-testid="entry-page-header-page-name"
             >

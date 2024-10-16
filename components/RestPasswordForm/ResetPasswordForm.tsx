@@ -22,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../Form/Form';
+import Link from 'next/link';
 
 const ResetPasswordSchema = z.object({
   oldPassword: z.string().min(1, { message: 'Please enter your old password' }),
@@ -83,7 +84,6 @@ const ResetPasswordForm = (): JSX.Element => {
 
       form.reset({ oldPassword: '', newPassword: '' });
     } catch (error) {
-      console.error('Password Update Failed', error);
       toast.custom(
         <Alert
           variant={AlertVariants.Error}
@@ -110,7 +110,7 @@ const ResetPasswordForm = (): JSX.Element => {
             <p className="text-sm">
               This will update the password for your account login. If you
               forgot your password you can{' '}
-              <a
+              <Link
                 href="/recover-password"
                 className="underline underline-offset-4 hover:text-primary-muted transition-colors"
                 data-testid="recover-password-link"
@@ -119,7 +119,7 @@ const ResetPasswordForm = (): JSX.Element => {
                 }}
               >
                 Recover your password
-              </a>
+              </Link>
               .
             </p>
           </div>
