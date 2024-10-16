@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen, fireEvent} from '@testing-library/react';
 import Alert from './AlertNotification';
 import { AlertVariants } from './Alerts.enum';
 import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
+import React from 'react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import toast from 'react-hot-toast';
 
 const variantTestCases = {

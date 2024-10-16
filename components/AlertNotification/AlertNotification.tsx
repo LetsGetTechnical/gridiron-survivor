@@ -2,13 +2,13 @@
 // Licensed under the MIT License.
 
 import { Alert as AlertDefault } from '../Alert/Alert';
-import { AlertTitle } from '../AlertTItle/AlertTitle';
 import { AlertDescription } from '../AlertDescription/AlertDescription';
-import { JSX } from 'react';
-import { CheckCircle, XCircle, Info, AlertTriangle, X } from 'lucide-react';
-import { IAlertNotification } from './AlertNotification.interface';
+import { AlertTitle } from '../AlertTItle/AlertTitle';
 import { AlertVariants } from './Alerts.enum';
 import { Button } from '../Button/Button';
+import { CheckCircle, XCircle, Info, AlertTriangle, X } from 'lucide-react';
+import { IAlertNotification } from './AlertNotification.interface';
+import { JSX } from 'react';
 import toast from 'react-hot-toast';
 
 const variantConfig = {
