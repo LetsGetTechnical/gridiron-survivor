@@ -1,8 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Nav from './Nav';
 import Login from '@/app/(main)/login/page';
-import { useDataStore } from '@/store/dataStore';
-import { getUserLeagues } from '@/utils/utils';
 
 const mockPush = jest.fn();
 const mockUsePathname = jest.fn();
@@ -34,10 +32,6 @@ jest.mock('../../context/AuthContextProvider', () => ({
   },
 }));
 
-jest.mock('@/store/dataStore', () => ({
-  useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
-}));
-
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
@@ -53,9 +47,6 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 describe('Nav', () => {
-  const mockUseDataStore = useDataStore as unknown as jest.Mock;
-  const mockGetUserLeagues = getUserLeagues as jest.Mock;
-
   beforeAll(() => {
     const originalCreateElement = document.createElement.bind(document);
     jest
