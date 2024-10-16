@@ -54,7 +54,8 @@ const allLeagues = [
     leagueName: 'Test League',
     logo: 'https://findmylogo.com/logo.png',
     participants: ['123456', '78'],
-    survivors: ['123456', '78', '9'],}
+    survivors: ['123456', '78', '9'],
+  },
 ];
 
 describe('Data Store', () => {
@@ -71,14 +72,14 @@ describe('Data Store', () => {
       act(() => {
         result.current.updateUser(
           userData.documentId,
-          userData.userId,
-          userData.userEmail,
+          userData.id,
+          userData.email,
           userData.leagues,
         );
       });
 
-      expect(result.current.user.id).toBe(userData.userId);
-      expect(result.current.user.email).toBe(userData.userEmail);
+      expect(result.current.user.id).toBe(userData.id);
+      expect(result.current.user.email).toBe(userData.email);
     });
     it('Checks the reset user state matches default', () => {
       const { result } = renderHook(() => useDataStore());
@@ -86,8 +87,8 @@ describe('Data Store', () => {
       act(() => {
         result.current.updateUser(
           userData.documentId,
-          userData.userId,
-          userData.userEmail,
+          userData.id,
+          userData.email,
           userData.leagues,
         );
         result.current.resetUser();
@@ -130,20 +131,20 @@ describe('Data Store', () => {
         userResults: {
           '123': {
             '456': {
-            'entry1': {
-              teamName: 'New England Patriots',
-              correct:true
+              entry1: {
+                teamName: 'New England Patriots',
+                correct: true,
+              },
+              entry2: {
+                teamName: 'Kansas City Chiefs',
+                correct: false,
+              },
+              entry3: {
+                teamName: 'New England Patriots',
+                correct: false,
+              },
             },
-            'entry2': {
-              teamName: 'Kansas City Chiefs',
-              correct:false
-            },
-            'entry3': {
-              teamName: 'New England Patriots',
-              correct:false
-            }
-          }
-          }
+          },
         },
       };
       act(() => {
@@ -156,25 +157,27 @@ describe('Data Store', () => {
     });
   });
 
-  describe('League Test', () => {
+  describe('All Leagues Test', () => {
     it('Check the default league state', () => {
       const { result } = renderHook(() => useDataStore());
-      expect(result.current.leagues).toStrictEqual([]);
+      expect(result.current.allLeagues).toStrictEqual([]);
     });
     it('Check the updated league state', () => {
       const { result } = renderHook(() => useDataStore());
 
       act(() => {
-        result.current.updateLeagues(league);
+        result.current.updateAllLeagues(league);
       });
 
-      expect(result.current.leagues[0].leagueId).toBe(league[0].leagueId);
-      expect(result.current.leagues[0].leagueName).toBe(league[0].leagueName);
-      expect(result.current.leagues[0].logo).toBe(league[0].logo);
-      expect(result.current.leagues[0].participants).toBe(
+      expect(result.current.allLeagues[0].leagueId).toBe(league[0].leagueId);
+      expect(result.current.allLeagues[0].leagueName).toBe(
+        league[0].leagueName,
+      );
+      expect(result.current.allLeagues[0].logo).toBe(league[0].logo);
+      expect(result.current.allLeagues[0].participants).toBe(
         league[0].participants,
       );
-      expect(result.current.leagues[0].survivors).toBe(league[0].survivors);
+      expect(result.current.allLeagues[0].survivors).toBe(league[0].survivors);
     });
   });
 
@@ -219,10 +222,10 @@ xdescribe('getting all leagues test', () => {
     expect(result.current.allLeagues).toStrictEqual([]);
   });
   it('check the updated allLeagues state', async () => {
-    const { result } = renderHook(() => useDataStore()); 
+    const { result } = renderHook(() => useDataStore());
     act(() => {
       result.current.updateAllLeagues(allLeagues);
     });
     expect(result.current.allLeagues).toStrictEqual(allLeagues);
-  })
-})
+  });
+});
