@@ -386,18 +386,11 @@ describe('apiFunctions', () => {
 
   describe('getAllLeagueEntries()', () => {
     it('should return the total number of entries and alive entries in a league', async () => {
-      const mockData = [
-        { league: { $id: 'league1' }, eliminated: false },
-        { league: { $id: 'league1' }, eliminated: true },
-        { league: { $id: 'league1' }, eliminated: true },
-        { league: { $id: 'league1' }, eliminated: true },
-      ];
-
-      const mockLeague = ['league1'];
-      
       apiFunctions.getAllLeagueEntries.mockResolvedValue([
         { totalEntries: 4, alive: 1 },
       ]);
+
+      const mockLeague = ['league1'];
 
       const mockResult = await apiFunctions.getAllLeagueEntries({ leagues: mockLeague });
 
