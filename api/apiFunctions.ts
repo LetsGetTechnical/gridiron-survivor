@@ -435,22 +435,27 @@ export async function addUserToLeague({
 }
 
 /**
- *
+ * Grabs the length of entries in each league.
+ * @param props - Props being passed in.
+ * @param props.leagues - All user leagues.
+ * @returns {Promise<number>} - Length of entries.
  */
-export async function getAllLeagueEntries(): Promise<void> {
+export async function getAllLeagueEntries({
+  leagues,
+}: {
+  leagues: string[];
+}): Promise<number[]> {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.ENTRIES,
     );
-
-    // loop through leagues and return ISomething[] instead of Models.Document[]
-    const entries = response.documents.map((entry) => ({
-      user: entry.user,
-      eliminated: entry.eliminated,
-      league: entry.league,
-    }));
-
+    const entries = leagues.map((leagueId) => {
+      const leagueEntries = response.documents.filter(
+        (entry) => entry.league.$id === leagueId,
+      );
+      return leagueEntries.length;
+    });
     return entries;
   } catch (error) {
     throw new Error('Error getting league entries:', { cause: error });

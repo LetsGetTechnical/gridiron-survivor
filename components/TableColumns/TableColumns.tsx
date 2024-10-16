@@ -250,6 +250,38 @@ export const leagueColumns: ColumnDef<ILeague>[] = [
     },
   },
   {
+    accessorKey: 'entries',
+
+    /**
+     * Value of row.
+     * @param {object} column - The column data.
+     * @param {object} column.column - The column definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    header: ({ column }): JSX.Element => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Total Entries
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+
+    /**
+     * Value of row.
+     * @param {object} row - The row data.
+     * @param {object} row.row - The row definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    cell: ({ row }): JSX.Element => {
+      const entries = row.getValue('entries') as number;
+      return <div>{entries}</div>;
+    },
+  },
+  {
     id: 'actions',
 
     /**

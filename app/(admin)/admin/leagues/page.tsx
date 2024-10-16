@@ -6,8 +6,9 @@ import { JSX, useEffect, useState } from 'react';
 import TableData from '@/components/TableData/TableData';
 import { leagueColumns } from '@/components/TableColumns/TableColumns';
 import { useDataStore } from '@/store/dataStore';
-import { getUserLeagues } from '@/utils/utils';
+import { getLeagueEntries, getUserLeagues } from '@/utils/utils';
 import { ILeague } from '@/api/apiFunctions.interface';
+import { getAllLeagueEntries } from '@/api/apiFunctions';
 
 /**
  * Renders the admin page.
@@ -22,8 +23,9 @@ const AdminLeagues = (): JSX.Element => {
    */
   const fetchData = async (): Promise<void> => {
     try {
-      const data = await getUserLeagues(user.leagues);
-      setLeaguesData(data);
+      const leagues = await getUserLeagues(user.leagues);
+      const entries = await getAllLeagueEntries({ leagues: user.leagues });
+      setLeaguesData(leagues);
     } catch (error) {
       console.error('Error fetching leagues:', error);
     }
