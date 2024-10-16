@@ -13,7 +13,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
-import { ILeague } from '@/api/apiFunctions.interface';
 
 export type LeagueDetailsHeader = {
   text: string;
@@ -22,10 +21,10 @@ export type LeagueDetailsHeader = {
   text4: string;
 };
 
-export type LeagueHeader = {
+type leagueDataHeader = {
   leagueName: string;
-  participants: number;
-  survivors: number;
+  participants: string[];
+  survivors: string[];
   entries: number;
 };
 
@@ -162,7 +161,7 @@ export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
   },
 ];
 
-export const leagueColumns: ColumnDef<ILeague>[] = [
+export const leagueColumns: ColumnDef<leagueDataHeader>[] = [
   {
     accessorKey: 'leagueName',
     header: 'League Name',

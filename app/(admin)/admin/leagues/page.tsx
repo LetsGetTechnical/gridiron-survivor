@@ -25,7 +25,13 @@ const AdminLeagues = (): JSX.Element => {
     try {
       const leagues = await getUserLeagues(user.leagues);
       const entries = await getAllLeagueEntries({ leagues: user.leagues });
-      setLeaguesData(leagues);
+      const combinedData = leagues.map((league, index) => ({
+        leagueName: league.leagueName,
+        participants: league.participants,
+        survivors: league.survivors,
+        entries: entries[index], // Corresponding entry data
+      }));
+      setLeaguesData(combinedData);
     } catch (error) {
       console.error('Error fetching leagues:', error);
     }
