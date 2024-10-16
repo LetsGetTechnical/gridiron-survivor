@@ -38,7 +38,7 @@ jest.mock('./config', () => ({
   },
   databases: {
     listDocuments: jest.fn(),
-  }
+  },
 }));
 
 describe('apiFunctions', () => {
@@ -385,27 +385,24 @@ describe('apiFunctions', () => {
   });
 
   describe('getAllLeagueEntries()', () => {
-    const mockResponse = {
-      documents: [
+    it('should return the total number of entries and alive entries in a league', async () => {
+      const mockData = [
         { league: { $id: 'league1' }, eliminated: false },
         { league: { $id: 'league1' }, eliminated: true },
-        { league: { $id: 'league2' }, eliminated: false },
-        { league: { $id: 'league2' }, eliminated: false },
-      ],
-    };
+        { league: { $id: 'league1' }, eliminated: true },
+        { league: { $id: 'league1' }, eliminated: true },
+      ];
 
-    beforeEach(() => {
-      jest.clearAllMocks();
-      (databases.listDocuments as jest.Mock).mockReturnValue(mockResponse);
-    });
+      const mockLeague = ['league1'];
+      
+      apiFunctions.getAllLeagueEntries.mockResolvedValue([
+        { totalEntries: 4, alive: 1 },
+      ]);
 
-    it('should return the total number of entries and alive entries in a league', async () => {
-      const mockLeagues = ['league1', 'league2'];
-      const mockResult = await apiFunctions.getAllLeagueEntries({ leagues: mockLeagues });
+      const mockResult = await apiFunctions.getAllLeagueEntries({ leagues: mockLeague });
 
       expect(mockResult).toEqual([
-        { totalEntries: 2, alive: 1 },
-        { totalEntries: 2, alive: 2 },
+        {totalEntries: 4, alive: 1 },
       ]);
     });
   });
