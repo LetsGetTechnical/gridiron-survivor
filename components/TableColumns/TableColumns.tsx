@@ -3,7 +3,6 @@
 
 'use client';
 
-import React, { JSX } from 'react';
 import { Button } from '../Button/Button';
 import { ColumnDef } from '@tanstack/react-table';
 import { ChevronsUpDown, MoreHorizontal } from 'lucide-react';
@@ -14,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
 import { IEntryWithLeague } from './TableColumns.interface';
+import { JSX } from 'react';
 
 export type LeagueDetailsHeader = {
   text: string;
