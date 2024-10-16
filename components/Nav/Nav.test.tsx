@@ -1,6 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Nav from './Nav';
 import Login from '@/app/(main)/login/page';
+import { useDataStore } from '@/store/dataStore';
+import { getUserLeagues } from '@/utils/utils';
 
 const mockPush = jest.fn();
 const mockUsePathname = jest.fn();
@@ -32,6 +34,10 @@ jest.mock('../../context/AuthContextProvider', () => ({
   },
 }));
 
+jest.mock('@/store/dataStore', () => ({
+  useDataStore: jest.fn(() => ({ user: { id: '123', leagues: [] } })),
+}));
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
@@ -47,6 +53,9 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 describe('Nav', () => {
+  const mockUseDataStore = useDataStore as unknown as jest.Mock;
+  const mockGetUserLeagues = getUserLeagues as jest.Mock;
+
   beforeAll(() => {
     const originalCreateElement = document.createElement.bind(document);
     jest
@@ -62,6 +71,18 @@ describe('Nav', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('renders link to /league/all', async () => {
+    render(<Nav />);
+
+    const drawTrigger = screen.getByTestId('drawer-trigger');
+    fireEvent.click(drawTrigger);
+
+    let linkNav: HTMLElement;
+    linkNav = await screen.getByTestId('league-link');
+    expect(linkNav).toBeInTheDocument();
+    expect(linkNav).toHaveAttribute('href', '/league/all');
   });
 
   it('it should render the default component state', () => {
@@ -188,6 +209,24 @@ describe('Nav', () => {
     const signOutButton = screen.getByTestId('sign-out-button');
 
     fireEvent.click(signOutButton);
+
+    await waitFor(() => {
+      expect(drawerTrigger.getAttribute('data-state')).toBe('closed');
+    });
+  });
+
+  it('it should close the drawer when the leagues link is clicked', async () => {
+    mockUsePathname.mockImplementation(() => '/league/all');
+
+    render(<Nav />);
+
+    const drawerTrigger = screen.getByTestId('drawer-trigger');
+
+    fireEvent.click(drawerTrigger);
+
+    const linkNav = screen.getByTestId('league-link');
+
+    fireEvent.click(linkNav);
 
     await waitFor(() => {
       expect(drawerTrigger.getAttribute('data-state')).toBe('closed');

@@ -6,6 +6,7 @@ import React, { JSX } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
+import Link from 'next/link';
 import {
   Drawer,
   DrawerContent,
@@ -80,8 +81,20 @@ export const Nav = (): JSX.Element => {
                   </Link>
                 </li>
                 <li>
+                  <Link
+                    data-testid="league-link"
+                    href="/league/all"
+                    className={cn(
+                      'underline underline-offset-4 hover:text-primary-muted transition-colors',
+                    )}
+                    onClick={() => setOpen(false)}
+                  >
+                    Leagues
+                  </Link>
+                </li>
+                <li>
                   <Button
-                    className="p-0 text-base font-normal text-muted-foreground"
+                    className="p-0 text-base font-normal text-primary-foreground"
                     variant="link"
                     label="Sign Out"
                     onClick={() => {
