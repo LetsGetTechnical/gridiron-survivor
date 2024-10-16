@@ -7,7 +7,7 @@ import {
   IUser,
   IUserPick,
 } from '@/api/apiFunctions.interface';
-import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries, getAllLeagueEntries } from '@/api/apiFunctions';
+import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries } from '@/api/apiFunctions';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -167,21 +167,3 @@ export const hasTeamBeenPicked = (teamName: string, selectedTeams: string[]): bo
 export const getNFLTeamLogo = (NFLTeams: INFLTeam[], teamName: string): string => {
   return NFLTeams.find((teams) => teams.teamName === teamName)?.teamLogo as string;
 }
-
-/**
- * Returns the number of entries for each league.
- * @param leagues - The list of leagues.
- * @returns {Promise<number[]>} - The list of entries length for each league.
- */
-export const getLeagueEntries = async (
-  leagues: IUser['leagues'],
-): Promise<number[]> => {
-  if (!leagues || leagues.length === 0) {
-    return [];
-  }
-  const leagueEntries = leagues.map((league) => {
-    return getAllLeagueEntries({ leagueId: league });
-  });
-
-  return Promise.all(leagueEntries);
-};
