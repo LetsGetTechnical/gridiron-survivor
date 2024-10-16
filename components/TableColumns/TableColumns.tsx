@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
-import { ILeague } from '@/api/apiFunctions.interface';
+import { IEntryWithLeague } from './TableColumns.interface';
 
 export type LeagueDetailsHeader = {
   text: string;
@@ -21,11 +21,6 @@ export type LeagueDetailsHeader = {
   text3: string;
   text4: string;
 };
-
-export interface IEntryWithLeague extends ILeague {
-  totalEntries: number;
-  aliveEntries: number;
-}
 
 export type PlayersHeader = {
   text: string;
