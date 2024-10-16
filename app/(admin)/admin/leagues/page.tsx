@@ -2,29 +2,29 @@
 // Licensed under the MIT License.
 
 'use client';
-import { JSX, useEffect, useState } from 'react';
-import TableData from '@/components/TableData/TableData';
-import { leagueColumns } from '@/components/TableColumns/TableColumns';
-import { useDataStore } from '@/store/dataStore';
-import { getUserLeagues } from '@/utils/utils';
 import { getAllLeagueEntries } from '@/api/apiFunctions';
+import { getUserLeagues } from '@/utils/utils';
 import { IEntryWithLeague } from '@/components/TableColumns/TableColumns.interface';
+import { JSX, useEffect, useState } from 'react';
+import { leagueColumns } from '@/components/TableColumns/TableColumns';
+import TableData from '@/components/TableData/TableData';
+import { useDataStore } from '@/store/dataStore';
 
 /**
  * Renders the admin page.
  * @returns {JSX.Element} - The rendered Admin Leagues page.
  */
 const AdminLeagues = (): JSX.Element => {
-  const { user } = useDataStore((state) => state);
   const [leaguesData, setLeaguesData] = useState<IEntryWithLeague[]>([]);
+  const { user } = useDataStore((state) => state);
 
   /**
    * Get all leagues the user is a part of.
    */
   const fetchData = async (): Promise<void> => {
     try {
-      const leagues = await getUserLeagues(user.leagues);
       const entries = await getAllLeagueEntries({ leagues: user.leagues });
+      const leagues = await getUserLeagues(user.leagues);
       const combinedData = leagues.map((league, index) => ({
         aliveEntries: entries[index].alive,
         leagueId: '',
