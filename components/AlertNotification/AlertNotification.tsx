@@ -49,9 +49,9 @@ const Alert = ({
       <AlertTitle title={title} data-testid="alert-title" />
       <AlertDescription message={message} data-testid="alert-message" />
       <Button
-        variant="ghost"
+        variant='ghost'
         size="icon"
-        className="absolute right-4 top-2"
+        className="absolute right-4 top-2 hover:bg-transparent hover:text-current hover:opacity-50"
         data-testid="dismiss-alert-btn"
         onClick={() => toast.remove()}
         aria-label='dismiss notification'
