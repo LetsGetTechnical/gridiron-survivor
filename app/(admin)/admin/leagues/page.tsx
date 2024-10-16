@@ -8,7 +8,7 @@ import { leagueColumns } from '@/components/TableColumns/TableColumns';
 import { useDataStore } from '@/store/dataStore';
 import { getUserLeagues } from '@/utils/utils';
 import { getAllLeagueEntries } from '@/api/apiFunctions';
-import { IEntryWithLeague } from '@/components/TableColumns/TableColumns';
+import { IEntryWithLeague } from '@/components/TableColumns/TableColumns.interface';
 
 /**
  * Renders the admin page.
@@ -26,13 +26,13 @@ const AdminLeagues = (): JSX.Element => {
       const leagues = await getUserLeagues(user.leagues);
       const entries = await getAllLeagueEntries({ leagues: user.leagues });
       const combinedData = leagues.map((league, index) => ({
+        aliveEntries: entries[index].alive,
         leagueId: '',
-        logo: '',
         leagueName: league.leagueName,
+        logo: '',
         participants: league.participants,
         survivors: league.survivors,
         totalEntries: entries[index].totalEntries,
-        aliveEntries: entries[index].alive,
       }));
       setLeaguesData(combinedData);
     } catch (error) {
