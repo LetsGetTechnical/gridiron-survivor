@@ -47,9 +47,24 @@ jest.mock('@/api/apiFunctions', () => ({
   getCurrentUserEntries: jest.fn(),
 }));
 
+const mockUser = {
+  documentId: '123',
+  email: 'test@test.com',
+  id: '123',
+  leagues: [],
+};
+
+const mockLeague = {
+  leagueId: '123',
+  leagueName: 'Test League',
+  logo: 'logo.png',
+  participants: [],
+  survivors: [],
+};
+
 const mockAllLeagues = [
   {
-    leagueId: '123',
+    leagueId: '1234',
     leagueName: 'Test League',
     logo: 'https://findmylogo.com/logo.png',
     participants: ['123456', '78'],
@@ -91,19 +106,22 @@ const mockGetCurrentUserEntries = getCurrentUserEntries as jest.MockedFunction<
 >;
 
 describe('Leagues Component', () => {
-  const mockUpdateLeagues = jest.fn();
+  const mockUpdateUser = jest.fn();
+  const mockUpdateAllLeagues = jest.fn();
   const mockUpdateUserLeagues = jest.fn();
-  const mockUpdateGameWeek = jest.fn();
   const mockUpdateEntries = jest.fn();
+  const mockUpdateGameWeek = jest.fn();
   const mockGetAllLeagues = getAllLeagues as jest.Mock;
   const mockAddUserToLeague = addUserToLeague as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockUseAuthContext.isSignedIn = true;
     mockUseDataStore.mockReturnValue({
-      user: { id: '123', leagues: [] },
-      leagues: [],
-      updateAllLeagues: mockUpdateLeagues,
+      user: mockUser,
+      allLeagues: mockAllLeagues,
+      userLeagues: [],
+      updateAllLeagues: mockUpdateAllLeagues,
       updateUserLeagues: mockUpdateUserLeagues,
       updateEntries: mockUpdateEntries,
       updateGameWeek: mockUpdateGameWeek,
@@ -116,20 +134,6 @@ describe('Leagues Component', () => {
   });
 
   it('should render "You are not enrolled in any leagues" message when no leagues are found', async () => {
-    mockUseAuthContext.isSignedIn = true;
-    mockGetUserLeagues.mockResolvedValue([]);
-
-    mockUseDataStore.mockReturnValue({
-      user: {
-        documentId: '123',
-        email: 'test@test.com',
-        id: '123',
-        leagues: [],
-      },
-      allLeagues: mockAllLeagues,
-      userLeagues: [],
-    });
-
     render(<Leagues />);
 
     await waitForElementToBeRemoved(() => screen.getByTestId('global-spinner'));
@@ -141,29 +145,6 @@ describe('Leagues Component', () => {
   });
 
   it('should not display GlobalSpinner after loading data', async () => {
-    mockUseAuthContext.isSignedIn = true;
-
-    mockUseDataStore.mockReturnValue({
-      user: {
-        documentId: '123',
-        email: 'test@test.com',
-        id: '123',
-        leagues: [],
-      },
-      allLeagues: [
-        {
-          leagueId: '123',
-          leagueName: 'Test League',
-          logo: 'logo.png',
-          participants: ['123456', '78'],
-          survivors: ['123456', '78'],
-        },
-      ],
-      userLeagues: [],
-    });
-
-    mockGetUserLeagues.mockResolvedValueOnce([]);
-
     render(<Leagues />);
 
     await waitForElementToBeRemoved(() => screen.getByTestId('global-spinner'));
@@ -172,48 +153,25 @@ describe('Leagues Component', () => {
   });
 
   it('should handle form submission to join a league', async () => {
-    mockUseAuthContext.isSignedIn = true;
-
-    const user = {
-      documentId: '123',
-      email: 'test@test.com',
-      id: '123',
-      leagues: [],
-    };
-
-    const league = {
-      leagueId: '123',
-      leagueName: 'Test League',
-      logo: 'logo.png',
-      participants: [],
-      survivors: [],
-    };
-
-    const updateUser = jest.fn();
-    const updateUserLeagues = jest.fn();
-    const updateAllLeagues = jest.fn();
-    const updateGameWeek = jest.fn();
-    const updateEntries = jest.fn();
-
     mockUseDataStore.mockReturnValue({
-      user,
-      allLeagues: [league],
-      updateUser,
-      updateUserLeagues,
+      user: mockUser,
+      allLeagues: [mockLeague],
       userLeagues: [],
-      updateAllLeagues,
-      updateGameWeek,
-      updateEntries,
+      updateUser: mockUpdateUser,
+      updateUserLeagues: mockUpdateUserLeagues,
+      updateAllLeagues: mockUpdateAllLeagues,
+      updateGameWeek: mockUpdateGameWeek,
+      updateEntries: mockUpdateEntries,
     });
 
-    mockGetAllLeagues.mockResolvedValueOnce([league]);
+    mockGetAllLeagues.mockResolvedValueOnce([mockLeague]);
     mockAddUserToLeague.mockResolvedValue(
       Promise.resolve({
-        userDocumentId: user.documentId,
-        selectedLeague: league.leagueId,
-        selectedLeagues: [league.leagueId],
-        participants: [user.id],
-        survivors: [user.id],
+        userDocumentId: mockUser.documentId,
+        selectedLeague: mockLeague.leagueId,
+        selectedLeagues: [mockLeague.leagueId],
+        participants: [mockUser.id],
+        survivors: [mockUser.id],
       }),
     );
 
@@ -229,66 +187,42 @@ describe('Leagues Component', () => {
 
     await waitFor(() => {
       expect(mockAddUserToLeague).toHaveBeenCalledWith({
-        userDocumentId: user.documentId,
-        selectedLeague: league.leagueId,
-        selectedLeagues: [league.leagueId],
-        participants: [user.id],
-        survivors: [user.id],
+        userDocumentId: mockUser.documentId,
+        selectedLeague: mockLeague.leagueId,
+        selectedLeagues: [mockLeague.leagueId],
+        participants: [mockUser.id],
+        survivors: [mockUser.id],
       });
-      expect(updateAllLeagues).toHaveBeenCalledWith([league]);
-      expect(updateUserLeagues).toHaveBeenCalledWith([league]);
-      expect(updateUser).toHaveBeenCalledWith(
-        user.documentId,
-        user.id,
-        user.email,
-        [...user.leagues, league.leagueId],
+      expect(mockUpdateAllLeagues).toHaveBeenCalledWith([mockLeague]);
+      expect(mockUpdateUserLeagues).toHaveBeenCalledWith([mockLeague]);
+      expect(mockUpdateUser).toHaveBeenCalledWith(
+        mockUser.documentId,
+        mockUser.id,
+        mockUser.email,
+        [...mockUser.leagues, mockLeague.leagueId],
       );
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
           variant={AlertVariants.Success}
-          message={`Added ${league.leagueName} to your leagues!`}
+          message={`Added ${mockLeague.leagueName} to your leagues!`}
         />,
       );
     });
   });
 
   it('should show error if adding to league fails', async () => {
-    mockUseAuthContext.isSignedIn = true;
-
-    const user = {
-      documentId: '123',
-      email: 'test@test.com',
-      id: '123',
-      leagues: [],
-    };
-
-    const league = {
-      leagueId: '123',
-      leagueName: 'Test League',
-      logo: 'logo.png',
-      participants: [],
-      survivors: [],
-    };
-
-    const updateUser = jest.fn();
-    const updateUserLeagues = jest.fn();
-    const updateAllLeagues = jest.fn();
-    const updateGameWeek = jest.fn();
-    const updateEntries = jest.fn();
-
     mockUseDataStore.mockReturnValue({
-      user,
-      allLeagues: [league],
-      updateUser,
-      updateUserLeagues,
+      user: mockUser,
+      allLeagues: [mockLeague],
       userLeagues: [],
-      updateAllLeagues,
-      updateGameWeek,
-      updateEntries,
+      updateUser: mockUpdateUser,
+      updateUserLeagues: mockUpdateUserLeagues,
+      updateAllLeagues: mockUpdateAllLeagues,
+      updateGameWeek: mockUpdateGameWeek,
+      updateEntries: mockUpdateEntries,
     });
-
     mockGetUserLeagues.mockResolvedValueOnce([]);
-    mockGetAllLeagues.mockResolvedValueOnce([league]);
+    mockGetAllLeagues.mockResolvedValueOnce([mockLeague]);
     mockAddUserToLeague.mockRejectedValue(new Error());
 
     render(<Leagues />);
