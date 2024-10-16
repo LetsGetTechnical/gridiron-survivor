@@ -50,7 +50,7 @@ describe('AlertNotification', () => {
       expect(dismissButton).toBeInTheDocument();
     });
 
-    test('should fire the toast.remove() function when dismiss button is clicked', async () => {
+    it('should fire the toast.remove() function when dismiss button is clicked', async () => {
       const spyToast = jest.spyOn(toast, 'remove');
       render(
         <Alert
