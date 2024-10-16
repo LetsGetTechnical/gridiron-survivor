@@ -1,10 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AdminLeagues from './page';
 
 describe('AdminLeagues', () => {
-  it('should render the AdminLeagues page with LeagueCard components', () => {
+  beforeEach(() => {
     render(<AdminLeagues />);
-    const leagueCards = screen.getAllByTestId('LeagueCard');
-    expect(leagueCards.length).toBe(3);
+  })
+  it('should render the League data table component', async () => {
+    const leagueTable = screen.getByTestId('data-table');
+    expect(leagueTable).toBe(1);
   });
 });

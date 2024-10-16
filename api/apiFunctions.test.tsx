@@ -4,7 +4,7 @@ import {
   resetRecoveredPassword,
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
-import { account, ID } from './config';
+import { account, databases, ID } from './config';
 const apiFunctions = require('./apiFunctions');
 import { getBaseURL } from '@/utils/getBaseUrl';
 
@@ -19,6 +19,7 @@ jest.mock('./apiFunctions', () => {
     getAllLeagues: jest.fn(),
     getUserDocumentId: jest.fn(),
     addUserToLeague: jest.fn(),
+    getAllLeagueEntries: jest.fn(),
   };
 });
 
@@ -35,6 +36,9 @@ jest.mock('./config', () => ({
   ID: {
     unique: jest.fn(),
   },
+  databases: {
+    listDocuments: jest.fn(),
+  }
 }));
 
 describe('apiFunctions', () => {
@@ -377,6 +381,32 @@ describe('apiFunctions', () => {
       await expect(apiFunctions.addUserToLeague({ response })).rejects.toThrow(
         'Error adding user to league',
       );
+    });
+  });
+
+  describe('getAllLeagueEntries()', () => {
+    const mockResponse = {
+      documents: [
+        { league: { $id: 'league1' }, eliminated: false },
+        { league: { $id: 'league1' }, eliminated: true },
+        { league: { $id: 'league2' }, eliminated: false },
+        { league: { $id: 'league2' }, eliminated: false },
+      ],
+    };
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+      (databases.listDocuments as jest.Mock).mockReturnValue(mockResponse);
+    });
+
+    it('should return the total number of entries and alive entries in a league', async () => {
+      const mockLeagues = ['league1', 'league2'];
+      const mockResult = await apiFunctions.getAllLeagueEntries({ leagues: mockLeagues });
+
+      expect(mockResult).toEqual([
+        { totalEntries: 2, alive: 1 },
+        { totalEntries: 2, alive: 2 },
+      ]);
     });
   });
 });
