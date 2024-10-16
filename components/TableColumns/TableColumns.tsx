@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../TableDropDownMenu/TableDropDownMenu';
+import { ILeague } from '@/api/apiFunctions.interface';
 
 export type LeagueDetailsHeader = {
   text: string;
@@ -21,12 +22,10 @@ export type LeagueDetailsHeader = {
   text4: string;
 };
 
-type leagueDataHeader = {
-  leagueName: string;
-  participants: string[];
-  survivors: string[];
-  entries: number;
-};
+export interface IEntryWithLeague extends ILeague {
+  totalEntries: number;
+  aliveEntries: number;
+}
 
 export type PlayersHeader = {
   text: string;
@@ -161,7 +160,7 @@ export const leagueDetailsColumns: ColumnDef<LeagueDetailsHeader>[] = [
   },
 ];
 
-export const leagueColumns: ColumnDef<leagueDataHeader>[] = [
+export const leagueColumns: ColumnDef<IEntryWithLeague>[] = [
   {
     accessorKey: 'leagueName',
     header: 'League Name',
@@ -249,7 +248,7 @@ export const leagueColumns: ColumnDef<leagueDataHeader>[] = [
     },
   },
   {
-    accessorKey: 'entries',
+    accessorKey: 'totalEntries',
 
     /**
      * Value of row.
@@ -276,8 +275,40 @@ export const leagueColumns: ColumnDef<leagueDataHeader>[] = [
      * @returns {JSX.Element} - The cell component.
      */
     cell: ({ row }): JSX.Element => {
-      const entries = row.getValue('entries') as number;
-      return <div>{entries}</div>;
+      const totalEntries = row.getValue('totalEntries') as number;
+      return <div>{totalEntries}</div>;
+    },
+  },
+  {
+    accessorKey: 'aliveEntries',
+
+    /**
+     * Value of row.
+     * @param {object} column - The column data.
+     * @param {object} column.column - The column definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    header: ({ column }): JSX.Element => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Entries Still Alive
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+
+    /**
+     * Value of row.
+     * @param {object} row - The row data.
+     * @param {object} row.row - The row definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    cell: ({ row }): JSX.Element => {
+      const aliveEntries = row.getValue('aliveEntries') as number;
+      return <div>{aliveEntries}</div>;
     },
   },
   {

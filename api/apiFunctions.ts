@@ -444,18 +444,27 @@ export async function getAllLeagueEntries({
   leagues,
 }: {
   leagues: string[];
-}): Promise<number[]> {
+}): Promise<{ totalEntries: number; alive: number }[]> {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       Collection.ENTRIES,
+      [Query.limit(5000)],
     );
     const entries = leagues.map((leagueId) => {
       const leagueEntries = response.documents.filter(
         (entry) => entry.league.$id === leagueId,
       );
-      return leagueEntries.length;
+      const aliveEntries = leagueEntries.filter(
+        (aliveEntry) => aliveEntry.eliminated === false,
+      );
+
+      return {
+        totalEntries: leagueEntries.length,
+        alive: aliveEntries.length,
+      };
     });
+
     return entries;
   } catch (error) {
     throw new Error('Error getting league entries:', { cause: error });

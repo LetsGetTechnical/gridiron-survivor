@@ -6,9 +6,9 @@ import { JSX, useEffect, useState } from 'react';
 import TableData from '@/components/TableData/TableData';
 import { leagueColumns } from '@/components/TableColumns/TableColumns';
 import { useDataStore } from '@/store/dataStore';
-import { getLeagueEntries, getUserLeagues } from '@/utils/utils';
-import { ILeague } from '@/api/apiFunctions.interface';
+import { getUserLeagues } from '@/utils/utils';
 import { getAllLeagueEntries } from '@/api/apiFunctions';
+import { IEntryWithLeague } from '@/components/TableColumns/TableColumns';
 
 /**
  * Renders the admin page.
@@ -16,7 +16,7 @@ import { getAllLeagueEntries } from '@/api/apiFunctions';
  */
 const AdminLeagues = (): JSX.Element => {
   const { user } = useDataStore((state) => state);
-  const [leaguesData, setLeaguesData] = useState<ILeague[]>([]);
+  const [leaguesData, setLeaguesData] = useState<IEntryWithLeague[]>([]);
 
   /**
    * Get all leagues the user is a part of.
@@ -26,10 +26,13 @@ const AdminLeagues = (): JSX.Element => {
       const leagues = await getUserLeagues(user.leagues);
       const entries = await getAllLeagueEntries({ leagues: user.leagues });
       const combinedData = leagues.map((league, index) => ({
+        leagueId: '',
+        logo: '',
         leagueName: league.leagueName,
         participants: league.participants,
         survivors: league.survivors,
-        entries: entries[index], // Corresponding entry data
+        totalEntries: entries[index].totalEntries,
+        aliveEntries: entries[index].alive,
       }));
       setLeaguesData(combinedData);
     } catch (error) {
