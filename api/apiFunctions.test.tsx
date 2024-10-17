@@ -5,6 +5,7 @@ import {
   resetPassword,
   resetRecoveredPassword,
   updateUserEmail,
+  getAllLeagueEntries
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
 import { account, databases, ID } from './config';
@@ -24,7 +25,6 @@ jest.mock('./apiFunctions', () => {
     getAllLeagues: jest.fn(),
     getUserDocumentId: jest.fn(),
     addUserToLeague: jest.fn(),
-    getAllLeagueEntries: jest.fn(),
   };
 });
 
@@ -550,7 +550,7 @@ describe('apiFunctions', () => {
 
       const leagues = ['league1', 'league2'];
 
-      const result = await apiFunctions.getAllLeagueEntries({ leagues });
+      const result = await getAllLeagueEntries({ leagues });
 
       expect(result).toEqual([
         {
