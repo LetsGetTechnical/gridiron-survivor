@@ -66,7 +66,7 @@ describe('AdminUserSettings Component', () => {
     });
   });
 
-  it('should direct to /admin/edit-profile route when the edit profile button is clicked', () => {
+  it('should direct to /account/settings route when the edit profile button is clicked', () => {
     const adminUserSettings = screen.getByTestId('admin-user-settings');
 
     fireEvent.click(adminUserSettings);
@@ -77,7 +77,7 @@ describe('AdminUserSettings Component', () => {
     });
 
     waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/user/edit');
+      expect(mockPush).toHaveBeenCalledWith('/account/settings');
     });
   });
 
