@@ -9,13 +9,13 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-background text-foreground',
+        default: 'bg-muted text-muted-foreground',
         error:
-          'bg-background text-error [&>svg]:text-error text-error border-error',
+          'bg-muted text-error [&>svg]:text-error text-error border-error',
         warning:
-          'bg-background text-warning [&>svg]:text-warning text-warning border-warning',
+          'bg-muted text-warning [&>svg]:text-warning text-warning border-warning',
         success:
-          'bg-background text-success [&>svg]:text-success text-success border-success',
+          'bg-muted text-success [&>svg]:text-success text-success border-success',
       },
     },
     defaultVariants: {
