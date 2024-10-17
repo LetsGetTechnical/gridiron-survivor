@@ -127,6 +127,7 @@ export const parseUserPick = (
 export const getUserLeagues = async (
   leagues: IUser['leagues'],
 ): Promise<ILeague[]> => {
+  // TODO fix leagues.length === 0.  If no leagues are found it returns an array with a length of 1 containing an empty string.
   if (!leagues || leagues.length === 0) {
     return [];
   }
