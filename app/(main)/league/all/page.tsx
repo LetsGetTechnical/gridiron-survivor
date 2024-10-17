@@ -68,7 +68,6 @@ const Leagues = (): JSX.Element => {
       // Fetch addition user data
       fetchAdditionalUserData(fetchedUserLeagues);
     } catch (error) {
-      console.error('Error fetching leagues:', error);
       toast.custom(
         <Alert
           variant={AlertVariants.Error}
