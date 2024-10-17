@@ -7,6 +7,7 @@ const userData = {
   id: '123',
   email: 'test@email.com',
   leagues: ['123456'],
+  labels: ['admin'],
 };
 
 const NFLTeams = [
@@ -61,11 +62,14 @@ describe('Data Store', () => {
           userData.userId,
           userData.userEmail,
           userData.leagues,
+          userData.labels,
         );
       });
 
       expect(result.current.user.id).toBe(userData.userId);
       expect(result.current.user.email).toBe(userData.userEmail);
+      expect(result.current.user.labels).toStrictEqual(userData.labels);
+      expect(result.current.user.leagues).toStrictEqual(userData.leagues);
     });
     it('Checks the reset user state matches default', () => {
       const { result } = renderHook(() => useDataStore());
@@ -76,12 +80,15 @@ describe('Data Store', () => {
           userData.userId,
           userData.userEmail,
           userData.leagues,
+          userData.labels,
         );
         result.current.resetUser();
       });
 
       expect(result.current.user.id).toBe('');
       expect(result.current.user.email).toBe('');
+      expect(result.current.user.labels).toStrictEqual([]);
+      expect(result.current.user.leagues).toStrictEqual([]);
     });
   });
 

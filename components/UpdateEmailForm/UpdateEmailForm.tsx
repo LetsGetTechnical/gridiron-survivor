@@ -82,7 +82,7 @@ const UpdateEmailForm = (): JSX.Element => {
         />,
       );
 
-      updateUser(user.documentId, user.id, email, user.leagues);
+      updateUser(user.documentId, user.id, email, user.leagues, user.labels);
       form.reset({ email: email || '', password: '' });
     } catch (error) {
       console.error('Email Update Failed', error);

@@ -32,6 +32,7 @@ jest.mock('@/store/dataStore', () => ({
       id: '1234',
       email: 'test@test.com',
       leagues: ['league1'],
+      labels: [],
     },
     allLeagues: [
       {
@@ -82,6 +83,7 @@ describe('Leagues Component', () => {
         leagues: [],
       },
       allLeagues: [],
+      labels: [],
     });
 
     render(<Leagues />);
@@ -105,6 +107,7 @@ describe('Leagues Component', () => {
         leagues: [],
       },
       allLeagues: [],
+      labels: [],
     });
 
     render(<Leagues />);
@@ -121,6 +124,7 @@ describe('Leagues Component', () => {
         email: 'test@test.com',
         id: '123',
         leagues: [],
+        labels: [],
       },
       allLeagues: [
         {
@@ -150,6 +154,7 @@ describe('Leagues Component', () => {
       email: 'test@test.com',
       id: '123',
       leagues: [],
+      labels: [],
     };
 
     const league = {
@@ -202,6 +207,7 @@ describe('Leagues Component', () => {
         user.id,
         user.email,
         [...user.leagues, league.leagueId],
+        user.labels,
       );
       expect(toast.custom).toHaveBeenCalledWith(
         <Alert
@@ -220,6 +226,7 @@ describe('Leagues Component', () => {
       email: 'test@test.com',
       id: '123',
       leagues: [],
+      labels: [],
     };
 
     const league = {

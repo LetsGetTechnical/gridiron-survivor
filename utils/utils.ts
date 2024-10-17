@@ -148,6 +148,15 @@ export const getUserEntries = async (userId: IUser['id'], leagueId: ILeague['lea
 }
 
 /**
+ * Check if the route is an /admin route
+ * @param path - The path to check
+ * @returns {boolean} - Whether the route is an /admin route
+ */
+export const isAdminRoute = (path: string): boolean => {
+  return path.startsWith('/admin');
+};
+
+/**
  * Returns if the team has already been picked by the user
  * @param teamName - The team name
  * @param selectedTeams - the user's selected teams
@@ -167,3 +176,13 @@ export const hasTeamBeenPicked = (teamName: string, selectedTeams: string[]): bo
 export const getNFLTeamLogo = (NFLTeams: INFLTeam[], teamName: string): string => {
   return NFLTeams.find((teams) => teams.teamName === teamName)?.teamLogo as string;
 }
+
+/**
+ * Checks if the current path requires authentication
+ * @param pathname - The current path
+ * @returns {boolean} - Whether the current path requires authentication
+ */
+export const isAuthRequiredPath = (pathname: string): boolean => {
+  const nonAuthPaths = ['/register', '/account/recovery', '/recover-password'];
+  return !nonAuthPaths.includes(pathname);
+};

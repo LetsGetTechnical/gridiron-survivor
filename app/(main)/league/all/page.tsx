@@ -100,10 +100,13 @@ const Leagues = (): JSX.Element => {
       });
 
       setLeagues([...leagues, league]);
-      updateUser(user.documentId, user.id, user.email, [
-        ...user.leagues,
-        league.leagueId,
-      ]);
+      updateUser(
+        user.documentId,
+        user.id,
+        user.email,
+        [...user.leagues, league.leagueId],
+        user.labels,
+      );
       toast.custom(
         <Alert
           variant={AlertVariants.Success}

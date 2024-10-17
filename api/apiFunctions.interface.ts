@@ -9,6 +9,16 @@ export interface IAccountData {
 }
 export interface IUser {
   documentId: string;
+  // for the appwrite auth collection
+  id: string;
+  email: string;
+  leagues: string[];
+  labels: string[];
+}
+
+export interface ICollectionUser {
+  documentId: string;
+  // for the custom user collection
   id: string;
   email: string;
   leagues: string[];
