@@ -525,9 +525,9 @@ export async function getAllLeagueEntries({
         alive: aliveEntries.length,
       };
     });
-
     return entries;
   } catch (error) {
-    throw new Error('Error getting league entries:', { cause: error });
+    console.error('Error getting league entries:', error);
+    return [];
   }
 }
