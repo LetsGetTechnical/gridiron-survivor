@@ -198,6 +198,17 @@ export const leagueColumns: ColumnDef<IEntryWithLeague>[] = [
       const survivors = row.getValue('survivors') as string[];
       return <div>{survivors.length}</div>;
     },
+    /**
+     * To be able to sort the row by numbers.
+     * @param rowA - Example 1 of survivors in a league.
+     * @param rowB - Example 2 of survivors in a league.
+     * @returns - Length of each participants league to be able to accurately sort.
+     */
+    sortingFn: (rowA, rowB): number => {
+      const lengthA = (rowA.getValue('survivors') as string[]).length;
+      const lengthB = (rowB.getValue('survivors') as string[]).length;
+      return lengthA - lengthB;
+    },
   },
   {
     accessorKey: 'participants',
