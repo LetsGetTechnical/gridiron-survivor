@@ -183,10 +183,10 @@ const Entry = ({
                 return (
                   <section key={entry.$id}>
                     <LeagueEntries
-                      key={entry.$id}
                       entryName={entry.name}
                       isEliminated={entry.eliminated}
                       isPickSet={isPickSet}
+                      key={entry.$id}
                       linkUrl={linkUrl}
                       userPickHistory={userPickHistory}
                       selectedTeamLogo={selectedTeamLogo}
