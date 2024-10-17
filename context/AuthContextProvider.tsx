@@ -8,10 +8,11 @@ import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
-import { IUser } from '@/api/apiFunctions.interface';
+import { ICollectionUser, IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { loginAccount, logoutHandler } from './AuthHelper';
 import { usePathname } from 'next/navigation';
+import { isAuthRequiredPath } from '@/utils/utils';
 
 type UserCredentials = {
   email: string;
@@ -85,11 +86,7 @@ export const AuthContextProvider = ({
    */
   const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
-      if (
-        pathname !== '/register' &&
-        pathname !== '/account/recovery' &&
-        pathname !== '/recover-password'
-      ) {
+      if (isAuthRequiredPath(pathname)) {
         router.push('/login');
       }
       return;
@@ -97,14 +94,25 @@ export const AuthContextProvider = ({
 
     try {
       const user = await account.get();
-      const userData: IUser = await getCurrentUser(user.$id);
+      const userData: ICollectionUser = await getCurrentUser(user.$id);
+
+      const currentUser: IUser = {
+        documentId: userData.documentId,
+        id: userData.id,
+        email: userData.email,
+        leagues: userData.leagues,
+        labels: user.labels,
+      };
+
       updateUser(
-        userData.documentId,
-        userData.id,
-        userData.email,
-        userData.leagues,
+        currentUser.documentId,
+        currentUser.id,
+        currentUser.email,
+        currentUser.leagues,
+        user.labels,
       );
-      return userData;
+
+      return currentUser;
     } catch (error) {
       resetUser();
       setIsSignedIn(false);

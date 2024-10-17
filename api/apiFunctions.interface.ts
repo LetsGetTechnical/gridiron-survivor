@@ -16,7 +16,8 @@ export interface IUser {
   labels: string[];
 }
 
-export interface ICollectionuser {
+export interface ICollectionUser {
+  documentId: string;
   // for the custom user collection
   id: string;
   email: string;

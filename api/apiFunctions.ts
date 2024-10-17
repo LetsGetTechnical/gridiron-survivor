@@ -8,7 +8,7 @@ import {
   ILeague,
   IGameWeek,
   IUser,
-  ICollectionuser,
+  ICollectionUser,
   IWeeklyPicks,
   INFLTeam,
   IRecoveryToken,
@@ -152,7 +152,7 @@ export async function updateUserEmail({
  */
 export async function getCurrentUser(
   userId: IUser['id'],
-): Promise<ICollectionuser> {
+): Promise<ICollectionUser> {
   try {
     const user = await databases.listDocuments(
       appwriteConfig.databaseId,

@@ -176,3 +176,13 @@ export const hasTeamBeenPicked = (teamName: string, selectedTeams: string[]): bo
 export const getNFLTeamLogo = (NFLTeams: INFLTeam[], teamName: string): string => {
   return NFLTeams.find((teams) => teams.teamName === teamName)?.teamLogo as string;
 }
+
+/**
+ * Checks if the current path requires authentication
+ * @param pathname - The current path
+ * @returns {boolean} - Whether the current path requires authentication
+ */
+export const isAuthRequiredPath = (pathname: string): boolean => {
+  const nonAuthPaths = ['/register', '/account/recovery', '/recover-password'];
+  return !nonAuthPaths.includes(pathname);
+};
