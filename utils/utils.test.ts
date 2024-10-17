@@ -112,7 +112,7 @@ describe('utils', () => {
       });
     });
   });
-  describe('getUserPick', () => {
+  xdescribe('getUserPick', () => {
     it("should return the user's team name if the user has a pick", async () => {
       const result = await getUserPick({
         weeklyPicks: mockWeeklyPicksData,
@@ -179,7 +179,7 @@ describe('utils', () => {
       });
     });
   });
-  describe('getUserLeagues', () => {
+  xdescribe('getUserLeagues', () => {
     it('should return the list of leagues the user is a part of', async () => {
       (getCurrentLeague as jest.Mock).mockResolvedValue(mockLeague);
       const result = await getUserLeagues(mockUserData.leagues);

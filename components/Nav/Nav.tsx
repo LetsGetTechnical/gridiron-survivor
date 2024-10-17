@@ -6,6 +6,7 @@ import React, { JSX } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
+import Link from 'next/link';
 import {
   Drawer,
   DrawerContent,
@@ -44,8 +45,13 @@ export const Nav = (): JSX.Element => {
   return (
     <nav
       className={cn(
-        'flex h-16 items-center border-b border-zinc-100 from-[#4E160E] to-zinc-950 px-4 dark:border-zinc-800 dark:bg-gradient-to-b',
-        pathname === '/login' || pathname === '/register' ? 'hidden' : '',
+        'flex h-16 items-center border-b border-border from-[#4E160E] to-zinc-950 px-4 bg-gradient-to-b',
+        pathname === '/login' ||
+          pathname === '/register' ||
+          pathname === '/recover-password' ||
+          pathname === '/account/recovery'
+          ? 'hidden'
+          : '',
       )}
       data-testid="nav"
     >
@@ -56,16 +62,38 @@ export const Nav = (): JSX.Element => {
         <li>
           <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger data-testid="drawer-trigger">
-              <Menu className="text-zinc-600 dark:text-white" />
+              <Menu className="text-foreground" />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
                 <DrawerTitle data-testid="title">Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
-              <ul className="m-0 flex flex-col gap-4 p-0">
+              <ul className="m-0 flex flex-col gap-1 p-0">
+                <li>
+                  <Link
+                    href="/account/settings"
+                    className="underline underline-offset-4 hover:text-primary-muted transition-colors"
+                    onClick={() => setOpen(false)}
+                    data-testid="settings-link"
+                  >
+                    Settings
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    data-testid="league-link"
+                    href="/league/all"
+                    className={cn(
+                      'underline underline-offset-4 hover:text-primary-muted transition-colors',
+                    )}
+                    onClick={() => setOpen(false)}
+                  >
+                    Leagues
+                  </Link>
+                </li>
                 <li>
                   <Button
-                    className="p-0 text-base font-normal text-zinc-600"
+                    className="p-0 text-base font-normal hover:text-primary-muted transition-colors text-white"
                     variant="link"
                     label="Sign Out"
                     onClick={() => {

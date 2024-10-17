@@ -3,3 +3,4 @@
 **/*.test.js
 **/*.test.jsx
 next-env.d.ts
+storybook-static/

@@ -13,11 +13,13 @@ import {
 
 //Define the shape of the state
 interface IDataStoreState {
+  currentWeek: number;
   user: IUser;
-  NFLTeam: INFLTeam[];
+  NFLTeams: INFLTeam[];
   weeklyPicks: IWeeklyPicks;
   league: ILeague;
   gameWeek: IGameWeek;
+  allLeagues: ILeague[];
 }
 
 /* eslint-disable */
@@ -25,8 +27,10 @@ interface IDataStoreState {
 //Define the actions that can be performed on the state
 interface IDataStoreAction {
   resetUser: () => void;
-  updateNFLTeam: (updatedTeam: INFLTeam[]) => void;
+  updateCurrentWeek: (week: number) => void;
+  updateNFLTeams: (updatedTeam: INFLTeam[]) => void;
   updateUser: (
+    documentId: IUser['documentId'],
     id: IUser['id'],
     email: IUser['email'],
     leagues: IUser['leagues'],
@@ -45,6 +49,7 @@ interface IDataStoreAction {
     survivors,
   }: ILeague) => void;
   updateGameWeek: (gameWeek: IGameWeek) => void;
+  updateAllLeagues: (allLeagues: ILeague[]) => void;
 }
 /* eslint-disable */
 
@@ -52,8 +57,10 @@ export interface DataStore extends IDataStoreState, IDataStoreAction {}
 
 //creating the initial state
 const initialState: IDataStoreState = {
-  NFLTeam: [],
+  currentWeek: 1,
+  NFLTeams: [],
   user: {
+    documentId: '',
     id: '',
     email: '',
     leagues: [],
@@ -75,11 +82,13 @@ const initialState: IDataStoreState = {
     id: '',
     week: 0,
   },
+  allLeagues: [],
 };
 
 //create the store
 export const useDataStore = create<DataStore>((set) => ({
   ...initialState,
+  updateCurrentWeek: (week: number): void => set({ currentWeek: week }),
   /**
    * Reset the user state
    * @returns {void}
@@ -90,10 +99,10 @@ export const useDataStore = create<DataStore>((set) => ({
    * @param updatedTeam - The updated team
    * @returns {void}
    */
-  updateNFLTeam: (updatedTeam: INFLTeam[]): void =>
+  updateNFLTeams: (updatedTeams: INFLTeam[]): void =>
     set(
       produce((state: IDataStoreState) => ({
-        NFLTeam: [...state.NFLTeam, ...updatedTeam],
+        NFLTeams: [...state.NFLTeams, ...updatedTeams],
       })),
     ),
   /**
@@ -101,11 +110,13 @@ export const useDataStore = create<DataStore>((set) => ({
    * @param id - The user id
    * @param email - The user email
    * @param leagues - The user league
+   * @param selectedLeagues - The user selected league
    * @returns {void}
    */
-  updateUser: (id, email, leagues, labels): void =>
+  updateUser: (documentId, id, email, leagues, labels): void =>
     set(
       produce((state: IDataStoreState) => {
+        state.user.documentId = documentId;
         state.user.id = id;
         state.user.email = email;
         state.user.leagues = [...leagues];
@@ -170,6 +181,18 @@ export const useDataStore = create<DataStore>((set) => ({
       produce((state: IDataStoreState) => {
         state.gameWeek.id = id;
         state.gameWeek.week = week;
+      }),
+    ),
+  /**
+   * Updates all leagues in the data store.
+   *
+   * @param {IAllLeagues} props - The league properties to update..
+   * @returns {void}
+   */
+  updateAllLeagues: (updatedLeagues: ILeague[]): void =>
+    set(
+      produce((state: IDataStoreState) => {
+        state.allLeagues = [...state.allLeagues, ...updatedLeagues];
       }),
     ),
 }));

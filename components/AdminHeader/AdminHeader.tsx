@@ -18,7 +18,7 @@ export const AdminHeader = (): React.JSX.Element => {
         Page Title
       </Heading>
       <p
-        className="text-zinc-400 max-w-prose"
+        className="text-muted-foreground max-w-prose"
         data-testid="admin-header-description"
       >
         Page Description

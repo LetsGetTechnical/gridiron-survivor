@@ -8,7 +8,7 @@ import { account } from '@/api/config';
 import { useRouter } from 'next/navigation';
 import { useDataStore } from '@/store/dataStore';
 import type { DataStore } from '@/store/dataStore';
-import { ICollectionuser, IUser } from '@/api/apiFunctions.interface';
+import { IUser } from '@/api/apiFunctions.interface';
 import { getCurrentUser } from '@/api/apiFunctions';
 import { loginAccount, logoutHandler } from './AuthHelper';
 import { usePathname } from 'next/navigation';
@@ -85,7 +85,11 @@ export const AuthContextProvider = ({
    */
   const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
-      if (pathname !== '/register') {
+      if (
+        pathname !== '/register' &&
+        pathname !== '/account/recovery' &&
+        pathname !== '/recover-password'
+      ) {
         router.push('/login');
       }
       return;
@@ -93,8 +97,14 @@ export const AuthContextProvider = ({
 
     try {
       const user = await account.get();
-      const userData: ICollectionuser = await getCurrentUser(user.$id);
-      updateUser(userData.id, userData.email, userData.leagues, user.labels);
+      const userData: IUser = await getCurrentUser(user.$id);
+      updateUser(
+        userData.documentId,
+        userData.id,
+        userData.email,
+        userData.leagues,
+      );
+      return userData;
     } catch (error) {
       resetUser();
       setIsSignedIn(false);
