@@ -84,6 +84,67 @@ export async function resetRecoveredPassword({
 }
 
 /**
+ * Resets a user's password from the settings page
+ * @param params - The params for the reset password function
+ * @param params.newPassword - The new password
+ * @param params.oldPassword - The old password
+ * @returns {Promise<void>}
+ */
+export async function resetPassword({
+  newPassword,
+  oldPassword,
+}: {
+  newPassword: string;
+  oldPassword: string;
+}): Promise<void> {
+  try {
+    await account.updatePassword(newPassword, oldPassword);
+  } catch (error) {
+    throw error;
+  }
+}
+
+/**
+ * Update the user email
+ * @param props - The props for the update email function
+ * @param props.email - The email
+ * @param props.password - The user's current password
+ * @returns {Promise<void>} - The updated user
+ */
+export async function updateUserEmail({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<void> {
+  try {
+    const result = await account.updateEmail(email, password);
+
+    const userDocument = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      [Query.equal('userId', result.$id)],
+    );
+
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      userDocument.documents[0].$id,
+      {
+        email: email,
+        name: userDocument.documents[0].name,
+        labels: userDocument.documents[0].labels,
+        userId: userDocument.documents[0].userId,
+        leagues: userDocument.documents[0].leagues,
+      },
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+
+/**
  * Get the current user
  * @param userId - The user ID
  * @returns {Models.DocumentList<Models.Document> | Error} - The user object or an error
