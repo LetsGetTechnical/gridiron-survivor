@@ -14,7 +14,7 @@ describe('AdminLeagues', () => {
   it('should render the League data table component', async () => {
     await waitFor(() => {
       const leagueTable = screen.getByTestId('data-table');
-      expect(leagueTable).toBeInTheDocument();  // Verifies table is present
+      expect(leagueTable).toBeInTheDocument();
     });
   });
 });
