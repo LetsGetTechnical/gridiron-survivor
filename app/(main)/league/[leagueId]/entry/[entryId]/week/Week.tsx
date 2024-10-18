@@ -44,6 +44,7 @@ import Heading from '@/components/Heading/Heading';
 // eslint-disable-next-line no-unused-vars
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [pickHistory, setPickHistory] = useState<string[]>([]);
+  const [entryName, setEntryName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
@@ -157,7 +158,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       if (!currentEntry) {
         throw new Error('Entry not found');
       }
-
+      
+      setEntryName(currentEntry.name);
       let entryHistory = currentEntry?.selectedTeams || [];
 
       if (currentEntry?.selectedTeams.length > 0) {
