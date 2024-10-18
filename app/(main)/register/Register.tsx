@@ -20,12 +20,11 @@ import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Alert from '@/components/AlertNotification/AlertNotification';
-import { Label } from '@/components/Label/Label';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import Logo from '@/components/Logo/Logo';
 import logo from '/public/assets/logo-colored-outline.svg';
-import React, { JSX, useEffect } from 'react';
-
+import React, { JSX, useEffect, useState } from 'react';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 const RegisterUserSchema = z
   .object({
@@ -36,11 +35,11 @@ const RegisterUserSchema = z
     password: z
       .string()
       .min(1, { message: 'Please enter a password' })
-      .min(6, { message: 'Password must be at least 6 characters' }),
+      .min(8, { message: 'Password must be at least 8 characters' }),
     confirmPassword: z
       .string()
       .min(1, { message: 'Please confirm your password' })
-      .min(6, { message: 'Password must be at least 6 characters' }),
+      .min(8, { message: 'Password must be at least 8 characters' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -56,6 +55,7 @@ type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 const Register = (): JSX.Element => {
   const router = useRouter();
   const { login, isSignedIn } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -107,6 +107,7 @@ const Register = (): JSX.Element => {
     data: RegisterUserSchemaType,
   ): Promise<void> => {
     try {
+      setIsLoading(true);
       await registerAccount(data);
       await login(data);
       toast.custom(
@@ -120,6 +121,8 @@ const Register = (): JSX.Element => {
       toast.custom(
         <Alert variant={AlertVariants.Error} message="Something went wrong!" />,
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -140,7 +143,6 @@ const Register = (): JSX.Element => {
           <p className="hidden leading-7 xl:block">Jimmy Fallon</p>
         </div>
       </div>
-
       <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
         <div>
           <h1 className="text-5xl font-extrabold tracking-tight text-foreground">
@@ -150,107 +152,96 @@ const Register = (): JSX.Element => {
             If you have an existing account{' '}
             <LinkCustom href="/login">Login!</LinkCustom>
           </p>
-        </div>  
+        </div>
+
         <Form {...form}>
           <form
             id="input-container"
             className="grid gap-3"
+            data-testid="register-form"
             onSubmit={form.handleSubmit(onSubmit)}
-          >        
+          >
             <FormField
               control={form.control as Control<object>}
               name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Label htmlFor="email" data-testid="email-label">
-                      Email
-                      <Input
-                        id="email"
-                        data-testid="email"
-                        type="email"
-                        placeholder="Your email"
-                        {...field}
-                      />
-                    </Label>
+                    <Input
+                      data-testid="email"
+                      type="email"
+                      placeholder="Email"
+                      {...field}
+                    />
                   </FormControl>
-                  {form.formState.errors.email && (
+                  {form.formState.errors?.email && (
                     <FormMessage>
-                      {form.formState.errors.email.message}
+                      {form.formState.errors?.email.message}
                     </FormMessage>
                   )}
                 </FormItem>
               )}
-            />         
+            />
             <FormField
               control={form.control as Control<object>}
               name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Label htmlFor="password" data-testid="password-label">
-                      Password
-                      <Input
-                        id="password"
-                        data-testid="password"
-                        type="password"
-                        placeholder="Your password"
-                        {...field}
-                      />
-                    </Label>
+                    <Input
+                      data-testid="password"
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                    />
                   </FormControl>
-                  {form.formState.errors.password && (
+                  {form.formState.errors?.password && (
                     <FormMessage>
-                      {form.formState.errors.password.message}
+                      {form.formState.errors?.password.message}
                     </FormMessage>
                   )}
                 </FormItem>
               )}
-            />         
+            />
             <FormField
               control={form.control as Control<object>}
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Label htmlFor="confirm-password" data-testid="confirm-password-label">
-                      Confirm Password
-                      <Input
-                        id="confirm-password"
-                        data-testid="confirm-password"
-                        type="password"
-                        placeholder="Confirm your password"
-                        {...field}
-                      />
-                    </Label>
+                    <Input
+                      data-testid="confirm-password"
+                      type="password"
+                      placeholder="Confirm Password"
+                      {...field}
+                    />
                   </FormControl>
-                  {form.formState.errors.confirmPassword && (
+                  {form.formState.errors?.confirmPassword && (
                     <FormMessage>
-                      {form.formState.errors.confirmPassword.message}
+                      {form.formState.errors?.confirmPassword.message}
                     </FormMessage>
                   )}
                 </FormItem>
               )}
             />
+
             <Button
               data-testid="continue-button"
-              label="Register"
+              label={
+                isLoading ? (
+                  <LoadingSpinner data-testid="loading-spinner" />
+                ) : (
+                  'Continue'
+                )
+              }
               type="submit"
               disabled={isDisabled}
             />
-            <p className="pb-4 font-normal leading-7 text-zinc-500">
-              <LinkCustom 
-                href="/login"
-                data-testid="login-link" 
-              >
-                Login
-              </LinkCustom>
-              {' '} to get started playing
-            </p>
+            <LinkCustom href="/login">Login to get started playing</LinkCustom>
           </form>
         </Form>
       </div>
-    </section>  
+    </section>
   );
 };
 

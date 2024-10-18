@@ -5,7 +5,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { toast } from 'react-hot-toast';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import React, { useState as useStateMock } from 'react';
-import Register from './page';
+import RegisterPage from './page';
 
 const mockLogin = jest.fn();
 const mockPush = jest.fn();
@@ -177,7 +177,7 @@ describe('Register loading spinner', () => {
       setIsLoading,
     ]);
 
-    render(<Register />);
+    render(<RegisterPage />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
@@ -189,7 +189,7 @@ describe('Register loading spinner', () => {
       setIsLoading,
     ]);
 
-    render(<Register />);
+    render(<RegisterPage />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
