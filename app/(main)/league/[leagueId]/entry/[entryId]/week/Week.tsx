@@ -276,14 +276,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
           >
             <Heading 
               as='h1'
-              children={`Week ${week} pick`}
               className='pb-8'
-            />
+            >{`Week ${week} pick`}
+            </Heading>
             <Heading
               as='h2'
-              children={`Entry ${entryName}`}
               className='pb-8'
-            />
+            >{`Entry ${entryName}`}
+            </Heading>
             {pickHistory.length > 0 && (
               <section
                 className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
