@@ -275,14 +275,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             data-testid="weekly-picks"
           >
             <Heading 
-            as='h1'
-            children={`Week ${week} pick`}
-            className='pb-8'
+              as='h1'
+              children={`Week ${week} pick`}
+              className='pb-8'
             />
             <Heading
-            as='h2'
-            children={`Entry ${entryName}`}
-            className='pb-8'
+              as='h2'
+              children={`Entry ${entryName}`}
+              className='pb-8'
             />
             {pickHistory.length > 0 && (
               <section
