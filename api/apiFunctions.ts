@@ -10,6 +10,7 @@ import {
   IUser,
   IWeeklyPicks,
   INFLTeam,
+  IRecoveryToken,
 } from './apiFunctions.interface';
 import { Collection, Document } from './apiFunctions.enum';
 import { Query } from 'appwrite';
@@ -17,6 +18,7 @@ import {
   IEntry,
   IEntryProps,
 } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
+import { getBaseURL } from '@/utils/getBaseUrl';
 
 /**
  * Register a new account
@@ -38,34 +40,107 @@ export async function registerAccount({
 }
 
 /**
- * Login to an existing account
- * @param props - The account data
- * @param props.email - The email of the user
- * @param props.password - The password of the user
- * @returns {Models.Session | Error} - The session object or an error
+ * Recover a User Password
+ * @param props - the props for the recover password function
+ * @param props.email - the email of the user
+ * @returns {Promise<IRecoveryToken>} - the recovery token
  */
-export async function loginAccount({
+export async function recoverPassword({
   email,
-  password,
-}: IAccountData): Promise<Models.Session | Error> {
+}: {
+  email: string;
+}): Promise<IRecoveryToken> {
+  const baseURL = getBaseURL();
+
   try {
-    return await account.createEmailPasswordSession(email, password);
+    return await account.createRecovery(email, `${baseURL}/account/recovery`);
   } catch (error) {
-    console.error(error);
-    throw new Error('Error logging in user');
+    throw error;
   }
 }
 
 /**
- * Logout the current user
- * @returns {object | Error} - The session object or an error
+ * Reset a User's Recovered Password
+ * @param props - the props for the reset password function
+ * @param props.userId - the user id
+ * @param props.token - the recovery token
+ * @param props.password - the new password
+ * @returns {Promise<void>}
  */
-export async function logoutAccount(): Promise<object | Error> {
+export async function resetRecoveredPassword({
+  userId,
+  token,
+  password,
+}: {
+  password: string;
+  token: string;
+  userId: string;
+}): Promise<IRecoveryToken> {
   try {
-    return await account.deleteSession('current');
+    return await account.updateRecovery(userId, token, password);
   } catch (error) {
-    console.error(error);
-    throw new Error('Error logging out user');
+    throw error;
+  }
+}
+
+/**
+ * Resets a user's password from the settings page
+ * @param params - The params for the reset password function
+ * @param params.newPassword - The new password
+ * @param params.oldPassword - The old password
+ * @returns {Promise<void>}
+ */
+export async function resetPassword({
+  newPassword,
+  oldPassword,
+}: {
+  newPassword: string;
+  oldPassword: string;
+}): Promise<void> {
+  try {
+    await account.updatePassword(newPassword, oldPassword);
+  } catch (error) {
+    throw error;
+  }
+}
+
+/**
+ * Update the user email
+ * @param props - The props for the update email function
+ * @param props.email - The email
+ * @param props.password - The user's current password
+ * @returns {Promise<void>} - The updated user
+ */
+export async function updateUserEmail({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<void> {
+  try {
+    const result = await account.updateEmail(email, password);
+
+    const userDocument = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      [Query.equal('userId', result.$id)],
+    );
+
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.USERS,
+      userDocument.documents[0].$id,
+      {
+        email: email,
+        name: userDocument.documents[0].name,
+        labels: userDocument.documents[0].labels,
+        userId: userDocument.documents[0].userId,
+        leagues: userDocument.documents[0].leagues,
+      },
+    );
+  } catch (error) {
+    throw error;
   }
 }
 
