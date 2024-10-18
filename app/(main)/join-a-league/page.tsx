@@ -6,6 +6,7 @@ import React from 'react';
 import Image from 'next/image';
 import LeagueCardPlaceholderLogo from '@/components/LeagueCard/LeagueCardPlaceholderLogo.svg';
 import { Button } from '@/components/Button/Button';
+import { Users, Receipt } from 'lucide-react';
 
 const openLeagues = [
   {
@@ -22,6 +23,26 @@ const openLeagues = [
     name: 'Tests are for losers',
     players: 200,
     buyIn: '$10',
+  },
+  {
+    name: '🏖️ Friday Deploys',
+    players: 10,
+    buyIn: '$100K',
+  },
+  {
+    name: '🚀 Straight To Prod',
+    players: 400,
+    buyIn: '$1,000',
+  },
+  {
+    name: '👍🏼 LGTM',
+    players: 69,
+    buyIn: '$420',
+  },
+  {
+    name: '💻 Works On My Machine',
+    players: 1337,
+    buyIn: '$1,337',
   },
 ];
 
@@ -43,20 +64,31 @@ const JoinALeague = (): React.JSX.Element => {
           >
             <Image
               alt="League Logo"
-              className="LeagueCardLogo aspect-square h-12 w-12 rounded-xl"
+              className="LeagueCardLogo aspect-square w-16 rounded-xl"
               data-testid="LeagueCardLogo"
               height={96}
               src={LeagueCardPlaceholderLogo}
               width={96}
             />
             <div className="league-info-container">
-              <Heading as="h3">{league.name}</Heading>
-              <div className="league-info flex gap-4 text-xs">
-                <p>Players: {league.players}</p>
-                <p>Buy-In: {league.buyIn}</p>
+              <Heading
+                as="h2"
+                className="text-base tracking-normal pb-4 font-semibold"
+              >
+                {league.name}
+              </Heading>
+              <div className="league-info flex gap-6 text-sm items-center">
+                <span className="flex gap-2 items-center">
+                  <Users />
+                  <p>{league.players}</p>
+                </span>
+                <span className="flex gap-2 items-center">
+                  <Receipt />
+                  <p>{league.buyIn}</p>
+                </span>
               </div>
             </div>
-            <Button size={'sm'} className="ml-auto">
+            <Button size={'sm'} className="ml-auto" variant={'secondary'}>
               Join
             </Button>
           </div>
