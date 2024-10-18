@@ -65,4 +65,4 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
   );
 };
 
-export { WeeklyPickButton };
+export { WeeklyPickButton }
