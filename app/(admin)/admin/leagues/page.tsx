@@ -22,22 +22,18 @@ const AdminLeagues = (): JSX.Element => {
    * Get all leagues the user is a part of.
    */
   const fetchData = async (): Promise<void> => {
-    try {
-      const entries = await getAllLeagueEntries({ leagues: user.leagues });
-      const leagues = await getUserLeagues(user.leagues);
-      const combinedData = leagues.map((league, index) => ({
-        aliveEntries: entries[index].alive,
-        leagueId: '',
-        leagueName: league.leagueName,
-        logo: '',
-        participants: league.participants,
-        survivors: league.survivors,
-        totalEntries: entries[index].totalEntries,
-      }));
-      setLeaguesData(combinedData);
-    } catch (error) {
-      console.error('Error fetching leagues:', error);
-    }
+    const entries = await getAllLeagueEntries({ leagues: user.leagues });
+    const leagues = await getUserLeagues(user.leagues);
+    const combinedData = leagues.map((league, index) => ({
+      aliveEntries: entries[index].alive,
+      leagueId: '',
+      leagueName: league.leagueName,
+      logo: '',
+      participants: league.participants,
+      survivors: league.survivors,
+      totalEntries: entries[index].totalEntries,
+    }));
+    setLeaguesData(combinedData);
   };
 
   useEffect(() => {
