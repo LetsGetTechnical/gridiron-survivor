@@ -34,6 +34,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
+import Heading from '@/components/Heading/Heading';
 
 /**
  * Renders the weekly picks page.
@@ -271,10 +272,11 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             className="flex flex-col items-center w-full pt-8"
             data-testid="weekly-picks"
           >
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
-              Week {week} pick
-            </h1>
-
+            <Heading 
+            as='h1'
+            children={`Week ${week} pick`}
+            className='pb-8'
+            />
             {pickHistory.length > 0 && (
               <section
                 className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
