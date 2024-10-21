@@ -186,6 +186,7 @@ describe('League Week Picks', () => {
     // Wait for the main content to be displayed
     await waitFor(() => {
       expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
+      expect(screen.getByTestId('week__week-number')).toHaveTextContent('Week 1');
       expect(screen.getByTestId('week__entry-name')).toHaveTextContent('Entry 1');
     });
 

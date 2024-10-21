@@ -277,6 +277,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             <Heading 
               as='h1'
               className='pb-8'
+              data-testid='week__week-number'
             >{`Week ${week} pick`}
             </Heading>
             <Heading
