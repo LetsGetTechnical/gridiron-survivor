@@ -527,7 +527,6 @@ export async function getAllLeagueEntries({
     });
     return entries;
   } catch (error) {
-    console.error('Error getting league entries:', error);
-    return [];
+    throw new Error('Error getting entries');
   }
 }
