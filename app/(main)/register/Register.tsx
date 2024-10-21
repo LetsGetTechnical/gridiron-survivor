@@ -10,6 +10,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from '../../../components/Form/Form';
 import { Input } from '@/components/Input/Input';
@@ -166,11 +167,14 @@ const Register = (): JSX.Element => {
               name="email"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel className="border-none px-0 py-0 pb-2 pl-1">
+                    Email
+                  </FormLabel>
                   <FormControl>
                     <Input
                       data-testid="email"
                       type="email"
-                      placeholder="Email"
+                      placeholder="Enter your email"
                       {...field}
                     />
                   </FormControl>
@@ -187,11 +191,14 @@ const Register = (): JSX.Element => {
               name="password"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel className="border-none px-0 py-0 pb-2 pl-1">
+                    Password
+                  </FormLabel>
                   <FormControl>
                     <Input
                       data-testid="password"
                       type="password"
-                      placeholder="Password"
+                      placeholder="Enter your password"
                       {...field}
                     />
                   </FormControl>
@@ -208,11 +215,14 @@ const Register = (): JSX.Element => {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel className="border-none px-0 py-0 pb-2 pl-1">
+                    Confirm Password
+                  </FormLabel>
                   <FormControl>
                     <Input
                       data-testid="confirm-password"
                       type="password"
-                      placeholder="Confirm Password"
+                      placeholder="Confirm your password"
                       {...field}
                     />
                   </FormControl>
