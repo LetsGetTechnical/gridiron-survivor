@@ -174,7 +174,7 @@ const Register = (): JSX.Element => {
                     <Input
                       data-testid="email"
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder="Your email"
                       {...field}
                     />
                   </FormControl>
@@ -198,7 +198,7 @@ const Register = (): JSX.Element => {
                     <Input
                       data-testid="password"
                       type="password"
-                      placeholder="Enter your password"
+                      placeholder="Your password"
                       {...field}
                     />
                   </FormControl>
