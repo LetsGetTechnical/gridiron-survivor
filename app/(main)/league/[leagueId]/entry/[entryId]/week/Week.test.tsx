@@ -186,7 +186,7 @@ describe('League Week Picks', () => {
     // Wait for the main content to be displayed
     await waitFor(() => {
       expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      expect(screen.getByTestId('entry-name')).toHaveTextContent('Entry Entry 1');
+      expect(screen.getByTestId('week__entry-name')).toHaveTextContent('Entry Entry 1');
     });
 
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
