@@ -247,7 +247,10 @@ const Register = (): JSX.Element => {
               type="submit"
               disabled={isDisabled}
             />
-            <LinkCustom href="/login">Login to get started playing</LinkCustom>
+            <p className="pb-4 font-normal leading-7 text-muted-foreground">
+              <LinkCustom href="/login">Login</LinkCustom>
+              {' '} to get started playing.
+            </p>
           </form>
         </Form>
       </div>
