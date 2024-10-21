@@ -283,7 +283,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               as='h2'
               className='pb-8 text-muted-foreground'
               data-testid='entry-name'
-            >{`Entry ${entryName}`}
+            >{entryName}
             </Heading>
             {pickHistory.length > 0 && (
               <section
