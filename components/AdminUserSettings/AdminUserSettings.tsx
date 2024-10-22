@@ -54,7 +54,7 @@ export const AdminUserSettings = (): JSX.Element => {
         <DropdownMenuItem className="cursor-pointer rounded-b-none flex focus:bg-muted">
           <LinkCustom
             className="text-base no-underline hover:text-foreground w-full py-2 px-0 text-muted-foreground hover:underline"
-            href="#"
+            href="/account/settings"
             data-testid="edit-profile-link"
           >
             Edit Profile
