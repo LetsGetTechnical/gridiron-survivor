@@ -8,8 +8,12 @@ import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { ENTRY_URL, LEAGUE_URL } from '@/const/global';
 import { Button } from '@/components/Button/Button';
 import { getUserLeagues } from '@/utils/utils';
-import { ILeague } from '@/api/apiFunctions.interface';
-import { addUserToLeague, getAllLeagues } from '@/api/apiFunctions';
+import {
+  addUserToLeague,
+  getAllLeagues,
+  getCurrentUserEntries,
+  getGameWeek,
+} from '@/api/apiFunctions';
 import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
 import { useDataStore } from '@/store/dataStore';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
@@ -19,6 +23,7 @@ import { useAuthContext } from '@/context/AuthContextProvider';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ILeague } from '@/api/apiFunctions.interface';
 
 const leagueSchema = z.object({
   selectedLeague: z.string().nonempty('Please select a league'),
@@ -31,32 +36,38 @@ type LeagueFormInputs = z.infer<typeof leagueSchema>;
  * @returns {JSX.Element} The rendered leagues component.
  */
 const Leagues = (): JSX.Element => {
-  const [leagues, setLeagues] = useState<ILeague[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const { user, updateUser, allLeagues, updateAllLeagues } = useDataStore(
-    (state) => state,
-  );
+  const {
+    user,
+    updateUser,
+    allLeagues,
+    updateAllLeagues,
+    userLeagues,
+    updateUserLeagues,
+    updateEntries,
+    updateGameWeek,
+  } = useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
   const { handleSubmit, control } = useForm<LeagueFormInputs>({
     resolver: zodResolver(leagueSchema),
   });
 
   /**
-   * Fetches all leagues and leagues user is a part of from the database.
+   * Fetches all leagues, user leagues, and user entries
    */
-  const fetchData = async (): Promise<void> => {
+  const fetchGameData = async (): Promise<void> => {
     try {
-      // Only fetch all leagues if they're not already in the store
-      if (allLeagues.length === 0) {
-        const fetchedLeagues = await getAllLeagues();
-        updateAllLeagues(fetchedLeagues);
-      }
+      // fetch all leagues
+      const fetchedLeagues = await getAllLeagues();
+      updateAllLeagues(fetchedLeagues);
 
       // Fetch user leagues
       const fetchedUserLeagues = await getUserLeagues(user.leagues);
-      setLeagues(fetchedUserLeagues);
+      updateUserLeagues(fetchedUserLeagues);
+
+      // Fetch addition user data
+      fetchAdditionalUserData(fetchedUserLeagues);
     } catch (error) {
-      console.error('Error fetching leagues:', error);
       toast.custom(
         <Alert
           variant={AlertVariants.Error}
@@ -68,9 +79,33 @@ const Leagues = (): JSX.Element => {
     }
   };
 
+  /**
+   * Fetches entries per league and the current week.
+   * @param {ILeague[]} leagues - The leagues to fetch entries for.
+   * @returns {Promise<void>}
+   */
+  const fetchAdditionalUserData = async (leagues: ILeague[]): Promise<void> => {
+    try {
+      const entryPromises = leagues.map((league) =>
+        getCurrentUserEntries(user.id, league.leagueId),
+      );
+      const gameWeekPromise = getGameWeek();
+
+      const [entries, currentWeek] = await Promise.all([
+        Promise.all(entryPromises),
+        gameWeekPromise,
+      ]);
+
+      updateEntries(entries.flat());
+      updateGameWeek(currentWeek);
+    } catch (error) {
+      throw new Error('Error fetching entries and game week');
+    }
+  };
+
   useEffect(() => {
     if (isSignedIn) {
-      fetchData();
+      fetchGameData();
     }
   }, [isSignedIn]);
 
@@ -99,7 +134,7 @@ const Leagues = (): JSX.Element => {
         survivors: [...(league.survivors ?? []), user.id],
       });
 
-      setLeagues([...leagues, league]);
+      updateUserLeagues([...userLeagues, league]);
       updateUser(user.documentId, user.id, user.email, [
         ...user.leagues,
         league.leagueId,
@@ -131,8 +166,8 @@ const Leagues = (): JSX.Element => {
             Your Leagues
           </h1>
           <section className="grid gap-6 md:grid-cols-2 mb-10">
-            {leagues.length > 0 ? (
-              leagues.map((league) => (
+            {userLeagues.length > 0 ? (
+              userLeagues.map((league) => (
                 <LeagueCard
                   key={league.leagueId}
                   href={`/${LEAGUE_URL}/${league.leagueId}/${ENTRY_URL}/all`}
