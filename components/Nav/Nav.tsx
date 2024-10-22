@@ -68,7 +68,17 @@ export const Nav = (): JSX.Element => {
               <DrawerHeader>
                 <DrawerTitle data-testid="title">Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
-              <ul className="m-0 flex flex-col gap-4 p-0">
+              <ul className="m-0 flex flex-col gap-1 p-0">
+                <li>
+                  <Link
+                    href="/account/settings"
+                    className="underline underline-offset-4 hover:text-primary-muted transition-colors"
+                    onClick={() => setOpen(false)}
+                    data-testid="settings-link"
+                  >
+                    Settings
+                  </Link>
+                </li>
                 <li>
                   <Link
                     data-testid="league-link"
@@ -83,7 +93,7 @@ export const Nav = (): JSX.Element => {
                 </li>
                 <li>
                   <Button
-                    className="p-0 text-base font-normal text-primary-foreground"
+                    className="p-0 text-base font-normal hover:text-primary-muted transition-colors text-white"
                     variant="link"
                     label="Sign Out"
                     onClick={() => {
