@@ -51,7 +51,7 @@ const RootLayout = ({
                 </a>
               </div>
             </main>
-            <Toaster />
+            <Toaster position="bottom-left" />
           </AuthContextProvider>
         </ErrorBoundary>
       </body>
