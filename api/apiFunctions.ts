@@ -8,6 +8,7 @@ import {
   ILeague,
   IGameWeek,
   IUser,
+  ICollectionUser,
   IWeeklyPicks,
   INFLTeam,
   IRecoveryToken,
@@ -149,7 +150,9 @@ export async function updateUserEmail({
  * @param userId - The user ID
  * @returns {Models.DocumentList<Models.Document> | Error} - The user object or an error
  */
-export async function getCurrentUser(userId: IUser['id']): Promise<IUser> {
+export async function getCurrentUser(
+  userId: IUser['id'],
+): Promise<ICollectionUser> {
   try {
     const user = await databases.listDocuments(
       appwriteConfig.databaseId,
