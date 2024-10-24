@@ -34,6 +34,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
+import Heading from '@/components/Heading/Heading';
 
 /**
  * Renders the weekly picks page.
@@ -43,6 +44,7 @@ import { ChevronLeft } from 'lucide-react';
 // eslint-disable-next-line no-unused-vars
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [pickHistory, setPickHistory] = useState<string[]>([]);
+  const [entryName, setEntryName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const [selectedLeague, setSelectedLeague] = useState<ILeague | undefined>();
@@ -156,7 +158,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       if (!currentEntry) {
         throw new Error('Entry not found');
       }
-
+      
+      setEntryName(currentEntry.name);
       let entryHistory = currentEntry?.selectedTeams || [];
 
       if (currentEntry?.selectedTeams.length > 0) {
@@ -271,10 +274,18 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             className="flex flex-col items-center w-full pt-8"
             data-testid="weekly-picks"
           >
-            <h1 className="pb-8 text-center text-[2rem] font-bold text-foreground">
-              Week {week} pick
-            </h1>
-
+            <Heading 
+              as='h1'
+              className='pb-8'
+              data-testid='week__week-number'
+            >{`Week ${week} pick`}
+            </Heading>
+            <Heading
+              as='h2'
+              className='pb-8 text-muted-foreground'
+              data-testid='week__entry-name'
+            >{entryName}
+            </Heading>
             {pickHistory.length > 0 && (
               <section
                 className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
