@@ -530,6 +530,6 @@ export async function getAllLeagueEntries({
     });
     return entries;
   } catch (error) {
-    throw new Error('Error getting entries');
+    throw error;
   }
 }
