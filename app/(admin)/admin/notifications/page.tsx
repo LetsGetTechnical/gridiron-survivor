@@ -32,7 +32,7 @@ const AdminNotifications = (): JSX.Element => {
    */
   const getLeagueData = async (): Promise<void> => {
     try {
-      const leagueId = '66e1cc9000160b10bf2c'; // TEST LEAGUE (DO NOT JOIN)
+      const leagueId = '66f1a8e300102bff03ff'; // EMAIL TEST LEAGUE (DO NOT CHANGE)
       const leagueData = await getCurrentLeague(leagueId);
       setGroupUsers(leagueData.participants);
       setLeagueName(leagueData.leagueName);
