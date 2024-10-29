@@ -5,6 +5,7 @@ import {
   getUserPick,
   parseUserPick,
   getUserLeagues,
+  isAuthRequiredPath,
 } from './utils';
 import { getCurrentLeague, getAllWeeklyPicks } from '@/api/apiFunctions';
 
@@ -179,6 +180,33 @@ describe('utils', () => {
       });
     });
   });
+  describe('isAuthRequiredPath', () => {
+    it('should return false for non-auth paths', () => {
+      expect(isAuthRequiredPath('/register')).toBe(false);
+      expect(isAuthRequiredPath('/account/recovery')).toBe(false);
+      expect(isAuthRequiredPath('/recover-password')).toBe(false);
+    });
+
+    it('should return true for auth-required paths', () => {
+      expect(isAuthRequiredPath('/')).toBe(true);
+      expect(isAuthRequiredPath('/dashboard')).toBe(true);
+      expect(isAuthRequiredPath('/profile')).toBe(true);
+      expect(isAuthRequiredPath('/settings')).toBe(true);
+    });
+
+    it('should handle edge cases', () => {
+      expect(isAuthRequiredPath('')).toBe(true);
+      expect(isAuthRequiredPath('/register/')).toBe(true); // Trailing slash
+      expect(isAuthRequiredPath('/REGISTER')).toBe(true); // Case sensitivity
+      expect(isAuthRequiredPath('/register/subpage')).toBe(true);
+    });
+
+    it('should handle unusual inputs', () => {
+      expect(isAuthRequiredPath('   /register   ')).toBe(true); // Spaces
+      expect(isAuthRequiredPath('/account/recovery?param=value')).toBe(true); // Query parameters
+    });
+  });
+
   xdescribe('getUserLeagues', () => {
     it('should return the list of leagues the user is a part of', async () => {
       (getCurrentLeague as jest.Mock).mockResolvedValue(mockLeague);
