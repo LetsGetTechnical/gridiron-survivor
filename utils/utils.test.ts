@@ -207,14 +207,14 @@ describe('utils', () => {
     });
   });
 
-  xdescribe('getUserLeagues', () => {
+  describe('getUserLeagues', () => {
     it('should return the list of leagues the user is a part of', async () => {
       (getCurrentLeague as jest.Mock).mockResolvedValue(mockLeague);
       const result = await getUserLeagues(mockUserData.leagues);
       expect(result).toStrictEqual([mockLeague]);
     });
     it('should return an empty array if the user has no leagues', async () => {
-      const result = await getUserLeagues([]);
+      const result = await getUserLeagues(['']);
       expect(getCurrentLeague).toHaveBeenCalledTimes(0);
       expect(result).toStrictEqual([]);
     });
