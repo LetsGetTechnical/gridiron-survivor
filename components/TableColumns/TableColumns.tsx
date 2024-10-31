@@ -165,7 +165,7 @@ export const leagueColumns: ColumnDef<IEntryWithLeague>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('leagueName')}</div>,
+    cell: ({ row }) => <p>{row.getValue('leagueName')}</p>,
   },
   {
     accessorKey: 'survivors',
@@ -196,7 +196,7 @@ export const leagueColumns: ColumnDef<IEntryWithLeague>[] = [
      */
     cell: ({ row }): JSX.Element => {
       const survivors = row.getValue('survivors') as string[];
-      return <div>{survivors.length}</div>;
+      return <p>{survivors.length}</p>;
     },
     /**
      * To be able to sort the row by numbers.
@@ -239,7 +239,7 @@ export const leagueColumns: ColumnDef<IEntryWithLeague>[] = [
      */
     cell: ({ row }): JSX.Element => {
       const participants = row.getValue('participants') as string[];
-      return <div>{participants.length}</div>;
+      return <p>{participants.length}</p>;
     },
     /**
      * To be able to sort the row by numbers.
@@ -282,7 +282,7 @@ export const leagueColumns: ColumnDef<IEntryWithLeague>[] = [
      */
     cell: ({ row }): JSX.Element => {
       const totalEntries = row.getValue('totalEntries') as number;
-      return <div>{totalEntries}</div>;
+      return <p>{totalEntries}</p>;
     },
   },
   {
@@ -314,7 +314,7 @@ export const leagueColumns: ColumnDef<IEntryWithLeague>[] = [
      */
     cell: ({ row }): JSX.Element => {
       const aliveEntries = row.getValue('aliveEntries') as number;
-      return <div>{aliveEntries}</div>;
+      return <p>{aliveEntries}</p>;
     },
   },
   {
