@@ -214,7 +214,7 @@ describe('utils', () => {
       expect(result).toStrictEqual([mockLeague]);
     });
     it('should return an empty array if the user has no leagues', async () => {
-      const result = await getUserLeagues(['']);
+      const result = await getUserLeagues([]);
       expect(getCurrentLeague).toHaveBeenCalledTimes(0);
       expect(result).toStrictEqual([]);
     });
