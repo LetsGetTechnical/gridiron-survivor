@@ -1,15 +1,4 @@
-// Todo: Test that all components render correctly
-// Todo: Test that overlay scales background
-// Todo:
-
-import {
-  fireEvent,
-  render,
-  screen,
-  queryByTestId,
-  waitForElementToBeRemoved,
-  waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import {
   Drawer,
   DrawerContent,
