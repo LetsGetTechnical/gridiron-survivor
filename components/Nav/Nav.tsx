@@ -91,7 +91,6 @@ export const Nav = (): JSX.Element => {
                     Leagues
                   </Link>
                 </li>
-                {/* Jack develop */}
                 <li>
                   <Link
                     data-testid="profile-link"
