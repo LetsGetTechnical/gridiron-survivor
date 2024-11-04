@@ -100,7 +100,7 @@ export const Nav = (): JSX.Element => {
                     )}
                     onClick={() => setOpen(false)}
                   >
-                    My Profile
+                    Profile
                   </Link>
                 </li>
                 <li>
