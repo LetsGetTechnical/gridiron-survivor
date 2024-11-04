@@ -128,7 +128,7 @@ const DrawerTitle = React.forwardRef<
       {...props}
     />
 
-    <DrawerClose>
+    <DrawerClose data-testid="drawer-close">
       <X />
     </DrawerClose>
   </div>
