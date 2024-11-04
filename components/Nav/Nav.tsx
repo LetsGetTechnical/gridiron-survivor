@@ -91,6 +91,19 @@ export const Nav = (): JSX.Element => {
                     Leagues
                   </Link>
                 </li>
+                {/* Jack develop */}
+                <li>
+                  <Link
+                    data-testid="profile-link"
+                    href="/account/profile"
+                    className={cn(
+                      'underline underline-offset-4 hover:text-primary-muted transition-colors',
+                    )}
+                    onClick={() => setOpen(false)}
+                  >
+                    My Profile
+                  </Link>
+                </li>
                 <li>
                   <Button
                     className="p-0 text-base font-normal hover:text-primary-muted transition-colors text-white"
