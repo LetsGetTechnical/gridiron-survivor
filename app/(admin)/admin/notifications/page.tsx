@@ -14,6 +14,7 @@ import {
 import { sendEmailNotifications } from './actions/sendEmailNotification';
 import { Textarea } from '@/components/Textarea/Textarea';
 import React, { useEffect } from 'react';
+import { getUserTargets } from './actions/sendEmailNotification';
 
 /**
  * The admin home page.
@@ -34,7 +35,10 @@ const AdminNotifications = (): JSX.Element => {
     try {
       const leagueId = '66f1a8e300102bff03ff'; // EMAIL TEST LEAGUE (DO NOT CHANGE)
       const leagueData = await getCurrentLeague(leagueId);
-      setGroupUsers(leagueData.participants);
+      const userTargets = await getUserTargets({
+        userIDs: leagueData.participants,
+      });
+      setGroupUsers(userTargets);
       setLeagueName(leagueData.leagueName);
     } catch (error) {
       console.error('Error Sending Email:', error);
