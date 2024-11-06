@@ -30,9 +30,8 @@ const LeagueEntries = ({
     <div
       data-testid="league-entry-container-card"
       className={cn(
-        'league-entry-container-card grid h-21 min-w-fit items-center justify-between rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm',
+        'league-entry-container-card grid h-21 min-w-fit items-center justify-between rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm grid-cols-2',
         isEliminated ? 'bg-muted' : 'transparent',
-        'grid-cols-2',
       )}
     >
       <section
