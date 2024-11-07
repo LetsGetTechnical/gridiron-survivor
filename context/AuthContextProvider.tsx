@@ -86,6 +86,7 @@ export const AuthContextProvider = ({
    */
   const getUser = async (): Promise<IUser | undefined> => {
     if (!isSessionInLocalStorage()) {
+      setIsSignedIn(false);
       if (isAuthRequiredPath(pathname)) {
         router.push('/login');
       }
