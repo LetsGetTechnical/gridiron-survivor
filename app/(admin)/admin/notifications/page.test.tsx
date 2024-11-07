@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { getCurrentLeague } from '@/api/apiFunctions';
-import { sendEmailNotifications } from './actions/sendEmailNotification';
+import { sendEmailNotifications } from './serverFunctions/serverFunctionHelper';
 import AdminNotifications from './page';
 import React from 'react';
 

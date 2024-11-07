@@ -11,10 +11,10 @@ import {
   RadioGroupDefault,
   RadioGroupDefaultItem,
 } from '@/components/RadioGroupDefault/RadioGroupDefault';
-import { sendEmailNotifications } from './actions/sendEmailNotification';
+import { sendEmailNotifications } from './serverFunctions/serverFunctionHelper';
 import { Textarea } from '@/components/Textarea/Textarea';
 import React, { useEffect } from 'react';
-import { getUserTargets } from './actions/sendEmailNotification';
+import { getUserTargets } from './serverFunctions/serverFunctionHelper';
 
 /**
  * The admin home page.
