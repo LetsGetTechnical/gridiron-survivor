@@ -61,13 +61,13 @@ export const AdminUserSettings = (): JSX.Element => {
           </LinkCustom>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer rounded-none focus:bg-muted">
-          <LinkCustom
-            href="/account/logout"
+          <Button
             className="w-full text-base no-underline py-2 px-0 h-auto text-muted-foreground hover:text-foreground font-normal justify-normal hover:underline"
-            data-testid="sign-out-link"
-          >
-            Sign Out
-          </LinkCustom>
+            variant="link"
+            label="Sign Out"
+            onClick={handleLogout}
+            data-testid="sign-out-button"
+          />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
