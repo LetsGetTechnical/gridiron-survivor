@@ -98,9 +98,10 @@ const Login = (): React.JSX.Element => {
 
   return (
     <section className={`grid xl:${isSignedIn === null ? '' : 'grid-cols-2'} xl:grid-rows-none`}>
-      {isSignedIn === null ? (
+      {isSignedIn === null &&
         <GlobalSpinner data-testid="global-spinner" />
-      ) : (isSignedIn === false &&
+      }
+      {isSignedIn === false &&
       <>
         <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
           <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
@@ -194,7 +195,7 @@ const Login = (): React.JSX.Element => {
           </Form>
         </div>
       </>
-    )}
+    }
     </section>
   );
 };
