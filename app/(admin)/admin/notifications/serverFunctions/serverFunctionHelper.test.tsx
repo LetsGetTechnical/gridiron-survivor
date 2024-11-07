@@ -5,7 +5,7 @@
 import { messaging } from '@/api/serverConfig';
 import { sendEmailNotifications } from './serverFunctionHelper';
 
-jest.mock('./sendEmailNotification', () => ({
+jest.mock('./serverFunctionHelper', () => ({
   sendEmailNotifications: jest.fn(),
 }));
 
