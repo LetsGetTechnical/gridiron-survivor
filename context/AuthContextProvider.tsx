@@ -48,7 +48,6 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     if (user.id === '' || user.email === '') {
-      setIsSignedIn(false);
       getUser();
       return;
     }
