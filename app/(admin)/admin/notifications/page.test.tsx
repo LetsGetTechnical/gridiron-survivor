@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { getCurrentLeague } from '@/api/apiFunctions';
-import { sendEmailNotifications } from './serverFunctions/serverFunctionHelper';
+import { getUserTargets, sendEmailNotifications } from './serverFunctions/serverFunctionHelper';
 import AdminNotifications from './page';
 import React from 'react';
 
@@ -14,8 +14,9 @@ jest.mock('@/api/apiFunctions', () => ({
   getCurrentLeague: jest.fn(),
 }));
 
-jest.mock('./actions/sendEmailNotification', () => ({
+jest.mock('./serverFunctions/serverFunctionHelper', () => ({
   sendEmailNotifications: jest.fn(),
+  getUserTargets: jest.fn(),
 }));
 
 describe('Admin notifications page', () => {
@@ -26,6 +27,12 @@ describe('Admin notifications page', () => {
       participants: ['12345', '1234', '123'],
       leagueName: 'Test League',
     });
+
+    (getUserTargets as jest.Mock).mockResolvedValue([
+      'target1',
+      'target2',
+      'target3',
+    ]);
 
     render(<AdminNotifications />);
 
@@ -61,7 +68,7 @@ describe('Admin notifications page', () => {
     await waitFor(() => {
       expect(sendEmailNotifications as jest.Mock).toHaveBeenCalledWith({
         content: 'Test message section.',
-        groupUsers: ['12345', '1234', '123'],
+        groupUsers: ['target1', 'target2', 'target3'],
         subject: 'Test Title',
       });
     });

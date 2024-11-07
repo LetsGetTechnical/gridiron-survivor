@@ -41,8 +41,7 @@ const AdminNotifications = (): JSX.Element => {
       setGroupUsers(userTargets);
       setLeagueName(leagueData.leagueName);
     } catch (error) {
-      console.error('Error Sending Email:', error);
-      throw new Error('Error Sending Email');
+      throw error;
     }
   };
 
