@@ -52,19 +52,15 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  */
 const Login = (): React.JSX.Element => {
   const router = useRouter();
-  const { login, isSignedIn, getUser } = useAuthContext();
+  const { login, isSignedIn } = useAuthContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [checkAuth, setCheckAuth] = useState<boolean>(true);
 
   useEffect(() => {
     if (isSignedIn === true) {
       router.push('/league/all');
     }
-    if (isSignedIn === false) {
-      setCheckAuth(false);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSignedIn, getUser]);
+  }, [isSignedIn]);
 
   const form = useForm<LoginUserSchemaType>({
     resolver: zodResolver(LoginUserSchema),
@@ -101,10 +97,10 @@ const Login = (): React.JSX.Element => {
   };
 
   return (
-    <section className={`grid xl:${checkAuth ? '' : 'grid-cols-2'} xl:grid-rows-none`}>
-      {checkAuth ? (
+    <section className={`grid xl:${isSignedIn === null ? '' : 'grid-cols-2'} xl:grid-rows-none`}>
+      {isSignedIn === null ? (
         <GlobalSpinner data-testid="global-spinner" />
-      ) : (
+      ) : (isSignedIn === false &&
       <>
         <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
           <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
