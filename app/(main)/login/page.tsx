@@ -53,7 +53,7 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
 const Login = (): React.JSX.Element => {
   const router = useRouter();
   const { login, isSignedIn } = useAuthContext();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isSignedIn === true) {
@@ -96,106 +96,107 @@ const Login = (): React.JSX.Element => {
     }
   };
 
-  return (
-    <section className={`grid xl:${isSignedIn === null ? '' : 'grid-cols-2'} xl:grid-rows-none`}>
-      {isSignedIn === null &&
+  if (isSignedIn === null || isSignedIn === true) {
+    return (
+      <section className="grid xl:grid-cols-2 xl:grid-rows-none">
         <GlobalSpinner data-testid="global-spinner" />
-      }
-      {isSignedIn === false &&
-      <>
-        <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
-          <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
-          <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground">
-            <p className="hidden leading-7 xl:block">
-              Thank you... fantasy football draft, for letting me know that even
-              in my fantasies, I am bad at sports.
-            </p>
-            <p className="hidden leading-7 xl:block">Jimmy Fallon</p>
-          </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="grid xl:grid-cols-2 xl:grid-rows-none">
+      <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
+        <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
+        <div className="mx-auto grid gap-4 place-self-end px-8 pb-8 text-foreground">
+          <p className="hidden leading-7 xl:block">
+            Thank you... fantasy football draft, for letting me know that even
+            in my fantasies, I am bad at sports.
+          </p>
+          <p className="hidden leading-7 xl:block">Jimmy Fallon</p>
         </div>
-        <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
-          <div>
-            <h1 className="text-5xl font-extrabold tracking-tight">
-              Join Gridiron Survivor
-            </h1>
-            <p className="pb-4 font-normal leading-7 text-muted-foreground">
-              Log in to your existing account or{' '}
-              <LinkCustom href="/register">sign up</LinkCustom> to get started
-              with a league
-            </p>
-          </div>
-          <Form {...form}>
-            <form
-              id="input-container"
-              className="grid gap-3"
-              data-testid="login-form"
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
-              <FormField
-                control={form.control as Control<object>}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        data-testid="email"
-                        type="email"
-                        placeholder="Email"
-                        {...field}
-                      />
-                    </FormControl>
-                    {form.formState.errors?.email && (
-                      <FormMessage>
-                        {form.formState.errors.email.message}
-                      </FormMessage>
-                    )}
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control as Control<object>}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        data-testid="password"
-                        type="password"
-                        placeholder="Password"
-                        {...field}
-                      />
-                    </FormControl>
-                    {form.formState.errors?.password && (
-                      <FormMessage>
-                        {form.formState.errors?.password.message}
-                      </FormMessage>
-                    )}
-                  </FormItem>
-                )}
-              />
-              <Button
-                data-testid="continue-button"
-                label={
-                  isLoading ? (
-                    <LoadingSpinner data-testid="loading-spinner" />
-                  ) : (
-                    'Continue'
-                  )
-                }
-                type="submit"
-                disabled={!email || !password || isLoading}
-              />
-              <LinkCustom href="/register">
-                Sign up to get started with a league
-              </LinkCustom>
-              <LinkCustom href="/recover-password">
-                Forgot your password?
-              </LinkCustom>
-            </form>
-          </Form>
+      </div>
+      <div className="row-span-1 mx-auto grid max-w-sm justify-center space-y-4 px-4 xl:flex xl:flex-col">
+        <div>
+          <h1 className="text-5xl font-extrabold tracking-tight">
+            Join Gridiron Survivor
+          </h1>
+          <p className="pb-4 font-normal leading-7 text-muted-foreground">
+            Log in to your existing account or{' '}
+            <LinkCustom href="/register">sign up</LinkCustom> to get started
+            with a league
+          </p>
         </div>
-      </>
-    }
+        <Form {...form}>
+          <form
+            id="input-container"
+            className="grid gap-3"
+            data-testid="login-form"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control as Control<object>}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="email"
+                      type="email"
+                      placeholder="Email"
+                      {...field}
+                    />
+                  </FormControl>
+                  {form.formState.errors?.email && (
+                    <FormMessage>
+                      {form.formState.errors.email.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control as Control<object>}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      data-testid="password"
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                    />
+                  </FormControl>
+                  {form.formState.errors?.password && (
+                    <FormMessage>
+                      {form.formState.errors?.password.message}
+                    </FormMessage>
+                  )}
+                </FormItem>
+              )}
+            />
+            <Button
+              data-testid="continue-button"
+              label={
+                isLoading ? (
+                  <LoadingSpinner data-testid="loading-spinner" />
+                ) : (
+                  'Continue'
+                )
+              }
+              type="submit"
+              disabled={!email || !password || isLoading}
+            />
+            <LinkCustom href="/register">
+              Sign up to get started with a league
+            </LinkCustom>
+            <LinkCustom href="/recover-password">
+              Forgot your password?
+            </LinkCustom>
+          </form>
+        </Form>
+      </div>
     </section>
   );
 };
