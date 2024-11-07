@@ -7,5 +7,5 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 export interface ILogoutType {
   resetUser: React.Dispatch<React.SetStateAction<void>>;
   router: AppRouterInstance;
-  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
+  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
