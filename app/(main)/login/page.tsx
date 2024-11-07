@@ -52,24 +52,15 @@ type LoginUserSchemaType = z.infer<typeof LoginUserSchema>;
  */
 const Login = (): React.JSX.Element => {
   const router = useRouter();
-  const { login, getUser } = useAuthContext();
+  const { login, isSignedIn } = useAuthContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [checkAuth, setCheckAuth] = useState<boolean>(true);
 
   useEffect(() => {
-    async function checkSignedIn() {
-      const userSignedIn = await getUser();
-      if (userSignedIn) {
-        router.push('/league/all');
-      }
-      else {
-        setCheckAuth(false);
-      }
+    if (isSignedIn === true) {
+      router.push('league/all');
     }
-
-    checkSignedIn();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isSignedIn]);
 
   const form = useForm<LoginUserSchemaType>({
     resolver: zodResolver(LoginUserSchema),
@@ -106,9 +97,11 @@ const Login = (): React.JSX.Element => {
   };
 
   return (
-    <section className={`grid xl:${checkAuth ? '' : 'grid-cols-2'} xl:grid-rows-none`}>
-      {checkAuth ? (
-        <GlobalSpinner data-testid="global-spinner" />) : (
+    <section className={`grid xl:${isSignedIn === null ? '' : 'grid-cols-2'} xl:grid-rows-none`}>
+      {isSignedIn === null || isSignedIn === true &&
+        <GlobalSpinner data-testid="global-spinner" />
+      }
+      {isSignedIn === false &&
       <>
         <div className="row-span-1 grid w-full place-items-center from-[#4E160E] to-zinc-950 bg-gradient-to-b xl:h-screen xl:bg-gradient-to-b">
           <Logo className="mx-auto w-52 xl:w-64 xl:place-self-end" src={logo} />
@@ -202,7 +195,7 @@ const Login = (): React.JSX.Element => {
           </Form>
         </div>
       </>
-        )}
+    }
     </section>
   );
 };
