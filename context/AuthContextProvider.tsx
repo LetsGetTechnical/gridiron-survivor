@@ -23,7 +23,7 @@ type AuthContextType = {
   getUser: () => Promise<IUser | undefined>;
   login: (user: UserCredentials) => Promise<void | Error>; // eslint-disable-line no-unused-vars
   logoutAccount: () => Promise<void | Error>;
-  isSignedIn: boolean;
+  isSignedIn: boolean | null;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }): JSX.Element => {
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
   const { updateUser, resetUser, user } = useDataStore<DataStore>(
     (state) => state,
   );
@@ -48,6 +48,7 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     if (user.id === '' || user.email === '') {
+      setIsSignedIn(false);
       getUser();
       return;
     }
