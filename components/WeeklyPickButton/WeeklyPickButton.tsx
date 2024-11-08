@@ -40,7 +40,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
       <label htmlFor="home" className="capitalize" data-testid="home-away">
         {homeAway}
       </label>
-      <div style={{ direction: 'ltr' }} className="flex items-center mt-4 focus-within:ring-2 focus-within:ring-white focus-within:rounded-xl focus-within:ring-offset-1">
+      <div style={{ direction: 'ltr' }} className="flex items-center mt-4 ring-offset-background focus:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:rounded-xl focus-within:ring-offset-4">
         <RadioGroupItem
           value={team}
           id={team}
