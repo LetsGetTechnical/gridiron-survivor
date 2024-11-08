@@ -11,7 +11,32 @@ const meta: Meta<typeof Alert> = {
   parameters: {
     docs: {
       description: {
-        component: `The Alert component is a versatile UI element designed to display important messages to users. It is built to handle various types of alerts, each with its own visual style to convey different levels of importance or types of information.`,
+        component: `
+The \`Alert\` component is a dynamic UI element from the Shadcn UI library, designed to display important notifications to users. It combines several subcomponents—\`AlertTitle\`, \`AlertDescription\`, and \`AlertDefault\`—into a cohesive \`AlertNotification\` component. This component is exported as \`<Alert variant={variant} message="Whatever message" />\`, making it easy to use across applications.
+
+### Variants
+
+- **Success**: Indicates successful operations, such as a successful user sign-in.
+- **Error**: Alerts users to errors, like incorrect login information.
+- **Warning**: Reserved for potential issues.
+- **Default**: Used for general information.
+
+### Usage
+
+The \`Alert\` component is primarily used to provide users with visual feedback on the status of their actions, such as confirming successful operations or notifying them of errors. It is integrated with \`react-hot-toast\` to enable popup notifications, enhancing user experience by providing immediate feedback.
+
+\`\`\`jsx
+<Alert variant="success" message="This is a success alert" />
+\`\`\`
+
+### Props
+
+- **variant**: Determines the type of alert, affecting its title and color. Options include 'success', 'error', 'warning', and 'default'.
+- **message**: The content of the alert message, rendered within the \`AlertDescription\`.
+
+### Integration with Toast
+
+The component's notification functionality is powered by \`react-hot-toast\`, a package that handles popup notifications. By wrapping \`toast.custom()\` around \`<Alert variant={} message="" />\`, the component can display alerts as pop-up notifications, providing users with immediate visual feedback.`,
       },
     },
   },
