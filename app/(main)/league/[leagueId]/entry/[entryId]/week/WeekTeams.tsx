@@ -69,33 +69,34 @@ const WeekTeams = ({
   onWeeklyPickChange,
   loadingTeamName,
 }: IWeekTeamsProps): JSX.Element => (
-  <RadioGroup
-    onValueChange={(value: string) => onWeeklyPickChange(value as NFLTeams)}
-    defaultValue={userPick}
-    value={userPick}
-    onChange={field.onChange}
-  >
+  <>
     {schedule.map((scheduledGame) => {
       const disableGame = checkCurrentGameTime(scheduledGame.date);
 
       return (
         <div
-          className="grid w-full grid-cols-[1fr_auto_1fr] gap-4 pb-8"
-          style={{ direction: 'rtl' }}
           key={scheduledGame.id}
+          className="pb-8"
         >
-          <div className="week-page-game-schedule col-span-3 text-center">
+          <div className="text-center mb-4">
             <p>{formatDateTime(scheduledGame.date)}</p>
           </div>
-          {scheduledGame.competitions[0].competitors.map(
-            (competition, index) => (
-              <>
+
+          <RadioGroup
+            className="flex gap-4 justify-between items-center w-full"
+            onChange={field.onChange}
+            defaultValue={userPick}
+            value={userPick}
+            onValueChange={(value: string) => onWeeklyPickChange(value as NFLTeams)}
+          >
+            {scheduledGame.competitions[0].competitors.map((competition, index) => (
+              <React.Fragment key={competition.id}>
                 {index > 0 && (
                   <div className="h-20 flex self-end items-center">
                     <span>@</span>
                   </div>
                 )}
-                <FormItem key={competition.id} className="text-center">
+                <FormItem className="text-center">
                   <FormControl>
                     <WeeklyPickButton
                       loadingTeamName={loadingTeamName}
@@ -111,74 +112,14 @@ const WeekTeams = ({
                     />
                   </FormControl>
                 </FormItem>
-              </>
-            ),
-          )}
+              </React.Fragment>
+            ))}
+          </RadioGroup>
         </div>
       );
     })}
-  </RadioGroup>
+  </>
 );
-
-
-// const WeekTeams = ({
-//   field,
-//   schedule,
-//   selectedTeams,
-//   userPick,
-//   onWeeklyPickChange,
-//   loadingTeamName,
-// }: IWeekTeamsProps): JSX.Element => (
-//   <>
-//     {schedule.map((scheduledGame) => {
-//       const disableGame = checkCurrentGameTime(scheduledGame.date);
   
-//       return (
-//         <div
-//           className="grid w-full grid-cols-[1fr_auto_1fr] gap-4 pb-8"
-//           style={{ direction: 'rtl' }}
-//           key={scheduledGame.id}
-//         >
-//           <div className="week-page-game-schedule col-span-3 text-center">
-//             <p>{formatDateTime(scheduledGame.date)}</p>
-//           </div>
-  
-//           <RadioGroup
-//             onChange={field.onChange}
-//             defaultValue={userPick}
-//             value={userPick}
-//             onValueChange={(value: string) => onWeeklyPickChange(value as NFLTeams)}
-//           >
-//             {scheduledGame.competitions[0].competitors.map((competition, index) => (
-//               <React.Fragment key={competition.id}>
-//                 {index > 0 && (
-//                   <div className="h-20 flex self-end items-center">
-//                     <span>@</span>
-//                   </div>
-//                 )}
-//                 <FormItem key={competition.id} className="text-center">
-//                 <FormControl>
-//                 <WeeklyPickButton
-//                   loadingTeamName={loadingTeamName}
-//                   selectedTeam={competition.team.shortDisplayName.toLowerCase()}
-//                   homeAway={competition.homeAway}
-//                   team={competition.team.name}
-//                   src={competition.team.logo}
-//                   isDisabled={
-//                     disableGame ||
-//                     Boolean(loadingTeamName) ||
-//                     hasTeamBeenPicked(competition.team.name, selectedTeams)
-//                   }
-//                 />
-//                 </FormControl>
-//                 </FormItem>
-//               </React.Fragment>
-//             ))}
-//           </RadioGroup>
-//         </div>
-//       );
-//     })}
-//   </>
-// );
-
 export default WeekTeams;
+  
