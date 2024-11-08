@@ -37,7 +37,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
 }): JSX.Element => {
   return (
     <>
-      <label htmlFor="home" className="capitalize" data-testid="home-away">
+      <label htmlFor={team} className="capitalize" data-testid="home-away">
         {homeAway}
       </label>
       <div style={{ direction: 'ltr' }} className="flex items-center mt-4 ring-offset-background focus:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:rounded-xl focus-within:ring-offset-4">
