@@ -172,14 +172,6 @@ const Entry = ({
 
                 const selectedTeamLogo = getNFLTeamLogo(NFLTeams, selectedTeam);
 
-                let userPickHistory: string[] = [];
-
-                if (currentWeek > 1 && entry.selectedTeams.length > 0) {
-                  userPickHistory = entry.selectedTeams
-                    .slice(0, currentWeek - 1)
-                    .map((teamName) => getNFLTeamLogo(NFLTeams, teamName));
-                }
-
                 return (
                   <section key={entry.$id}>
                     <LeagueEntries
@@ -188,7 +180,6 @@ const Entry = ({
                       isEliminated={entry.eliminated}
                       isPickSet={isPickSet}
                       linkUrl={linkUrl}
-                      userPickHistory={userPickHistory}
                       selectedTeamLogo={selectedTeamLogo}
                     />
                   </section>
