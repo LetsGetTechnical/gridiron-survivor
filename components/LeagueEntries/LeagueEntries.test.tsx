@@ -5,7 +5,7 @@ import React from 'react';
 describe('LeagueEntries', () => {
   it(`renders 'default' state without a pick made`, () => {
     render(
-      <LeagueEntries entryName="Entry 1" linkUrl="" userPickHistory={[]} />,
+      <LeagueEntries entryName="Entry 1" linkUrl="" />,
     );
 
     const leagueEntryContainerCard = screen.getByTestId(
@@ -16,13 +16,11 @@ describe('LeagueEntries', () => {
     const leagueEntryPickButton = screen.getByTestId(
       'league-entry-pick-button',
     );
-    const userHistoryPicks = screen.queryByTestId('user-pick-history');
 
     expect(entryStatus).toHaveTextContent('alive');
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 1');
     expect(leagueEntryPickButton).toHaveTextContent('Make Pick');
-    expect(userHistoryPicks).not.toBeInTheDocument();
   });
 
   it('renders as if the user made a pick', () => {
@@ -31,7 +29,6 @@ describe('LeagueEntries', () => {
         entryName="Entry 2"
         linkUrl=""
         isPickSet={true}
-        userPickHistory={['/team-a-logo.png']}
       />,
     );
 
@@ -48,7 +45,6 @@ describe('LeagueEntries', () => {
     expect(leagueEntryContainerCard).toBeInTheDocument();
     expect(leagueEntryNumber).toHaveTextContent('Entry 2');
     expect(leagueEntryPickButton).toHaveTextContent('Change Pick');
-    expect(screen.queryByTestId('user-pick-history')).toBeInTheDocument();
   });
 
   it('renders as if the user is eliminated', () => {
@@ -58,7 +54,6 @@ describe('LeagueEntries', () => {
         isEliminated
         isPickSet={false}
         linkUrl=""
-        userPickHistory={['/team-a-logo.png']}
       />,
     );
 
@@ -73,7 +68,7 @@ describe('LeagueEntries', () => {
     expect(leagueEntryNumber).toHaveTextContent('Entry 3');
   });
 
-  it('renders teamLogo when user makes a pick and shows user pick history logo', () => {
+  it('renders teamLogo when user makes a pick', () => {
     const teamLogoUrl = 'https://example.com/logo.png';
     const linkUrl = '/change-pick';
 
@@ -83,7 +78,6 @@ describe('LeagueEntries', () => {
         isPickSet={true}
         linkUrl={linkUrl}
         selectedTeamLogo={teamLogoUrl}
-        userPickHistory={['/team-a-logo.png']}
       />,
     );
 
@@ -108,38 +102,5 @@ describe('LeagueEntries', () => {
       'src',
       '/_next/image?url=https%3A%2F%2Fexample.com%2Flogo.png&w=96&q=75',
     );
-    expect(screen.getByTestId('league-history-logo')).toHaveAttribute(
-      'src',
-      '/_next/image?url=%2Fteam-a-logo.png&w=96&q=75',
-    );
-  });
-  it('renders no pick when a previous week pick is not available', () => {
-    const teamLogoUrl = 'https://example.com/logo.png';
-    const linkUrl = '/change-pick';
-
-    render(
-      <LeagueEntries
-        entryName="Entry 2"
-        isPickSet={true}
-        linkUrl={linkUrl}
-        selectedTeamLogo={teamLogoUrl}
-        userPickHistory={['', '/team-a-logo.png']}
-      />,
-    );
-
-    const leagueEntryLogo = screen.getByTestId('league-entry-logo');
-    const noPick = screen.getByTestId('no-pick');
-
-    expect(leagueEntryLogo).toBeInTheDocument();
-    expect(leagueEntryLogo).toHaveAttribute(
-      'src',
-      '/_next/image?url=https%3A%2F%2Fexample.com%2Flogo.png&w=96&q=75',
-    );
-    expect(screen.getByTestId('league-history-logo')).toHaveAttribute(
-      'src',
-      '/_next/image?url=%2Fteam-a-logo.png&w=96&q=75',
-    );
-    expect(noPick).toBeInTheDocument();
-    expect(noPick).toHaveTextContent('No Pick');
   });
 });
