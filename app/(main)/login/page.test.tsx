@@ -17,7 +17,13 @@ let continueButton: HTMLElement,
   emailInput: HTMLInputElement,
   passwordInput: HTMLInputElement;
 
-const mockUseAuthContext = {
+interface MockUseAuthContext {
+  getUser: jest.Mock;
+  isSignedIn: boolean | null;
+  login: jest.Mock;
+}
+
+let mockUseAuthContext: MockUseAuthContext = {
   getUser,
   isSignedIn: false,
   login: mockLogin,
@@ -46,20 +52,37 @@ describe('Login', () => {
     jest
       .spyOn(React, 'useState')
       .mockImplementation(() => [false, setIsLoading]);
+  });
+
+  it('should display GlobalSpinner while authenticating the user', async () => {
+    mockUseAuthContext.isSignedIn = null;
+
+    render(<Login />);
+
+    expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
+  });
+  
+  it('should render the login page if the user is not logged in', () => {
+    mockUseAuthContext.isSignedIn = false;
 
     render(<Login />);
 
     continueButton = screen.getByTestId('continue-button');
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
-  });
-  it('should render the login page', () => {
+
     expect(continueButton).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
   });
 
   it('should update email and password fields and submit form', async () => {
+    mockUseAuthContext.isSignedIn = false;
+
+    render(<Login />);
+
+    const emailInput = screen.getByTestId('email');
+    const passwordInput = screen.getByTestId('password');
     const form = screen.getByTestId('login-form');
 
     await act(async () => {
@@ -80,16 +103,7 @@ describe('Login', () => {
     });
   });
 
-  it('redirects to /weeklyPicks when the button is clicked', () => {
-    mockUseAuthContext.isSignedIn = true;
-
-    render(<Login />);
-    expect(mockUseAuthContext.getUser).toHaveBeenCalled();
-
-    mockUseAuthContext.isSignedIn = false;
-  });
-
-  it('redirects to /league/all when user navigates to /login', async () => {
+  it('redirects to /league/all when user navigates to /login and is logged in', async () => {
     mockUseAuthContext.isSignedIn = true;
 
     act(() => {
@@ -106,6 +120,8 @@ describe('Login', () => {
 
 describe('Login loading spinner', () => {
   it('should show the loading spinner', async () => {
+    mockUseAuthContext.isSignedIn = false;
+
     (useStateMock as jest.Mock).mockImplementation((init: boolean) => [
       true,
       setIsLoading,
@@ -117,6 +133,7 @@ describe('Login loading spinner', () => {
       expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
     });
   });
+
   it('should not show the loading spinner', async () => {
     (useStateMock as jest.Mock).mockImplementation((init: boolean) => [
       false,
