@@ -42,7 +42,7 @@ export interface IWeeklyPicks {
   userResults: IUserPicksData;
 }
 export interface INFLTeam {
-  teamId: string;
+  teamId?: string;
   teamLogo: string;
   teamName: string;
 }

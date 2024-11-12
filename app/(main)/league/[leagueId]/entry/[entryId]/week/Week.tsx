@@ -22,6 +22,7 @@ import {
   getGameWeek,
 } from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
+import { INFLTeam } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
@@ -36,11 +37,6 @@ import LinkCustom from '@/components/LinkCustom/LinkCustom';
 import { ChevronLeft } from 'lucide-react';
 import Heading from '@/components/Heading/Heading';
 
-interface TeamInfo {
-    teamName: string;
-    logoURL: string;
-}
-
 /**
  * Renders the weekly picks page.
  * @param {IWeekProps} props The parameters for the weekly picks page.
@@ -48,7 +44,7 @@ interface TeamInfo {
  */
 // eslint-disable-next-line no-unused-vars
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
-  const [pickHistory, setPickHistory] = useState<TeamInfo[]>([]);
+  const [pickHistory, setPickHistory] = useState<INFLTeam[]>([]);
   const [entryName, setEntryName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
@@ -167,12 +163,12 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       setEntryName(currentEntry.name);
       const entryHistory = currentEntry?.selectedTeams || [];
       
-      let entryHistoryObject: TeamInfo[] = [];
+      let entryHistoryObject: INFLTeam[] = [];
 
       if (entryHistory.length > 0) {
         entryHistoryObject = entryHistory.map((teamName) => ({
           teamName: teamName,
-          logoURL: getNFLTeamLogo(NFLTeams, teamName),
+          teamLogo: getNFLTeamLogo(NFLTeams, teamName),
         }));
       }
 
@@ -299,14 +295,14 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                 className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
                 data-testid="user-pick-history"
               >
-                {pickHistory?.map((historyObject, index) => {
+                {pickHistory?.map((team, index) => {
                   const isCurrentWeek = index === pickHistory.length - 1;
                   const hasCurrentWeekPick =
                     pickHistory.length === Number(week);
 
                   return (
                     <div
-                      key={`${historyObject.logoURL ? historyObject.logoURL : 'no-pick'}-${index + 1}`}
+                      key={`${team.teamLogo ? team.teamLogo : 'no-pick'}-${index + 1}`}
                       className={cn(
                         'flex flex-col items-center justify-center border p-2 rounded-lg gap-1',
                         isCurrentWeek && hasCurrentWeekPick
@@ -319,17 +315,17 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                           ? 'CURRENT'
                           : `WEEK ${index + 1}`}
                       </span>
-                      {historyObject.logoURL ? (
+                      {team.teamLogo ? (
                         <>
                           <Image
                             className="league-entry-logo"
                             width={64}
                             height={64}
                             data-testid="league-history-logo"
-                            src={historyObject.logoURL}
+                            src={team.teamLogo}
                             alt=""
                           />
-                          <span className='sr-only'>{historyObject.teamName}</span>
+                          <span className='sr-only'>{team.teamName}</span>
                         </>
                       ) : (
                         <span
