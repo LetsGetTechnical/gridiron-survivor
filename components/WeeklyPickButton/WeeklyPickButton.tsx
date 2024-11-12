@@ -44,16 +44,15 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
         <RadioGroupItem
           value={team}
           id={team}
-          //   disabled={isDisabled}
+          disabled={isDisabled}
           data-testid="team-radio"
-          className="peer focus:outline-none"
         />
 
         <Label
           htmlFor={team}
           data-testid="team-label"
-        //   disabled={isDisabled}
-          className="flex-col sm:flex-row peer-aria-checked:border-accent peer-focus:outline-none peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-white peer-focus-visible:rounded-xl peer-focus-visible:outline-offset-4"
+          disabled={isDisabled}
+          className="flex-col sm:flex-row"
         >
           <Image
             src={src}

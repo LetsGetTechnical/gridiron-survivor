@@ -106,11 +106,12 @@ const WeekTeams = ({
                       homeAway={competition.homeAway}
                       team={competition.team.name}
                       src={competition.team.logo}
-                      isDisabled={
-                        disableGame ||
-                        Boolean(loadingTeamName) ||
-                        hasTeamBeenPicked(competition.team.name, selectedTeams)
-                      }
+                      isDisabled={false}
+                      //   isDisabled={
+                      //     disableGame ||
+                      //     Boolean(loadingTeamName) ||
+                      //     hasTeamBeenPicked(competition.team.name, selectedTeams)
+                      //   }
                     />
                   </FormControl>
                 </FormItem>

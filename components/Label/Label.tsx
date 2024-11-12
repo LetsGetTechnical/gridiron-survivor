@@ -14,7 +14,7 @@ const labelVariants = cva(
     variants: {
       disabled: {
         true: 'opacity-50 cursor-not-allowed',
-        false: 'peer-aria-checked:border-accent peer-hover:border-white'
+        false: 'peer-aria-checked:border-accent peer-hover:border-white peer-focus:outline-none peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-white peer-focus-visible:rounded-xl peer-focus-visible:outline-offset-4'
       },
     },
   }
