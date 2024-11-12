@@ -98,7 +98,7 @@ const Login = (): React.JSX.Element => {
 
   return (
     <section className={`grid ${isSignedIn === null ? '' : 'xl:grid-cols-2'} xl:grid-rows-none`}>
-      {isSignedIn === null || isSignedIn === true &&
+      {(isSignedIn === null || isSignedIn === true) &&
         <GlobalSpinner data-testid="global-spinner" />
       }
       {isSignedIn === false &&
