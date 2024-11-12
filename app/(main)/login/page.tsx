@@ -57,7 +57,7 @@ const Login = (): React.JSX.Element => {
 
   useEffect(() => {
     if (isSignedIn === true) {
-      router.push('league/all');
+      router.push('/league/all');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn]);
@@ -97,7 +97,7 @@ const Login = (): React.JSX.Element => {
   };
 
   return (
-    <section className={`grid xl:${isSignedIn === null ? '' : 'grid-cols-2'} xl:grid-rows-none`}>
+    <section className={`grid ${isSignedIn === null ? '' : 'xl:grid-cols-2'} xl:grid-rows-none`}>
       {isSignedIn === null || isSignedIn === true &&
         <GlobalSpinner data-testid="global-spinner" />
       }
