@@ -195,7 +195,7 @@ const Login = (): React.JSX.Element => {
           </Form>
         </div>
       </>
-    }
+      }
     </section>
   );
 };
