@@ -8,7 +8,7 @@ const weeklyPickData = {
   src: '/path/to/ravens.svg',
   height: '48',
   width: '48',
-  alt: 'Ravens',
+  alt: '',
 };
 
 describe('WeeklyPickButton', () => {
