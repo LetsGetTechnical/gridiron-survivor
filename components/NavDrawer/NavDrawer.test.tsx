@@ -23,6 +23,112 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
+beforeAll(() => {
+  window.scrollTo = jest.fn();
+});
+
+describe('DrawerHeader Component', () => {
+  it('renders with default classes', () => {
+    render(<DrawerHeader data-testid="drawer-header" />);
+
+    const header = screen.getByTestId('drawer-header');
+    expect(header).toHaveClass(
+      'grid h-16 items-center gap-1.5 px-0 text-center sm:text-left',
+    );
+  });
+});
+
+describe('DrawerFooter Component', () => {
+  it('renders with default classes', () => {
+    render(<DrawerFooter data-testid="drawer-footer" />);
+
+    const footer = screen.getByTestId('drawer-footer');
+    expect(footer).toHaveClass('mt-auto flex flex-col gap-2 p-4');
+  });
+});
+
+describe('DrawerTitle Component', () => {
+  it('renders with default classes', () => {
+    render(
+      <Drawer>
+        <DrawerTitle data-testid="drawer-title" />
+      </Drawer>,
+    );
+
+    const title = screen.getByTestId('drawer-title');
+    expect(title).toHaveClass(
+      'mr-auto text-lg font-semibold leading-none tracking-tight',
+    );
+  });
+
+  it('renders the correct title', () => {
+    render(
+      <Drawer>
+        <DrawerTitle data-testid="drawer-title">Drawer Title</DrawerTitle>
+      </Drawer>,
+    );
+
+    const title = screen.getByTestId('drawer-title');
+    expect(title).toHaveTextContent('Drawer Title');
+  });
+
+  it('renders the close button with X icon', () => {
+    render(
+      <Drawer>
+        <DrawerTitle data-testid="drawer-title" />
+      </Drawer>,
+    );
+
+    const closeButton = screen.getByTestId('drawer-close');
+    expect(closeButton).toBeInTheDocument();
+    expect(closeButton.querySelector('svg')).toBeInTheDocument();
+  });
+});
+
+describe('DrawerDescription Component', () => {
+  it('renders with default classes', () => {
+    render(
+      <Drawer>
+        <DrawerDescription data-testid="drawer-description" />
+      </Drawer>,
+    );
+
+    const description = screen.getByTestId('drawer-description');
+    expect(description).toHaveClass('text-sm text-muted-foreground');
+  });
+
+  it('renders the correct description', () => {
+    render(
+      <Drawer>
+        <DrawerDescription data-testid="drawer-description">
+          Drawer Description
+        </DrawerDescription>
+      </Drawer>,
+    );
+
+    const description = screen.getByTestId('drawer-description');
+    expect(description).toHaveTextContent('Drawer Description');
+  });
+});
+
+describe('DrawerContent Component', () => {
+  it('renders with default classes', () => {
+    render(
+      <Drawer>
+        <DrawerTrigger data-testid="drawer-trigger" />
+        <DrawerContent data-testid="drawer-content" />
+      </Drawer>,
+    );
+    const trigger = screen.getByTestId('drawer-trigger');
+    fireEvent.click(trigger);
+
+    const content = screen.getByTestId('drawer-content');
+    expect(content).toHaveClass(
+      'fixed inset-x-0 bottom-0 left-auto right-0 top-0 z-50 mt-0 flex h-auto w-4/5 flex-col gap-4 rounded-none border-l border-border bg-background px-4 md:w-2/5 lg:w-1/5',
+    );
+  });
+});
+
 describe('Drawer Component', () => {
   it('Drawer opens and closes properly', async () => {
     render(
