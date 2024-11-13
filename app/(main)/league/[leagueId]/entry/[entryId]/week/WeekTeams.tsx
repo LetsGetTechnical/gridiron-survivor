@@ -83,9 +83,7 @@ const WeekTeams = ({
           </div>
 
           <RadioGroup
-            aria-labelledby="team"
             className="flex flex-row-reverse gap-4 justify-between items-center w-full"
-            // style={{ direction: 'ltr' }}
             onChange={field.onChange}
             defaultValue={userPick}
             value={userPick}
