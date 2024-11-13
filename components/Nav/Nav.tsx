@@ -6,7 +6,7 @@ import React, { JSX } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
-import Link from 'next/link';
+import NavLink from '../NavLink/NavLink'; // Adjust the import path as necessary
 import {
   Drawer,
   DrawerContent,
@@ -28,7 +28,7 @@ export const Nav = (): JSX.Element => {
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
   const [open, setOpen] = React.useState(false);
-
+  let handleClose = () => setOpen(false);
   /**
    * Handles the logout.
    * @returns {Promise<void>} The logout promise.
@@ -69,40 +69,27 @@ export const Nav = (): JSX.Element => {
                 <DrawerTitle data-testid="title">Gridiron Survivor</DrawerTitle>
               </DrawerHeader>
               <ul className="m-0 flex flex-col gap-1 p-0">
-                <li>
-                  <Link
-                    href="/account/settings"
-                    className="underline underline-offset-4 hover:text-primary-muted transition-colors"
-                    onClick={() => setOpen(false)}
-                    data-testid="settings-link"
-                  >
-                    Settings
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    data-testid="league-link"
-                    href="/league/all"
-                    className={cn(
-                      'underline underline-offset-4 hover:text-primary-muted transition-colors',
-                    )}
-                    onClick={() => setOpen(false)}
-                  >
-                    Leagues
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    data-testid="profile-link"
-                    href="/account/profile"
-                    className={cn(
-                      'underline underline-offset-4 hover:text-primary-muted transition-colors',
-                    )}
-                    onClick={() => setOpen(false)}
-                  >
-                    Profile
-                  </Link>
-                </li>
+                <NavLink
+                  href="/account/settings"
+                  testId="settings-link"
+                  onClose={handleClose}
+                >
+                  Settings
+                </NavLink>
+                <NavLink
+                  href="/league/all"
+                  testId="league-link"
+                  onClose={handleClose}
+                >
+                  Leagues
+                </NavLink>
+                <NavLink
+                  href="/account/profile"
+                  testId="profile-link"
+                  onClose={handleClose}
+                >
+                  Profile
+                </NavLink>
                 <li>
                   <Button
                     className="p-0 text-base font-normal hover:text-primary-muted transition-colors text-white"
