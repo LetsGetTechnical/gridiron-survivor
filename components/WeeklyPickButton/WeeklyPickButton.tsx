@@ -40,7 +40,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
       <label htmlFor={team} className="capitalize" data-testid="home-away">
         {homeAway}
       </label>
-      <div className="flex items-center mt-4">
+      <div style={{ direction: 'ltr' }} className="flex items-center mt-4">
         <RadioGroupItem
           value={team}
           id={team}
