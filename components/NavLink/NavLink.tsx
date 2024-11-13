@@ -1,14 +1,28 @@
-// components/NavLink.tsx
+// Copyright (c) Gridiron Survivor.
+// Licensed under the MIT License.
+
+'use client';
+import React, { JSX } from 'react';
 import Link from 'next/link';
 import { cn } from '@/utils/utils';
+
 interface NavLinkProps {
   href: string;
   testId: string;
   children: React.ReactNode;
   onClose?: () => void;
 }
-
-const NavLink = ({ href, testId, children, onClose }: NavLinkProps) => {
+/**
+ * Renders a navigation link.
+ * @param {NavLinkProps} props - The properties for the navigation link.
+ * @returns {JSX.Element} The rendered navigation link.
+ */
+const NavLink = ({
+  href,
+  testId,
+  children,
+  onClose,
+}: NavLinkProps): JSX.Element => {
   return (
     <li>
       <Link
