@@ -34,7 +34,7 @@ export const AdminUserSettings = (): JSX.Element => {
       await logoutAccount();
       router.push('/login');
     } catch (error) {
-      throw new Error('Logout failed');
+      throw error;
     }
   };
 
