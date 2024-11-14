@@ -8,8 +8,9 @@ import {
   FormItem,
   FormControl,
   FormMessage,
+  Form,
 } from '@/components/Form/Form';
-import { FormProvider, Control, useForm } from 'react-hook-form';
+import { FormProvider, Control, useForm, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { IWeekProps } from './Week.interface';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -33,9 +34,10 @@ import { cn, getNFLTeamLogo } from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft, Pen } from 'lucide-react';
+import { Check, ChevronLeft, Pen, X } from 'lucide-react';
 import Heading from '@/components/Heading/Heading';
 import { Button } from '@/components/Button/Button';
+import { Input } from '@/components/Input/Input';
 
 /**
  * Renders the weekly picks page.
@@ -54,10 +56,34 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [loadingTeamName, setLoadingTeamName] = useState<string | null>(null);
   const [userPick, setUserPick] = useState<string>('');
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
+
+  const NFLTeamsList = NFLTeams.map((team) => team.teamName) as [
+    string,
+    ...string[]
+  ];
+  const WeekTeamsFormSchema = z.object({
+    type: z.enum(NFLTeamsList, {
+      required_error: 'You need to select a team.',
+    }),
+  });
+  const weekTeamsForm = useForm<z.infer<typeof WeekTeamsFormSchema>>({
+    resolver: zodResolver(WeekTeamsFormSchema),
+  });
+
+  const EntryNameFormSchema = z.object({
+    name: z.string().min(3).max(50),
+  });
+  const entryNameForm = useForm<z.infer<typeof EntryNameFormSchema>>({
+    resolver: zodResolver(EntryNameFormSchema),
+    defaultValues: {
+      name: entryName,
+    },
+  });
 
   /**
    * Fetches the current game week.
@@ -81,17 +107,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     const res = await getCurrentLeague(league);
     setSelectedLeague(res);
   };
-
-  const NFLTeamsList = NFLTeams.map((team) => team.teamName) as [
-    string,
-    ...string[]
-  ];
-
-  const FormSchema = z.object({
-    type: z.enum(NFLTeamsList, {
-      required_error: 'You need to select a team.',
-    }),
-  });
 
   /**
    * Fetches the league's weekly pick results for the user and set the user pick.
@@ -162,6 +177,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       }
 
       setEntryName(currentEntry.name);
+      entryNameForm.reset({ name: currentEntry.name });
+
       let entryHistory = currentEntry?.selectedTeams || [];
 
       if (currentEntry?.selectedTeams.length > 0) {
@@ -177,10 +194,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       setLoadingData(false);
     }
   };
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  });
 
   /**
    * Get selected teams for the current user entry.
@@ -227,6 +240,26 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       router.push(`/league/${league}/entry/all`);
     } catch (error) {
       console.error('Submission error:', error);
+    }
+  };
+
+  /**
+   * handles the form submission
+   * @param data - the form data
+   * @returns {void}
+   */
+  const onSubmit: SubmitHandler<z.infer<typeof EntryNameFormSchema>> = async (
+    data,
+  ): Promise<void> => {
+    const { name } = data;
+    try {
+      // API call to DB to update Entry Name
+      console.log('name', name);
+      setEntryName(name);
+      entryNameForm.reset({ name: name });
+      setIsEditing(false);
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -282,7 +315,51 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             <div className="flex justify-center items-center gap-2 pb-8">
               {isEditing ? (
                 <>
-                  <input type="text" />
+                  <Form {...entryNameForm}>
+                    <form
+                      id="input-container"
+                      className="grid gap-3"
+                      onSubmit={entryNameForm.handleSubmit(onSubmit)}
+                    >
+                      <FormField
+                        control={entryNameForm.control as Control<object>}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input
+                                data-testid="entry-name"
+                                type="text"
+                                className="text-muted-foreground"
+                                {...field}
+                              />
+                            </FormControl>
+                            {entryNameForm.formState.errors.name && (
+                              <FormMessage>
+                                {entryNameForm.formState.errors.name.message}
+                              </FormMessage>
+                            )}
+                          </FormItem>
+                        )}
+                      />
+                    </form>
+                  </Form>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    aria-label="Cancel Editing"
+                    onClick={() => setIsEditing(!isEditing)}
+                  >
+                    <X className="text-accent" />
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    aria-label="Accept Edit"
+                    onClick={() => setIsEditing(!isEditing)}
+                  >
+                    <Check className="text-accent" />
+                  </Button>
                 </>
               ) : (
                 <>
@@ -294,7 +371,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                     {entryName}
                   </Heading>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     size="icon"
                     aria-label="Edit Entry name"
                     onClick={() => setIsEditing(!isEditing)}
@@ -352,10 +429,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               </section>
             )}
 
-            <FormProvider {...form}>
+            <FormProvider {...weekTeamsForm}>
               <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
                 <FormField
-                  control={form.control as Control<object>}
+                  control={weekTeamsForm.control as Control<object>}
                   name="type"
                   render={({ field }) => (
                     <FormItem>
