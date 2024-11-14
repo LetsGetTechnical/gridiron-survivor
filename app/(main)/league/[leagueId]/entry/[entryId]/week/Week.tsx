@@ -254,7 +254,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     const { name } = data;
     try {
       // API call to DB to update Entry Name
-      console.log('name', name);
       setEntryName(name);
       entryNameForm.reset({ name: name });
       setIsEditing(false);
