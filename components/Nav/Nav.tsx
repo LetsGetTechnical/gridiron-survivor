@@ -6,7 +6,7 @@ import React, { JSX } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
-import NavLink from '../NavLink/NavLink';
+import NavLink from '../NavLink/NavLink'; // Adjust the import path as necessary
 import {
   Drawer,
   DrawerContent,
@@ -28,12 +28,7 @@ export const Nav = (): JSX.Element => {
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
   const [open, setOpen] = React.useState(false);
-  /**
-   * Handles closing the drawer.
-   * @returns {void} No return value.
-   */
-  const handleClose = (): void => setOpen(false);
-
+  let handleClose = () => setOpen(false);
   /**
    * Handles the logout.
    * @returns {Promise<void>} The logout promise.
