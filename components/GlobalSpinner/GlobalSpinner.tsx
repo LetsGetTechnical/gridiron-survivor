@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import GlobalSpinnerImage from '@/public/assets/global-spinner.svg';
+import GlobalSpinnerImage from '../../public/assets/global-spinner.svg';
 import React from 'react';
 import Image from 'next/image';
 
