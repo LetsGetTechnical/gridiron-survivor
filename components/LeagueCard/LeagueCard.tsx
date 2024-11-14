@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { cn } from '@/utils/utils';
+import { cn } from '../../utils/utils';
 import { EliminatedStatus } from '../EliminatedStatus/EliminatedStatus';
 import { ILeagueCardProps } from './LeagueCard.interface';
 import { LeagueSurvivors } from '../LeagueSurvivors/LeagueSurvivors';

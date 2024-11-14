@@ -7,7 +7,7 @@ import {
   IUser,
   IUserPick,
 } from '@/api/apiFunctions.interface';
-import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries } from '@/api/apiFunctions';
+import { getAllWeeklyPicks, getCurrentLeague, getCurrentUserEntries } from '../api/apiFunctions';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -16,7 +16,7 @@ import {
 } from './utils.interface';
 import { ILeague } from '@/api/apiFunctions.interface';
 import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
-import { useDataStore } from '@/store/dataStore';
+import { useDataStore } from '../store/dataStore';
 
 /**
  * Combine class names
