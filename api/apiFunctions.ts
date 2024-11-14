@@ -428,6 +428,35 @@ export async function updateEntry({
 }
 
 /**
+ * Updates the name of an entry
+ * @param {Object} params - The parameters object
+ * @param {string} params.entryId - The ID of the entry to update
+ * @param {string} params.entryName - The new name for the entry
+ * @returns {Models.Document | Error} - The entry object or an error
+ */
+export async function updateEntryName({
+  entryId,
+  entryName,
+}: {
+  entryId: string;
+  entryName: string;
+}): Promise<Models.Document & IEntry> {
+  try {
+    return await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      entryId,
+      {
+        name: entryName,
+      },
+    );
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error updating entry');
+  }
+}
+
+/**
  * Retrieves a list of all leagues.
  * @returns {Models.Document[]} A list of all available leagues.
  */
