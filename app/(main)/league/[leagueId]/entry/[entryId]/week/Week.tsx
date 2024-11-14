@@ -21,6 +21,7 @@ import {
   getCurrentUserEntries,
   getCurrentLeague,
   getGameWeek,
+  updateEntryName,
 } from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
@@ -76,7 +77,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   });
 
   const EntryNameFormSchema = z.object({
-    name: z.string().min(3).max(50),
+    name: z
+      .string()
+      .min(3, 'Entry name must contain at least 3 characters')
+      .max(50, 'Entry name must contain no more than 50 characters'),
   });
   const entryNameForm = useForm<z.infer<typeof EntryNameFormSchema>>({
     resolver: zodResolver(EntryNameFormSchema),
@@ -252,8 +256,9 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     data,
   ): Promise<void> => {
     const { name } = data;
+    const entryId: string = entry;
     try {
-      // API call to DB to update Entry Name
+      await updateEntryName({ entryId, entryName: name });
       setEntryName(name);
       entryNameForm.reset({ name: name });
       setIsEditing(false);
@@ -324,47 +329,51 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                         control={entryNameForm.control as Control<object>}
                         name="name"
                         render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <Input
-                                data-testid="entry-name"
-                                type="text"
-                                className="text-muted-foreground"
-                                {...field}
-                              />
-                            </FormControl>
-                            {entryNameForm.formState.errors.name && (
-                              <FormMessage>
-                                {entryNameForm.formState.errors.name.message}
-                              </FormMessage>
-                            )}
+                          <FormItem className="space-y-0">
+                            <div className="flex gap-2">
+                              <div className="flex-1">
+                                <FormControl>
+                                  <Input
+                                    data-testid="entry-name"
+                                    type="text"
+                                    className="text-muted-foreground"
+                                    maxLength={50}
+                                    {...field}
+                                  />
+                                </FormControl>
+                                {entryNameForm.formState.errors.name && (
+                                  <FormMessage className="mt-1" />
+                                )}
+                              </div>
+                              <Button
+                                type="button"
+                                variant="secondary"
+                                size="icon"
+                                aria-label="Cancel Editing"
+                                onClick={() => setIsEditing(false)}
+                              >
+                                <X className="text-accent" />
+                              </Button>
+                              <Button
+                                type="submit"
+                                variant="secondary"
+                                size="icon"
+                                aria-label="Accept Edit"
+                              >
+                                <Check className="text-accent" />
+                              </Button>
+                            </div>
                           </FormItem>
                         )}
                       />
                     </form>
                   </Form>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    aria-label="Cancel Editing"
-                    onClick={() => setIsEditing(!isEditing)}
-                  >
-                    <X className="text-accent" />
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    aria-label="Accept Edit"
-                    onClick={() => setIsEditing(!isEditing)}
-                  >
-                    <Check className="text-accent" />
-                  </Button>
                 </>
               ) : (
                 <>
                   <Heading
                     as="h2"
-                    className="text-muted-foreground"
+                    className="text-muted-foreground break-normal leading-7"
                     data-testid="week__entry-name"
                   >
                     {entryName}
