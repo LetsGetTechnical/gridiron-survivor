@@ -33,8 +33,9 @@ import { cn, getNFLTeamLogo } from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Pen } from 'lucide-react';
 import Heading from '@/components/Heading/Heading';
+import { Button } from '@/components/Button/Button';
 
 /**
  * Renders the weekly picks page.
@@ -52,6 +53,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [loadingTeamName, setLoadingTeamName] = useState<string | null>(null);
   const [userPick, setUserPick] = useState<string>('');
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
@@ -158,7 +160,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       if (!currentEntry) {
         throw new Error('Entry not found');
       }
-      
+
       setEntryName(currentEntry.name);
       let entryHistory = currentEntry?.selectedTeams || [];
 
@@ -274,18 +276,34 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             className="flex flex-col items-center w-full pt-8"
             data-testid="weekly-picks"
           >
-            <Heading 
-              as='h1'
-              className='pb-8'
-              data-testid='week__week-number'
-            >{`Week ${week} pick`}
+            <Heading as="h1" className="pb-8" data-testid="week__week-number">
+              {`Week ${week} pick`}
             </Heading>
-            <Heading
-              as='h2'
-              className='pb-8 text-muted-foreground'
-              data-testid='week__entry-name'
-            >{entryName}
-            </Heading>
+            <div className="flex justify-center items-center gap-2 pb-8">
+              {isEditing ? (
+                <>
+                  <input type="text" />
+                </>
+              ) : (
+                <>
+                  <Heading
+                    as="h2"
+                    className="text-muted-foreground"
+                    data-testid="week__entry-name"
+                  >
+                    {entryName}
+                  </Heading>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    aria-label="Edit Entry name"
+                    onClick={() => setIsEditing(!isEditing)}
+                  >
+                    <Pen className="text-accent" />
+                  </Button>
+                </>
+              )}
+            </div>
             {pickHistory.length > 0 && (
               <section
                 className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
