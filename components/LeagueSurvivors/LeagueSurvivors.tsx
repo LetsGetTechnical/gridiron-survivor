@@ -1,7 +1,7 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { cn } from '../../utils/utils';
+import { cn } from '@/utils/utils';
 import { ILeagueSurvivorsProps } from './LeagueSurvivors.interface';
 import { JSX } from 'react';
 
