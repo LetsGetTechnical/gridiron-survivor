@@ -20,6 +20,7 @@ import {
   IEntryProps,
 } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
 import { getBaseURL } from '@/utils/getBaseUrl';
+
 /**
  * Register a new account
  * @param props - The account data

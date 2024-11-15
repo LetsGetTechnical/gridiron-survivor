@@ -17,6 +17,7 @@ import {
 import { ILeague } from '@/api/apiFunctions.interface';
 import { IEntry } from '@/app/(main)/league/[leagueId]/entry/Entries.interface';
 import { useDataStore } from '@/store/dataStore';
+
 /**
  * Combine class names
  * @param inputs - The class names to combine
