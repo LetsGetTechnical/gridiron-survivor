@@ -27,14 +27,14 @@ export const Nav = (): JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
   const { logoutAccount } = useAuthContext();
-  const [open, setOpen] = React.useState(false); /**
+  const [open, setOpen] = React.useState(false);
 
-   * Handles closing the drawer.
-
-   * @returns {void} No return value.
-
-   */
+  /**
+   * Handles closing the drawer.
+   * @returns {void} No return value.
+   */
   const handleClose = (): void => setOpen(false);
+
   /**
    * Handles the logout.
    * @returns {Promise<void>} The logout promise.
