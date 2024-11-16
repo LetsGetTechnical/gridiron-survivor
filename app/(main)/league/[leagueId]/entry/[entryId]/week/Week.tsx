@@ -334,7 +334,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                               <div className="flex-1">
                                 <FormControl>
                                   <Input
-                                    data-testid="entry-name"
+                                    data-testid="entry-name-input"
                                     type="text"
                                     className="text-muted-foreground"
                                     maxLength={50}
@@ -350,6 +350,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                                 variant="secondary"
                                 size="icon"
                                 aria-label="Cancel Editing"
+                                data-testid="cancel-editing-button"
                                 onClick={() => setIsEditing(false)}
                               >
                                 <X className="text-accent" />
@@ -358,6 +359,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                                 type="submit"
                                 variant="secondary"
                                 size="icon"
+                                data-testid="save-entry-name-button"
                                 aria-label="Accept Edit"
                               >
                                 <Check className="text-accent" />
@@ -381,6 +383,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                   <Button
                     variant="secondary"
                     size="icon"
+                    data-testid="edit-entry-name-button"
                     aria-label="Edit Entry name"
                     onClick={() => setIsEditing(!isEditing)}
                   >
