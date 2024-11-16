@@ -81,7 +81,9 @@ describe('DrawerTitle Component', () => {
 
     const closeButton = screen.getByTestId('drawer-close');
     expect(closeButton).toBeInTheDocument();
-    expect(closeButton.querySelector('svg')).toBeInTheDocument();
+
+    const closeButtonIcon = screen.getByTestId('drawer-close-icon');
+    expect(closeButtonIcon).toBeInTheDocument();
   });
 });
 
