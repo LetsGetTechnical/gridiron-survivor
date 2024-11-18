@@ -499,7 +499,7 @@ describe('apiFunctions', () => {
     });
   });
 
-  describe('getAllLeagueEntries()', () => {
+  describe('getTotalEntries()', () => {
     beforeEach(() => {
       jest.clearAllMocks();
     });
