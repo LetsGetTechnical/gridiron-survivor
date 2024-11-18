@@ -5,7 +5,7 @@ import {
   resetPassword,
   resetRecoveredPassword,
   updateUserEmail,
-  getAllLeagueEntries
+  getTotalEntries
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
 import { account, databases, ID } from './config';
@@ -550,7 +550,7 @@ describe('apiFunctions', () => {
 
       const leagues = ['league1', 'league2'];
 
-      const result = await getAllLeagueEntries({ leagues });
+      const result = await getTotalEntries({ leagues });
 
       expect(result).toEqual([
         {
