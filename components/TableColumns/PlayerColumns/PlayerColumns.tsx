@@ -23,7 +23,7 @@ export const playerColumns: ColumnDef<IPlayerEntryData>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('entryUser')}</div>,
+    cell: ({ row }) => <span>{row.getValue('entryUser')}</span>,
   },
   {
     accessorKey: 'entryName',
@@ -52,7 +52,7 @@ export const playerColumns: ColumnDef<IPlayerEntryData>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('entryName')}</div>,
+    cell: ({ row }) => <span>{row.getValue('entryName')}</span>,
   },
   {
     accessorKey: 'entrySelectedTeams',
@@ -81,7 +81,7 @@ export const playerColumns: ColumnDef<IPlayerEntryData>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('entrySelectedTeams')}</div>,
+    cell: ({ row }) => <span>{row.getValue('entrySelectedTeams')}</span>,
   },
   {
     accessorKey: 'entryEliminated',
@@ -110,7 +110,10 @@ export const playerColumns: ColumnDef<IPlayerEntryData>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('entryEliminated')}</div>,
+    cell: ({ row }): JSX.Element => {
+      const eliminated = row.getValue('entryEliminated');
+      return <span>{eliminated ? 'True' : 'False'}</span>;
+    },
   },
   {
     id: 'actions',
