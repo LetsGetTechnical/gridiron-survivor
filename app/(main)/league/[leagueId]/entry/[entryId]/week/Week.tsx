@@ -256,9 +256,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     data,
   ): Promise<void> => {
     const { name } = data;
-    const entryId: string = entry;
     try {
-      await updateEntryName({ entryId, entryName: name });
+      await updateEntryName({ entryId: entry, entryName: name });
       setEntryName(name);
       entryNameForm.reset({ name: name });
       setIsEditing(false);

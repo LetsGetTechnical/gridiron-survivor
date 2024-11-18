@@ -161,8 +161,8 @@ describe('Entry Name Editiing', () => {
     fireEvent.click(screen.getByTestId('edit-entry-name-button'));
 
     const entryNameInput = screen.getByTestId('entry-name-input');
-    const cancelButton = screen.getByLabelText('Cancel Editing');
-    const acceptButton = screen.getByLabelText('Accept Edit');
+    const cancelButton = screen.getByTestId('cancel-editing-button');
+    const acceptButton = screen.getByTestId('save-entry-name-button');
 
     expect(entryNameInput).toBeInTheDocument();
     expect(cancelButton).toBeInTheDocument();
@@ -179,7 +179,7 @@ describe('Entry Name Editiing', () => {
     });
 
     fireEvent.click(screen.getByTestId('edit-entry-name-button'));
-    fireEvent.click(screen.getByLabelText('Cancel Editing'));
+    fireEvent.click(screen.getByTestId('cancel-editing-button'));
 
     await waitFor(() => {
       expect(screen.queryByTestId('entry-name-input')).not.toBeInTheDocument();

@@ -398,7 +398,6 @@ export async function createEntry({
 }
 
 /**
-
  * Update an entry
  * @param props - The entry data
  * @param props.entryId - The entry ID
@@ -429,7 +428,7 @@ export async function updateEntry({
 
 /**
  * Updates the name of an entry
- * @param {Object} params - The parameters object
+ * @param {object} params - The parameters object
  * @param {string} params.entryId - The ID of the entry to update
  * @param {string} params.entryName - The new name for the entry
  * @returns {Models.Document | Error} - The entry object or an error
