@@ -35,8 +35,7 @@ export async function registerAccount({
   try {
     return await account.create(ID.unique(), email, password);
   } catch (error) {
-    console.error(error);
-    throw new Error('Error registering user');
+    throw error;
   }
 }
 
@@ -166,8 +165,7 @@ export async function getCurrentUser(
       leagues: user.documents[0].leagues,
     };
   } catch (error) {
-    console.error(error);
-    throw new Error('Error getting current user');
+    throw error;
   }
 }
 
@@ -199,8 +197,7 @@ export async function getCurrentUserEntries(
 
     return entries;
   } catch (error) {
-    console.error(error);
-    throw new Error('Error getting user entries');
+    throw error;
   }
 }
 
@@ -224,8 +221,7 @@ export const getNFLTeams = async (): Promise<INFLTeam[]> => {
 
     return nflTeams;
   } catch (error) {
-    console.error(error);
-    throw new Error('Error getting NFL teams');
+    throw error;
   }
 };
 
@@ -252,8 +248,7 @@ export const getCurrentLeague = async (
       survivors: response.documents[0].survivors,
     };
   } catch (error) {
-    console.error('Error getting all game groups:', error);
-    throw new Error('Error getting all game groups');
+    throw error;
   }
 };
 
@@ -274,8 +269,7 @@ export const getGameWeek = async (): Promise<IGameWeek> => {
       week: response.gameWeek.week,
     };
   } catch (error) {
-    console.error('Error getting current week:', error);
-    throw new Error('Error getting current week');
+    throw error;
   }
 };
 
@@ -320,8 +314,7 @@ export async function getAllWeeklyPicks({
 
     return JSON.parse(response.documents[0].userResults);
   } catch (error) {
-    console.error(error);
-    throw new Error('Error getting all weekly picks');
+    throw error;
   }
 }
 
@@ -359,8 +352,7 @@ export async function createWeeklyPicks({
       },
     );
   } catch (error) {
-    console.error(error);
-    throw new Error('Error creating weekly picks');
+    throw error;
   }
 }
 
@@ -392,8 +384,7 @@ export async function createEntry({
       },
     );
   } catch (error) {
-    console.error(error);
-    throw new Error('Error creating entry');
+    throw error;
   }
 }
 
@@ -421,8 +412,7 @@ export async function updateEntry({
       },
     );
   } catch (error) {
-    console.error(error);
-    throw new Error('Error updating entry');
+    throw error;
   }
 }
 
@@ -450,8 +440,7 @@ export async function updateEntryName({
       },
     );
   } catch (error) {
-    console.error(error);
-    throw new Error('Error updating entry');
+    throw error;
   }
 }
 
@@ -477,7 +466,7 @@ export async function getAllLeagues(): Promise<ILeague[]> {
 
     return leagues;
   } catch (error) {
-    throw new Error('Error getting all leagues', { cause: error });
+    throw error;
   }
 }
 
@@ -523,6 +512,6 @@ export async function addUserToLeague({
       },
     );
   } catch (error) {
-    throw new Error('Error getting user document ID', { cause: error });
+    throw error;
   }
 }
