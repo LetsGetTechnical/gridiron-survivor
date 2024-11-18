@@ -13,18 +13,16 @@ import { JSX, useEffect, useState } from 'react';
  * @returns {JSX.Element} - The rendered Admin Players page.
  */
 const AdminPlayers = (): JSX.Element => {
-  const [playerEntryData, setPlayerEntryData] = useState<IPlayerEntryData[]>(
-    [],
-  );
+  const [entryData, setEntryData] = useState<IPlayerEntryData[]>([]);
   /**
    * Get all entries from the league provided.
    */
   const fetchData = async (): Promise<void> => {
-    const entryData = await getAllLeagueEntries({
+    const data = await getAllLeagueEntries({
       leagueId: '66e1cc9000160b10bf2c',
     });
 
-    setPlayerEntryData(entryData);
+    setEntryData(data);
   };
 
   useEffect(() => {
@@ -36,7 +34,7 @@ const AdminPlayers = (): JSX.Element => {
       className="p-4 max-w-screen-lg"
       data-testid="admin-players-content"
     >
-      <TableData columns={playerColumns} data={playerEntryData} />
+      <TableData columns={playerColumns} data={entryData} />
     </section>
   );
 };
