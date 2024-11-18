@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import AdminPlayers from "./page";
 import { getAllLeagueEntries } from "@/api/apiFunctions";
 
-jest.mock('@api/apiFunctions', () => ({
+jest.mock('@/api/apiFunctions', () => ({
     getAllLeagueEntries: jest.fn(),
 }));
 
