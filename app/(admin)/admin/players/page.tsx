@@ -3,7 +3,8 @@
 
 'use client';
 import { getAllLeagueEntries } from '@/api/apiFunctions';
-import { IPlayerEntryData } from '@/components/TableColumns/LeagueColumns/LeagueColumns.interface';
+import { IPlayerEntryData } from '@/components/TableColumns/PlayerColumns/PlayerColumns.interface';
+import { playerColumns } from '@/components/TableColumns/PlayerColumns/PlayerColumns';
 import TableData from '@/components/TableData/TableData';
 import { JSX, useEffect, useState } from 'react';
 
@@ -35,7 +36,7 @@ const AdminPlayers = (): JSX.Element => {
       className="p-4 max-w-screen-lg"
       data-testid="admin-players-content"
     >
-      <TableData columns={} data={playerEntryData} />
+      <TableData columns={playerColumns} data={playerEntryData} />
     </section>
   );
 };

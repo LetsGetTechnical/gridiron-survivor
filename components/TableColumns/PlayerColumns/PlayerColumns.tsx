@@ -10,10 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../TableDropDownMenu/TableDropDownMenu';
-import { IEntryWithLeague } from '../LeagueColumns/LeagueColumns.interface';
 import { JSX } from 'react';
+import { IPlayerEntryData } from './PlayerColumns.interface';
 
-export const playerColumns: ColumnDef<IEntryWithLeague>[] = [
+export const playerColumns: ColumnDef<IPlayerEntryData>[] = [
   {
     accessorKey: 'entryUser',
     header: 'User',
@@ -23,7 +23,7 @@ export const playerColumns: ColumnDef<IEntryWithLeague>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text')}</div>,
+    cell: ({ row }) => <div>{row.getValue('entryUser')}</div>,
   },
   {
     accessorKey: 'entryName',
@@ -52,10 +52,39 @@ export const playerColumns: ColumnDef<IEntryWithLeague>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text2')}</div>,
+    cell: ({ row }) => <div>{row.getValue('entryName')}</div>,
   },
   {
-    accessorKey: 'text3',
+    accessorKey: 'entrySelectedTeams',
+
+    /**
+     * Value of row.
+     * @param {object} column - The column data.
+     * @param {object} column.column - The column definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    header: ({ column }): JSX.Element => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          SelectedTeams
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+
+    /**
+     * Value of row.
+     * @param {object} row - The row data.
+     * @param {object} row.row - The row definition
+     * @returns {JSX.Element} - The cell component.
+     */
+    cell: ({ row }) => <div>{row.getValue('entrySelectedTeams')}</div>,
+  },
+  {
+    accessorKey: 'entryEliminated',
 
     /**
      * Value of row.
@@ -81,36 +110,7 @@ export const playerColumns: ColumnDef<IEntryWithLeague>[] = [
      * @param {object} row.row - The row definition
      * @returns {JSX.Element} - The cell component.
      */
-    cell: ({ row }) => <div>{row.getValue('text3')}</div>,
-  },
-  {
-    accessorKey: 'text4',
-
-    /**
-     * Value of row.
-     * @param {object} column - The column data.
-     * @param {object} column.column - The column definition
-     * @returns {JSX.Element} - The cell component.
-     */
-    header: ({ column }): JSX.Element => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Idk what to put here for header
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-
-    /**
-     * Value of row.
-     * @param {object} row - The row data.
-     * @param {object} row.row - The row definition
-     * @returns {JSX.Element} - The cell component.
-     */
-    cell: ({ row }) => <div>{row.getValue('text2')}</div>,
+    cell: ({ row }) => <div>{row.getValue('entryEliminated')}</div>,
   },
   {
     id: 'actions',
