@@ -504,7 +504,7 @@ export async function addUserToLeague({
  * @param props.leagues - All user leagues.
  * @returns {Promise<number>} - Length of entries.
  */
-export async function getAllLeagueEntries({
+export async function getTotalEntries({
   leagues,
 }: {
   leagues: string[];
