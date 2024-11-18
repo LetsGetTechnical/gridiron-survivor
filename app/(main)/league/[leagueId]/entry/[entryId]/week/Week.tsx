@@ -323,9 +323,8 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
                             height={64}
                             data-testid="league-history-logo"
                             src={team.teamLogo}
-                            alt=""
+                            alt={team.teamName}
                           />
-                          <span className='sr-only'>{team.teamName}</span>
                         </>
                       ) : (
                         <span
