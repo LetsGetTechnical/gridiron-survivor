@@ -27,14 +27,14 @@ describe('AdminLeagues', () => {
   render(<AdminLeagues />);
 
   const mockGetUserLeagues = getUserLeagues as jest.Mock;
-  const mockGetAllLeagueEntries = getTotalEntries as jest.Mock;
+  const mockGetTotalEntries = getTotalEntries as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should render the League data table component', async () => {
-    mockGetAllLeagueEntries.mockResolvedValue([]);
+    mockGetTotalEntries.mockResolvedValue([]);
 
     mockGetUserLeagues.mockResolvedValue([]);
 
