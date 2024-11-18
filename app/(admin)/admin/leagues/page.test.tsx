@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import AdminLeagues from './page';
 import { getUserLeagues } from '@/utils/utils';
-import { getAllLeagueEntries } from '@/api/apiFunctions';
+import { getTotalEntries } from '@/api/apiFunctions';
 
 jest.mock('@/store/dataStore', () => ({
   useDataStore: jest.fn(() => ({
@@ -20,21 +20,21 @@ jest.mock('@/utils/utils', () => ({
 }));
 
 jest.mock('@/api/apiFunctions', () => ({
-  getAllLeagueEntries: jest.fn(),
+  getTotalEntries: jest.fn(),
 }));
 
 describe('AdminLeagues', () => {
   render(<AdminLeagues />);
 
   const mockGetUserLeagues = getUserLeagues as jest.Mock;
-  const mockGetAllLeagueEntries = getAllLeagueEntries as jest.Mock;
+  const mockGetTotalEntries = getTotalEntries as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should render the League data table component', async () => {
-    mockGetAllLeagueEntries.mockResolvedValue([]);
+    mockGetTotalEntries.mockResolvedValue([]);
 
     mockGetUserLeagues.mockResolvedValue([]);
 
