@@ -67,7 +67,6 @@ const RecoverPassword = (): React.JSX.Element => {
   const email = useWatch({
     control: form.control,
     name: 'email',
-    defaultValue: '',
   });
 
   /**
