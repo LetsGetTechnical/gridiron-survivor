@@ -61,6 +61,14 @@ describe('Login', () => {
 
     expect(screen.getByTestId('global-spinner')).toBeInTheDocument();
   });
+
+  it('should not display GlobalSpinner once authentication is complete', async () => {
+    mockUseAuthContext.isSignedIn = false;
+
+    render(<Login />);
+
+    expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
+  });
   
   it('should render the login page if the user is not logged in', () => {
     mockUseAuthContext.isSignedIn = false;
