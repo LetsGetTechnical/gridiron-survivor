@@ -13,7 +13,10 @@ interface NavLinkProps {
 
 /**
  * Renders a navigation link.
- * @param {NavLinkProps} props - The properties for the navigation link.
+ * @param {string} props.href - The URL the link points to.
+ * @param {string} props.testId - The test ID for the link.
+ * @param {React.ReactNode} props.children - The content to be rendered inside the link.
+ * @param {Function} [props.onClose] - function to be called when the link is clicked.
  * @returns {JSX.Element} The rendered navigation link.
  */
 const NavLink = ({
