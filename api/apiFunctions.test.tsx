@@ -1,9 +1,9 @@
-import { mock } from 'node:test';
 import {
   recoverPassword,
   registerAccount,
   resetPassword,
   resetRecoveredPassword,
+  updateEntryName,
   updateUserEmail,
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
@@ -24,6 +24,7 @@ jest.mock('./apiFunctions', () => {
     getAllLeagues: jest.fn(),
     getUserDocumentId: jest.fn(),
     addUserToLeague: jest.fn(),
+    updateEntryName: jest.fn(),
   };
 });
 
@@ -495,6 +496,30 @@ describe('apiFunctions', () => {
       await expect(apiFunctions.addUserToLeague({ response })).rejects.toThrow(
         'Error adding user to league',
       );
+    });
+  });
+
+  describe('update entry name', () => {
+    const mockEntryId = 'entry123';
+    const mockEntryName = 'New Entry Name';
+    const mockUpdatedEntry = {
+      $id: mockEntryId,
+      name: mockEntryName,
+      user: 'user123',
+      league: 'league123',
+      selectedTeams: [],
+      eliminated: false,
+    };
+
+    it('should successfully updateEntryName', async () => {
+      apiFunctions.updateEntryName.mockResolvedValue(mockUpdatedEntry);
+
+      const result = await apiFunctions.updateEntryName({
+        entryId: mockEntryId,
+        entryName: mockEntryName,
+      });
+
+      expect(result).toEqual(mockUpdatedEntry);
     });
   });
 });

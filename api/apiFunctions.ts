@@ -398,7 +398,6 @@ export async function createEntry({
 }
 
 /**
-
  * Update an entry
  * @param props - The entry data
  * @param props.entryId - The entry ID
@@ -424,6 +423,34 @@ export async function updateEntry({
   } catch (error) {
     console.error(error);
     throw new Error('Error updating entry');
+  }
+}
+
+/**
+ * Updates the name of an entry
+ * @param {object} params - The parameters object
+ * @param {string} params.entryId - The ID of the entry to update
+ * @param {string} params.entryName - The new name for the entry
+ * @returns {Models.Document | Error} - The entry object or an error
+ */
+export async function updateEntryName({
+  entryId,
+  entryName,
+}: {
+  entryId: string;
+  entryName: string;
+}): Promise<Models.Document & IEntry> {
+  try {
+    return await databases.updateDocument(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      entryId,
+      {
+        name: entryName,
+      },
+    );
+  } catch (error) {
+    throw error;
   }
 }
 

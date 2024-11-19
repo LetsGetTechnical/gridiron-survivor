@@ -8,8 +8,9 @@ import {
   FormItem,
   FormControl,
   FormMessage,
+  Form,
 } from '@/components/Form/Form';
-import { FormProvider, Control, useForm } from 'react-hook-form';
+import { FormProvider, Control, useForm, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { IWeekProps } from './Week.interface';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +21,7 @@ import {
   getCurrentUserEntries,
   getCurrentLeague,
   getGameWeek,
+  updateEntryName,
 } from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
@@ -33,8 +35,10 @@ import { cn, getNFLTeamLogo } from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LinkCustom from '@/components/LinkCustom/LinkCustom';
-import { ChevronLeft } from 'lucide-react';
+import { Check, ChevronLeft, Pen, X } from 'lucide-react';
 import Heading from '@/components/Heading/Heading';
+import { Button } from '@/components/Button/Button';
+import { Input } from '@/components/Input/Input';
 
 /**
  * Renders the weekly picks page.
@@ -52,10 +56,38 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
   const [loadingData, setLoadingData] = useState<boolean>(true);
   const [loadingTeamName, setLoadingTeamName] = useState<string | null>(null);
   const [userPick, setUserPick] = useState<string>('');
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const { user, updateCurrentWeek, updateWeeklyPicks, weeklyPicks } =
     useDataStore((state) => state);
   const { isSignedIn } = useAuthContext();
   const router = useRouter();
+
+  const NFLTeamsList = NFLTeams.map((team) => team.teamName) as [
+    string,
+    ...string[]
+  ];
+  const WeekTeamsFormSchema = z.object({
+    type: z.enum(NFLTeamsList, {
+      required_error: 'You need to select a team.',
+    }),
+  });
+  const weekTeamsForm = useForm<z.infer<typeof WeekTeamsFormSchema>>({
+    resolver: zodResolver(WeekTeamsFormSchema),
+  });
+
+  const EntryNameFormSchema = z.object({
+    name: z
+      .string()
+      .min(3, 'Entry name must contain at least 3 characters')
+      .max(50, 'Entry name must contain no more than 50 characters'),
+  });
+  const entryNameForm = useForm<z.infer<typeof EntryNameFormSchema>>({
+    resolver: zodResolver(EntryNameFormSchema),
+    defaultValues: {
+      name: entryName,
+    },
+  });
 
   /**
    * Fetches the current game week.
@@ -79,17 +111,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     const res = await getCurrentLeague(league);
     setSelectedLeague(res);
   };
-
-  const NFLTeamsList = NFLTeams.map((team) => team.teamName) as [
-    string,
-    ...string[]
-  ];
-
-  const FormSchema = z.object({
-    type: z.enum(NFLTeamsList, {
-      required_error: 'You need to select a team.',
-    }),
-  });
 
   /**
    * Fetches the league's weekly pick results for the user and set the user pick.
@@ -158,8 +179,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       if (!currentEntry) {
         throw new Error('Entry not found');
       }
-      
+
       setEntryName(currentEntry.name);
+      entryNameForm.reset({ name: currentEntry.name });
+
       let entryHistory = currentEntry?.selectedTeams || [];
 
       if (currentEntry?.selectedTeams.length > 0) {
@@ -175,10 +198,6 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       setLoadingData(false);
     }
   };
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  });
 
   /**
    * Get selected teams for the current user entry.
@@ -228,6 +247,25 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
     }
   };
 
+  /**
+   * handles the form submission
+   * @param data - the form data
+   * @returns {void}
+   */
+  const onSubmit: SubmitHandler<z.infer<typeof EntryNameFormSchema>> = async (
+    data,
+  ): Promise<void> => {
+    const { name } = data;
+    try {
+      await updateEntryName({ entryId: entry, entryName: name });
+      setEntryName(name);
+      entryNameForm.reset({ name: name });
+      setIsEditing(false);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     if (!selectedLeague) {
       getSelectedLeague();
@@ -274,18 +312,85 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
             className="flex flex-col items-center w-full pt-8"
             data-testid="weekly-picks"
           >
-            <Heading 
-              as='h1'
-              className='pb-8'
-              data-testid='week__week-number'
-            >{`Week ${week} pick`}
+            <Heading as="h1" className="pb-8" data-testid="week__week-number">
+              {`Week ${week} pick`}
             </Heading>
-            <Heading
-              as='h2'
-              className='pb-8 text-muted-foreground'
-              data-testid='week__entry-name'
-            >{entryName}
-            </Heading>
+            <div className="flex justify-center items-center gap-2 pb-8">
+              {isEditing ? (
+                <>
+                  <Form {...entryNameForm}>
+                    <form
+                      id="input-container"
+                      className="grid gap-3"
+                      onSubmit={entryNameForm.handleSubmit(onSubmit)}
+                    >
+                      <FormField
+                        control={entryNameForm.control as Control<object>}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem className="space-y-0">
+                            <div className="flex gap-2">
+                              <div className="flex-1">
+                                <FormControl>
+                                  <Input
+                                    data-testid="entry-name-input"
+                                    type="text"
+                                    className="text-muted-foreground"
+                                    maxLength={50}
+                                    {...field}
+                                  />
+                                </FormControl>
+                                {entryNameForm.formState.errors.name && (
+                                  <FormMessage className="mt-1" />
+                                )}
+                              </div>
+                              <Button
+                                type="button"
+                                variant="secondary"
+                                size="icon"
+                                aria-label="Cancel Editing"
+                                data-testid="cancel-editing-button"
+                                onClick={() => setIsEditing(false)}
+                              >
+                                <X className="text-accent" />
+                              </Button>
+                              <Button
+                                type="submit"
+                                variant="secondary"
+                                size="icon"
+                                data-testid="save-entry-name-button"
+                                aria-label="Accept Edit"
+                              >
+                                <Check className="text-accent" />
+                              </Button>
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                    </form>
+                  </Form>
+                </>
+              ) : (
+                <>
+                  <Heading
+                    as="h2"
+                    className="text-muted-foreground break-normal leading-7"
+                    data-testid="week__entry-name"
+                  >
+                    {entryName}
+                  </Heading>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    data-testid="edit-entry-name-button"
+                    aria-label="Edit Entry name"
+                    onClick={() => setIsEditing(!isEditing)}
+                  >
+                    <Pen className="text-accent" />
+                  </Button>
+                </>
+              )}
+            </div>
             {pickHistory.length > 0 && (
               <section
                 className="flex flex-wrap w-[90%] gap-4 overflow-x-scroll justify-center pb-10 items-center"
@@ -334,10 +439,10 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
               </section>
             )}
 
-            <FormProvider {...form}>
+            <FormProvider {...weekTeamsForm}>
               <form className="mx-auto flex w-[90%] max-w-3xl flex-col items-center">
                 <FormField
-                  control={form.control as Control<object>}
+                  control={weekTeamsForm.control as Control<object>}
                   name="type"
                   render={({ field }) => (
                     <FormItem>

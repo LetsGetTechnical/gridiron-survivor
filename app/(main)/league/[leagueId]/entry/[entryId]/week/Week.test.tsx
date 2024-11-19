@@ -1,7 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Week from './Week';
-import { createWeeklyPicks, getCurrentUserEntries } from '@/api/apiFunctions';
+import {
+  createWeeklyPicks,
+  getCurrentUserEntries,
+  updateEntryName,
+} from '@/api/apiFunctions';
 import Alert from '@/components/AlertNotification/AlertNotification';
 import { AlertVariants } from '@/components/AlertNotification/Alerts.enum';
 import { toast } from 'react-hot-toast';
@@ -55,6 +59,7 @@ jest.mock('@/api/apiFunctions', () => ({
   createWeeklyPicks: jest.fn(),
   getAllWeeklyPicks: jest.fn(),
   getCurrentUserEntries: jest.fn(),
+  updateEntryName: jest.fn(),
 }));
 
 jest.mock('@/utils/utils', () => {
@@ -118,6 +123,100 @@ const updatedWeeklyPicks = {
     },
   },
 };
+
+describe('Entry Name Editiing', () => {
+  beforeEach(() => {
+    mockUseAuthContext.isSignedIn = true;
+    (getCurrentUserEntries as jest.Mock).mockResolvedValue([
+      {
+        $id: '123',
+        name: 'Entry 1',
+        user: '123',
+        league: '123',
+        selectedTeams: [],
+        eliminated: false,
+      },
+    ]);
+  });
+
+  it('should display the edit button', async () => {
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    await waitFor(() => {
+      const editEntryNameButton = screen.getByTestId('edit-entry-name-button');
+      expect(editEntryNameButton).toBeInTheDocument();
+    });
+  });
+
+  it('should switch to edit mode when the button is clicked', async () => {
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('edit-entry-name-button')).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByTestId('edit-entry-name-button'));
+
+    const entryNameInput = screen.getByTestId('entry-name-input');
+    const cancelButton = screen.getByTestId('cancel-editing-button');
+    const acceptButton = screen.getByTestId('save-entry-name-button');
+
+    expect(entryNameInput).toBeInTheDocument();
+    expect(cancelButton).toBeInTheDocument();
+    expect(acceptButton).toBeInTheDocument();
+  });
+
+  it('should switch to view mode when the cancel button is clicked', async () => {
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('edit-entry-name-button')).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByTestId('edit-entry-name-button'));
+    fireEvent.click(screen.getByTestId('cancel-editing-button'));
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('entry-name-input')).not.toBeInTheDocument();
+    });
+    expect(screen.getByTestId('week__entry-name')).toHaveTextContent('Entry 1');
+  });
+
+  it('should update the entry name when valid name is submitted', async () => {
+    (updateEntryName as jest.Mock).mockResolvedValue({
+      name: 'New Entry Name',
+    });
+    render(
+      <Week entry={entry} league={league} NFLTeams={NFLTeams} week={week} />,
+    );
+
+    await waitFor(() => {
+      const editEntryNameButton = screen.getByTestId('edit-entry-name-button');
+      expect(editEntryNameButton).toBeInTheDocument();
+      fireEvent.click(editEntryNameButton);
+    });
+
+    const input = screen.getByTestId('entry-name-input');
+    fireEvent.change(input, { target: { value: 'New Entry Name' } });
+
+    fireEvent.click(screen.getByTestId('save-entry-name-button'));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('week__entry-name')).toHaveTextContent(
+        'New Entry Name',
+      );
+    });
+    expect(updateEntryName).toHaveBeenCalledWith({
+      entryId: entry,
+      entryName: 'New Entry Name',
+    });
+  });
+});
 
 describe('League Week Picks', () => {
   const setUserPick = jest.fn();
@@ -186,8 +285,12 @@ describe('League Week Picks', () => {
     // Wait for the main content to be displayed
     await waitFor(() => {
       expect(screen.getByTestId('weekly-picks')).toBeInTheDocument();
-      expect(screen.getByTestId('week__week-number')).toHaveTextContent('Week 1');
-      expect(screen.getByTestId('week__entry-name')).toHaveTextContent('Entry 1');
+      expect(screen.getByTestId('week__week-number')).toHaveTextContent(
+        'Week 1',
+      );
+      expect(screen.getByTestId('week__entry-name')).toHaveTextContent(
+        'Entry 1',
+      );
     });
 
     expect(screen.queryByTestId('global-spinner')).not.toBeInTheDocument();
