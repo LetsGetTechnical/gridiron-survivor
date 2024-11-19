@@ -23,7 +23,7 @@ interface MockUseAuthContext {
   login: jest.Mock;
 }
 
-let mockUseAuthContext: MockUseAuthContext = {
+const mockUseAuthContext: MockUseAuthContext = {
   getUser,
   isSignedIn: false,
   login: mockLogin,
