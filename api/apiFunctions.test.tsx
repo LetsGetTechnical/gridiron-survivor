@@ -101,7 +101,7 @@ describe('apiFunctions', () => {
 
         await expect(
           registerAccount({ email: mockEmail, password: mockPassword }),
-        ).rejects.toThrow();
+        ).rejects.toThrow('Error registering user');
 
         expect(ID.unique).toHaveBeenCalledTimes(1);
         expect(account.create).toHaveBeenCalledWith(
