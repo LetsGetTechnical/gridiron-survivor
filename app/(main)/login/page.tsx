@@ -64,18 +64,20 @@ const Login = (): React.JSX.Element => {
 
   const form = useForm<LoginUserSchemaType>({
     resolver: zodResolver(LoginUserSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const email = useWatch({
     control: form.control,
     name: 'email',
-    defaultValue: '',
   });
 
   const password = useWatch({
     control: form.control,
     name: 'password',
-    defaultValue: '',
   });
 
   /**
