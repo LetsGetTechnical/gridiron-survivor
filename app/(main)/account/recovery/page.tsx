@@ -106,7 +106,6 @@ const ResetPassword = (): React.JSX.Element => {
   const password: string = useWatch({
     control: form.control,
     name: 'password',
-    defaultValue: '',
   });
 
   /**
@@ -116,7 +115,6 @@ const ResetPassword = (): React.JSX.Element => {
   const confirmPassword: string = useWatch({
     control: form.control,
     name: 'confirmPassword',
-    defaultValue: '',
   });
 
   /**
