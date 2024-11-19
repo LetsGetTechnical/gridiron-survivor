@@ -6,7 +6,7 @@ import React, { JSX } from 'react';
 import LogoNav from '../LogoNav/LogoNav';
 import { Menu } from 'lucide-react';
 import { Button } from '../Button/Button';
-import NavLink from '../NavLink/NavLink'; // Adjust the import path as necessary
+import NavLink from '../NavLink/NavLink';
 import {
   Drawer,
   DrawerContent,
