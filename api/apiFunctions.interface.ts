@@ -41,14 +41,12 @@ export interface IWeeklyPicks {
   gameWeekId: string;
   userResults: IUserPicksData;
 }
-// Currently, the pick history section on the
-// Picks page uses this interface without requiring the teamId. Future
-// accessibility fixes will most likely make use of the teamId.
 export interface INFLTeam {
-  teamId?: string;
+  teamId: string;
   teamLogo: string;
   teamName: string;
 }
+export interface IEntryHistoryTeam extends Omit<INFLTeam, 'teamId'> {}
 export interface IUserPicksData extends IUserPick {}
 export interface ILeague {
   leagueId: string;

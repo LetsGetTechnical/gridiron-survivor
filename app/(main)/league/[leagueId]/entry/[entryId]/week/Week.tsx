@@ -22,7 +22,7 @@ import {
   getGameWeek,
 } from '@/api/apiFunctions';
 import { ILeague } from '@/api/apiFunctions.interface';
-import { INFLTeam } from '@/api/apiFunctions.interface';
+import { IEntryHistoryTeam } from '@/api/apiFunctions.interface';
 import WeekTeams from './WeekTeams';
 import GlobalSpinner from '@/components/GlobalSpinner/GlobalSpinner';
 import { onWeeklyPickChange } from './WeekHelper';
@@ -44,7 +44,7 @@ import Heading from '@/components/Heading/Heading';
  */
 // eslint-disable-next-line no-unused-vars
 const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
-  const [pickHistory, setPickHistory] = useState<INFLTeam[]>([]);
+  const [pickHistory, setPickHistory] = useState<IEntryHistoryTeam[]>([]);
   const [entryName, setEntryName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
@@ -163,7 +163,7 @@ const Week = ({ entry, league, NFLTeams, week }: IWeekProps): JSX.Element => {
       setEntryName(currentEntry.name);
       const entryHistory = currentEntry?.selectedTeams || [];
       
-      let entryHistoryObject: INFLTeam[] = [];
+      let entryHistoryObject: IEntryHistoryTeam[] = [];
 
       if (entryHistory.length > 0) {
         entryHistoryObject = entryHistory.map((teamName) => ({
