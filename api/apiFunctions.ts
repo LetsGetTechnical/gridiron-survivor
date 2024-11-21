@@ -398,7 +398,6 @@ export async function createEntry({
 }
 
 /**
-
  * Update an entry
  * @param props - The entry data
  * @param props.entryId - The entry ID
@@ -496,5 +495,41 @@ export async function addUserToLeague({
     );
   } catch (error) {
     throw new Error('Error getting user document ID', { cause: error });
+  }
+}
+
+/**
+ * Grabs the length of entries in each league.
+ * @param props - Props being passed in.
+ * @param props.leagues - All user leagues.
+ * @returns {Promise<number>} - Length of entries.
+ */
+export async function getTotalEntries({
+  leagues,
+}: {
+  leagues: string[];
+}): Promise<{ totalEntries: number; alive: number }[]> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      [Query.limit(5000)],
+    );
+    const entries = leagues.map((leagueId) => {
+      const leagueEntries = response.documents.filter(
+        (entry) => entry.league.$id === leagueId,
+      );
+      const aliveEntries = leagueEntries.filter(
+        (aliveEntry) => aliveEntry.eliminated === false,
+      );
+
+      return {
+        totalEntries: leagueEntries.length,
+        alive: aliveEntries.length,
+      };
+    });
+    return entries;
+  } catch (error) {
+    throw error;
   }
 }

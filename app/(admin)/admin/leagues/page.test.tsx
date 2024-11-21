@@ -1,10 +1,46 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AdminLeagues from './page';
+import { getUserLeagues } from '@/utils/utils';
+import { getTotalEntries } from '@/api/apiFunctions';
+
+jest.mock('@/store/dataStore', () => ({
+  useDataStore: jest.fn(() => ({
+    user: {
+      documentId: '123',
+      id: '1234',
+      email: 'test@test.com',
+      leagues: ['league1', 'league2'],
+    },
+  })),
+}));
+
+jest.mock('@/utils/utils', () => ({
+  getUserLeagues: jest.fn(() => Promise.resolve([])),
+  cn: jest.fn(),
+}));
+
+jest.mock('@/api/apiFunctions', () => ({
+  getTotalEntries: jest.fn(),
+}));
 
 describe('AdminLeagues', () => {
-  it('should render the AdminLeagues page with LeagueCard components', () => {
-    render(<AdminLeagues />);
-    const leagueCards = screen.getAllByTestId('LeagueCard');
-    expect(leagueCards.length).toBe(3);
+  render(<AdminLeagues />);
+
+  const mockGetUserLeagues = getUserLeagues as jest.Mock;
+  const mockGetTotalEntries = getTotalEntries as jest.Mock;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should render the League data table component', async () => {
+    mockGetTotalEntries.mockResolvedValue([]);
+
+    mockGetUserLeagues.mockResolvedValue([]);
+
+    await waitFor(() => {
+      const leagueTable = screen.getByTestId('data-table');
+      expect(leagueTable).toBeInTheDocument();
+    });
   });
 });

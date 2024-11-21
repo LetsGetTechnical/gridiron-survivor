@@ -1,34 +1,48 @@
 // Copyright (c) Gridiron Survivor.
 // Licensed under the MIT License.
 
-import { JSX } from 'react';
-import { LeagueCard } from '@/components/LeagueCard/LeagueCard';
+'use client';
+import { getTotalEntries } from '@/api/apiFunctions';
+import { getUserLeagues } from '@/utils/utils';
+import { IEntryWithLeague } from '@/components/TableColumns/TableColumns.interface';
+import { JSX, useEffect, useState } from 'react';
+import { leagueColumns } from '@/components/TableColumns/TableColumns';
+import TableData from '@/components/TableData/TableData';
+import { useDataStore } from '@/store/dataStore';
 
 /**
  * Renders the admin page.
  * @returns {JSX.Element} - The rendered Admin Leagues page.
  */
 const AdminLeagues = (): JSX.Element => {
+  const [leaguesData, setLeaguesData] = useState<IEntryWithLeague[]>([]);
+  const { user } = useDataStore((state) => state);
+
+  /**
+   * Get all leagues the user is a part of.
+   */
+  const fetchData = async (): Promise<void> => {
+    const entries = await getTotalEntries({ leagues: user.leagues });
+    const leagues = await getUserLeagues(user.leagues);
+    const combinedData = leagues.map((league, index) => ({
+      aliveEntries: entries[index].alive,
+      leagueId: '',
+      leagueName: league.leagueName,
+      logo: '',
+      participants: league.participants,
+      survivors: league.survivors,
+      totalEntries: entries[index].totalEntries,
+    }));
+    setLeaguesData(combinedData);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [user.leagues]);
+
   return (
     <section className="grid grid-cols-2 gap-6">
-      <LeagueCard
-        href={'#'}
-        survivors={20}
-        title={'Demo League 1'}
-        totalPlayers={30}
-      />
-      <LeagueCard
-        href={'#'}
-        survivors={20}
-        title={'Demo League 2'}
-        totalPlayers={30}
-      />
-      <LeagueCard
-        href={'#'}
-        survivors={20}
-        title={'Demo League 3'}
-        totalPlayers={30}
-      />
+      <TableData columns={leagueColumns} data={leaguesData} />
     </section>
   );
 };

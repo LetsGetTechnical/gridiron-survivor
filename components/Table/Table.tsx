@@ -12,6 +12,7 @@ const Table = React.forwardRef<
     ref={ref}
     className={cn('table-auto border border-border rounded-md', className)}
     {...props}
+    data-testid="data-table"
   />
 ));
 Table.displayName = 'Table';

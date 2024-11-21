@@ -5,6 +5,7 @@ import {
   resetPassword,
   resetRecoveredPassword,
   updateUserEmail,
+  getTotalEntries
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
 import { account, databases, ID } from './config';
@@ -495,6 +496,72 @@ describe('apiFunctions', () => {
       await expect(apiFunctions.addUserToLeague({ response })).rejects.toThrow(
         'Error adding user to league',
       );
+    });
+  });
+
+  describe('getTotalEntries()', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+    it('should return the total number of entries and alive entries in a league', async () => {
+      (databases.listDocuments as jest.Mock).mockResolvedValue({
+        documents: [
+          {
+            name: 'Entry 1',
+            user: '1234',
+            league: {
+              $id: 'league1',
+              survivors: ['123'],
+              participants: ['123', '1234'],
+              leagueName: 'League 1',
+              logo: '',
+            },
+            eliminated: true,
+            selectedTeams: ['Browns', 'Bears'],
+          },
+          {
+            name: 'Entry 2',
+            user: '1234',
+            league: {
+              $id: 'league1',
+              survivors: ['123'],
+              participants: ['123', '1234'],
+              leagueName: 'League 1',
+              logo: '',
+            },
+            eliminated: false,
+            selectedTeams: ['Patriots', 'Eagles'],
+          },
+          {
+            name: 'Entry 3',
+            user: '1234',
+            league: {
+              $id: 'league2',
+              survivors: ['123'],
+              participants: ['123', '1234'],
+              leagueName: 'League 2',
+              logo: '',
+            },
+            eliminated: false,
+            selectedTeams: ['Bears', 'Cowboys'],
+          },
+        ],
+      });
+
+      const leagues = ['league1', 'league2'];
+
+      const result = await getTotalEntries({ leagues });
+
+      expect(result).toEqual([
+        {
+          totalEntries: 2,
+          alive: 1,
+        },
+        {
+          totalEntries: 1,
+          alive: 1,
+        },
+      ]);
     });
   });
 });
