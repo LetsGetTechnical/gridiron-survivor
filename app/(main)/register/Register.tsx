@@ -67,6 +67,11 @@ const Register = (): JSX.Element => {
 
   const form = useForm<RegisterUserSchemaType>({
     resolver: zodResolver(RegisterUserSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: ''
+    },
   });
 
   /**
@@ -76,7 +81,6 @@ const Register = (): JSX.Element => {
   const email: string = useWatch({
     control: form.control,
     name: 'email',
-    defaultValue: '',
   });
 
   /**
@@ -86,7 +90,6 @@ const Register = (): JSX.Element => {
   const password: string = useWatch({
     control: form.control,
     name: 'password',
-    defaultValue: '',
   });
 
   /**
@@ -96,7 +99,6 @@ const Register = (): JSX.Element => {
   const confirmPassword: string = useWatch({
     control: form.control,
     name: 'confirmPassword',
-    defaultValue: '',
   });
 
   /**

@@ -1,10 +1,31 @@
 import { AdminNav } from './AdminNav';
+import { AuthContextProvider } from '@/context/AuthContextProvider';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
+const mockPush = jest.fn();
+const mockUsePathname = jest.fn();
+
+jest.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      push: mockPush,
+    };
+  },
+  usePathname() {
+    return mockUsePathname();
+  },
+}));
+
 describe('AdminNav Component', () => {
   beforeEach(() => {
-    render(<AdminNav />);
+    jest.clearAllMocks();
+
+    render(
+      <AuthContextProvider>
+        <AdminNav />
+      </AuthContextProvider>,
+    );
   });
 
   it('should render the navigation links with correct href attributes', () => {
