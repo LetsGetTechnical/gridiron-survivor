@@ -128,8 +128,8 @@ const DrawerTitle = React.forwardRef<
       {...props}
     />
 
-    <DrawerClose>
-      <X />
+    <DrawerClose data-testid="drawer-close">
+      <X data-testid="drawer-close-icon" />
     </DrawerClose>
   </div>
 ));
