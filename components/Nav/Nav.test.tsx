@@ -75,6 +75,15 @@ describe('Nav', () => {
     expect(linkNav).toHaveAttribute('href', '/league/all');
   });
 
+  it('renders link to user profile', async () => {
+    render(<Nav />);
+    fireEvent.click(screen.getByTestId('drawer-trigger'));
+    let linkNav: HTMLElement;
+    linkNav = screen.getByTestId('profile-link');
+    expect(linkNav).toBeInTheDocument();
+    expect(linkNav).toHaveAttribute('href', '/account/profile');
+  });
+
   it('it should render the default component state', () => {
     mockUsePathname.mockImplementation(() => '/league/all');
 
