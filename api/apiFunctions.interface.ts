@@ -46,7 +46,10 @@ export interface INFLTeam {
   teamLogo: string;
   teamName: string;
 }
+export interface IPickHistoryTeam extends Omit<INFLTeam, 'teamId'> {}
+
 export interface IUserPicksData extends IUserPick {}
+
 export interface ILeague {
   leagueId: string;
   leagueName: string;

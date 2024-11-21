@@ -37,7 +37,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
 }): JSX.Element => {
   return (
     <>
-      <label htmlFor="home" className="capitalize" data-testid="home-away">
+      <label htmlFor={team} className="capitalize" data-testid="home-away">
         {homeAway}
       </label>
       <div style={{ direction: 'ltr' }} className="flex items-center mt-4">
@@ -56,7 +56,7 @@ const WeeklyPickButton: React.FC<WeeklyPickButtonProps> = ({
         >
           <Image
             src={src}
-            alt={team}
+            alt=""
             width={48}
             height={48}
             priority
