@@ -533,3 +533,45 @@ export async function getTotalEntries({
     throw error;
   }
 }
+
+/**
+ * To get all entry data for the player data table.
+ * @param props - Props being passed in.
+ * @param props.leagueId - ID of the league.
+ * @returns {Promise} - All the entries in that league.
+ */
+export async function getAllLeagueEntries({
+  leagueId,
+}: {
+  leagueId: string;
+}): Promise<
+  {
+    entryName: string;
+    entryUser: string;
+    entrySelectedTeams: string[];
+    entryEliminated: boolean;
+  }[]
+> {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      Collection.ENTRIES,
+      [Query.limit(5000)],
+    );
+
+    const entries = response.documents.filter(
+      (entry) => entry.league.$id === leagueId,
+    );
+
+    const mappedEntries = entries.map((entry) => ({
+      entryName: entry.name,
+      entryUser: entry.user,
+      entrySelectedTeams: entry.selectedTeams,
+      entryEliminated: entry.eliminated,
+    }));
+
+    return mappedEntries;
+  } catch (error) {
+    throw error;
+  }
+}

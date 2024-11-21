@@ -4,9 +4,9 @@
 'use client';
 import { getTotalEntries } from '@/api/apiFunctions';
 import { getUserLeagues } from '@/utils/utils';
-import { IEntryWithLeague } from '@/components/TableColumns/TableColumns.interface';
+import { IEntryWithLeague } from '@/components/TableColumns/LeagueColumns/LeagueColumns.interface';
 import { JSX, useEffect, useState } from 'react';
-import { leagueColumns } from '@/components/TableColumns/TableColumns';
+import { leagueColumns } from '@/components/TableColumns/LeagueColumns/LeagueColumns';
 import TableData from '@/components/TableData/TableData';
 import { useDataStore } from '@/store/dataStore';
 

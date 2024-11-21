@@ -1,15 +1,26 @@
-// /Users/ryanfurrer/Developer/GitHub/gridiron-survivor/app/(admin)/admin/notifications/page.test.tsx
+import { render, screen, waitFor } from "@testing-library/react";
+import AdminPlayers from "./page";
+import { getAllLeagueEntries } from "@/api/apiFunctions";
 
-import { render, screen } from '@testing-library/react';
-import AdminPlayers from './page';
-import React from 'react';
+jest.mock('@/api/apiFunctions', () => ({
+    getAllLeagueEntries: jest.fn(),
+}));
 
 describe('Admin players page', () => {
-  it(`should render it's content`, () => {
-    render(<AdminPlayers />);
-    const adminNotificationsContent = screen.getByTestId(
-      'admin-players-content',
-    );
-    expect(adminNotificationsContent).toBeInTheDocument();
+  render(<AdminPlayers />);
+
+  const mockGetAllLeagueEntries = getAllLeagueEntries as jest.Mock;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
+
+  it('should render the Player data table component', async () => {
+    mockGetAllLeagueEntries.mockResolvedValue({});
+
+    await waitFor(() => {
+        const playerTable = screen.getByTestId('data-table');
+        expect(playerTable).toBeInTheDocument();
+    })
+  })
 });

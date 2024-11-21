@@ -5,7 +5,8 @@ import {
   resetPassword,
   resetRecoveredPassword,
   updateUserEmail,
-  getTotalEntries
+  getTotalEntries,
+  getAllLeagueEntries
 } from './apiFunctions';
 import { IUser } from './apiFunctions.interface';
 import { account, databases, ID } from './config';
@@ -561,6 +562,41 @@ describe('apiFunctions', () => {
           totalEntries: 1,
           alive: 1,
         },
+      ]);
+    });
+  });
+
+  describe('getAllLeagueEntries()', () => {
+    it('should return all the entry data for a given league', async () => {
+      (databases.listDocuments as jest.Mock).mockResolvedValue({
+        documents: [
+          {
+            name: 'Entry 1',
+            user: '1234',
+            league: {
+              $id: 'league1',
+              survivors: ['123'],
+              participants: ['123', '1234'],
+              leagueName: 'League 1',
+              logo: '',
+            },
+            eliminated: true,
+            selectedTeams: ['Browns', 'Bears'],
+          },
+        ],
+      });
+
+      const league = 'league1'
+
+      const result = await getAllLeagueEntries({ leagueId: league });
+
+      expect(result).toEqual([
+        {
+          entryName: 'Entry 1',
+          entryUser: '1234',
+          entrySelectedTeams: ['Browns', 'Bears'],
+          entryEliminated: true,
+        }
       ]);
     });
   });
