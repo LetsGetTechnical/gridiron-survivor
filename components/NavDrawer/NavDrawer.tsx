@@ -130,7 +130,7 @@ const DrawerTitle = React.forwardRef<
 
     <DrawerClose aria-label='close navigation menu'>
       <X 
-      aria-hidden='true'
+        aria-hidden='true'
       />
     </DrawerClose>
   </div>
