@@ -63,8 +63,7 @@ export const Nav = (): JSX.Element => {
           <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger 
               data-testid="drawer-trigger"
-              aria-haspopup='menu'
-              aria-label='open navigation menu'
+              aria-label='menu'
             >
               <Menu 
                 className="text-foreground" 
