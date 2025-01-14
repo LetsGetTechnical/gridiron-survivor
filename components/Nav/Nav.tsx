@@ -61,8 +61,14 @@ export const Nav = (): JSX.Element => {
       <ul>
         <li>
           <Drawer open={open} onOpenChange={setOpen}>
-            <DrawerTrigger data-testid="drawer-trigger">
-              <Menu className="text-foreground" />
+            <DrawerTrigger 
+              data-testid="drawer-trigger"
+              aria-label='menu'
+            >
+              <Menu 
+                className="text-foreground" 
+                aria-hidden='true'
+              />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
